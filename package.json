@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
-    "verify": "pnpm run type-check && pnpm run lint"
+    "verify": "pnpm run type-check && pnpm run lint && pnpm run test",
+    "test": "node --no-warnings --experimental-strip-types --test lib/domain/dialect/purity.test.ts"
   },
   "dependencies": {
     "next": "16.2.4",

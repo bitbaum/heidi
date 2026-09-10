@@ -3,60 +3,105 @@
 /**
  * Heidi — design tokens. The only place a colour, font or radius is defined.
  *
- * ⚠️  THESE VALUES ARE A STARTING POINT AND LEAVING THEM UNCHANGED IS A BUG.
+ * The subject is Zurich German as a linguist would treat it: a survey map,
+ * an atlas, a dictionary of forms. So the ground is the cool grey-green of
+ * map paper, the ink is a green-black, and the one accent is the red an
+ * isogloss — a dialect boundary — is drawn in on the Sprachatlas der deutschen
+ * Schweiz. A muted survey blue does secondary work (links, verified marks).
+ * No webfont fetch: the display face is the reader's own old-style serif.
  *
- * The studio's whole claim is that these are real, bespoke sites — not a
- * template farm. sinktattoo, annushka, vitareba and petvity look nothing like
- * each other, and that is the product. A site that ships in the default palette
- * is a site that looks generated, which is the one thing it must not look.
- *
- * So: change the accent, change the type, change the ground. Share the SYSTEM
- * (semantic token names, spacing scale, accessibility, no webfont fetch) and
- * let the expression diverge completely.
- *
- * Structure, and why:
  *   Tier 1  primitives — raw values, never used by a component
  *   Tier 2  semantics  — what components use, always
- * Retheming is then editing this file and nothing else.
  */
 @theme {
-  --font-heading: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-heading: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
   --tracking-display: -0.02em;
-  --tracking-caps: 0.12em;
-  --spacing-shell: 72rem;
+  --tracking-caps: 0.14em;
+  --spacing-shell: 68rem;
+  --spacing-measure: 64ch;
 
-  /* Tier 1 — primitives. Replace these first. */
-  --primitive-ink-950: #101214;
-  --primitive-ink-100: #ecedee;
-  --primitive-ink-500: #6c7377;
-  --primitive-brand-500: #4a6fa5;
+  /* Tier 1 — primitives (light) */
+  --primitive-paper-100: #edeee8;
+  --primitive-paper-50: #f7f8f3;
+  --primitive-paper-200: #e3e5dd;
+  --primitive-ink-950: #191c18;
+  --primitive-ink-700: #565a50;
+  --primitive-ink-500: #7c8175;
+  --primitive-rule-300: #c7cabf;
+  --primitive-rule-200: #dadcd2;
+  --primitive-isogloss-600: #b0362b;
+  --primitive-isogloss-100: #f0ddd9;
+  --primitive-survey-700: #2e5c71;
+  --primitive-survey-100: #dbe5e9;
+  --primitive-moss-700: #4f6136;
 
-  /* Tier 2 — semantics. Components only ever use these. */
-  --color-surface-page: #ffffff;
-  --color-surface-raised: #f7f8f8;
+  /* Tier 2 — semantics */
+  --color-surface-page: var(--primitive-paper-100);
+  --color-surface-raised: var(--primitive-paper-50);
+  --color-surface-sunk: var(--primitive-paper-200);
   --color-fg-primary: var(--primitive-ink-950);
-  --color-fg-secondary: #40474b;
+  --color-fg-secondary: var(--primitive-ink-700);
   --color-fg-muted: var(--primitive-ink-500);
-  --color-border-subtle: #e3e5e6;
-  --color-accent: var(--primitive-brand-500);
+  --color-border-subtle: var(--primitive-rule-200);
+  --color-border-strong: var(--primitive-rule-300);
+  --color-accent: var(--primitive-isogloss-600);
+  --color-accent-tint: var(--primitive-isogloss-100);
+  --color-link: var(--primitive-survey-700);
+  --color-link-tint: var(--primitive-survey-100);
+  --color-dialect: var(--primitive-isogloss-600);
+  --color-ok: var(--primitive-moss-700);
+  --color-on-accent: #ffffff;
+
+  --radius-control: 4px;
 }
 
+/* Dark: the same map, printed as a negative. Only tokens change. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-surface-page: var(--primitive-ink-950);
-    --color-surface-raised: #171a1c;
-    --color-fg-primary: var(--primitive-ink-100);
-    --color-fg-secondary: #b3b8ba;
-    --color-fg-muted: #7c8286;
-    --color-border-subtle: #262a2d;
+    --color-surface-page: #131614;
+    --color-surface-raised: #1b1f1b;
+    --color-surface-sunk: #0e110e;
+    --color-fg-primary: #e7e9e1;
+    --color-fg-secondary: #a6ac9d;
+    --color-fg-muted: #7e8577;
+    --color-border-subtle: #262b25;
+    --color-border-strong: #333930;
+    --color-accent: #e07c6c;
+    --color-accent-tint: #31201d;
+    --color-link: #82b4c9;
+    --color-link-tint: #182a31;
+    --color-dialect: #e07c6c;
+    --color-ok: #9fb07e;
+    --color-on-accent: #131614;
   }
+}
+:root[data-theme="dark"] {
+  --color-surface-page: #131614;
+  --color-surface-raised: #1b1f1b;
+  --color-surface-sunk: #0e110e;
+  --color-fg-primary: #e7e9e1;
+  --color-fg-secondary: #a6ac9d;
+  --color-fg-muted: #7e8577;
+  --color-border-subtle: #262b25;
+  --color-border-strong: #333930;
+  --color-accent: #e07c6c;
+  --color-accent-tint: #31201d;
+  --color-link: #82b4c9;
+  --color-link-tint: #182a31;
+  --color-dialect: #e07c6c;
+  --color-ok: #9fb07e;
+  --color-on-accent: #131614;
 }
 
 html {
   color-scheme: light dark;
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
 body {
@@ -64,4 +109,13 @@ body {
   color: var(--color-fg-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-control);
+}
+
+h1, h2, h3 { text-wrap: balance; }
