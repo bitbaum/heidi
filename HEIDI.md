@@ -199,15 +199,26 @@ first. The seam is drawn now so the extraction is mechanical then.
 
 ## 5. What is true of the repo today
 
-645 lines: a landing page, a `/try` placeholder, a health route, and the
-variety layer. No accounts, no database, no model calls, no audio, no learner
-model. Answering the obvious questions plainly:
+A five-language site — home, method, research, dialect check, contribute,
+about — with the assistant on the home page, the deterministic gate behind
+`/check`, and the variety layer underneath. No accounts, no database, no audio,
+no learner model.
 
-- **Linguistic knowledge is data**, in the packs — not embedded in prompts.
+- **Linguistic knowledge is data**, in the packs — not embedded in prompts. The
+  model's instructions are *generated from* the pack (`lib/variety/prompt.ts`),
+  so no language is named in prose anywhere in the engine.
+- **The UI language and the taught variety are separate axes.** `VARIETY` is
+  what you learn, one per deployment; `locale` is what Heidi speaks to you
+  while you learn it, five of them. Conflating them would make a Lesya
+  deployment re-translate the site as well as swap the pack.
+- **German is the default locale**, then French, Italian, Romansh, English.
+  German is the source dictionary and the others are typed against it, so a
+  missing key is a build error. Romansh is unreviewed by a native speaker and
+  says so; the assistant answers Romansh readers in German rather than invent
+  low-resource output at an audience that would spot it instantly.
 - **There is no user model, no auth, no persistence.** Nothing has been decided
-  and nothing is hard to reverse.
-- **Nothing is difficult to undo.** This is a good moment to make structural
-  choices and a bad moment to claim any exist.
+  and nothing is hard to reverse — which is the point of saying so here rather
+  than discovering it later.
 
 ---
 
