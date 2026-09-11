@@ -14,6 +14,7 @@
   "dependencies": {
     "@bitbaum/ai-kit": "^0.15.0",
     "next": "16.2.4",
+    "next-auth": "5.0.0-beta.32",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },

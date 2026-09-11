@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/config/site";
 import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS } from "@/lib/i18n/locales";
-import { ROUTES } from "@/lib/i18n/routes";
+import { INDEXED_ROUTES } from "@/lib/i18n/routes";
 
 /**
  * Every page in every language, with each entry naming its translations.
@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
   return LOCALES.flatMap((locale) =>
-    ROUTES.map((route) => {
+    INDEXED_ROUTES.map((route) => {
       const path = route.segment ? `/${locale}/${route.segment}` : `/${locale}`;
       return {
         url: `${SITE_URL}${path}`,

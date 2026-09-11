@@ -11,7 +11,7 @@ import {
   localesInGroup,
   negotiate,
 } from "./locales.ts";
-import { NAV_ROUTES, ROUTES, href } from "./routes.ts";
+import { INDEXED_ROUTES, NAV_ROUTES, ROUTES, href } from "./routes.ts";
 
 test("German is the default, not English", () => {
   // The site is about living in a German-speaking city. Defaulting to English
@@ -142,11 +142,18 @@ test("every navigable route has a label in every language", () => {
   }
 });
 
+test("the portal is never in the sitemap", () => {
+  // It is noindex. A sitemap that advertises it contradicts the page's own
+  // robots meta, and search engines distrust both signals when they disagree.
+  assert.ok(!INDEXED_ROUTES.some((r) => r.key === "portal"));
+  assert.equal(INDEXED_ROUTES.length, ROUTES.length - 1);
+});
+
 test("route segments are the same in every language", () => {
   // Translated URLs would break every shared link the moment a translation is
   // reworded. The content translates; the address does not.
   assert.deepEqual(
     ROUTES.map((r) => r.segment),
-    ["", "method", "research", "check", "contribute", "about"],
+    ["", "method", "research", "check", "contribute", "about", "portal"],
   );
 });

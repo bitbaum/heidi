@@ -14,6 +14,7 @@ export const it: Dictionary = {
     check: "Verifica",
     contribute: "Partecipare",
     about: "Chi siamo",
+    portal: "Il mio spazio",
     skipToContent: "Vai al contenuto",
     menu: "Menu",
     language: "Scegliere la lingua",
@@ -286,6 +287,33 @@ export const it: Dictionary = {
       },
     ],
     stateTitle: "A che punto siamo",
+  },
+
+  auth: {
+    signIn: "Accedi",
+    signOut: "Esci",
+    signInWith: "Accedi con OrangeCat",
+    account: "Account",
+    portalTitle: "Il mio spazio",
+    portalLead:
+      "Qui nascerà la vostra parte di Heidi: le parole che avete cercato, persone con cui esercitarvi e tutor, se ne volete.",
+    signedInAs: "Connesso come",
+    notSignedIn: "Non avete effettuato l'accesso",
+    notSignedInBody:
+      "Accedete perché Heidi possa ricordare quello che ancora non sapevate. Tutto il resto continua a funzionare senza — la traduzione e la verifica del dialetto non richiedono un account.",
+    whyTitle: "Perché OrangeCat",
+    whyBody:
+      "Heidi non tiene un proprio archivio di utenti. La vostra identità vive su OrangeCat, dove profili e pagamenti sono già di casa. Significa un solo account per più prodotti, nessuna password in più — e qui niente che possa essere rubato.",
+    soonTitle: "Che cosa arriva dopo",
+    soonList: [
+      "Le vostre parole — quello che avete cercato ritorna più tardi.",
+      "Gruppi di studio — organizzati da voi, con Heidi come partecipante.",
+      "Tutor — volontari, pagati, e mai obbligatori.",
+    ],
+    unavailable: "L'accesso non è ancora configurato su questa installazione.",
+    errorTitle: "L'accesso non ha funzionato",
+    errorBody: "Qualcosa è andato storto. Riprovate, oppure tornate all'inizio.",
+    tryAgain: "Riprovare",
   },
 
   vision: {

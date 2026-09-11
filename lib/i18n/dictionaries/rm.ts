@@ -30,6 +30,7 @@ export const rm: Dictionary = {
     check: "Controlla",
     contribute: "Far part",
     about: "Davart nus",
+    portal: "Mes intschess",
     skipToContent: "Al cuntegn",
     menu: "Menu",
     language: "Tscherner la lingua",
@@ -302,6 +303,33 @@ export const rm: Dictionary = {
       },
     ],
     stateTitle: "Nua che nus essan",
+  },
+
+  auth: {
+    signIn: "S'annunziar",
+    signOut: "Sa deconnectar",
+    signInWith: "S'annunziar cun OrangeCat",
+    account: "Conto",
+    portalTitle: "Mes intschess",
+    portalLead:
+      "Qua nascha Vossa part da Heidi: ils pleds che Vus avais tschertgà, persunas per exercitar, e tutuors sche Vus als vulais.",
+    signedInAs: "Annunzià sco",
+    notSignedIn: "Vus n'essas betg annunzià",
+    notSignedInBody:
+      "Annunziai Vus, uschè che Heidi po sa regurdar da quai che Vus n'avais anc betg savì. Tut il rest funcziunescha vinavant senza — la translaziun e la controlla dal dialect na dumondan nagin conto.",
+    whyTitle: "Pertge OrangeCat",
+    whyBody:
+      "Heidi na tegna nagina atgna banca da datas d'utilisaders. Vossa identitad viva tar OrangeCat, nua che profils e pajaments èn gia a chasa. Quai vul dir in sulet conto per plirs products, nagin pled-clav supplementar — e qua nagut che pudess vegnir engulà.",
+    soonTitle: "Tge che vegn suenter",
+    soonList: [
+      "Voss pleds — quai che Vus avais tschertgà turna pli tard.",
+      "Gruppas da studi — organisadas da Vus, cun Heidi sco participanta.",
+      "Tutuors — voluntaris, pajads, e mai obligatoris.",
+    ],
+    unavailable: "L'annunzia n'è anc betg configurada sin questa installaziun.",
+    errorTitle: "L'annunzia n'ha betg funcziunà",
+    errorBody: "Insatge è ì mal. Empruvai danovamain, u turnai al cumenzament.",
+    tryAgain: "Empruvar danovamain",
   },
 
   vision: {

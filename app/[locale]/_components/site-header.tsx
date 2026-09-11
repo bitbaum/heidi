@@ -15,7 +15,17 @@ import { LanguageSwitcher } from "./language-switcher";
  * themselves are ordinary anchors, so navigation works with JavaScript off and
  * the menu simply starts open-able rather than broken.
  */
-export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function SiteHeader({
+  locale,
+  dict,
+  account,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+  /** Rendered on the server (it reads the session) and passed in as a slot,
+   *  because a client component cannot render a server component as a child. */
+  account?: React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
@@ -52,6 +62,7 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
         </nav>
 
         <div className="flex items-center gap-2">
+          {account}
           <LanguageSwitcher
             current={locale}
             label={dict.nav.language}
