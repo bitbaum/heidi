@@ -51,7 +51,10 @@ export async function POST(request: Request) {
       env: process.env,
       health: llmHealth,
       temperature: 0.3,
-      maxTokens: 1200,
+      // The chain leads with reasoning models, which spend budget on hidden
+      // thinking before emitting a visible token. At 1200 a six-gloss answer
+      // hit the ceiling mid-array on the first live request.
+      maxTokens: 2400,
       timeoutMs: TIMEOUT_MS,
       signal: request.signal,
       messages: [
