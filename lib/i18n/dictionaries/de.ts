@@ -20,6 +20,7 @@ export const de = {
     check: "Dialekt-Check",
     contribute: "Mitmachen",
     about: "Über uns",
+    portal: "Mein Bereich",
     skipToContent: "Zum Inhalt springen",
     menu: "Menü",
     language: "Sprache wählen",
@@ -293,6 +294,33 @@ export const de = {
       },
     ],
     stateTitle: "Stand heute",
+  },
+
+  auth: {
+    signIn: "Anmelden",
+    signOut: "Abmelden",
+    signInWith: "Mit OrangeCat anmelden",
+    account: "Konto",
+    portalTitle: "Mein Bereich",
+    portalLead:
+      "Hier entsteht Ihr persönlicher Teil von Heidi: die Wörter, die Sie nachgeschlagen haben, Menschen zum Üben, und Tutorinnen und Tutoren, wenn Sie welche möchten.",
+    signedInAs: "Angemeldet als",
+    notSignedIn: "Sie sind nicht angemeldet",
+    notSignedInBody:
+      "Melden Sie sich an, damit Heidi sich merken kann, was Sie noch nicht konnten. Ohne Anmeldung funktioniert alles andere weiterhin — das Übersetzen und die Dialektprüfung brauchen kein Konto.",
+    whyTitle: "Warum OrangeCat",
+    whyBody:
+      "Heidi führt keine eigene Benutzerdatenbank. Ihre Identität liegt bei OrangeCat, wo auch Profile und Bezahlung schon zuhause sind. Das heisst: ein Konto für mehrere Produkte, kein weiteres Passwort — und bei uns liegt nichts, was gestohlen werden könnte.",
+    soonTitle: "Was als Nächstes kommt",
+    soonList: [
+      "Ihre Wörter — was Sie nachgeschlagen haben, kommt später wieder.",
+      "Lerngruppen — selbst organisiert, mit Heidi als Teilnehmerin.",
+      "Tutorinnen und Tutoren — freiwillig, bezahlt, und nie Pflicht.",
+    ],
+    unavailable: "Die Anmeldung ist auf dieser Installation noch nicht eingerichtet.",
+    errorTitle: "Die Anmeldung hat nicht geklappt",
+    errorBody: "Da ist etwas schiefgelaufen. Versuchen Sie es nochmals, oder gehen Sie zurück zum Start.",
+    tryAgain: "Nochmals versuchen",
   },
 
   vision: {

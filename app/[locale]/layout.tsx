@@ -6,6 +6,7 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS, isLocale, type Locale } from "@/lib/i18n/locales";
 import { SITE_URL } from "@/lib/config/site";
 import { SiteHeader } from "./_components/site-header";
+import { AccountControl } from "./_components/account-control";
 import { SiteFooter } from "./_components/site-footer";
 
 /**
@@ -74,7 +75,7 @@ export default async function LocaleLayout({
           {dict.nav.skipToContent}
         </a>
 
-        <SiteHeader locale={locale} dict={dict} />
+        <SiteHeader locale={locale} dict={dict} account={<AccountControl locale={locale} dict={dict} />} />
 
         <main id="main" className="flex-1">
           {children}

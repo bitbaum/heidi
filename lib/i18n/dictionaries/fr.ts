@@ -14,6 +14,7 @@ export const fr: Dictionary = {
     check: "Vérification",
     contribute: "Participer",
     about: "À propos",
+    portal: "Mon espace",
     skipToContent: "Aller au contenu",
     menu: "Menu",
     language: "Choisir la langue",
@@ -286,6 +287,33 @@ export const fr: Dictionary = {
       },
     ],
     stateTitle: "Où nous en sommes",
+  },
+
+  auth: {
+    signIn: "Se connecter",
+    signOut: "Se déconnecter",
+    signInWith: "Se connecter avec OrangeCat",
+    account: "Compte",
+    portalTitle: "Mon espace",
+    portalLead:
+      "C'est ici qu'apparaîtra votre partie de Heidi : les mots que vous avez cherchés, des personnes avec qui pratiquer, et des tuteurs si vous en voulez.",
+    signedInAs: "Connecté en tant que",
+    notSignedIn: "Vous n'êtes pas connecté",
+    notSignedInBody:
+      "Connectez-vous pour que Heidi puisse retenir ce que vous ne saviez pas encore. Tout le reste continue de fonctionner sans cela — la traduction et la vérification du dialecte ne demandent aucun compte.",
+    whyTitle: "Pourquoi OrangeCat",
+    whyBody:
+      "Heidi ne tient aucune base d'utilisateurs. Votre identité vit chez OrangeCat, où les profils et les paiements sont déjà chez eux. Cela veut dire un seul compte pour plusieurs produits, pas de mot de passe supplémentaire — et rien ici qui puisse être volé.",
+    soonTitle: "Ce qui vient ensuite",
+    soonList: [
+      "Vos mots — ce que vous avez cherché revient plus tard.",
+      "Des groupes d'étude — organisés par vous, avec Heidi comme participante.",
+      "Des tuteurs — bénévoles, payés, et jamais obligatoires.",
+    ],
+    unavailable: "La connexion n'est pas encore configurée sur cette installation.",
+    errorTitle: "La connexion n'a pas fonctionné",
+    errorBody: "Quelque chose s'est mal passé. Réessayez, ou revenez à l'accueil.",
+    tryAgain: "Réessayer",
   },
 
   vision: {

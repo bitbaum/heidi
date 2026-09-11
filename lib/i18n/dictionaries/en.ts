@@ -14,6 +14,7 @@ export const en: Dictionary = {
     check: "Dialect check",
     contribute: "Contribute",
     about: "About",
+    portal: "My space",
     skipToContent: "Skip to content",
     menu: "Menu",
     language: "Choose language",
@@ -286,6 +287,33 @@ export const en: Dictionary = {
       },
     ],
     stateTitle: "Where things stand",
+  },
+
+  auth: {
+    signIn: "Sign in",
+    signOut: "Sign out",
+    signInWith: "Sign in with OrangeCat",
+    account: "Account",
+    portalTitle: "My space",
+    portalLead:
+      "This is where your own part of Heidi appears: the words you looked up, people to practise with, and tutors if you want them.",
+    signedInAs: "Signed in as",
+    notSignedIn: "You are not signed in",
+    notSignedInBody:
+      "Sign in so Heidi can remember what you did not know yet. Everything else keeps working without it — translating and the dialect check need no account.",
+    whyTitle: "Why OrangeCat",
+    whyBody:
+      "Heidi keeps no user database of its own. Your identity lives at OrangeCat, where profiles and payment are already at home. That means one account across several products, no further password — and nothing here that could be stolen.",
+    soonTitle: "What comes next",
+    soonList: [
+      "Your words — what you looked up comes back later.",
+      "Study groups — organised by you, with Heidi as a participant.",
+      "Tutors — voluntary, paid, and never required.",
+    ],
+    unavailable: "Signing in is not configured on this deployment yet.",
+    errorTitle: "Signing in did not work",
+    errorBody: "Something went wrong. Try again, or go back to the start.",
+    tryAgain: "Try again",
   },
 
   vision: {
