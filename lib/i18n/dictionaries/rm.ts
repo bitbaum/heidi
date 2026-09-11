@@ -18,9 +18,9 @@ import type { Dictionary } from "./de.ts";
  */
 export const rm: Dictionary = {
   meta: {
-    title: "Heidi — chapir il tudestg da Turitg",
+    title: "Heidi — chapir il tudestg svizzer",
     description:
-      "Chapir quai che vegn discurrì propi a Turitg. Heidi decifrescha messadis reals, declera ils pleds che Vus na enconuschais anc betg e controllescha mintga resposta tenor las furmas turitgaisas.",
+      "Chapir quai che vegn discurrì propi enturn Vus. Heidi decifrescha messadis reals, declera ils pleds che Vus na enconuschais anc betg e controllescha mintga resposta tenor furmas dialectalas veras. Nus cumenzain cun il tudestg da Turitg.",
   },
 
   nav: {
@@ -32,24 +32,30 @@ export const rm: Dictionary = {
     about: "Davart nus",
     skipToContent: "Al cuntegn",
     menu: "Menu",
-    language: "Lingua",
+    language: "Tscherner la lingua",
+    langNational: "Linguas naziunalas",
+    langOther: "Autras linguas",
   },
 
   footer: {
     tagline: "Chapir il tudestg da Turitg, e lura far part.",
-    builtOn: "Construì sin OrangeCat, a Turitg.",
+    builtOn: "Fatg a Turitg.",
     sections: "Paginas",
     projectTitle: "Project",
     languageTitle: "Lingua",
     openSource: "Construì a la vista",
     openSourceNote: "Nus scrivain quai che nus emprendain — er quai che n'ha betg funcziunà.",
-    rights: "In project dal studio OrangeCat, Turitg.",
+    rights: "Heidi, Turitg.",
   },
 
   home: {
-    eyebrow: "Züritüütsch · Turitg",
-    headline: "Chapir il tudestg da Turitg. E lura scriver sco insatgi da qua.",
+    eyebrow: "Schwiizerdütsch · nus cumenzain cun Züritüütsch",
+    headline: "Chapir il tudestg svizzer. E lura scriver sco insatgi da qua.",
     sub: "Per tut quels che san gia tudestg e na chapeschan tuttina nagut a maisa. Encollai quai che Vus avais retschavì — u scrivai quai che Vus vulais dir.",
+    dialectTitle: "Nus cumenzain cun Turitg",
+    dialectBody:
+      "Il tudestg svizzer n'è betg ina lingua, mabain ina famiglia. Oz sa Heidi propi bain il tudestg da Turitg, ed ella Vus al di pli gugent che far la finta da savair tut. Quai è er precis la raschun pertge che la controlla refusa furmas bernaisas: betg perquai che il bernais fiss fallà, mabain perquai che nus instruin en quest mument Turitg. Ulteriurs dialects vegnan — mintgin cun sias atgnas vuschs e sia atgna controlla.",
+    dialectPlanned: "Planisà",
     trustTitle: "Mintga lingia vegn controllada avant che Vus la vesais",
     trustBody:
       "In model da lingua al qual ins dumonda tudestg svizzer dat gugent bernais, e Vus n'avessas nagina pussaivladad da l'annotar. Tar Heidi na decida pia betg il model tge che è tudestg da Turitg: quai fa ina controlla cun reglas fixas, che Vus pudais exequir svess.",
@@ -280,7 +286,7 @@ export const rm: Dictionary = {
 
   about: {
     title: "Davart Heidi",
-    lead: "Heidi è in project dal studio OrangeCat a Turitg. El vegn construì a la vista — er las parts che n'han betg funcziunà.",
+    lead: "Heidi vegn fatga a Turitg, da glieud ch'ha gì il medem problem. Nus construin a la vista — er las parts che n'han betg funcziunà.",
     sections: [
       {
         title: "Pertge ch'i dat quai",
@@ -296,6 +302,27 @@ export const rm: Dictionary = {
       },
     ],
     stateTitle: "Nua che nus essan",
+  },
+
+  vision: {
+    title: "Nua che quai maina",
+    lead: "Il tudestg svizzer è il cumenzament, betg la finamira. La metoda n'è betg specifica per la Svizra.",
+    points: [
+      {
+        title: "I dat bleras linguas da quest gener",
+        body: "Dapertut sin il mund datti linguas e dialects memia pitschens per ch'in grond editur da curs s'interessia per els — e che èn al medem mument precis quai ch'ins sto savair per appartegnair propi. Ins po dominar perfetgamain la lingua uffiziala e restar tuttina ordadora, a maisa.",
+      },
+      {
+        title: "Gist qua fallan ils gronds purschiders",
+        body: "Curs da linguas suondan il martgà, ed il martgà suonda il dumber da persunas che discurran. Quai che resta èn intgins vocabularis, intgins corpora da perscrutaziun ch'ins na dastga betg duvrar commerzialmain, e naginas registraziuns per exercitar. Heidi è construida per quella largezza.",
+      },
+      {
+        title: "La metoda sa transferir",
+        body: "Creschids che dominan gia ina lingua parentada na ston betg cumenzar da nov — els ston reemprender quai ch'els han gia. Quai vala per il tudestg standard ed il tudestg da Turitg sco per bleras autras pèrs. Perquai è tar Heidi la lingua instruida ina configuraziun substituibla e betg insatge scrit en il code.",
+      },
+    ],
+    closing:
+      "Concretamain: l'emprim ulteriurs dialects tudestg-svizzers, lura ina lingua ordaifer la Svizra — la medema maschina, in auter pachet linguistic. Quai che nus emprendain sin la via, quai scrivain nus.",
   },
 
   errors: {

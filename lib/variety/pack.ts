@@ -183,6 +183,29 @@ export type Capabilities = {
   licensedAudio: boolean;
 };
 
+/**
+ * The wider variety this pack is one dialect OF.
+ *
+ * Heidi teaches Swiss German and starts with Zurich, rather than teaching
+ * "Zurich German" as if the rest did not exist. That distinction is not
+ * marketing: the deterministic gate rejects Bernese forms *because* we are
+ * currently teaching Zurich, not because Bernese is wrong. Naming the family
+ * is what makes that coherent — and what makes a Bern pack, which will reject
+ * Zurich forms, obviously the same kind of object rather than a contradiction.
+ */
+export type Family = {
+  /** English name of the wider variety, e.g. "Swiss German". */
+  name: string;
+  /** What speakers call it, e.g. "Schwiizerdütsch". */
+  endonym: string;
+  /**
+   * Sibling dialects inside the family that we do not teach yet, in the order
+   * we expect to add them. Shown to the learner so the scope is honest: this
+   * is what Heidi does not cover today.
+   */
+  planned: readonly string[];
+};
+
 export type VarietyPack = {
   tag: VarietyTag;
   /** English name, e.g. "Zurich German". */
@@ -191,6 +214,8 @@ export type VarietyPack = {
   endonym: string;
   /** Where it is spoken, for the learner's orientation. */
   region: string;
+  /** The wider variety this is a dialect of, when it is one. */
+  family?: Family;
   /** Ranked: the first `sibling` is the default correspondence source. */
   bridges: readonly Bridge[];
   learner: LearnerProfile;

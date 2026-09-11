@@ -19,7 +19,7 @@
  * large share of the people with this exact problem are expats.
  */
 
-export const LOCALES = ["de", "fr", "it", "rm", "en"] as const;
+export const LOCALES = ["de", "fr", "it", "rm", "en", "ru"] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
@@ -40,6 +40,7 @@ export const LOCALE_NAMES: Record<Locale, string> = {
   it: "Italiano",
   rm: "Rumantsch",
   en: "English",
+  ru: "Русский",
 };
 
 /** Short label for the compact switcher. */
@@ -49,6 +50,7 @@ export const LOCALE_SHORT: Record<Locale, string> = {
   it: "IT",
   rm: "RM",
   en: "EN",
+  ru: "RU",
 };
 
 /** BCP-47 for <html lang> and hreflang. Swiss variants where they exist. */
@@ -58,6 +60,7 @@ export const LOCALE_TAGS: Record<Locale, string> = {
   it: "it-CH",
   rm: "rm-CH",
   en: "en",
+  ru: "ru",
 };
 
 /**
@@ -75,7 +78,33 @@ export const EXPLANATION_LANGUAGE: Record<Locale, string> = {
   it: "Italian",
   rm: "German",
   en: "English",
+  ru: "Russian",
 };
+
+/**
+ * The switcher groups languages rather than listing six abbreviations in a row.
+ *
+ * Six inline codes in a header is not a choice, it is a wall — and it silently
+ * claims all six are the same kind of thing. They are not: four are the
+ * national languages of the country this product is about, and two are here
+ * because a lot of the people with this problem arrived speaking them.
+ */
+export type LocaleGroup = "national" | "other";
+
+export const LOCALE_GROUP: Record<Locale, LocaleGroup> = {
+  de: "national",
+  fr: "national",
+  it: "national",
+  rm: "national",
+  en: "other",
+  ru: "other",
+};
+
+export const GROUP_ORDER: readonly LocaleGroup[] = ["national", "other"];
+
+export function localesInGroup(group: LocaleGroup): Locale[] {
+  return LOCALES.filter((l) => LOCALE_GROUP[l] === group);
+}
 
 /** Locales whose assistant output is deliberately not in the site's own language. */
 export const EXPLANATION_FALLBACK: Partial<Record<Locale, Locale>> = { rm: "de" };

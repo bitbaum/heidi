@@ -52,9 +52,11 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
         </nav>
 
         <div className="flex items-center gap-2">
-          <div className="hidden sm:block">
-            <LanguageSwitcher current={locale} label={dict.nav.language} />
-          </div>
+          <LanguageSwitcher
+            current={locale}
+            label={dict.nav.language}
+            groupLabels={{ national: dict.nav.langNational, other: dict.nav.langOther }}
+          />
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -86,9 +88,6 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
                 </li>
               ))}
             </ul>
-            <div className="pt-4 sm:hidden">
-              <LanguageSwitcher current={locale} label={dict.nav.language} />
-            </div>
           </nav>
         </div>
       )}

@@ -1,7 +1,16 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { getDictionary } from "./index.ts";
-import { DEFAULT_LOCALE, LOCALES, LOCALE_NAMES, LOCALE_TAGS, isLocale, negotiate } from "./locales.ts";
+import {
+  DEFAULT_LOCALE,
+  GROUP_ORDER,
+  LOCALES,
+  LOCALE_NAMES,
+  LOCALE_TAGS,
+  isLocale,
+  localesInGroup,
+  negotiate,
+} from "./locales.ts";
 import { NAV_ROUTES, ROUTES, href } from "./routes.ts";
 
 test("German is the default, not English", () => {
@@ -10,8 +19,25 @@ test("German is the default, not English", () => {
   assert.equal(DEFAULT_LOCALE, "de");
 });
 
-test("all four national languages plus English are present", () => {
-  for (const l of ["de", "fr", "it", "rm", "en"]) assert.ok(LOCALES.includes(l as never), `${l} missing`);
+test("all four national languages plus English and Russian are present", () => {
+  for (const l of ["de", "fr", "it", "rm", "en", "ru"]) assert.ok(LOCALES.includes(l as never), `${l} missing`);
+});
+
+test("every locale belongs to exactly one switcher group", () => {
+  // A locale missing from LOCALE_GROUP would silently vanish from the menu
+  // while still being reachable by URL.
+  const grouped = GROUP_ORDER.flatMap((g) => localesInGroup(g));
+  assert.equal(grouped.length, LOCALES.length);
+  assert.deepEqual([...grouped].sort(), [...LOCALES].sort());
+});
+
+test("the Swiss national languages are grouped apart from the others", () => {
+  assert.deepEqual(localesInGroup("national"), ["de", "fr", "it", "rm"]);
+  assert.deepEqual(localesInGroup("other"), ["en", "ru"]);
+});
+
+test("Russian is negotiated from an Accept-Language header", () => {
+  assert.equal(negotiate("ru-RU,ru;q=0.9"), "ru");
 });
 
 test("every locale has a name and a BCP-47 tag", () => {

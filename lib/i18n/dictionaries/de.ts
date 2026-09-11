@@ -8,9 +8,9 @@
  */
 export const de = {
   meta: {
-    title: "Heidi — Zürichdeutsch verstehen",
+    title: "Heidi — Schweizerdeutsch verstehen",
     description:
-      "Verstehen, was in Zürich wirklich gesprochen wird. Heidi übersetzt echte Nachrichten, erklärt die Wörter, die Sie noch nicht kennen, und prüft jede Antwort auf Zürcher Formen.",
+      "Verstehen, was um Sie herum wirklich gesprochen wird. Heidi übersetzt echte Nachrichten, erklärt die Wörter, die Sie noch nicht kennen, und prüft jede Antwort auf echte Dialektformen. Start: Zürichdeutsch.",
   },
 
   nav: {
@@ -22,24 +22,30 @@ export const de = {
     about: "Über uns",
     skipToContent: "Zum Inhalt springen",
     menu: "Menü",
-    language: "Sprache",
+    language: "Sprache wählen",
+    langNational: "Landessprachen",
+    langOther: "Weitere Sprachen",
   },
 
   footer: {
     tagline: "Zürichdeutsch verstehen, und dann mitreden.",
-    builtOn: "Gebaut auf OrangeCat, in Zürich.",
+    builtOn: "Gemacht in Zürich.",
     sections: "Seiten",
     projectTitle: "Projekt",
     languageTitle: "Sprache",
     openSource: "Offen gebaut",
     openSourceNote: "Wir schreiben auf, was wir lernen — auch das, was nicht funktioniert hat.",
-    rights: "Ein Projekt des OrangeCat-Studios, Zürich.",
+    rights: "Heidi, Zürich.",
   },
 
   home: {
-    eyebrow: "Züritüütsch · Zürich",
-    headline: "Zürichdeutsch verstehen. Und schreiben wie jemand von hier.",
+    eyebrow: "Schwiizerdütsch · Start: Züritüütsch",
+    headline: "Schweizerdeutsch verstehen. Und schreiben wie jemand von hier.",
     sub: "Für alle, die Deutsch können und am Mittagstisch trotzdem nichts verstehen. Fügen Sie ein, was Sie bekommen haben — oder schreiben Sie, was Sie sagen möchten.",
+    dialectTitle: "Wir beginnen mit Zürich",
+    dialectBody:
+      "Schweizerdeutsch ist keine Sprache, sondern eine Familie. Heidi beherrscht heute Zürichdeutsch richtig gut und sagt Ihnen das lieber, als so zu tun, als könnte es alles. Genau darum weist die Prüfung Berner Formen zurück: nicht weil Berndeutsch falsch wäre, sondern weil wir gerade Zürich unterrichten. Weitere Dialekte kommen dazu — jeder mit eigenen Stimmen und eigener Prüfung.",
+    dialectPlanned: "Geplant",
     trustTitle: "Jede Zeile wird geprüft, bevor Sie sie sehen",
     trustBody:
       "Ein Sprachmodell, das man um Schweizerdeutsch bittet, liefert bereitwillig Berndeutsch — und Sie hätten keine Möglichkeit, das zu merken. Deshalb entscheidet bei Heidi nicht das Modell, ob etwas Zürichdeutsch ist, sondern eine feste Regelprüfung, die Sie selbst aufrufen können.",
@@ -271,7 +277,7 @@ export const de = {
 
   about: {
     title: "Über Heidi",
-    lead: "Heidi ist ein Projekt des OrangeCat-Studios in Zürich. Es wird offen gebaut — auch die Teile, die nicht funktioniert haben.",
+    lead: "Heidi wird in Zürich gemacht, von Leuten, die dasselbe Problem hatten. Wir bauen offen — auch die Teile, die nicht funktioniert haben.",
     sections: [
       {
         title: "Warum es das gibt",
@@ -287,6 +293,27 @@ export const de = {
       },
     ],
     stateTitle: "Stand heute",
+  },
+
+  vision: {
+    title: "Wohin das führt",
+    lead: "Schweizerdeutsch ist der Anfang, nicht das Ziel. Die Methode ist nicht auf die Schweiz zugeschnitten.",
+    points: [
+      {
+        title: "Es gibt viele solcher Sprachen",
+        body: "Überall auf der Welt gibt es Sprachen und Dialekte, die zu klein sind, als dass sich ein grosser Kursanbieter dafür interessieren würde — und gleichzeitig genau das, was man können muss, um wirklich dazuzugehören. Man kann die Amtssprache perfekt beherrschen und am Tisch trotzdem aussen vor sein.",
+      },
+      {
+        title: "Genau dort versagen die grossen Anbieter",
+        body: "Sprachkurse folgen dem Markt, und der Markt folgt der Sprecherzahl. Was übrig bleibt, sind ein paar Wörterbücher, ein paar Forschungskorpora, die man nicht kommerziell nutzen darf, und keine Aufnahmen, mit denen man üben könnte. Heidi ist für genau diese Lücke gebaut.",
+      },
+      {
+        title: "Die Methode ist übertragbar",
+        body: "Erwachsene, die eine verwandte Sprache schon können, müssen nicht neu anfangen — sie müssen umlernen, was sie bereits besitzen. Das gilt für Hochdeutsch und Zürichdeutsch genauso wie für viele andere Paare. Deshalb ist in Heidi die unterrichtete Sprache austauschbare Konfiguration und nicht in den Code geschrieben.",
+      },
+    ],
+    closing:
+      "Konkret heisst das: zuerst weitere Deutschschweizer Dialekte, danach eine Sprache ausserhalb der Schweiz — dieselbe Maschine, ein anderer Sprachsatz. Was wir dabei lernen, schreiben wir auf.",
   },
 
   errors: {

@@ -2,9 +2,9 @@ import type { Dictionary } from "./de.ts";
 
 export const fr: Dictionary = {
   meta: {
-    title: "Heidi — comprendre le zurichois",
+    title: "Heidi — comprendre le suisse allemand",
     description:
-      "Comprendre ce qui se dit vraiment à Zurich. Heidi déchiffre les vrais messages, explique les mots que vous ne connaissez pas encore et vérifie chaque réponse selon les formes zurichoises.",
+      "Comprendre ce qui se dit vraiment autour de vous. Heidi déchiffre les vrais messages, explique les mots que vous ne connaissez pas encore et vérifie chaque réponse selon de vraies formes dialectales. En commençant par le zurichois.",
   },
 
   nav: {
@@ -16,24 +16,30 @@ export const fr: Dictionary = {
     about: "À propos",
     skipToContent: "Aller au contenu",
     menu: "Menu",
-    language: "Langue",
+    language: "Choisir la langue",
+    langNational: "Langues nationales",
+    langOther: "Autres langues",
   },
 
   footer: {
     tagline: "Comprendre le zurichois, puis participer.",
-    builtOn: "Réalisé sur OrangeCat, à Zurich.",
+    builtOn: "Fait à Zurich.",
     sections: "Pages",
     projectTitle: "Projet",
     languageTitle: "Langue",
     openSource: "Construit à découvert",
     openSourceNote: "Nous publions ce que nous apprenons — y compris ce qui n'a pas marché.",
-    rights: "Un projet du studio OrangeCat, Zurich.",
+    rights: "Heidi, Zurich.",
   },
 
   home: {
-    eyebrow: "Züritüütsch · Zurich",
-    headline: "Comprendre le zurichois. Puis écrire comme quelqu'un d'ici.",
+    eyebrow: "Schwiizerdütsch · on commence par le Züritüütsch",
+    headline: "Comprendre le suisse allemand. Puis écrire comme quelqu'un d'ici.",
     sub: "Pour celles et ceux qui parlent déjà allemand et ne comprennent toujours rien à table. Collez ce que vous avez reçu — ou écrivez ce que vous voulez dire.",
+    dialectTitle: "Nous commençons par Zurich",
+    dialectBody:
+      "Le suisse allemand n'est pas une langue mais une famille. Aujourd'hui Heidi maîtrise vraiment bien le zurichois, et préfère vous le dire plutôt que de faire semblant de tout couvrir. C'est aussi exactement pourquoi la vérification rejette les formes bernoises : non parce que le bernois serait faux, mais parce que c'est Zurich que nous enseignons pour l'instant. D'autres dialectes suivront — chacun avec ses propres voix et sa propre vérification.",
+    dialectPlanned: "Prévu",
     trustTitle: "Chaque ligne est vérifiée avant de vous parvenir",
     trustBody:
       "Un modèle de langue à qui l'on demande du suisse allemand vous donnera volontiers du bernois, sans que vous puissiez le remarquer. Chez Heidi, ce n'est donc pas le modèle qui décide de ce qui est zurichois : c'est une vérification par règles fixes, que vous pouvez lancer vous-même.",
@@ -264,7 +270,7 @@ export const fr: Dictionary = {
 
   about: {
     title: "À propos de Heidi",
-    lead: "Heidi est un projet du studio OrangeCat à Zurich. Il est construit à découvert — y compris les parties qui n'ont pas marché.",
+    lead: "Heidi est fait à Zurich, par des gens qui ont eu le même problème. Nous construisons à découvert — y compris les parties qui n'ont pas marché.",
     sections: [
       {
         title: "Pourquoi cela existe",
@@ -280,6 +286,27 @@ export const fr: Dictionary = {
       },
     ],
     stateTitle: "Où nous en sommes",
+  },
+
+  vision: {
+    title: "Où cela mène",
+    lead: "Le suisse allemand est le début, pas la destination. La méthode n'est pas propre à la Suisse.",
+    points: [
+      {
+        title: "Il existe beaucoup de langues de ce type",
+        body: "Partout dans le monde il y a des langues et des dialectes trop petits pour intéresser un grand éditeur de cours — et qui sont en même temps exactement ce qu'il faut maîtriser pour appartenir vraiment. On peut posséder parfaitement la langue officielle et rester à l'écart à table.",
+      },
+      {
+        title: "C'est précisément là que les grands acteurs échouent",
+        body: "Les cours de langue suivent le marché, et le marché suit le nombre de locuteurs. Il reste quelques dictionnaires, quelques corpus de recherche qu'on n'a pas le droit d'exploiter commercialement, et aucun enregistrement pour s'exercer. Heidi est construit pour ce vide.",
+      },
+      {
+        title: "La méthode se transfère",
+        body: "Les adultes qui maîtrisent déjà une langue proche n'ont pas à repartir de zéro — ils doivent réapprendre ce qu'ils possèdent déjà. Cela vaut pour l'allemand standard et le zurichois comme pour bien d'autres paires. C'est pourquoi, chez Heidi, la langue enseignée est une configuration interchangeable et non quelque chose d'inscrit dans le code.",
+      },
+    ],
+    closing:
+      "Concrètement : d'abord d'autres dialectes alémaniques, ensuite une langue hors de Suisse — la même machine, un autre jeu linguistique. Ce que nous apprenons en chemin, nous l'écrivons.",
   },
 
   errors: {

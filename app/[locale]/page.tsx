@@ -70,6 +70,34 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
       </section>
 
+      <section className="border-b border-border-subtle py-10 sm:py-12" aria-labelledby="dialect">
+        <h2
+          id="dialect"
+          className="font-heading text-2xl font-semibold leading-tight tracking-display text-fg-primary sm:text-3xl"
+        >
+          {t.dialectTitle}
+        </h2>
+        <p className="mt-4 max-w-measure text-base leading-relaxed text-fg-secondary">{t.dialectBody}</p>
+        {VARIETY.family && (
+          <div className="mt-6 flex flex-wrap items-center gap-2">
+            <span className="rounded-control bg-accent px-2.5 py-1 font-mono text-[11px] uppercase tracking-caps text-on-accent">
+              {VARIETY.endonym}
+            </span>
+            <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+              {t.dialectPlanned}
+            </span>
+            {VARIETY.family.planned.map((d) => (
+              <span
+                key={d}
+                className="rounded-control border border-border-strong px-2.5 py-1 font-mono text-[11px] uppercase tracking-caps text-fg-muted"
+              >
+                {d}
+              </span>
+            ))}
+          </div>
+        )}
+      </section>
+
       <section className="border-b border-border-subtle py-10 sm:py-12" aria-labelledby="rules">
         <h2 id="rules" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
           {t.correspondencesTitle}

@@ -61,12 +61,12 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
               <span className="font-medium text-fg-primary">{dict.footer.openSource}</span> —{" "}
               {dict.footer.openSourceNote}
             </p>
-            <a
-              href="https://orangecat.ch"
+            <Link
+              href={href(locale, "about")}
               className="mt-3 inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
             >
-              orangecat.ch
-            </a>
+              {dict.nav.about}
+            </Link>
           </div>
         </div>
 
