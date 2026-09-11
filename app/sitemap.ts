@@ -7,5 +7,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: SITE_URL, lastModified },
     { url: `${SITE_URL}/try`, lastModified },
+    { url: `${SITE_URL}/check`, lastModified },
   ];
 }
