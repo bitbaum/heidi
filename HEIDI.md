@@ -300,24 +300,35 @@ because being wrong in public is expensive and quiet correction is cheap.
 
 ---
 
-## 9. What to build next
+## 9. What is built, and what is next
 
-The smallest increment that is useful on day one *and* produces the proprietary
-asset. Not the listening lab — that needs recordings that do not exist yet.
+**Built: the universal input.** One field on `/`, two modes — *Understand* what
+arrived, or *Say it* in Zurich German. It answers first and completely, because
+at 08:55 before a meeting someone needs the message decoded, not a lesson; the
+words worth keeping sit underneath, and never block the thing they came for.
 
-**The universal input plus evidence capture.** One field: *what do you want to
-understand or say?* It takes a word, a sentence, a pasted chat, a screenshot.
-It answers immediately — because at 08:55 before a meeting the learner needs the
-message decoded, not a lesson — and it records what they did not know.
+Three deterministic guards sit between the model and the learner, and all three
+exist for the same reason — the learner cannot check this work:
 
-The reason to build this first is not that it is easy. It is that **the existing
-Heidi GPT is already generating that evidence stream and throwing all of it
-away.** Every question asked of it is a labelled datapoint about what one real
-learner could not understand. That is the corpus the rest of the product is
-built on, and it is currently being discarded daily.
+1. **Every generated line goes through the variety gate** (§6) before it is
+   shown, and a flagged line is marked rather than dropped, so drift is visible.
+2. **A correspondence may only be cited if the pack vouches for it.** Found in
+   testing: asked about *"Im Kauz"* — a Zurich bar — the model decided Kauz was
+   a typo for *Huus* and supplied the sound law "k → h". Confident, plausible,
+   invented. Rules the pack does not list are now stripped.
+3. **A word glossed against itself is dropped.** The model kept explaining that
+   *freundlich* means *freundlich*.
 
-Then, in order: the learner model that evidence feeds; spaced reuse of what was
-hard; and only then the listening lab, once there are recordings to put in it.
+The AI layer is `@bitbaum/ai-kit` — `freeChain` + `complete()`, so a retired
+model cannot take Heidi down, which is the failure that took five repos out at
+once on 2026-08-26. With no key the route answers 503 and says so plainly
+rather than pretending.
+
+**Next**, in order: capture what the learner did not know into a learner model —
+**the existing Heidi GPT generates that evidence daily and throws all of it
+away**, and every question asked of it is a labelled datapoint about what a real
+learner could not understand; then spaced reuse of what was hard; then the
+listening lab, once there are recordings to put in it.
 
 Two loops explain Heidi better than any feature list:
 
