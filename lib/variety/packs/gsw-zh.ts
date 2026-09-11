@@ -18,6 +18,14 @@ export const ZURICH_GERMAN: VarietyPack = {
   endonym: "Züritüütsch",
   region: "Canton of Zürich, Switzerland",
 
+  family: {
+    name: "Swiss German",
+    endonym: "Schwiizerdütsch",
+    // The dialects the gate currently rejects. They are not errors — they are
+    // the next packs. Ordered by how many speakers they would reach.
+    planned: ["Bern", "Basel", "Luzern", "St. Gallen", "Aargau", "Wallis"],
+  },
+
   bridges: [
     // Ranked. The sibling is what correspondences are computed from.
     { tag: "de-CH", name: "Swiss Standard German", relation: "sibling" },
@@ -56,13 +64,13 @@ export const ZURICH_GERMAN: VarietyPack = {
       reason: "Ostschweiz form — Zurich says it only inside Züritüütsch",
     },
     { match: "nid", severity: "foreign", origin: "Ostschweiz", reason: "Ostschweiz 'nid' — Zurich says nöd", suggest: "nöd" },
-    { match: "güet", severity: "foreign", origin: "Bernese", reason: "Bernese 'güet' — Zurich says guet", suggest: "guet" },
-    { match: "gäu", severity: "foreign", origin: "Bernese", reason: "Bernese tag 'gäu' — Zurich says gäll", suggest: "gäll" },
+    { match: "güet", severity: "foreign", origin: "Bern", reason: "Bernese 'güet' — Zurich says guet", suggest: "guet" },
+    { match: "gäu", severity: "foreign", origin: "Bern", reason: "Bernese tag 'gäu' — Zurich says gäll", suggest: "gäll" },
     {
       match: /\p{L}*öu\p{L}*/giu,
       display: "…öu…",
       severity: "foreign",
-      origin: "Bernese",
+      origin: "Bern",
       reason: "Bernese öu diphthong — Zurich says au",
     },
     { match: "sai", severity: "foreign", origin: "Basel", reason: "Basel 'sai'" },

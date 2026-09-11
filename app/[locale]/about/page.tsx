@@ -26,6 +26,26 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <NumberedList items={t.sections} />
       </Section>
 
+      <Section title={dict.vision.title} id="vision">
+        <p className="max-w-measure text-lg leading-relaxed text-fg-secondary">{dict.vision.lead}</p>
+        <div className="mt-8 grid gap-8 sm:grid-cols-3 sm:gap-6">
+          {dict.vision.points.map((p, i) => (
+            <article key={p.title}>
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-caps text-accent">
+                {String(i + 1).padStart(2, "0")}
+              </div>
+              <h3 className="font-heading text-xl font-semibold leading-tight tracking-display text-fg-primary">
+                {p.title}
+              </h3>
+              <p className="mt-2 text-base leading-relaxed text-fg-secondary">{p.body}</p>
+            </article>
+          ))}
+        </div>
+        <p className="mt-8 max-w-measure border-l-2 border-accent pl-4 text-base leading-relaxed text-fg-primary">
+          {dict.vision.closing}
+        </p>
+      </Section>
+
       <Section title={t.stateTitle}>
         <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
           {[
@@ -50,12 +70,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           >
             {dict.nav.contribute}
           </Link>
-          <a
-            href="https://orangecat.ch"
+          <Link
+            href={href(locale, "method")}
             className="inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
           >
-            orangecat.ch
-          </a>
+            {dict.nav.method}
+          </Link>
         </div>
       </Section>
     </Shell>

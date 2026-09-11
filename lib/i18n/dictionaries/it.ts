@@ -2,9 +2,9 @@ import type { Dictionary } from "./de.ts";
 
 export const it: Dictionary = {
   meta: {
-    title: "Heidi — capire lo svizzero tedesco di Zurigo",
+    title: "Heidi — capire lo svizzero tedesco",
     description:
-      "Capire quello che si dice davvero a Zurigo. Heidi decifra i messaggi reali, spiega le parole che ancora non conoscete e controlla ogni risposta secondo le forme zurighesi.",
+      "Capire quello che si dice davvero attorno a voi. Heidi decifra i messaggi reali, spiega le parole che ancora non conoscete e controlla ogni risposta secondo forme dialettali vere. Si comincia dallo zurighese.",
   },
 
   nav: {
@@ -16,24 +16,30 @@ export const it: Dictionary = {
     about: "Chi siamo",
     skipToContent: "Vai al contenuto",
     menu: "Menu",
-    language: "Lingua",
+    language: "Scegliere la lingua",
+    langNational: "Lingue nazionali",
+    langOther: "Altre lingue",
   },
 
   footer: {
     tagline: "Capire lo zurighese, e poi partecipare.",
-    builtOn: "Costruito su OrangeCat, a Zurigo.",
+    builtOn: "Fatto a Zurigo.",
     sections: "Pagine",
     projectTitle: "Progetto",
     languageTitle: "Lingua",
     openSource: "Costruito allo scoperto",
     openSourceNote: "Scriviamo quello che impariamo — anche ciò che non ha funzionato.",
-    rights: "Un progetto dello studio OrangeCat, Zurigo.",
+    rights: "Heidi, Zurigo.",
   },
 
   home: {
-    eyebrow: "Züritüütsch · Zurigo",
-    headline: "Capire lo zurighese. E poi scrivere come chi è di qui.",
+    eyebrow: "Schwiizerdütsch · si comincia dallo Züritüütsch",
+    headline: "Capire lo svizzero tedesco. E poi scrivere come chi è di qui.",
     sub: "Per chi sa già il tedesco e a tavola continua a non capire nulla. Incollate quello che avete ricevuto — o scrivete quello che volete dire.",
+    dialectTitle: "Cominciamo da Zurigo",
+    dialectBody:
+      "Lo svizzero tedesco non è una lingua ma una famiglia. Oggi Heidi conosce davvero bene lo zurighese, e preferisce dirvelo piuttosto che fingere di coprire tutto. È anche esattamente il motivo per cui la verifica rifiuta le forme bernesi: non perché il bernese sia sbagliato, ma perché in questo momento insegniamo Zurigo. Seguiranno altri dialetti — ciascuno con le proprie voci e la propria verifica.",
+    dialectPlanned: "Previsto",
     trustTitle: "Ogni riga è verificata prima che la vediate",
     trustBody:
       "Un modello linguistico a cui si chiede lo svizzero tedesco vi darà volentieri del bernese, senza che possiate accorgervene. Da Heidi non è quindi il modello a decidere che cosa sia zurighese: lo fa un controllo a regole fisse, che potete eseguire voi stessi.",
@@ -264,7 +270,7 @@ export const it: Dictionary = {
 
   about: {
     title: "Chi è Heidi",
-    lead: "Heidi è un progetto dello studio OrangeCat di Zurigo. È costruita allo scoperto — comprese le parti che non hanno funzionato.",
+    lead: "Heidi è fatta a Zurigo, da persone che hanno avuto lo stesso problema. Costruiamo allo scoperto — comprese le parti che non hanno funzionato.",
     sections: [
       {
         title: "Perché esiste",
@@ -280,6 +286,27 @@ export const it: Dictionary = {
       },
     ],
     stateTitle: "A che punto siamo",
+  },
+
+  vision: {
+    title: "Dove porta tutto questo",
+    lead: "Lo svizzero tedesco è l'inizio, non la meta. Il metodo non è specifico della Svizzera.",
+    points: [
+      {
+        title: "Di lingue così ce ne sono molte",
+        body: "In tutto il mondo esistono lingue e dialetti troppo piccoli perché un grande editore di corsi se ne interessi — e che sono al tempo stesso esattamente ciò che serve per appartenere davvero. Si può padroneggiare perfettamente la lingua ufficiale e restare comunque fuori, a tavola.",
+      },
+      {
+        title: "È proprio qui che i grandi falliscono",
+        body: "I corsi di lingua seguono il mercato, e il mercato segue il numero di parlanti. Restano qualche dizionario, qualche corpus di ricerca che non si può usare commercialmente, e nessuna registrazione su cui esercitarsi. Heidi è costruita per questo vuoto.",
+      },
+      {
+        title: "Il metodo si trasferisce",
+        body: "Gli adulti che già padroneggiano una lingua affine non devono ricominciare da zero — devono reimparare ciò che già possiedono. Vale per il tedesco standard e lo zurighese come per molte altre coppie. Per questo in Heidi la lingua insegnata è configurazione sostituibile e non qualcosa scritto nel codice.",
+      },
+    ],
+    closing:
+      "Concretamente: prima altri dialetti svizzero-tedeschi, poi una lingua fuori dalla Svizzera — la stessa macchina, un altro pacchetto linguistico. Quello che impariamo per strada, lo scriviamo.",
   },
 
   errors: {

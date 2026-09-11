@@ -3,6 +3,7 @@ import { en } from "./dictionaries/en.ts";
 import { fr } from "./dictionaries/fr.ts";
 import { it } from "./dictionaries/it.ts";
 import { rm } from "./dictionaries/rm.ts";
+import { ru } from "./dictionaries/ru.ts";
 import { DEFAULT_LOCALE, type Locale } from "./locales.ts";
 
 /**
@@ -10,7 +11,7 @@ import { DEFAULT_LOCALE, type Locale } from "./locales.ts";
  * each and they are needed at render time on the server — an async loader
  * would buy nothing here and cost a suspense boundary on every page.
  */
-const DICTIONARIES: Record<Locale, Dictionary> = { de, en, fr, it, rm };
+const DICTIONARIES: Record<Locale, Dictionary> = { de, en, fr, it, rm, ru };
 
 export function getDictionary(locale: Locale): Dictionary {
   return DICTIONARIES[locale] ?? DICTIONARIES[DEFAULT_LOCALE];

@@ -2,9 +2,9 @@ import type { Dictionary } from "./de.ts";
 
 export const en: Dictionary = {
   meta: {
-    title: "Heidi — understand Zurich German",
+    title: "Heidi — understand Swiss German",
     description:
-      "Understand what is actually spoken in Zurich. Heidi decodes real messages, explains the words you do not know yet, and checks every reply against Zurich forms.",
+      "Understand what is actually spoken around you. Heidi decodes real messages, explains the words you do not know yet, and checks every reply against real dialect forms. Starting with Zurich German.",
   },
 
   nav: {
@@ -16,24 +16,30 @@ export const en: Dictionary = {
     about: "About",
     skipToContent: "Skip to content",
     menu: "Menu",
-    language: "Language",
+    language: "Choose language",
+    langNational: "National languages",
+    langOther: "Other languages",
   },
 
   footer: {
     tagline: "Understand Zurich German, then take part.",
-    builtOn: "Built on OrangeCat, in Zürich.",
+    builtOn: "Made in Zürich.",
     sections: "Pages",
     projectTitle: "Project",
     languageTitle: "Language",
     openSource: "Built in the open",
     openSourceNote: "We write down what we learn — including what did not work.",
-    rights: "A project of the OrangeCat studio, Zürich.",
+    rights: "Heidi, Zürich.",
   },
 
   home: {
-    eyebrow: "Züritüütsch · Zürich",
-    headline: "Understand Zurich German. Then write like someone from here.",
+    eyebrow: "Schwiizerdütsch · starting with Züritüütsch",
+    headline: "Understand Swiss German. Then write like someone from here.",
     sub: "For people who already know German and still understand nothing at the lunch table. Paste what you received — or write what you mean.",
+    dialectTitle: "We start with Zurich",
+    dialectBody:
+      "Swiss German is not one language but a family. Today Heidi is genuinely good at Zurich German, and would rather tell you that than pretend to cover everything. It is also exactly why the check rejects Bernese forms: not because Bernese is wrong, but because Zurich is what we are teaching right now. More dialects follow — each with its own voices and its own check.",
+    dialectPlanned: "Planned",
     trustTitle: "Every line is checked before you see it",
     trustBody:
       "A language model asked for Swiss German will happily hand you Bernese, and you would have no way to tell. So at Heidi the model does not decide what counts as Zurich German. A fixed rule check does, and you can run it yourself.",
@@ -264,7 +270,7 @@ export const en: Dictionary = {
 
   about: {
     title: "About Heidi",
-    lead: "Heidi is a project of the OrangeCat studio in Zürich. It is built in the open — including the parts that did not work.",
+    lead: "Heidi is made in Zürich, by people who had the same problem. We build in the open — including the parts that did not work.",
     sections: [
       {
         title: "Why it exists",
@@ -280,6 +286,27 @@ export const en: Dictionary = {
       },
     ],
     stateTitle: "Where things stand",
+  },
+
+  vision: {
+    title: "Where this goes",
+    lead: "Swiss German is the beginning, not the destination. The method is not specific to Switzerland.",
+    points: [
+      {
+        title: "There are many languages like this",
+        body: "All over the world there are languages and dialects too small for a large course provider to care about — and which are at the same time exactly what you need in order to actually belong. You can have perfect command of the official language and still be on the outside at the table.",
+      },
+      {
+        title: "This is precisely where the big providers fail",
+        body: "Language courses follow the market, and the market follows speaker numbers. What is left behind is a few dictionaries, a few research corpora you are not allowed to use commercially, and no recordings to practise with. Heidi is built for that gap.",
+      },
+      {
+        title: "The method transfers",
+        body: "Adults who already command a related language do not have to start over — they have to relearn what they already own. That holds for Standard German and Zurich German as it does for many other pairs. Which is why in Heidi the language being taught is swappable configuration rather than something written into the code.",
+      },
+    ],
+    closing:
+      "Concretely: more Swiss German dialects first, then a language outside Switzerland — the same machine, a different language pack. What we learn on the way, we write down.",
   },
 
   errors: {

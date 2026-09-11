@@ -73,6 +73,31 @@ test("the two packs disagree about which skill is broken", () => {
   assert.equal(frontDoor(UKRAINIAN), "texting");
 });
 
+test("Zurich German is one dialect of a family, not the whole language", () => {
+  // Heidi is for Swiss German and starts with Zurich. Without a family the
+  // product reads as "Zurich only", and a future Bern pack rejecting Zurich
+  // forms would look like a contradiction rather than a sibling.
+  const family = ZURICH_GERMAN.family;
+  assert.ok(family, "Zurich German must name the family it belongs to");
+  assert.equal(family?.name, "Swiss German");
+  assert.ok((family?.planned.length ?? 0) > 0, "the dialects we do not teach yet must be named");
+  assert.ok(family?.planned.includes("Bern"));
+});
+
+test("every region the gate rejects is a named sibling, not a mystery", () => {
+  // The gate rejects Bernese because we teach Zurich, not because Bernese is
+  // wrong. A rejected origin we have no plan for means the scope claimed on
+  // the home page has drifted from what the checker actually does.
+  const known = new Set([...(ZURICH_GERMAN.family?.planned ?? []), "Ostschweiz"]);
+  const rejected = ZURICH_GERMAN.rules
+    .filter((r) => r.severity === "foreign" && r.origin)
+    .map((r) => r.origin as string);
+  assert.ok(rejected.length > 0);
+  for (const origin of rejected) {
+    assert.ok(known.has(origin), `${origin} is rejected but is not a named sibling`);
+  }
+});
+
 test("capabilities differ, so the same engine must build different products", () => {
   assert.equal(ZURICH_GERMAN.capabilities.asr, false);
   assert.equal(UKRAINIAN.capabilities.asr, true);
