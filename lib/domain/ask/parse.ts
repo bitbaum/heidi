@@ -17,13 +17,87 @@ import { check } from "../../variety/check.ts";
 import type { VarietyPack } from "../../variety/pack.ts";
 import { type Answer, type Gloss, type Intent, type Reply, TONES, type Tone } from "./types.ts";
 
+/**
+ * Close whatever the model left open.
+ *
+ * Seen in production on the first live request: the answer hit the token
+ * ceiling mid-array and `JSON.parse` threw, so a reply that was 90% written
+ * became "Heidi could not answer that just now". Raising the budget makes it
+ * rarer; it cannot make it impossible, because the ceiling always exists.
+ *
+ * So: drop the half-finished element, then close the structures that are still
+ * open. The result is a shorter answer rather than no answer, which is the
+ * right trade for a card whose fields are all independently optional.
+ */
+function repairTruncated(text: string): string {
+  let inString = false;
+  let escaped = false;
+  let lastSafe = -1;
+  const stack: string[] = [];
+
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (escaped) {
+      escaped = false;
+      continue;
+    }
+    if (ch === "\\" && inString) {
+      escaped = true;
+      continue;
+    }
+    if (ch === '"') {
+      inString = !inString;
+      continue;
+    }
+    if (inString) continue;
+
+    if (ch === "{" || ch === "[") stack.push(ch);
+    else if (ch === "}" || ch === "]") stack.pop();
+
+    // A comma or a closed structure is a point we can safely cut back to.
+    if (ch === "," || ch === "}" || ch === "]") lastSafe = i;
+  }
+
+  if (lastSafe === -1) return text;
+
+  let cut = text.slice(0, lastSafe + 1).replace(/,\s*$/, "");
+
+  // Recompute what is still open over the part we kept.
+  const open: string[] = [];
+  let s = false;
+  let e = false;
+  for (const ch of cut) {
+    if (e) {
+      e = false;
+      continue;
+    }
+    if (ch === "\\" && s) {
+      e = true;
+      continue;
+    }
+    if (ch === '"') s = !s;
+    else if (!s && (ch === "{" || ch === "[")) open.push(ch);
+    else if (!s && (ch === "}" || ch === "]")) open.pop();
+  }
+  for (let i = open.length - 1; i >= 0; i--) cut += open[i] === "{" ? "}" : "]";
+  return cut;
+}
+
 /** Models fence JSON, or bracket it with a sentence. Take the outermost object. */
 export function extractJson(raw: string): unknown {
   const text = raw.trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "");
   const start = text.indexOf("{");
+  if (start === -1) throw new Error("no JSON object in the model's answer");
+
   const end = text.lastIndexOf("}");
-  if (start === -1 || end <= start) throw new Error("no JSON object in the model's answer");
-  return JSON.parse(text.slice(start, end + 1));
+  if (end > start) {
+    try {
+      return JSON.parse(text.slice(start, end + 1));
+    } catch {
+      // fall through to repair
+    }
+  }
+  return JSON.parse(repairTruncated(text.slice(start)));
 }
 
 function str(value: unknown, fallback = ""): string {
