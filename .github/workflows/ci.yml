@@ -23,7 +23,16 @@ on:
 # superseded as a clean skip rather than a failure.
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  # Supersede freely on a branch nobody gates on — that is what the setting is
+  # for, and a PR pushed three times in a minute should not run CI three times.
+  #
+  # NEVER on main. Deploy waits for "CI green on this commit" and reads the
+  # LATEST CI run for the SHA. The auto-merge sweep re-arms ci.yml on a cadence,
+  # so a merge to main reliably produced a green run followed by a cancelled
+  # one, and the deploy then refused a commit whose CI had actually passed.
+  # That blocked two deploys before anyone read the run list closely enough to
+  # notice the green run sitting directly underneath the cancelled one.
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   verify:
