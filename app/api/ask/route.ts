@@ -1,5 +1,6 @@
 import { complete, freeChain, usableChain, createHealthTracker } from "@bitbaum/ai-kit";
 import { VARIETY } from "@/lib/variety/active";
+import { DEFAULT_LOCALE, EXPLANATION_LANGUAGE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { systemPrompt, understandPrompt, producePrompt } from "@/lib/variety/prompt";
 import { parseAnswer } from "@/lib/domain/ask/parse";
 import type { Intent } from "@/lib/domain/ask/types";
@@ -30,7 +31,16 @@ export async function POST(request: Request) {
     return bad("Could not read that request.", 400);
   }
 
-  const { input, intent } = (body ?? {}) as { input?: unknown; intent?: unknown };
+  const { input, intent, locale } = (body ?? {}) as {
+    input?: unknown;
+    intent?: unknown;
+    locale?: unknown;
+  };
+
+  // The reader's language decides what the explanations come back in. Unknown
+  // or absent falls back to the site default rather than to English.
+  const reader: Locale = typeof locale === "string" && isLocale(locale) ? locale : DEFAULT_LOCALE;
+  const explainIn = EXPLANATION_LANGUAGE[reader];
 
   const text = typeof input === "string" ? input.trim() : "";
   if (!text) return bad("Give Heidi something to work with.", 400);
@@ -58,11 +68,13 @@ export async function POST(request: Request) {
       timeoutMs: TIMEOUT_MS,
       signal: request.signal,
       messages: [
-        { role: "system", content: systemPrompt(VARIETY) },
+        { role: "system", content: systemPrompt(VARIETY, explainIn) },
         {
           role: "user",
           content:
-            mode === "produce" ? producePrompt(VARIETY, text) : understandPrompt(VARIETY, text),
+            mode === "produce"
+              ? producePrompt(VARIETY, text, explainIn)
+              : understandPrompt(VARIETY, text, explainIn),
         },
       ],
     });

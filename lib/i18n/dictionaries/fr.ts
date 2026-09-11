@@ -1,0 +1,290 @@
+import type { Dictionary } from "./de.ts";
+
+export const fr: Dictionary = {
+  meta: {
+    title: "Heidi — comprendre le zurichois",
+    description:
+      "Comprendre ce qui se dit vraiment à Zurich. Heidi déchiffre les vrais messages, explique les mots que vous ne connaissez pas encore et vérifie chaque réponse selon les formes zurichoises.",
+  },
+
+  nav: {
+    home: "Accueil",
+    method: "Méthode",
+    research: "Recherche",
+    check: "Vérification",
+    contribute: "Participer",
+    about: "À propos",
+    skipToContent: "Aller au contenu",
+    menu: "Menu",
+    language: "Langue",
+  },
+
+  footer: {
+    tagline: "Comprendre le zurichois, puis participer.",
+    builtOn: "Réalisé sur OrangeCat, à Zurich.",
+    sections: "Pages",
+    projectTitle: "Projet",
+    languageTitle: "Langue",
+    openSource: "Construit à découvert",
+    openSourceNote: "Nous publions ce que nous apprenons — y compris ce qui n'a pas marché.",
+    rights: "Un projet du studio OrangeCat, Zurich.",
+  },
+
+  home: {
+    eyebrow: "Züritüütsch · Zurich",
+    headline: "Comprendre le zurichois. Puis écrire comme quelqu'un d'ici.",
+    sub: "Pour celles et ceux qui parlent déjà allemand et ne comprennent toujours rien à table. Collez ce que vous avez reçu — ou écrivez ce que vous voulez dire.",
+    trustTitle: "Chaque ligne est vérifiée avant de vous parvenir",
+    trustBody:
+      "Un modèle de langue à qui l'on demande du suisse allemand vous donnera volontiers du bernois, sans que vous puissiez le remarquer. Chez Heidi, ce n'est donc pas le modèle qui décide de ce qui est zurichois : c'est une vérification par règles fixes, que vous pouvez lancer vous-même.",
+    trustLink: "Essayer la vérification",
+    correspondencesTitle: "Une douzaine de règles ouvrent des centaines de mots",
+    pillarsTitle: "Comment Heidi travaille",
+    methodLink: "Toute la méthode",
+    researchLink: "Ce que dit la recherche",
+    contributeTitle: "Nous cherchons des voix zurichoises",
+    contributeBody:
+      "Chaque seconde de dialecte que vous entendrez chez Heidi vient d'une personne réelle de Zurich. Si vous acceptez que nous vous enregistrions, écrivez-nous.",
+    contributeCta: "Participer",
+  },
+
+  ask: {
+    understand: "Comprendre",
+    produce: "Le dire",
+    understandHint: "Collez ce que vous avez reçu",
+    produceHint: "Écrivez ce que vous voulez dire",
+    understandPlaceholder: "Im Kauz scho, hät mer nöd so gfalle. Du au?",
+    producePlaceholder: "Dis-leur que j'arrive dix minutes en retard — gentiment.",
+    submit: "Demander",
+    working: "Heidi lit …",
+    shortcut: "⌘ + Entrée",
+    tryOne: "Ou essayez ceci",
+    meaningTitle: "Cela veut dire",
+    sendTitle: "Vous pouvez envoyer ceci",
+    glossTitle: "Mots à retenir",
+    repliesTitle: "Vous pourriez répondre",
+    alternativesTitle: "Autres formulations",
+    copy: "Copier",
+    copied: "Copié",
+    flagged: "Pas du zurichois :",
+    checkedNote: "Chaque ligne ci-dessus a été vérifiée selon les formes zurichoises",
+    notConfigured: "Le modèle de langue n'est pas encore configuré sur cette installation.",
+    unreachable: "Heidi est injoignable. Vérifiez votre connexion et réessayez.",
+    failed: "Heidi n'a pas pu répondre à l'instant. Réessayez dans un moment.",
+    empty: "Donnez quelque chose à travailler à Heidi.",
+    tooLong: "C'est plus long que 2000 caractères.",
+    explanationsIn: "Explications en français",
+    examplesUnderstand: [
+      "Im Kauz scho, hät mer nöd so gfalle. Du au?",
+      "Chunnsch au no verbi hüt Abig?",
+      "Gsehd guet us, mir mached das so.",
+    ],
+    examplesProduce: [
+      "Dis-leur que j'arrive dix minutes en retard — gentiment.",
+      "Demande à ma voisine si je peux laisser un colis chez elle.",
+      "Refuse une invitation à dîner sans paraître froid.",
+    ],
+  },
+
+  pillars: [
+    {
+      title: "Comprendre vient d'abord",
+      body: "Écouter avant de parler. En Suisse, comprendre le dialecte et répondre en allemand standard est une manière complète et respectée d'appartenir. C'est aussi le seul moyen de ne pas perdre l'exposition : dès qu'on voit que vous peinez, on passe au Hochdeutsch.",
+    },
+    {
+      title: "La vraie vie est le programme",
+      body: "Pas d'exercices inventés. Le message arrivé ce matin, la phrase entendue à midi, le refus que vous devez écrire — voilà le matériau. Heidi aide tout de suite et retient ce que vous ne saviez pas.",
+    },
+    {
+      title: "Mesuré, pas gamifié",
+      body: "Pas de séries, pas de points, pas de pourcentages inventés. Le chiffre que nous voulons vous montrer, c'est la part que vous comprenez d'une voix zurichoise inconnue — avant et après.",
+    },
+  ],
+
+  method: {
+    title: "La méthode",
+    lead: "Heidi est construit sur ce que la recherche montre réellement, et non sur ce qui se vend bien comme cours de langue. Cela conduit à quelques décisions qui surprennent d'abord.",
+    sections: [
+      {
+        title: "Le piège dont Heidi vous sort",
+        body: "Vous apprenez l'allemand, vous vous installez à Zurich, et vous découvrez que cela ne suffit pas. À table on parle dialecte, vous n'en comprenez presque rien, et comme cela se voit, tout le monde passe poliment au Hochdeutsch ou à l'anglais. L'exposition même qui vous ferait progresser vous est retirée parce que vous en auriez besoin. Heidi est une source de dialecte qui ne se dérobe pas.",
+      },
+      {
+        title: "L'exposition l'emporte sur les règles",
+        body: "Dans la plus vaste étude sur la compréhension des langues proches, la simple quantité d'exposition comptait davantage que toute mesure de distance linguistique. Ce n'est pas la grammaire qui décide, c'est ce que vous avez entendu. Heidi n'est donc pas une suite de leçons mais un lieu où du vrai dialecte arrive sans cesse.",
+      },
+      {
+        title: "Les règles appartiennent à la pratique, pas à ce qui la précède",
+        body: "Chind, Huus, isch, guet — les règles sonores sont réelles et utiles. Mais le seul test propre d'une leçon préalable n'a montré aucun effet mesurable. Ce qui marche en revanche : dire à quelqu'un ce qu'il doit écouter, juste avant qu'il ne le réentende. Heidi montre donc une règle à la fois, toujours à côté d'un mot concret.",
+      },
+      {
+        title: "Le test est toujours une nouvelle voix",
+        body: "S'habituer à une seule personne est facile et ne prouve rien. Ce qui compte, c'est que cela se transfère à une voix jamais entendue. Heidi entraîne donc avec de nombreuses voix et teste toujours avec une inconnue.",
+      },
+      {
+        title: "Parler vient en dernier, et ce n'est pas une lacune",
+        body: "Les adultes atteignent rarement une prononciation native dans un second dialecte, et en Suisse cela pèse moins qu'ailleurs : comprendre le dialecte et répondre en allemand standard est normal et respecté. Heidi ne vous vend donc pas l'écoute comme remède à votre prononciation — les preuves sont faibles.",
+      },
+    ],
+    loopTitle: "La boucle",
+    loopSteps: [
+      "Vous recevez quelque chose que vous ne comprenez pas.",
+      "Heidi l'explique immédiatement — entièrement, pas comme une devinette.",
+      "Un ou deux mots restent, parce qu'ils ont été expliqués au moment utile.",
+      "Les mêmes mots reviennent plus tard, dans une autre phrase.",
+      "Un jour vous les croisez dehors, et Heidi n'est pas là.",
+    ],
+    loopNote:
+      "Le dernier point est le but. La plupart des programmes veulent que vous reveniez. Un produit d'apprentissage devrait vouloir que vous en ayez de moins en moins besoin.",
+  },
+
+  research: {
+    title: "Ce que dit la recherche",
+    lead: "Les produits d'apprentissage accumulent de la pseudoscience parce que « il existe une étude » devient très vite « c'est prouvé », puis un produit entier. Nous séparons trois choses : ce qui est établi, ce que nous supposons, et ce qui n'est qu'une décision.",
+    factTitle: "Établi",
+    factNote: "Nous nous appuyons dessus.",
+    hypothesisTitle: "Hypothèse",
+    hypothesisNote: "Plausible, non testé — et Heidi est l'instrument de mesure.",
+    decisionTitle: "Décision",
+    decisionNote: "Des choix de produit qui restent justes même si l'hypothèse ne se confirme pas.",
+    facts: [
+      {
+        claim: "L'exposition l'emporte sur la distance linguistique.",
+        detail:
+          "Sur 1833 auditeurs et 70 paires de langues, l'exposition à la langue testée comptait plus que la distance lexicale, phonologique ou orthographique.",
+        source: "Gooskens, van Heuven, Golubović, Schüppert, Swarte & Voigt, 2017/18",
+      },
+      {
+        claim: "Les règles consonantiques prédisent bien mieux l'intelligibilité que les vocaliques.",
+        detail: "r ≈ −.74 contre −.29. Deux de nos quatre règles en page d'accueil sont vocaliques, donc le pari le plus faible.",
+        source: "Gooskens & Heeringa",
+      },
+      {
+        claim: "S'entraîner avec de nombreuses voix est ce qui se transfère aux voix inconnues.",
+        detail:
+          "S'exercer avec une seule voix peut mieux réussir sur cette voix-là et ne se transfère pas. Confirmé spécifiquement pour les dialectes régionaux.",
+        source: "Logan, Lively & Pisoni 1991 ; Clopper & Pisoni 2004",
+      },
+      {
+        claim: "Dire quoi écouter est un principe actif, pas un ornement.",
+        detail: "Même matériel, même retour : seul le groupe averti du contraste pertinent a appris.",
+        source: "Pederson & Guion-Anderson, 2010",
+      },
+      {
+        claim: "Se rappeler avec retour l'emporte sur la relecture.",
+        detail: "222 études, 48 478 apprenants ; g ≈ 0,50, et 0,54 avec retour contre 0,37 sans.",
+        source: "Yang, Luo, Vadillo, Yu & Shanks, 2021",
+      },
+      {
+        claim: "La pratique espacée l'emporte sur la pratique massée, et l'avance grandit avec le temps.",
+        detail: "g ≈ 0,76 immédiatement, g ≈ 1,15 après un délai, sur 48 expériences et 3411 personnes.",
+        source: "Kim & Webb, 2022",
+      },
+      {
+        claim: "Les sous-titres aident — après la tentative d'écoute, pas pendant.",
+        detail:
+          "Effet important sur le vocabulaire (g ≈ 0,87), apparemment parce que le texte aide à découper le flux sonore en mots. Un texte affiché en permanence devient une béquille.",
+        source: "Montero-Perez, Van Den Noortgate & Desmet, 2013",
+      },
+      {
+        claim: "L'entraînement à l'écoute n'améliore que faiblement votre propre prononciation.",
+        detail: "d ≈ 0,92 pour la perception, d ≈ 0,54 pour la production, sans corrélation entre les deux.",
+        source: "Sakai & Moorman, 2018",
+      },
+      {
+        claim: "Écrire en dialecte est numériquement normal en Suisse, ce n'est pas de l'argot.",
+        detail: "C'est pourquoi « écrire comme quelqu'un d'ici » est une vraie compétence et non un gadget.",
+        source: "Université de Berne, Texting in Time ; UZH, What's Up",
+      },
+    ],
+    hypotheses: [
+      {
+        claim: "Les règles sonores fonctionnent comme indice dans la pratique même si elles échouent comme leçon.",
+        detail:
+          "Le seul test propre de la forme « leçon » — 50 minutes de néerlandais-frison — n'a montré aucun effet significatif, et les auteurs eux-mêmes mettent en garde contre toute généralisation. Toute la tradition européenne d'intercompréhension est, selon les chercheurs de référence, pratiquement non évaluée. Notre variante est donc celle qui n'a pas été testée. Nous la mesurons.",
+        source: "Bergsma, Swarte & Gooskens, 2014",
+      },
+      {
+        claim: "Une courte mise en oreille améliore de façon mesurable la compréhension d'une voix inconnue.",
+        detail:
+          "Ce qui est établi après environ une minute, c'est une vitesse de traitement accrue — pas davantage de mots compris. Nous n'affirmons donc pas qu'une minute vous fait comprendre plus.",
+        source: "Clarke & Garrett, 2004",
+      },
+    ],
+    decisions: [
+      "Écouter avant d'écrire avant de parler — justifié par la situation linguistique, pas seulement par les preuves.",
+      "Mesuré plutôt que gamifié. Pas de séries, pas de points.",
+      "La voix de test est toujours une voix que vous n'avez pas entendue.",
+      "De vrais enregistrements zurichois, car tout corpus zurichois disponible n'est licencié que pour la recherche.",
+      "Le modèle ne juge jamais son propre dialecte.",
+    ],
+    honestyTitle: "Là où nous nous sommes corrigés",
+    honestyBody:
+      "Ce site a dit un jour que la forme « leçon » des règles sonores avait été « testée et n'avait pas fonctionné ». Une seule étude de 50 minutes ne porte pas ce poids, et cela faisait passer notre propre variante pour prouvée alors qu'elle est la non testée. Il disait aussi qu'aucune synthèse vocale suisse allemande n'était achetable ; ce n'est plus vrai.",
+  },
+
+  check: {
+    title: "Vérification du dialecte",
+    intro:
+      "Collez un texte censé être du zurichois. Cette vérification est une liste de règles fixes — pas un modèle de langue — et signale les formes venant d'une autre région alémanique ou inexistantes en Suisse.",
+    placeholder: "Das isch nid güet, gäu",
+    button: "Vérifier",
+    ok: "Aucune forme étrangère trouvée. Cela peut passer pour du zurichois.",
+    okShort: "Propre",
+    failShort: "Trouvé",
+    suggests: "mieux",
+    whyTitle: "Pourquoi ce n'est pas un détail",
+    whyBody:
+      "Les formes bernoises, bâloises et de Suisse orientale sont des mots parfaitement corrects — simplement pas ici. Qui apprend le zurichois ne peut, par définition, pas entendre la différence. C'est précisément pourquoi cette décision ne doit pas revenir à un modèle de langue.",
+    noteTitle: "À propos de l'orthographe",
+    noteBody:
+      "Le zurichois n'a pas d'orthographe officielle. Cette vérification ne vous dira jamais que votre graphie est fausse — seulement qu'une forme vient d'une autre région.",
+  },
+
+  contribute: {
+    title: "Nous cherchons des voix zurichoises",
+    lead: "Chaque seconde de dialecte que vous entendrez chez Heidi vient d'une personne réelle de Zurich. C'est cher et lent, et nous le faisons quand même.",
+    whyTitle: "Pourquoi pas simplement des voix synthétiques",
+    whyBody:
+      "La raison honnête n'est pas qu'il n'existe pas de synthèse vocale suisse allemande — il en existe désormais. La raison est la licence. Chaque corpus de parole zurichoise que nous avons trouvé est publié pour la recherche et non pour un produit. Qui a besoin de vrai zurichois, proprement licencié et consenti, doit l'enregistrer lui-même. S'ajoute ce que les voix synthétiques font mal de toute façon : le rythme, les mots avalés, l'hésitation, la différence entre deux personnes du même quartier.",
+    needTitle: "Ce dont nous avons besoin",
+    needList: [
+      "Des personnes ayant grandi dans le canton de Zurich, ou y vivant depuis longtemps.",
+      "Des phrases tout à fait ordinaires — pas de lecture de littérature.",
+      "Des âges, des genres, des quartiers et des débits différents.",
+      "Vingt minutes de votre temps, chez vous ou chez nous.",
+    ],
+    consentTitle: "Ce qu'il advient de l'enregistrement",
+    consentBody:
+      "Vous gardez la main. Nous vous disons à l'avance à quoi servira l'enregistrement, vous pouvez le retirer, et le consentement pour le produit n'est pas celui pour la recherche. Nous supposons que vous ne voulez pas du second tant que vous ne le dites pas explicitement.",
+    ctaTitle: "Écrivez-nous",
+    ctaBody: "Un court message suffit. Dites-nous de quelle partie du canton vous venez.",
+    ctaButton: "Envoyer un e-mail",
+  },
+
+  about: {
+    title: "À propos de Heidi",
+    lead: "Heidi est un projet du studio OrangeCat à Zurich. Il est construit à découvert — y compris les parties qui n'ont pas marché.",
+    sections: [
+      {
+        title: "Pourquoi cela existe",
+        body: "Parce que beaucoup de gens ici suivent le même chemin : apprendre l'allemand, s'installer, puis découvrir que la partie décisive de la langue ne s'écrit nulle part. Ce n'est pas un problème de niche mais l'expérience ordinaire de cette ville.",
+      },
+      {
+        title: "Comment nous travaillons",
+        body: "Nous avons d'abord lu ce que dit la recherche, et seulement ensuite construit. Trois résultats ont renversé le plan que nous aurions autrement livré. Ce que nous avons appris figure sur la page Recherche — y compris les endroits où nous avons dû nous corriger publiquement.",
+      },
+      {
+        title: "Ce qui manque encore",
+        body: "Aujourd'hui : comprendre et répondre à du vrai texte. Ensuite : le laboratoire d'écoute, où vous entendez une voix zurichoise, vous vous y faites, et nous mesurons ce que vous saisissez d'une autre. Cela demande des enregistrements, et ils se font.",
+      },
+    ],
+    stateTitle: "Où nous en sommes",
+  },
+
+  errors: {
+    notFoundTitle: "Cette page n'existe pas",
+    notFoundBody: "Le lien est peut-être ancien, ou nous avons déplacé quelque chose.",
+    backHome: "Retour à l'accueil",
+  },
+};

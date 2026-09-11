@@ -31,7 +31,7 @@ function forbiddenExamples(pack: VarietyPack): string[] {
     .map((r) => (r.suggest ? `${String(r.match)} (write ${r.suggest})` : String(r.match)));
 }
 
-export function systemPrompt(pack: VarietyPack): string {
+export function systemPrompt(pack: VarietyPack, explainIn = "English"): string {
   const sibling = siblingOf(pack);
   const avoid = contaminants(pack);
   const examples = forbiddenExamples(pack);
@@ -51,7 +51,11 @@ export function systemPrompt(pack: VarietyPack): string {
       ? `- Spelling follows ${pack.orthography.convention}.`
       : `- There is no official spelling. Follow ${pack.orthography.convention} and be internally consistent:` +
         " the same word must be spelled the same way every time it appears in your answer.",
-    "- Explanations are in English, short, and attached to something the person actually wrote.",
+    // The reader's own language, not the target and not a default. Someone
+    // reading the Italian site is not helped by English glosses.
+    `- Write ALL explanations, meanings and notes in ${explainIn}. Only the`,
+    `  ${pack.name} itself stays in ${pack.name}.`,
+    "- Explanations are short, and attached to something the person actually wrote.",
     "- Never invent a word you are unsure of. If you are unsure, say so in the meaning field.",
     "",
     "CORRESPONDENCES you may cite when they explain a specific word:",
@@ -64,9 +68,13 @@ export function systemPrompt(pack: VarietyPack): string {
 }
 
 /** Asked when the user gives us text in the target variety they want decoded. */
-export function understandPrompt(pack: VarietyPack, input: string): string {
+export function understandPrompt(pack: VarietyPack, input: string, explainIn = "English"): string {
   const sibling = siblingOf(pack);
   return [
+    // The key is called "english" for historical reasons; its CONTENT follows
+    // the reader's language. Saying so beats renaming the key in five places.
+    `Note: the JSON key "english" means "the explanation", and must be written in ${explainIn}.`,
+    "",
     `The person received this and does not fully understand it. It should be ${pack.name}, but it may not be —`,
     "if it is from a different variety or a different language entirely, say so in `note`.",
     "",
@@ -76,7 +84,7 @@ export function understandPrompt(pack: VarietyPack, input: string): string {
     "",
     "Return exactly this JSON shape:",
     "{",
-    '  "meaning": "what it says, in plain English, one or two sentences",',
+    '  "meaning": "what it says, in the explanation language, one or two sentences",',
     '  "tone": "one of: warm, neutral, formal, curt, playful, annoyed",',
     '  "toneNote": "one short sentence on what the tone implies socially, or \\"\\"",',
     '  "glosses": [',
@@ -97,8 +105,10 @@ export function understandPrompt(pack: VarietyPack, input: string): string {
 }
 
 /** Asked when the user gives us what they want to say and wants it in the variety. */
-export function producePrompt(pack: VarietyPack, input: string): string {
+export function producePrompt(pack: VarietyPack, input: string, explainIn = "English"): string {
   return [
+    `Note: the JSON key "english" means "the explanation", and must be written in ${explainIn}.`,
+    "",
     `The person wants to say something in ${pack.name}. It may be written in any language.`,
     "",
     "```",

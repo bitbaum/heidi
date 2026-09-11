@@ -130,6 +130,12 @@ export type VarietyRule = {
    */
   match: string | RegExp;
   severity: Severity;
+  /**
+   * How to show this rule to a human. Required for a RegExp, because the
+   * alternative is a page that prints `(?<!\p{L})tüü?tsch(?!\p{L})` at a
+   * learner — which is what it did before this field existed.
+   */
+  display?: string;
   /** Why it is flagged, in English, for a learner. */
   reason: string;
   /** The variety it actually belongs to, when known. */
@@ -197,6 +203,12 @@ export type VarietyPack = {
 /** The surface this pack opens on — never assumed, always read. */
 export function frontDoor(pack: VarietyPack): Skill {
   return pack.learner.priority[0];
+}
+
+/** What to print for a rule. Literal matches show themselves. */
+export function ruleLabel(rule: VarietyRule): string {
+  if (rule.display) return rule.display;
+  return typeof rule.match === "string" ? rule.match : rule.match.source;
 }
 
 /** The sibling bridge a pack teaches from, if it has one. */
