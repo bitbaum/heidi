@@ -1,12 +1,22 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { LANDING } from "@/lib/config/landing";
+import { SITE_URL } from "@/lib/config/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: { default: "Heidi", template: "%s · Heidi" },
-  description: "Heidi",
-  metadataBase: new URL("https://heidi.orangecat.ch"),
-  openGraph: { siteName: "Heidi", type: "website" },
+  description: LANDING.sub,
+  metadataBase: new URL(SITE_URL),
+  openGraph: {
+    siteName: "Heidi",
+    type: "website",
+    title: LANDING.brand,
+    description: LANDING.sub,
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 /**

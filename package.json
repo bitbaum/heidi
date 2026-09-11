@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "verify": "pnpm run type-check && pnpm run lint && pnpm run test",
-    "test": "node --no-warnings --experimental-strip-types --test \"lib/**/*.test.ts\""
+    "test": "node --no-warnings --experimental-strip-types --test 'app/**/*.test.ts' 'lib/**/*.test.ts'"
   },
   "dependencies": {
     "@bitbaum/ai-kit": "^0.15.0",

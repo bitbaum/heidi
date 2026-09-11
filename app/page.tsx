@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { LANDING } from "@/lib/config/landing";
+import { CHECK } from "@/lib/config/check";
 import { VARIETY } from "@/lib/variety/active";
 import { Ask } from "./ask";
 
@@ -14,9 +16,21 @@ export default function Home() {
   const c = LANDING;
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-shell flex-col px-5 sm:px-8">
-      <header className="flex items-baseline justify-between border-b border-border-subtle py-5">
-        <span className="font-heading text-2xl font-semibold tracking-display text-fg-primary">{c.brand}</span>
-        <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{c.eyebrow}</span>
+      <header className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-b border-border-subtle py-5">
+        <span className="whitespace-nowrap font-heading text-2xl font-semibold tracking-display text-fg-primary">
+          {c.brand}
+        </span>
+        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          <Link
+            href={CHECK.headerLink.href}
+            className="whitespace-nowrap font-mono text-[11px] uppercase tracking-caps text-link underline underline-offset-4 hover:text-accent"
+          >
+            {CHECK.headerLink.label}
+          </Link>
+          <span className="whitespace-nowrap font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+            {c.eyebrow}
+          </span>
+        </div>
       </header>
 
       <main className="flex-1">
