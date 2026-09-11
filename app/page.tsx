@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LANDING } from "@/lib/config/landing";
+import { VARIETY } from "@/lib/variety/active";
 
 export default function Home() {
   const c = LANDING;
@@ -37,14 +38,14 @@ export default function Home() {
 
         <section className="border-y border-border-subtle py-10 sm:py-12" aria-label="Sound correspondences">
           <ul className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
-            {c.correspondences.map((p) => (
-              <li key={p.de} className="font-mono">
+            {VARIETY.correspondences.map((p) => (
+              <li key={p.bridge} className="font-mono">
                 <div className="text-lg sm:text-xl">
-                  <span className="text-fg-muted">{p.de}</span>
+                  <span className="text-fg-muted">{p.bridge}</span>
                   <span className="mx-2 text-fg-muted" aria-hidden="true">
                     →
                   </span>
-                  <span className="font-medium text-dialect">{p.gsw}</span>
+                  <span className="font-medium text-dialect">{p.target}</span>
                 </div>
                 <div className="mt-1 text-[11px] uppercase tracking-caps text-fg-muted">{p.rule}</div>
               </li>

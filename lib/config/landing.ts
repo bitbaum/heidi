@@ -10,15 +10,13 @@ export const LANDING = {
   cta: { label: "Try Heidi", href: "/try" },
   secondary: { label: "Why understanding comes first", href: "#understand" },
 
-  /** The subject's own detail: the rules that turn German you know into Zurich German you don't. */
-  correspondences: [
-    { de: "Kind", gsw: "Chind", rule: "k → ch" },
-    { de: "Haus", gsw: "Huus", rule: "au → uu" },
-    { de: "ist", gsw: "isch", rule: "st → sch" },
-    { de: "gut", gsw: "guet", rule: "u → ue" },
-  ],
+  /**
+   * The correspondences themselves are NOT here — they are linguistic content
+   * and live in the variety pack (`lib/variety/packs/`), which the page reads
+   * directly. Copy about them stays here.
+   */
   correspondencesNote:
-    "A dozen regular rules like these unlock hundreds of words you already own. Heidi teaches them inside listening practice, not as a lecture — the lecture version was tested and did not work.",
+    "A dozen regular rules like these unlock hundreds of words you already own. Heidi shows them one at a time, beside a clip you are about to hear again, rather than as a lecture up front. Honestly: the lecture version is the only version anyone has rigorously tested, and it produced no measurable gain. Ours has not been tested — so Heidi measures it.",
 
   sections: [
     {
