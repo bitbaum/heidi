@@ -1,0 +1,290 @@
+import type { Dictionary } from "./de.ts";
+
+export const en: Dictionary = {
+  meta: {
+    title: "Heidi — understand Zurich German",
+    description:
+      "Understand what is actually spoken in Zurich. Heidi decodes real messages, explains the words you do not know yet, and checks every reply against Zurich forms.",
+  },
+
+  nav: {
+    home: "Start",
+    method: "Method",
+    research: "Research",
+    check: "Dialect check",
+    contribute: "Contribute",
+    about: "About",
+    skipToContent: "Skip to content",
+    menu: "Menu",
+    language: "Language",
+  },
+
+  footer: {
+    tagline: "Understand Zurich German, then take part.",
+    builtOn: "Built on OrangeCat, in Zürich.",
+    sections: "Pages",
+    projectTitle: "Project",
+    languageTitle: "Language",
+    openSource: "Built in the open",
+    openSourceNote: "We write down what we learn — including what did not work.",
+    rights: "A project of the OrangeCat studio, Zürich.",
+  },
+
+  home: {
+    eyebrow: "Züritüütsch · Zürich",
+    headline: "Understand Zurich German. Then write like someone from here.",
+    sub: "For people who already know German and still understand nothing at the lunch table. Paste what you received — or write what you mean.",
+    trustTitle: "Every line is checked before you see it",
+    trustBody:
+      "A language model asked for Swiss German will happily hand you Bernese, and you would have no way to tell. So at Heidi the model does not decide what counts as Zurich German. A fixed rule check does, and you can run it yourself.",
+    trustLink: "Try the check",
+    correspondencesTitle: "A dozen rules unlock hundreds of words",
+    pillarsTitle: "How Heidi works",
+    methodLink: "The full method",
+    researchLink: "What the research says",
+    contributeTitle: "We are looking for Zurich voices",
+    contributeBody:
+      "Every second of dialect you will hear in Heidi comes from a real person in Zurich. If you would let us record you speaking, get in touch.",
+    contributeCta: "Take part",
+  },
+
+  ask: {
+    understand: "Understand",
+    produce: "Say it",
+    understandHint: "Paste something you received",
+    produceHint: "Write what you mean",
+    understandPlaceholder: "Im Kauz scho, hät mer nöd so gfalle. Du au?",
+    producePlaceholder: "Tell them I am running ten minutes late — friendly.",
+    submit: "Ask",
+    working: "Heidi is reading …",
+    shortcut: "⌘ + Enter",
+    tryOne: "Or try one",
+    meaningTitle: "What it says",
+    sendTitle: "Send this",
+    glossTitle: "Words worth keeping",
+    repliesTitle: "You could reply",
+    alternativesTitle: "Other ways to put it",
+    copy: "Copy",
+    copied: "Copied",
+    flagged: "Not Zurich German:",
+    checkedNote: "Every line above was checked against Zurich forms",
+    notConfigured: "The language model is not configured on this deployment yet.",
+    unreachable: "Could not reach Heidi. Check your connection and try again.",
+    failed: "Heidi could not answer that just now. Try again in a moment.",
+    empty: "Give Heidi something to work with.",
+    tooLong: "That is longer than 2000 characters.",
+    explanationsIn: "Explanations in English",
+    examplesUnderstand: [
+      "Im Kauz scho, hät mer nöd so gfalle. Du au?",
+      "Chunnsch au no verbi hüt Abig?",
+      "Gsehd guet us, mir mached das so.",
+    ],
+    examplesProduce: [
+      "Tell them I am running ten minutes late — friendly.",
+      "Ask my neighbour whether I can leave a parcel with her.",
+      "Turn down a dinner invitation without sounding cold.",
+    ],
+  },
+
+  pillars: [
+    {
+      title: "Understanding comes first",
+      body: "Listening before speaking. In Switzerland, understanding dialect and replying in Standard German is a complete and respected way to belong. It is also the only way to keep the input coming: the moment people notice you struggling, they switch to Hochdeutsch.",
+    },
+    {
+      title: "Real life is the curriculum",
+      body: "No invented exercises. The message that arrived this morning, the sentence from the lunch table, the refusal you have to write — that is the material. Heidi helps immediately, and notes what you did not know.",
+    },
+    {
+      title: "Measured, not gamified",
+      body: "No streaks, no points, no invented percentages. The number we want to show you is how much of an unfamiliar Zurich speaker you understand — before and after.",
+    },
+  ],
+
+  method: {
+    title: "The method",
+    lead: "Heidi is built on what the research actually shows, rather than on what sells well as a language course. That leads to a few decisions that look strange at first.",
+    sections: [
+      {
+        title: "The trap Heidi gets you out of",
+        body: "You learn German, move to Zurich, and find it does not help. Dialect is spoken at the table, you understand almost none of it, and because it shows, everyone politely switches to Hochdeutsch or English. The very input that would make you better is withdrawn because you need it. Heidi is a source of dialect that does not switch away.",
+      },
+      {
+        title: "Exposure beats rules",
+        body: "In the largest study of how people understand closely related languages, sheer amount of exposure mattered more than any measure of linguistic distance. Grammar is not what decides it; how much you have heard is. So Heidi is not a course of lessons but a place where real dialect keeps arriving.",
+      },
+      {
+        title: "Rules belong inside practice, not before it",
+        body: "Chind, Huus, isch, guet — the sound rules are real and useful. But the only clean test of teaching them as a lesson up front showed no measurable effect. What does demonstrably work: telling someone what to listen for, right before they hear it again. So Heidi shows one rule at a time, always next to a concrete word.",
+      },
+      {
+        title: "The test is always a new voice",
+        body: "Getting used to one speaker is easy and proves nothing. What counts is whether it carries over to a voice you have never heard. So Heidi trains with many speakers and always tests with an unfamiliar one.",
+      },
+      {
+        title: "Speaking comes last, and that is not a gap",
+        body: "Adults rarely reach native pronunciation in a second dialect, and in Switzerland that matters less than almost anywhere: understanding dialect and replying in Standard German is normal and respected. So Heidi does not sell you listening practice as a fix for your speaking — the evidence for that is weak.",
+      },
+    ],
+    loopTitle: "The loop",
+    loopSteps: [
+      "You receive something you do not understand.",
+      "Heidi explains it immediately — completely, not as a puzzle.",
+      "A word or two sticks, because it was explained when you needed it.",
+      "The same words come back later, in a different sentence.",
+      "Eventually you meet them out in the world, and Heidi is not there.",
+    ],
+    loopNote:
+      "The last one is the goal. Most programmes want you to come back. A learning product should want you to need it less.",
+  },
+
+  research: {
+    title: "What the research says",
+    lead: "Language-learning products accumulate pseudoscience because “there is a study” turns very quickly into “this is proven” and then into a whole product. We keep three things apart: what is established, what we suspect, and what is simply a decision.",
+    factTitle: "Established",
+    factNote: "We rely on these.",
+    hypothesisTitle: "Hypothesis",
+    hypothesisNote: "Plausible, untested — and Heidi is the instrument.",
+    decisionTitle: "Decision",
+    decisionNote: "Product choices that stay right even if the hypothesis does not hold.",
+    facts: [
+      {
+        claim: "Exposure beats linguistic distance.",
+        detail:
+          "Across 1,833 listeners and 70 language pairs, exposure to the test language mattered more than lexical, phonological or orthographic distance.",
+        source: "Gooskens, van Heuven, Golubović, Schüppert, Swarte & Voigt, 2017/18",
+      },
+      {
+        claim: "Consonant rules predict intelligibility far better than vowel rules.",
+        detail: "r ≈ −.74 against −.29. Two of our four front-page rules are vowel rules, and so the weaker bet.",
+        source: "Gooskens & Heeringa",
+      },
+      {
+        claim: "Training with many voices is what carries over to unfamiliar ones.",
+        detail:
+          "Practising with a single voice can score better on that voice and fails to transfer. Confirmed specifically for regional dialects.",
+        source: "Logan, Lively & Pisoni 1991; Clopper & Pisoni 2004",
+      },
+      {
+        claim: "Saying what to listen for is an active ingredient, not decoration.",
+        detail: "Same material, same feedback: only the group cued to the relevant contrast learned it.",
+        source: "Pederson & Guion-Anderson, 2010",
+      },
+      {
+        claim: "Retrieval with feedback beats rereading.",
+        detail: "222 studies, 48,478 learners; g ≈ 0.50, and 0.54 with feedback against 0.37 without.",
+        source: "Yang, Luo, Vadillo, Yu & Shanks, 2021",
+      },
+      {
+        claim: "Spaced practice beats massed, and the lead grows over time.",
+        detail: "g ≈ 0.76 immediately, g ≈ 1.15 after a delay, across 48 experiments and 3,411 people.",
+        source: "Kim & Webb, 2022",
+      },
+      {
+        claim: "Captions help — after the listening attempt, not during it.",
+        detail:
+          "Large effect on vocabulary (g ≈ 0.87), apparently because text helps cut the stream of sound into words. Permanently visible text becomes a crutch.",
+        source: "Montero-Perez, Van Den Noortgate & Desmet, 2013",
+      },
+      {
+        claim: "Listening training improves your own speaking only weakly.",
+        detail: "d ≈ 0.92 for perception, d ≈ 0.54 for production, with no correlation between the two.",
+        source: "Sakai & Moorman, 2018",
+      },
+      {
+        claim: "Writing dialect is digitally normal in Switzerland, not slang.",
+        detail: "That is why “write like someone from here” is a real competence and not a gimmick.",
+        source: "University of Bern, Texting in Time; UZH, What's Up",
+      },
+    ],
+    hypotheses: [
+      {
+        claim: "Sound rules work as a cue inside practice even though they fail as a lesson.",
+        detail:
+          "The only clean test of the lesson form — 50 minutes of Dutch–Frisian — showed no significant effect, and the authors themselves warn against generalising it. The entire European intercomprehension tradition is, in the words of the leading researchers, essentially unevaluated. Our version is therefore the untested one. So we measure it.",
+        source: "Bergsma, Swarte & Gooskens, 2014",
+      },
+      {
+        claim: "A short tuning session measurably improves comprehension of an unfamiliar voice.",
+        detail:
+          "What is established after about a minute is faster processing — not more words understood. So we do not claim that a minute makes you understand more.",
+        source: "Clarke & Garrett, 2004",
+      },
+    ],
+    decisions: [
+      "Listening before writing before speaking — justified by the language situation, not only by evidence.",
+      "Measured rather than gamified. No streaks, no points.",
+      "The test voice is always one you have not heard.",
+      "Real Zurich recordings, because every available Zurich corpus is licensed for research only.",
+      "The model never judges its own dialect.",
+    ],
+    honestyTitle: "Where we corrected ourselves",
+    honestyBody:
+      "This site once said the lesson form of the sound rules had been “tested and did not work”. A single 50-minute study does not carry that weight, and it made our own version look evidenced when it is the untested one. It also said there was no purchasable Swiss German speech synthesis; that is no longer true.",
+  },
+
+  check: {
+    title: "Dialect check",
+    intro:
+      "Paste text that is meant to be Zurich German. This check is a fixed list of rules — not a language model — and marks forms that come from another Swiss German region or do not occur in Switzerland at all.",
+    placeholder: "Das isch nid güet, gäu",
+    button: "Check",
+    ok: "No foreign forms found. This can pass as Zurich German.",
+    okShort: "Clean",
+    failShort: "Found",
+    suggests: "better",
+    whyTitle: "Why this is not a detail",
+    whyBody:
+      "Bernese, Basel and Eastern Swiss forms are perfectly correct words — just not here. Someone learning Zurich German cannot, by definition, hear the difference. Which is exactly why that decision must not sit with a language model.",
+    noteTitle: "About spelling",
+    noteBody:
+      "Zurich German has no official spelling. This check never tells you your spelling is wrong — only that a form comes from another region.",
+  },
+
+  contribute: {
+    title: "We are looking for Zurich voices",
+    lead: "Every second of dialect you will hear in Heidi comes from a real person in Zurich. That is expensive and slow, and we are doing it anyway.",
+    whyTitle: "Why not just synthetic voices",
+    whyBody:
+      "The honest reason is not that Swiss German speech synthesis does not exist — by now it does. The reason is licensing. Every Zurich speech corpus we found is released for research and not for a product. Anyone who needs real, cleanly licensed, consented Zurich German has to record it themselves. On top of that there is what synthetic voices are bad at anyway: pace, mumbling, hesitation, the difference between two people from the same neighbourhood.",
+    needTitle: "What we need",
+    needList: [
+      "People who grew up in the canton of Zurich, or have lived here a long time.",
+      "Completely ordinary sentences — not reading literature aloud.",
+      "Different ages, genders, neighbourhoods and speaking speeds.",
+      "Twenty minutes of your time, at your place or ours.",
+    ],
+    consentTitle: "What happens to the recording",
+    consentBody:
+      "You stay in control. We tell you in advance what the recording will be used for, you can withdraw it, and consent for the product is not the same as consent for research. We assume you do not want the second unless you say so explicitly.",
+    ctaTitle: "Get in touch",
+    ctaBody: "A short message is enough. Tell us which part of the canton you are from.",
+    ctaButton: "Write an email",
+  },
+
+  about: {
+    title: "About Heidi",
+    lead: "Heidi is a project of the OrangeCat studio in Zürich. It is built in the open — including the parts that did not work.",
+    sections: [
+      {
+        title: "Why it exists",
+        body: "Because a great many people here take the same path: learn German, move over, and then find that the decisive part of the language is not written down anywhere. That is not a niche problem but the standard experience in this city.",
+      },
+      {
+        title: "How we work",
+        body: "We read what the research says first, and only then built. Three findings overturned the plan we would otherwise have shipped. What we learned is on the research page — including the places where we had to correct ourselves in public.",
+      },
+      {
+        title: "What is still missing",
+        body: "Today: understanding and replying to real text. Next: the listening lab, where you hear one Zurich voice, tune in, and we measure how much you catch of another. That needs recordings, and they are being made.",
+      },
+    ],
+    stateTitle: "Where things stand",
+  },
+
+  errors: {
+    notFoundTitle: "This page does not exist",
+    notFoundBody: "Maybe the link is old, maybe we moved something.",
+    backHome: "Back to the start",
+  },
+};

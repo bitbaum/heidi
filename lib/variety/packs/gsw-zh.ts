@@ -50,6 +50,7 @@ export const ZURICH_GERMAN: VarietyPack = {
   rules: [
     {
       match: /(?<!\p{L})tüü?tsch(?!\p{L})/giu,
+      display: "tüütsch / tütsch",
       severity: "foreign",
       origin: "Ostschweiz",
       reason: "Ostschweiz form — Zurich says it only inside Züritüütsch",
@@ -59,6 +60,7 @@ export const ZURICH_GERMAN: VarietyPack = {
     { match: "gäu", severity: "foreign", origin: "Bernese", reason: "Bernese tag 'gäu' — Zurich says gäll", suggest: "gäll" },
     {
       match: /\p{L}*öu\p{L}*/giu,
+      display: "…öu…",
       severity: "foreign",
       origin: "Bernese",
       reason: "Bernese öu diphthong — Zurich says au",
@@ -66,6 +68,7 @@ export const ZURICH_GERMAN: VarietyPack = {
     { match: "sai", severity: "foreign", origin: "Basel", reason: "Basel 'sai'" },
     {
       match: /ß/gu,
+      display: "ß",
       severity: "unattested",
       reason: "ß is not used anywhere in Switzerland — write ss",
       suggest: "ss",

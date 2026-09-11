@@ -1,0 +1,306 @@
+import type { Dictionary } from "./de.ts";
+
+/**
+ * Rumantsch Grischun — the standardised written form.
+ *
+ * STATUS: written with care and NOT yet reviewed by a native speaker. Romansh
+ * has roughly 40,000 speakers, every one of whom would see a machine-shaped
+ * sentence immediately, and the idioms (Sursilvan, Vallader, Puter, Surmiran,
+ * Sutsilvan) differ enough that Grischun is itself a compromise some readers
+ * dislike. Shipping it unreviewed is a deliberate, stated trade: a fourth
+ * national language present and imperfect beats absent. It is on the list to
+ * be read by someone who actually speaks it.
+ *
+ * The assistant deliberately answers Romansh readers in German — see
+ * EXPLANATION_LANGUAGE in locales.ts. A model generating Romansh linguistic
+ * explanations would be inventing, at exactly the audience least willing to
+ * forgive it.
+ */
+export const rm: Dictionary = {
+  meta: {
+    title: "Heidi — chapir il tudestg da Turitg",
+    description:
+      "Chapir quai che vegn discurrì propi a Turitg. Heidi decifrescha messadis reals, declera ils pleds che Vus na enconuschais anc betg e controllescha mintga resposta tenor las furmas turitgaisas.",
+  },
+
+  nav: {
+    home: "Cumenzament",
+    method: "Metoda",
+    research: "Perscrutaziun",
+    check: "Controlla",
+    contribute: "Far part",
+    about: "Davart nus",
+    skipToContent: "Al cuntegn",
+    menu: "Menu",
+    language: "Lingua",
+  },
+
+  footer: {
+    tagline: "Chapir il tudestg da Turitg, e lura far part.",
+    builtOn: "Construì sin OrangeCat, a Turitg.",
+    sections: "Paginas",
+    projectTitle: "Project",
+    languageTitle: "Lingua",
+    openSource: "Construì a la vista",
+    openSourceNote: "Nus scrivain quai che nus emprendain — er quai che n'ha betg funcziunà.",
+    rights: "In project dal studio OrangeCat, Turitg.",
+  },
+
+  home: {
+    eyebrow: "Züritüütsch · Turitg",
+    headline: "Chapir il tudestg da Turitg. E lura scriver sco insatgi da qua.",
+    sub: "Per tut quels che san gia tudestg e na chapeschan tuttina nagut a maisa. Encollai quai che Vus avais retschavì — u scrivai quai che Vus vulais dir.",
+    trustTitle: "Mintga lingia vegn controllada avant che Vus la vesais",
+    trustBody:
+      "In model da lingua al qual ins dumonda tudestg svizzer dat gugent bernais, e Vus n'avessas nagina pussaivladad da l'annotar. Tar Heidi na decida pia betg il model tge che è tudestg da Turitg: quai fa ina controlla cun reglas fixas, che Vus pudais exequir svess.",
+    trustLink: "Empruvar la controlla",
+    correspondencesTitle: "Ina dozena da reglas avran tschientinas da pleds",
+    pillarsTitle: "Co che Heidi lavura",
+    methodLink: "Tut la metoda",
+    researchLink: "Tge che di la perscrutaziun",
+    contributeTitle: "Nus tschertgain vuschs turitgaisas",
+    contributeBody:
+      "Mintga secunda da dialect che Vus vegnis a udir tar Heidi vegn d'ina persuna reala da Turitg. Sche Vus ans laschais registrar Vossa vusch, scrivai a nus.",
+    contributeCta: "Far part",
+  },
+
+  ask: {
+    understand: "Chapir",
+    produce: "Dir",
+    understandHint: "Encollai quai che Vus avais retschavì",
+    produceHint: "Scrivai quai che Vus vulais dir",
+    understandPlaceholder: "Im Kauz scho, hät mer nöd so gfalle. Du au?",
+    producePlaceholder: "Di ad els che jau arriv diesch minutas pli tard — amiaivlamain.",
+    submit: "Dumandar",
+    working: "Heidi legia …",
+    shortcut: "⌘ + Enter",
+    tryOne: "U empruvai quai",
+    meaningTitle: "Quai vul dir",
+    sendTitle: "Quai pudais Vus trametter",
+    glossTitle: "Pleds da tegnair",
+    repliesTitle: "Vus pudessas respunder",
+    alternativesTitle: "Autras furmulaziuns",
+    copy: "Copiar",
+    copied: "Copià",
+    flagged: "Betg tudestg da Turitg:",
+    checkedNote: "Mintga lingia survart è vegnida controllada tenor las furmas turitgaisas",
+    notConfigured: "Il model da lingua n'è anc betg configurà sin questa installaziun.",
+    unreachable: "Heidi n'è betg cuntanschibla. Controllai la connexiun ed empruvai danovamain.",
+    failed: "Heidi n'ha betg pudì respunder en quest mument. Empruvai danovamain en in mument.",
+    empty: "Dai a Heidi insatge per lavurar.",
+    tooLong: "Quai è pli lung che 2000 caracters.",
+    explanationsIn: "Decleraziuns per tudestg",
+    examplesUnderstand: [
+      "Im Kauz scho, hät mer nöd so gfalle. Du au?",
+      "Chunnsch au no verbi hüt Abig?",
+      "Gsehd guet us, mir mached das so.",
+    ],
+    examplesProduce: [
+      "Di ad els che jau arriv diesch minutas pli tard — amiaivlamain.",
+      "Dumonda la vischina sche jau poss laschar in pachet tar ella.",
+      "Refusa in invit a tschaina senza parair fraid.",
+    ],
+  },
+
+  pillars: [
+    {
+      title: "Chapir vegn l'emprim",
+      body: "Tadlar avant che discurrer. En Svizra è chapir il dialect e respunder per tudestg standard ina moda cumpletta e respectada d'appartegnair. Ed i è er l'unica moda da betg perder l'exposiziun: uschespert ch'ins vesa che Vus avais difficultads, ins mida al tudestg standard.",
+    },
+    {
+      title: "La vita reala è il program",
+      body: "Naginas exercitaziuns inventadas. Il messadi arrivà questa damaun, la frasa udida a mezdi, la refusa che Vus stuais scriver — quai è il material. Heidi gida immediatamain e sa endamain quai che Vus n'avais betg savì.",
+    },
+    {
+      title: "Mesirà, betg gamificà",
+      body: "Naginas seriras, nagins puncts, naginas pertschientualas inventadas. Il numer che nus vulain Vus mussar è quant ch'e Vus chapis d'ina vusch turitgaisa nunenconuschenta — avant e suenter.",
+    },
+  ],
+
+  method: {
+    title: "La metoda",
+    lead: "Heidi è construida sin quai che la perscrutaziun mussa propi, e betg sin quai che sa vender bain sco curs da lingua. Quai maina a intginas decisiuns che paran l'emprim curiusas.",
+    sections: [
+      {
+        title: "La trapla ord la quala Heidi Vus tira",
+        body: "Vus emprendais tudestg, Vus turnais a Turitg e Vus constatais che quai na gida betg. A maisa vegn discurrì dialect, Vus na chapis quasi nagut, e damai ch'ins al vesa, mida mintgin polittamain al tudestg standard u a l'englais. Gist l'exposiziun che Vus fiss meglier vegn prendida davent perquai che Vus l'avessas basegns. Heidi è ina funtauna da dialect che na mida betg.",
+      },
+      {
+        title: "L'exposiziun surpassa las reglas",
+        body: "En il pli grond studi davart co che las glieud chapescha linguas datiers, contava la pura quantitad d'exposiziun dapli che mintga mesira da distanza linguistica. I na decida betg la gramatica, mabain quant che Vus avais udì. Heidi n'è pia betg ina seria da lecziuns, mabain in lieu nua che arriva cuntinuadamain dialect ver.",
+      },
+      {
+        title: "Las reglas tutgan en la pratica, betg avant",
+        body: "Chind, Huus, isch, guet — las reglas da tun èn realas ed utilas. Ma l'unic test net d'ina lecziun avant n'ha mussà nagin effect mesirabel. Quai che funcziunescha percunter cumprovadamain: dir a insatgi sin tge el duai tadlar, gist avant ch'el l'auda danovamain. Heidi mussa pia mintgamai ina regla, adina sper in pled concret.",
+      },
+      {
+        title: "Il test è adina ina nova vusch",
+        body: "S'adattar ad ina suletta persuna è simpel e na cumprova nagut. Quai che conta è sche l'emprendì passa ad ina vusch mai udida. Heidi exercitescha pia cun bleras vuschs e controllescha adina cun ina nunenconuschenta.",
+      },
+      {
+        title: "Discurrer vegn l'ultim, e quai n'è betg ina mancanza",
+        body: "Creschids cuntanschan darar ina pronunzia sco quella dals indigens en in segund dialect, ed en Svizra pesa quai main che quasi dapertut: chapir il dialect e respunder per tudestg standard è normal e respectà. Heidi na Vus venda pia betg il tadlar sco remedi per Vossa pronunzia — las cumprovas èn flaivlas.",
+      },
+    ],
+    loopTitle: "Il ciclus",
+    loopSteps: [
+      "Vus retschavais insatge che Vus na chapis betg.",
+      "Heidi al declera immediatamain — cumplettamain, betg sco engiavinaditsch.",
+      "In u dus pleds restan, perquai ch'els èn vegnids declerads cur ch'els fageva basegns.",
+      "Ils medems pleds turnan pli tard, en in'autra frasa.",
+      "Ina giada Vus als scuntrais ordadora, e Heidi n'è betg là.",
+    ],
+    loopNote:
+      "L'ultim punct è la finamira. La gronda part dals programs vul che Vus turnais. In product per emprender duess vulair che Vus al avais adina main basegns.",
+  },
+
+  research: {
+    title: "Tge che di la perscrutaziun",
+    lead: "Products per emprender linguas rimnan pseudoscienza perquai che «i dat in studi» daventa fitg spert «quai è cumprovà» e lura in product entir. Nus tegnain separà trais chaussas: quai ch'è segir, quai che nus supponain, e quai ch'è simplamain ina decisiun.",
+    factTitle: "Segir",
+    factNote: "Sin quai ans basain nus.",
+    hypothesisTitle: "Ipotesa",
+    hypothesisNote: "Plausibel, betg testà — e Heidi è l'apparat da mesirar.",
+    decisionTitle: "Decisiun",
+    decisionNote: "Decisiuns da product che restan gistas era sche l'ipotesa na tegna betg.",
+    facts: [
+      {
+        claim: "L'exposiziun surpassa la distanza linguistica.",
+        detail:
+          "Sur 1833 taidlunzas e 70 pèrs da linguas contava l'exposiziun a la lingua testada dapli che la distanza lexicala, fonologica u ortografica.",
+        source: "Gooskens, van Heuven, Golubović, Schüppert, Swarte & Voigt, 2017/18",
+      },
+      {
+        claim: "Reglas da consonantas prevesan l'intelligibilitad bler meglier che reglas da vocals.",
+        detail: "r ≈ −.74 cunter −.29. Duas da nossas quatter reglas sin la pagina principala èn reglas da vocals, pia la scumessa pli flaivla.",
+        source: "Gooskens & Heeringa",
+      },
+      {
+        claim: "Exercitar cun bleras vuschs è quai che passa a vuschs nunenconuschentas.",
+        detail:
+          "Exercitar cun ina suletta vusch po dar meglras resultats gist sin quella vusch e na passa betg. Confermà specificamain per dialects regiunals.",
+        source: "Logan, Lively & Pisoni 1991; Clopper & Pisoni 2004",
+      },
+      {
+        claim: "Dir sin tge tadlar è in ingredient activ, betg in ornament.",
+        detail: "Medem material, medem resun: mo il gruppa avisada dal contrast relevant ha emprendì.",
+        source: "Pederson & Guion-Anderson, 2010",
+      },
+      {
+        claim: "Rechattar cun resun surpassa il relegier.",
+        detail: "222 studis, 48 478 emprendents; g ≈ 0,50, e 0,54 cun resun cunter 0,37 senza.",
+        source: "Yang, Luo, Vadillo, Yu & Shanks, 2021",
+      },
+      {
+        claim: "Pratica distribuida surpassa la concentrada, e l'avantatg crescha cun il temp.",
+        detail: "g ≈ 0,76 immediatamain, g ≈ 1,15 suenter in intervall, sur 48 experiments e 3411 persunas.",
+        source: "Kim & Webb, 2022",
+      },
+      {
+        claim: "Sutstitels gidan — suenter l'emprova da tadlar, betg durant.",
+        detail:
+          "Grond effect sin il vocabulari (g ≈ 0,87), apparentamain perquai che il text gida a taglier il flum da tuns en pleds. In text adina visibel daventa ina grutscha.",
+        source: "Montero-Perez, Van Den Noortgate & Desmet, 2013",
+      },
+      {
+        claim: "Exercizi da tadlar meglierescha mo flaivlamain Vossa atgna pronunzia.",
+        detail: "d ≈ 0,92 per la perceptziun, d ≈ 0,54 per la producziun, senza correlaziun tranter las duas.",
+        source: "Sakai & Moorman, 2018",
+      },
+      {
+        claim: "Scriver en dialect è digitalmain normal en Svizra, betg giargun.",
+        detail: "Perquai è «scriver sco insatgi da qua» ina cumpetenza vaira e betg in gieu.",
+        source: "Universitad da Berna, Texting in Time; UZH, What's Up",
+      },
+    ],
+    hypotheses: [
+      {
+        claim: "Reglas da tun funcziuneschan sco indizi en la pratica er sch'ellas fallan sco lecziun.",
+        detail:
+          "L'unic test net da la furma «lecziun» — 50 minutas ollandais-fris — n'ha mussà nagin effect significativ, ed ils auturs sezs avertan da generalisar. Tut la tradiziun europeica da l'intercomprensiun è, tenor ils perscrutaders decisivs, praticamain betg evaluada. Nossa variante è pia quella betg testada. Perquai la mesirain nus.",
+        source: "Bergsma, Swarte & Gooskens, 2014",
+      },
+      {
+        claim: "Ina curta adattaziun meglierescha mesirablamain la comprensiun d'ina vusch nunenconuschenta.",
+        detail:
+          "Quai ch'è segir suenter var ina minuta è ina pli gronda spertadad da lavurar — betg dapli pleds chapids. Nus na pretendain pia betg ch'ina minuta Vus fa chapir dapli.",
+        source: "Clarke & Garrett, 2004",
+      },
+    ],
+    decisions: [
+      "Tadlar avant scriver avant discurrer — motivà da la situaziun linguistica, betg mo da las cumprovas.",
+      "Mesirà enstagl da gamificà. Naginas seriras, nagins puncts.",
+      "La vusch da test è adina ina che Vus n'avais betg udì.",
+      "Registraziuns turitgaisas veras, perquai che mintga corpus turitgais disponibel è licenzià mo per la perscrutaziun.",
+      "Il model na giuditgescha mai ses agen dialect.",
+    ],
+    honestyTitle: "Nua che nus ans avain curregì",
+    honestyBody:
+      "Questa pagina ha ina giada ditg che la furma «lecziun» da las reglas da tun saja vegnida «testada e n'haja betg funcziunà». In sulet studi da 50 minutas na porta betg quel pais, ed i fascheva parair nossa atgna variante cumprovada, cunquai ch'ella è quella betg testada. Ella ha er ditg ch'i na dettia nagina sintesa vocala tudestg-svizra da cumprar; quai n'è betg pli vair.",
+  },
+
+  check: {
+    title: "Controlla dal dialect",
+    intro:
+      "Encollai in text che duess esser tudestg da Turitg. Questa controlla è ina glista da reglas fixas — betg in model da lingua — e marchescha furmas che vegnan d'ina autra regiun tudestg-svizra u che n'existan betg en Svizra.",
+    placeholder: "Das isch nid güet, gäu",
+    button: "Controllar",
+    ok: "Naginas furmas estras chattadas. Quai po passar sco tudestg da Turitg.",
+    okShort: "Net",
+    failShort: "Chattà",
+    suggests: "meglier",
+    whyTitle: "Pertge che quai n'è betg ina bagatella",
+    whyBody:
+      "Furmas bernaisas, basilaisas e da la Svizra orientala èn pleds perfetgamain correct — mo betg qua. Tgi che emprenda il tudestg da Turitg na po, per definiziun, betg udir la differenza. Gist perquai na dastga quella decisiun betg esser tar in model da lingua.",
+    noteTitle: "Davart l'ortografia",
+    noteBody:
+      "Il tudestg da Turitg n'ha nagina ortografia uffiziala. Questa controlla na Vus di mai che Vossa scrittira saja fallida — mo ch'ina furma vegn d'ina autra regiun.",
+  },
+
+  contribute: {
+    title: "Nus tschertgain vuschs turitgaisas",
+    lead: "Mintga secunda da dialect che Vus vegnis a udir tar Heidi vegn d'ina persuna reala da Turitg. Quai è char e plaun, e nus al fain tuttina.",
+    whyTitle: "Pertge betg simplamain vuschs sinteticas",
+    whyBody:
+      "La raschun onesta n'è betg ch'i na dettia nagina sintesa vocala tudestg-svizra — ussa i dat. La raschun è la licenza. Mintga corpus da lingua turitgaisa che nus avain chattà è publitgà per la perscrutaziun e betg per in product. Tgi che ha basegns da ver tudestg da Turitg, licenzià net e cun consentiment, sto al registrar sez. Plinavant vegn quai che vuschs sinteticas fan mal tuttina: il ritmus, ils pleds mangiads, l'exitaziun, la differenza tranter duas persunas dal medem quartier.",
+    needTitle: "Tge che nus avain basegns",
+    needList: [
+      "Persunas creschidas en il chantun Turitg, u che vivan qua dapi ditg.",
+      "Frasas dal tuttafatg ordinarias — betg leger literatura.",
+      "Differentas etads, geners, quartiers e spertadads da discurrer.",
+      "Ventg minutas da Voss temp, tar Vus u tar nus.",
+    ],
+    consentTitle: "Tge che capita cun la registraziun",
+    consentBody:
+      "Il control resta tar Vus. Nus Vus din ordavant per tge che la registraziun vegn duvrada, Vus la pudais retrair, ed il consentiment per il product n'è betg quel per la perscrutaziun. Nus supponain che Vus na vulais betg il segund, uschè ditg che Vus nal dis betg explicitamain.",
+    ctaTitle: "Scrivai a nus",
+    ctaBody: "In curt messadi basta. Din a nus da tge part dal chantun che Vus vegnis.",
+    ctaButton: "Scriver in e-mail",
+  },
+
+  about: {
+    title: "Davart Heidi",
+    lead: "Heidi è in project dal studio OrangeCat a Turitg. El vegn construì a la vista — er las parts che n'han betg funcziunà.",
+    sections: [
+      {
+        title: "Pertge ch'i dat quai",
+        body: "Perquai che fitg bleras persunas qua fan il medem viadi: emprender tudestg, turnar qua, e lura constatar che la part decisiva da la lingua na vegn scritta nunloc. Quai n'è betg in problem da nischa, mabain l'experientscha ordinaria da questa citad.",
+      },
+      {
+        title: "Co che nus lavurain",
+        body: "Nus avain l'emprim legì tge che di la perscrutaziun, e mo lura construì. Trais resultats han ruinà il plan che nus avessan uschiglio realisà. Quai che nus avain emprendì sa chatta sin la pagina da perscrutaziun — cumpigliads ils lieus nua che nus ans avain stuì curreger publicamain.",
+      },
+      {
+        title: "Tge che manca anc",
+        body: "Oz: chapir e respunder a text ver. Lura: il laboratori da tadlar, nua che Vus udis ina vusch turitgaisa, Vus Vus adattais, e nus mesirain quant che Vus chapis d'ina autra. Quai dumonda registraziuns, ed ellas vegnan fatgas.",
+      },
+    ],
+    stateTitle: "Nua che nus essan",
+  },
+
+  errors: {
+    notFoundTitle: "Questa pagina n'exista betg",
+    notFoundBody: "Forsa è il link vegl, forsa avain nus spustà insatge.",
+    backHome: "Turnar al cumenzament",
+  },
+};

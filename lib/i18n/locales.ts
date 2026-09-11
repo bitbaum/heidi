@@ -1,0 +1,100 @@
+/**
+ * The languages the SITE speaks. Not the language it teaches.
+ *
+ * These are two different axes, and keeping them apart is the whole reason the
+ * variety pack works:
+ *
+ *   VARIETY  what you are learning — Zurich German. One per deployment.
+ *   locale   what Heidi speaks to YOU while you learn it. Five.
+ *
+ * A French speaker in Zürich is learning exactly the same Züritüütsch as a
+ * German one; only the scaffolding language differs. Conflating the two would
+ * mean a Lesya deployment had to re-translate the site as well as swap the
+ * pack, which is precisely the coupling the pack exists to prevent.
+ *
+ * Why these five: German is the language of the place and therefore the
+ * default. French, Italian and Romansh are the other national languages, and a
+ * product about belonging in Switzerland that speaks only one of them is
+ * making a statement it does not mean to make. English is here because a very
+ * large share of the people with this exact problem are expats.
+ */
+
+export const LOCALES = ["de", "fr", "it", "rm", "en"] as const;
+
+export type Locale = (typeof LOCALES)[number];
+
+/**
+ * German, not English. The site is about living in a German-speaking city;
+ * defaulting to English would quietly agree that you never really arrive.
+ */
+export const DEFAULT_LOCALE: Locale = "de";
+
+export function isLocale(value: string): value is Locale {
+  return (LOCALES as readonly string[]).includes(value);
+}
+
+/** Endonyms — a language picker that names languages in the reader's language is useless. */
+export const LOCALE_NAMES: Record<Locale, string> = {
+  de: "Deutsch",
+  fr: "Français",
+  it: "Italiano",
+  rm: "Rumantsch",
+  en: "English",
+};
+
+/** Short label for the compact switcher. */
+export const LOCALE_SHORT: Record<Locale, string> = {
+  de: "DE",
+  fr: "FR",
+  it: "IT",
+  rm: "RM",
+  en: "EN",
+};
+
+/** BCP-47 for <html lang> and hreflang. Swiss variants where they exist. */
+export const LOCALE_TAGS: Record<Locale, string> = {
+  de: "de-CH",
+  fr: "fr-CH",
+  it: "it-CH",
+  rm: "rm-CH",
+  en: "en",
+};
+
+/**
+ * What the assistant should explain in, named so a model recognises it.
+ *
+ * Romansh is low-resource enough that a model asked to explain in it will
+ * produce something unreliable, aimed at roughly 40,000 speakers who would
+ * immediately see it was wrong. So Romansh readers get German explanations
+ * from the assistant while the site around it stays Romansh, and the interface
+ * says so rather than pretending.
+ */
+export const EXPLANATION_LANGUAGE: Record<Locale, string> = {
+  de: "German",
+  fr: "French",
+  it: "Italian",
+  rm: "German",
+  en: "English",
+};
+
+/** Locales whose assistant output is deliberately not in the site's own language. */
+export const EXPLANATION_FALLBACK: Partial<Record<Locale, Locale>> = { rm: "de" };
+
+/** Best match for an Accept-Language header, else the default. */
+export function negotiate(header: string | null): Locale {
+  if (!header) return DEFAULT_LOCALE;
+  const ranked = header
+    .split(",")
+    .map((part) => {
+      const [tag, q] = part.trim().split(";q=");
+      return { tag: tag.trim().toLowerCase(), q: q ? Number(q) : 1 };
+    })
+    .filter((entry) => entry.tag.length > 0)
+    .sort((a, b) => b.q - a.q);
+
+  for (const { tag } of ranked) {
+    const base = tag.split("-")[0];
+    if (isLocale(base)) return base;
+  }
+  return DEFAULT_LOCALE;
+}
