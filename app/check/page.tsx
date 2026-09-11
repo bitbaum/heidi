@@ -4,12 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { LANDING } from "@/lib/config/landing";
 import { CHECK } from "@/lib/config/check";
-import type { PurityResult } from "@/lib/domain/dialect/purity";
+import type { CheckResult } from "@/lib/variety/check";
 import { HighlightedText } from "./highlighted-text";
 
 export default function CheckPage() {
   const [text, setText] = useState("");
-  const [result, setResult] = useState<PurityResult | null>(null);
+  const [result, setResult] = useState<CheckResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
@@ -28,7 +28,7 @@ export default function CheckPage() {
         setResult(null);
         return;
       }
-      setResult(json as PurityResult);
+      setResult(json as CheckResult);
     } catch {
       setError("Could not reach the check. Try again.");
       setResult(null);
@@ -79,12 +79,19 @@ export default function CheckPage() {
             ) : (
               <>
                 <p className="max-w-measure whitespace-pre-wrap rounded-control border border-border-subtle bg-surface-raised p-4 text-base leading-relaxed text-fg-primary">
-                  <HighlightedText text={text} violations={result.violations} />
+                  <HighlightedText text={text} findings={result.findings} />
                 </p>
                 <ul className="mt-5 flex flex-col gap-3">
-                  {result.violations.map((v, i) => (
-                    <li key={`${v.index}-${i}`} className="font-mono text-sm leading-relaxed text-fg-secondary">
-                      <span className="font-medium text-dialect">{v.form}</span> — {v.reason}
+                  {result.findings.map((f, i) => (
+                    <li key={`${f.index}-${i}`} className="font-mono text-sm leading-relaxed text-fg-secondary">
+                      <span className="font-medium text-dialect">{f.form}</span> — {f.reason}
+                      {f.suggest && (
+                        <>
+                          {" "}
+                          <span className="text-fg-muted">→</span>{" "}
+                          <span className="font-medium text-ok">{f.suggest}</span>
+                        </>
+                      )}
                     </li>
                   ))}
                 </ul>

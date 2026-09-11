@@ -1,13 +1,13 @@
-import type { PurityViolation } from "@/lib/domain/dialect/purity";
+import type { Finding } from "@/lib/variety/check";
 
-/** Renders `text` with each violation's span wrapped in a highlighted <mark>. */
-export function HighlightedText({ text, violations }: { text: string; violations: PurityViolation[] }) {
+/** Renders `text` with each finding's span wrapped in a highlighted <mark>. */
+export function HighlightedText({ text, findings }: { text: string; findings: Finding[] }) {
   const parts: React.ReactNode[] = [];
   let cursor = 0;
 
-  violations.forEach((v, i) => {
-    const start = v.index;
-    const end = v.index + v.form.length;
+  findings.forEach((f, i) => {
+    const start = f.index;
+    const end = f.index + f.form.length;
     if (start < cursor) return; // skip overlaps with an already-rendered span
 
     if (start > cursor) parts.push(text.slice(cursor, start));

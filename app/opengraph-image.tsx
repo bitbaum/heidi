@@ -1,12 +1,16 @@
 import { ImageResponse } from "next/og";
 import { LANDING } from "@/lib/config/landing";
 import { OG_IMAGE_COLORS } from "@/lib/config/og-image";
+import { VARIETY } from "@/lib/variety/active";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OpengraphImage() {
-  const { brand, headline, correspondences } = LANDING;
+  const { brand, headline } = LANDING;
+  // Linguistic content comes from the pack, so the link preview cannot drift
+  // from the page — and needs no edit when the variety changes.
+  const { correspondences } = VARIETY;
 
   return new ImageResponse(
     (
@@ -31,10 +35,10 @@ export default function OpengraphImage() {
 
         <div style={{ display: "flex", gap: 48 }}>
           {correspondences.map((p) => (
-            <div key={p.de} style={{ display: "flex", alignItems: "baseline", fontSize: 32 }}>
-              <span style={{ color: OG_IMAGE_COLORS.inkMuted }}>{p.de}</span>
+            <div key={p.bridge} style={{ display: "flex", alignItems: "baseline", fontSize: 32 }}>
+              <span style={{ color: OG_IMAGE_COLORS.inkMuted }}>{p.bridge}</span>
               <span style={{ margin: "0 10px", color: OG_IMAGE_COLORS.inkMuted }}>→</span>
-              <span style={{ color: OG_IMAGE_COLORS.isogloss, fontWeight: 600 }}>{p.gsw}</span>
+              <span style={{ color: OG_IMAGE_COLORS.isogloss, fontWeight: 600 }}>{p.target}</span>
             </div>
           ))}
         </div>

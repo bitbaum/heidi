@@ -25,12 +25,12 @@ test('returns violations for "Das isch nid güet"', async () => {
   assert.equal(res.status, 200);
   const json = await res.json();
   assert.equal(json.ok, false);
-  assert.ok(json.violations.length >= 2);
+  assert.ok(json.findings.length >= 2);
 });
 
 test('returns ok for "Das isch nöd guet"', async () => {
   const res = await POST(request({ text: "Das isch nöd guet" }));
   assert.equal(res.status, 200);
   const json = await res.json();
-  assert.deepEqual(json, { ok: true, violations: [] });
+  assert.deepEqual(json, { ok: true, findings: [] });
 });
