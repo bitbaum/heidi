@@ -105,6 +105,7 @@ export const gsw: Dictionary = {
     mic: "Diktiere",
     micStop: "Ufnahm beände",
     micListening: "Ich lose …",
+    micTranscribing: "Wird übertreit …",
     micProblem: {
       mic: "Kein Zuegriff ufs Mikrofon. Si chönd wiiterhin tippe.",
       silence: "Nüüt ghört. Drucked Si nomal ufs Mikrofon und redet Si grad los.",
