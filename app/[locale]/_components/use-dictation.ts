@@ -16,9 +16,16 @@ import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "
  *     away exactly the information a learner needs. Promising dialect
  *     transcription here would be the overclaim this product exists to avoid.
  *
- * Support is genuinely partial (Chrome, Edge, Safari; not Firefox), so the
- * control hides itself where the API is missing. Where the API exists but does
- * not work, it has to say so instead — see START_TIMEOUT_MS.
+ * Support is genuinely partial (Chrome, Edge, Safari; not Firefox) and — worse
+ * — sometimes a lie: Chromium builds without Google's speech service accept
+ * `start()` and then never fire an event. Measured against the live site on
+ * 2026-09-12: nine seconds, zero events. Saying so is not enough; the person
+ * still cannot dictate, which was the whole point.
+ *
+ * So the recogniser is the FAST PATH, not the only one. When it is missing, or
+ * when it goes silent (START_TIMEOUT_MS), the same button records instead and
+ * sends the audio to /api/transcribe. Cost and privacy are the reason that is
+ * second and not first, never a reason to leave people with a dead control.
  */
 
 type RecognitionLike = {
@@ -47,6 +54,28 @@ function recogniser(): RecognitionCtor | undefined {
 
 /** Why a dictation produced no text, in terms the learner can act on. */
 export type DictationProblem = "mic" | "silence" | "unavailable";
+
+/** Can this browser record at all? The fallback needs nothing more than this. */
+export function canRecord(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    typeof MediaRecorder !== "undefined" &&
+    typeof navigator !== "undefined" &&
+    !!navigator.mediaDevices?.getUserMedia
+  );
+}
+
+/**
+ * Turn getUserMedia and fetch failures into the same three words the browser
+ * path already speaks, so the UI never grows a second vocabulary for the same
+ * three situations.
+ */
+export function problemForRecording(error: unknown): DictationProblem {
+  const name = (error as { name?: string })?.name ?? "";
+  if (name === "NotAllowedError" || name === "SecurityError") return "mic";
+  if (name === "NotFoundError" || name === "NotReadableError") return "mic";
+  return "unavailable";
+}
 
 /**
  * Anything unrecognised is `unavailable`, never nothing: a control that fails
@@ -98,13 +127,18 @@ export function useDictation(lang: string, onText: (text: string) => void) {
    */
   const supported = useSyncExternalStore(
     noop,
-    () => Boolean(recogniser()),
+    // Either path counts. Hiding the control in Firefox was right when the
+    // recogniser was the only implementation; it is not right now that the
+    // same button can record and have the server transcribe.
+    () => Boolean(recogniser()) || canRecord(),
     () => false,
   );
 
   const [listening, setListening] = useState(false);
+  const [transcribing, setTranscribing] = useState(false);
   const [problem, setProblem] = useState<DictationProblem | null>(null);
   const ref = useRef<RecognitionLike | null>(null);
+  const recorder = useRef<MediaRecorder | null>(null);
 
   // Kept in a ref so restarting recognition never resurrects a stale closure
   // over an old input value. Assigned in an effect, not during render — a ref
@@ -118,12 +152,86 @@ export function useDictation(lang: string, onText: (text: string) => void) {
     const rec = ref.current;
     ref.current = null;
     rec?.stop();
+    // Stopping the recorder is what STARTS the transcription: its `stop` event
+    // is where the audio becomes a request.
+    const rc = recorder.current;
+    if (rc && rc.state !== "inactive") rc.stop();
     setListening(false);
   }, []);
 
+  /**
+   * The fallback: record, then have the server transcribe.
+   *
+   * Every track is stopped on the way out of each branch — a live microphone
+   * left open because a request failed is the worst possible bug in a feature
+   * about trust.
+   */
+  const record = useCallback(async () => {
+    if (!canRecord()) {
+      setProblem("unavailable");
+      return;
+    }
+    setProblem(null);
+    let stream: MediaStream;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (e) {
+      setProblem(problemForRecording(e));
+      return;
+    }
+    const release = () => stream.getTracks().forEach((t) => t.stop());
+    let rec: MediaRecorder;
+    try {
+      rec = new MediaRecorder(stream);
+    } catch (e) {
+      release();
+      setProblem(problemForRecording(e));
+      return;
+    }
+    const chunks: Blob[] = [];
+    rec.ondataavailable = (e) => {
+      if (e.data && e.data.size > 0) chunks.push(e.data);
+    };
+    rec.onstop = async () => {
+      release();
+      recorder.current = null;
+      setListening(false);
+      const audio = new Blob(chunks, { type: rec.mimeType || "audio/webm" });
+      if (audio.size === 0) {
+        setProblem("silence");
+        return;
+      }
+      setTranscribing(true);
+      try {
+        const body = new FormData();
+        body.append("audio", audio);
+        body.append("locale", lang.split("-")[0] ?? "de");
+        const res = await fetch("/api/transcribe", { method: "POST", body });
+        if (!res.ok) {
+          setProblem("unavailable");
+          return;
+        }
+        const said = ((await res.json()) as { text?: string }).text?.trim() ?? "";
+        // Nothing heard is `silence`, the word the control already has for it.
+        if (said) sink.current(said);
+        else setProblem("silence");
+      } catch {
+        setProblem("unavailable");
+      } finally {
+        setTranscribing(false);
+      }
+    };
+    recorder.current = rec;
+    rec.start();
+    setListening(true);
+  }, [lang]);
+
   const start = useCallback(() => {
     const Ctor = recogniser();
-    if (!Ctor) return;
+    if (!Ctor) {
+      void record();
+      return;
+    }
     setProblem(null);
 
     const rec = new Ctor();
@@ -175,20 +283,27 @@ export function useDictation(lang: string, onText: (text: string) => void) {
           return;
         }
         if (started || !current()) return;
-        finish("unavailable");
+        // The recogniser took start() and said nothing. That is the exact case
+        // the fallback exists for — record instead of telling the person their
+        // browser cannot do it.
+        finish(null);
         rec.abort();
+        void record();
       }, START_TIMEOUT_MS);
     };
     watch();
-  }, [lang]);
+  }, [lang, record]);
 
   const toggle = useCallback(() => {
+    // Ignore a press while the server is answering: a second recording would
+    // race the first one's text into the box.
+    if (transcribing) return;
     if (listening) stop();
     else start();
-  }, [listening, start, stop]);
+  }, [listening, transcribing, start, stop]);
 
   // A live microphone must not survive the component that opened it.
   useEffect(() => stop, [stop]);
 
-  return { supported, listening, problem, toggle, start, stop };
+  return { supported, listening, transcribing, problem, toggle, start, stop };
 }

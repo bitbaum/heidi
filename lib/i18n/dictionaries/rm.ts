@@ -94,6 +94,7 @@ export const rm: Dictionary = {
     mic: "Dictar",
     micStop: "Finir la registraziun",
     micListening: "Jau taidel …",
+    micTranscribing: "Vegn transcrit …",
     micProblem: {
       mic: "Nagin access al microfon. Vus pudais adina tippar.",
       silence: "Nagut udì. Smatgai anc ina giada sin il microfon e discurri immediatamain.",

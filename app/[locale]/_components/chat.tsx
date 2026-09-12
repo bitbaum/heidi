@@ -336,9 +336,11 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             <button
               type="button"
               onClick={dictation.toggle}
+              disabled={dictation.transcribing}
               aria-label={dictation.listening ? t.micStop : t.mic}
               aria-pressed={dictation.listening}
-              className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control border transition-colors ${
+              aria-busy={dictation.transcribing}
+              className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control border transition-colors disabled:opacity-50 ${
                 dictation.listening
                   ? "border-accent bg-accent text-on-accent"
                   : "border-border-strong text-fg-secondary hover:text-fg-primary"
@@ -358,9 +360,9 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           </button>
         </div>
 
-        {dictation.listening && (
+        {(dictation.listening || dictation.transcribing) && (
           <p role="status" className="mt-1 px-1 font-mono text-[11px] uppercase tracking-caps text-accent">
-            {t.micListening}
+            {dictation.transcribing ? t.micTranscribing : t.micListening}
           </p>
         )}
         {dictation.problem && (
