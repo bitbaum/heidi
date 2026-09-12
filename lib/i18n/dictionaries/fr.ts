@@ -78,7 +78,11 @@ export const fr: Dictionary = {
     mic: "Dicter",
     micStop: "Arrêter l'enregistrement",
     micListening: "J'écoute …",
-    micDenied: "Pas d'accès au micro. Vous pouvez toujours taper.",
+    micProblem: {
+      mic: "Pas d'accès au micro. Vous pouvez toujours taper.",
+      silence: "Rien entendu. Appuyez à nouveau sur le micro et parlez tout de suite.",
+      unavailable: "La dictée ne fonctionne pas dans ce navigateur. Vous pouvez toujours taper.",
+    },
     newChat: "Nouvelle conversation",
     explanationsIn: "Explications en français",
     notConfigured: "Le modèle de langue n'est pas encore configuré sur cette installation.",

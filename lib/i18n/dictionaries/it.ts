@@ -78,7 +78,11 @@ export const it: Dictionary = {
     mic: "Dettare",
     micStop: "Ferma la registrazione",
     micListening: "Sto ascoltando …",
-    micDenied: "Nessun accesso al microfono. Potete comunque scrivere.",
+    micProblem: {
+      mic: "Nessun accesso al microfono. Potete comunque scrivere.",
+      silence: "Non ho sentito nulla. Premete di nuovo il microfono e parlate subito.",
+      unavailable: "La dettatura non funziona in questo browser. Potete comunque scrivere.",
+    },
     newChat: "Nuova conversazione",
     explanationsIn: "Spiegazioni in italiano",
     notConfigured: "Il modello linguistico non è ancora configurato su questa installazione.",
