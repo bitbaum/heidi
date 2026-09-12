@@ -104,6 +104,21 @@ export function problemFor(error: string | undefined): DictationProblem | null {
  */
 const START_TIMEOUT_MS = 4000;
 
+/**
+ * How long a pending permission may hold off the fallback.
+ *
+ * The wait itself is right — someone reading a permission dialog has not
+ * failed. Making it UNBOUNDED was the bug: `permissions.query` reports
+ * "prompt" both while a dialog is open AND when no dialog will ever appear,
+ * and a recogniser with no speech service behind it never asks. So the button
+ * said "Ich höre …" forever and the fallback never ran. Reproduced on the live
+ * site 2026-09-12: twenty-two seconds, no timeout, nothing.
+ *
+ * Falling back is safe even with a real dialog open: getUserMedia asks for the
+ * same permission, and the browser coalesces the two rather than stacking them.
+ */
+const PERMISSION_WAIT_MS = 10_000;
+
 /** A permission prompt still waiting on the learner is not a dead recogniser. */
 async function awaitingPermission(): Promise<boolean> {
   try {
@@ -112,6 +127,16 @@ async function awaitingPermission(): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+/**
+ * Pure: may the fallback keep waiting for a permission answer?
+ *
+ * Exported because "never forever" is the whole property, and it lived inside
+ * a self-rescheduling timeout where nothing could see it.
+ */
+export function mayKeepWaitingForPermission(elapsedMs: number, permissionPending: boolean): boolean {
+  return permissionPending && elapsedMs < PERMISSION_WAIT_MS;
 }
 
 /** Support never changes after load, so there is nothing to subscribe to. */
@@ -275,10 +300,13 @@ export function useDictation(lang: string, onText: (text: string) => void) {
       return;
     }
 
+    const giveUpWaitingAt = Date.now() + PERMISSION_WAIT_MS;
     const watch = () => {
       setTimeout(async () => {
         if (started || !current()) return;
-        if (await awaitingPermission()) {
+        // Bounded. "prompt" means both "a dialog is open" and "no dialog will
+        // ever appear", and only the clock can tell them apart.
+        if (Date.now() < giveUpWaitingAt && (await awaitingPermission())) {
           watch();
           return;
         }

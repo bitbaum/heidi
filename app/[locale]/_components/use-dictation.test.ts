@@ -1,6 +1,11 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { canRecord, problemFor, problemForRecording } from "./use-dictation.ts";
+import {
+  canRecord,
+  mayKeepWaitingForPermission,
+  problemFor,
+  problemForRecording,
+} from "./use-dictation.ts";
 
 test("a refused or unopenable microphone is reported as a microphone problem", () => {
   for (const error of ["not-allowed", "service-not-allowed", "audio-capture"]) {
@@ -82,4 +87,27 @@ test("recording failures speak the same three words as the recogniser", () => {
   for (const other of [{ name: "AbortError" }, {}, undefined, new Error("boom")]) {
     assert.equal(problemForRecording(other), "unavailable", JSON.stringify(other ?? null));
   }
+});
+
+// ── The wait that never ended ───────────────────────────────────────────────
+//
+// `permissions.query` answers "prompt" in two situations that look identical
+// from code: a dialog is open and the person is reading it, and no dialog will
+// ever appear because the recogniser behind it does not work. Waiting on the
+// first is correct. Waiting on the second is forever — the button said
+// "Ich höre …" and the fallback never ran. Reproduced on the live site
+// 2026-09-12: twenty-two seconds, no timeout, nothing at all.
+test("waiting for a permission answer is bounded, always", () => {
+  assert.equal(mayKeepWaitingForPermission(0, true), true, "someone may be reading the dialog");
+  assert.equal(mayKeepWaitingForPermission(5_000, true), true);
+  assert.equal(
+    mayKeepWaitingForPermission(60_000, true),
+    false,
+    "a prompt that never appears must not hold the fallback forever",
+  );
+  assert.equal(
+    mayKeepWaitingForPermission(0, false),
+    false,
+    "nothing pending — go straight to the fallback",
+  );
 });
