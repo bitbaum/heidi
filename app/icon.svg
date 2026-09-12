@@ -1,13 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Heidi">
-  <!--
-    A cow patch, and the isogloss crossing it — the line a dialect atlas draws
-    where one form stops and another begins.
-
-    Colours are the literal token values from globals.css; an SVG cannot read
-    CSS custom properties from another document, so they are repeated here and
-    nowhere else. White ground, one black patch, one red line.
-  -->
-  <rect width="32" height="32" fill="#ffffff"/>
-  <path d="M2 7c5-3 9 1 13-1s9-1 11 3c2 4-1 7-4 8s-3 5-8 6-8-2-10-5-4-7-2-11z" fill="#0d0d0d"/>
-  <path d="M4 22c5-2 7-7 12-8s8 2 13-1" fill="none" stroke="#d8232a" stroke-width="2.5" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs><clipPath id="c"><circle cx="16" cy="16" r="15.1"/></clipPath></defs>
+  <g clip-path="url(#c)">
+    <rect width="32" height="32" fill="#ffffff"/>
+    <g fill="#0d0d0d">
+      <path d="M-4 -4C6 -6 13 2 11 8c-2 6-10 8-15 4-4-3-4-12 0-16Z"/>
+      <path d="M20 34c-6-2-6-11-1-14 5-3 13-2 16 3 3 5 1 12-5 13-4 1-7 0-10-2Z"/>
+    </g>
+  </g>
+  <circle cx="16" cy="16" r="15.1" fill="none" stroke="#0d0d0d" stroke-width="1.5"/>
 </svg>
