@@ -7,6 +7,7 @@ import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { href, navGroups, type NavGroup } from "@/lib/i18n/routes";
 import { LanguageSwitcher } from "./language-switcher";
+import { CowMark } from "./cow-mark";
 
 /**
  * The site header: brand, navigation, language, account.
@@ -49,9 +50,10 @@ export function SiteHeader({
       <div className="mx-auto flex w-full max-w-shell items-center justify-between gap-4 px-5 py-3 sm:px-8">
         <Link
           href={href(locale, "")}
-          className="whitespace-nowrap font-heading text-xl font-bold tracking-display text-fg-primary sm:text-2xl"
+          className="inline-flex items-center gap-2.5 whitespace-nowrap text-fg-primary"
         >
-          Heidi
+          <CowMark size={30} title="Heidi" />
+          <span className="font-heading text-xl font-bold tracking-display sm:text-2xl">Heidi</span>
         </Link>
 
         <nav aria-label={dict.nav.menu} className="hidden lg:flex lg:items-center">
