@@ -3,97 +3,116 @@
 /**
  * Heidi — design tokens. The only place a colour, font or radius is defined.
  *
- * The subject is Zurich German as a linguist would treat it: a survey map,
- * an atlas, a dictionary of forms. So the ground is the cool grey-green of
- * map paper, the ink is a green-black, and the one accent is the red an
- * isogloss — a dialect boundary — is drawn in on the Sprachatlas der deutschen
- * Schweiz. A muted survey blue does secondary work (links, verified marks).
- * No webfont fetch: the display face is the reader's own old-style serif.
+ * THE COW.
+ *
+ * A Swiss dairy cow is black and white and nothing else, and that is the whole
+ * palette: one ground, one ink, hard edges between them. It suits the subject
+ * (a dialect atlas is printed matter, not a dashboard) and it suits Swiss
+ * design, which has been grotesque type on white since Müller-Brockmann.
+ *
+ * It also solves dark mode properly rather than approximately. Most palettes
+ * need a second set of hand-picked colours for dark, which drift apart until
+ * one of them is wrong. Here dark mode is the SAME two values swapping roles —
+ * ink becomes ground, ground becomes ink. A cow is still a cow at night.
+ *
+ * One colour survives: Swiss red, and only for the isogloss — the line a
+ * dialect atlas draws where one form stops and another begins. It marks the
+ * thing being taught and the thing needing attention, and nothing else. A
+ * palette with one accent spends it carefully.
  *
  *   Tier 1  primitives — raw values, never used by a component
  *   Tier 2  semantics  — what components use, always
+ *
+ * Component classes never changed for this retheme. That is the point of the
+ * two tiers: the whole product changed appearance by editing this file.
  */
 @theme {
-  --font-heading: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Swiss International Style is grotesque type, not a serif. The stack is the
+     reader's own — no webfont fetch, so the first paint is the real design. */
+  --font-heading: "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-sans: "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
-  --tracking-display: -0.02em;
-  --tracking-caps: 0.14em;
-  --spacing-shell: 68rem;
-  --spacing-measure: 64ch;
+  /* Tight display tracking: grotesque headlines set close, the Swiss habit. */
+  --tracking-display: -0.025em;
+  --tracking-caps: 0.12em;
+  --spacing-shell: 72rem;
+  --spacing-measure: 66ch;
 
-  /* Tier 1 — primitives (light) */
-  --primitive-paper-100: #edeee8;
-  --primitive-paper-50: #f7f8f3;
-  --primitive-paper-200: #e3e5dd;
-  --primitive-ink-950: #191c18;
-  --primitive-ink-700: #565a50;
-  --primitive-ink-500: #7c8175;
-  --primitive-rule-300: #c7cabf;
-  --primitive-rule-200: #dadcd2;
-  --primitive-isogloss-600: #b0362b;
-  --primitive-isogloss-100: #f0ddd9;
-  --primitive-survey-700: #2e5c71;
-  --primitive-survey-100: #dbe5e9;
-  --primitive-moss-700: #4f6136;
+  /* Tier 1 — primitives. Two of them, and the greys between. */
+  --primitive-white: #ffffff;
+  --primitive-black: #0d0d0d;
+  --primitive-grey-50: #f6f6f6;
+  --primitive-grey-100: #ededed;
+  --primitive-grey-200: #dcdcdc;
+  --primitive-grey-400: #a3a3a3;
+  --primitive-grey-600: #6b6b6b;
+  --primitive-grey-800: #2b2b2b;
+  /* The isogloss. Swiss red, and the only colour in the product. */
+  --primitive-red: #d8232a;
+  --primitive-red-tint: #fdecec;
 
-  /* Tier 2 — semantics */
-  --color-surface-page: var(--primitive-paper-100);
-  --color-surface-raised: var(--primitive-paper-50);
-  --color-surface-sunk: var(--primitive-paper-200);
-  --color-fg-primary: var(--primitive-ink-950);
-  --color-fg-secondary: var(--primitive-ink-700);
-  --color-fg-muted: var(--primitive-ink-500);
-  --color-border-subtle: var(--primitive-rule-200);
-  --color-border-strong: var(--primitive-rule-300);
-  --color-accent: var(--primitive-isogloss-600);
-  --color-accent-tint: var(--primitive-isogloss-100);
-  --color-link: var(--primitive-survey-700);
-  --color-link-tint: var(--primitive-survey-100);
-  --color-dialect: var(--primitive-isogloss-600);
-  --color-ok: var(--primitive-moss-700);
-  --color-on-accent: #ffffff;
+  /* Tier 2 — semantics (light: white cow, black patches) */
+  --color-surface-page: var(--primitive-white);
+  --color-surface-raised: var(--primitive-grey-50);
+  --color-surface-sunk: var(--primitive-grey-100);
+  --color-fg-primary: var(--primitive-black);
+  --color-fg-secondary: var(--primitive-grey-800);
+  --color-fg-muted: var(--primitive-grey-600);
+  --color-border-subtle: var(--primitive-grey-200);
+  --color-border-strong: var(--primitive-black);
+  --color-accent: var(--primitive-red);
+  --color-accent-tint: var(--primitive-red-tint);
+  /* Links and marks are ink, not a third colour — underlines carry the
+     affordance. Reserving red for the isogloss is what keeps it meaningful. */
+  --color-link: var(--primitive-black);
+  --color-link-tint: var(--primitive-grey-100);
+  --color-dialect: var(--primitive-red);
+  --color-ok: var(--primitive-black);
+  --color-on-accent: var(--primitive-white);
 
-  --radius-control: 4px;
+  /* Hard edges. A cow's patches have no corner radius. */
+  --radius-control: 2px;
 }
 
-/* Dark: the same map, printed as a negative. Only tokens change. */
+/* Dark: the same cow, the other way round. Only the role of the two values
+   swaps — there is no second palette to keep in sync with the first. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-surface-page: #131614;
-    --color-surface-raised: #1b1f1b;
-    --color-surface-sunk: #0e110e;
-    --color-fg-primary: #e7e9e1;
-    --color-fg-secondary: #a6ac9d;
-    --color-fg-muted: #7e8577;
-    --color-border-subtle: #262b25;
-    --color-border-strong: #333930;
-    --color-accent: #e07c6c;
-    --color-accent-tint: #31201d;
-    --color-link: #82b4c9;
-    --color-link-tint: #182a31;
-    --color-dialect: #e07c6c;
-    --color-ok: #9fb07e;
-    --color-on-accent: #131614;
+    --color-surface-page: var(--primitive-black);
+    --color-surface-raised: #161616;
+    --color-surface-sunk: #202020;
+    --color-fg-primary: var(--primitive-white);
+    --color-fg-secondary: #d4d4d4;
+    --color-fg-muted: var(--primitive-grey-400);
+    --color-border-subtle: #2e2e2e;
+    --color-border-strong: var(--primitive-white);
+    /* Lifted off the flag red: #d8232a on black fails contrast, this passes. */
+    --color-accent: #ff5a5f;
+    --color-accent-tint: #2a1112;
+    --color-link: var(--primitive-white);
+    --color-link-tint: #202020;
+    --color-dialect: #ff5a5f;
+    --color-ok: var(--primitive-white);
+    --color-on-accent: var(--primitive-black);
   }
 }
 :root[data-theme="dark"] {
-  --color-surface-page: #131614;
-  --color-surface-raised: #1b1f1b;
-  --color-surface-sunk: #0e110e;
-  --color-fg-primary: #e7e9e1;
-  --color-fg-secondary: #a6ac9d;
-  --color-fg-muted: #7e8577;
-  --color-border-subtle: #262b25;
-  --color-border-strong: #333930;
-  --color-accent: #e07c6c;
-  --color-accent-tint: #31201d;
-  --color-link: #82b4c9;
-  --color-link-tint: #182a31;
-  --color-dialect: #e07c6c;
-  --color-ok: #9fb07e;
-  --color-on-accent: #131614;
+  --color-surface-page: var(--primitive-black);
+  --color-surface-raised: #161616;
+  --color-surface-sunk: #202020;
+  --color-fg-primary: var(--primitive-white);
+  --color-fg-secondary: #d4d4d4;
+  --color-fg-muted: var(--primitive-grey-400);
+  --color-border-subtle: #2e2e2e;
+  --color-border-strong: var(--primitive-white);
+  --color-accent: #ff5a5f;
+  --color-accent-tint: #2a1112;
+  --color-link: var(--primitive-white);
+  --color-link-tint: #202020;
+  --color-dialect: #ff5a5f;
+  --color-ok: var(--primitive-white);
+  --color-on-accent: var(--primitive-black);
 }
 
 html {
@@ -101,7 +120,9 @@ html {
   scroll-behavior: smooth;
 }
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -114,8 +135,12 @@ body {
 
 :focus-visible {
   outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
+  outline-offset: 2px;
   border-radius: var(--radius-control);
 }
 
-h1, h2, h3 { text-wrap: balance; }
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}

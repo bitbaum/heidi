@@ -5,6 +5,8 @@ import { href } from "@/lib/i18n/routes";
 import { VARIETY } from "@/lib/variety/active";
 import { ruleLabel } from "@/lib/variety/pack";
 import { Chat } from "./_components/chat";
+import { DialectFigure } from "./_components/dialect-figure";
+import { CorrespondenceFigure } from "./_components/correspondence-figure";
 import { Shell } from "./_components/page-shell";
 
 /**
@@ -23,15 +25,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <Shell>
-      <section className="py-10 sm:py-14" aria-labelledby="headline">
+      <section className="py-12 sm:py-20" aria-labelledby="headline">
         <p className="font-mono text-[11px] uppercase tracking-caps text-accent">{t.eyebrow}</p>
         <h1
           id="headline"
-          className="mt-3 max-w-[18ch] font-heading text-3xl font-semibold leading-[1.08] tracking-display text-fg-primary sm:text-5xl"
+          className="mt-4 max-w-[16ch] font-heading text-[2.75rem] font-bold leading-[0.95] tracking-display text-fg-primary sm:text-7xl lg:text-8xl"
         >
           {t.headline}
         </h1>
-        <p className="mt-4 max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.sub}</p>
+        <p className="mt-6 max-w-measure text-lg leading-relaxed text-fg-secondary sm:text-xl">{t.sub}</p>
       </section>
 
       <div className="pb-12 sm:pb-16">
@@ -77,45 +79,19 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         >
           {t.dialectTitle}
         </h2>
-        <p className="mt-4 max-w-measure text-base leading-relaxed text-fg-secondary">{t.dialectBody}</p>
-        {VARIETY.family && (
-          <div className="mt-6 flex flex-wrap items-center gap-2">
-            <span className="rounded-control bg-accent px-2.5 py-1 font-mono text-[11px] uppercase tracking-caps text-on-accent">
-              {VARIETY.endonym}
-            </span>
-            <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
-              {t.dialectPlanned}
-            </span>
-            {VARIETY.family.planned.map((d) => (
-              <span
-                key={d}
-                className="rounded-control border border-border-strong px-2.5 py-1 font-mono text-[11px] uppercase tracking-caps text-fg-muted"
-              >
-                {d}
-              </span>
-            ))}
-          </div>
-        )}
+        <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
+          <p className="max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.dialectBody}</p>
+          {VARIETY.family && <DialectFigure plannedLabel={t.dialectPlanned} />}
+        </div>
       </section>
 
       <section className="border-b border-border-subtle py-10 sm:py-12" aria-labelledby="rules">
         <h2 id="rules" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
           {t.correspondencesTitle}
         </h2>
-        <ul className="mt-5 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
-          {VARIETY.correspondences.map((p) => (
-            <li key={p.bridge} className="font-mono">
-              <div className="text-lg sm:text-xl">
-                <span className="text-fg-muted">{p.bridge}</span>
-                <span className="mx-2 text-fg-muted" aria-hidden="true">
-                  →
-                </span>
-                <span className="font-medium text-dialect">{p.target}</span>
-              </div>
-              <div className="mt-1 text-[11px] uppercase tracking-caps text-fg-muted">{p.rule}</div>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-6">
+          <CorrespondenceFigure />
+        </div>
       </section>
 
       <section className="border-b border-border-subtle py-12 sm:py-16" aria-labelledby="pillars">
