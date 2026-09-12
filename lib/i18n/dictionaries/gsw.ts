@@ -85,6 +85,8 @@ export const gsw: Dictionary = {
   chat: {
     placeholder: "Füged ii, was Si becho händ — oder schriibed, was Si wänd säge.",
     composer: "Nachricht a Heidi",
+    saveWord: "Wort merke",
+    savedWord: "Gmerkt",
     send: "Schicke",
     thinking: "Heidi liist mit …",
     you: "Si",
@@ -164,7 +166,7 @@ export const gsw: Dictionary = {
     accountBody: "Zum Spichere vo Ihrne Wörter und für Lerngruppe. Zum Übersetze bruuched Si kei Konto.",
     dataTitle: "Was uf dem Grät liit",
     dataBody:
-      "Ihres Gspröch bliibt i dem Tab und verschwindet, wänn Si en zue mached. En eigene Schlüssel liit im Spicher vo dem Browser, bis Si en ewägnämed. Uf öisne Server liit nüüt dervo.",
+      "Ihres Gspröch bliibt i dem Tab und verschwindet, wänn Si en zue mached. En eigene Schlüssel liit im Spicher vo dem Browser, bis Si en ewägnämed. Uf öisne Server liit nüüt dervo. Gmerkti Wörter ligend au da, bis du si lösche tuesch.",
   },
 
   auth: {
@@ -184,7 +186,6 @@ export const gsw: Dictionary = {
       "Heidi füehrt kei eigeni Benutzerdatebank. Ihri Identität liit bi OrangeCat, wo au Profil und Zahlig scho dihei sind. Das heisst: es Konto für mehreri Produkt, kei wiiters Passwort — und bi öis liit nüüt, wo mer chönnti stähle.",
     soonTitle: "Was als nächts chunt",
     soonList: [
-      "Ihri Wörter — was Si nachegschlage händ, chunt spöter wieder.",
       "Lerngruppe — sälber organisiert, mit Heidi als Teilnähmere.",
       "Tutorinne und Tutore — freiwillig, zahlt, und nie Pflicht.",
     ],
@@ -417,5 +418,19 @@ export const gsw: Dictionary = {
     notFoundTitle: "Die Siite git es nöd",
     notFoundBody: "Villicht isch de Link alt, villicht händ mir öppis verschobe.",
     backHome: "Zrugg zum Afang",
+  },
+  saved: {
+    title: "Dini Wörter",
+    lead: "Was du naagschlage und bhalte wottsch. Alles liit i dem Browser, uf dem Grät — und nöd bi eus.",
+    empty: "No kei Wörter gmerkt.",
+    emptyHint: "Frag d Heidi nach eme Satz. Näbet jedem erklärte Wort staat es Plus — so merksch der s.",
+    countLabel: "gmerkt",
+    remove: "Lösche",
+    clear: "Alli lösche",
+    clearConfirm: "Wirkli alli lösche?",
+    exportLabel: "Als Datei sichere",
+    onThisDevice: "Nume uf dem Grät",
+    savedOn: "Gmerkt",
+    openChat: "Öppis naaschlaa",
   },
 };

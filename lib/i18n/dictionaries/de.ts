@@ -68,6 +68,8 @@ export const de = {
   chat: {
     placeholder: "Fügen Sie ein, was Sie bekommen haben — oder schreiben Sie, was Sie sagen möchten.",
     composer: "Nachricht an Heidi",
+    saveWord: "Wort merken",
+    savedWord: "Gemerkt",
     send: "Senden",
     thinking: "Heidi liest mit …",
     you: "Sie",
@@ -343,7 +345,7 @@ export const de = {
     accountBody: "Zum Speichern Ihrer Wörter und für Lerngruppen. Zum Übersetzen brauchen Sie kein Konto.",
     dataTitle: "Was auf diesem Gerät liegt",
     dataBody:
-      "Ihr Gespräch bleibt in diesem Tab und verschwindet, wenn Sie ihn schliessen. Ein eigener Schlüssel liegt im Speicher dieses Browsers, bis Sie ihn entfernen. Auf unseren Servern liegt nichts davon.",
+      "Ihr Gespräch bleibt in diesem Tab und verschwindet, wenn Sie ihn schliessen. Ein eigener Schlüssel liegt im Speicher dieses Browsers, bis Sie ihn entfernen. Auf unseren Servern liegt nichts davon. Gemerkte Wörter liegen ebenfalls hier, bis Sie sie entfernen.",
   },
 
   auth: {
@@ -363,7 +365,6 @@ export const de = {
       "Heidi führt keine eigene Benutzerdatenbank. Ihre Identität liegt bei OrangeCat, wo auch Profile und Bezahlung schon zuhause sind. Das heisst: ein Konto für mehrere Produkte, kein weiteres Passwort — und bei uns liegt nichts, was gestohlen werden könnte.",
     soonTitle: "Was als Nächstes kommt",
     soonList: [
-      "Ihre Wörter — was Sie nachgeschlagen haben, kommt später wieder.",
       "Lerngruppen — selbst organisiert, mit Heidi als Teilnehmerin.",
       "Tutorinnen und Tutoren — freiwillig, bezahlt, und nie Pflicht.",
     ],
@@ -398,6 +399,20 @@ export const de = {
     notFoundTitle: "Diese Seite gibt es nicht",
     notFoundBody: "Vielleicht ist der Link alt, vielleicht haben wir etwas verschoben.",
     backHome: "Zurück zum Start",
+  },
+  saved: {
+    title: "Ihre Wörter",
+    lead: "Was Sie nachgeschlagen und behalten wollten. Alles liegt in diesem Browser, auf diesem Gerät — nicht bei uns.",
+    empty: "Noch keine Wörter gemerkt.",
+    emptyHint: "Fragen Sie Heidi nach einem Satz. Neben jedem erklärten Wort steht ein Plus — damit merken Sie es sich.",
+    countLabel: "gemerkt",
+    remove: "Entfernen",
+    clear: "Alle entfernen",
+    clearConfirm: "Wirklich alle entfernen?",
+    exportLabel: "Als Datei sichern",
+    onThisDevice: "Nur auf diesem Gerät",
+    savedOn: "Gemerkt",
+    openChat: "Etwas nachschlagen",
   },
 };
 

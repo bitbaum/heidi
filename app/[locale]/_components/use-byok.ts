@@ -1,100 +1,40 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback } from "react";
+import { createBrowserStore, useBrowserStore, useStorageReady } from "@/lib/browser/store";
 import type { ByokConfig } from "@/lib/domain/model/byok";
 import { findProvider } from "@/lib/domain/model/providers";
 
 /**
  * The visitor's own key, held in their browser and nowhere else.
  *
- * localStorage rather than a cookie, deliberately: a cookie is attached to
- * every request to this origin whether or not it is one they chose to make,
- * which is precisely the property a bearer credential must not have. This is
- * read only when a message is sent.
- *
- * Exposed through `useSyncExternalStore` rather than state-plus-effect. Two
- * reasons, and the second is the one that matters: reading storage in an
- * effect and calling setState causes a cascading render, and localStorage is a
- * genuinely external store that can change underneath us — removing the key in
- * one tab should not leave another tab believing it is still connected.
+ * The storage mechanics that used to live here — the cached snapshot, the
+ * self-announcing writes, the guards around a localStorage that throws in
+ * private mode — moved to `lib/browser/store` when saved words needed the
+ * same four non-obvious things. They are explained there. This file keeps
+ * only what is true about a KEY specifically, which is the validation below.
  */
 
-const STORAGE_KEY = "heidi.byok.v1";
-
-/** Local edits fire no `storage` event, so the store announces its own writes. */
-const listeners = new Set<() => void>();
-function announce() {
-  for (const l of listeners) l();
-}
-
-function subscribe(onChange: () => void): () => void {
-  listeners.add(onChange);
-  window.addEventListener("storage", onChange);
-  return () => {
-    listeners.delete(onChange);
-    window.removeEventListener("storage", onChange);
-  };
-}
-
-/**
- * Cached, because `getSnapshot` must return a stable reference for unchanged
- * data — returning a fresh object each call makes React re-render forever.
- */
-let cachedRaw: string | null = null;
-let cachedValue: ByokConfig | null = null;
-
-function parse(raw: string | null): ByokConfig | null {
-  if (!raw) return null;
+const store = createBrowserStore<ByokConfig>("heidi.byok.v1", (raw) => {
   try {
     const parsed = JSON.parse(raw) as Partial<ByokConfig>;
     if (!parsed?.key || !parsed.model || !parsed.provider) return null;
     // A provider since removed from the allowlist must not be resurrected out
-    // of an old browser's storage.
+    // of an old browser's storage — that allowlist is the SSRF defence, and it
+    // would be worth nothing if yesterday's storage could reopen a host.
     if (!findProvider(parsed.provider)) return null;
     return { provider: parsed.provider, key: parsed.key, model: parsed.model };
   } catch {
     return null;
   }
-}
-
-function getSnapshot(): ByokConfig | null {
-  let raw: string | null = null;
-  try {
-    raw = window.localStorage.getItem(STORAGE_KEY);
-  } catch {
-    return null; // private mode
-  }
-  if (raw !== cachedRaw) {
-    cachedRaw = raw;
-    cachedValue = parse(raw);
-  }
-  return cachedValue;
-}
-
-/** The server has no storage, and must render the not-connected tree. */
-const getServerSnapshot = (): ByokConfig | null => null;
+});
 
 export function useByok() {
-  const config = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const config = useBrowserStore(store);
+  const ready = useStorageReady();
 
-  const save = useCallback((next: ByokConfig) => {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    } catch {
-      // Private mode or storage full — nothing useful to do, and the key still
-      // works for this page's lifetime because the sheet holds it.
-    }
-    announce();
-  }, []);
-
-  const clear = useCallback(() => {
-    try {
-      window.localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      // As above.
-    }
-    announce();
-  }, []);
+  const save = useCallback((next: ByokConfig) => store.write(next), []);
+  const clear = useCallback(() => store.clear(), []);
 
   const provider = config ? findProvider(config.provider) : undefined;
 
@@ -106,7 +46,7 @@ export function useByok() {
      * reports no key, so anything that would otherwise flash "not connected"
      * waits for this.
      */
-    ready: typeof window !== "undefined",
+    ready,
     /** Whether the connected model can be shown a picture. */
     canSee: Boolean(config && provider?.visionModel),
     save,

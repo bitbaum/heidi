@@ -78,6 +78,8 @@ export const rm: Dictionary = {
   chat: {
     placeholder: "Encollai quai che Vus avais retschavì — u scrivai quai che Vus vulais dir.",
     composer: "Messadi a Heidi",
+    saveWord: "Tegnair quest pled",
+    savedWord: "Tegnì",
     send: "Trametter",
     thinking: "Heidi legia …",
     you: "Vus",
@@ -352,7 +354,7 @@ export const rm: Dictionary = {
     accountBody: "Per tegnair Voss pleds e per gruppas da studi. Per translatar na dovrais Vus nagin conto.",
     dataTitle: "Tge che resta sin quest apparat",
     dataBody:
-      "Vossa conversaziun resta en questa tabella e svanescha cur che Vus la serrais. Ina atgna clav viva en la memoria da quest navigatur fin che Vus l'allontanais. Nagut da quai sa chatta sin noss servers.",
+      "Vossa conversaziun resta en questa tabella e svanescha cur che Vus la serrais. Ina atgna clav viva en la memoria da quest navigatur fin che Vus l'allontanais. Nagut da quai sa chatta sin noss servers. Era ils pleds che Vus tegnis restan qua, enfin che Vus als allontanais.",
   },
 
   auth: {
@@ -372,7 +374,6 @@ export const rm: Dictionary = {
       "Heidi na tegna nagina atgna banca da datas d'utilisaders. Vossa identitad viva tar OrangeCat, nua che profils e pajaments èn gia a chasa. Quai vul dir in sulet conto per plirs products, nagin pled-clav supplementar — e qua nagut che pudess vegnir engulà.",
     soonTitle: "Tge che vegn suenter",
     soonList: [
-      "Voss pleds — quai che Vus avais tschertgà turna pli tard.",
       "Gruppas da studi — organisadas da Vus, cun Heidi sco participanta.",
       "Tutuors — voluntaris, pajads, e mai obligatoris.",
     ],
@@ -407,5 +408,19 @@ export const rm: Dictionary = {
     notFoundTitle: "Questa pagina n'exista betg",
     notFoundBody: "Forsa è il link vegl, forsa avain nus spustà insatge.",
     backHome: "Turnar al cumenzament",
+  },
+  saved: {
+    title: "Voss pleds",
+    lead: "Quai ch'Els han tschertgà e vulì tegnair. Tut resta en quest navigatur, sin quest apparat — betg tar nus.",
+    empty: "Anc nagins pleds tegnids.",
+    emptyHint: "Dumandai Heidi per ina frasa. Sper mintga pled declerà stat in plus per al tegnair.",
+    countLabel: "tegnids",
+    remove: "Allontanar",
+    clear: "Allontanar tuts",
+    clearConfirm: "Propi allontanar tuts?",
+    exportLabel: "Memorisar sco datoteca",
+    onThisDevice: "Mo sin quest apparat",
+    savedOn: "Tegnì ils",
+    openChat: "Tschertgar insatge",
   },
 };

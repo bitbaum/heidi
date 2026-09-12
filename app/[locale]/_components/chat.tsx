@@ -1,12 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Answer, ChatMessage } from "@/lib/domain/chat/types";
+import type { Answer, ChatMessage, Gloss } from "@/lib/domain/chat/types";
 import { HEIDI_ID, LEARNER_ID } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
 import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
 import { useDictation } from "./use-dictation";
 import { useByok } from "./use-byok";
+import { useSaved } from "./use-saved";
 import { ModelSheet } from "./model-sheet";
 import { downscale, imagesFromClipboard } from "./downscale";
 
@@ -35,7 +36,7 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const byok = useByok();
   const [sheetOpen, setSheetOpen] = useState(false);
   /**
-   * Message ids were nextId("local"), which is not unique: two messages
+   * Message ids were built from `Date.now()`, which is not unique: two messages
    * created in the same millisecond — a reply arriving as the learner sends
    * again — get the same React key, and React then reuses the wrong DOM node.
    * A counter cannot collide, and unlike a clock it is pure enough for the
@@ -232,6 +233,7 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               key={m.id}
               message={m}
               t={t}
+              context={askedBefore(messages, m.id)}
               onRetry={() => void send(lastOwnMessage(messages) ?? "", true)}
             />
           ),
@@ -421,6 +423,73 @@ function lastOwnMessage(messages: ChatMessage[]): string | undefined {
   return undefined;
 }
 
+/**
+ * The learner's line immediately before a given reply.
+ *
+ * Not `lastOwnMessage`: that walks from the end and would tag every kept word
+ * in a long thread with the most recent question rather than the one it
+ * actually answers.
+ */
+function askedBefore(messages: ChatMessage[], replyId: string): string | undefined {
+  const at = messages.findIndex((m) => m.id === replyId);
+  if (at < 0) return undefined;
+  for (let i = at - 1; i >= 0; i--) {
+    if (messages[i].authorId === LEARNER_ID) return messages[i].body;
+  }
+  return undefined;
+}
+
+/**
+ * Keep a word, or let go of one.
+ *
+ * The gloss is the one thing Heidi produces that is worth carrying away — and
+ * until now it was drawn once and thrown away on reload, so looking the same
+ * word up on Tuesday and on Friday accumulated nothing. One tap, no account,
+ * stored in this browser only.
+ *
+ * A toggle rather than a one-way save: the second tap on a word you did not
+ * mean to keep is the only way back, and hiding it would make the list a
+ * place things go in and never leave.
+ */
+function KeepWord({
+  gloss,
+  t,
+  context,
+}: {
+  gloss: Gloss;
+  t: Dictionary["chat"];
+  context?: string;
+}) {
+  const saved = useSaved();
+  // The bridge form is what makes a word reviewable. `standard` is the
+  // bridge-language equivalent; `english` is the explanation in the reader's
+  // language, which is the honest fallback when there is no single equivalent.
+  const bridge = gloss.standard?.trim() || gloss.english?.trim() || "";
+  const kept = saved.isSaved(gloss.form);
+
+  // Before the client has read storage every word would claim to be unkept,
+  // and a control that flips under the reader's finger is worse than one that
+  // arrives a moment late.
+  if (!saved.ready || !bridge) return null;
+
+  return (
+    <button
+      type="button"
+      onClick={() => (kept ? saved.forget(gloss.form) : saved.save({ target: gloss.form, bridge, context }))}
+      aria-pressed={kept}
+      aria-label={`${kept ? t.savedWord : t.saveWord}: ${gloss.form}`}
+      title={kept ? t.savedWord : t.saveWord}
+      className={`inline-flex h-6 w-6 shrink-0 translate-y-0.5 items-center justify-center rounded-control border text-xs transition-colors ${
+        kept
+          ? "border-accent bg-accent text-on-accent"
+          : "border-border-subtle text-fg-muted hover:border-border-strong hover:text-fg-primary"
+      }`}
+    >
+      <span aria-hidden="true">{kept ? "✓" : "+"}</span>
+    </button>
+  );
+}
+
 /** Drop the failed reply so a retry replaces it rather than stacking under it. */
 function dropTrailingFailure(messages: ChatMessage[]): ChatMessage[] {
   const last = messages[messages.length - 1];
@@ -484,10 +553,15 @@ function Theirs({
   message,
   t,
   onRetry,
+  context,
 }: {
   message: ChatMessage;
   t: Dictionary["chat"];
   onRetry: () => void;
+  /** The learner's line this answers — kept alongside a word, because a word
+   *  remembered with its sentence is remembered, and one on a flashcard is a
+   *  word you can recognise on a flashcard. */
+  context?: string;
 }) {
   if (message.error) {
     return (
@@ -544,6 +618,7 @@ function Theirs({
             <ul className="mt-2 flex flex-col gap-1.5">
               {a.glosses.map((g) => (
                 <li key={g.form} className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                  <KeepWord gloss={g} t={t} context={context} />
                   <span className="font-mono text-sm font-medium text-dialect">{g.form}</span>
                   {g.standard && <span className="font-mono text-xs text-fg-muted">{g.standard}</span>}
                   <span className="text-sm text-fg-secondary">{g.english}</span>

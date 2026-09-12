@@ -62,6 +62,8 @@ export const fr: Dictionary = {
   chat: {
     placeholder: "Collez ce que vous avez reçu — ou écrivez ce que vous voulez dire.",
     composer: "Message à Heidi",
+    saveWord: "Garder ce mot",
+    savedWord: "Gardé",
     send: "Envoyer",
     thinking: "Heidi lit …",
     you: "Vous",
@@ -336,7 +338,7 @@ export const fr: Dictionary = {
     accountBody: "Pour garder vos mots et pour les groupes d'étude. Traduire ne demande aucun compte.",
     dataTitle: "Ce qui est gardé sur cet appareil",
     dataBody:
-      "Votre conversation reste dans cet onglet et disparaît quand vous le fermez. Votre clé vit dans le stockage de ce navigateur jusqu'à ce que vous la retiriez. Rien de tout cela n'est sur nos serveurs.",
+      "Votre conversation reste dans cet onglet et disparaît quand vous le fermez. Votre clé vit dans le stockage de ce navigateur jusqu'à ce que vous la retiriez. Rien de tout cela n'est sur nos serveurs. Les mots que vous gardez y restent aussi, jusqu'à ce que vous les retiriez.",
   },
 
   auth: {
@@ -356,7 +358,6 @@ export const fr: Dictionary = {
       "Heidi ne tient aucune base d'utilisateurs. Votre identité vit chez OrangeCat, où les profils et les paiements sont déjà chez eux. Cela veut dire un seul compte pour plusieurs produits, pas de mot de passe supplémentaire — et rien ici qui puisse être volé.",
     soonTitle: "Ce qui vient ensuite",
     soonList: [
-      "Vos mots — ce que vous avez cherché revient plus tard.",
       "Des groupes d'étude — organisés par vous, avec Heidi comme participante.",
       "Des tuteurs — bénévoles, payés, et jamais obligatoires.",
     ],
@@ -391,5 +392,19 @@ export const fr: Dictionary = {
     notFoundTitle: "Cette page n'existe pas",
     notFoundBody: "Le lien est peut-être ancien, ou nous avons déplacé quelque chose.",
     backHome: "Retour à l'accueil",
+  },
+  saved: {
+    title: "Vos mots",
+    lead: "Ce que vous avez cherché et voulu garder. Tout reste dans ce navigateur, sur cet appareil — pas chez nous.",
+    empty: "Aucun mot gardé pour l'instant.",
+    emptyHint: "Demandez une phrase à Heidi. À côté de chaque mot expliqué, un plus vous permet de le garder.",
+    countLabel: "gardés",
+    remove: "Retirer",
+    clear: "Tout retirer",
+    clearConfirm: "Vraiment tout retirer ?",
+    exportLabel: "Enregistrer dans un fichier",
+    onThisDevice: "Uniquement sur cet appareil",
+    savedOn: "Gardé le",
+    openChat: "Chercher quelque chose",
   },
 };

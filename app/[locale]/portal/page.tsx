@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { auth, authEnabled, signIn } from "@/lib/auth";
 import { getDictionary } from "@/lib/i18n";
-import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
+import { DEFAULT_LOCALE, LOCALE_TAGS, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
 import { SignOutButton } from "../_components/account-control";
+import { SavedWords } from "../_components/saved-words";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -32,7 +33,15 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
     <Shell>
       <PageHeader eyebrow={dict.nav.portal} title={t.portalTitle} lead={t.portalLead} />
 
-      <Section>
+      {/* First, because it is the part that WORKS — and it works signed out.
+          Leading with the account box would have put a sign-in wall in front
+          of the one thing on this page that needs no account. */}
+      <Section title={dict.saved.title}>
+        <p className="mb-5 max-w-measure text-base leading-relaxed text-fg-secondary">{dict.saved.lead}</p>
+        <SavedWords t={dict.saved} locale={LOCALE_TAGS[locale]} />
+      </Section>
+
+      <Section title={t.account}>
         {!authEnabled ? (
           <p className="max-w-measure rounded-control border border-border-strong bg-surface-raised px-4 py-3 text-base text-fg-secondary">
             {t.unavailable}
