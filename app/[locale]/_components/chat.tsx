@@ -10,6 +10,9 @@ import { useByok } from "./use-byok";
 import { ModelSheet } from "./model-sheet";
 import { downscale, imagesFromClipboard } from "./downscale";
 
+/** How many pictures can ride along with one message. */
+const MAX_IMAGES = 3;
+
 /**
  * A conversation, not a form.
  *
@@ -31,6 +34,15 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
   const byok = useByok();
   const [sheetOpen, setSheetOpen] = useState(false);
+  /**
+   * Message ids were nextId("local"), which is not unique: two messages
+   * created in the same millisecond — a reply arriving as the learner sends
+   * again — get the same React key, and React then reuses the wrong DOM node.
+   * A counter cannot collide, and unlike a clock it is pure enough for the
+   * compiler to accept inside a handler.
+   */
+  const lastId = useRef(0);
+  const nextId = (prefix: string) => `${prefix}-${(lastId.current += 1)}`;
   /** Downscaled data URLs waiting to go with the next message. */
   const [attached, setAttached] = useState<string[]>([]);
   const [attachError, setAttachError] = useState<string | null>(null);
@@ -71,16 +83,20 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         return;
       }
       setAttachError(null);
-      for (const file of files.slice(0, 3 - attached.length)) {
+      // Capped at three by the updater below, not by `attached.length` read
+      // here: downscaling is async, so a count captured now is already stale
+      // by the time the picture is ready. Reading it from `prev` is the only
+      // count that is true at the moment of the write.
+      for (const file of files.slice(0, MAX_IMAGES)) {
         try {
           const prepared = await downscale(file);
-          setAttached((prev) => (prev.length >= 3 ? prev : [...prev, prepared.dataUrl]));
+          setAttached((prev) => (prev.length >= MAX_IMAGES ? prev : [...prev, prepared.dataUrl]));
         } catch {
           setAttachError(dict.model.imageTooBig);
         }
       }
     },
-    [attached.length, byok.canSee, dict.model.imageTooBig],
+    [byok.canSee, dict.model.imageTooBig, setAttached],
   );
 
   /**
@@ -112,7 +128,7 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
     } else {
       setMessages([
         ...base,
-        { id: `local-${Date.now()}`, authorId: LEARNER_ID, body: trimmed, createdAt: new Date().toISOString() },
+        { id: nextId("local"), authorId: LEARNER_ID, body: trimmed, createdAt: new Date().toISOString() },
       ]);
     }
 
@@ -140,13 +156,13 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         const message = res.status === 503 ? t.notConfigured : t.failed;
         setMessages((prev) => [
           ...prev,
-          { id: `err-${Date.now()}`, authorId: HEIDI_ID, body: "", createdAt: new Date().toISOString(), error: message },
+          { id: nextId("err"), authorId: HEIDI_ID, body: "", createdAt: new Date().toISOString(), error: message },
         ]);
       } else if (!data.skipped) {
         setMessages((prev) => [
           ...prev,
           {
-            id: `heidi-${Date.now()}`,
+            id: nextId("heidi"),
             authorId: HEIDI_ID,
             body: (data as Answer).text,
             createdAt: new Date().toISOString(),
@@ -157,7 +173,7 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
     } catch {
       setMessages((prev) => [
         ...prev,
-        { id: `err-${Date.now()}`, authorId: HEIDI_ID, body: "", createdAt: new Date().toISOString(), error: t.unreachable },
+        { id: nextId("err"), authorId: HEIDI_ID, body: "", createdAt: new Date().toISOString(), error: t.unreachable },
       ]);
     } finally {
       setBusy(false);
@@ -198,11 +214,15 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         )}
       </div>
 
+      {/* Before anything is said there is no transcript to show, so the panel
+          is the intro; once a conversation exists it becomes the transcript
+          and the intro is gone. Rendering an empty bordered box and calling it
+          a conversation is what pushed the input below the fold. */}
       <div
         className="flex flex-col gap-4 rounded-control border border-border-strong bg-surface-raised p-3 sm:p-4"
         aria-live="polite"
       >
-        {!started && <Empty t={t} onPick={(ex) => void send(ex)} />}
+        {!started && <Intro t={t} />}
 
         {messages.map((m) =>
           m.authorId === LEARNER_ID ? (
@@ -229,7 +249,10 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       </div>
 
       <form
-        className="sticky bottom-0 z-10 mt-3 bg-surface-page pb-1 pt-1"
+        // Sticky only once there IS a transcript to scroll past. In the empty
+        // state there is nothing to follow, and sticking pinned the composer
+        // over the intro panel — clipping its last line behind the input.
+        className={`z-10 mt-3 bg-surface-page pb-1 pt-1 ${started ? "sticky bottom-0" : ""}`}
         onSubmit={(e) => {
           e.preventDefault();
           void send(input);
@@ -375,6 +398,8 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         )}
       </form>
 
+      {!started && <Examples t={t} onPick={(ex) => void send(ex)} />}
+
       {sheetOpen && (
         <ModelSheet
           t={dict.model}
@@ -402,20 +427,38 @@ function dropTrailingFailure(messages: ChatMessage[]): ChatMessage[] {
   return last?.error ? messages.slice(0, -1) : messages;
 }
 
-function Empty({ t, onPick }: { t: Dictionary["chat"]; onPick: (s: string) => void }) {
+/** What the panel says before there is a conversation in it. */
+function Intro({ t }: { t: Dictionary["chat"] }) {
   return (
     <div className="py-2">
       <h2 className="font-heading text-xl font-semibold leading-tight tracking-display text-fg-primary">
         {t.emptyTitle}
       </h2>
       <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{t.emptyBody}</p>
-      <ul className="mt-4 flex flex-col gap-2">
+    </div>
+  );
+}
+
+/**
+ * Three things worth pasting, BELOW the input rather than above it.
+ *
+ * They used to sit inside the empty panel, between the intro and the
+ * composer, which put the one control the whole page exists for about 700px
+ * down a phone screen — you had to scroll past three examples of the problem
+ * to reach the thing that solves it. Examples are a prompt for someone who
+ * has nothing to paste; someone who does should meet the box first.
+ */
+function Examples({ t, onPick }: { t: Dictionary["chat"]; onPick: (s: string) => void }) {
+  return (
+    <div className="mt-3">
+      <h2 className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.suggestionsTitle}</h2>
+      <ul className="mt-2 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
         {t.examples.map((ex) => (
-          <li key={ex}>
+          <li key={ex} className="sm:max-w-[22rem]">
             <button
               type="button"
               onClick={() => onPick(ex)}
-              className="w-full rounded-control border border-border-subtle bg-surface-page px-3 py-2.5 text-left text-sm text-fg-secondary transition-colors hover:border-border-strong hover:text-fg-primary"
+              className="h-full w-full rounded-control border border-border-subtle bg-surface-page px-3 py-2.5 text-left text-sm text-fg-secondary transition-colors hover:border-border-strong hover:text-fg-primary"
             >
               {ex}
             </button>

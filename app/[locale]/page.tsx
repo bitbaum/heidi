@@ -25,7 +25,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <Shell>
-      <section className="py-12 sm:py-20" aria-labelledby="headline">
+      <section className="pb-10 pt-10 sm:pb-14 sm:pt-16" aria-labelledby="headline">
         <p className="font-mono text-[11px] uppercase tracking-caps text-accent">{t.eyebrow}</p>
         <h1
           id="headline"
@@ -40,7 +40,16 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <Chat locale={locale} dict={dict} />
       </div>
 
-      <section className="border-y border-border-subtle py-10 sm:py-12" aria-labelledby="trust">
+      <section className="border-y border-border-subtle py-10 sm:py-12" aria-labelledby="rules">
+        <h2 id="rules" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+          {t.correspondencesTitle}
+        </h2>
+        <div className="mt-6">
+          <CorrespondenceFigure />
+        </div>
+      </section>
+
+      <section className="border-b border-border-subtle py-10 sm:py-12" aria-labelledby="trust">
         <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
           <div>
             <h2
@@ -82,15 +91,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
           <p className="max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.dialectBody}</p>
           {VARIETY.family && <DialectFigure plannedLabel={t.dialectPlanned} />}
-        </div>
-      </section>
-
-      <section className="border-b border-border-subtle py-10 sm:py-12" aria-labelledby="rules">
-        <h2 id="rules" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
-          {t.correspondencesTitle}
-        </h2>
-        <div className="mt-6">
-          <CorrespondenceFigure />
         </div>
       </section>
 
