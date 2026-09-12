@@ -87,6 +87,37 @@ export const it: Dictionary = {
     retry: "Di nuovo",
   },
 
+  model: {
+    attach: "Allegare un'immagine",
+    attachNeedsKey: "Leggere un'immagine richiede un vostro modello",
+    remove: "Rimuovere",
+    connectTitle: "Collegare il vostro modello",
+    connectLead:
+      "Heidi è gratuita, e i modelli gratuiti non sanno leggere le immagini. Con una vostra chiave API Heidi capisce uno screenshot — e risponde meglio in generale.",
+    whyTitle: "Perché non è semplicemente incluso?",
+    whyBody:
+      "Perché leggere un'immagine costa, per ogni immagine. Pagarlo per tutti vorrebbe dire far pagare Heidi. Così tutto il resto resta gratuito, e chi vuole di più porta la propria chiave.",
+    safetyTitle: "Dove va la vostra chiave",
+    safetyBody:
+      "Resta in questo browser. A ogni messaggio ci viene inviata su una connessione cifrata, usata una volta presso il fornitore e poi scartata. Non la conserviamo, non la scriviamo in alcun registro e non la restituiamo mai.",
+    providerLabel: "Fornitore",
+    keyLabel: "Chiave API",
+    keyPlaceholder: "sk-…",
+    modelLabel: "Modello",
+    getKey: "Ottenere una chiave",
+    test: "Collegare e provare",
+    testing: "Verifica in corso …",
+    connected: "Collegato",
+    connectedWith: "Collegato con",
+    failed: "Non ha funzionato",
+    disconnect: "Rimuovere la chiave",
+    canSee: "Può leggere le immagini",
+    textOnly: "Solo testo",
+    open: "Il vostro modello",
+    imageTooBig: "Questa immagine non può essere usata.",
+    imagesLabel: "Allegato",
+  },
+
   pillars: [
     {
       title: "Capire viene prima",

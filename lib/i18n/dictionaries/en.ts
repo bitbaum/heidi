@@ -87,6 +87,37 @@ export const en: Dictionary = {
     retry: "Again",
   },
 
+  model: {
+    attach: "Attach a picture",
+    attachNeedsKey: "Reading pictures needs your own model",
+    remove: "Remove",
+    connectTitle: "Connect your own model",
+    connectLead:
+      "Heidi is free, and the free models cannot read pictures. Add your own API key and Heidi can understand a screenshot — and answers better across the board.",
+    whyTitle: "Why is that not just included?",
+    whyBody:
+      "Because reading a picture costs money per picture. Paying that for everyone would mean charging for Heidi. This way everything else stays free, and whoever wants more brings their own key.",
+    safetyTitle: "Where your key goes",
+    safetyBody:
+      "It stays in this browser. With each message it is sent to us over an encrypted connection, used once at the provider, and dropped. We do not store it, never write it to a log, and never send it back.",
+    providerLabel: "Provider",
+    keyLabel: "API key",
+    keyPlaceholder: "sk-…",
+    modelLabel: "Model",
+    getKey: "Get a key",
+    test: "Connect and test",
+    testing: "Checking …",
+    connected: "Connected",
+    connectedWith: "Connected with",
+    failed: "That did not work",
+    disconnect: "Remove key",
+    canSee: "Can read pictures",
+    textOnly: "Text only",
+    open: "Your own model",
+    imageTooBig: "That picture cannot be used.",
+    imagesLabel: "Attached",
+  },
+
   pillars: [
     {
       title: "Understanding comes first",
