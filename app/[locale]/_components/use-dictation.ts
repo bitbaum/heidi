@@ -58,6 +58,19 @@ function recogniser(): RecognitionCtor | undefined {
 /** Why a dictation produced no text, in terms the learner can act on. */
 export type DictationProblem = "mic" | "silence" | "unavailable";
 
+/**
+ * Which recogniser failures the fallback can rescue.
+ *
+ * Only "unavailable": it means the RECOGNISER cannot do this — no speech
+ * service behind the API, network refused, language unsupported — and
+ * recording locally does not care about any of that. "mic" is about the
+ * person's hardware or a permission they denied, and "silence" is about
+ * whether they spoke; recording again would tell them the same thing twice.
+ */
+export function fallbackCanRescue(problem: DictationProblem | null): boolean {
+  return problem === "unavailable";
+}
+
 /** Can this browser record at all? The fallback needs nothing more than this. */
 export function canRecord(): boolean {
   return (
@@ -107,6 +120,21 @@ export function problemFor(error: string | undefined): DictationProblem | null {
  */
 const START_TIMEOUT_MS = 4000;
 
+/**
+ * How long a pending permission may hold off the fallback.
+ *
+ * The wait itself is right — someone reading a permission dialog has not
+ * failed. Making it UNBOUNDED was the bug: `permissions.query` reports
+ * "prompt" both while a dialog is open AND when no dialog will ever appear,
+ * and a recogniser with no speech service behind it never asks. So the button
+ * said "Ich höre …" forever and the fallback never ran. Reproduced on the live
+ * site 2026-09-12: twenty-two seconds, no timeout, nothing.
+ *
+ * Falling back is safe even with a real dialog open: getUserMedia asks for the
+ * same permission, and the browser coalesces the two rather than stacking them.
+ */
+const PERMISSION_WAIT_MS = 10_000;
+
 /** A permission prompt still waiting on the learner is not a dead recogniser. */
 async function awaitingPermission(): Promise<boolean> {
   try {
@@ -115,6 +143,16 @@ async function awaitingPermission(): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+/**
+ * Pure: may the fallback keep waiting for a permission answer?
+ *
+ * Exported because "never forever" is the whole property, and it lived inside
+ * a self-rescheduling timeout where nothing could see it.
+ */
+export function mayKeepWaitingForPermission(elapsedMs: number, permissionPending: boolean): boolean {
+  return permissionPending && elapsedMs < PERMISSION_WAIT_MS;
 }
 
 /** Stable identity: `useSyncExternalStore` calls this on every render. */
@@ -264,7 +302,20 @@ export function useDictation(lang: string, onText: (text: string) => void) {
         .trim();
       if (said) sink.current(said);
     };
-    rec.onerror = (event) => finish(problemFor(event?.error));
+    rec.onerror = (event) => {
+      const why = problemFor(event?.error);
+      // "unavailable" means the RECOGNISER cannot do this — no speech service,
+      // network refused, language unsupported. The fallback can, so try it
+      // instead of telling the person their browser is incapable. "mic" and
+      // "silence" are real answers about the person's microphone or their
+      // voice, and recording again would not improve either.
+      if (fallbackCanRescue(why) && canRecord()) {
+        finish(null);
+        void record();
+        return;
+      }
+      finish(why);
+    };
     rec.onend = () => finish(null);
 
     ref.current = rec;
@@ -277,10 +328,13 @@ export function useDictation(lang: string, onText: (text: string) => void) {
       return;
     }
 
+    const giveUpWaitingAt = Date.now() + PERMISSION_WAIT_MS;
     const watch = () => {
       setTimeout(async () => {
         if (started || !current()) return;
-        if (await awaitingPermission()) {
+        // Bounded. "prompt" means both "a dialog is open" and "no dialog will
+        // ever appear", and only the clock can tell them apart.
+        if (Date.now() < giveUpWaitingAt && (await awaitingPermission())) {
           watch();
           return;
         }
