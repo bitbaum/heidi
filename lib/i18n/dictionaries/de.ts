@@ -93,6 +93,37 @@ export const de = {
     retry: "Nochmals",
   },
 
+  model: {
+    attach: "Bild anhängen",
+    attachNeedsKey: "Bilder lesen braucht Ihr eigenes Modell",
+    remove: "Entfernen",
+    connectTitle: "Ihr eigenes Modell verbinden",
+    connectLead:
+      "Heidi ist gratis, und die kostenlosen Modelle können keine Bilder lesen. Wenn Sie einen eigenen API-Schlüssel hinterlegen, kann Heidi Screenshots verstehen — und antwortet insgesamt besser.",
+    whyTitle: "Warum nicht einfach inklusive?",
+    whyBody:
+      "Weil Bilderkennung pro Bild kostet. Würden wir das für alle bezahlen, müssten wir Heidi kostenpflichtig machen. So bleibt alles andere gratis, und wer mehr will, bringt seinen eigenen Schlüssel mit.",
+    safetyTitle: "Wohin Ihr Schlüssel geht",
+    safetyBody:
+      "Er bleibt in diesem Browser. Bei jeder Nachricht wird er verschlüsselt an uns geschickt, einmal beim Anbieter verwendet und sofort verworfen. Wir speichern ihn nicht, schreiben ihn in kein Log und geben ihn nie zurück.",
+    providerLabel: "Anbieter",
+    keyLabel: "API-Schlüssel",
+    keyPlaceholder: "sk-…",
+    modelLabel: "Modell",
+    getKey: "Schlüssel holen",
+    test: "Verbinden und testen",
+    testing: "Wird geprüft …",
+    connected: "Verbunden",
+    connectedWith: "Verbunden mit",
+    failed: "Das hat nicht geklappt",
+    disconnect: "Schlüssel entfernen",
+    canSee: "Kann Bilder lesen",
+    textOnly: "Nur Text",
+    open: "Eigenes Modell",
+    imageTooBig: "Dieses Bild lässt sich nicht verwenden.",
+    imagesLabel: "Angehängt",
+  },
+
   pillars: [
     {
       title: "Verstehen kommt zuerst",

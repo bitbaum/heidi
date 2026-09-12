@@ -103,6 +103,37 @@ export const rm: Dictionary = {
     retry: "Danovamain",
   },
 
+  model: {
+    attach: "Agiuntar ina maletg",
+    attachNeedsKey: "Leger ina maletg dumonda Voss agen model",
+    remove: "Allontanar",
+    connectTitle: "Colliar Voss agen model",
+    connectLead:
+      "Heidi è gratuita, ed ils models gratuits na san betg leger maletgs. Cun ina atgna clav API chapescha Heidi ina fotografia dal visur — e responda en general meglier.",
+    whyTitle: "Pertge n'è quai betg simplamain include?",
+    whyBody:
+      "Perquai che leger ina maletg custa, per mintga maletg. Pajar quai per tuts vuless dir far pajar Heidi. Uschia resta tut il rest gratuit, e tgi che vul dapli porta sia atgna clav.",
+    safetyTitle: "Nua che Vossa clav va",
+    safetyBody:
+      "Ella resta en quest navigatur. Cun mintga messadi vegn ella tramessa a nus sur ina connexiun criptada, duvrada ina giada tar il purschider e lura abandunada. Nus n'la memorisain betg, nus n'la scrivain en nagin protocol e nus n'la returnain mai.",
+    providerLabel: "Purschider",
+    keyLabel: "Clav API",
+    keyPlaceholder: "sk-…",
+    modelLabel: "Model",
+    getKey: "Obtegnair ina clav",
+    test: "Colliar ed empruvar",
+    testing: "Vegn controllà …",
+    connected: "Collià",
+    connectedWith: "Collià cun",
+    failed: "Quai n'ha betg funcziunà",
+    disconnect: "Allontanar la clav",
+    canSee: "Po leger maletgs",
+    textOnly: "Mo text",
+    open: "Voss agen model",
+    imageTooBig: "Questa maletg na sa betg vegnir duvrada.",
+    imagesLabel: "Agiuntà",
+  },
+
   pillars: [
     {
       title: "Chapir vegn l'emprim",

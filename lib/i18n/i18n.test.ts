@@ -12,6 +12,7 @@ import {
   negotiate,
 } from "./locales.ts";
 import { INDEXED_ROUTES, NAV_ROUTES, ROUTES, href } from "./routes.ts";
+import { BYOK_PROVIDERS } from "../domain/model/providers.ts";
 
 test("German is the default, not English", () => {
   // The site is about living in a German-speaking city. Defaulting to English
@@ -156,6 +157,24 @@ test("the portal is never in the sitemap", () => {
   // robots meta, and search engines distrust both signals when they disagree.
   assert.ok(!INDEXED_ROUTES.some((r) => r.key === "portal"));
   assert.equal(INDEXED_ROUTES.length, ROUTES.length - 1);
+});
+
+test("no English source copy from the provider list reaches a page", () => {
+  // The provider `note` fields are maintainer copy. Rendering them put English
+  // sentences into a German dropdown; anything a visitor reads comes from a
+  // dictionary instead. This asserts the notes are not smuggled into one.
+  for (const locale of LOCALES) {
+    const flat = JSON.stringify(getDictionary(locale));
+    for (const provider of BYOK_PROVIDERS) {
+      assert.ok(!flat.includes(provider.note), `${locale} embeds ${provider.id}'s English note`);
+    }
+  }
+});
+
+test("every provider a visitor can choose is named in the allowlist", () => {
+  // The dropdown renders labels only, so a provider with no label would be an
+  // empty option the person cannot reason about.
+  for (const provider of BYOK_PROVIDERS) assert.ok(provider.label.length > 0);
 });
 
 test("route segments are the same in every language", () => {

@@ -6,6 +6,9 @@ import { HEIDI_ID, LEARNER_ID } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
 import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
 import { useDictation } from "./use-dictation";
+import { useByok } from "./use-byok";
+import { ModelSheet } from "./model-sheet";
+import { downscale, imagesFromClipboard } from "./downscale";
 
 /**
  * A conversation, not a form.
@@ -24,6 +27,13 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const [busy, setBusy] = useState(false);
   const areaRef = useRef<HTMLTextAreaElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const byok = useByok();
+  const [sheetOpen, setSheetOpen] = useState(false);
+  /** Downscaled data URLs waiting to go with the next message. */
+  const [attached, setAttached] = useState<string[]>([]);
+  const [attachError, setAttachError] = useState<string | null>(null);
 
   const dictation = useDictation(LOCALE_TAGS[locale], (heard) => {
     setInput((v) => (v ? `${v} ${heard}` : heard));
@@ -48,6 +58,32 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   useEffect(grow, [input, grow]);
 
   /**
+   * Take pictures from a picker, a drop, or a paste — and downscale them here,
+   * before they are ever uploaded. Vision models bill by image tile and the
+   * person paying is the one who brought the key, so sending a 4 MB phone
+   * screenshot would be charging them for detail no model needs.
+   */
+  const accept = useCallback(
+    async (files: File[]) => {
+      if (files.length === 0) return;
+      if (!byok.canSee) {
+        setSheetOpen(true);
+        return;
+      }
+      setAttachError(null);
+      for (const file of files.slice(0, 3 - attached.length)) {
+        try {
+          const prepared = await downscale(file);
+          setAttached((prev) => (prev.length >= 3 ? prev : [...prev, prepared.dataUrl]));
+        } catch {
+          setAttachError(dict.model.imageTooBig);
+        }
+      }
+    },
+    [attached.length, byok.canSee, dict.model.imageTooBig],
+  );
+
+  /**
    * @param retry when true the learner's message is already on screen and the
    *   failed reply is dropped — otherwise a retry stacks a second copy of the
    *   question under the first, which is what it did before this existed.
@@ -55,6 +91,11 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   async function send(text: string, retry = false) {
     const trimmed = text.trim();
     if (!trimmed || busy) return;
+
+    // Taken before the optimistic update so a failure can put them back.
+    const images = attached;
+    setAttached([]);
+    setAttachError(null);
 
     // Everything up to and including the question being answered. On a retry
     // that means dropping the failed turn; otherwise it is the whole thread.
@@ -82,7 +123,7 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ input: trimmed, history, locale }),
+        body: JSON.stringify({ input: trimmed, history, locale, byok: byok.config, images }),
       });
       const data = await res.json();
 
@@ -128,8 +169,20 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
   return (
     <section aria-label="Heidi" className="flex w-full flex-col">
-      <div className="flex items-center justify-between gap-4 pb-3">
-        <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 pb-3">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>
+          {byok.ready && byok.config && (
+            <button
+              type="button"
+              onClick={() => setSheetOpen(true)}
+              className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-caps text-ok hover:text-fg-primary"
+            >
+              <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ok" />
+              {byok.config.model}
+            </button>
+          )}
+        </div>
         {started && (
           <button
             type="button"
@@ -182,7 +235,48 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           void send(input);
         }}
       >
-        <div className="flex items-end gap-2 rounded-control border border-border-strong bg-surface-raised p-2 focus-within:border-accent">
+        {attached.length > 0 && (
+          <ul className="mb-2 flex flex-wrap gap-2" aria-label={dict.model.imagesLabel}>
+            {attached.map((src, i) => (
+              <li key={src.slice(-24)} className="relative">
+                {/* eslint-disable-next-line @next/next/no-img-element -- a
+                    client-side data URL; next/image optimises remote files and
+                    would only add a round trip here. */}
+                <img
+                  src={src}
+                  alt=""
+                  className="h-16 w-16 rounded-control border border-border-strong object-cover"
+                />
+                <button
+                  type="button"
+                  onClick={() => setAttached((prev) => prev.filter((_, j) => j !== i))}
+                  aria-label={dict.model.remove}
+                  className="absolute -right-1.5 -top-1.5 inline-flex h-6 w-6 items-center justify-center rounded-full border border-border-strong bg-surface-raised text-xs text-fg-secondary hover:text-accent"
+                >
+                  ✕
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {attachError && (
+          <p role="alert" className="mb-2 px-1 text-sm text-accent">
+            {attachError}
+          </p>
+        )}
+
+        <div
+          className="flex items-end gap-2 rounded-control border border-border-strong bg-surface-raised p-2 focus-within:border-accent"
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => {
+            const files = imagesFromClipboard(e.dataTransfer);
+            if (files.length > 0) {
+              e.preventDefault();
+              void accept(files);
+            }
+          }}
+        >
           <label htmlFor="chat-input" className="sr-only">
             {t.placeholder}
           </label>
@@ -200,11 +294,43 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                 void send(input);
               }
             }}
+            onPaste={(e) => {
+              // How a screenshot actually arrives: Cmd+V straight into the box.
+              const files = imagesFromClipboard(e.clipboardData);
+              if (files.length > 0) {
+                e.preventDefault();
+                void accept(files);
+              }
+            }}
             rows={1}
             maxLength={2000}
             placeholder={t.placeholder}
             className="max-h-[200px] min-h-11 flex-1 resize-none bg-transparent px-2 py-2 text-base leading-relaxed text-fg-primary placeholder:text-fg-muted focus:outline-none"
           />
+
+          {/* Always visible, never disabled. Without a vision model it opens
+              the explanation instead of doing nothing — a greyed-out button
+              with a tooltip teaches nobody why. */}
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/png,image/jpeg,image/webp,image/gif"
+            multiple
+            className="hidden"
+            onChange={(e) => {
+              void accept(Array.from(e.target.files ?? []));
+              e.target.value = "";
+            }}
+          />
+          <button
+            type="button"
+            onClick={() => (byok.canSee ? fileRef.current?.click() : setSheetOpen(true))}
+            aria-label={byok.canSee ? dict.model.attach : dict.model.attachNeedsKey}
+            title={byok.canSee ? dict.model.attach : dict.model.attachNeedsKey}
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control border border-border-strong text-fg-secondary transition-colors hover:text-fg-primary"
+          >
+            <ClipIcon />
+          </button>
 
           {dictation.supported && (
             <button
@@ -243,6 +369,16 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           </p>
         )}
       </form>
+
+      {sheetOpen && (
+        <ModelSheet
+          t={dict.model}
+          current={byok.config}
+          onSave={byok.save}
+          onClear={byok.clear}
+          onClose={() => setSheetOpen(false)}
+        />
+      )}
     </section>
   );
 }
@@ -434,6 +570,18 @@ function Dot({ delay = "0ms" }: { delay?: string }) {
       className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-fg-muted"
       style={{ animationDelay: delay }}
     />
+  );
+}
+
+function ClipIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <path
+        d="M21 11.5 12.5 20a5 5 0 0 1-7-7l8-8a3.5 3.5 0 1 1 5 5l-8 8a2 2 0 1 1-3-3l7-7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 
