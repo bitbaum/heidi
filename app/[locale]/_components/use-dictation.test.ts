@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   canRecord,
+  fallbackCanRescue,
   mayKeepWaitingForPermission,
   problemFor,
   problemForRecording,
@@ -110,4 +111,18 @@ test("waiting for a permission answer is bounded, always", () => {
     false,
     "nothing pending — go straight to the fallback",
   );
+});
+
+// ── Which failures the fallback can rescue ──────────────────────────────────
+//
+// Wiring the fallback only to SILENCE left the commonest real failure
+// unrescued: the recogniser erroring. Measured on the live site 2026-09-12
+// against the bounded-wait fix — the control gave up at 15 s with "Diktieren
+// funktioniert in diesem Browser nicht" instead of recording, because an
+// `onerror` had already closed the session before the timeout could fall back.
+test("a recogniser that cannot do the job hands over; a microphone problem does not", () => {
+  assert.equal(fallbackCanRescue("unavailable"), true, "no speech service, network refused — recording works");
+  assert.equal(fallbackCanRescue("mic"), false, "their microphone or a denied permission — recording fails the same way");
+  assert.equal(fallbackCanRescue("silence"), false, "they were heard and said nothing — telling them twice helps nobody");
+  assert.equal(fallbackCanRescue(null), false, "a clean end is not a failure");
 });
