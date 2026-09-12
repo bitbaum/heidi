@@ -158,6 +158,47 @@ export function mayKeepWaitingForPermission(elapsedMs: number, permissionPending
 /** Stable identity: `useSyncExternalStore` calls this on every render. */
 const detectSupport = () => Boolean(recogniser()) || canRecord();
 
+/**
+ * Remember that this browser's recogniser does not work.
+ *
+ * Discovering it costs the person ten seconds of a button that says "Ich höre
+ * …" and does nothing visible, and on a browser with no speech service behind
+ * the API that discovery is the SAME every single time. Remembering turns
+ * every dictation after the first into an immediate recording.
+ *
+ * Per browser, because that is exactly the scope of the fact. Expires, because
+ * a browser can gain the capability (a Chromium replaced by a Chrome, a
+ * Firefox that implements it) and a permanent verdict would hide that.
+ */
+const DEAD_RECOGNISER_KEY = "heidi:dictation:recogniser-dead-at";
+const DEAD_RECOGNISER_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+
+/** Pure: is a remembered verdict still worth trusting? */
+export function deadRecogniserStillTrusted(rememberedAt: number | null, now = Date.now()): boolean {
+  if (rememberedAt === null || !Number.isFinite(rememberedAt)) return false;
+  const age = now - rememberedAt;
+  // A timestamp from the future is a clock change, not a verdict.
+  return age >= 0 && age < DEAD_RECOGNISER_TTL_MS;
+}
+
+function recogniserKnownDead(): boolean {
+  try {
+    const raw = window.localStorage.getItem(DEAD_RECOGNISER_KEY);
+    return deadRecogniserStillTrusted(raw === null ? null : Number(raw));
+  } catch {
+    // Private mode, or storage disabled. Not knowing is not a reason to fail.
+    return false;
+  }
+}
+
+function rememberRecogniserDead(): void {
+  try {
+    window.localStorage.setItem(DEAD_RECOGNISER_KEY, String(Date.now()));
+  } catch {
+    /* nothing to do — the person simply waits again next time */
+  }
+}
+
 export function useDictation(lang: string, onText: (text: string) => void) {
   /**
    * The server has no `window`, so support must be read on the client only,
@@ -268,7 +309,9 @@ export function useDictation(lang: string, onText: (text: string) => void) {
 
   const start = useCallback(() => {
     const Ctor = recogniser();
-    if (!Ctor) {
+    // No recogniser, or one this browser has already proved cannot do it:
+    // record straight away rather than making them wait to rediscover it.
+    if (!Ctor || recogniserKnownDead()) {
       void record();
       return;
     }
@@ -310,6 +353,7 @@ export function useDictation(lang: string, onText: (text: string) => void) {
       // "silence" are real answers about the person's microphone or their
       // voice, and recording again would not improve either.
       if (fallbackCanRescue(why) && canRecord()) {
+        rememberRecogniserDead();
         finish(null);
         void record();
         return;
@@ -341,7 +385,9 @@ export function useDictation(lang: string, onText: (text: string) => void) {
         if (started || !current()) return;
         // The recogniser took start() and said nothing. That is the exact case
         // the fallback exists for — record instead of telling the person their
-        // browser cannot do it.
+        // browser cannot do it, and do not make them wait for this discovery
+        // again.
+        rememberRecogniserDead();
         finish(null);
         rec.abort();
         void record();
