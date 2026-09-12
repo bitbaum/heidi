@@ -1,5 +1,6 @@
 import { EXPLANATION_LANGUAGE, isLocale, DEFAULT_LOCALE, type Locale } from "@/lib/i18n/locales";
 import { callerKey, dictation as dictationLimit, tooMany } from "@/lib/domain/limits";
+import { looksLikeSilence } from "@/lib/domain/chat/transcription";
 
 export const dynamic = "force-dynamic";
 
@@ -83,9 +84,12 @@ export async function POST(request: Request) {
       return bad("transcription is not available right now", 502, true);
     }
     const body = (await res.json()) as { text?: unknown };
-    const text = typeof body.text === "string" ? body.text.trim() : "";
-    // Silence is a legitimate answer, and the control already has words for
-    // it — say nothing was heard rather than inventing an error.
+    const said = typeof body.text === "string" ? body.text.trim() : "";
+    // Whisper never answers "silence" — it answers with the likeliest sentence
+    // given no evidence, which in German is a subtitle credit. Returning that
+    // types words the person never said into their own message. Silence is a
+    // legitimate answer and the control already has words for it.
+    const text = looksLikeSilence(said) ? "" : said;
     return Response.json({ text });
   } catch {
     return bad("transcription is not available right now", 502, true);
