@@ -77,6 +77,7 @@ export const rm: Dictionary = {
 
   chat: {
     placeholder: "Encollai quai che Vus avais retschavì — u scrivai quai che Vus vulais dir.",
+    composer: "Messadi a Heidi",
     send: "Trametter",
     thinking: "Heidi legia …",
     you: "Vus",

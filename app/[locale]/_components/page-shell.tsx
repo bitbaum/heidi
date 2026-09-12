@@ -11,10 +11,10 @@ export function PageHeader({ eyebrow, title, lead }: { eyebrow?: string; title: 
   return (
     <header className="border-b border-border-subtle py-12 sm:py-16">
       {eyebrow && <p className="font-mono text-[11px] uppercase tracking-caps text-accent">{eyebrow}</p>}
-      <h1 className="mt-3 max-w-[20ch] font-heading text-3xl font-semibold leading-[1.1] tracking-display text-fg-primary sm:text-5xl">
+      <h1 className="mt-3 max-w-[20ch] font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
         {title}
       </h1>
-      {lead && <p className="mt-5 max-w-measure text-lg leading-relaxed text-fg-secondary">{lead}</p>}
+      {lead && <p className="mt-5 max-w-measure text-lead leading-relaxed text-fg-secondary">{lead}</p>}
     </header>
   );
 }
@@ -31,7 +31,7 @@ export function Section({
   return (
     <section id={id} className="scroll-mt-20 border-b border-border-subtle py-10 sm:py-14">
       {title && (
-        <h2 className="font-heading text-2xl font-semibold leading-tight tracking-display text-fg-primary sm:text-3xl">
+        <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
           {title}
         </h2>
       )}

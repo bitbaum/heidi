@@ -84,6 +84,32 @@ test("Zurich German is one dialect of a family, not the whole language", () => {
   assert.ok(family?.planned.includes("Bern"));
 });
 
+test("every planned dialect is placed on the map, and nothing is placed that is not planned", () => {
+  // The figure draws `planned` and looks each name up in `atlas.places`. A
+  // dialect added to one list and not the other does not throw — it silently
+  // vanishes from the map, or leaves a dot no legend explains. Both halves are
+  // named here so the drift is a test failure instead.
+  const family = ZURICH_GERMAN.family;
+  const atlas = family?.atlas;
+  assert.ok(atlas, "the Swiss German family should be drawable");
+
+  const planned = [...(family?.planned ?? [])].sort();
+  const placed = Object.keys(atlas?.places ?? {}).sort();
+  assert.deepEqual(placed, planned, "planned dialects and placed dialects must be the same set");
+});
+
+test("the dialects sit inside the country they are spoken in", () => {
+  // Coordinates are easy to transpose — lon/lat the wrong way round puts Bern
+  // in Somalia, and the figure would still render, just wrongly.
+  const atlas = ZURICH_GERMAN.family?.atlas;
+  const points = [atlas?.home, ...Object.values(atlas?.places ?? {})];
+  for (const p of points) {
+    assert.ok(p, "every place is defined");
+    assert.ok(p!.lon > 5.9 && p!.lon < 10.5, `lon ${p!.lon} is outside Switzerland`);
+    assert.ok(p!.lat > 45.8 && p!.lat < 47.9, `lat ${p!.lat} is outside Switzerland`);
+  }
+});
+
 test("every region the gate rejects is a named sibling, not a mystery", () => {
   // The gate rejects Bernese because we teach Zurich, not because Bernese is
   // wrong. A rejected origin we have no plan for means the scope claimed on

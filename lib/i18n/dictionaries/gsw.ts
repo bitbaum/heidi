@@ -84,6 +84,7 @@ export const gsw: Dictionary = {
 
   chat: {
     placeholder: "Füged ii, was Si becho händ — oder schriibed, was Si wänd säge.",
+    composer: "Nachricht a Heidi",
     send: "Schicke",
     thinking: "Heidi liist mit …",
     you: "Si",

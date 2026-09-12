@@ -25,27 +25,36 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <Shell>
-      <section className="py-12 sm:py-20" aria-labelledby="headline">
+      <section className="pb-10 pt-10 sm:pb-14 sm:pt-16" aria-labelledby="headline">
         <p className="font-mono text-[11px] uppercase tracking-caps text-accent">{t.eyebrow}</p>
         <h1
           id="headline"
-          className="mt-4 max-w-[16ch] font-heading text-[2.75rem] font-bold leading-[0.95] tracking-display text-fg-primary sm:text-7xl lg:text-8xl"
+          className="mt-4 max-w-[16ch] font-heading text-display font-bold leading-[0.95] tracking-display text-fg-primary"
         >
           {t.headline}
         </h1>
-        <p className="mt-6 max-w-measure text-lg leading-relaxed text-fg-secondary sm:text-xl">{t.sub}</p>
+        <p className="mt-6 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.sub}</p>
       </section>
 
       <div className="pb-12 sm:pb-16">
         <Chat locale={locale} dict={dict} />
       </div>
 
-      <section className="border-y border-border-subtle py-10 sm:py-12" aria-labelledby="trust">
+      <section className="border-y border-border-subtle py-10 sm:py-12" aria-labelledby="rules">
+        <h2 id="rules" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+          {t.correspondencesTitle}
+        </h2>
+        <div className="mt-6">
+          <CorrespondenceFigure />
+        </div>
+      </section>
+
+      <section className="border-b border-border-subtle py-10 sm:py-12" aria-labelledby="trust">
         <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
           <div>
             <h2
               id="trust"
-              className="font-heading text-2xl font-semibold leading-tight tracking-display text-fg-primary sm:text-3xl"
+              className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
             >
               {t.trustTitle}
             </h2>
@@ -75,22 +84,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="border-b border-border-subtle py-10 sm:py-12" aria-labelledby="dialect">
         <h2
           id="dialect"
-          className="font-heading text-2xl font-semibold leading-tight tracking-display text-fg-primary sm:text-3xl"
+          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
         >
           {t.dialectTitle}
         </h2>
         <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
           <p className="max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.dialectBody}</p>
           {VARIETY.family && <DialectFigure plannedLabel={t.dialectPlanned} />}
-        </div>
-      </section>
-
-      <section className="border-b border-border-subtle py-10 sm:py-12" aria-labelledby="rules">
-        <h2 id="rules" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
-          {t.correspondencesTitle}
-        </h2>
-        <div className="mt-6">
-          <CorrespondenceFigure />
         </div>
       </section>
 

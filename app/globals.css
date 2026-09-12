@@ -39,6 +39,25 @@
   --spacing-shell: 72rem;
   --spacing-measure: 66ch;
 
+  /*
+   * The type scale, fluid.
+   *
+   * It was `text-[2.75rem] sm:text-7xl lg:text-8xl` written out at each
+   * headline, which is three hand-picked sizes and two guesses about what
+   * happens between them — and the guess was wrong: at 390px the home
+   * headline ran off the right edge of the phone, because 2.75rem of
+   * "Schweizerdeutsch" is wider than a 350px column.
+   *
+   * `clamp` removes the guess. The middle term is the size the text WANTS at
+   * a given viewport; the outer two stop it being unreadable on a watch or
+   * absurd on a monitor. One token per role, so a headline is `text-display`
+   * everywhere and the scale is decided here, once.
+   */
+  --text-display: clamp(2.25rem, 7.2vw, 5.5rem);
+  --text-title: clamp(1.875rem, 4.4vw, 3.25rem);
+  --text-section: clamp(1.5rem, 2.6vw, 2rem);
+  --text-lead: clamp(1.0625rem, 1.4vw, 1.25rem);
+
   /* Tier 1 — primitives. Two of them, and the greys between. */
   --primitive-white: #ffffff;
   --primitive-black: #0d0d0d;
