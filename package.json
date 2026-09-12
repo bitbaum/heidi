@@ -9,13 +9,16 @@
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "verify": "pnpm run type-check && pnpm run lint && pnpm run test",
-    "test": "node --no-warnings --experimental-strip-types --test 'app/**/*.test.ts' 'lib/**/*.test.ts'"
+    "test": "node --no-warnings --experimental-strip-types --test 'app/**/*.test.ts' 'lib/**/*.test.ts'",
+    "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
     "@bitbaum/ai-kit": "^0.15.0",
+    "drizzle-orm": "^0.45.2",
     "limitkit": "github:bitbaum/limitkit#v0.2.0",
     "next": "16.2.4",
     "next-auth": "5.0.0-beta.32",
+    "pg": "^8.23.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "threadkit": "^0.1.1"
@@ -23,8 +26,10 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^26.5.1",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^9.39.5",
     "eslint-config-next": "16.2.4",
     "tailwindcss": "^4",

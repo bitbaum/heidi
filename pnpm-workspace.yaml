@@ -15,3 +15,7 @@ allowBuilds:
   # limitkit is a git dependency, so pnpm runs its `prepare` to build dist/.
   # Without this the install "succeeds" and the package is simply absent.
   limitkit@https://codeload.github.com/bitbaum/limitkit/tar.gz/75adef1e993f90c6079a36a6cd96567cae5924c7: true
+  # esbuild ships a platform-specific binary and drizzle-kit (dev-only, used to
+  # GENERATE migrations) depends on it. Unapproved, pnpm install exits non-zero
+  # and CI never reaches the build.
+  esbuild: true
