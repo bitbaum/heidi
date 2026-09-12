@@ -4,7 +4,7 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { VARIETY } from "@/lib/variety/active";
 import { ruleLabel } from "@/lib/variety/pack";
-import { Ask } from "./_components/ask";
+import { Chat } from "./_components/chat";
 import { Shell } from "./_components/page-shell";
 
 /**
@@ -35,7 +35,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </section>
 
       <div className="pb-12 sm:pb-16">
-        <Ask locale={locale} dict={dict} />
+        <Chat locale={locale} dict={dict} />
       </div>
 
       <section className="border-y border-border-subtle py-10 sm:py-12" aria-labelledby="trust">

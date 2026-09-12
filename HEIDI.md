@@ -313,12 +313,33 @@ because being wrong in public is expensive and quiet correction is cheap.
 
 ## 9. What is built, and what is next
 
-**Built: the universal input.** One field on `/`, two modes — *Understand* what
-arrived, or *Say it* in Zurich German. It answers first and completely, because
-at 08:55 before a meeting someone needs the message decoded, not a lesson; the
-words worth keeping sit underneath, and never block the thing they came for.
+**Built: the conversation.** One field on `/`, and no mode switch.
 
-Three deterministic guards sit between the model and the learner, and all three
+It had one — *Understand* or *Say it* — and the switch was the bug. Someone
+arrives with a communication problem, not with a decision about which of our
+tools to use, and making them classify their own problem first is our internal
+structure pushed onto them. The model decides now and reports which it decided;
+a follow-up ("why did they say it like that?") is an ordinary next message
+instead of a new query with no past.
+
+It answers first and completely, because at 08:55 before a meeting someone
+needs the message decoded, not a lesson; the words worth keeping sit underneath
+and never block the thing they came for. Dictation is the browser's own
+recogniser — free, instant, no audio leaves the device, and explicitly NOT a
+claim to transcribe dialect, which nothing does well.
+
+**Two packages, each doing its own job.** `threadkit` owns the thread: who
+participates, what each may see, and *whether the assistant speaks at all*.
+`@bitbaum/ai-kit` owns the model call: which vendor, what to do when one dies.
+Neither knows the other exists — the seam is a `complete` callback. That is
+overkill for a two-party chat and exactly right for the next feature, because a
+group thread with a tutor in it is the same object with a longer participant
+list rather than a migration. threadkit already encodes the social rule we
+would have got wrong: two participants means the assistant *is* the
+conversation and answers every turn; three or more means it waits to be
+addressed, since two humans talking is not an invitation.
+
+Four deterministic guards sit between the model and the learner, and all four
 exist for the same reason — the learner cannot check this work:
 
 1. **Every generated line goes through the variety gate** (§6) before it is
@@ -329,6 +350,19 @@ exist for the same reason — the learner cannot check this work:
    invented. Rules the pack does not list are now stripped.
 3. **A word glossed against itself is dropped.** The model kept explaining that
    *freundlich* means *freundlich*.
+4. **A looping answer is refused.** Seen live from a free model asked what a
+   word meant: *„verbi" ist ein Kurzwort für „verbi" = „verbi"*. Fluent,
+   well-punctuated, confident, and empty. Sending that to someone learning the
+   language is worse than sending nothing, because not understanding is the
+   state they are already in and they cannot tell it is broken. It now surfaces
+   as a failed turn with a retry.
+
+**Known limit, stated rather than hidden:** the guards catch invented *rules*
+and looping *form*, not an invented *fact*. Asked about "Im Kauz" the model
+still offers a wrong gloss — confidently, in fluent German. Stripping
+fabricated lexical claims needs a Zurich lexicon to check against, and that is
+the next piece of linguistic work. Answer quality also varies run to run on the
+free model tier.
 
 The AI layer is `@bitbaum/ai-kit` — `freeChain` + `complete()`, so a retired
 model cannot take Heidi down, which is the failure that took five repos out at
