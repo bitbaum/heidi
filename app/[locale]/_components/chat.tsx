@@ -1,0 +1,455 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import type { Answer, ChatMessage } from "@/lib/domain/chat/types";
+import { HEIDI_ID, LEARNER_ID } from "@/lib/domain/chat/types";
+import type { Dictionary } from "@/lib/i18n";
+import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
+import { useDictation } from "./use-dictation";
+
+/**
+ * A conversation, not a form.
+ *
+ * What this replaces had two tabs — "Understand" and "Say it" — and the tabs
+ * were the bug: someone arrives with a communication problem, not with a
+ * decision about which of our tools to use. Asking them to classify their own
+ * problem first is us pushing our internal structure onto them. The model
+ * works it out now, and a follow-up ("why did they say it like that?") is just
+ * the next message instead of a new query with no memory.
+ */
+export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+  const t = dict.chat;
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [input, setInput] = useState("");
+  const [busy, setBusy] = useState(false);
+  const areaRef = useRef<HTMLTextAreaElement>(null);
+  const endRef = useRef<HTMLDivElement>(null);
+
+  const dictation = useDictation(LOCALE_TAGS[locale], (heard) => {
+    setInput((v) => (v ? `${v} ${heard}` : heard));
+    areaRef.current?.focus();
+  });
+
+  // Follow the conversation down, but only once it has started — an empty
+  // thread scrolling itself on load would yank the page away from the reader.
+  useEffect(() => {
+    if (messages.length > 0) endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages]);
+
+  const grow = useCallback(() => {
+    const el = areaRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    // Capped so a pasted conversation cannot eat the whole screen and push
+    // the send button out of reach on a phone.
+    el.style.height = `${Math.min(el.scrollHeight, 200)}px`;
+  }, []);
+
+  useEffect(grow, [input, grow]);
+
+  /**
+   * @param retry when true the learner's message is already on screen and the
+   *   failed reply is dropped — otherwise a retry stacks a second copy of the
+   *   question under the first, which is what it did before this existed.
+   */
+  async function send(text: string, retry = false) {
+    const trimmed = text.trim();
+    if (!trimmed || busy) return;
+
+    // Everything up to and including the question being answered. On a retry
+    // that means dropping the failed turn; otherwise it is the whole thread.
+    const base = retry ? dropTrailingFailure(messages) : messages;
+    const history = base
+      .filter((m) => m.body)
+      .map((m) => ({ authorId: m.authorId, body: m.body, createdAt: m.createdAt }));
+
+    if (retry) {
+      // The question is already the last thing on screen, so history must not
+      // also carry it — the server appends `input` itself.
+      history.pop();
+      setMessages(base);
+    } else {
+      setMessages([
+        ...base,
+        { id: `local-${Date.now()}`, authorId: LEARNER_ID, body: trimmed, createdAt: new Date().toISOString() },
+      ]);
+    }
+
+    setInput("");
+    setBusy(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ input: trimmed, history, locale }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        // Two rules here, both learned by watching it go wrong:
+        //
+        // Keyed on the STATUS, not on the route's `operator` flag — that flag
+        // is set for both "no model configured" (503) and "the call failed"
+        // (502), so using it told a visitor the product was unconfigured when
+        // a vendor had merely blipped. Very different sentences.
+        //
+        // And never render the server's own string: those are written once, in
+        // English, for a log. One surfaced verbatim on a German page.
+        const message = res.status === 503 ? t.notConfigured : t.failed;
+        setMessages((prev) => [
+          ...prev,
+          { id: `err-${Date.now()}`, authorId: HEIDI_ID, body: "", createdAt: new Date().toISOString(), error: message },
+        ]);
+      } else if (!data.skipped) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: `heidi-${Date.now()}`,
+            authorId: HEIDI_ID,
+            body: (data as Answer).text,
+            createdAt: new Date().toISOString(),
+            answer: data as Answer,
+          },
+        ]);
+      }
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        { id: `err-${Date.now()}`, authorId: HEIDI_ID, body: "", createdAt: new Date().toISOString(), error: t.unreachable },
+      ]);
+    } finally {
+      setBusy(false);
+      areaRef.current?.focus();
+    }
+  }
+
+  const started = messages.length > 0;
+
+  return (
+    <section aria-label="Heidi" className="flex w-full flex-col">
+      <div className="flex items-center justify-between gap-4 pb-3">
+        <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>
+        {started && (
+          <button
+            type="button"
+            onClick={() => {
+              setMessages([]);
+              setInput("");
+              areaRef.current?.focus();
+            }}
+            className="min-h-9 text-sm text-link underline underline-offset-4 hover:text-accent"
+          >
+            {t.newChat}
+          </button>
+        )}
+      </div>
+
+      <div
+        className="flex flex-col gap-4 rounded-control border border-border-strong bg-surface-raised p-3 sm:p-4"
+        aria-live="polite"
+      >
+        {!started && <Empty t={t} onPick={(ex) => void send(ex)} />}
+
+        {messages.map((m) =>
+          m.authorId === LEARNER_ID ? (
+            <Mine key={m.id} body={m.body} label={t.you} />
+          ) : (
+            <Theirs
+              key={m.id}
+              message={m}
+              t={t}
+              onRetry={() => void send(lastOwnMessage(messages) ?? "", true)}
+            />
+          ),
+        )}
+
+        {busy && (
+          <p role="status" className="flex items-center gap-2 text-sm text-fg-muted">
+            <span className="inline-flex gap-1" aria-hidden="true">
+              <Dot /> <Dot delay="150ms" /> <Dot delay="300ms" />
+            </span>
+            {t.thinking}
+          </p>
+        )}
+        <div ref={endRef} />
+      </div>
+
+      <form
+        className="sticky bottom-0 z-10 mt-3 bg-surface-page pb-1 pt-1"
+        onSubmit={(e) => {
+          e.preventDefault();
+          void send(input);
+        }}
+      >
+        <div className="flex items-end gap-2 rounded-control border border-border-strong bg-surface-raised p-2 focus-within:border-accent">
+          <label htmlFor="chat-input" className="sr-only">
+            {t.placeholder}
+          </label>
+          <textarea
+            id="chat-input"
+            ref={areaRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              // Enter sends on a keyboard; Shift+Enter is a newline. On a phone
+              // there is no Shift, so the button is the only send — which is why
+              // it is always visible rather than appearing on input.
+              if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+                e.preventDefault();
+                void send(input);
+              }
+            }}
+            rows={1}
+            maxLength={2000}
+            placeholder={t.placeholder}
+            className="max-h-[200px] min-h-11 flex-1 resize-none bg-transparent px-2 py-2 text-base leading-relaxed text-fg-primary placeholder:text-fg-muted focus:outline-none"
+          />
+
+          {dictation.supported && (
+            <button
+              type="button"
+              onClick={dictation.toggle}
+              aria-label={dictation.listening ? t.micStop : t.mic}
+              aria-pressed={dictation.listening}
+              className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control border transition-colors ${
+                dictation.listening
+                  ? "border-accent bg-accent text-on-accent"
+                  : "border-border-strong text-fg-secondary hover:text-fg-primary"
+              }`}
+            >
+              <MicIcon />
+            </button>
+          )}
+
+          <button
+            type="submit"
+            disabled={busy || !input.trim()}
+            aria-label={t.send}
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control bg-accent text-on-accent transition-opacity disabled:opacity-30"
+          >
+            <SendIcon />
+          </button>
+        </div>
+
+        {dictation.listening && (
+          <p role="status" className="mt-1 px-1 font-mono text-[11px] uppercase tracking-caps text-accent">
+            {t.micListening}
+          </p>
+        )}
+        {dictation.denied && (
+          <p role="alert" className="mt-1 px-1 text-sm text-fg-muted">
+            {t.micDenied}
+          </p>
+        )}
+      </form>
+    </section>
+  );
+}
+
+/** The last thing the learner said, so a failed turn can be retried as-is. */
+function lastOwnMessage(messages: ChatMessage[]): string | undefined {
+  for (let i = messages.length - 1; i >= 0; i--) {
+    if (messages[i].authorId === LEARNER_ID) return messages[i].body;
+  }
+  return undefined;
+}
+
+/** Drop the failed reply so a retry replaces it rather than stacking under it. */
+function dropTrailingFailure(messages: ChatMessage[]): ChatMessage[] {
+  const last = messages[messages.length - 1];
+  return last?.error ? messages.slice(0, -1) : messages;
+}
+
+function Empty({ t, onPick }: { t: Dictionary["chat"]; onPick: (s: string) => void }) {
+  return (
+    <div className="py-2">
+      <h2 className="font-heading text-xl font-semibold leading-tight tracking-display text-fg-primary">
+        {t.emptyTitle}
+      </h2>
+      <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{t.emptyBody}</p>
+      <ul className="mt-4 flex flex-col gap-2">
+        {t.examples.map((ex) => (
+          <li key={ex}>
+            <button
+              type="button"
+              onClick={() => onPick(ex)}
+              className="w-full rounded-control border border-border-subtle bg-surface-page px-3 py-2.5 text-left text-sm text-fg-secondary transition-colors hover:border-border-strong hover:text-fg-primary"
+            >
+              {ex}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Mine({ body, label }: { body: string; label: string }) {
+  return (
+    <div className="flex flex-col items-end">
+      <span className="mb-1 font-mono text-[10px] uppercase tracking-caps text-fg-muted">{label}</span>
+      <p className="max-w-[85%] whitespace-pre-wrap rounded-control bg-surface-sunk px-3 py-2 text-base leading-relaxed text-fg-primary">
+        {body}
+      </p>
+    </div>
+  );
+}
+
+function Theirs({
+  message,
+  t,
+  onRetry,
+}: {
+  message: ChatMessage;
+  t: Dictionary["chat"];
+  onRetry: () => void;
+}) {
+  if (message.error) {
+    return (
+      <div className="rounded-control border border-accent bg-accent-tint px-3 py-2">
+        <p role="alert" className="text-base text-fg-primary">
+          {message.error}
+        </p>
+        <button
+          type="button"
+          onClick={onRetry}
+          className="mt-1 min-h-9 text-sm text-link underline underline-offset-4 hover:text-accent"
+        >
+          {t.retry}
+        </button>
+      </div>
+    );
+  }
+
+  const a = message.answer;
+  if (!a) return null;
+
+  return (
+    <article className="flex flex-col items-start">
+      <span className="mb-1 font-mono text-[10px] uppercase tracking-caps text-accent">Heidi</span>
+      <div className="w-full max-w-[92%] rounded-control border border-border-subtle bg-surface-page p-3">
+        <p className="text-base leading-relaxed text-fg-primary">{a.text}</p>
+
+        {a.dialect && (
+          <div className="mt-3 rounded-control border border-border-subtle bg-surface-raised p-3">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{t.sendThis}</span>
+              <Copy text={a.dialect} t={t} />
+            </div>
+            <p className="mt-1 text-lg leading-relaxed text-dialect">{a.dialect}</p>
+            {a.dialectClean === false && (
+              <p className="mt-1 font-mono text-[11px] text-accent">
+                {t.flagged} {a.dialectFlags?.join(", ")}
+              </p>
+            )}
+          </div>
+        )}
+
+        {a.toneNote && (
+          <p className="mt-2 text-sm text-fg-secondary">
+            {a.tone && <span className="font-medium text-fg-primary">{a.tone}</span>}
+            {a.tone ? " — " : ""}
+            {a.toneNote}
+          </p>
+        )}
+
+        {a.glosses.length > 0 && (
+          <div className="mt-3 border-t border-border-subtle pt-3">
+            <h3 className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{t.glossTitle}</h3>
+            <ul className="mt-2 flex flex-col gap-1.5">
+              {a.glosses.map((g) => (
+                <li key={g.form} className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                  <span className="font-mono text-sm font-medium text-dialect">{g.form}</span>
+                  {g.standard && <span className="font-mono text-xs text-fg-muted">{g.standard}</span>}
+                  <span className="text-sm text-fg-secondary">{g.english}</span>
+                  {g.rule && (
+                    <span className="rounded-control bg-surface-sunk px-1.5 font-mono text-[10px] text-fg-muted">
+                      {g.rule}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {a.suggestions.length > 0 && (
+          <div className="mt-3 border-t border-border-subtle pt-3">
+            <h3 className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{t.suggestionsTitle}</h3>
+            <ul className="mt-2 flex flex-col gap-2">
+              {a.suggestions.map((s) => (
+                <li key={`${s.label}-${s.text}`} className="rounded-control border border-border-subtle p-2">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <span className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{s.label}</span>
+                    <Copy text={s.text} t={t} />
+                  </div>
+                  <p className="mt-0.5 text-base leading-relaxed text-dialect">{s.text}</p>
+                  {s.english && <p className="text-sm text-fg-secondary">{s.english}</p>}
+                  {!s.clean && (
+                    <p className="mt-1 font-mono text-[11px] text-accent">
+                      {t.flagged} {s.flags.join(", ")}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {a.note && <p className="mt-3 text-sm text-fg-muted">{a.note}</p>}
+
+        <p className="mt-3 border-t border-border-subtle pt-2 font-mono text-[10px] text-fg-muted">
+          {t.checkedNote} · {a.model}
+        </p>
+      </div>
+    </article>
+  );
+}
+
+function Copy({ text, t }: { text: string; t: Dictionary["chat"] }) {
+  const [done, setDone] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(text);
+          setDone(true);
+          setTimeout(() => setDone(false), 1600);
+        } catch {
+          setDone(false);
+        }
+      }}
+      className="min-h-9 shrink-0 text-sm text-link underline underline-offset-4 hover:text-accent"
+    >
+      {done ? t.copied : t.copy}
+    </button>
+  );
+}
+
+function Dot({ delay = "0ms" }: { delay?: string }) {
+  return (
+    <span
+      className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-fg-muted"
+      style={{ animationDelay: delay }}
+    />
+  );
+}
+
+function MicIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <rect x="9" y="2" width="6" height="12" rx="3" />
+      <path d="M5 11a7 7 0 0 0 14 0M12 18v4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function SendIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <path d="M4 12h15M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}

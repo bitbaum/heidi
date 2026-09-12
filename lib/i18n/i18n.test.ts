@@ -86,11 +86,20 @@ test("no locale left a German string in place of a translation", () => {
   }
 });
 
-test("the dialect examples stay identical across locales", () => {
-  // They are the thing being learned. Translating them would be a bug.
+test("dialect examples stay identical across locales; instructions get translated", () => {
+  // The example list deliberately mixes two kinds of prompt. The dialect ones
+  // are the thing being LEARNED — translating them would destroy the example.
+  // The instruction one ("tell them I am late") is something the reader says
+  // in their own language, so it must NOT stay German.
   const de = getDictionary("de");
   for (const locale of LOCALES) {
-    assert.deepEqual(getDictionary(locale).ask.examplesUnderstand, de.ask.examplesUnderstand);
+    const examples = getDictionary(locale).chat.examples;
+    assert.equal(examples.length, de.chat.examples.length);
+    assert.equal(examples[0], de.chat.examples[0], `${locale} translated a dialect example`);
+    assert.equal(examples[2], de.chat.examples[2], `${locale} translated a dialect example`);
+    if (locale !== "de") {
+      assert.notEqual(examples[1], de.chat.examples[1], `${locale} left the instruction untranslated`);
+    }
   }
 });
 
