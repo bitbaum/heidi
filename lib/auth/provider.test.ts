@@ -52,7 +52,7 @@ test("the portal exists as a route but stays out of the main navigation", () => 
   const portal = ROUTES.find((r) => r.key === "portal");
   assert.ok(portal, "portal route is missing");
   assert.equal(portal?.segment, "portal");
-  assert.equal(portal?.inNav, false, "a personal space in the nav reads as a locked door");
+  assert.equal(portal?.group, undefined, "a personal space in the nav reads as a locked door");
 });
 
 test("every language can name the portal and the sign-in control", () => {

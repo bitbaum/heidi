@@ -15,6 +15,10 @@ export const fr: Dictionary = {
     contribute: "Participer",
     about: "À propos",
     portal: "Mon espace",
+    settings: "Réglages",
+    groupUse: "Utiliser",
+    groupWhy: "Pourquoi ainsi",
+    groupProject: "Projet",
     skipToContent: "Aller au contenu",
     menu: "Menu",
     language: "Choisir la langue",
@@ -316,6 +320,21 @@ export const fr: Dictionary = {
       },
     ],
     stateTitle: "Où nous en sommes",
+  },
+
+  settings: {
+    title: "Réglages",
+    lead: "Tout ce que Heidi sait de vous, au même endroit — et tout est effaçable.",
+    languageTitle: "Langue du site",
+    languageBody: "La langue dans laquelle Heidi vous parle. Ce que vous apprenez reste le zurichois.",
+    modelTitle: "Modèle de langue",
+    modelBody: "Par défaut Heidi utilise des modèles gratuits. Votre propre clé débloque les images et améliore les réponses.",
+    modelNone: "Aucun modèle personnel connecté",
+    accountTitle: "Compte",
+    accountBody: "Pour garder vos mots et pour les groupes d'étude. Traduire ne demande aucun compte.",
+    dataTitle: "Ce qui est gardé sur cet appareil",
+    dataBody:
+      "Votre conversation reste dans cet onglet et disparaît quand vous le fermez. Votre clé vit dans le stockage de ce navigateur jusqu'à ce que vous la retiriez. Rien de tout cela n'est sur nos serveurs.",
   },
 
   auth: {

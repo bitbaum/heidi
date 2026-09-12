@@ -5,15 +5,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
-import { NAV_ROUTES, href } from "@/lib/i18n/routes";
+import { href, navGroups, type NavGroup } from "@/lib/i18n/routes";
 import { LanguageSwitcher } from "./language-switcher";
 
 /**
- * The site header: brand, navigation, language.
+ * The site header: brand, navigation, language, account.
  *
- * A client component only because of the mobile disclosure. The links
- * themselves are ordinary anchors, so navigation works with JavaScript off and
- * the menu simply starts open-able rather than broken.
+ * The navigation was five peers in a row — Methode · Forschung · Dialekt-Check
+ * · Mitmachen · Über uns — which told a reader nothing about what any of them
+ * was. You had to already know the product to tell a tool from an essay.
+ *
+ * Now the menu has shape: things you DO, why it works this way, and who is
+ * doing it. Grouping is the cheapest possible fix and it is honest — those
+ * really are three different kinds of page. On a phone the groups are headed
+ * sections; on a wide screen they are clusters with a rule between them, which
+ * is enough structure for six links and less machinery than a dropdown.
  */
 export function SiteHeader({
   locale,
@@ -28,6 +34,10 @@ export function SiteHeader({
 }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const groups = navGroups();
+
+  const groupLabel = (group: NavGroup) =>
+    group === "use" ? dict.nav.groupUse : group === "why" ? dict.nav.groupWhy : dict.nav.groupProject;
 
   const isCurrent = (segment: string) => {
     const target = href(locale, segment);
@@ -35,29 +45,37 @@ export function SiteHeader({
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b border-border-subtle bg-surface-page/95 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-border-strong bg-surface-page">
       <div className="mx-auto flex w-full max-w-shell items-center justify-between gap-4 px-5 py-3 sm:px-8">
         <Link
           href={href(locale, "")}
-          className="whitespace-nowrap font-heading text-xl font-semibold tracking-display text-fg-primary sm:text-2xl"
+          className="whitespace-nowrap font-heading text-xl font-bold tracking-display text-fg-primary sm:text-2xl"
         >
           Heidi
         </Link>
 
-        <nav aria-label={dict.nav.menu} className="hidden lg:flex lg:items-center lg:gap-6">
-          {NAV_ROUTES.map((route) => (
-            <Link
-              key={route.key}
-              href={href(locale, route.segment)}
-              aria-current={isCurrent(route.segment) ? "page" : undefined}
-              className={`whitespace-nowrap text-sm transition-colors ${
-                isCurrent(route.segment)
-                  ? "font-medium text-fg-primary"
-                  : "text-fg-secondary hover:text-fg-primary"
-              }`}
-            >
-              {dict.nav[route.key]}
-            </Link>
+        <nav aria-label={dict.nav.menu} className="hidden lg:flex lg:items-center">
+          {groups.map(({ group, routes }, i) => (
+            <div key={group} className="flex items-center">
+              {i > 0 && <span aria-hidden="true" className="mx-4 h-4 w-px bg-border-subtle" />}
+              <ul className="flex items-center gap-5">
+                {routes.map((route) => (
+                  <li key={route.key}>
+                    <Link
+                      href={href(locale, route.segment)}
+                      aria-current={isCurrent(route.segment) ? "page" : undefined}
+                      className={`whitespace-nowrap text-sm transition-colors ${
+                        isCurrent(route.segment)
+                          ? "font-semibold text-fg-primary underline decoration-accent decoration-2 underline-offset-8"
+                          : "text-fg-secondary hover:text-fg-primary"
+                      }`}
+                    >
+                      {dict.nav[route.key]}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </nav>
 
@@ -73,7 +91,7 @@ export function SiteHeader({
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="site-menu"
-            className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-3 font-mono text-[11px] uppercase tracking-caps text-fg-secondary lg:hidden"
+            className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-3 font-mono text-[11px] uppercase tracking-caps text-fg-primary lg:hidden"
           >
             {dict.nav.menu}
           </button>
@@ -82,23 +100,28 @@ export function SiteHeader({
 
       {open && (
         <div id="site-menu" className="border-t border-border-subtle bg-surface-raised lg:hidden">
-          <nav aria-label={dict.nav.menu} className="mx-auto w-full max-w-shell px-5 py-3 sm:px-8">
-            <ul className="flex flex-col">
-              {NAV_ROUTES.map((route) => (
-                <li key={route.key}>
-                  <Link
-                    href={href(locale, route.segment)}
-                    onClick={() => setOpen(false)}
-                    aria-current={isCurrent(route.segment) ? "page" : undefined}
-                    className={`flex min-h-12 items-center border-b border-border-subtle text-base ${
-                      isCurrent(route.segment) ? "font-medium text-fg-primary" : "text-fg-secondary"
-                    }`}
-                  >
-                    {dict.nav[route.key]}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <nav aria-label={dict.nav.menu} className="mx-auto w-full max-w-shell px-5 py-4 sm:px-8">
+            {groups.map(({ group, routes }) => (
+              <section key={group} className="mb-4 last:mb-0">
+                <h2 className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{groupLabel(group)}</h2>
+                <ul className="mt-1 flex flex-col">
+                  {routes.map((route) => (
+                    <li key={route.key}>
+                      <Link
+                        href={href(locale, route.segment)}
+                        onClick={() => setOpen(false)}
+                        aria-current={isCurrent(route.segment) ? "page" : undefined}
+                        className={`flex min-h-12 items-center border-b border-border-subtle text-base ${
+                          isCurrent(route.segment) ? "font-semibold text-fg-primary" : "text-fg-secondary"
+                        }`}
+                      >
+                        {dict.nav[route.key]}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
           </nav>
         </div>
       )}

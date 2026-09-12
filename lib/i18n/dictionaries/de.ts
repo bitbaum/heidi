@@ -21,6 +21,10 @@ export const de = {
     contribute: "Mitmachen",
     about: "Über uns",
     portal: "Mein Bereich",
+    settings: "Einstellungen",
+    groupUse: "Benutzen",
+    groupWhy: "Warum so",
+    groupProject: "Projekt",
     skipToContent: "Zum Inhalt springen",
     menu: "Menü",
     language: "Sprache wählen",
@@ -323,6 +327,21 @@ export const de = {
       },
     ],
     stateTitle: "Stand heute",
+  },
+
+  settings: {
+    title: "Einstellungen",
+    lead: "Alles, was Heidi über Sie weiss, an einem Ort — und alles davon können Sie wieder entfernen.",
+    languageTitle: "Sprache der Seite",
+    languageBody: "In welcher Sprache Heidi mit Ihnen spricht. Was Sie lernen, bleibt Zürichdeutsch.",
+    modelTitle: "Sprachmodell",
+    modelBody: "Standardmässig benutzt Heidi kostenlose Modelle. Ein eigener Schlüssel schaltet Bilder frei und verbessert die Antworten.",
+    modelNone: "Kein eigenes Modell verbunden",
+    accountTitle: "Konto",
+    accountBody: "Zum Speichern Ihrer Wörter und für Lerngruppen. Zum Übersetzen brauchen Sie kein Konto.",
+    dataTitle: "Was auf diesem Gerät liegt",
+    dataBody:
+      "Ihr Gespräch bleibt in diesem Tab und verschwindet, wenn Sie ihn schliessen. Ein eigener Schlüssel liegt im Speicher dieses Browsers, bis Sie ihn entfernen. Auf unseren Servern liegt nichts davon.",
   },
 
   auth: {

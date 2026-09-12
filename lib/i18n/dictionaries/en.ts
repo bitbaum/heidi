@@ -15,6 +15,10 @@ export const en: Dictionary = {
     contribute: "Contribute",
     about: "About",
     portal: "My space",
+    settings: "Settings",
+    groupUse: "Use it",
+    groupWhy: "Why this way",
+    groupProject: "Project",
     skipToContent: "Skip to content",
     menu: "Menu",
     language: "Choose language",
@@ -316,6 +320,21 @@ export const en: Dictionary = {
       },
     ],
     stateTitle: "Where things stand",
+  },
+
+  settings: {
+    title: "Settings",
+    lead: "Everything Heidi knows about you, in one place — and all of it removable.",
+    languageTitle: "Site language",
+    languageBody: "Which language Heidi speaks to you in. What you are learning stays Zurich German.",
+    modelTitle: "Language model",
+    modelBody: "By default Heidi uses free models. Your own key unlocks pictures and improves the answers.",
+    modelNone: "No model of your own connected",
+    accountTitle: "Account",
+    accountBody: "For saving your words and for study groups. Translating needs no account.",
+    dataTitle: "What is held on this device",
+    dataBody:
+      "Your conversation stays in this tab and goes when you close it. A key of your own lives in this browser's storage until you remove it. None of it is on our servers.",
   },
 
   auth: {

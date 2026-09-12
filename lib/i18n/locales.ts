@@ -19,7 +19,7 @@
  * large share of the people with this exact problem are expats.
  */
 
-export const LOCALES = ["de", "fr", "it", "rm", "en", "ru"] as const;
+export const LOCALES = ["de", "gsw", "fr", "it", "rm", "en", "ru"] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
@@ -36,6 +36,7 @@ export function isLocale(value: string): value is Locale {
 /** Endonyms — a language picker that names languages in the reader's language is useless. */
 export const LOCALE_NAMES: Record<Locale, string> = {
   de: "Deutsch",
+  gsw: "Züritüütsch",
   fr: "Français",
   it: "Italiano",
   rm: "Rumantsch",
@@ -46,6 +47,7 @@ export const LOCALE_NAMES: Record<Locale, string> = {
 /** Short label for the compact switcher. */
 export const LOCALE_SHORT: Record<Locale, string> = {
   de: "DE",
+  gsw: "ZH",
   fr: "FR",
   it: "IT",
   rm: "RM",
@@ -56,6 +58,7 @@ export const LOCALE_SHORT: Record<Locale, string> = {
 /** BCP-47 for <html lang> and hreflang. Swiss variants where they exist. */
 export const LOCALE_TAGS: Record<Locale, string> = {
   de: "de-CH",
+  gsw: "gsw-CH",
   fr: "fr-CH",
   it: "it-CH",
   rm: "rm-CH",
@@ -74,6 +77,10 @@ export const LOCALE_TAGS: Record<Locale, string> = {
  */
 export const EXPLANATION_LANGUAGE: Record<Locale, string> = {
   de: "German",
+  // The site can speak what it teaches. The model writes this variety all
+  // day; here it writes the explanations in it too — and the deterministic
+  // gate checks those exactly like any other generated line.
+  gsw: "Zurich German (Züritüütsch)",
   fr: "French",
   it: "Italian",
   rm: "German",
@@ -93,6 +100,7 @@ export type LocaleGroup = "national" | "other";
 
 export const LOCALE_GROUP: Record<Locale, LocaleGroup> = {
   de: "national",
+  gsw: "national",
   fr: "national",
   it: "national",
   rm: "national",

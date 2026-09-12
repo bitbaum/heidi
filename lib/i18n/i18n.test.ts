@@ -33,7 +33,7 @@ test("every locale belongs to exactly one switcher group", () => {
 });
 
 test("the Swiss national languages are grouped apart from the others", () => {
-  assert.deepEqual(localesInGroup("national"), ["de", "fr", "it", "rm"]);
+  assert.deepEqual(localesInGroup("national"), ["de", "gsw", "fr", "it", "rm"]);
   assert.deepEqual(localesInGroup("other"), ["en", "ru"]);
 });
 
@@ -82,7 +82,12 @@ test("no locale left a German string in place of a translation", () => {
     if (locale === "de") continue;
     const dict = getDictionary(locale);
     assert.notEqual(dict.home.headline, de.home.headline, `${locale} headline is untranslated`);
-    assert.notEqual(dict.nav.method, de.nav.method, `${locale} nav is untranslated`);
+    // nav.method is exempt: "Methode" is genuinely the word in Züritüütsch as
+    // well as in German. A translation test that forbids agreement would be
+    // demanding difference for its own sake.
+    if (locale !== "gsw") {
+      assert.notEqual(dict.nav.method, de.nav.method, `${locale} nav is untranslated`);
+    }
     assert.notEqual(dict.research.lead, de.research.lead, `${locale} research lead is untranslated`);
   }
 });
@@ -155,8 +160,10 @@ test("every navigable route has a label in every language", () => {
 test("the portal is never in the sitemap", () => {
   // It is noindex. A sitemap that advertises it contradicts the page's own
   // robots meta, and search engines distrust both signals when they disagree.
+  // Neither the portal nor settings: both are noindex, and both are personal.
   assert.ok(!INDEXED_ROUTES.some((r) => r.key === "portal"));
-  assert.equal(INDEXED_ROUTES.length, ROUTES.length - 1);
+  assert.ok(!INDEXED_ROUTES.some((r) => r.key === "settings"));
+  assert.equal(INDEXED_ROUTES.length, ROUTES.length - 2);
 });
 
 test("no English source copy from the provider list reaches a page", () => {
@@ -182,6 +189,6 @@ test("route segments are the same in every language", () => {
   // reworded. The content translates; the address does not.
   assert.deepEqual(
     ROUTES.map((r) => r.segment),
-    ["", "method", "research", "check", "contribute", "about", "portal"],
+    ["", "check", "method", "research", "contribute", "about", "portal", "settings"],
   );
 });

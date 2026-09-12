@@ -31,6 +31,10 @@ export const rm: Dictionary = {
     contribute: "Far part",
     about: "Davart nus",
     portal: "Mes intschess",
+    settings: "Configuraziuns",
+    groupUse: "Duvrar",
+    groupWhy: "Pertge uschia",
+    groupProject: "Project",
     skipToContent: "Al cuntegn",
     menu: "Menu",
     language: "Tscherner la lingua",
@@ -332,6 +336,21 @@ export const rm: Dictionary = {
       },
     ],
     stateTitle: "Nua che nus essan",
+  },
+
+  settings: {
+    title: "Configuraziuns",
+    lead: "Tut quai che Heidi sa da Vus, en in sulet lieu — e tut sa vegnir allontanà.",
+    languageTitle: "Lingua da la pagina",
+    languageBody: "En tge lingua che Heidi discurra cun Vus. Quai che Vus emprendais resta il tudestg da Turitg.",
+    modelTitle: "Model da lingua",
+    modelBody: "Da standard dovra Heidi models gratuits. Ina atgna clav avra maletgs e meglierescha las respostas.",
+    modelNone: "Nagin agen model collià",
+    accountTitle: "Conto",
+    accountBody: "Per tegnair Voss pleds e per gruppas da studi. Per translatar na dovrais Vus nagin conto.",
+    dataTitle: "Tge che resta sin quest apparat",
+    dataBody:
+      "Vossa conversaziun resta en questa tabella e svanescha cur che Vus la serrais. Ina atgna clav viva en la memoria da quest navigatur fin che Vus l'allontanais. Nagut da quai sa chatta sin noss servers.",
   },
 
   auth: {

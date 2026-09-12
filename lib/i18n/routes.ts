@@ -8,18 +8,42 @@ import type { Locale } from "./locales.ts";
  *
  * The path segments stay in English across all locales (`/fr/method`, not
  * `/fr/methode`). Translating URLs multiplies the routing surface by five,
- * breaks every link anyone has ever shared the moment a translation is
- * reworded, and buys approximately nothing: nobody reads a URL to decide
- * whether to click it.
+ * breaks every link anyone has shared the moment a translation is reworded,
+ * and buys approximately nothing: nobody reads a URL to decide whether to
+ * click it.
  */
-export type RouteKey = "home" | "method" | "research" | "check" | "contribute" | "about" | "portal";
+export type RouteKey =
+  | "home"
+  | "method"
+  | "research"
+  | "check"
+  | "contribute"
+  | "about"
+  | "portal"
+  | "settings";
+
+/**
+ * What a page is FOR, which is the thing a flat list of five links cannot say.
+ *
+ * The nav was Methode · Forschung · Dialekt-Check · Mitmachen · Über uns —
+ * five peers, no shape, and a reader had to already know the product to tell
+ * a tool from an essay. Grouping is the cheapest possible fix and it is honest:
+ * these really are three different kinds of page.
+ *
+ * `use`     things you do — the chat, the checker
+ * `why`     why it works this way — the method, the evidence
+ * `project` who is doing this and how to join in
+ */
+export type NavGroup = "use" | "why" | "project";
+
+export const NAV_GROUPS: readonly NavGroup[] = ["use", "why", "project"];
 
 export type Route = {
   key: RouteKey;
   /** Path below the locale segment. Empty string is the locale root. */
   segment: string;
-  /** Shown in the primary navigation bar. */
-  inNav: boolean;
+  /** Which heading it sits under, or absent to stay out of the menu. */
+  group?: NavGroup;
   /**
    * Belongs in the sitemap. A personal space is noindex, and a sitemap that
    * advertises it contradicts the page's own robots meta — a disagreement
@@ -31,16 +55,18 @@ export type Route = {
 };
 
 export const ROUTES: readonly Route[] = [
-  { key: "home", segment: "", inNav: false, indexed: true, priority: 1 },
-  { key: "method", segment: "method", inNav: true, indexed: true, priority: 0.8 },
-  { key: "research", segment: "research", inNav: true, indexed: true, priority: 0.8 },
-  { key: "check", segment: "check", inNav: true, indexed: true, priority: 0.7 },
-  { key: "contribute", segment: "contribute", inNav: true, indexed: true, priority: 0.6 },
-  { key: "about", segment: "about", inNav: true, indexed: true, priority: 0.5 },
-  // Reached from the account control in the header, not the main navigation:
-  // "My space" sitting in the nav of a site you are not signed in to reads as
-  // a locked door rather than an invitation. And never indexed.
-  { key: "portal", segment: "portal", inNav: false, indexed: false, priority: 0.3 },
+  // The chat IS the home page, so it is named in the menu under `use` rather
+  // than left as a wordmark nobody realises is a link.
+  { key: "home", segment: "", group: "use", indexed: true, priority: 1 },
+  { key: "check", segment: "check", group: "use", indexed: true, priority: 0.7 },
+  { key: "method", segment: "method", group: "why", indexed: true, priority: 0.8 },
+  { key: "research", segment: "research", group: "why", indexed: true, priority: 0.8 },
+  { key: "contribute", segment: "contribute", group: "project", indexed: true, priority: 0.6 },
+  { key: "about", segment: "about", group: "project", indexed: true, priority: 0.5 },
+  // Reached from the account control, not the menu: a personal space listed in
+  // the nav of a site you are not signed in to reads as a locked door.
+  { key: "portal", segment: "portal", indexed: false, priority: 0.3 },
+  { key: "settings", segment: "settings", indexed: false, priority: 0.3 },
 ];
 
 /** `/de`, `/fr/method`. Never a trailing slash, so links and canonicals agree. */
@@ -53,5 +79,13 @@ export function label(dict: Dictionary, key: RouteKey): string {
   return dict.nav[key];
 }
 
-export const NAV_ROUTES = ROUTES.filter((r) => r.inNav);
+export const NAV_ROUTES = ROUTES.filter((r) => r.group !== undefined);
 export const INDEXED_ROUTES = ROUTES.filter((r) => r.indexed);
+
+/** The menu, in reading order, with its headings. */
+export function navGroups(): { group: NavGroup; routes: Route[] }[] {
+  return NAV_GROUPS.map((group) => ({
+    group,
+    routes: ROUTES.filter((r) => r.group === group),
+  }));
+}
