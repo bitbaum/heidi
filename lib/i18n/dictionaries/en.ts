@@ -78,6 +78,7 @@ export const en: Dictionary = {
     mic: "Dictate",
     micStop: "Stop recording",
     micListening: "Listening …",
+    micTranscribing: "Transcribing …",
     micProblem: {
       mic: "No access to the microphone. You can still type.",
       silence: "Nothing heard. Press the microphone again and start speaking right away.",

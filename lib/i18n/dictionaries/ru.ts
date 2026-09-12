@@ -86,6 +86,7 @@ export const ru: Dictionary = {
     mic: "Диктовать",
     micStop: "Остановить запись",
     micListening: "Слушаю …",
+    micTranscribing: "Расшифровка …",
     micProblem: {
       mic: "Нет доступа к микрофону. Можно печатать.",
       silence: "Ничего не слышно. Нажмите на микрофон ещё раз и сразу говорите.",

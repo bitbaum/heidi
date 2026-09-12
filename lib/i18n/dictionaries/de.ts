@@ -84,6 +84,7 @@ export const de = {
     mic: "Diktieren",
     micStop: "Aufnahme beenden",
     micListening: "Ich höre …",
+    micTranscribing: "Wird übertragen …",
     micProblem: {
       mic: "Kein Zugriff aufs Mikrofon. Sie können weiterhin tippen.",
       silence: "Nichts gehört. Drücken Sie nochmals aufs Mikrofon und sprechen Sie gleich los.",

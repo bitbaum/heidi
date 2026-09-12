@@ -31,6 +31,17 @@ export const chat = slidingWindow({ limit: 30, windowMs: 5 * 60_000 });
 export const modelCheck = slidingWindow({ limit: 6, windowMs: 5 * 60_000 });
 
 /**
+ * Dictation that falls back to the server.
+ *
+ * The browser's own recogniser is free and local; this path is neither. It
+ * uploads audio and pays a vendor per second of it, so it needs a tighter
+ * ceiling than the chat — and unlike the chat, one abusive caller here costs
+ * bandwidth as well as budget. Enough for a long conversation dictated a
+ * sentence at a time; nowhere near enough to transcribe a podcast.
+ */
+export const dictation = slidingWindow({ limit: 20, windowMs: 5 * 60_000 });
+
+/**
  * The dialect checker. Pure, local, costs nothing but CPU — so this is only
  * about not letting one client monopolise the box.
  */
