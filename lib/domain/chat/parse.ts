@@ -181,12 +181,31 @@ export function parseAnswer(raw: string, pack: VarietyPack, model: string): Answ
   const data = extractJson(raw) as Record<string, unknown>;
 
   const text = str(data.text);
-  const dialect = str(data.dialect);
-  if (!text && !dialect) throw new Error("the model returned nothing to show");
   if (looksDegenerate(text)) throw new Error("the model looped instead of answering");
 
   const known = knownRules(pack);
   const mode = toMode(data.mode);
+
+  const suggestions = arr(data.suggestions)
+    .map((s) => toSuggestion(s, pack))
+    .filter((s): s is Suggestion => s !== null)
+    .slice(0, 3);
+
+  /**
+   * In produce mode the target-variety sentence IS the answer, and the model
+   * intermittently omits it — putting the restatement in `text` and leaving
+   * the person with nothing to send. Seen live.
+   *
+   * The first suggestion is target-variety text by contract and has already
+   * been through the gate, so promoting it recovers a usable answer instead of
+   * failing the turn. `text` is NOT promoted: in the observed case it was the
+   * reader-language restatement, which would be worse than nothing — it looks
+   * like something to send and is not.
+   */
+  const promoted = mode === "produce" && !str(data.dialect) ? suggestions.shift() : undefined;
+  const dialect = str(data.dialect) || promoted?.text || "";
+
+  if (!text && !dialect) throw new Error("the model returned nothing to show");
 
   // `text` is in the reader's language and must NOT face the dialect gate —
   // it would flag ordinary words and refuse a correct answer. Only `dialect`
@@ -209,10 +228,7 @@ export function parseAnswer(raw: string, pack: VarietyPack, model: string): Answ
       .map((g) => toGloss(g, known))
       .filter((g): g is Gloss => g !== null)
       .slice(0, 4),
-    suggestions: arr(data.suggestions)
-      .map((s) => toSuggestion(s, pack))
-      .filter((s): s is Suggestion => s !== null)
-      .slice(0, 3),
+    suggestions,
     ...(str(data.note) ? { note: str(data.note) } : {}),
     model,
   };

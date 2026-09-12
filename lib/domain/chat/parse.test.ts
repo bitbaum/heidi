@@ -90,6 +90,30 @@ test("an answer with nothing to show is a failure, not an empty card", () => {
   assert.throws(() => parseAnswer('{"mode":"answer"}', ZH, "m"), /nothing to show/);
 });
 
+test("a produce answer missing its dialect line recovers from the first suggestion", () => {
+  // Seen live: the model returned mode=produce, put the reader-language
+  // restatement in `text`, and omitted `dialect` — leaving the person with
+  // nothing to send. The suggestions ARE target-variety text by contract and
+  // have already been gated, so the first is promoted.
+  const a = parse({
+    mode: "produce",
+    text: "Sie möchten die Nachbarin fragen.",
+    suggestions: [
+      { label: "neutral", text: "Frag d'Nachbarin, ob ich es Päckli bi ihre cha laa.", english: "..." },
+      { label: "shorter", text: "Chan ich es Päckli bi dir laa?", english: "..." },
+    ],
+  });
+  assert.equal(a.dialect, "Frag d'Nachbarin, ob ich es Päckli bi ihre cha laa.");
+  assert.equal(a.dialectClean, true, "the promoted line is still gated");
+  assert.equal(a.suggestions.length, 1, "and it is not also listed below itself");
+});
+
+test("the reader-language text is never promoted into the send box", () => {
+  // It looks like something to send and is not — worse than nothing.
+  const a = parse({ mode: "produce", text: "Sie möchten die Nachbarin fragen." });
+  assert.equal(a.dialect, undefined);
+});
+
 test("a produce answer with only a dialect line still works", () => {
   // The model sometimes puts everything in `dialect` and leaves `text` empty.
   const a = parse({ mode: "produce", dialect: "Ich chum spöter." });
