@@ -84,7 +84,11 @@ export const de = {
     mic: "Diktieren",
     micStop: "Aufnahme beenden",
     micListening: "Ich höre …",
-    micDenied: "Kein Zugriff aufs Mikrofon. Sie können weiterhin tippen.",
+    micProblem: {
+      mic: "Kein Zugriff aufs Mikrofon. Sie können weiterhin tippen.",
+      silence: "Nichts gehört. Drücken Sie nochmals aufs Mikrofon und sprechen Sie gleich los.",
+      unavailable: "Diktieren funktioniert in diesem Browser nicht. Sie können weiterhin tippen.",
+    },
     newChat: "Neues Gespräch",
     explanationsIn: "Erklärungen auf Deutsch",
     notConfigured: "Das Sprachmodell ist auf dieser Installation noch nicht eingerichtet.",

@@ -94,7 +94,11 @@ export const rm: Dictionary = {
     mic: "Dictar",
     micStop: "Finir la registraziun",
     micListening: "Jau taidel …",
-    micDenied: "Nagin access al microfon. Vus pudais adina tippar.",
+    micProblem: {
+      mic: "Nagin access al microfon. Vus pudais adina tippar.",
+      silence: "Nagut udì. Smatgai anc ina giada sin il microfon e discurri immediatamain.",
+      unavailable: "Il dictat na funcziuna betg en quest navigatur. Vus pudais adina tippar.",
+    },
     newChat: "Nova conversaziun",
     explanationsIn: "Decleraziuns per tudestg",
     notConfigured: "Il model da lingua n'è anc betg configurà sin questa installaziun.",

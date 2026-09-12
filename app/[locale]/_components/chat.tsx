@@ -363,9 +363,9 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             {t.micListening}
           </p>
         )}
-        {dictation.denied && (
+        {dictation.problem && (
           <p role="alert" className="mt-1 px-1 text-sm text-fg-muted">
-            {t.micDenied}
+            {t.micProblem[dictation.problem]}
           </p>
         )}
       </form>

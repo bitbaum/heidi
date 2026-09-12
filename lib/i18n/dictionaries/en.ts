@@ -78,7 +78,11 @@ export const en: Dictionary = {
     mic: "Dictate",
     micStop: "Stop recording",
     micListening: "Listening …",
-    micDenied: "No access to the microphone. You can still type.",
+    micProblem: {
+      mic: "No access to the microphone. You can still type.",
+      silence: "Nothing heard. Press the microphone again and start speaking right away.",
+      unavailable: "Dictation does not work in this browser. You can still type.",
+    },
     newChat: "New conversation",
     explanationsIn: "Explanations in English",
     notConfigured: "The language model is not configured on this deployment yet.",
