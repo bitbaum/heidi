@@ -61,6 +61,7 @@ export const en: Dictionary = {
 
   chat: {
     placeholder: "Paste what you received — or write what you want to say.",
+    composer: "Message Heidi",
     send: "Send",
     thinking: "Heidi is reading …",
     you: "You",

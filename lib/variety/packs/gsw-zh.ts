@@ -24,6 +24,24 @@ export const ZURICH_GERMAN: VarietyPack = {
     // The dialects the gate currently rejects. They are not errors — they are
     // the next packs. Ordered by how many speakers they would reach.
     planned: ["Bern", "Basel", "Luzern", "St. Gallen", "Aargau", "Wallis"],
+
+    // Where each of those is spoken — the canton's main town, which is what a
+    // dialect is named after in practice. These are points, not territories:
+    // an isogloss does not follow a cantonal border, and claiming it did would
+    // be the inaccuracy that made us avoid a map in the first place. Marking
+    // "Bernese is spoken at Bern" asserts only what is true.
+    atlas: {
+      region: "switzerland",
+      home: { lon: 8.5417, lat: 47.3769 }, // Zürich
+      places: {
+        Bern: { lon: 7.4474, lat: 46.948 },
+        Basel: { lon: 7.5886, lat: 47.5596 },
+        Luzern: { lon: 8.3093, lat: 47.0502 },
+        "St. Gallen": { lon: 9.3767, lat: 47.4245 },
+        Aargau: { lon: 8.0456, lat: 47.3909 }, // Aarau, the cantonal town
+        Wallis: { lon: 7.359, lat: 46.2311 }, // Sion/Sitten
+      },
+    },
   },
 
   bridges: [

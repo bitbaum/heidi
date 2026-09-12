@@ -67,6 +67,7 @@ export const de = {
 
   chat: {
     placeholder: "Fügen Sie ein, was Sie bekommen haben — oder schreiben Sie, was Sie sagen möchten.",
+    composer: "Nachricht an Heidi",
     send: "Senden",
     thinking: "Heidi liest mit …",
     you: "Sie",

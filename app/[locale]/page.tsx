@@ -29,11 +29,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <p className="font-mono text-[11px] uppercase tracking-caps text-accent">{t.eyebrow}</p>
         <h1
           id="headline"
-          className="mt-4 max-w-[16ch] font-heading text-[2.75rem] font-bold leading-[0.95] tracking-display text-fg-primary sm:text-7xl lg:text-8xl"
+          className="mt-4 max-w-[16ch] font-heading text-display font-bold leading-[0.95] tracking-display text-fg-primary"
         >
           {t.headline}
         </h1>
-        <p className="mt-6 max-w-measure text-lg leading-relaxed text-fg-secondary sm:text-xl">{t.sub}</p>
+        <p className="mt-6 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.sub}</p>
       </section>
 
       <div className="pb-12 sm:pb-16">
@@ -45,7 +45,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div>
             <h2
               id="trust"
-              className="font-heading text-2xl font-semibold leading-tight tracking-display text-fg-primary sm:text-3xl"
+              className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
             >
               {t.trustTitle}
             </h2>
@@ -75,7 +75,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="border-b border-border-subtle py-10 sm:py-12" aria-labelledby="dialect">
         <h2
           id="dialect"
-          className="font-heading text-2xl font-semibold leading-tight tracking-display text-fg-primary sm:text-3xl"
+          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
         >
           {t.dialectTitle}
         </h2>

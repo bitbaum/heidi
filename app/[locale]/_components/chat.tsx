@@ -304,7 +304,10 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             }}
             rows={1}
             maxLength={2000}
-            placeholder={t.placeholder}
+            // Short and visible; the full sentence is the accessible label
+            // above and the intro copy beside it. It was all three at once,
+            // which on a phone wrapped the composer into an unreadable stub.
+            placeholder={t.composer}
             className="max-h-[200px] min-h-11 flex-1 resize-none bg-transparent px-2 py-2 text-base leading-relaxed text-fg-primary placeholder:text-fg-muted focus:outline-none"
           />
 
@@ -354,7 +357,7 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             type="submit"
             disabled={busy || !input.trim()}
             aria-label={t.send}
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control bg-accent text-on-accent transition-opacity disabled:opacity-30"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control bg-accent text-on-accent transition-colors disabled:bg-surface-sunk disabled:text-fg-muted"
           >
             <SendIcon />
           </button>

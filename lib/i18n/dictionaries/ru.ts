@@ -69,6 +69,7 @@ export const ru: Dictionary = {
 
   chat: {
     placeholder: "Вставьте то, что вам написали, — или напишите, что хотите сказать.",
+    composer: "Сообщение Хайди",
     send: "Отправить",
     thinking: "Heidi читает …",
     you: "Вы",

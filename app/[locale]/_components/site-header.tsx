@@ -80,7 +80,14 @@ export function SiteHeader({
         </nav>
 
         <div className="flex items-center gap-2">
-          {account}
+          {/* On a phone the bar was brand · gear · Anmelden · DE · MENÜ —
+              five controls in 390px, each in its own box, none of them the
+              thing anyone came for. The account controls move into the menu
+              sheet below, leaving the bar with the two controls that must be
+              reachable in one tap: what language this is, and where else to
+              go. Rendered in both places and shown in one, because the server
+              cannot know the viewport and CSS can. */}
+          <div className="hidden lg:flex lg:items-center lg:gap-2">{account}</div>
           <LanguageSwitcher
             current={locale}
             label={dict.nav.language}
@@ -122,6 +129,9 @@ export function SiteHeader({
                 </ul>
               </section>
             ))}
+
+            {/* The account controls the bar no longer has room for. */}
+            <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-border-subtle pt-5">{account}</div>
           </nav>
         </div>
       )}

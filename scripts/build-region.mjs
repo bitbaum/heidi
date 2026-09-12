@@ -1,0 +1,168 @@
+/**
+ * Generates a region outline for the dialect atlas — `lib/geo/regions/*.ts`.
+ *
+ *   node scripts/build-region.mjs switzerland
+ *
+ * The output is COMMITTED. This script exists so the outline is reproducible
+ * and attributable rather than a blob someone pasted from a design tool: it
+ * says which dataset the border came from and at what simplification, so the
+ * next person can regenerate it instead of editing 400 coordinates by hand.
+ *
+ * Source: Natural Earth 1:10m Admin 0 Countries, public domain.
+ * https://www.naturalearthdata.com/about/terms-of-use/
+ */
+
+import fs from "node:fs";
+import path from "node:path";
+import os from "node:os";
+
+const REGIONS = {
+  switzerland: {
+    id: "switzerland",
+    name: "Switzerland",
+    match: (p) => p.ISO_A2 === "CH" || p.ADMIN === "Switzerland",
+    /** Mercator scaling is held true here — the middle of the country. */
+    trueLat: 46.8,
+    /** Douglas–Peucker tolerance in projected degrees. Tuned by eye: coarse
+     *  enough to keep the payload small, fine enough that Ticino and the
+     *  Schaffhausen enclave survive, because a Swiss reader knows the shape. */
+    tolerance: 0.004,
+    /** Outline width in viewBox units; height follows from the aspect ratio. */
+    width: 1000,
+  },
+};
+
+const SOURCE =
+  "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_countries.geojson";
+
+const name = process.argv[2];
+const region = REGIONS[name];
+if (!region) {
+  console.error(`unknown region ${name}; known: ${Object.keys(REGIONS).join(", ")}`);
+  process.exit(1);
+}
+
+const cache = path.join(os.tmpdir(), "ne_10m_admin_0_countries.geojson");
+if (!fs.existsSync(cache)) {
+  console.error(`fetching ${SOURCE}`);
+  const res = await fetch(SOURCE);
+  if (!res.ok) throw new Error(`fetch failed: ${res.status}`);
+  fs.writeFileSync(cache, Buffer.from(await res.arrayBuffer()));
+}
+
+const gj = JSON.parse(fs.readFileSync(cache, "utf8"));
+const feature = gj.features.find((f) => region.match(f.properties));
+if (!feature) throw new Error(`${name} not found in the dataset`);
+
+// Mainland only: the largest ring. Exclaves too small to see at this size are
+// noise in a figure that is read at 600px wide.
+const rings =
+  feature.geometry.type === "Polygon"
+    ? [feature.geometry.coordinates[0]]
+    : feature.geometry.coordinates.map((p) => p[0]);
+rings.sort((a, b) => b.length - a.length);
+const ring = rings[0];
+
+const k = 1 / Math.cos((region.trueLat * Math.PI) / 180);
+const project = ([lon, lat]) => [lon, -lat * k];
+
+/** Douglas–Peucker on an OPEN chain. */
+function simplifyChain(pts, eps) {
+  if (pts.length < 3) return pts;
+  let maxD = 0;
+  let idx = 0;
+  const [ax, ay] = pts[0];
+  const [bx, by] = pts[pts.length - 1];
+  const dx = bx - ax;
+  const dy = by - ay;
+  const len = Math.hypot(dx, dy) || 1e-12;
+  for (let i = 1; i < pts.length - 1; i++) {
+    const [px, py] = pts[i];
+    // Perpendicular distance from P to the line AB.
+    const d = Math.abs(dx * (py - ay) - dy * (px - ax)) / len;
+    if (d > maxD) {
+      maxD = d;
+      idx = i;
+    }
+  }
+  if (maxD <= eps) return [pts[0], pts[pts.length - 1]];
+  return [...simplifyChain(pts.slice(0, idx + 1), eps).slice(0, -1), ...simplifyChain(pts.slice(idx), eps)];
+}
+
+/**
+ * A closed ring cannot be fed to Douglas–Peucker directly: its first and last
+ * point are the same, so the "line" between them is a point and every
+ * perpendicular distance is degenerate — the whole country collapses to two
+ * points. Split the ring at the vertex farthest from the start and simplify
+ * the two open chains.
+ */
+function simplifyRing(closed, eps) {
+  const pts = closed.slice(0, -1);
+  const [ax, ay] = pts[0];
+  let far = 0;
+  let farD = -1;
+  for (let i = 1; i < pts.length; i++) {
+    const d = Math.hypot(pts[i][0] - ax, pts[i][1] - ay);
+    if (d > farD) {
+      farD = d;
+      far = i;
+    }
+  }
+  return [
+    ...simplifyChain(pts.slice(0, far + 1), eps).slice(0, -1),
+    ...simplifyChain([...pts.slice(far), pts[0]], eps).slice(0, -1),
+  ];
+}
+
+const simplified = simplifyRing(ring.map(project), region.tolerance);
+
+const xs = simplified.map((p) => p[0]);
+const ys = simplified.map((p) => p[1]);
+const minX = Math.min(...xs);
+const maxX = Math.max(...xs);
+const minY = Math.min(...ys);
+const maxY = Math.max(...ys);
+
+const scale = region.width / (maxX - minX);
+const height = Math.round((maxY - minY) * scale);
+
+// The origin is the north-west corner of the box, in real-world coordinates,
+// so `lib/geo/project.ts` can place a city with nothing but this record.
+const originLon = minX;
+const originLat = -minY / k;
+
+const round = (n) => +n.toFixed(1);
+const outline =
+  simplified
+    .map(([x, y], i) => `${i ? "L" : "M"}${round((x - minX) * scale)} ${round((y - minY) * scale)}`)
+    .join("") + "Z";
+
+const out = `/**
+ * ${region.name} — the outline the dialect atlas draws.
+ *
+ * GENERATED by \`node scripts/build-region.mjs ${name}\`. Do not hand-edit:
+ * re-run the script instead, so the border keeps saying which dataset it came
+ * from. Source: Natural Earth 1:10m Admin 0 Countries (public domain),
+ * simplified with Douglas–Peucker at ${region.tolerance}° — ${simplified.length} points,
+ * mainland ring only.
+ */
+
+import type { Region } from "../region.ts";
+
+export const SWITZERLAND: Region = {
+  id: "${region.id}",
+  name: "${region.name}",
+  width: ${region.width},
+  height: ${height},
+  trueLat: ${region.trueLat},
+  origin: { lon: ${round(originLon)}, lat: ${+originLat.toFixed(4)} },
+  scale: ${+scale.toFixed(4)},
+  outline:
+    "${outline}",
+};
+`;
+
+const dest = path.join("lib", "geo", "regions", `${name}.ts`);
+fs.mkdirSync(path.dirname(dest), { recursive: true });
+fs.writeFileSync(dest, out);
+console.error(`${dest}: ${simplified.length} points, ${region.width}×${height}, ${outline.length} path chars`);

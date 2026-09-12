@@ -20,6 +20,8 @@
  * a field nobody reads is a field that drifts.
  */
 
+import type { Place as GeoPlace, RegionId as GeoRegionId } from "../geo/region.ts";
+
 /** BCP-47 where one exists. Zurich German is `gsw-u-sd-chzh`; Ukrainian is `uk`. */
 export type VarietyTag = string;
 
@@ -204,6 +206,46 @@ export type Family = {
    * is what Heidi does not cover today.
    */
   planned: readonly string[];
+  /**
+   * Where these dialects are actually spoken, so the family can be drawn as a
+   * map rather than asserted as a list.
+   *
+   * Optional: a pack without it simply gets no map, and the site renders the
+   * names on their own. A family whose dialects do not sit inside one tidy
+   * region should leave this out rather than invent a box for them.
+   */
+  atlas?: Atlas;
+};
+
+/**
+ * The family, placed.
+ *
+ * A pack states coordinates and nothing about drawing — the outline, the
+ * projection and the viewBox belong to `lib/geo`, which knows about maps and
+ * nothing about dialects. `region` names which outline to draw them on.
+ *
+ * The earlier version of the dialect figure argued, in its own comment,
+ * against drawing Switzerland at all: a recognisable silhouette would be a
+ * cartographic claim, and the patches were not where those dialects are. The
+ * conclusion was wrong even though the worry was right. The fix for "this map
+ * would be inaccurate" is an accurate map — real cities at real coordinates,
+ * marking where a dialect is spoken rather than drawing a boundary around it.
+ * Isoglosses genuinely do not follow cantonal borders, so we draw no borders;
+ * Bernese genuinely is spoken at Bern, so we can point at Bern.
+ */
+export type Atlas = {
+  /** Which outline to place these on. See `lib/geo/regions`. */
+  region: GeoRegionId;
+  /** Where the taught variety is spoken. */
+  home: GeoPlace;
+  /**
+   * Where each `planned` dialect is spoken, keyed by its name in `planned`.
+   *
+   * Keyed rather than a parallel array so the names stay declared once: a test
+   * asserts every planned dialect has a place and that no place is orphaned,
+   * which a second list would let drift silently.
+   */
+  places: Readonly<Record<string, GeoPlace>>;
 };
 
 export type VarietyPack = {
