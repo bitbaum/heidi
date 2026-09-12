@@ -1,6 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+// Relative, not the `@/` alias: this module is covered by a node:test suite,
+// which resolves neither tsconfig paths nor extensionless imports.
+import { useClientValue } from "../../../lib/browser/store.ts";
 
 /**
  * Speaking instead of typing, using the browser's own recogniser.
@@ -114,25 +117,24 @@ async function awaitingPermission(): Promise<boolean> {
   }
 }
 
-/** Support never changes after load, so there is nothing to subscribe to. */
-const noop = () => () => {};
+/** Stable identity: `useSyncExternalStore` calls this on every render. */
+const detectSupport = () => Boolean(recogniser()) || canRecord();
 
 export function useDictation(lang: string, onText: (text: string) => void) {
   /**
-   * The server has no `window`, so support must be read on the client only —
-   * but reading it in an effect and calling setState causes a cascading render,
+   * The server has no `window`, so support must be read on the client only,
    * and reading it during render would hydrate a tree different from the one
-   * that was sent. `useSyncExternalStore` is the tool for exactly this: a
-   * server snapshot of `false`, a client snapshot of the real answer.
+   * that was sent.
+   *
+   * Shares `useClientValue` with the browser stores rather than keeping a
+   * second copy of the same three-line dance. (It is not the reason the button
+   * goes missing on the sandboxed dev server — nothing hydrates there at all;
+   * see the note in `lib/browser/store.ts`.)
    */
-  const supported = useSyncExternalStore(
-    noop,
-    // Either path counts. Hiding the control in Firefox was right when the
-    // recogniser was the only implementation; it is not right now that the
-    // same button can record and have the server transcribe.
-    () => Boolean(recogniser()) || canRecord(),
-    () => false,
-  );
+  // Either path counts. Hiding the control in Firefox was right when the
+  // recogniser was the only implementation; it is not right now that the same
+  // button can record and have the server transcribe.
+  const supported = useClientValue(detectSupport, false);
 
   const [listening, setListening] = useState(false);
   const [transcribing, setTranscribing] = useState(false);

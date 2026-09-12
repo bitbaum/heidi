@@ -62,6 +62,8 @@ export const en: Dictionary = {
   chat: {
     placeholder: "Paste what you received — or write what you want to say.",
     composer: "Message Heidi",
+    saveWord: "Keep this word",
+    savedWord: "Kept",
     send: "Send",
     thinking: "Heidi is reading …",
     you: "You",
@@ -336,7 +338,7 @@ export const en: Dictionary = {
     accountBody: "For saving your words and for study groups. Translating needs no account.",
     dataTitle: "What is held on this device",
     dataBody:
-      "Your conversation stays in this tab and goes when you close it. A key of your own lives in this browser's storage until you remove it. None of it is on our servers.",
+      "Your conversation stays in this tab and goes when you close it. A key of your own lives in this browser's storage until you remove it. None of it is on our servers. The words you keep live here too, until you remove them.",
   },
 
   auth: {
@@ -356,7 +358,6 @@ export const en: Dictionary = {
       "Heidi keeps no user database of its own. Your identity lives at OrangeCat, where profiles and payment are already at home. That means one account across several products, no further password — and nothing here that could be stolen.",
     soonTitle: "What comes next",
     soonList: [
-      "Your words — what you looked up comes back later.",
       "Study groups — organised by you, with Heidi as a participant.",
       "Tutors — voluntary, paid, and never required.",
     ],
@@ -391,5 +392,19 @@ export const en: Dictionary = {
     notFoundTitle: "This page does not exist",
     notFoundBody: "Maybe the link is old, maybe we moved something.",
     backHome: "Back to the start",
+  },
+  saved: {
+    title: "Your words",
+    lead: "What you looked up and wanted to keep. It all lives in this browser, on this device — not with us.",
+    empty: "Nothing kept yet.",
+    emptyHint: "Ask Heidi about a sentence. Next to every explained word there is a plus that keeps it.",
+    countLabel: "kept",
+    remove: "Remove",
+    clear: "Remove all",
+    clearConfirm: "Really remove all?",
+    exportLabel: "Save to a file",
+    onThisDevice: "On this device only",
+    savedOn: "Kept",
+    openChat: "Look something up",
   },
 };

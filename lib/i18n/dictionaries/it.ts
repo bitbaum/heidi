@@ -62,6 +62,8 @@ export const it: Dictionary = {
   chat: {
     placeholder: "Incollate quello che avete ricevuto — o scrivete quello che volete dire.",
     composer: "Messaggio a Heidi",
+    saveWord: "Tenere questa parola",
+    savedWord: "Tenuta",
     send: "Invia",
     thinking: "Heidi sta leggendo …",
     you: "Voi",
@@ -336,7 +338,7 @@ export const it: Dictionary = {
     accountBody: "Per conservare le vostre parole e per i gruppi di studio. Tradurre non richiede un account.",
     dataTitle: "Che cosa resta su questo dispositivo",
     dataBody:
-      "La conversazione resta in questa scheda e sparisce quando la chiudete. Una vostra chiave vive nella memoria di questo browser finché non la togliete. Niente di tutto ciò sta sui nostri server.",
+      "La conversazione resta in questa scheda e sparisce quando la chiudete. Una vostra chiave vive nella memoria di questo browser finché non la togliete. Niente di tutto ciò sta sui nostri server. Anche le parole che tiene restano qui, finché non le toglie.",
   },
 
   auth: {
@@ -356,7 +358,6 @@ export const it: Dictionary = {
       "Heidi non tiene un proprio archivio di utenti. La vostra identità vive su OrangeCat, dove profili e pagamenti sono già di casa. Significa un solo account per più prodotti, nessuna password in più — e qui niente che possa essere rubato.",
     soonTitle: "Che cosa arriva dopo",
     soonList: [
-      "Le vostre parole — quello che avete cercato ritorna più tardi.",
       "Gruppi di studio — organizzati da voi, con Heidi come partecipante.",
       "Tutor — volontari, pagati, e mai obbligatori.",
     ],
@@ -391,5 +392,19 @@ export const it: Dictionary = {
     notFoundTitle: "Questa pagina non esiste",
     notFoundBody: "Forse il link è vecchio, forse abbiamo spostato qualcosa.",
     backHome: "Torna all'inizio",
+  },
+  saved: {
+    title: "Le sue parole",
+    lead: "Quello che ha cercato e voluto tenere. Resta tutto in questo browser, su questo dispositivo — non da noi.",
+    empty: "Nessuna parola tenuta finora.",
+    emptyHint: "Chieda una frase a Heidi. Accanto a ogni parola spiegata c'è un più per tenerla.",
+    countLabel: "tenute",
+    remove: "Togliere",
+    clear: "Togliere tutto",
+    clearConfirm: "Togliere davvero tutto?",
+    exportLabel: "Salvare come file",
+    onThisDevice: "Solo su questo dispositivo",
+    savedOn: "Tenuta il",
+    openChat: "Cercare qualcosa",
   },
 };
