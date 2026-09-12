@@ -1,6 +1,7 @@
 import { complete } from "@bitbaum/ai-kit";
 import { byokChain, readByok, redact } from "@/lib/domain/model/byok";
 import { findProvider } from "@/lib/domain/model/providers";
+import { callerKey, modelCheck, tooMany } from "@/lib/domain/limits";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +18,12 @@ export const dynamic = "force-dynamic";
  * back — including in the error path, which is where credentials usually leak.
  */
 export async function POST(request: Request) {
+  // Tighter than the chat: this makes a real outbound call with whatever key
+  // it is handed, which makes it the one endpoint here that could be used to
+  // test stolen credentials in bulk.
+  const allowed = modelCheck.check(callerKey(request, "model-check"));
+  if (!allowed.allowed) return tooMany(allowed);
+
   let body: unknown;
   try {
     body = await request.json();

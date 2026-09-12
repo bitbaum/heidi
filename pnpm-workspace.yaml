@@ -12,3 +12,6 @@
 allowBuilds:
   sharp: true
   unrs-resolver: true
+  # limitkit is a git dependency, so pnpm runs its `prepare` to build dist/.
+  # Without this the install "succeeds" and the package is simply absent.
+  limitkit@https://codeload.github.com/bitbaum/limitkit/tar.gz/75adef1e993f90c6079a36a6cd96567cae5924c7: true

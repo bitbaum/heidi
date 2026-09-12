@@ -1,5 +1,6 @@
 import { check } from "../../../lib/variety/check.ts";
 import { VARIETY } from "../../../lib/variety/active.ts";
+import { callerKey, dialectCheck, tooMany } from "../../../lib/domain/limits.ts";
 
 // Relative `.ts` imports, not the `@/*` alias: node's test runner exercises
 // this handler directly, and the alias only resolves inside Next's build.
@@ -7,6 +8,10 @@ import { VARIETY } from "../../../lib/variety/active.ts";
 const MAX_LENGTH = 2000;
 
 export async function POST(request: Request) {
+  // Pure and local, so this is only about one client not monopolising the box.
+  const allowed = dialectCheck.check(callerKey(request, "dialect-check"));
+  if (!allowed.allowed) return tooMany(allowed);
+
   let body: unknown;
   try {
     body = await request.json();

@@ -7,6 +7,7 @@ import { parseAnswer } from "@/lib/domain/chat/parse";
 import { HEIDI_ID, LEARNER_ID, type ChatMessage } from "@/lib/domain/chat/types";
 import { byokChain, readByok, redact } from "@/lib/domain/model/byok";
 import { readImage, visionMessage } from "@/lib/domain/chat/image";
+import { callerKey, chat as chatLimit, tooMany } from "@/lib/domain/limits";
 
 export const dynamic = "force-dynamic";
 
@@ -48,6 +49,11 @@ function sanitise(raw: unknown): ChatMessage[] {
 }
 
 export async function POST(request: Request) {
+  // Before the body is even read: each call spends from a free-tier budget
+  // shared with every other visitor, so the ceiling protects them, not us.
+  const allowed = chatLimit.check(callerKey(request, "chat"));
+  if (!allowed.allowed) return tooMany(allowed);
+
   let body: unknown;
   try {
     body = await request.json();
