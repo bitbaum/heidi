@@ -93,7 +93,7 @@ export function SiteHeader({
           <LanguageSwitcher
             current={locale}
             label={dict.nav.language}
-            groupLabels={{ national: dict.nav.langNational, other: dict.nav.langOther }}
+            groupLabels={{ national: dict.nav.langNational, dialect: dict.nav.langDialect, other: dict.nav.langOther }}
           />
           <button
             type="button"

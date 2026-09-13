@@ -231,10 +231,14 @@ export function ModelSheet({
             {t.connected} · {detail}
           </p>
         )}
+        {/* The server's own `reason` used to be appended here. Those strings
+            are written once, in English, for a log — and this sheet is read in
+            seven languages. The localised sentence stands alone; what actually
+            went wrong is in the server log, where a reader cannot act on it
+            anyway. (`detail` on success is a MODEL ID, not prose.) */}
         {state === "error" && (
           <p role="alert" className="mt-3 break-words text-sm text-accent">
             {t.failed}
-            {detail ? ` — ${detail}` : ""}
           </p>
         )}
 

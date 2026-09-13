@@ -16,7 +16,6 @@ export type RouteKey =
   | "home"
   | "method"
   | "research"
-  | "check"
   | "contribute"
   | "about"
   | "portal"
@@ -58,7 +57,6 @@ export const ROUTES: readonly Route[] = [
   // The chat IS the home page, so it is named in the menu under `use` rather
   // than left as a wordmark nobody realises is a link.
   { key: "home", segment: "", group: "use", indexed: true, priority: 1 },
-  { key: "check", segment: "check", group: "use", indexed: true, priority: 0.7 },
   { key: "method", segment: "method", group: "why", indexed: true, priority: 0.8 },
   { key: "research", segment: "research", group: "why", indexed: true, priority: 0.8 },
   { key: "contribute", segment: "contribute", group: "project", indexed: true, priority: 0.6 },

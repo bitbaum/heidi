@@ -41,11 +41,22 @@ test("Heidi's own Swiss German passes Heidi's own dialect gate", () => {
   assert.deepEqual(failures, [], `Swiss German copy failed the gate:\n${failures.join("\n")}`);
 });
 
-test("Swiss German is offered and grouped with the national languages", () => {
+test("Swiss German is offered, and is NOT claimed to be a national language", () => {
   assert.ok(LOCALES.includes("gsw"));
-  assert.ok(localesInGroup("national").includes("gsw"));
-  assert.equal(LOCALE_NAMES.gsw, "Züritüütsch", "named as speakers name it, not 'Swiss German'");
   assert.equal(LOCALE_TAGS.gsw, "gsw-CH");
+
+  // It sat in the "national" group next to Rumantsch, which states something
+  // false about Switzerland — there are four national languages and this is
+  // not one of them; it is a group of dialects OF one of them. On a site whose
+  // credibility rests on Swiss language facts, that is the worst place to be
+  // loose, so it has its own line.
+  assert.equal(localesInGroup("national").includes("gsw"), false);
+  assert.deepEqual(localesInGroup("dialect"), ["gsw"]);
+
+  // Named with the FAMILY endonym, not the Zurich one. The locale code is gsw
+  // (Swiss German) and every other surface says Swiss German; labelling the
+  // site language "Züritüütsch" claimed something narrower than the product.
+  assert.equal(LOCALE_NAMES.gsw, "Schwiizerdütsch");
 });
 
 test("a browser asking for Swiss German gets it rather than falling back to German", () => {

@@ -29,6 +29,7 @@ export const de = {
     menu: "Menü",
     language: "Sprache wählen",
     langNational: "Landessprachen",
+    langDialect: "Dialekt",
     langOther: "Weitere Sprachen",
   },
 
@@ -276,10 +277,10 @@ export const de = {
 
   check: {
     title: "Dialekt-Check",
-    intro:
-      "Fügen Sie Text ein, der Zürichdeutsch sein soll. Diese Prüfung ist eine feste Regelliste — kein Sprachmodell — und markiert Formen, die aus einer anderen Deutschschweizer Region stammen oder in der Schweiz gar nicht vorkommen.",
+    intro: "Eine feste Regelliste — kein Sprachmodell. Sie prüft jede Zeile, die Heidi Ihnen zeigt. Hier können Sie die Liste selbst laufen lassen.",
     placeholder: "Das isch nid güet, gäu",
     button: "Prüfen",
+    failed: "Die Prüfung war gerade nicht erreichbar. Bitte nochmals versuchen.",
     ok: "Keine fremden Formen gefunden. Das kann als Zürichdeutsch durchgehen.",
     okShort: "Sauber",
     failShort: "Gefunden",

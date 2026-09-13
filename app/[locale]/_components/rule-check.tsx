@@ -5,30 +5,57 @@ import type { CheckResult } from "@/lib/variety/check";
 import type { Dictionary } from "@/lib/i18n";
 import { HighlightedText } from "./highlighted-text";
 
-export function CheckForm({ t }: { t: Dictionary["check"] }) {
+/**
+ * Run the rule list yourself.
+ *
+ * This was a page of its own, second in the navigation, headed "paste text
+ * that is supposed to be Zurich German". Nobody we build for could use it:
+ * Heidi's learner is someone who cannot yet produce the dialect — the pack
+ * says so in as many words, and puts speaking last on purpose — so the page
+ * asked for the one artefact its visitor does not have. On the Russian
+ * locale, whose reader is by definition a newcomer, it was at its worst.
+ *
+ * The page even argued this against itself: "someone learning Zurich German
+ * by definition cannot hear the difference." That is a perfect case for the
+ * gate running inside the chat, where it already checks every line Heidi
+ * shows, and no case at all for a page where the visitor supplies the text
+ * and grades the answer.
+ *
+ * So it lives here, on the method page, as what it always really was: the
+ * evidence behind a claim. "A fixed list of rules decides, not the model" is
+ * a sentence anyone can write. Being able to run the list is the part that
+ * makes it checkable.
+ *
+ * Findings show the FORM, the PLACE it comes from, and the form this variety
+ * uses instead — never the rule's `reason`, which is English prose written
+ * for whoever maintains the pack and used to be rendered verbatim to French
+ * and Russian readers.
+ */
+export function RuleCheck({ t }: { t: Dictionary["check"] }) {
   const [text, setText] = useState("");
   const [result, setResult] = useState<CheckResult | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [failed, setFailed] = useState(false);
   const [pending, setPending] = useState(false);
 
   async function run() {
     setPending(true);
-    setError(null);
+    setFailed(false);
     try {
       const res = await fetch("/api/check", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ text }),
       });
-      const json = await res.json();
       if (!res.ok) {
-        setError(json.error ?? "…");
+        // Never the server's own string: those are written once, in English,
+        // for a log. This client speaks the reader's language or nothing.
+        setFailed(true);
         setResult(null);
         return;
       }
-      setResult(json as CheckResult);
+      setResult((await res.json()) as CheckResult);
     } catch {
-      setError("…");
+      setFailed(true);
       setResult(null);
     } finally {
       setPending(false);
@@ -46,7 +73,7 @@ export function CheckForm({ t }: { t: Dictionary["check"] }) {
         onChange={(e) => setText(e.target.value)}
         placeholder={t.placeholder}
         maxLength={2000}
-        rows={5}
+        rows={3}
         className="w-full resize-y rounded-control border border-border-strong bg-surface-raised p-4 text-lg leading-relaxed text-fg-primary placeholder:text-fg-muted focus:border-accent focus:outline-none"
       />
 
@@ -54,14 +81,14 @@ export function CheckForm({ t }: { t: Dictionary["check"] }) {
         type="button"
         onClick={() => void run()}
         disabled={pending || text.trim().length === 0}
-        className="mt-3 inline-flex min-h-11 items-center justify-center rounded-control bg-accent px-6 font-medium text-on-accent transition-opacity hover:opacity-90 disabled:opacity-40"
+        className="mt-3 inline-flex min-h-11 items-center justify-center rounded-control bg-accent px-6 font-medium text-on-accent transition-colors hover:opacity-90 disabled:bg-surface-sunk disabled:text-fg-muted"
       >
         {t.button}
       </button>
 
-      {error && (
+      {failed && (
         <p role="alert" className="mt-6 max-w-measure text-base leading-relaxed text-accent">
-          {error}
+          {t.failed}
         </p>
       )}
 
@@ -77,18 +104,16 @@ export function CheckForm({ t }: { t: Dictionary["check"] }) {
               <p className="max-w-measure whitespace-pre-wrap rounded-control border border-border-subtle bg-surface-raised p-4 text-lg leading-relaxed text-fg-primary">
                 <HighlightedText text={text} findings={result.findings} />
               </p>
-              <ul className="mt-5 flex flex-col gap-3">
+              <ul className="mt-5 flex flex-col gap-2">
                 {result.findings.map((f, i) => (
-                  <li key={`${f.index}-${i}`} className="font-mono text-sm leading-relaxed text-fg-secondary">
+                  <li key={`${f.index}-${i}`} className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-sm">
                     <span className="font-medium text-dialect">{f.form}</span>
-                    {f.origin && <span className="ml-2 text-[11px] uppercase tracking-caps text-fg-muted">{f.origin}</span>}
-                    <span className="mx-2 text-fg-muted">—</span>
-                    {f.reason}
+                    {f.origin && (
+                      <span className="text-[11px] uppercase tracking-caps text-fg-muted">{f.origin}</span>
+                    )}
                     {f.suggest && (
                       <>
-                        {" "}
-                        <span className="text-fg-muted">·</span>{" "}
-                        <span className="text-[11px] uppercase tracking-caps text-fg-muted">{t.suggests}</span>{" "}
+                        <span className="text-fg-muted">→</span>
                         <span className="font-medium text-ok">{f.suggest}</span>
                       </>
                     )}

@@ -33,7 +33,10 @@ test("every locale belongs to exactly one switcher group", () => {
 });
 
 test("the Swiss national languages are grouped apart from the others", () => {
-  assert.deepEqual(localesInGroup("national"), ["de", "gsw", "fr", "it", "rm"]);
+  // Switzerland has exactly four national languages. Swiss German is not one
+  // of them, and this assertion is what stops it being quietly added back.
+  assert.deepEqual(localesInGroup("national"), ["de", "fr", "it", "rm"]);
+  assert.deepEqual(localesInGroup("dialect"), ["gsw"]);
   assert.deepEqual(localesInGroup("other"), ["en", "ru"]);
 });
 
@@ -189,6 +192,9 @@ test("route segments are the same in every language", () => {
   // reworded. The content translates; the address does not.
   assert.deepEqual(
     ROUTES.map((r) => r.segment),
-    ["", "check", "method", "research", "contribute", "about", "portal", "settings"],
+    // `check` was removed as a page: it asked the visitor to paste Zurich
+    // German, which is the one thing Heidi's learner cannot yet produce. The
+    // rule list lives on `method` now, and `/:locale/check` redirects there.
+    ["", "method", "research", "contribute", "about", "portal", "settings"],
   );
 });

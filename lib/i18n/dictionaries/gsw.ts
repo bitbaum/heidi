@@ -46,6 +46,7 @@ export const gsw: Dictionary = {
     menu: "Menü",
     language: "Sprach uuswähle",
     langNational: "Landessprache",
+    langDialect: "Dialäkt",
     langOther: "Wiiteri Sprache",
   },
 
@@ -335,10 +336,10 @@ export const gsw: Dictionary = {
 
   check: {
     title: "Dialekt-Prüefig",
-    intro:
-      "Füged Text ii, wo söll Züritüütsch sii. Die Prüefig isch e feschti Regellischte — kei Sprachmodell — und markiert Forme, wo us ere andere Dütschschwiizer Region chömed oder i de Schwiiz gar nöd vorchömed.",
+    intro: "En feschti Regelliste — kes Sprachmodäll. Si prüeft jedi Zile, wo d Heidi der zeigt. Da chasch d Liste sälber laa laufe.",
     placeholder: "Das isch nid güet, gäu",
     button: "Prüefe",
+    failed: "D Prüefig isch grad nöd erreichbar gsi. Bitte nomal probiere.",
     ok: "Kei fremdi Forme gfunde. Das cha als Züritüütsch duregah.",
     okShort: "Suuber",
     failShort: "Gfunde",

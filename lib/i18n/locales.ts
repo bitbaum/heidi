@@ -36,7 +36,7 @@ export function isLocale(value: string): value is Locale {
 /** Endonyms — a language picker that names languages in the reader's language is useless. */
 export const LOCALE_NAMES: Record<Locale, string> = {
   de: "Deutsch",
-  gsw: "Züritüütsch",
+  gsw: "Schwiizerdütsch",
   fr: "Français",
   it: "Italiano",
   rm: "Rumantsch",
@@ -47,7 +47,7 @@ export const LOCALE_NAMES: Record<Locale, string> = {
 /** Short label for the compact switcher. */
 export const LOCALE_SHORT: Record<Locale, string> = {
   de: "DE",
-  gsw: "ZH",
+  gsw: "GSW",
   fr: "FR",
   it: "IT",
   rm: "RM",
@@ -91,16 +91,26 @@ export const EXPLANATION_LANGUAGE: Record<Locale, string> = {
 /**
  * The switcher groups languages rather than listing six abbreviations in a row.
  *
- * Six inline codes in a header is not a choice, it is a wall — and it silently
- * claims all six are the same kind of thing. They are not: four are the
- * national languages of the country this product is about, and two are here
- * because a lot of the people with this problem arrived speaking them.
+ * Inline codes in a header are not a choice, they are a wall — and they
+ * silently claim every entry is the same kind of thing. They are not.
+ *
+ * FOUR are the national languages of the country this product is about.
+ * Switzerland has exactly four, and Swiss German is not among them — it is a
+ * group of dialects OF one of them. This file used to say "four are the
+ * national languages" in the comment above while listing FIVE in the map
+ * below, which put Schwiizerdütsch in the same row as Rumantsch and stated
+ * something false about the country on a site whose whole credibility is
+ * Swiss language facts.
+ *
+ * So it gets its own line: it is the thing being taught, not a fifth official
+ * language and not a foreign one. The remaining two are here because many of
+ * the people with this problem arrived speaking them.
  */
-export type LocaleGroup = "national" | "other";
+export type LocaleGroup = "national" | "dialect" | "other";
 
 export const LOCALE_GROUP: Record<Locale, LocaleGroup> = {
   de: "national",
-  gsw: "national",
+  gsw: "dialect",
   fr: "national",
   it: "national",
   rm: "national",
@@ -108,7 +118,7 @@ export const LOCALE_GROUP: Record<Locale, LocaleGroup> = {
   ru: "other",
 };
 
-export const GROUP_ORDER: readonly LocaleGroup[] = ["national", "other"];
+export const GROUP_ORDER: readonly LocaleGroup[] = ["national", "dialect", "other"];
 
 export function localesInGroup(group: LocaleGroup): Locale[] {
   return LOCALES.filter((l) => LOCALE_GROUP[l] === group);

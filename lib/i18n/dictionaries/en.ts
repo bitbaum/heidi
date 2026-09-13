@@ -23,6 +23,7 @@ export const en: Dictionary = {
     menu: "Menu",
     language: "Choose language",
     langNational: "National languages",
+    langDialect: "Dialect",
     langOther: "Other languages",
   },
 
@@ -269,10 +270,10 @@ export const en: Dictionary = {
 
   check: {
     title: "Dialect check",
-    intro:
-      "Paste text that is meant to be Zurich German. This check is a fixed list of rules — not a language model — and marks forms that come from another Swiss German region or do not occur in Switzerland at all.",
+    intro: "A fixed list of rules — not a language model. It checks every line Heidi shows you. You can run the list yourself here.",
     placeholder: "Das isch nid güet, gäu",
     button: "Check",
+    failed: "The check could not be reached. Please try again.",
     ok: "No foreign forms found. This can pass as Zurich German.",
     okShort: "Clean",
     failShort: "Found",

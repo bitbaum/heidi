@@ -2,8 +2,7 @@ import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
-import { VARIETY } from "@/lib/variety/active";
-import { ruleLabel } from "@/lib/variety/pack";
+import { DISPLAY } from "@/lib/variety/display";
 import { Chat } from "./_components/chat";
 import { DialectFigure } from "./_components/dialect-figure";
 import { CorrespondenceFigure } from "./_components/correspondence-figure";
@@ -66,20 +65,21 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {t.trustTitle}
             </h2>
             <p className="mt-4 max-w-measure text-base leading-relaxed text-fg-secondary">{t.trustBody}</p>
+            {/* The claim's evidence moved to the method page with the rule
+                list it belongs to, so this points there rather than at a
+                page that asked the reader for Zurich German they cannot write. */}
             <Link
-              href={href(locale, "check")}
+              href={href(locale, "method")}
               className="mt-5 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
             >
               {t.trustLink}
             </Link>
           </div>
           <ul className="flex flex-col gap-2 self-start rounded-control border border-border-subtle bg-surface-raised p-4 font-mono text-sm">
-            {VARIETY.rules.slice(0, 5).map((rule, i) => (
-              <li key={i} className="flex flex-wrap items-baseline gap-2">
+            {DISPLAY.rules.slice(0, 5).map((rule) => (
+              <li key={rule.label} className="flex flex-wrap items-baseline gap-2">
                 <span className="text-accent">✕</span>
-                <span className="text-fg-primary">
-                  {ruleLabel(rule)}
-                </span>
+                <span className="text-fg-primary">{rule.label}</span>
                 {rule.origin && <span className="text-[11px] uppercase tracking-caps text-fg-muted">{rule.origin}</span>}
                 {rule.suggest && <span className="text-ok">→ {rule.suggest}</span>}
               </li>
@@ -97,7 +97,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </h2>
         <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
           <p className="max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.dialectBody}</p>
-          {VARIETY.family && <DialectFigure plannedLabel={t.dialectPlanned} />}
+          {DISPLAY.family && <DialectFigure plannedLabel={t.dialectPlanned} />}
         </div>
       </section>
 
