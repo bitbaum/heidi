@@ -26,6 +26,7 @@ export async function AccountControl({ locale, dict }: { locale: Locale; dict: D
             are device settings, not account settings, and hiding them behind a
             sign-in would gate the two things anyone can actually change. */}
         <Link
+      prefetch={false}
           href={href(locale, "settings")}
           aria-label={dict.nav.settings}
           title={dict.nav.settings}
@@ -53,6 +54,7 @@ export async function AccountControl({ locale, dict }: { locale: Locale; dict: D
   return (
     <div className="flex items-center gap-2">
       <Link
+      prefetch={false}
         href={href(locale, "settings")}
         aria-label={dict.nav.settings}
         title={dict.nav.settings}
@@ -61,6 +63,7 @@ export async function AccountControl({ locale, dict }: { locale: Locale; dict: D
         <GearIcon />
       </Link>
     <Link
+      prefetch={false}
       href={href(locale, "portal")}
       className="inline-flex min-h-11 items-center gap-2 rounded-control border border-border-strong px-3 text-sm text-fg-secondary transition-colors hover:border-accent hover:text-fg-primary"
     >
