@@ -89,7 +89,13 @@ export default async function LocaleLayout({
         {process.env.NEXT_PUBLIC_FC_WIDGET_TOKEN && (
           <Script
             src="https://fleetcrown.orangecat.ch/widget.js"
-            strategy="afterInteractive"
+            // lazyOnload, not afterInteractive. This is a THIRD-PARTY origin:
+            // it costs its own DNS, TCP and TLS handshake before it sends a
+            // byte, and measured on a real (slow) connection it was the single
+            // slowest request on the page at 4,766ms — while the page itself
+            // was still fetching what it needs. Nothing about a feedback
+            // launcher is urgent; it belongs after the page is idle.
+            strategy="lazyOnload"
             data-fc-project={process.env.NEXT_PUBLIC_FC_WIDGET_TOKEN}
           />
         )}
