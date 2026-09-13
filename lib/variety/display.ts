@@ -56,6 +56,12 @@ export type DisplayVariety = {
   correspondences: readonly DisplayCorrespondence[];
   /** `note` is deliberately absent — it is a paragraph of English. */
   orthography: { convention: string };
+  /**
+   * One line of the variety itself, for the hero to show and then answer.
+   * Only the line — its meaning is language, so it lives in the dictionaries.
+   * Nothing here is English prose, which is the whole point of this file.
+   */
+  showcase?: { line: string };
 };
 
 /**
@@ -90,4 +96,5 @@ export const DISPLAY: DisplayVariety = {
     rule: c.rule,
   })),
   orthography: { convention: VARIETY.orthography.convention },
+  showcase: VARIETY.showcase ? { line: VARIETY.showcase.line } : undefined,
 };

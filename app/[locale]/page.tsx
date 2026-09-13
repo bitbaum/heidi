@@ -24,22 +24,46 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <Shell>
-      {/* The tool, on the first screen.
-          The headline was set at --text-display (up to 5.5rem) over a
-          three-line lead, which put the input 882px down a 900px window:
-          technically above the fold, practically invisible. Someone arriving
-          with a message they cannot read should meet the box, not an argument
-          for the box. The argument still exists, below, for the visit that is
-          deciding whether to trust this rather than get through a Tuesday. */}
-      <section className="pb-8 pt-8 sm:pt-12" aria-labelledby="headline">
-        <p className="font-mono text-[11px] uppercase tracking-caps text-accent">{t.eyebrow}</p>
-        <h1
-          id="headline"
-          className="mt-3 max-w-[20ch] font-heading text-title font-bold leading-[1.02] tracking-display text-fg-primary"
-        >
-          {t.headline}
-        </h1>
-        <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.sub}</p>
+      {/* The hero DEMONSTRATES rather than claims.
+          It used to say "Schweizerdeutsch verstehen" and leave it there — a
+          benefit stated, which every language site states. But the whole
+          product is the gap between what arrives on your phone and what you
+          understand, so the fastest way to be believed is to open that gap and
+          close it in one glance, before anyone has read a word of persuasion.
+          The line is real Züritüütsch a German speaker cannot parse; the
+          answer sits directly under it.
+
+          Two columns, because the argument was in a narrow left column with
+          the right half of a 1440 screen empty, and because the demonstration
+          earns its own space rather than pushing the input further down. */}
+      <section className="grid gap-5 pb-6 pt-6 sm:pb-8 sm:pt-12 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-14">
+        <div>
+          <p className="font-mono text-[11px] uppercase tracking-caps text-accent">{t.eyebrow}</p>
+          <h1
+            id="headline"
+            className="mt-2 max-w-[18ch] font-heading text-title font-bold leading-[1.02] tracking-display text-fg-primary"
+          >
+            {t.headline}
+          </h1>
+          <p className="mt-3 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.sub}</p>
+        </div>
+
+        {DISPLAY.showcase && (
+          <figure className="rounded-control border border-border-strong bg-surface-raised p-4 sm:p-6">
+            <blockquote
+              lang={DISPLAY.tag}
+              className="font-heading text-section font-semibold leading-tight tracking-display text-dialect"
+            >
+              {`«${DISPLAY.showcase.line}»`}
+            </blockquote>
+            <figcaption className="mt-3 border-t border-border-subtle pt-3">
+              <span className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">
+                {t.showcaseLabel}
+              </span>
+              <p className="mt-1 text-lead leading-relaxed text-fg-primary">{t.showcaseMeaning}</p>
+            </figcaption>
+          </figure>
+        )}
       </section>
 
       <div className="pb-12 sm:pb-16">

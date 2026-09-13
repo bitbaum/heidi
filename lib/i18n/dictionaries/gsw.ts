@@ -65,6 +65,8 @@ export const gsw: Dictionary = {
     eyebrow: "Schwiizerdütsch · mir foönd a mit Züritüütsch",
     headline: "Schwiizerdütsch verstaa. Und schriibe wie öpper vo do.",
     sub: "Für alli wo Dütsch chönd und am Mittagstisch trotzdem nüüt verstönd. Füged ii, was Si becho händ — oder schriibed, was Si wänd säge.",
+    showcaseLabel: "Heisst uf Hochdütsch",
+    showcaseMeaning: "Kommst du heute Abend auch noch vorbei?",
     dialectTitle: "Mir foönd a mit Züri",
     dialectBody:
       "Schwiizerdütsch isch kei Sprach, sondern e Familie. Heidi cha hüt Züritüütsch würklich guet und seit Ihne das lieber, als so z tue, als ob si alles chönnti. Grad drum wiist d Prüefig Berner Forme zrugg: nöd wil Bärndütsch falsch wär, sondern wil mir grad Züri unterrichted. Wiiteri Dialekt chömed dezue — jede mit eigene Stimme und eigener Prüefig.",
