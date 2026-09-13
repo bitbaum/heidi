@@ -27,7 +27,26 @@ export default function OpengraphImage() {
           fontFamily: "serif",
         }}
       >
-        <div style={{ display: "flex", fontSize: 40, fontWeight: 600, letterSpacing: -1 }}>{brand}</div>
+        {/* The mark travels with every shared link. Satori renders inline SVG
+            but resolves no CSS custom properties, so the ink colour is passed
+            explicitly from the same config the rest of this card reads. */}
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <svg width="56" height="56" viewBox="0 0 32 32">
+            <defs>
+              <clipPath id="og-cow">
+                <circle cx="16" cy="16" r="15.1" />
+              </clipPath>
+            </defs>
+            <g clipPath="url(#og-cow)">
+              <g fill={OG_IMAGE_COLORS.ink}>
+                <path d="M-4 -4C6 -6 13 2 11 8c-2 6-10 8-15 4-4-3-4-12 0-16Z" />
+                <path d="M20 34c-6-2-6-11-1-14 5-3 13-2 16 3 3 5 1 12-5 13-4 1-7 0-10-2Z" />
+              </g>
+            </g>
+            <circle cx="16" cy="16" r="15.1" fill="none" stroke={OG_IMAGE_COLORS.ink} strokeWidth="1.5" />
+          </svg>
+          <div style={{ display: "flex", fontSize: 40, fontWeight: 600, letterSpacing: -1 }}>{brand}</div>
+        </div>
 
         <div style={{ display: "flex", maxWidth: 980, fontSize: 56, fontWeight: 600, lineHeight: 1.1 }}>
           {headline}

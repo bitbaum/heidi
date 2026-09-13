@@ -163,3 +163,29 @@ h2,
 h3 {
   text-wrap: balance;
 }
+
+/**
+ * Swiss cow, as a ground rather than a picture.
+ *
+ * Tried first as a repeating RULE between sections, at 13px tall, and it read
+ * as a dotted border — a patch needs enough area to show an irregular
+ * silhouette, and at rule height every shape collapses to a dash. So the motif
+ * goes where there is room: behind a page header, never in a line.
+ *
+ * 6% black on white, which leaves body text at --color-fg-secondary far above
+ * any contrast threshold; the pattern is felt, not read. The SVG lives here
+ * because globals.css is the only place a visual value belongs.
+ */
+.bg-hide {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22560%22%20height%3D%22240%22%20viewBox%3D%220%200%20560%20240%22%3E%3Cg%20fill%3D%22%230d0d0d%22%20opacity%3D%220.06%22%3E%3Cpath%20d%3D%22M-32%2028C16%20-14%20126%20-22%20154%2026c22%2038-30%2070-90%2064C16%2084-14%2060-32%2028Z%22%2F%3E%3Cpath%20d%3D%22M240%20-30c64-10%20118%2028%20112%2074-6%2042-74%2058-122%2032-42-22-48-90%2010-106Z%22%2F%3E%3Cpath%20d%3D%22M420%2054c48-22%20106%204%20112%2042%206%2036-38%2060-90%2054-48-6-74-34-68-60%204-16%2020-26%2046-36Z%22%2F%3E%3Cpath%20d%3D%22M96%20154c54-16%20122%206%20132%2042%2010%2032-38%2054-100%2052-58-4-92-26-90-52%204-20%2026-32%2058-42Z%22%2F%3E%3Cpath%20d%3D%22M336%20166c42-12%2086%2010%2090%2038%202%2026-32%2044-78%2042-42-4-64-22-60-44%202-16%2022-28%2048-36Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-size: 560px 240px;
+  background-repeat: repeat;
+}
+
+/* The pattern is decoration, and decoration that moves under a reader who has
+   asked for less of it is not decoration, it is noise. */
+@media (prefers-contrast: more) {
+  .bg-hide {
+    background-image: none;
+  }
+}

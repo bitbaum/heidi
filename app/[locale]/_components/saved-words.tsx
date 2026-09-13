@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import { useSaved } from "./use-saved";
+import { CowMark } from "./cow-mark";
 
 /**
  * The words a learner kept, on the page that promised them.
@@ -28,8 +29,16 @@ export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: stri
   if (saved.count === 0) {
     return (
       <div className="rounded-control border border-border-subtle bg-surface-raised px-4 py-5">
-        <p className="text-base text-fg-primary">{t.empty}</p>
-        <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-secondary">{t.emptyHint}</p>
+        {/* An empty box with two lines of grey text reads as something that
+            failed to load. The mark makes it read as a place waiting to be
+            filled, which is what it is. */}
+        <div className="flex items-start gap-3">
+          <CowMark size={24} className="mt-0.5 shrink-0 text-border-subtle" />
+          <div>
+            <p className="text-base text-fg-primary">{t.empty}</p>
+            <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-secondary">{t.emptyHint}</p>
+          </div>
+        </div>
       </div>
     );
   }
