@@ -8,6 +8,9 @@ import { Shell } from "../_components/page-shell";
 import { CowMark } from "../_components/cow-mark";
 import { SignOutButton } from "../_components/account-control";
 import { SavedWords } from "../_components/saved-words";
+import { GroupList } from "../_components/group-list";
+import { dbConfigured } from "@/lib/db";
+import { groupsFor } from "@/lib/domain/groups/store";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -29,6 +32,10 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
   const t = dict.auth;
   const session = authEnabled ? await auth() : null;
   const signedIn = Boolean(session?.actorId);
+
+  // Queried here rather than fetched on mount: the page already has the
+  // session, and a signed-out visitor costs no query at all.
+  const groups = signedIn && dbConfigured() ? await groupsFor(session!.actorId!) : [];
 
   return (
     <Shell>
@@ -62,6 +69,21 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
             {dict.saved.lead}
           </p>
           <SavedWords t={dict.saved} locale={LOCALE_TAGS[locale]} />
+
+          {/* Groups sit beside the words rather than in the sidebar: they are
+              the other half of what this page is FOR, and a list of rooms you
+              are in is not a secondary control. */}
+          <section aria-labelledby="groups" className="mt-12 border-t border-border-subtle pt-10">
+            <h2
+              id="groups"
+              className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+            >
+              {dict.groups.title}
+            </h2>
+            <div className="mt-3">
+              <GroupList t={dict.groups} locale={locale} signedIn={signedIn} groups={groups} />
+            </div>
+          </section>
         </main>
 
         <aside className="flex flex-col gap-8 lg:border-l lg:border-border-subtle lg:pl-8">

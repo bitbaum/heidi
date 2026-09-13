@@ -38,6 +38,32 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+
+    # A real Postgres, because the store tests are about things only a database
+    # has an opinion about: an upsert that would violate a primary key, a
+    # cascade that has to actually cascade, jsonb that must come back an object
+    # rather than a string. Mocking it would assert that the mock agrees with
+    # itself. 17 matches the box.
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: heidi
+          POSTGRES_PASSWORD: heidi
+          POSTGRES_DB: heidi_test
+        ports:
+          - 5432:5432
+        # Without this the job races the container and the first query fails
+        # with ECONNREFUSED on a cold runner.
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://heidi:heidi@localhost:5432/heidi_test
+
     steps:
       - uses: actions/checkout@v4
 
@@ -76,11 +102,23 @@ jobs:
             nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
             nextjs-${{ runner.os }}-
 
-      - name: Type check
-        run: pnpm run type-check
+      # The same migrations the deploy applies, so the tests run against the
+      # schema that is about to ship rather than one written out by hand here.
+      - name: Apply migrations
+        run: |
+          for f in drizzle/[0-9]*.sql; do
+            echo "applying $f"
+            psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -q -f "$f"
+          done
 
-      - name: Lint
-        run: pnpm run lint
+      # `verify` verbatim — type-check, lint AND test. This job used to run the
+      # first two as separate steps and never ran the third, so the entire unit
+      # suite passed only on the machine of whoever remembered to run it. That
+      # is the one failure mode a CI floor exists to prevent, and it is exactly
+      # why the house rule is that CI calls the repo's own verify script rather
+      # than a hand-maintained copy of what it is thought to contain.
+      - name: Verify
+        run: pnpm run verify
 
       # The build is the real test for a content site: a broken import or a bad
       # config surfaces here and nowhere earlier.
