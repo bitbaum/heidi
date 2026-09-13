@@ -83,12 +83,12 @@ export default async function LocaleLayout({
 
         <SiteFooter locale={locale} dict={dict} />
 
-        {/* The FleetCrown feedback widget. The owner looks at their own site,
+        {/* The Loki feedback widget. The owner looks at their own site,
             points at what they do not like, and an agent changes it. Env-gated,
             so a local run and a fork carry no widget at all. */}
         {process.env.NEXT_PUBLIC_FC_WIDGET_TOKEN && (
           <Script
-            src="https://fleetcrown.orangecat.ch/widget.js"
+            src="https://loki.orangecat.ch/widget.js"
             // lazyOnload, not afterInteractive. This is a THIRD-PARTY origin:
             // it costs its own DNS, TCP and TLS handshake before it sends a
             // byte, and measured on a real (slow) connection it was the single

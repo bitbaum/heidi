@@ -12,12 +12,12 @@ import { orangecatProvider } from "./provider.ts";
  * fresh from OrangeCat where it matters.
  *
  * That is not laziness, it is the identity-bridge instruction applied to a
- * second app: "Do NOT build profiles, walls, or messaging inside FleetCrown."
+ * second app: "Do NOT build profiles, walls, or messaging inside Loki."
  * Rebuilding a user table, a payments rail and a profile directory inside
  * Heidi would be the same mistake in a different repo — and a users table you
  * do not have is a users table that cannot leak.
  *
- * The provider config mirrors Solon's, which mirrors FleetCrown's, because
+ * The provider config mirrors Solon's, which mirrors Loki's, because
  * OrangeCat's authorization server has two quirks that cost a debugging cycle
  * to find the first time: its token endpoint accepts ONLY client_secret_post
  * (Auth.js defaults to client_secret_basic, which OC rejects with a 400

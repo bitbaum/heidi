@@ -18,7 +18,7 @@ needs one page that cannot drift from itself.
 > consumed.
 
 Live at `heidi.orangecat.ch`. An OrangeCat property, built and dispatched
-through FleetCrown.
+through Loki.
 
 ---
 

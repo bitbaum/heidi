@@ -7,7 +7,7 @@ import { ROUTES } from "../i18n/routes.ts";
 
 /**
  * The OIDC config's quirks, asserted rather than remembered. Both of these
- * were paid for once by FleetCrown's debugging; a silent revert here would
+ * were paid for once by Loki's debugging; a silent revert here would
  * surface as an opaque 400 at the code exchange, which is the single least
  * debuggable place for it to appear.
  */
