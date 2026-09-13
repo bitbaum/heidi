@@ -215,17 +215,19 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         )}
       </div>
 
-      {/* Before anything is said there is no transcript to show, so the panel
-          is the intro; once a conversation exists it becomes the transcript
-          and the intro is gone. Rendering an empty bordered box and calling it
-          a conversation is what pushed the input below the fold. */}
-      <div
-        className="flex flex-col gap-4 rounded-control border border-border-strong bg-surface-raised p-3 sm:p-4"
-        aria-live="polite"
-      >
-        {!started && <Intro t={t} />}
-
-        {messages.map((m) =>
+      {/* The transcript exists only once there is one.
+          It used to hold an intro before that — a heading and a paragraph
+          repeating what the page headline had just said, inside a bordered
+          box. Removing the intro without removing the box left an empty grey
+          bar sitting above the input, which is worse than either. An empty
+          bordered box is not a conversation and should not occupy the screen
+          the conversation will need. */}
+      {(started || busy) && (
+        <div
+          className="flex flex-col gap-4 rounded-control border border-border-strong bg-surface-raised p-3 sm:p-4"
+          aria-live="polite"
+        >
+          {messages.map((m) =>
           m.authorId === LEARNER_ID ? (
             <Mine key={m.id} body={m.body} label={t.you} />
           ) : (
@@ -239,16 +241,17 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           ),
         )}
 
-        {busy && (
-          <p role="status" className="flex items-center gap-2 text-sm text-fg-muted">
-            <span className="inline-flex gap-1" aria-hidden="true">
-              <Dot /> <Dot delay="150ms" /> <Dot delay="300ms" />
-            </span>
-            {t.thinking}
-          </p>
-        )}
-        <div ref={endRef} />
-      </div>
+          {busy && (
+            <p role="status" className="flex items-center gap-2 text-sm text-fg-muted">
+              <span className="inline-flex gap-1" aria-hidden="true">
+                <Dot /> <Dot delay="150ms" /> <Dot delay="300ms" />
+              </span>
+              {t.thinking}
+            </p>
+          )}
+          <div ref={endRef} />
+        </div>
+      )}
 
       <form
         // Sticky only once there IS a transcript to scroll past. In the empty
@@ -496,17 +499,6 @@ function dropTrailingFailure(messages: ChatMessage[]): ChatMessage[] {
   return last?.error ? messages.slice(0, -1) : messages;
 }
 
-/** What the panel says before there is a conversation in it. */
-function Intro({ t }: { t: Dictionary["chat"] }) {
-  return (
-    <div className="py-2">
-      <h2 className="font-heading text-xl font-semibold leading-tight tracking-display text-fg-primary">
-        {t.emptyTitle}
-      </h2>
-      <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{t.emptyBody}</p>
-    </div>
-  );
-}
 
 /**
  * Three things worth pasting, BELOW the input rather than above it.

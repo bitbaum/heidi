@@ -39,6 +39,13 @@ import { HEIDI_ID } from "./types.ts";
  * be a lie and the suite is not allowed to pass vacuously.
  */
 
+/**
+ * NOTE FOR WHOEVER SPEEDS THIS UP: `--test-concurrency=1` in the test script
+ * is load-bearing. This suite and `routes.test.ts` share one database and both
+ * truncate it, so run in parallel one wipes the other's fixtures mid-test —
+ * which surfaces as an unrelated 404 in the other file, not as a clue about
+ * here. Give each suite its own database before removing the flag.
+ */
 const HAS_DB = dbConfigured();
 
 describe("group store", { skip: HAS_DB ? false : "DATABASE_URL unset" }, () => {

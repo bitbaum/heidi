@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   canRecord,
+  deadRecogniserStillTrusted,
   fallbackCanRescue,
   mayKeepWaitingForPermission,
   problemFor,
@@ -125,4 +126,26 @@ test("a recogniser that cannot do the job hands over; a microphone problem does 
   assert.equal(fallbackCanRescue("mic"), false, "their microphone or a denied permission — recording fails the same way");
   assert.equal(fallbackCanRescue("silence"), false, "they were heard and said nothing — telling them twice helps nobody");
   assert.equal(fallbackCanRescue(null), false, "a clean end is not a failure");
+});
+
+// ── Learning it once ────────────────────────────────────────────────────────
+//
+// Discovering that a browser's recogniser is dead costs ten seconds of a button
+// that says "Ich höre …" and does nothing visible. On a browser with no speech
+// service that discovery is identical every time, so it is remembered — but a
+// browser can GAIN the capability, so the verdict expires.
+test("a remembered dead recogniser is trusted, but not forever", () => {
+  const now = Date.UTC(2026, 8, 12, 19, 0, 0);
+  const daysAgo = (d: number) => now - d * 24 * 60 * 60 * 1000;
+
+  assert.equal(deadRecogniserStillTrusted(now, now), true, "just learned");
+  assert.equal(deadRecogniserStillTrusted(daysAgo(29), now), true);
+  assert.equal(deadRecogniserStillTrusted(daysAgo(31), now), false, "a browser can gain the capability");
+  assert.equal(deadRecogniserStillTrusted(null, now), false, "never learned — try the recogniser");
+  assert.equal(deadRecogniserStillTrusted(Number.NaN, now), false, "unreadable storage is not a verdict");
+  assert.equal(
+    deadRecogniserStillTrusted(now + 60_000, now),
+    false,
+    "a timestamp from the future is a clock change, not a verdict",
+  );
 });
