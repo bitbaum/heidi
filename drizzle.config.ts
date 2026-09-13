@@ -1,7 +1,7 @@
 import type { Config } from "drizzle-kit";
 
 /**
- * Matches the layout `fleetcrown/scripts/hetzner/apply-schema.sh` probes for —
+ * Matches the layout `loki/scripts/hetzner/apply-schema.sh` probes for —
  * `<app_dir>/drizzle`, and heidi's `app_dir` is the repo root. Putting the
  * migrations anywhere else means the deploy's schema step finds nothing and
  * says "no drizzle dir — skipping", which looks benign in the log and ships

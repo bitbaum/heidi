@@ -3,7 +3,7 @@
  * import so it can be asserted by `node --test`, which has no Next runtime.
  *
  * Its two settings are load-bearing and were both paid for once already, by
- * FleetCrown's debugging:
+ * Loki's debugging:
  *
  *  - OrangeCat's token endpoint accepts ONLY `client_secret_post`. Auth.js
  *    defaults to `client_secret_basic`, which OC rejects at the code exchange
