@@ -28,7 +28,16 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
             <ul className="mt-3 flex flex-col gap-2">
               {NAV_ROUTES.map((route) => (
                 <li key={route.key}>
-                  <Link href={href(locale, route.segment)} className="text-sm text-fg-secondary hover:text-fg-primary">
+                  {/* No prefetch down here. Next prefetches every visible
+                      Link, and the header already prefetched these exact six
+                      routes — so the footer bought a second copy of each. On a
+                      slow connection that is 6 extra round trips competing
+                      with the page for a link nobody has aimed at yet. */}
+                  <Link
+                    href={href(locale, route.segment)}
+                    prefetch={false}
+                    className="text-sm text-fg-secondary hover:text-fg-primary"
+                  >
                     {dict.nav[route.key]}
                   </Link>
                 </li>
@@ -43,9 +52,13 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
             <ul className="mt-3 flex flex-col gap-2">
               {LOCALES.map((l) => (
                 <li key={l}>
+                  {/* Seven languages, seven prefetched copies of the home
+                      page — for a switch almost nobody touches, and never
+                      before they have read anything. */}
                   <Link
                     href={href(l, "")}
                     hrefLang={l}
+                    prefetch={false}
                     className={`text-sm hover:text-fg-primary ${l === locale ? "font-medium text-fg-primary" : "text-fg-secondary"}`}
                   >
                     {LOCALE_NAMES[l]}
@@ -63,6 +76,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
             </p>
             <Link
               href={href(locale, "about")}
+              prefetch={false}
               className="mt-3 inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
             >
               {dict.nav.about}
