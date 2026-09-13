@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Answer, ChatMessage, Gloss } from "@/lib/domain/chat/types";
 import { HEIDI_ID, LEARNER_ID } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
+import { CowMark } from "./cow-mark";
 import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
 import { useDictation } from "./use-dictation";
 import { useByok } from "./use-byok";
@@ -577,7 +578,12 @@ function Theirs({
 
   return (
     <article className="flex flex-col items-start">
-      <span className="mb-1 font-mono text-[10px] uppercase tracking-caps text-accent">Heidi</span>
+      {/* She is answering, so she is present. A name in 10px type is a label;
+          a name with a face is someone talking. */}
+      <span className="mb-1 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-caps text-accent">
+        <CowMark size={14} className="text-fg-primary" />
+        Heidi
+      </span>
       <div className="w-full max-w-[92%] rounded-control border border-border-subtle bg-surface-page p-3">
         <p className="text-base leading-relaxed text-fg-primary">{a.text}</p>
 

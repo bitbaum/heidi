@@ -49,7 +49,10 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
           theirs and it works signed out; the two tools sit one tap away; the
           account and the roadmap are beside it, sized like the secondary
           things they are. */}
-      <header className="flex items-start gap-4 py-10 sm:py-12">
+      {/* A personal space is the one page that may be warm. The pattern is
+          6% black — felt, not read — and it stops at the rule, so the working
+          part of the page stays plain. */}
+      <header className="-mx-5 flex items-start gap-4 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
         <CowMark size={44} className="mt-1 shrink-0 text-fg-primary" />
         <div>
           <h1 className="font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
