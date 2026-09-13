@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "verify": "pnpm run type-check && pnpm run lint && pnpm run test",
-    "test": "node --no-warnings --experimental-strip-types --test 'app/**/*.test.ts' 'lib/**/*.test.ts'",
+    "test": "node --no-warnings --experimental-strip-types --experimental-test-module-mocks --test 'app/**/*.test.ts' 'lib/**/*.test.ts'",
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {

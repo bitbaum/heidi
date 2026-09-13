@@ -42,6 +42,27 @@ export const modelCheck = slidingWindow({ limit: 6, windowMs: 5 * 60_000 });
 export const dictation = slidingWindow({ limit: 20, windowMs: 5 * 60_000 });
 
 /**
+ * Making and joining study groups.
+ *
+ * Tight, because both write rows nobody asked for: a script could otherwise
+ * fill the table with groups, or walk invite tokens looking for one that
+ * resolves. Guessing a 192-bit token is not a strategy anyway, but a ceiling
+ * turns "not a strategy" into "not worth attempting".
+ *
+ * Nowhere near what a person does — you make a study group about once.
+ */
+export const groupWrite = slidingWindow({ limit: 20, windowMs: 10 * 60_000 });
+
+/**
+ * Posting into a group.
+ *
+ * Looser than making one and tighter than the solo chat: every message may
+ * wake Heidi, which spends from the same shared budget, and a group has
+ * several people drawing on it at once.
+ */
+export const groupMessage = slidingWindow({ limit: 40, windowMs: 5 * 60_000 });
+
+/**
  * The dialect checker. Pure, local, costs nothing but CPU — so this is only
  * about not letting one client monopolise the box.
  */

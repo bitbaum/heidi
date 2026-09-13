@@ -7,6 +7,9 @@ import { href } from "@/lib/i18n/routes";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
 import { SignOutButton } from "../_components/account-control";
 import { SavedWords } from "../_components/saved-words";
+import { GroupList } from "../_components/group-list";
+import { dbConfigured } from "@/lib/db";
+import { groupsFor } from "@/lib/domain/groups/store";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -29,6 +32,10 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
   const session = authEnabled ? await auth() : null;
   const signedIn = Boolean(session?.actorId);
 
+  // Queried here rather than fetched on mount: the page already has the
+  // session, and a signed-out visitor costs no query at all.
+  const groups = signedIn && dbConfigured() ? await groupsFor(session!.actorId!) : [];
+
   return (
     <Shell>
       <PageHeader eyebrow={dict.nav.portal} title={t.portalTitle} lead={t.portalLead} />
@@ -39,6 +46,10 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
       <Section title={dict.saved.title}>
         <p className="mb-5 max-w-measure text-base leading-relaxed text-fg-secondary">{dict.saved.lead}</p>
         <SavedWords t={dict.saved} locale={LOCALE_TAGS[locale]} />
+      </Section>
+
+      <Section title={dict.groups.title}>
+        <GroupList t={dict.groups} locale={locale} signedIn={signedIn} groups={groups} />
       </Section>
 
       <Section title={t.account}>
