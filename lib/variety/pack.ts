@@ -262,6 +262,16 @@ export type VarietyPack = {
   bridges: readonly Bridge[];
   learner: LearnerProfile;
   correspondences: readonly Correspondence[];
+  /**
+   * One line of the target variety that a speaker of the bridge language
+   * cannot parse — the hero shows it, then answers it. Optional: a pack
+   * without one simply gets a hero with no demonstration.
+   *
+   * Pick a sentence that FAILS honestly. "Chunnsch" and "hüt Abig" are opaque
+   * to a Standard German reader; a sentence they can half-guess proves nothing
+   * and quietly tells them they do not need this.
+   */
+  showcase?: { line: string };
   rules: readonly VarietyRule[];
   orthography: Orthography;
   capabilities: Capabilities;

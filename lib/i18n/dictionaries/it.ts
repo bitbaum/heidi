@@ -42,6 +42,8 @@ export const it: Dictionary = {
     eyebrow: "Schwiizerdütsch · si comincia dallo Züritüütsch",
     headline: "Capire lo svizzero tedesco. E poi scrivere come chi è di qui.",
     sub: "Per chi sa già il tedesco e a tavola continua a non capire nulla. Incollate quello che avete ricevuto — o scrivete quello che volete dire.",
+    showcaseLabel: "In italiano",
+    showcaseMeaning: "Passi anche tu stasera?",
     dialectTitle: "Cominciamo da Zurigo",
     dialectBody:
       "Lo svizzero tedesco non è una lingua ma una famiglia. Oggi Heidi conosce davvero bene lo zurighese, e preferisce dirvelo piuttosto che fingere di coprire tutto. È anche esattamente il motivo per cui la verifica rifiuta le forme bernesi: non perché il bernese sia sbagliato, ma perché in questo momento insegniamo Zurigo. Seguiranno altri dialetti — ciascuno con le proprie voci e la propria verifica.",

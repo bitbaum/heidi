@@ -58,6 +58,8 @@ export const rm: Dictionary = {
     eyebrow: "Schwiizerdütsch · nus cumenzain cun Züritüütsch",
     headline: "Chapir il tudestg svizzer. E lura scriver sco insatgi da qua.",
     sub: "Per tut quels che san gia tudestg e na chapeschan tuttina nagut a maisa. Encollai quai che Vus avais retschavì — u scrivai quai che Vus vulais dir.",
+    showcaseLabel: "Per rumantsch",
+    showcaseMeaning: "Vegns ti era oz saira?",
     dialectTitle: "Nus cumenzain cun Turitg",
     dialectBody:
       "Il tudestg svizzer n'è betg ina lingua, mabain ina famiglia. Oz sa Heidi propi bain il tudestg da Turitg, ed ella Vus al di pli gugent che far la finta da savair tut. Quai è er precis la raschun pertge che la controlla refusa furmas bernaisas: betg perquai che il bernais fiss fallà, mabain perquai che nus instruin en quest mument Turitg. Ulteriurs dialects vegnan — mintgin cun sias atgnas vuschs e sia atgna controlla.",

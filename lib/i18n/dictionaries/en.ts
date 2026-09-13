@@ -42,6 +42,8 @@ export const en: Dictionary = {
     eyebrow: "Schwiizerdütsch · starting with Züritüütsch",
     headline: "Understand Swiss German. Then write like someone from here.",
     sub: "For people who already know German and still understand nothing at the lunch table. Paste what you received — or write what you mean.",
+    showcaseLabel: "Means, in English",
+    showcaseMeaning: "Are you coming over tonight as well?",
     dialectTitle: "We start with Zurich",
     dialectBody:
       "Swiss German is not one language but a family. Today Heidi is genuinely good at Zurich German, and would rather tell you that than pretend to cover everything. It is also exactly why the check rejects Bernese forms: not because Bernese is wrong, but because Zurich is what we are teaching right now. More dialects follow — each with its own voices and its own check.",

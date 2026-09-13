@@ -42,6 +42,8 @@ export const fr: Dictionary = {
     eyebrow: "Schwiizerdütsch · on commence par le Züritüütsch",
     headline: "Comprendre le suisse allemand. Puis écrire comme quelqu'un d'ici.",
     sub: "Pour celles et ceux qui parlent déjà allemand et ne comprennent toujours rien à table. Collez ce que vous avez reçu — ou écrivez ce que vous voulez dire.",
+    showcaseLabel: "En français",
+    showcaseMeaning: "Tu passes aussi ce soir ?",
     dialectTitle: "Nous commençons par Zurich",
     dialectBody:
       "Le suisse allemand n'est pas une langue mais une famille. Aujourd'hui Heidi maîtrise vraiment bien le zurichois, et préfère vous le dire plutôt que de faire semblant de tout couvrir. C'est aussi exactement pourquoi la vérification rejette les formes bernoises : non parce que le bernois serait faux, mais parce que c'est Zurich que nous enseignons pour l'instant. D'autres dialectes suivront — chacun avec ses propres voix et sa propre vérification.",

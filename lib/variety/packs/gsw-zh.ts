@@ -66,6 +66,11 @@ export const ZURICH_GERMAN: VarietyPack = {
    * Two of the four below are vowel rules and are the weaker bet — add
    * consonant correspondences before adding more vowels.
    */
+  // Chosen because a German speaker gets nothing from it: "Chunnsch" (kommst)
+  // and "hüt Abig" (heute Abend) are both opaque, and it is the sort of line
+  // that actually arrives on a phone on a Tuesday.
+  showcase: { line: "Chunnsch au no verbi hüt Abig?" },
+
   correspondences: [
     { bridge: "Kind", target: "Chind", rule: "k → ch", cue: "Listen for a scrape at the front where German has a hard k." },
     { bridge: "ist", target: "isch", rule: "st → sch", cue: "Listen for sch where German ends in st." },
