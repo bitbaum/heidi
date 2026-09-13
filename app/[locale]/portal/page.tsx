@@ -4,7 +4,8 @@ import { auth, authEnabled, signIn } from "@/lib/auth";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, LOCALE_TAGS, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
-import { PageHeader, Section, Shell } from "../_components/page-shell";
+import { Shell } from "../_components/page-shell";
+import { CowMark } from "../_components/cow-mark";
 import { SignOutButton } from "../_components/account-control";
 import { SavedWords } from "../_components/saved-words";
 
@@ -31,77 +32,110 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
 
   return (
     <Shell>
-      <PageHeader eyebrow={dict.nav.portal} title={t.portalTitle} lead={t.portalLead} />
+      {/* A personal space, not a document about one.
+          It read: eyebrow "MEIN BEREICH" over the title "Mein Bereich" — the
+          same words twice — then four full-width sections stacked down 2,200px
+          of a mostly empty column, ending in an essay about the identity
+          provider. Nothing on it was anything to DO, and the only way back to
+          the tool was a small link at the very bottom.
+          Now: their words fill the page, because that is the part that is
+          theirs and it works signed out; the two tools sit one tap away; the
+          account and the roadmap are beside it, sized like the secondary
+          things they are. */}
+      <header className="flex items-start gap-4 py-10 sm:py-12">
+        <CowMark size={44} className="mt-1 shrink-0 text-fg-primary" />
+        <div>
+          <h1 className="font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
+            {t.portalTitle}
+          </h1>
+          <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.portalLead}</p>
+        </div>
+      </header>
 
-      {/* First, because it is the part that WORKS — and it works signed out.
-          Leading with the account box would have put a sign-in wall in front
-          of the one thing on this page that needs no account. */}
-      <Section title={dict.saved.title}>
-        <p className="mb-5 max-w-measure text-base leading-relaxed text-fg-secondary">{dict.saved.lead}</p>
-        <SavedWords t={dict.saved} locale={LOCALE_TAGS[locale]} />
-      </Section>
-
-      <Section title={t.account}>
-        {!authEnabled ? (
-          <p className="max-w-measure rounded-control border border-border-strong bg-surface-raised px-4 py-3 text-base text-fg-secondary">
-            {t.unavailable}
+      <div className="grid gap-10 border-t border-border-subtle pt-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-12">
+        {/* Theirs, and it needs no account — so it leads. */}
+        <main>
+          <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
+            {dict.saved.title}
+          </h2>
+          <p className="mb-5 mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">
+            {dict.saved.lead}
           </p>
-        ) : signedIn ? (
-          <div className="flex flex-wrap items-center justify-between gap-4 rounded-control border border-border-strong bg-surface-raised px-4 py-4">
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.signedInAs}</p>
-              <p className="mt-1 text-lg text-fg-primary">
-                {session?.user?.name || session?.user?.email || session?.actorId}
-              </p>
-            </div>
-            <SignOutButton locale={locale} dict={dict} />
-          </div>
-        ) : (
-          <div className="max-w-measure rounded-control border border-border-strong bg-surface-raised px-4 py-5">
-            <h2 className="font-heading text-xl font-semibold leading-tight tracking-display text-fg-primary">
-              {t.notSignedIn}
-            </h2>
-            <p className="mt-3 text-base leading-relaxed text-fg-secondary">{t.notSignedInBody}</p>
-            <form
-              className="mt-5"
-              action={async () => {
-                "use server";
-                await signIn("orangecat", { redirectTo: href(locale, "portal") });
-              }}
+          <SavedWords t={dict.saved} locale={LOCALE_TAGS[locale]} />
+        </main>
+
+        <aside className="flex flex-col gap-8 lg:border-l lg:border-border-subtle lg:pl-8">
+          {/* The two tools, by name. A personal page with no way into the
+              product is a dead end wearing a greeting. */}
+          <nav aria-label={dict.nav.menu} className="flex flex-col gap-2">
+            <Link
+              href={href(locale, "")}
+              className="inline-flex min-h-11 items-center justify-center rounded-control bg-accent px-4 text-center font-medium text-on-accent hover:opacity-90"
             >
-              <button
-                type="submit"
-                className="inline-flex min-h-11 items-center rounded-control bg-accent px-6 font-medium text-on-accent hover:opacity-90"
-              >
-                {t.signInWith}
-              </button>
-            </form>
-          </div>
-        )}
-      </Section>
+              {dict.chat.emptyTitle}
+            </Link>
+            <Link
+              href={href(locale, "check")}
+              className="inline-flex min-h-11 items-center justify-center rounded-control border border-border-strong px-4 text-center font-medium text-fg-primary hover:bg-surface-raised"
+            >
+              {dict.nav.check}
+            </Link>
+          </nav>
 
-      <Section title={t.soonTitle}>
-        <ul className="flex flex-col">
-          {t.soonList.map((item) => (
-            <li key={item} className="flex gap-4 border-b border-border-subtle py-3 last:border-b-0">
-              <span aria-hidden="true" className="text-accent">
-                ·
-              </span>
-              <span className="max-w-measure text-base leading-relaxed text-fg-secondary">{item}</span>
-            </li>
-          ))}
-        </ul>
-      </Section>
+          <section aria-labelledby="account">
+            <h2 id="account" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+              {t.account}
+            </h2>
+            {!authEnabled ? (
+              <p className="mt-3 text-sm leading-relaxed text-fg-secondary">{t.unavailable}</p>
+            ) : signedIn ? (
+              <div className="mt-3">
+                <p className="text-base text-fg-primary">
+                  {session?.user?.name || session?.user?.email || session?.actorId}
+                </p>
+                <div className="mt-3">
+                  <SignOutButton locale={locale} dict={dict} />
+                </div>
+              </div>
+            ) : (
+              <div className="mt-3">
+                <p className="text-sm leading-relaxed text-fg-secondary">{t.notSignedInBody}</p>
+                <form
+                  className="mt-4"
+                  action={async () => {
+                    "use server";
+                    await signIn("orangecat", { redirectTo: href(locale, "portal") });
+                  }}
+                >
+                  <button
+                    type="submit"
+                    className="inline-flex min-h-11 w-full items-center justify-center rounded-control border border-border-strong px-4 font-medium text-fg-primary hover:bg-surface-raised"
+                  >
+                    {t.signInWith}
+                  </button>
+                </form>
+                {/* Was a full section of its own. It answers one question —
+                    why someone else's login — and that is a footnote to the
+                    button, not a chapter. */}
+                <p className="mt-3 text-sm leading-relaxed text-fg-muted">{t.whyBody}</p>
+              </div>
+            )}
+          </section>
 
-      <Section title={t.whyTitle}>
-        <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.whyBody}</p>
-        <Link
-          href={href(locale, "")}
-          className="mt-5 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
-        >
-          {dict.nav.home}
-        </Link>
-      </Section>
+          <section aria-labelledby="soon">
+            <h2 id="soon" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+              {t.soonTitle}
+            </h2>
+            <ul className="mt-3 flex flex-col gap-2">
+              {t.soonList.map((item) => (
+                <li key={item} className="text-sm leading-relaxed text-fg-secondary">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+        </aside>
+      </div>
     </Shell>
   );
 }
