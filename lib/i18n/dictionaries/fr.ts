@@ -23,6 +23,7 @@ export const fr: Dictionary = {
     menu: "Menu",
     language: "Choisir la langue",
     langNational: "Langues nationales",
+    langDialect: "Dialecte",
     langOther: "Autres langues",
   },
 
@@ -269,10 +270,10 @@ export const fr: Dictionary = {
 
   check: {
     title: "Vérification du dialecte",
-    intro:
-      "Collez un texte censé être du zurichois. Cette vérification est une liste de règles fixes — pas un modèle de langue — et signale les formes venant d'une autre région alémanique ou inexistantes en Suisse.",
+    intro: "Une liste de règles fixe — pas un modèle de langue. Elle vérifie chaque ligne que Heidi vous montre. Vous pouvez la faire tourner vous-même ici.",
     placeholder: "Das isch nid güet, gäu",
     button: "Vérifier",
+    failed: "La vérification n'était pas joignable. Réessayez.",
     ok: "Aucune forme étrangère trouvée. Cela peut passer pour du zurichois.",
     okShort: "Propre",
     failShort: "Trouvé",

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
-import { VARIETY } from "@/lib/variety/active";
+import { DISPLAY } from "@/lib/variety/display";
 import { NumberedList, PageHeader, Section, Shell } from "../_components/page-shell";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -49,9 +49,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <Section title={t.stateTitle}>
         <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
           {[
-            [VARIETY.name, VARIETY.endonym],
-            [dict.nav.language, VARIETY.region],
-            [dict.check.title, VARIETY.orthography.convention],
+            [DISPLAY.name, DISPLAY.endonym],
+            [dict.nav.language, DISPLAY.region],
+            [dict.check.title, DISPLAY.orthography.convention],
           ].map(([term, value]) => (
             <div key={term} className="border-b border-border-subtle pb-3">
               <dt className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{term}</dt>
@@ -59,7 +59,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </div>
           ))}
         </dl>
-        <p className="mt-6 max-w-measure text-base leading-relaxed text-fg-secondary">{VARIETY.learner.because}</p>
       </Section>
 
       <Section>

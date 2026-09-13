@@ -4,6 +4,8 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { NumberedList, PageHeader, Section, Shell } from "../_components/page-shell";
+import { RuleCheck } from "../_components/rule-check";
+import { DISPLAY } from "@/lib/variety/display";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -23,6 +25,33 @@ export default async function MethodPage({ params }: { params: Promise<{ locale:
 
       <Section>
         <NumberedList items={t.sections} />
+      </Section>
+
+      {/* The evidence for "a fixed list decides, not the model". It was a page
+          of its own, second in the nav, and it asked the visitor to paste
+          Zurich German — which is the one thing Heidi's learner cannot yet
+          produce. As proof it works; as a task it never did. */}
+      <Section title={dict.check.whyTitle}>
+        <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{dict.check.whyBody}</p>
+
+        <ul className="mt-6 flex flex-col gap-2 rounded-control border border-border-subtle bg-surface-raised p-4 font-mono text-sm">
+          {DISPLAY.rules.map((rule) => (
+            <li key={rule.label} className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="text-fg-primary">{rule.label}</span>
+              {rule.origin && (
+                <span className="text-[11px] uppercase tracking-caps text-fg-muted">{rule.origin}</span>
+              )}
+              {rule.suggest && <span className="text-ok">→ {rule.suggest}</span>}
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-8 max-w-measure text-base leading-relaxed text-fg-secondary">{dict.check.intro}</p>
+        <div className="mt-4">
+          <RuleCheck t={dict.check} />
+        </div>
+
+        <p className="mt-8 max-w-measure text-sm leading-relaxed text-fg-muted">{dict.check.noteBody}</p>
       </Section>
 
       <Section title={t.loopTitle}>

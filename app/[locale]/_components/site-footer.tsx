@@ -3,7 +3,7 @@ import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { LOCALES, LOCALE_NAMES } from "@/lib/i18n/locales";
 import { NAV_ROUTES, href } from "@/lib/i18n/routes";
-import { VARIETY } from "@/lib/variety/active";
+import { DISPLAY } from "@/lib/variety/display";
 
 /** A server component: nothing here needs to react to anything. */
 export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary }) {
@@ -17,7 +17,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
             <div className="font-heading text-xl font-semibold tracking-display text-fg-primary">Heidi</div>
             <p className="mt-2 max-w-[28ch] text-sm leading-relaxed text-fg-secondary">{dict.footer.tagline}</p>
             <p className="mt-4 font-mono text-[11px] uppercase tracking-caps text-fg-muted">
-              {VARIETY.endonym} · {VARIETY.region}
+              {DISPLAY.endonym} · {DISPLAY.region}
             </p>
           </div>
 

@@ -1,4 +1,4 @@
-import { VARIETY } from "@/lib/variety/active";
+import { DISPLAY } from "@/lib/variety/display";
 
 /**
  * The sound correspondences, shown rather than tabulated.
@@ -12,7 +12,7 @@ import { VARIETY } from "@/lib/variety/active";
  * they know is quiet; the word they are learning is loud; the isogloss red
  * lands precisely on the difference.
  *
- * Read from `VARIETY.correspondences`, like everything else. Nothing here
+ * Read from `DISPLAY.correspondences`, like everything else. Nothing here
  * names German or Zurich, so a different pack draws a different figure.
  */
 
@@ -54,7 +54,7 @@ function Word({ word, fragment, loud }: { word: string; fragment: string; loud: 
 export function CorrespondenceFigure() {
   return (
     <ul className="grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
-      {VARIETY.correspondences.map((c) => {
+      {DISPLAY.correspondences.map((c) => {
         const pair = sides(c.rule);
         return (
           <li key={c.bridge} className="border-t border-border-subtle pt-4">

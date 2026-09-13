@@ -99,12 +99,6 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
             >
               {dict.chat.emptyTitle}
             </Link>
-            <Link
-              href={href(locale, "check")}
-              className="inline-flex min-h-11 items-center justify-center rounded-control border border-border-strong px-4 text-center font-medium text-fg-primary hover:bg-surface-raised"
-            >
-              {dict.nav.check}
-            </Link>
           </nav>
 
           <section aria-labelledby="account">

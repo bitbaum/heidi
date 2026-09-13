@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { LANDING } from "@/lib/config/landing";
 import { OG_IMAGE_COLORS } from "@/lib/config/og-image";
-import { VARIETY } from "@/lib/variety/active";
+import { DISPLAY } from "@/lib/variety/display";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -10,7 +10,7 @@ export default function OpengraphImage() {
   const { brand, headline } = LANDING;
   // Linguistic content comes from the pack, so the link preview cannot drift
   // from the page — and needs no edit when the variety changes.
-  const { correspondences } = VARIETY;
+  const { correspondences } = DISPLAY;
 
   return new ImageResponse(
     (

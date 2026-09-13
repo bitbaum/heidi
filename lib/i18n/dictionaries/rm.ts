@@ -39,6 +39,7 @@ export const rm: Dictionary = {
     menu: "Menu",
     language: "Tscherner la lingua",
     langNational: "Linguas naziunalas",
+    langDialect: "Dialect",
     langOther: "Autras linguas",
   },
 
@@ -285,10 +286,10 @@ export const rm: Dictionary = {
 
   check: {
     title: "Controlla dal dialect",
-    intro:
-      "Encollai in text che duess esser tudestg da Turitg. Questa controlla è ina glista da reglas fixas — betg in model da lingua — e marchescha furmas che vegnan d'ina autra regiun tudestg-svizra u che n'existan betg en Svizra.",
+    intro: "Ina glista fixa da reglas — betg in model linguistic. Ella controllescha mintga lingia che Heidi As mussa. Qua pudais Vus la laschar currer sezs.",
     placeholder: "Das isch nid güet, gäu",
     button: "Controllar",
+    failed: "La verificaziun n'era betg cuntanschibla. Empruvai anc ina giada.",
     ok: "Naginas furmas estras chattadas. Quai po passar sco tudestg da Turitg.",
     okShort: "Net",
     failShort: "Chattà",

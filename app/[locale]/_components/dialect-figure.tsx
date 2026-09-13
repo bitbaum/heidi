@@ -1,4 +1,4 @@
-import { VARIETY } from "@/lib/variety/active";
+import { DISPLAY } from "@/lib/variety/display";
 import { project } from "@/lib/geo/region";
 import { REGIONS } from "@/lib/geo/regions";
 
@@ -30,7 +30,7 @@ import { REGIONS } from "@/lib/geo/regions";
  * deployment draws Ukraine by adding one region file.
  */
 export function DialectFigure({ plannedLabel }: { plannedLabel: string }) {
-  const family = VARIETY.family;
+  const family = DISPLAY.family;
   const atlas = family?.atlas;
   if (!atlas) return null;
 
@@ -50,7 +50,7 @@ export function DialectFigure({ plannedLabel }: { plannedLabel: string }) {
         viewBox={`0 0 ${region.width} ${region.height}`}
         className="w-full overflow-visible"
         role="img"
-        aria-label={`${region.name}: ${VARIETY.endonym} — ${plannedLabel}: ${(family?.planned ?? []).join(", ")}`}
+        aria-label={`${region.name}: ${DISPLAY.endonym} — ${plannedLabel}: ${(family?.planned ?? []).join(", ")}`}
       >
         {/* The country. Filled with the sunk surface so it reads as ground in
             both themes without a second palette. */}
@@ -94,14 +94,14 @@ export function DialectFigure({ plannedLabel }: { plannedLabel: string }) {
           className="fill-fg-primary stroke-surface-sunk font-heading"
           style={{ fontSize: "32px", fontWeight: 700, strokeWidth: 6, paintOrder: "stroke" }}
         >
-          {VARIETY.endonym}
+          {DISPLAY.endonym}
         </text>
       </svg>
 
       <figcaption className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5">
         <span className="inline-flex items-center gap-2">
           <span aria-hidden="true" className="inline-block h-3 w-3 rounded-full bg-accent" />
-          <span className="font-mono text-[11px] uppercase tracking-caps text-fg-primary">{VARIETY.endonym}</span>
+          <span className="font-mono text-[11px] uppercase tracking-caps text-fg-primary">{DISPLAY.endonym}</span>
         </span>
         <span className="inline-flex items-center gap-2">
           <span
