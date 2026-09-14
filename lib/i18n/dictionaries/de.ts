@@ -10,7 +10,7 @@ export const de = {
   meta: {
     title: "Heidi — Schweizerdeutsch verstehen",
     description:
-      "Verstehen, was um Sie herum wirklich gesprochen wird. Heidi übersetzt echte Nachrichten, erklärt die Wörter, die Sie noch nicht kennen, und prüft jede Antwort auf echte Dialektformen. Start: Zürichdeutsch.",
+      "Verstehen, was um Sie herum wirklich gesprochen wird. Heidi übersetzt echte Nachrichten, erklärt die Wörter, die Sie noch nicht kennen, und prüft jede Antwort auf echte Dialektformen. Wir fangen mit Zürichdeutsch an.",
   },
 
   nav: {
@@ -45,7 +45,7 @@ export const de = {
   },
 
   home: {
-    eyebrow: "Schwiizerdütsch · Start: Züritüütsch",
+    eyebrow: "Wir fangen mit Zürich an",
     headline: "Schweizerdeutsch verstehen. Und schreiben wie jemand von hier.",
     sub: "Für alle, die Deutsch können und am Mittagstisch trotzdem nichts verstehen. Fügen Sie ein, was Sie bekommen haben — oder schreiben Sie, was Sie sagen möchten.",
     showcaseLabel: "Heisst auf Deutsch",
@@ -77,15 +77,13 @@ export const de = {
     thinking: "Heidi liest mit …",
     you: "Sie",
     emptyTitle: "Fragen Sie Heidi",
-    emptyBody:
-      "Eine Nachricht, ein Satz, ein einzelnes Wort. Heidi merkt selbst, ob Sie etwas verstehen oder etwas sagen möchten — und Sie können einfach weiterfragen.",
     examples: [
       "Im Kauz scho, hät mer nöd so gfalle. Du au?",
       "Sag ihnen, dass ich zehn Minuten später komme — freundlich.",
-      "Chunnsch au no verbi hüt Abig?",
+      "Häsch du am Samschtig scho öppis vor?",
     ],
     glossTitle: "Wörter, die bleiben sollten",
-    suggestionsTitle: "Das können Sie schicken",
+    suggestionsTitle: "Zum Ausprobieren",
     sendThis: "Das können Sie schicken",
     copy: "Kopieren",
     copied: "Kopiert",
@@ -94,7 +92,7 @@ export const de = {
     mic: "Diktieren",
     micStop: "Aufnahme beenden",
     micListening: "Ich höre …",
-    micTranscribing: "Wird übertragen …",
+    micTranscribing: "Wird geschrieben …",
     micProblem: {
       mic: "Kein Zugriff aufs Mikrofon. Sie können weiterhin tippen.",
       silence: "Nichts gehört. Drücken Sie nochmals aufs Mikrofon und sprechen Sie gleich los.",

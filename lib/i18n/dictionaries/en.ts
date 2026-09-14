@@ -39,7 +39,7 @@ export const en: Dictionary = {
   },
 
   home: {
-    eyebrow: "Schwiizerdütsch · starting with Züritüütsch",
+    eyebrow: "Starting with Zurich",
     headline: "Understand Swiss German. Then write like someone from here.",
     sub: "For people who already know German and still understand nothing at the lunch table. Paste what you received — or write what you mean.",
     showcaseLabel: "Means, in English",
@@ -71,15 +71,13 @@ export const en: Dictionary = {
     thinking: "Heidi is reading …",
     you: "You",
     emptyTitle: "Ask Heidi",
-    emptyBody:
-      "A message, a sentence, a single word. Heidi works out for itself whether you want to understand something or say something — and you can just keep asking.",
     examples: [
       "Im Kauz scho, hät mer nöd so gfalle. Du au?",
       "Tell them I am running ten minutes late — friendly.",
-      "Chunnsch au no verbi hüt Abig?",
+      "Häsch du am Samschtig scho öppis vor?",
     ],
     glossTitle: "Words worth keeping",
-    suggestionsTitle: "You could send",
+    suggestionsTitle: "Try one of these",
     sendThis: "Send this",
     copy: "Copy",
     copied: "Copied",

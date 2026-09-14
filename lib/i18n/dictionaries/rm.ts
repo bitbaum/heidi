@@ -55,7 +55,7 @@ export const rm: Dictionary = {
   },
 
   home: {
-    eyebrow: "Schwiizerdütsch · nus cumenzain cun Züritüütsch",
+    eyebrow: "Nus cumenzain cun Turitg",
     headline: "Chapir il tudestg svizzer. E lura scriver sco insatgi da qua.",
     sub: "Per tut quels che san gia tudestg e na chapeschan tuttina nagut a maisa. Encollai quai che Vus avais retschavì — u scrivai quai che Vus vulais dir.",
     showcaseLabel: "Per rumantsch",
@@ -87,15 +87,13 @@ export const rm: Dictionary = {
     thinking: "Heidi legia …",
     you: "Vus",
     emptyTitle: "Dumandai Heidi",
-    emptyBody:
-      "In messadi, ina frasa, in sulet pled. Heidi chapescha sezza sche Vus vulais chapir insatge u dir insatge — e Vus pudais simplamain dumandar vinavant.",
     examples: [
       "Im Kauz scho, hät mer nöd so gfalle. Du au?",
       "Di ad els che jau arriv diesch minutas pli tard — amiaivlamain.",
-      "Chunnsch au no verbi hüt Abig?",
+      "Häsch du am Samschtig scho öppis vor?",
     ],
     glossTitle: "Pleds da tegnair",
-    suggestionsTitle: "Vus pudessas trametter",
+    suggestionsTitle: "Per empruvar",
     sendThis: "Quai pudais Vus trametter",
     copy: "Copiar",
     copied: "Copià",

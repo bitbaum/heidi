@@ -39,7 +39,7 @@ export const it: Dictionary = {
   },
 
   home: {
-    eyebrow: "Schwiizerdütsch · si comincia dallo Züritüütsch",
+    eyebrow: "Si comincia da Zurigo",
     headline: "Capire lo svizzero tedesco. E poi scrivere come chi è di qui.",
     sub: "Per chi sa già il tedesco e a tavola continua a non capire nulla. Incollate quello che avete ricevuto — o scrivete quello che volete dire.",
     showcaseLabel: "In italiano",
@@ -71,15 +71,13 @@ export const it: Dictionary = {
     thinking: "Heidi sta leggendo …",
     you: "Voi",
     emptyTitle: "Chiedete a Heidi",
-    emptyBody:
-      "Un messaggio, una frase, una sola parola. Heidi capisce da sé se volete capire qualcosa o dire qualcosa — e potete semplicemente continuare a chiedere.",
     examples: [
       "Im Kauz scho, hät mer nöd so gfalle. Du au?",
       "Di' loro che arrivo dieci minuti più tardi — gentilmente.",
-      "Chunnsch au no verbi hüt Abig?",
+      "Häsch du am Samschtig scho öppis vor?",
     ],
     glossTitle: "Parole da tenere",
-    suggestionsTitle: "Potreste mandare",
+    suggestionsTitle: "Da provare",
     sendThis: "Potete mandare questo",
     copy: "Copia",
     copied: "Copiato",
