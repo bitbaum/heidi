@@ -47,7 +47,7 @@ export const ru: Dictionary = {
   },
 
   home: {
-    eyebrow: "Schwiizerdütsch · начинаем с Züritüütsch",
+    eyebrow: "Начинаем с Цюриха",
     headline: "Понимать швейцарский немецкий. И писать как местные.",
     sub: "Для тех, кто уже знает немецкий и всё равно ничего не понимает за обеденным столом. Вставьте то, что вам написали, — или напишите, что хотите сказать.",
     showcaseLabel: "По-русски",
@@ -79,15 +79,13 @@ export const ru: Dictionary = {
     thinking: "Heidi читает …",
     you: "Вы",
     emptyTitle: "Спросите Heidi",
-    emptyBody:
-      "Сообщение, фраза, одно слово. Heidi сама разберётся, хотите вы что-то понять или что-то сказать, — и можно просто спрашивать дальше.",
     examples: [
       "Im Kauz scho, hät mer nöd so gfalle. Du au?",
       "Скажи им, что я опоздаю на десять минут — по-дружески.",
-      "Chunnsch au no verbi hüt Abig?",
+      "Häsch du am Samschtig scho öppis vor?",
     ],
     glossTitle: "Слова, которые стоит запомнить",
-    suggestionsTitle: "Можно отправить",
+    suggestionsTitle: "Попробуйте",
     sendThis: "Это можно отправить",
     copy: "Копировать",
     copied: "Скопировано",

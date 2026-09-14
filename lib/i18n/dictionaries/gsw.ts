@@ -62,7 +62,7 @@ export const gsw: Dictionary = {
   },
 
   home: {
-    eyebrow: "Schwiizerdütsch · mir foönd a mit Züritüütsch",
+    eyebrow: "Mir fönd a mit Züri",
     headline: "Schwiizerdütsch verstaa. Und schriibe wie öpper vo do.",
     sub: "Für alli wo Dütsch chönd und am Mittagstisch trotzdem nüüt verstönd. Füged ii, was Si becho händ — oder schriibed, was Si wänd säge.",
     showcaseLabel: "Heisst uf Hochdütsch",
@@ -94,15 +94,13 @@ export const gsw: Dictionary = {
     thinking: "Heidi liist mit …",
     you: "Si",
     emptyTitle: "Fröged Heidi",
-    emptyBody:
-      "E Nachricht, en Satz, es einzelns Wort. Heidi merkt sälber, öb Si öppis wänd verstaa oder öppis wänd säge — und Si chönd eifach wiiterfröge.",
     examples: [
       "Im Kauz scho, hät mer nöd so gfalle. Du au?",
       "Säg ihne, dass i zäh Minute spöter chum — fründlich.",
-      "Chunnsch au no verbi hüt Abig?",
+      "Häsch du am Samschtig scho öppis vor?",
     ],
     glossTitle: "Wörter wo sölled bliibe",
-    suggestionsTitle: "Das chönd Si schicke",
+    suggestionsTitle: "Zum Uusprobiere",
     sendThis: "Das chönd Si schicke",
     copy: "Kopiere",
     copied: "Kopiert",
