@@ -198,3 +198,29 @@ test("route segments are the same in every language", () => {
     ["", "method", "research", "contribute", "about", "portal", "settings"],
   );
 });
+
+test("the headline promises an order, not a pair of features", () => {
+  // The method's whole claim is that comprehension comes first and production
+  // comes later. A headline joined by a bare "and" quietly contradicts it: it
+  // reads as two features sold side by side. Four locales said "then" and three
+  // said "and" for weeks, German among them, because key-parity tests compare
+  // shapes and no shape was wrong. This compares the promise.
+  const sequence: Record<string, readonly string[]> = {
+    de: ["Dann"],
+    gsw: ["Dänn"],
+    en: ["Then"],
+    fr: ["Puis"],
+    it: ["E poi"],
+    rm: ["E lura"],
+    ru: ["А потом"],
+  };
+  for (const locale of LOCALES) {
+    const headline = getDictionary(locale).home.headline;
+    const second = headline.split(/(?<=\.)\s+/)[1];
+    assert.ok(second, `${locale}: headline is not two sentences`);
+    assert.ok(
+      sequence[locale].some((word) => second.startsWith(word)),
+      `${locale}: second sentence opens "${second.slice(0, 12)}…" — it must state a sequence (${sequence[locale].join(" / ")}), not join two claims`,
+    );
+  }
+});
