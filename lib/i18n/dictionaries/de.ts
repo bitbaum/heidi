@@ -46,7 +46,7 @@ export const de = {
 
   home: {
     eyebrow: "Wir fangen mit Zürich an",
-    headline: "Schweizerdeutsch verstehen. Und schreiben wie jemand von hier.",
+    headline: "Schweizerdeutsch verstehen. Dann schreiben wie jemand von hier.",
     sub: "Für alle, die Deutsch können und am Mittagstisch trotzdem nichts verstehen. Fügen Sie ein, was Sie bekommen haben — oder schreiben Sie, was Sie sagen möchten.",
     showcaseLabel: "Heisst auf Deutsch",
     showcaseMeaning: "Kommst du heute Abend auch noch vorbei?",

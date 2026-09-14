@@ -63,7 +63,7 @@ export const gsw: Dictionary = {
 
   home: {
     eyebrow: "Mir fönd a mit Züri",
-    headline: "Schwiizerdütsch verstaa. Und schriibe wie öpper vo do.",
+    headline: "Schwiizerdütsch verstaa. Dänn schriibe wie öpper vo do.",
     sub: "Für alli wo Dütsch chönd und am Mittagstisch trotzdem nüüt verstönd. Füged ii, was Si becho händ — oder schriibed, was Si wänd säge.",
     showcaseLabel: "Heisst uf Hochdütsch",
     showcaseMeaning: "Kommst du heute Abend auch noch vorbei?",
