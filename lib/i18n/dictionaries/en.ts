@@ -11,6 +11,7 @@ export const en: Dictionary = {
     home: "Start",
     chat: "Chat",
     grammar: "Grammar",
+    dialect: "Dialects",
     method: "Method",
     contribute: "Contribute",
     about: "About",
@@ -460,6 +461,37 @@ export const en: Dictionary = {
    * cites is that these work as cues beside something you are about to meet
    * again, and fail as a lecture you sit through first.
    */
+  /**
+   * The dialect section. The INDEX explains what Swiss German is, which is
+   * worth writing properly and is one page.
+   *
+   * The AREA pages carry no prose at all — an endonym, the cantons, a town,
+   * the forms the gate knows and a source, all of it data. Eleven areas of
+   * translated description would be seventy-seven blocks nobody can check, and
+   * machine-translated linguistic claims are exactly how a reference page ends
+   * up confidently wrong. Forms need no translation; the frame around them is
+   * what is written here.
+   */
+  dialect: {
+    title: "Swiss German",
+    lead: "What it is, why you cannot follow it even though you read German — and which dialect is spoken where.",
+    spokenTitle: "Spoken, not written",
+    spokenBody: "Swiss German is the spoken language of everyday life — and the written one between people who know each other: texts, WhatsApp, notes. Anything official is written in Swiss Standard German. Both are part of it, and somebody who has only one of them eventually sends a dialect message to their insurance company.",
+    noStandardTitle: "No correct spelling",
+    noStandardBody: "There is no official orthography. Two people write the same word differently and both are right. That is why Heidi never tells you your spelling is wrong — only how we write it.",
+    notOneTitle: "Not one language",
+    notOneBody: "Swiss German is not a single dialect but many. The differences are obvious to a local and completely invisible to a learner. Heidi teaches you Zurich German and says so, rather than pretending there is only one.",
+    areasTitle: "The dialects",
+    areasLead: "Dialect boundaries do not follow cantonal ones — hence points rather than areas. The cantons are listed because you know which one you are in.",
+    cantons: "Cantons",
+    marksTitle: "How to recognise them",
+    marksLead: "Forms Heidi's own check actually tells apart. On the left the local form, on the right the Zurich one.",
+    marksNone: "Heidi cannot yet recognise this dialect by specific forms. Nothing here, rather than something plausible.",
+    taught: "This is the one you learn here",
+    sourcesTitle: "Sources",
+    backToAll: "All dialects",
+  },
+
   grammar: {
     title: "Grammar",
     lead: "Four things that make Zurich German hard to follow for somebody who already reads German. Not lessons — just what you will hear, and where it catches you.",

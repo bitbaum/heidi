@@ -27,6 +27,7 @@ export const rm: Dictionary = {
     home: "Cumenzament",
     chat: "Chat",
     grammar: "Grammatica",
+    dialect: "Idioms",
     method: "Metoda",
     contribute: "Far part",
     about: "Davart nus",
@@ -476,6 +477,37 @@ export const rm: Dictionary = {
    * cites is that these work as cues beside something you are about to meet
    * again, and fail as a lecture you sit through first.
    */
+  /**
+   * The dialect section. The INDEX explains what Swiss German is, which is
+   * worth writing properly and is one page.
+   *
+   * The AREA pages carry no prose at all — an endonym, the cantons, a town,
+   * the forms the gate knows and a source, all of it data. Eleven areas of
+   * translated description would be seventy-seven blocks nobody can check, and
+   * machine-translated linguistic claims are exactly how a reference page ends
+   * up confidently wrong. Forms need no translation; the frame around them is
+   * what is written here.
+   */
+  dialect: {
+    title: "Il tudestg svizzer",
+    lead: "Tge ch'igl è, pertge che Vus n'al chapis betg malgrà che Vus savais tudestg — e tge idiom che vegn discurrì nua.",
+    spokenTitle: "Discurrì, betg scrit",
+    spokenBody: "Il tudestg svizzer è la lingua discurrida da mintgadi — e quella scritta tranter glieud che sa enconuschan: SMS, WhatsApp, notizias. Tut quai ch'è official vegn scrit en tudestg standard svizzer. Omadus tutgan tar quai, e tgi che sa mo l'in trametta ina giada in messadi en idiom a l'assicuranza.",
+    noStandardTitle: "Nagina ortografia officiala",
+    noStandardBody: "I n'exista nagina ortografia officiala. Il medem pled vegn scrit different da duas persunas, ed omaduas han raschun. Perquai na di Heidi mai che Vossa scrittira saja fauss — mo co che nus la scrivain.",
+    notOneTitle: "Betg ina sula lingua",
+    notOneBody: "Il tudestg svizzer n'è betg in sul idiom, mabain blers. Las differenzas èn evidentas per in indigen e passan totalmain sper in emprendider. Heidi As emprenda il turitgais e al di, empè da far sco sch'i dess mo in.",
+    areasTitle: "Ils idioms",
+    areasLead: "Las cunfinas dals idioms na suondan betg las cunfinas dals chantuns — perquai puncts e betg surfatschas. Ils chantuns èn inditgads perquai che Vus savais en tge chantun che Vus essas.",
+    cantons: "Chantuns",
+    marksTitle: "Co ch'ins als enconuscha",
+    marksLead: "Furmas che la controlla da Heidi distingua propi. A sanestra la furma locala, a dretga quella turitgaisa.",
+    marksNone: "Heidi na sa anc betg enconuscher quest idiom a basa da furmas concretas. Qua na stat nagut, empè da insatge plausibel.",
+    taught: "Quai emprendais Vus qua",
+    sourcesTitle: "Funtaunas",
+    backToAll: "Tut ils idioms",
+  },
+
   grammar: {
     title: "Grammatica",
     lead: "Quatter chaussas che rendan il turitgais difficil da suandar per insatgi che legia gia tudestg. Naginas lecziuns — mo quai che Vus vegnis a udir, e nua ch'igl impedescha.",

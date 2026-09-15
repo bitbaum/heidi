@@ -216,7 +216,7 @@ test("route segments are the same in every language", () => {
     // `research` merged into `method`: it was the evidence FOR the method, and
     // a reader met the two as peers with no way to tell which was which.
     // /:locale/research redirects to /:locale/method#facts.
-    ["", "chat", "grammar", "method", "contribute", "about", "portal", "settings"],
+    ["", "chat", "grammar", "dialect", "method", "contribute", "about", "portal", "settings"],
   );
 });
 

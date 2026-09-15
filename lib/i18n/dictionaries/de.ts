@@ -30,6 +30,7 @@ export const de = {
     home: "Start",
     chat: "Chat",
     grammar: "Grammatik",
+    dialect: "Mundarten",
     method: "Methode",
     contribute: "Mitmachen",
     about: "Über uns",
@@ -480,6 +481,37 @@ export const de = {
    * cites is that these work as cues beside something you are about to meet
    * again, and fail as a lecture you sit through first.
    */
+  /**
+   * The dialect section. The INDEX explains what Swiss German is, which is
+   * worth writing properly and is one page.
+   *
+   * The AREA pages carry no prose at all — an endonym, the cantons, a town,
+   * the forms the gate knows and a source, all of it data. Eleven areas of
+   * translated description would be seventy-seven blocks nobody can check, and
+   * machine-translated linguistic claims are exactly how a reference page ends
+   * up confidently wrong. Forms need no translation; the frame around them is
+   * what is written here.
+   */
+  dialect: {
+    title: "Schweizerdeutsch",
+    lead: "Was es ist, warum Sie es nicht verstehen, obwohl Sie Deutsch können — und welche Mundart wo gesprochen wird.",
+    spokenTitle: "Gesprochen, nicht geschrieben",
+    spokenBody: "Schweizerdeutsch ist die gesprochene Sprache des Alltags — und die geschriebene unter Leuten, die sich kennen: SMS, WhatsApp, Notizen. Alles Offizielle wird auf Schweizer Hochdeutsch geschrieben. Beides gehört dazu, und wer nur das eine kann, schickt irgendwann eine Mundart-Nachricht an die Versicherung.",
+    noStandardTitle: "Keine richtige Schreibweise",
+    noStandardBody: "Es gibt keine offizielle Rechtschreibung. Dasselbe Wort wird von zwei Leuten unterschiedlich geschrieben, und beide haben recht. Deshalb sagt Heidi nie, Ihre Schreibweise sei falsch — nur, wie wir sie schreiben.",
+    notOneTitle: "Nicht eine Sprache",
+    notOneBody: "Schweizerdeutsch ist kein einzelner Dialekt, sondern viele. Die Unterschiede fallen Einheimischen sofort auf und Lernenden gar nicht. Heidi bringt Ihnen Zürichdeutsch bei und sagt es, statt so zu tun, als gäbe es nur eines.",
+    areasTitle: "Die Mundarten",
+    areasLead: "Mundartgrenzen folgen keinen Kantonsgrenzen — deshalb Punkte und keine Flächen. Die Kantone stehen dabei, weil Sie wissen, in welchem Sie sind.",
+    cantons: "Kantone",
+    marksTitle: "Woran man sie erkennt",
+    marksLead: "Formen, die Heidis Prüfung tatsächlich unterscheidet. Links die dortige Form, rechts die Zürcher.",
+    marksNone: "Heidi kann diese Mundart noch nicht an einzelnen Formen erkennen. Hier steht nichts, statt etwas Plausiblem.",
+    taught: "Das lernen Sie hier",
+    sourcesTitle: "Quellen",
+    backToAll: "Alle Mundarten",
+  },
+
   grammar: {
     title: "Grammatik",
     lead: "Vier Dinge, die Zürichdeutsch für jemanden schwer verständlich machen, der Deutsch schon liest. Keine Lektionen — nur das, was Sie hören werden, und wo es hakt.",
