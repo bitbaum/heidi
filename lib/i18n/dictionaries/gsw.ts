@@ -68,6 +68,7 @@ export const gsw: Dictionary = {
     dialectBody:
       "Schwiizerdütsch isch kei Sprach, sondern e Familie. Heidi cha hüt Züritüütsch würklich guet und seit Ihne das lieber, als so z tue, als ob si alles chönnti. Grad drum wiist d Prüefig Berner Forme zrugg: nöd wil Bärndütsch falsch wär, sondern wil mir grad Züri unterrichted. Wiiteri Dialekt chömed dezue — jede mit eigene Stimme und eigener Prüefig.",
     dialectPlanned: "Planet",
+    dialectOthers: "Anderi Mundarte",
     trustTitle: "Jedi Zile wird prüeft, bevor Si si gsehnd",
     trustBody:
       "E Sprachmodell wo mer um Schwiizerdütsch bittet, liferet bereitwillig Bärndütsch — und Si hättet kei Möglichkeit, das z merke. Drum entscheidet bi Heidi nöd s Modell, öb öppis Züritüütsch isch, sondern e feschti Regelprüefig, wo Si sälber chönd ufrüefe.",

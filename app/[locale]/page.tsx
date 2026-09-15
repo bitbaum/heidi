@@ -108,7 +108,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </h2>
         <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
           <p className="max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.dialectBody}</p>
-          {DISPLAY.family && <DialectFigure plannedLabel={t.dialectPlanned} />}
+          {DISPLAY.family && <DialectFigure plannedLabel={t.dialectPlanned} othersLabel={t.dialectOthers} />}
         </div>
       </section>
 

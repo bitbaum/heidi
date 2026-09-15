@@ -45,6 +45,7 @@ export const fr: Dictionary = {
     dialectBody:
       "Le suisse allemand n'est pas une langue mais une famille. Aujourd'hui Heidi maîtrise vraiment bien le zurichois, et préfère vous le dire plutôt que de faire semblant de tout couvrir. C'est aussi exactement pourquoi la vérification rejette les formes bernoises : non parce que le bernois serait faux, mais parce que c'est Zurich que nous enseignons pour l'instant. D'autres dialectes suivront — chacun avec ses propres voix et sa propre vérification.",
     dialectPlanned: "Prévu",
+    dialectOthers: "Autres dialectes",
     trustTitle: "Chaque ligne est vérifiée avant de vous parvenir",
     trustBody:
       "Un modèle de langue à qui l'on demande du suisse allemand vous donnera volontiers du bernois, sans que vous puissiez le remarquer. Chez Heidi, ce n'est donc pas le modèle qui décide de ce qui est zurichois : c'est une vérification par règles fixes, que vous pouvez lancer vous-même.",

@@ -24,12 +24,24 @@ import { REGIONS } from "@/lib/geo/regions";
  *     this today"; an open ring means "named, not yet covered" — the same
  *     distinction the gate enforces, in the same figure.
  *
- * Still generated from the pack, which was the point of the old one: the
- * filled dot is `atlas.home`, the rings are `family.planned` looked up in
- * `atlas.places`. Nobody opens this file to ship a Bern pack, and a Lesya
- * deployment draws Ukraine by adding one region file.
+ * Still generated from the pack, which was the point of the old one. Nobody
+ * opens this file to ship a Bern pack, and a Lesya deployment draws Ukraine by
+ * adding one region file.
+ *
+ * WHAT IT DRAWS NOW, AND WHAT IT USED TO. It drew `family.planned` — the
+ * ROADMAP, the dialects Heidi intends to add. Six dots on Switzerland, all
+ * accurate, and a reader asked the obvious question: where is Graubünden? The
+ * figure was answering "where is Swiss German spoken?" with a product
+ * decision, which is not an answer about language at all.
+ *
+ * So it draws `family.areas`: every German-speaking dialect area in the
+ * country, Graubünden and Valais included. The roadmap did not disappear, it
+ * became a STATE of a dot rather than the reason a dot exists — filled for the
+ * variety Heidi teaches, ringed for one that is coming, faint for one that is
+ * simply there. All three are true statements, and now they are three
+ * different statements instead of one doing the work of all of them.
  */
-export function DialectFigure({ plannedLabel }: { plannedLabel: string }) {
+export function DialectFigure({ plannedLabel, othersLabel }: { plannedLabel: string; othersLabel: string }) {
   const family = DISPLAY.family;
   const atlas = family?.atlas;
   if (!atlas) return null;
@@ -37,12 +49,21 @@ export function DialectFigure({ plannedLabel }: { plannedLabel: string }) {
   const region = REGIONS[atlas.region];
   const home = project(atlas.home, region);
 
-  // Only dialects that have a place; the pack test keeps the two lists equal,
-  // so this filter is a belt rather than a behaviour.
-  const planned = (family?.planned ?? [])
-    .map((name) => ({ name, place: atlas.places[name] }))
-    .filter((d): d is { name: string; place: NonNullable<typeof d.place> } => Boolean(d.place))
-    .map((d) => ({ name: d.name, ...project(d.place, region) }));
+  // Every area of the family, each carrying its own point — so nothing is
+  // looked up in a second list that could drift from the first.
+  const soon = new Set(family?.planned ?? []);
+  const areas = DISPLAY.areas
+    .filter((area) => !area.taught)
+    .map((area) => ({
+      id: area.id,
+      label: area.town,
+      // On the roadmap, or simply on the map. The difference is drawn, not
+      // hidden: a reader can see which ones Heidi is actually coming for.
+      // By id. Matching on the town name is what drew Aarau and Brig as "not
+      // on the roadmap" while both sat on it.
+      soon: soon.has(area.id),
+      ...project(area.place, region),
+    }));
 
   return (
     <figure className="m-0">
@@ -50,7 +71,14 @@ export function DialectFigure({ plannedLabel }: { plannedLabel: string }) {
         viewBox={`0 0 ${region.width} ${region.height}`}
         className="w-full overflow-visible"
         role="img"
-        aria-label={`${region.name}: ${DISPLAY.endonym} — ${plannedLabel}: ${(family?.planned ?? []).join(", ")}`}
+        // Three claims, said as three. Calling all ten "planned" was the
+        // original conflation surviving into the accessible label, where a
+        // sighted reader could not see it was wrong.
+        aria-label={[
+          `${region.name}: ${DISPLAY.endonym}`,
+          `${plannedLabel}: ${areas.filter((a) => a.soon).map((a) => a.label).join(", ")}`,
+          `${othersLabel}: ${areas.filter((a) => !a.soon).map((a) => a.label).join(", ")}`,
+        ].join(" — ")}
       >
         {/* The country. Filled with the sunk surface so it reads as ground in
             both themes without a second palette. */}
@@ -65,9 +93,21 @@ export function DialectFigure({ plannedLabel }: { plannedLabel: string }) {
             Their labels sit BELOW the dot while the taught variety's sits
             above — which is what keeps "Züritüütsch" off the Aargau dot 40km
             away, without needing hand-placed offsets in the pack. */}
-        {planned.map((d) => (
-          <g key={d.name}>
-            <circle cx={d.x} cy={d.y} r={11} className="fill-surface-page stroke-border-strong" strokeWidth={2.5} />
+        {areas.map((d) => (
+          <g key={d.id}>
+            <circle
+              cx={d.x}
+              cy={d.y}
+              r={11}
+              className={
+                d.soon
+                  ? "fill-surface-page stroke-border-strong"
+                  : // Simply there: lighter, because "this exists" and "this is
+                    // next" are different claims and should not look alike.
+                    "fill-surface-page stroke-border-subtle"
+              }
+              strokeWidth={2.5}
+            />
             <text
               x={d.x}
               y={d.y + 38}
@@ -77,7 +117,7 @@ export function DialectFigure({ plannedLabel }: { plannedLabel: string }) {
               // `paint-order` puts the stroke behind the fill.
               style={{ fontSize: "21px", letterSpacing: "0.08em", strokeWidth: 5, paintOrder: "stroke" }}
             >
-              {d.name.toUpperCase()}
+              {d.label.toUpperCase()}
             </text>
           </g>
         ))}
@@ -109,6 +149,13 @@ export function DialectFigure({ plannedLabel }: { plannedLabel: string }) {
             className="inline-block h-3 w-3 rounded-full border-2 border-border-strong bg-surface-page"
           />
           <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{plannedLabel}</span>
+        </span>
+        <span className="inline-flex items-center gap-2">
+          <span
+            aria-hidden="true"
+            className="inline-block h-3 w-3 rounded-full border-2 border-border-subtle bg-surface-page"
+          />
+          <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{othersLabel}</span>
         </span>
       </figcaption>
     </figure>

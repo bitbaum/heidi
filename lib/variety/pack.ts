@@ -259,9 +259,13 @@ export type Family = {
   /** What speakers call it, e.g. "Schwiizerdütsch". */
   endonym: string;
   /**
-   * Sibling dialects inside the family that we do not teach yet, in the order
-   * we expect to add them. Shown to the learner so the scope is honest: this
-   * is what Heidi does not cover today.
+   * The roadmap: dialects we intend to add, in order, as `DialectArea` ids.
+   *
+   * IDS, NOT NAMES. It held display names — "Aargau", "Wallis" — and the areas
+   * they refer to are called Aarau and Brig after the towns the dialects are
+   * named for. Two hand-written lists matched by string, and they did not
+   * match: both showed on the map as "not on the roadmap" when they were on
+   * it. An id is checkable, and `family.test.ts` checks it.
    */
   planned: readonly string[];
   /**
@@ -273,6 +277,16 @@ export type Family = {
    * region should leave this out rather than invent a box for them.
    */
   atlas?: Atlas;
+  /**
+   * Every dialect area of the family, whether or not Heidi teaches it or can
+   * detect it.
+   *
+   * Deliberately separate from `planned`, which is a ROADMAP — the dialects we
+   * intend to add, in order. Conflating the two is what made the map answer
+   * "where is Swiss German spoken?" with a product decision, and left a reader
+   * wondering why Graubünden was missing from a map of Switzerland.
+   */
+  areas?: readonly DialectArea[];
 };
 
 /**
@@ -291,19 +305,60 @@ export type Family = {
  * Isoglosses genuinely do not follow cantonal borders, so we draw no borders;
  * Bernese genuinely is spoken at Bern, so we can point at Bern.
  */
+/**
+ * One dialect area of the family, as a place on the map and a claim we can back.
+ *
+ * WHY AREAS AND NOT CANTONS. A canton is an administrative boundary and a
+ * dialect is not: isoglosses cross cantonal borders and always have, which is
+ * why `DialectFigure` draws points and refuses to draw territories. Central
+ * Switzerland is one dialect area across six cantons; Basel-Stadt and
+ * Basel-Landschaft are one across two. Listing `cantons` gives a reader the
+ * handle they actually have — they know which canton they are in — without
+ * asserting that the dialect stops at the line.
+ *
+ * WHY THERE IS NO PROSE HERE. The same split the grammar topics use: an
+ * endonym and a town are not in any language, an explanation is, and a pack is
+ * English-source. The words live in the dictionaries, keyed by `id`.
+ *
+ * WHY THERE ARE NO EXAMPLE FORMS EITHER. They would be a second copy of what
+ * the gate already knows. An area names a `ruleOrigin` instead, and its
+ * distinguishing forms are READ OUT of `pack.rules` — so the page can never
+ * claim a form the checker does not enforce, and adding a rule improves the
+ * page for free. An area with no rules yet shows none and says so, which is
+ * the honest state of "Heidi cannot tell this apart yet".
+ */
+export type DialectArea = {
+  /** Stable, lowercase, hyphenated. A URL segment; renaming one breaks links. */
+  id: string;
+  /** What speakers call it. A name, so it is not translated. */
+  endonym: string;
+  /**
+   * Canton codes this covers. Reach, not a boundary — see above.
+   */
+  cantons: readonly string[];
+  /** The town the dialect is named after in practice, and the map point. */
+  town: string;
+  place: GeoPlace;
+  /**
+   * The `origin` value its rules carry in `pack.rules`, when the gate can
+   * already place this variety. Absent means we cannot yet, and the page says
+   * so rather than inventing something.
+   */
+  ruleOrigin?: string;
+  /**
+   * Who vouches for this being a distinct area. Ids from
+   * `lib/research/sources.ts`. A test refuses an area that names none —
+   * correctness at this scale is not a matter of being careful, it is a matter
+   * of making carelessness fail the build.
+   */
+  sources: readonly string[];
+};
+
 export type Atlas = {
   /** Which outline to place these on. See `lib/geo/regions`. */
   region: GeoRegionId;
   /** Where the taught variety is spoken. */
   home: GeoPlace;
-  /**
-   * Where each `planned` dialect is spoken, keyed by its name in `planned`.
-   *
-   * Keyed rather than a parallel array so the names stay declared once: a test
-   * asserts every planned dialect has a place and that no place is orphaned,
-   * which a second list would let drift silently.
-   */
-  places: Readonly<Record<string, GeoPlace>>;
 };
 
 export type VarietyPack = {
