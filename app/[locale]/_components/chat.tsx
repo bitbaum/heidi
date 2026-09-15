@@ -206,7 +206,15 @@ export function Chat({
           louder than the invitation. The sentence now sits on the thing it
           tells you to use, at a size a person reads. */}
       <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2 pb-2">
-        {!started && <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.placeholder}</p>}
+        {/* The visible invitation IS the box's label. It used to be a <p>
+            beside an sr-only <label> carrying the same sentence, so a screen
+            reader heard the instruction twice — which is what printing it
+            twice on the fold sounded like to everyone else. */}
+        {!started && (
+          <label htmlFor="chat-input" className="max-w-measure text-base leading-relaxed text-fg-secondary">
+            {t.placeholder}
+          </label>
+        )}
         {started && byok.ready && byok.config && (
           <button
             type="button"
@@ -322,9 +330,13 @@ export function Chat({
             }
           }}
         >
-          <label htmlFor="chat-input" className="sr-only">
-            {t.placeholder}
-          </label>
+          {/* Only once the visible one is gone: two labels for one control is
+              an authoring error, not redundancy. */}
+          {started && (
+            <label htmlFor="chat-input" className="sr-only">
+              {t.placeholder}
+            </label>
+          )}
           <textarea
             id="chat-input"
             ref={areaRef}
