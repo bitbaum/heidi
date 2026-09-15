@@ -27,6 +27,7 @@ export const ru: Dictionary = {
     portal: "Моё пространство",
     settings: "Настройки",
     groupUse: "Пользоваться",
+    groupReference: "Справочник",
     groupWhy: "Почему так",
     groupProject: "Проект",
     skipToContent: "К содержанию",

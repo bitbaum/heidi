@@ -35,6 +35,7 @@ export const rm: Dictionary = {
     portal: "Mes intschess",
     settings: "Configuraziuns",
     groupUse: "Duvrar",
+    groupReference: "Consultar",
     groupWhy: "Pertge uschia",
     groupProject: "Project",
     skipToContent: "Al cuntegn",

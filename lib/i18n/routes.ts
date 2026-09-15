@@ -32,13 +32,19 @@ export type RouteKey =
  * a tool from an essay. Grouping is the cheapest possible fix and it is honest:
  * these really are three different kinds of page.
  *
- * `use`     things you do — the chat, the checker
- * `why`     why it works this way — the method, the evidence
- * `project` who is doing this and how to join in
+ * `use`       things you do — the chat
+ * `reference`  things you look up mid-conversation — grammar, dialects, words
+ * `why`        why it works this way — the method, the evidence
+ * `project`    who is doing this and how to join in
+ *
+ * `reference` split off from `use` when the reference section grew: measured
+ * at 1024px in French, with the account control, the flat nav had twenty
+ * pixels of headroom. Eight peers in a row is also the shapeless list this
+ * grouping was introduced to fix, arrived at again from the other direction.
  */
-export type NavGroup = "use" | "why" | "project";
+export type NavGroup = "use" | "reference" | "why" | "project";
 
-export const NAV_GROUPS: readonly NavGroup[] = ["use", "why", "project"];
+export const NAV_GROUPS: readonly NavGroup[] = ["use", "reference", "why", "project"];
 
 export type Route = {
   key: RouteKey;
@@ -65,12 +71,12 @@ export const ROUTES: readonly Route[] = [
   // this — but an individual thread at /chat/<id> is not a route at all and
   // carries its own noindex.
   { key: "chat", segment: "chat", group: "use", indexed: true, priority: 0.9 },
-  // Under `use`, not `why`: these are references you reach for mid-conversation
-  // when an answer turned on something you did not know, not essays about how
-  // the product works.
-  { key: "grammar", segment: "grammar", group: "use", indexed: true, priority: 0.7 },
-  { key: "dialect", segment: "dialect", group: "use", indexed: true, priority: 0.7 },
-  { key: "vocabulary", segment: "vocabulary", group: "use", indexed: true, priority: 0.7 },
+  // `reference`, not `why`: you reach for these mid-conversation when an answer
+  // turned on something you did not know. An essay about how the product works
+  // is a different kind of page and sits under `why`.
+  { key: "grammar", segment: "grammar", group: "reference", indexed: true, priority: 0.7 },
+  { key: "dialect", segment: "dialect", group: "reference", indexed: true, priority: 0.7 },
+  { key: "vocabulary", segment: "vocabulary", group: "reference", indexed: true, priority: 0.7 },
   { key: "method", segment: "method", group: "why", indexed: true, priority: 0.8 },
   { key: "contribute", segment: "contribute", group: "project", indexed: true, priority: 0.6 },
   { key: "about", segment: "about", group: "project", indexed: true, priority: 0.5 },

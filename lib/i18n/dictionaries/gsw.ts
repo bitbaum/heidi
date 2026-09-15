@@ -42,6 +42,7 @@ export const gsw: Dictionary = {
     portal: "Min Bereich",
     settings: "Iistellige",
     groupUse: "Bruuche",
+    groupReference: "Nachschlage",
     groupWhy: "Werum so",
     groupProject: "Projekt",
     skipToContent: "Zum Inhalt",

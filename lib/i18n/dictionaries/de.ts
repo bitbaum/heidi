@@ -38,6 +38,7 @@ export const de = {
     portal: "Mein Bereich",
     settings: "Einstellungen",
     groupUse: "Benutzen",
+    groupReference: "Nachschlagen",
     groupWhy: "Warum so",
     groupProject: "Projekt",
     skipToContent: "Zum Inhalt springen",

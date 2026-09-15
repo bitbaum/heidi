@@ -19,6 +19,7 @@ export const fr: Dictionary = {
     portal: "Mon espace",
     settings: "Réglages",
     groupUse: "Utiliser",
+    groupReference: "Références",
     groupWhy: "Pourquoi ainsi",
     groupProject: "Projet",
     skipToContent: "Aller au contenu",

@@ -19,6 +19,7 @@ export const en: Dictionary = {
     portal: "My space",
     settings: "Settings",
     groupUse: "Use it",
+    groupReference: "Look up",
     groupWhy: "Why this way",
     groupProject: "Project",
     skipToContent: "Skip to content",
