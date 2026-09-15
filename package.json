@@ -13,7 +13,7 @@
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
-    "@bitbaum/ai-kit": "^1.8.0",
+    "@bitbaum/ai-kit": "^1.10.0",
     "drizzle-orm": "^0.45.2",
     "limitkit": "github:bitbaum/limitkit#v0.2.0",
     "next": "16.3.3",

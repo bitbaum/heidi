@@ -20,4 +20,4 @@ allowBuilds:
   # and CI never reaches the build.
   esbuild: true
 minimumReleaseAgeExclude:
-  - '@bitbaum/ai-kit@1.8.0'
+  - '@bitbaum/ai-kit@1.8.0 || 1.10.0'
