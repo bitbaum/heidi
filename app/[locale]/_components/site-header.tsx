@@ -8,6 +8,8 @@ import type { Locale } from "@/lib/i18n/locales";
 import { href, navGroups, type NavGroup } from "@/lib/i18n/routes";
 import { LanguageSwitcher } from "./language-switcher";
 import { CowMark } from "./cow-mark";
+import { NavPanel } from "./nav-panel";
+import { DISPLAY } from "@/lib/variety/display";
 
 /**
  * The site header: brand, navigation, language, account.
@@ -38,7 +40,13 @@ export function SiteHeader({
   const groups = navGroups();
 
   const groupLabel = (group: NavGroup) =>
-    group === "use" ? dict.nav.groupUse : group === "why" ? dict.nav.groupWhy : dict.nav.groupProject;
+    group === "use"
+      ? dict.nav.groupUse
+      : group === "reference"
+        ? dict.nav.groupReference
+        : group === "why"
+          ? dict.nav.groupWhy
+          : dict.nav.groupProject;
 
   const isCurrent = (segment: string) => {
     const target = href(locale, segment);
@@ -60,6 +68,58 @@ export function SiteHeader({
           {groups.map(({ group, routes }, i) => (
             <div key={group} className="flex items-center">
               {i > 0 && <span aria-hidden="true" className="mx-4 h-4 w-px bg-border-subtle" />}
+
+              {/* The reference pages fold into one item. Flat, they were three
+                  of eight peers and the bar had twenty pixels of headroom at
+                  1024px in French — measured, with the account control. The
+                  dialect areas are the other half of the reason: eleven pages
+                  that were reachable only by opening /dialect first. */}
+              {group === "reference" ? (
+                <NavPanel label={groupLabel(group)} current={routes.some((r) => isCurrent(r.segment))}>
+                  <div className="flex flex-col gap-5 sm:flex-row sm:gap-8">
+                    <ul className="flex shrink-0 flex-col gap-2">
+                      {routes.map((route) => (
+                        <li key={route.key}>
+                          <Link
+                            href={href(locale, route.segment)}
+                            prefetch={false}
+                            aria-current={isCurrent(route.segment) ? "page" : undefined}
+                            className={`text-base ${
+                              isCurrent(route.segment)
+                                ? "font-semibold text-fg-primary"
+                                : "text-fg-secondary hover:text-fg-primary"
+                            }`}
+                          >
+                            {dict.nav[route.key]}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Every dialect, one tap from anywhere. This is the part
+                        that makes it a panel rather than a dropdown. */}
+                    <div className="border-t border-border-subtle pt-4 sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0">
+                      <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">
+                        {dict.dialect.areasTitle}
+                      </p>
+                      <ul className="mt-2 grid grid-cols-2 gap-x-6 gap-y-1">
+                        {DISPLAY.areas.map((area) => (
+                          <li key={area.id}>
+                            <Link
+                              href={`${href(locale, "dialect")}/${area.id}`}
+                              prefetch={false}
+                              lang={DISPLAY.tag}
+                              className="whitespace-nowrap text-sm text-fg-secondary hover:text-accent"
+                            >
+                              {area.endonym}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </NavPanel>
+              ) : (
               <ul className="flex items-center gap-5">
                 {routes.map((route) => (
                   <li key={route.key}>
@@ -86,6 +146,7 @@ export function SiteHeader({
                   </li>
                 ))}
               </ul>
+              )}
             </div>
           ))}
         </nav>
