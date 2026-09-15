@@ -14,6 +14,7 @@ import { Transcript } from "./transcript";
 import { useConversation } from "./use-conversation";
 import { conversationTransport, draftTransport, type ConversationSummary } from "./transports";
 import { ConversationList } from "./conversation-list";
+import { WordPick } from "./word-pick";
 
 /**
  * The chat with room to be a chat.
@@ -74,6 +75,7 @@ export function ChatWorkspace({
   // during render's shadow.
   const [conversationId, setConversationId] = useState<string | null>(initialConversationId);
   const endRef = useRef<HTMLDivElement>(null);
+  const transcriptRef = useRef<HTMLDivElement>(null);
 
   /**
    * The conversation was created by the transport, on the first message.
@@ -310,7 +312,7 @@ export function ChatWorkspace({
             and refuses to shrink below its content, so without it the PAGE
             grows instead of the transcript scrolling. */}
         <div className="min-h-0 flex-1 overflow-y-auto px-4 py-6">
-          <div className="mx-auto w-full max-w-3xl">
+          <div ref={transcriptRef} className="mx-auto w-full max-w-3xl">
             {started || chat.busy ? (
               <Transcript
                 messages={messages}
@@ -365,6 +367,11 @@ export function ChatWorkspace({
           </div>
         </div>
       </div>
+
+      {/* Select a word Heidi did not gloss and ask about it. Lives outside the
+          scrolling transcript because it is positioned in viewport
+          coordinates. */}
+      <WordPick containerRef={transcriptRef} t={t} onAsk={chat.send} />
 
       {sheetOpen && (
         <ModelSheet

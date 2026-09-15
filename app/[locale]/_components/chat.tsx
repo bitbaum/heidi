@@ -11,6 +11,7 @@ import { Composer } from "./chat/composer";
 import { Transcript } from "./chat/transcript";
 import { useConversation } from "./chat/use-conversation";
 import { draftTransport } from "./chat/transports";
+import { WordPick } from "./chat/word-pick";
 import { readDraft, useDraft } from "./use-draft";
 import { href } from "@/lib/i18n/routes";
 
@@ -43,6 +44,7 @@ export function Chat({
   const draft = useDraft();
   const [sheetOpen, setSheetOpen] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
+  const transcriptRef = useRef<HTMLDivElement>(null);
 
   const chat = useConversation({
     transport: draftTransport(),
@@ -137,16 +139,18 @@ export function Chat({
       </div>
 
       {(started || chat.busy) && (
-        <Transcript
-          messages={chat.messages}
-          me={LEARNER_ID}
-          t={t}
-          busy={chat.busy}
-          onRetry={chat.retry}
-          onMove={chat.send}
-          endRef={endRef}
-          className="flex flex-col gap-4 rounded-control border border-border-strong bg-surface-raised p-3 sm:p-4"
-        />
+        <div ref={transcriptRef}>
+          <Transcript
+            messages={chat.messages}
+            me={LEARNER_ID}
+            t={t}
+            busy={chat.busy}
+            onRetry={chat.retry}
+            onMove={chat.send}
+            endRef={endRef}
+            className="flex flex-col gap-4 rounded-control border border-border-strong bg-surface-raised p-3 sm:p-4"
+          />
+        </div>
       )}
 
       <Composer
@@ -191,6 +195,8 @@ export function Chat({
       )}
 
       {!started && <Examples t={t} dialect={dialect} onPick={chat.send} />}
+
+      <WordPick containerRef={transcriptRef} t={t} onAsk={chat.send} />
 
       {sheetOpen && (
         <ModelSheet
