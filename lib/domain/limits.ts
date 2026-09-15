@@ -63,6 +63,23 @@ export const groupWrite = slidingWindow({ limit: 20, windowMs: 10 * 60_000 });
 export const groupMessage = slidingWindow({ limit: 40, windowMs: 5 * 60_000 });
 
 /**
+ * Private conversations: creating, renaming, deleting.
+ *
+ * Keyed by ACTOR rather than by IP where the caller is signed in — an office
+ * or a university shares one address, and rate-limiting a signed-in person by
+ * their neighbours' traffic is a limit on the wrong thing.
+ */
+export const conversationWrite = slidingWindow({ limit: 40, windowMs: 10 * 60_000 });
+
+/**
+ * Posting into a private conversation.
+ *
+ * The same ceiling as the solo chat, because it is the same act — the only
+ * difference is that the server now remembers it.
+ */
+export const conversationMessage = slidingWindow({ limit: 30, windowMs: 5 * 60_000 });
+
+/**
  * The dialect checker. Pure, local, costs nothing but CPU — so this is only
  * about not letting one client monopolise the box.
  */
@@ -76,6 +93,17 @@ export const dialectCheck = slidingWindow({ limit: 120, windowMs: 60_000 });
  * security boundary: a header can be forged. It exists to stop accidental and
  * casual abuse from spending a budget shared with everybody else.
  */
+/**
+ * Identify a SIGNED-IN caller by who they are.
+ *
+ * `clientIp` is the right key for an anonymous route and the wrong one here:
+ * everyone behind one office NAT shares an address, so an IP limit on a
+ * signed-in feature rations a person by their colleagues' traffic.
+ */
+export function actorKey(actorId: string, prefix: string): string {
+  return `${prefix}:actor:${actorId}`;
+}
+
 export function callerKey(request: Request, prefix: string): string {
   return `${prefix}:${clientIp(request.headers) ?? "unknown"}`;
 }

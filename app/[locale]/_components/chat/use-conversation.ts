@@ -5,7 +5,8 @@ import type { ChatMessage } from "@/lib/domain/chat/types";
 import { HEIDI_ID } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
-import { MAX_IMAGES, downscale } from "../downscale";
+import { MAX_IMAGES } from "@/lib/domain/chat/image";
+import { downscale } from "../downscale";
 import { localId, type Transport } from "./transports";
 
 /**

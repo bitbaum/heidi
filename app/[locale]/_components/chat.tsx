@@ -11,9 +11,6 @@ import { Transcript } from "./chat/transcript";
 import { useConversation } from "./chat/use-conversation";
 import { draftTransport } from "./chat/transports";
 
-/** How many pictures can ride along with one message. */
-const MAX_IMAGES = 3;
-
 /**
  * A conversation, not a form.
  *

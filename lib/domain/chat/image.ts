@@ -15,6 +15,17 @@
  *     and "the client already checked" is how an unbounded body gets accepted.
  */
 
+/**
+ * How many pictures can ride along with one message.
+ *
+ * Lives here, with the server-side validation, because it is the SERVER's
+ * ceiling — the browser mirrors it to keep the composer honest, but the number
+ * that matters is the one enforced where a request can be forged. It was
+ * written out four times before this (two routes, the composer, and a dead
+ * copy left behind by a refactor), which is three times too many for a policy.
+ */
+export const MAX_IMAGES = 3;
+
 /** Longest edge after downscaling. Above this, vision models gain nothing. */
 export const MAX_EDGE = 1024;
 

@@ -1,4 +1,4 @@
-import { index, jsonb, pgTable, primaryKey, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { index, integer, jsonb, pgTable, primaryKey, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 /**
  * Study groups — the first thing in Heidi that outlives a browser tab.
@@ -87,4 +87,83 @@ export const groupMessages = pgTable(
   },
   // Every read is "this group's messages, oldest first".
   (t) => [index("group_messages_group_created_idx").on(t.groupId, t.createdAt)],
+);
+
+/**
+ * A private conversation with Heidi, and its messages.
+ *
+ * NOT the group tables with one member. That was the tempting reuse and it
+ * fails on the two things that matter: `study_groups.invite_token` is
+ * `NOT NULL UNIQUE` and is a CREDENTIAL, so every private chat would mint a
+ * joinable room key nobody asked for — and deletion means the opposite in each
+ * case. A group departure sets `left_at` precisely so the messages someone
+ * wrote keep an author; deleting a conversation means destroying the text. One
+ * table cannot honour both.
+ *
+ * Same identity rule as everywhere else here: `actor_id` is the OIDC `sub`,
+ * stored as bare text with no foreign key, because the row it would point at
+ * lives in OrangeCat.
+ */
+export const conversations = pgTable(
+  "conversations",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    actorId: text("actor_id").notNull(),
+    /**
+     * Derived from the first message, never asked for. Every product that asks
+     * collects a thousand "Untitled"; what someone pasted is also the best
+     * possible label, because it is how they will recognise the thread later.
+     */
+    title: text("title").notNull().default(""),
+    /**
+     * Which language Heidi explained in.
+     *
+     * On the conversation rather than the request: re-opening a six-month-old
+     * thread from a browser negotiated to French and having Heidi continue in
+     * French mid-conversation is a bug you only find in production.
+     */
+    locale: text("locale").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    /** Bumped on every message. The sidebar's sort key. */
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+    /**
+     * A tombstone, and the messages are GONE.
+     *
+     * Deleting sets this and hard-deletes every `conversation_messages` row in
+     * the same transaction. A `deleted_at` that leaves the text sitting in the
+     * table forever is exactly the lie the privacy section would then have to
+     * tell. What the tombstone buys is worth keeping: a deleted id answers a
+     * stable 404 rather than one that might be a permissions bug, and the
+     * per-actor count survives a delete loop.
+     */
+    deletedAt: timestamp("deleted_at", { withTimezone: true }),
+  },
+  (t) => [index("conversations_actor_updated_idx").on(t.actorId, t.updatedAt)],
+);
+
+export const conversationMessages = pgTable(
+  "conversation_messages",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    conversationId: uuid("conversation_id")
+      .notNull()
+      .references(() => conversations.id, { onDelete: "cascade" }),
+    /** An OIDC `sub`, or the assistant's fixed id. */
+    authorId: text("author_id").notNull(),
+    body: text("body").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    /** Heidi's structured answer, kept whole. Null for anything a human wrote. */
+    answer: jsonb("answer"),
+    /**
+     * HOW MANY pictures rode along, never the pictures.
+     *
+     * Attachments are downscaled data URLs: they would be the largest rows in
+     * this database and the single most private artefact the product touches.
+     * The count is enough for a re-opened thread to say "2 pictures" honestly
+     * without Heidi holding them, and it is what keeps the privacy section
+     * short.
+     */
+    imageCount: integer("image_count").notNull().default(0),
+  },
+  (t) => [index("conversation_messages_conversation_created_idx").on(t.conversationId, t.createdAt)],
 );
