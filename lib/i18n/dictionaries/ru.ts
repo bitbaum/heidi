@@ -17,6 +17,7 @@ export const ru: Dictionary = {
 
   nav: {
     home: "Начало",
+    chat: "Чат",
     method: "Метод",
     contribute: "Участвовать",
     about: "О проекте",
@@ -103,6 +104,32 @@ export const ru: Dictionary = {
     unreachable: "Heidi недоступна. Проверьте соединение и попробуйте ещё раз.",
     failed: "Heidi сейчас не смогла ответить. Попробуйте через минуту.",
     retry: "Ещё раз",
+    /**
+     * The full-screen chat. Its own object so the homepage box — which shares
+     * every other string in here — does not have to carry strings it never
+     * renders.
+     */
+    full: {
+      expand: "Во весь экран",
+      title: "Чат",
+      yourChats: "Ваши разговоры",
+      noChats: "Разговоров пока нет.",
+      untitled: "Без названия",
+      rename: "Переименовать",
+      save: "Сохранить",
+      cancel: "Отмена",
+      delete: "Удалить",
+      deleteAsk: "Удалить этот разговор?",
+      deleteYes: "Удалить навсегда",
+      onThisDevice: "Этот разговор хранится только в этом браузере.",
+      signInToKeep: "Войдите, чтобы сохранить его",
+      adoptTitle: "Сохранить этот разговор?",
+      adoptBody: "Вы писали до того, как вошли. Хайди может сохранить этот разговор в вашем аккаунте — или оставить его в браузере.",
+      adoptKeep: "Да, сохранить",
+      adoptDiscard: "Оставить здесь",
+      menuOpen: "Разговоры",
+      menuClose: "Закрыть",
+    },
   },
 
   model: {

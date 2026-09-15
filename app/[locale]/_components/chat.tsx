@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { LEARNER_ID } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
@@ -10,6 +11,8 @@ import { Composer } from "./chat/composer";
 import { Transcript } from "./chat/transcript";
 import { useConversation } from "./chat/use-conversation";
 import { draftTransport } from "./chat/transports";
+import { readDraft, useDraft } from "./use-draft";
+import { href } from "@/lib/i18n/routes";
 
 /**
  * A conversation, not a form.
@@ -37,6 +40,7 @@ export function Chat({
 }) {
   const t = dict.chat;
   const byok = useByok();
+  const draft = useDraft();
   const [sheetOpen, setSheetOpen] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -54,6 +58,33 @@ export function Chat({
   useEffect(() => {
     if (chat.messages.length > 0) endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [chat.messages]);
+
+  /**
+   * The same store the full-screen chat reads, in both directions.
+   *
+   * That is what makes "open full screen" continue this conversation instead
+   * of starting a new one — and what makes coming BACK here find it still
+   * going. Nothing is transferred: a transcript in a query string would land
+   * in the access log, the `Referer` header and browser history.
+   *
+   * The seed guard is load-bearing. Writing on mount, before the restore,
+   * would clear the stored conversation every time somebody merely visited the
+   * home page — the box would look untouched and the thread would be gone.
+   */
+  const { messages, setMessages } = chat;
+  const seeded = useRef(false);
+  useEffect(() => {
+    if (seeded.current || !draft.ready) return;
+    seeded.current = true;
+    const stored = readDraft();
+    if (stored?.messages.length) setMessages(stored.messages);
+  }, [draft.ready, setMessages]);
+
+  const keepDraft = draft.keep;
+  useEffect(() => {
+    if (!seeded.current) return;
+    keepDraft(messages, locale);
+  }, [messages, locale, keepDraft]);
 
   const started = chat.messages.length > 0;
 
@@ -81,13 +112,27 @@ export function Chat({
           </button>
         )}
         {started && (
-          <button
-            type="button"
-            onClick={chat.reset}
-            className="min-h-9 text-sm text-link underline underline-offset-4 hover:text-accent"
-          >
-            {t.newChat}
-          </button>
+          <div className="flex items-center gap-4">
+            {/* Offered only once there is something to expand. On an empty box
+                it would be a second front door to the same empty box. */}
+            <Link
+              href={href(locale, "chat")}
+              className="inline-flex items-center gap-1.5 text-sm text-link underline underline-offset-4 hover:text-accent"
+            >
+              {t.full.expand}
+              <ExpandIcon />
+            </Link>
+            <button
+              type="button"
+              onClick={() => {
+                draft.forget();
+                chat.reset();
+              }}
+              className="min-h-9 text-sm text-link underline underline-offset-4 hover:text-accent"
+            >
+              {t.newChat}
+            </button>
+          </div>
         )}
       </div>
 
@@ -156,6 +201,14 @@ export function Chat({
         />
       )}
     </section>
+  );
+}
+
+function ExpandIcon() {
+  return (
+    <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
 

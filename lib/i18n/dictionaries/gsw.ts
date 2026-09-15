@@ -32,6 +32,7 @@ export const gsw: Dictionary = {
 
   nav: {
     home: "Afang",
+    chat: "Chat",
     method: "Methode",
     contribute: "Mitmache",
     about: "Über öis",
@@ -118,6 +119,32 @@ export const gsw: Dictionary = {
     unreachable: "Heidi isch nöd erreichbar. Bitte d Verbindig prüefe und nomal probiere.",
     failed: "Heidi het das grad nöd chönne beantworte. Bitte glii nomal probiere.",
     retry: "Nomal",
+    /**
+     * The full-screen chat. Its own object so the homepage box — which shares
+     * every other string in here — does not have to carry strings it never
+     * renders.
+     */
+    full: {
+      expand: "Uf ganze Bildschirm",
+      title: "Chat",
+      yourChats: "Ihri Gspräch",
+      noChats: "Na kei Gspräch.",
+      untitled: "Ohni Titel",
+      rename: "Umbenenne",
+      save: "Spichere",
+      cancel: "Abbräche",
+      delete: "Lösche",
+      deleteAsk: "Das Gspräch lösche?",
+      deleteYes: "Ändgültig lösche",
+      onThisDevice: "Das Gspräch isch nur i dem Browser da.",
+      signInToKeep: "Aamälde, zum s bhalte",
+      adoptTitle: "Das Gspräch bhalte?",
+      adoptBody: "Si händ gschribe, bevor Si sich aagmäldet händ. D Heidi cha s Gspräch i Ihrem Konto spichere — oder s da im Browser la.",
+      adoptKeep: "Ja, spichere",
+      adoptDiscard: "Da la",
+      menuOpen: "Gspräch",
+      menuClose: "Zuemache",
+    },
   },
 
   model: {

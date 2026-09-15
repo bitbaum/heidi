@@ -25,6 +25,7 @@ export const rm: Dictionary = {
 
   nav: {
     home: "Cumenzament",
+    chat: "Chat",
     method: "Metoda",
     contribute: "Far part",
     about: "Davart nus",
@@ -111,6 +112,32 @@ export const rm: Dictionary = {
     unreachable: "Heidi n'è betg cuntanschibla. Controllai la connexiun ed empruvai danovamain.",
     failed: "Heidi n'ha betg pudì respunder en quest mument. Empruvai danovamain en in mument.",
     retry: "Danovamain",
+    /**
+     * The full-screen chat. Its own object so the homepage box — which shares
+     * every other string in here — does not have to carry strings it never
+     * renders.
+     */
+    full: {
+      expand: "Ecran entir",
+      title: "Chat",
+      yourChats: "Vossas conversaziuns",
+      noChats: "Anc naginas conversaziuns.",
+      untitled: "Senza titel",
+      rename: "Renumnar",
+      save: "Memorisar",
+      cancel: "Interrumper",
+      delete: "Stizzar",
+      deleteAsk: "Stizzar questa conversaziun?",
+      deleteYes: "Stizzar definitivamain",
+      onThisDevice: "Questa conversaziun exista mo en quest navigatur.",
+      signInToKeep: "S'annunziar per la mantegnair",
+      adoptTitle: "Mantegnair questa conversaziun?",
+      adoptBody: "Vus avais scrit avant che Vus As essas annunziads. Heidi po memorisar questa conversaziun en Voss conto u la laschar qua en il navigatur.",
+      adoptKeep: "Gea, memorisar",
+      adoptDiscard: "La laschar qua",
+      menuOpen: "Conversaziuns",
+      menuClose: "Serrar",
+    },
   },
 
   model: {

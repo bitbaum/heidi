@@ -14,6 +14,7 @@ import type { Locale } from "./locales.ts";
  */
 export type RouteKey =
   | "home"
+  | "chat"
   | "method"
   | "contribute"
   | "about"
@@ -56,6 +57,11 @@ export const ROUTES: readonly Route[] = [
   // The chat IS the home page, so it is named in the menu under `use` rather
   // than left as a wordmark nobody realises is a link.
   { key: "home", segment: "", group: "use", indexed: true, priority: 1 },
+  // The same conversation as the home page, with room to be one. Indexed,
+  // because a person searching for "Swiss German chat" is looking for exactly
+  // this — but an individual thread at /chat/<id> is not a route at all and
+  // carries its own noindex.
+  { key: "chat", segment: "chat", group: "use", indexed: true, priority: 0.9 },
   { key: "method", segment: "method", group: "why", indexed: true, priority: 0.8 },
   { key: "contribute", segment: "contribute", group: "project", indexed: true, priority: 0.6 },
   { key: "about", segment: "about", group: "project", indexed: true, priority: 0.5 },

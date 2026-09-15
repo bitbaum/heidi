@@ -9,6 +9,7 @@ export const fr: Dictionary = {
 
   nav: {
     home: "Accueil",
+    chat: "Chat",
     method: "Méthode",
     contribute: "Participer",
     about: "À propos",
@@ -95,6 +96,32 @@ export const fr: Dictionary = {
     unreachable: "Heidi est injoignable. Vérifiez votre connexion et réessayez.",
     failed: "Heidi n'a pas pu répondre à l'instant. Réessayez dans un moment.",
     retry: "Réessayer",
+    /**
+     * The full-screen chat. Its own object so the homepage box — which shares
+     * every other string in here — does not have to carry strings it never
+     * renders.
+     */
+    full: {
+      expand: "Plein écran",
+      title: "Chat",
+      yourChats: "Vos conversations",
+      noChats: "Aucune conversation pour l'instant.",
+      untitled: "Sans titre",
+      rename: "Renommer",
+      save: "Enregistrer",
+      cancel: "Annuler",
+      delete: "Supprimer",
+      deleteAsk: "Supprimer cette conversation ?",
+      deleteYes: "Supprimer définitivement",
+      onThisDevice: "Cette conversation n'existe que dans ce navigateur.",
+      signInToKeep: "Connectez-vous pour la conserver",
+      adoptTitle: "Conserver cette conversation ?",
+      adoptBody: "Vous écriviez avant de vous connecter. Heidi peut enregistrer cette conversation dans votre compte, ou la laisser ici dans le navigateur.",
+      adoptKeep: "Oui, enregistrer",
+      adoptDiscard: "La laisser ici",
+      menuOpen: "Conversations",
+      menuClose: "Fermer",
+    },
   },
 
   model: {

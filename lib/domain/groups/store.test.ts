@@ -28,7 +28,7 @@ import { HEIDI_ID } from "./types.ts";
  * CI provides one as a service container. Locally:
  *
  *   createdb heidi_test
- *   psql -f drizzle/0000_*.sql heidi_test
+ *   for f in drizzle/[0-9]*.sql; do psql -f "$f" heidi_test; done
  *   DATABASE_URL='postgresql:///heidi_test?host=/var/run/postgresql' pnpm test
  *
  * The `host=` matters: with an empty host `pg` connects over TCP and asks for
