@@ -18,8 +18,6 @@ export const ru: Dictionary = {
   nav: {
     home: "Начало",
     method: "Метод",
-    research: "Исследования",
-    check: "Проверка диалекта",
     contribute: "Участвовать",
     about: "О проекте",
     portal: "Моё пространство",
@@ -71,6 +69,7 @@ export const ru: Dictionary = {
   },
 
   chat: {
+    emptyTitle: "Спросите Хайди",
     placeholder: "Вставьте то, что вам написали, — или напишите, что хотите сказать.",
     composer: "Сообщение Хайди",
     saveWord: "Сохранить слово",
@@ -78,7 +77,6 @@ export const ru: Dictionary = {
     send: "Отправить",
     thinking: "Heidi читает …",
     you: "Вы",
-    emptyTitle: "Спросите Heidi",
     examples: [
       "Im Kauz scho, hät mer nöd so gfalle. Du au?",
       "Скажи им, что я опоздаю на десять минут — по-дружески.",
@@ -155,6 +153,7 @@ export const ru: Dictionary = {
   ],
 
   method: {
+    contents: "На этой странице",
     title: "Метод",
     lead: "Heidi построена на том, что действительно показывают исследования, а не на том, что хорошо продаётся как языковой курс. Отсюда несколько решений, которые поначалу выглядят странно.",
     sections: [

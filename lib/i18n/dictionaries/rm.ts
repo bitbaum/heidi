@@ -26,8 +26,6 @@ export const rm: Dictionary = {
   nav: {
     home: "Cumenzament",
     method: "Metoda",
-    research: "Perscrutaziun",
-    check: "Controlla",
     contribute: "Far part",
     about: "Davart nus",
     portal: "Mes intschess",
@@ -79,6 +77,7 @@ export const rm: Dictionary = {
   },
 
   chat: {
+    emptyTitle: "Dumandai Heidi",
     placeholder: "Encollai quai che Vus avais retschavì — u scrivai quai che Vus vulais dir.",
     composer: "Messadi a Heidi",
     saveWord: "Tegnair quest pled",
@@ -86,7 +85,6 @@ export const rm: Dictionary = {
     send: "Trametter",
     thinking: "Heidi legia …",
     you: "Vus",
-    emptyTitle: "Dumandai Heidi",
     examples: [
       "Im Kauz scho, hät mer nöd so gfalle. Du au?",
       "Di ad els che jau arriv diesch minutas pli tard — amiaivlamain.",
@@ -163,6 +161,7 @@ export const rm: Dictionary = {
   ],
 
   method: {
+    contents: "Sin questa pagina",
     title: "La metoda",
     lead: "Heidi è construida sin quai che la perscrutaziun mussa propi, e betg sin quai che sa vender bain sco curs da lingua. Quai maina a intginas decisiuns che paran l'emprim curiusas.",
     sections: [

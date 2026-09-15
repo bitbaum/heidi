@@ -15,7 +15,6 @@ import type { Locale } from "./locales.ts";
 export type RouteKey =
   | "home"
   | "method"
-  | "research"
   | "contribute"
   | "about"
   | "portal"
@@ -58,7 +57,6 @@ export const ROUTES: readonly Route[] = [
   // than left as a wordmark nobody realises is a link.
   { key: "home", segment: "", group: "use", indexed: true, priority: 1 },
   { key: "method", segment: "method", group: "why", indexed: true, priority: 0.8 },
-  { key: "research", segment: "research", group: "why", indexed: true, priority: 0.8 },
   { key: "contribute", segment: "contribute", group: "project", indexed: true, priority: 0.6 },
   { key: "about", segment: "about", group: "project", indexed: true, priority: 0.5 },
   // Reached from the account control, not the menu: a personal space listed in

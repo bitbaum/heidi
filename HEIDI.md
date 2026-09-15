@@ -199,26 +199,42 @@ first. The seam is drawn now so the extraction is mechanical then.
 
 ## 5. What is true of the repo today
 
-A five-language site — home, method, research, dialect check, contribute,
-about — with the assistant on the home page, the deterministic gate behind
-`/check`, and the variety layer underneath. No accounts, no database, no audio,
-no learner model.
+A seven-language site — home, method, contribute, about, plus a personal portal
+and settings — with the assistant on the home page, the deterministic gate shown
+as evidence on `/method`, and the variety layer underneath.
+
+There are now accounts and a database. Both arrived for study groups, and both
+are narrower than they sound: identity is federated to OrangeCat and Heidi holds
+no users table, while Postgres holds groups, their members and their messages
+and nothing else. Saved vocabulary lives in the visitor's own browser. There is
+still no audio and no learner model.
 
 - **Linguistic knowledge is data**, in the packs — not embedded in prompts. The
   model's instructions are *generated from* the pack (`lib/variety/prompt.ts`),
   so no language is named in prose anywhere in the engine.
 - **The UI language and the taught variety are separate axes.** `VARIETY` is
   what you learn, one per deployment; `locale` is what Heidi speaks to you
-  while you learn it, five of them. Conflating them would make a Lesya
+  while you learn it, seven of them. Conflating them would make a Lesya
   deployment re-translate the site as well as swap the pack.
-- **German is the default locale**, then French, Italian, Romansh, English.
-  German is the source dictionary and the others are typed against it, so a
-  missing key is a build error. Romansh is unreviewed by a native speaker and
-  says so; the assistant answers Romansh readers in German rather than invent
-  low-resource output at an audience that would spot it instantly.
-- **There is no user model, no auth, no persistence.** Nothing has been decided
-  and nothing is hard to reverse — which is the point of saying so here rather
-  than discovering it later.
+- **German is the default locale**, then the other national languages, Swiss
+  German, English and Russian. German is the source dictionary and the others
+  are typed against it, so a missing key is a build error. Romansh is unreviewed
+  by a native speaker and says so; the assistant answers Romansh readers in
+  German rather than invent low-resource output at an audience that would spot
+  it instantly. Swiss German is offered as a *dialect*, deliberately not filed
+  with the four national languages — Switzerland has four and this is not one
+  of them.
+- **Identity is federated, and Heidi keeps no users table.** The OIDC `sub` from
+  OrangeCat is the actor id, stored as bare text with no foreign key, because
+  the row it would point at lives in another product. The cost is a denormalised
+  display name on a membership row; the benefit is that Heidi holds nothing that
+  can be stolen from it.
+- **Postgres holds groups only.** `study_groups`, `group_members`,
+  `group_messages`. A deletion from a group sets `left_at` rather than removing
+  the row, so the messages someone wrote keep an author.
+- **Saved vocabulary is device-local.** `lib/browser/store.ts` over
+  localStorage, not a table — it needs no account, works signed out, and keeps
+  Heidi from holding a record of what a particular person cannot understand.
 
 ---
 
@@ -368,6 +384,16 @@ The AI layer is `@bitbaum/ai-kit` — `freeChain` + `complete()`, so a retired
 model cannot take Heidi down, which is the failure that took five repos out at
 once on 2026-08-26. With no key the route answers 503 and says so plainly
 rather than pretending.
+
+**Also built since:** study groups, where the thread has a longer participant
+list and threadkit's rule does the social work — two participants and Heidi *is*
+the conversation, three or more and she waits to be addressed by name. The
+invite link is the credential, so it is 192 CSPRNG bits kept separate from the
+group id and rotatable, because the only way to un-invite a link already sitting
+in somebody's WhatsApp is to kill it. And **kept words**: the gloss Heidi
+already produced on every answer used to be drawn once and thrown away, so
+looking the same word up on Tuesday and Friday accumulated nothing. One tap now
+keeps it, in the browser, with the sentence it came from.
 
 **Next**, in order: capture what the learner did not know into a learner model —
 **the existing Heidi GPT generates that evidence daily and throws all of it

@@ -23,6 +23,14 @@ async function redirects() {
       // 308'd to `/api/method` and the checker silently stopped working while
       // the page around it still rendered perfectly. `lib/i18n/routes.test.ts`
       // asserts this list equals LOCALES so the two cannot drift.
+      // Research merged into Method — the evidence is the argument FOR the
+      // method rather than a peer of it. It was indexed and cited, so it moves
+      // permanently and lands on the evidence section rather than the top.
+      source: "/:locale(de|gsw|fr|it|rm|en|ru)/research",
+      destination: "/:locale/method#facts",
+      permanent: true,
+    },
+    {
       source: "/:locale(de|gsw|fr|it|rm|en|ru)/check",
       destination: "/:locale/method",
       permanent: true,

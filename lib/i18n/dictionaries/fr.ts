@@ -10,8 +10,6 @@ export const fr: Dictionary = {
   nav: {
     home: "Accueil",
     method: "Méthode",
-    research: "Recherche",
-    check: "Vérification",
     contribute: "Participer",
     about: "À propos",
     portal: "Mon espace",
@@ -63,6 +61,7 @@ export const fr: Dictionary = {
   },
 
   chat: {
+    emptyTitle: "Demandez à Heidi",
     placeholder: "Collez ce que vous avez reçu — ou écrivez ce que vous voulez dire.",
     composer: "Message à Heidi",
     saveWord: "Garder ce mot",
@@ -70,7 +69,6 @@ export const fr: Dictionary = {
     send: "Envoyer",
     thinking: "Heidi lit …",
     you: "Vous",
-    emptyTitle: "Demandez à Heidi",
     examples: [
       "Im Kauz scho, hät mer nöd so gfalle. Du au?",
       "Dis-leur que j'arrive dix minutes en retard — gentiment.",
@@ -147,6 +145,7 @@ export const fr: Dictionary = {
   ],
 
   method: {
+    contents: "Sur cette page",
     title: "La méthode",
     lead: "Heidi est construit sur ce que la recherche montre réellement, et non sur ce qui se vend bien comme cours de langue. Cela conduit à quelques décisions qui surprennent d'abord.",
     sections: [
