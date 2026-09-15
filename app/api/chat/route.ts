@@ -6,7 +6,7 @@ import { heidiTurn, soloThread } from "@/lib/domain/chat/thread";
 import { parseAnswer } from "@/lib/domain/chat/parse";
 import { HEIDI_ID, LEARNER_ID, type ChatMessage } from "@/lib/domain/chat/types";
 import { byokChain, readByok, redact } from "@/lib/domain/model/byok";
-import { readImage, visionMessage } from "@/lib/domain/chat/image";
+import { MAX_IMAGES, readImage, visionMessage } from "@/lib/domain/chat/image";
 import { callerKey, chat as chatLimit, tooMany } from "@/lib/domain/limits";
 
 export const dynamic = "force-dynamic";
@@ -20,8 +20,6 @@ const MAX_INPUT = 2000;
 const MAX_HISTORY = 20;
 /** Per link, not shared — a shared deadline is spent by the first vendor. */
 const TIMEOUT_MS = 25_000;
-/** More than this in one message is a mistake, not a conversation. */
-const MAX_IMAGES = 3;
 
 function bad(error: string, status: number, operator = false) {
   return Response.json({ error, operator }, { status });

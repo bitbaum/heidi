@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { DEFAULT_LOCALE, LOCALES, isLocale, negotiate } from "./lib/i18n/locales";
+import { SESSION_COOKIES, landingFor } from "./lib/i18n/landing";
 
 /**
  * Every page lives under a locale segment, so a bare path has to pick one.
@@ -21,6 +22,20 @@ export function middleware(request: NextRequest) {
 
   const first = pathname.split("/")[1] ?? "";
   if (isLocale(first)) {
+    // Somebody with an account lands in the tool, not on the pitch. The
+    // decision is in `landingFor`, which is pure and tested; only the cookie
+    // read is here, and it reads presence alone.
+    const signedIn = SESSION_COOKIES.some((name) => Boolean(request.cookies.get(name)?.value));
+    const landing = landingFor(pathname, signedIn);
+    if (landing) {
+      const chat = request.nextUrl.clone();
+      chat.pathname = landing;
+      // 307, not 308: this is true of this visitor right now, and a browser
+      // that cached it as permanent would strand them on /chat after signing
+      // out, with no way back to the home page but clearing site data.
+      return NextResponse.redirect(chat, 307);
+    }
+
     // Already localised. Remember it, so a later bare path lands here again.
     const response = NextResponse.next();
     if (request.cookies.get(COOKIE)?.value !== first) {

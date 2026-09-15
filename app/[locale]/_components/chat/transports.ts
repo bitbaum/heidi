@@ -137,6 +137,92 @@ export function draftTransport(): Transport {
   };
 }
 
+/** What the sidebar needs to know about a conversation. */
+export type ConversationSummary = {
+  id: string;
+  title: string;
+  updatedAt: string;
+};
+
+/**
+ * A private conversation that the server remembers.
+ *
+ * Like the group transport, the server owns the thread — so no history is sent
+ * and both rows come back together. Unlike it, the conversation may not exist
+ * yet: someone opens `/chat`, types, and only at that moment is there anything
+ * worth a row. Creating it lazily is what keeps a "new chat" button that gets
+ * pressed and abandoned from littering the sidebar with empty threads.
+ *
+ * WHICH row it writes to lives in this closure rather than in the component,
+ * for two reasons. It is this transport's own business, and — more concretely
+ * — React state is not visible to the second message of a fast double-send in
+ * the same tick, which is exactly how one conversation becomes two. The
+ * in-flight promise is the other half of that guard: two sends that arrive
+ * together await the same creation instead of racing to make one each.
+ *
+ * The locale is sent only at CREATION. After that the conversation carries its
+ * own, so reopening a thread in a differently negotiated browser cannot switch
+ * Heidi mid-way.
+ */
+export function conversationTransport({
+  conversationId,
+  locale,
+  onCreated,
+}: {
+  conversationId: string | null;
+  locale: Locale;
+  onCreated: (conversation: ConversationSummary) => void;
+}): Transport {
+  let id = conversationId;
+  let creating: Promise<string | null> | null = null;
+
+  async function ensure(): Promise<string | null> {
+    if (id) return id;
+    creating ??= (async () => {
+      try {
+        const res = await fetch("/api/conversations", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ locale }),
+        });
+        if (!res.ok) return null;
+        const { conversation } = (await res.json()) as { conversation: ConversationSummary };
+        id = conversation.id;
+        onCreated(conversation);
+        return conversation.id;
+      } catch {
+        return null;
+      } finally {
+        // Cleared either way: a failed creation must be retryable, and a
+        // successful one is now answered by `id` without awaiting anything.
+        creating = null;
+      }
+    })();
+    return creating;
+  }
+
+  return async ({ text, byok, images, signal }) => {
+    try {
+      const target = await ensure();
+      if (!target) return { status: "error", kind: "failed" };
+
+      const res = await fetch(`/api/conversations/${target}/messages`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ text, byok, images }),
+        signal,
+      });
+
+      if (!res.ok) return errorFor(res.status);
+
+      const data = (await readJson(res)) as { messages?: unknown } | null;
+      return { status: "ok", messages: fromApi(data?.messages) };
+    } catch {
+      return { status: "error", kind: "unreachable" };
+    }
+  };
+}
+
 /**
  * A group. The server holds the thread, decides whether Heidi speaks, and
  * returns the rows it wrote — so no history goes up and both new messages come

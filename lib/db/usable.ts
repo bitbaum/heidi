@@ -27,7 +27,13 @@ import { db } from "./index.ts";
 const REQUIRED = ["SELECT", "INSERT", "UPDATE", "DELETE"] as const;
 
 /** Every table the app owns. Kept here so the check cannot silently narrow. */
-export const APP_TABLES = ["study_groups", "group_members", "group_messages"] as const;
+export const APP_TABLES = [
+  "study_groups",
+  "group_members",
+  "group_messages",
+  "conversations",
+  "conversation_messages",
+] as const;
 
 export type SchemaProblem = { table: string; problem: string };
 

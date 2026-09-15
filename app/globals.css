@@ -189,3 +189,50 @@ h3 {
     background-image: none;
   }
 }
+
+/**
+ * The full-screen chat, escaping the site chrome.
+ *
+ * A chat that fills the viewport needs the page NOT to scroll — the transcript
+ * scrolls instead — and it needs the footer out of the way. The obvious way to
+ * get that is a second root layout, and it is the wrong way twice over:
+ * `app/[locale]/layout.tsx` is deliberately the only root layout because
+ * `<html lang>` has to carry the real language of the page, and navigating
+ * between two root layouts costs a full document reload — so every trip from
+ * the home page into the chat would throw away the app and start again.
+ *
+ * So the page marks itself and the chrome responds. No JavaScript, no second
+ * tree, and nothing to flash on hydration because it is in the first stylesheet
+ * the browser sees. `:has()` is in every browser this site supports.
+ */
+body:has([data-chrome="chat"]) {
+  /* Both, because the layout's `min-h-screen` is `100vh` and would otherwise
+     win on a phone: `vh` measures the viewport WITHOUT the browser toolbar, so
+     the body ends up taller than the screen and the composer hides under it.
+     `dvh` is the one that tracks the toolbar sliding away. */
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+/* Static, not sticky: inside a viewport-height page there is nothing to stick
+   to, and a sticky header inside a non-scrolling body is just a header. */
+body:has([data-chrome="chat"]) > header {
+  position: static;
+}
+
+/* Not `display: none` on a real page — but this footer is site navigation that
+   the chat's own sidebar and header already provide, and keeping it would mean
+   the composer sits above a wall of links nobody scrolls to from a chat. */
+body:has([data-chrome="chat"]) > footer {
+  display: none;
+}
+
+/* min-height: 0 is the load-bearing line. A flex child defaults to
+   `min-height: auto` and refuses to shrink below its content, so without it
+   the transcript pushes the page taller instead of scrolling inside it. */
+body:has([data-chrome="chat"]) > main {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}

@@ -199,15 +199,15 @@ first. The seam is drawn now so the extraction is mechanical then.
 
 ## 5. What is true of the repo today
 
-A seven-language site — home, method, contribute, about, plus a personal portal
-and settings — with the assistant on the home page, the deterministic gate shown
-as evidence on `/method`, and the variety layer underneath.
+A seven-language site — home, chat, method, contribute, about, plus a personal
+portal and settings — with the assistant on the home page AND at full size on
+`/chat`, the deterministic gate shown as evidence on `/method`, and the variety
+layer underneath.
 
-There are now accounts and a database. Both arrived for study groups, and both
-are narrower than they sound: identity is federated to OrangeCat and Heidi holds
-no users table, while Postgres holds groups, their members and their messages
-and nothing else. Saved vocabulary lives in the visitor's own browser. There is
-still no audio and no learner model.
+There are now accounts and a database. Identity is federated to OrangeCat and
+Heidi holds no users table; Postgres holds study groups and private
+conversations, and nothing else. Saved vocabulary lives in the visitor's own
+browser. There is still no audio and no learner model.
 
 - **Linguistic knowledge is data**, in the packs — not embedded in prompts. The
   model's instructions are *generated from* the pack (`lib/variety/prompt.ts`),
@@ -229,9 +229,24 @@ still no audio and no learner model.
   the row it would point at lives in another product. The cost is a denormalised
   display name on a membership row; the benefit is that Heidi holds nothing that
   can be stolen from it.
-- **Postgres holds groups only.** `study_groups`, `group_members`,
-  `group_messages`. A deletion from a group sets `left_at` rather than removing
-  the row, so the messages someone wrote keep an author.
+- **Postgres holds groups and private conversations.** `study_groups`,
+  `group_members`, `group_messages`, `conversations`, `conversation_messages`.
+  The two families are deliberately not one family. A group's `invite_token` is
+  `NOT NULL UNIQUE` and is a *credential*, so reusing the table for private
+  chats would mint a joinable room key for every conversation anyone ever had;
+  and their deletion semantics run opposite ways. Leaving a group sets
+  `left_at` rather than removing the row, so the messages someone wrote keep an
+  author. Deleting a conversation destroys its messages.
+- **A private conversation stores `image_count`, never the images.**
+  Attachments would be the largest rows in the database and the most private
+  artefact the product touches. The count is enough for a reopened thread to
+  say a picture was here.
+- **Signed out, a conversation never reaches the database.** It lives in
+  `localStorage` under `heidi.chat.draft.v1`. The alternative — minting a
+  pseudo-actor from a cookie so anonymous rows have an owner — is a tracking id
+  by another name, and it creates rows nobody can ever authenticate to in order
+  to delete. Adopting a signed-out conversation into an account is **offered,
+  never automatic**, and every field is rebuilt server-side.
 - **Saved vocabulary is device-local.** `lib/browser/store.ts` over
   localStorage, not a table — it needs no account, works signed out, and keeps
   Heidi from holding a record of what a particular person cannot understand.
@@ -385,8 +400,20 @@ model cannot take Heidi down, which is the failure that took five repos out at
 once on 2026-08-26. With no key the route answers 503 and says so plainly
 rather than pretending.
 
-**Also built since:** study groups, where the thread has a longer participant
-list and threadkit's rule does the social work — two participants and Heidi *is*
+**Also built since:** the full-screen chat at `/chat`, which is the same
+conversation as the box on the home page rather than a second one — both read
+the same store, so expanding continues the thread instead of starting one, and
+nothing is passed in a query string where it would land in the access log, the
+`Referer` header and browser history. Signed in, the server remembers: a
+sidebar of past conversations, resumable, renameable, deletable. The
+conversation row is created on the first message, not when the page opens, so a
+"new chat" button that gets pressed and abandoned leaves nothing behind. It
+escapes the site chrome with one CSS rule keyed on `body:has([data-chrome="chat"])`
+rather than a second root layout, because there can only be one root layout —
+`<html lang>` has to carry the real language of the page — and navigating
+between two of them costs a full document reload.
+
+Also study groups, where the thread has a longer participant list and threadkit's rule does the social work — two participants and Heidi *is*
 the conversation, three or more and she waits to be addressed by name. The
 invite link is the credential, so it is 192 CSPRNG bits kept separate from the
 group id and rotatable, because the only way to un-invite a link already sitting
@@ -414,7 +441,44 @@ Two loops explain Heidi better than any feature list:
 ## 10. Privacy
 
 Screenshots, chats and voice notes are among the most private things a person
-owns. Raw media is deleted unless the user saves it; consent to operate the
-product and consent to contribute to a research corpus are **separate**, and the
-second is never assumed from the first. A user's conversations do not silently
-become a linguistic corpus.
+owns. Consent to operate the product and consent to contribute to a research
+corpus are **separate**, and the second is never assumed from the first. A
+user's conversations do not silently become a linguistic corpus.
+
+This section used to be four sentences of intent written when there was nothing
+to be private about. There is now, so here is what actually happens.
+
+**Signed out, nothing you type reaches our database.** The conversation is kept
+in your own browser (`heidi.chat.draft.v1`). It is sent to a model to be
+answered, and it is not stored on our side. No cookie mints an anonymous
+identity for you: an id like that is a tracking id whatever it is called, and
+it produces rows that nobody can ever prove are theirs in order to delete them.
+
+**Signed in, your conversations are stored, and only you can read them.** Every
+route checks ownership before anything else, and a conversation that is not
+yours answers 404 rather than 403 — whether a given id names a real
+conversation is not a stranger's to learn.
+
+**Delete means delete.** Deleting a conversation destroys its messages in the
+same transaction. The conversation row itself remains as an empty tombstone,
+holding nothing but its id and the fact that it is gone, so a deleted link
+keeps answering a stable 404; the title, which was your words, goes with the
+rest. A `deleted_at` that leaves the text sitting in the table would make this
+paragraph a lie.
+
+**Pictures are answered from and then forgotten.** An attachment is downscaled
+in your browser, sent to the model to be read, and never written to the
+database. What is stored is a number: how many there were.
+
+**Adopting a signed-out conversation is offered, not assumed.** Sign in with a
+conversation open and Heidi asks whether to keep it. Silent adoption is what
+the big chat apps do and nobody would blink — but the first act of a new
+account should not be to quietly upload the transcript that was device-local a
+second ago.
+
+**Your own model key is never stored by us.** A key you bring stays in your
+browser, is forwarded on the request it is for, and is redacted out of every
+log line before anything is written.
+
+**Saved words stay on your device.** They need no account, work signed out, and
+keep Heidi from holding a record of what a particular person cannot understand.

@@ -28,6 +28,7 @@ export const de = {
 
   nav: {
     home: "Start",
+    chat: "Chat",
     method: "Methode",
     contribute: "Mitmachen",
     about: "Über uns",
@@ -114,6 +115,32 @@ export const de = {
     unreachable: "Heidi ist nicht erreichbar. Bitte Verbindung prüfen und nochmals versuchen.",
     failed: "Heidi konnte das gerade nicht beantworten. Bitte gleich nochmals versuchen.",
     retry: "Nochmals",
+    /**
+     * The full-screen chat. Its own object so the homepage box — which shares
+     * every other string in here — does not have to carry strings it never
+     * renders.
+     */
+    full: {
+      expand: "Vollbild öffnen",
+      title: "Chat",
+      yourChats: "Ihre Gespräche",
+      noChats: "Noch keine Gespräche.",
+      untitled: "Ohne Titel",
+      rename: "Umbenennen",
+      save: "Speichern",
+      cancel: "Abbrechen",
+      delete: "Löschen",
+      deleteAsk: "Dieses Gespräch löschen?",
+      deleteYes: "Endgültig löschen",
+      onThisDevice: "Dieses Gespräch liegt nur in diesem Browser.",
+      signInToKeep: "Anmelden, um es zu behalten",
+      adoptTitle: "Dieses Gespräch behalten?",
+      adoptBody: "Sie haben geschrieben, bevor Sie sich angemeldet haben. Heidi kann das Gespräch in Ihrem Konto speichern — oder es hier im Browser lassen.",
+      adoptKeep: "Ja, speichern",
+      adoptDiscard: "Hier lassen",
+      menuOpen: "Gespräche",
+      menuClose: "Schliessen",
+    },
   },
 
   model: {
