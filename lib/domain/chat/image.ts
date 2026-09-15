@@ -54,12 +54,12 @@ export function readImage(raw: unknown): ImageCheck {
 /**
  * One message in the shape a vision model expects.
  *
- * ai-kit forwards `messages` into the request body untouched, so this already
- * works at runtime — but its `ChatMessage.content` is typed `string`, narrower
- * than what it actually carries. Widening that type is a small change to the
- * fleet's AI layer and the right home for it; until it is published, this is
- * the one place the gap is crossed, named so it can be deleted in one edit
- * rather than hunted for.
+ * This type used to exist alongside a note asking for `ChatMessage.content` to
+ * be widened in the fleet's AI layer, because it was typed `string` and
+ * narrower than what it actually carried — so the gap was crossed here with a
+ * cast. ai-kit accepts content parts since 1.x and the cast is gone; the shape
+ * stays local because the data URLs it wraps are this app's policy
+ * (`MAX_EDGE`, `MAX_BYTES`, `ACCEPTED`), not the AI layer's.
  */
 export type ContentPart =
   | { type: "text"; text: string }

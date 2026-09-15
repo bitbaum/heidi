@@ -67,16 +67,12 @@ export async function respondInThread(args: {
         signal: args.signal,
         messages: [
           { role: "system", content: system },
+          // ai-kit's `ChatMessage.content` accepts content parts since 1.x, so
+          // this is now typed all the way through. It used to be an
+          // `as unknown as` cast with a note asking for exactly that widening.
           pictures.length > 0
-            ? // ai-kit forwards `messages` into the request body untouched, so
-              // multimodal content already works at runtime — but its
-              // `ChatMessage.content` is typed `string`, narrower than what it
-              // carries. The single place that gap is crossed.
-              ({ role: "user", content: visionMessage(prompt, pictures) } as unknown as {
-                role: "user";
-                content: string;
-              })
-            : { role: "user", content: prompt },
+            ? { role: "user" as const, content: visionMessage(prompt, pictures) }
+            : { role: "user" as const, content: prompt },
         ],
       });
       return raw;
