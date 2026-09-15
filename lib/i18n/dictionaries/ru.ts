@@ -19,6 +19,7 @@ export const ru: Dictionary = {
     home: "Начало",
     chat: "Чат",
     grammar: "Грамматика",
+    dialect: "Диалекты",
     method: "Метод",
     contribute: "Участвовать",
     about: "О проекте",
@@ -468,6 +469,37 @@ export const ru: Dictionary = {
    * cites is that these work as cues beside something you are about to meet
    * again, and fail as a lecture you sit through first.
    */
+  /**
+   * The dialect section. The INDEX explains what Swiss German is, which is
+   * worth writing properly and is one page.
+   *
+   * The AREA pages carry no prose at all — an endonym, the cantons, a town,
+   * the forms the gate knows and a source, all of it data. Eleven areas of
+   * translated description would be seventy-seven blocks nobody can check, and
+   * machine-translated linguistic claims are exactly how a reference page ends
+   * up confidently wrong. Forms need no translation; the frame around them is
+   * what is written here.
+   */
+  dialect: {
+    title: "Швейцарский немецкий",
+    lead: "Что это такое, почему вы его не понимаете, хотя знаете немецкий, — и какой диалект где звучит.",
+    spokenTitle: "На нём говорят, а не пишут",
+    spokenBody: "Швейцарский немецкий — это язык повседневной речи и переписки между знакомыми: СМС, WhatsApp, записки. Всё официальное пишется на швейцарском литературном немецком. Нужно и то и другое: тот, кто владеет лишь одним, рано или поздно отправит сообщение на диалекте в страховую.",
+    noStandardTitle: "Нет правильного написания",
+    noStandardBody: "Официальной орфографии не существует. Двое напишут одно и то же слово по-разному, и оба будут правы. Поэтому Хайди никогда не скажет, что вы написали неверно, — только как пишем мы.",
+    notOneTitle: "Это не один язык",
+    notOneBody: "Швейцарский немецкий — не один диалект, а множество. Местный слышит разницу сразу, изучающий не слышит вовсе. Хайди учит вас цюрихскому и говорит об этом прямо, а не делает вид, что диалект один.",
+    areasTitle: "Диалекты",
+    areasLead: "Границы диалектов не совпадают с границами кантонов — поэтому точки, а не области. Кантоны указаны потому, что вы знаете, в каком находитесь.",
+    cantons: "Кантоны",
+    marksTitle: "Как их узнать",
+    marksLead: "Формы, которые проверка Хайди действительно различает. Слева местная форма, справа цюрихская.",
+    marksNone: "Хайди пока не умеет распознавать этот диалект по конкретным формам. Здесь ничего — вместо чего-то правдоподобного.",
+    taught: "Именно его вы здесь учите",
+    sourcesTitle: "Источники",
+    backToAll: "Все диалекты",
+  },
+
   grammar: {
     title: "Грамматика",
     lead: "Четыре вещи, из-за которых цюрихский трудно понять тому, кто уже читает по-немецки. Не уроки — только то, что вы услышите, и где спотыкаются.",

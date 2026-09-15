@@ -11,6 +11,7 @@ export const it: Dictionary = {
     home: "Inizio",
     chat: "Chat",
     grammar: "Grammatica",
+    dialect: "Dialetti",
     method: "Metodo",
     contribute: "Partecipare",
     about: "Chi siamo",
@@ -460,6 +461,37 @@ export const it: Dictionary = {
    * cites is that these work as cues beside something you are about to meet
    * again, and fail as a lecture you sit through first.
    */
+  /**
+   * The dialect section. The INDEX explains what Swiss German is, which is
+   * worth writing properly and is one page.
+   *
+   * The AREA pages carry no prose at all — an endonym, the cantons, a town,
+   * the forms the gate knows and a source, all of it data. Eleven areas of
+   * translated description would be seventy-seven blocks nobody can check, and
+   * machine-translated linguistic claims are exactly how a reference page ends
+   * up confidently wrong. Forms need no translation; the frame around them is
+   * what is written here.
+   */
+  dialect: {
+    title: "Lo svizzero tedesco",
+    lead: "Che cos'è, perché non lo capite pur sapendo il tedesco — e quale dialetto si parla dove.",
+    spokenTitle: "Parlato, non scritto",
+    spokenBody: "Lo svizzero tedesco è la lingua parlata di ogni giorno — e quella scritta fra persone che si conoscono: SMS, WhatsApp, appunti. Tutto ciò che è ufficiale si scrive in tedesco standard svizzero. Servono entrambi, e chi conosce solo l'uno finisce per mandare un messaggio in dialetto all'assicurazione.",
+    noStandardTitle: "Nessuna ortografia ufficiale",
+    noStandardBody: "Non esiste un'ortografia ufficiale. La stessa parola viene scritta in modo diverso da due persone, e hanno ragione entrambe. Per questo Heidi non dirà mai che la vostra grafia è sbagliata — solo come la scriviamo noi.",
+    notOneTitle: "Non una lingua sola",
+    notOneBody: "Lo svizzero tedesco non è un dialetto solo, ma molti. Le differenze saltano all'orecchio di un locale e sfuggono del tutto a chi impara. Heidi vi insegna lo zurighese e lo dice, invece di fare finta che ce ne sia uno solo.",
+    areasTitle: "I dialetti",
+    areasLead: "I confini dialettali non seguono quelli cantonali — per questo punti e non superfici. I cantoni sono indicati perché voi sapete in quale vi trovate.",
+    cantons: "Cantoni",
+    marksTitle: "Come si riconoscono",
+    marksLead: "Forme che il controllo di Heidi distingue davvero. A sinistra la forma locale, a destra quella zurighese.",
+    marksNone: "Heidi non sa ancora riconoscere questo dialetto da forme precise. Qui non c'è nulla, invece di qualcosa di plausibile.",
+    taught: "È quello che imparate qui",
+    sourcesTitle: "Fonti",
+    backToAll: "Tutti i dialetti",
+  },
+
   grammar: {
     title: "Grammatica",
     lead: "Quattro cose che rendono lo zurighese difficile da seguire per chi già legge il tedesco. Niente lezioni — solo quello che sentirete, e dove ci si blocca.",

@@ -34,6 +34,7 @@ export const gsw: Dictionary = {
     home: "Afang",
     chat: "Chat",
     grammar: "Grammatik",
+    dialect: "Mundarte",
     method: "Methode",
     contribute: "Mitmache",
     about: "Über öis",
@@ -485,6 +486,37 @@ export const gsw: Dictionary = {
    * cites is that these work as cues beside something you are about to meet
    * again, and fail as a lecture you sit through first.
    */
+  /**
+   * The dialect section. The INDEX explains what Swiss German is, which is
+   * worth writing properly and is one page.
+   *
+   * The AREA pages carry no prose at all — an endonym, the cantons, a town,
+   * the forms the gate knows and a source, all of it data. Eleven areas of
+   * translated description would be seventy-seven blocks nobody can check, and
+   * machine-translated linguistic claims are exactly how a reference page ends
+   * up confidently wrong. Forms need no translation; the frame around them is
+   * what is written here.
+   */
+  dialect: {
+    title: "Schwiizerdütsch",
+    lead: "Was es isch, werum Si's nöd verstönd, obwohl Si Dütsch chönd — und weli Mundart wo gschwätzt wird.",
+    spokenTitle: "Gschwätzt, nöd gschribe",
+    spokenBody: "Schwiizerdütsch isch d Sprach vom Alltag — und di gschribni under Lüt wo sich kenned: SMS, WhatsApp, Notize. Alles Offizielle wird uf Schwiizer Hochdütsch gschribe. Bedes ghört dezue, und wer nur eis cha, schickt irgendwenn e Mundart-Nachricht a d Versicherig.",
+    noStandardTitle: "Kei richtigi Schriibwiis",
+    noStandardBody: "Es gits kei offizielli Rächtschriibig. S glich Wort wird vo zwei Lüt andersch gschribe, und bedi händ rächt. Drum seit d Heidi nie, Ihri Schriibwiis seig falsch — nur, wie mir si schriibed.",
+    notOneTitle: "Nöd ei Sprach",
+    notOneBody: "Schwiizerdütsch isch kein einzige Dialäkt, sondern vili. D Underschied fallet Einheimische sofort uf und Lernende gar nöd. D Heidi bringt Ihne Züritüütsch bii und seits, statt z tue als gäbs nur eis.",
+    areasTitle: "D Mundarte",
+    areasLead: "Mundartgränze folged kei Kantonsgränze — drum Pünkt und kei Flächene. D Kantön stönd debii, will Si wüssed i welem Si sind.",
+    cantons: "Kantön",
+    marksTitle: "Wora mer si erkennt",
+    marksLead: "Forme wo d Heidi ihri Prüefig würkli underscheidet. Links di dörtig Form, rächts di Züritüütsch.",
+    marksNone: "D Heidi cha die Mundart na nöd a einzelne Forme erkenne. Da staht nüüt, statt öppis Plausibels.",
+    taught: "Das lernet Si da",
+    sourcesTitle: "Quelle",
+    backToAll: "Alli Mundarte",
+  },
+
   grammar: {
     title: "Grammatik",
     lead: "Vier Sache, wo Züritüütsch schwer verständlich mached für öpper, wo scho Dütsch liest. Kei Lektione — nur das, wo Si ghöred, und wo's hakt.",

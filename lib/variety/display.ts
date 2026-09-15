@@ -73,6 +73,12 @@ export type DisplayArea = {
   town: string;
   place: { lon: number; lat: number };
   marks: readonly { theirs: string; ours: string }[];
+  /**
+   * Ids into `lib/research/sources.ts`. An id is not English prose — it is a
+   * key — so it survives the projection, and a page can render the citation
+   * without reaching past this file for the pack.
+   */
+  sources: readonly string[];
   /** True for the one variety this deployment actually teaches. */
   taught: boolean;
 };
@@ -145,6 +151,7 @@ export const DISPLAY: DisplayVariety = {
     town: area.town,
     place: { lon: area.place.lon, lat: area.place.lat },
     marks: marksFor(VARIETY, area),
+    sources: area.sources,
     taught: isTaught(VARIETY, area),
   })),
   orthography: { convention: VARIETY.orthography.convention },

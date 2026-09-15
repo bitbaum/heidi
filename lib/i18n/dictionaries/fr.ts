@@ -11,6 +11,7 @@ export const fr: Dictionary = {
     home: "Accueil",
     chat: "Chat",
     grammar: "Grammaire",
+    dialect: "Dialectes",
     method: "Méthode",
     contribute: "Participer",
     about: "À propos",
@@ -460,6 +461,37 @@ export const fr: Dictionary = {
    * cites is that these work as cues beside something you are about to meet
    * again, and fail as a lecture you sit through first.
    */
+  /**
+   * The dialect section. The INDEX explains what Swiss German is, which is
+   * worth writing properly and is one page.
+   *
+   * The AREA pages carry no prose at all — an endonym, the cantons, a town,
+   * the forms the gate knows and a source, all of it data. Eleven areas of
+   * translated description would be seventy-seven blocks nobody can check, and
+   * machine-translated linguistic claims are exactly how a reference page ends
+   * up confidently wrong. Forms need no translation; the frame around them is
+   * what is written here.
+   */
+  dialect: {
+    title: "Le suisse allemand",
+    lead: "Ce que c'est, pourquoi vous ne le comprenez pas alors que vous savez l'allemand — et quel dialecte se parle où.",
+    spokenTitle: "Parlé, pas écrit",
+    spokenBody: "Le suisse allemand est la langue parlée du quotidien — et la langue écrite entre gens qui se connaissent : SMS, WhatsApp, notes. Tout ce qui est officiel s'écrit en allemand standard suisse. Les deux en font partie, et qui ne maîtrise qu'un seul finit par envoyer un message en dialecte à son assurance.",
+    noStandardTitle: "Pas d'orthographe officielle",
+    noStandardBody: "Il n'existe pas d'orthographe officielle. Le même mot s'écrit différemment selon les personnes, et les deux ont raison. C'est pourquoi Heidi ne dira jamais que votre graphie est fausse — seulement comment nous l'écrivons.",
+    notOneTitle: "Pas une seule langue",
+    notOneBody: "Le suisse allemand n'est pas un dialecte unique, mais plusieurs. Les différences sautent aux oreilles d'un local et échappent totalement à un apprenant. Heidi vous enseigne le zurichois et le dit, plutôt que de faire comme s'il n'y en avait qu'un.",
+    areasTitle: "Les dialectes",
+    areasLead: "Les frontières dialectales ne suivent pas les frontières cantonales — d'où des points et non des surfaces. Les cantons sont indiqués parce que vous savez dans lequel vous êtes.",
+    cantons: "Cantons",
+    marksTitle: "Comment les reconnaître",
+    marksLead: "Des formes que le contrôle de Heidi distingue réellement. À gauche la forme locale, à droite celle de Zurich.",
+    marksNone: "Heidi ne sait pas encore reconnaître ce dialecte à des formes précises. Rien ici, plutôt que quelque chose de plausible.",
+    taught: "C'est ce que vous apprenez ici",
+    sourcesTitle: "Sources",
+    backToAll: "Tous les dialectes",
+  },
+
   grammar: {
     title: "Grammaire",
     lead: "Quatre choses qui rendent le zurichois difficile à suivre pour quelqu'un qui lit déjà l'allemand. Pas de leçons — seulement ce que vous allez entendre, et où ça coince.",
