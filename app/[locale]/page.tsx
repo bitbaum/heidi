@@ -7,6 +7,23 @@ import { Chat } from "./_components/chat";
 import { DialectFigure } from "./_components/dialect-figure";
 import { CorrespondenceFigure } from "./_components/correspondence-figure";
 import { Shell } from "./_components/page-shell";
+import { Dashboard } from "./_components/dashboard";
+import { auth, authEnabled } from "@/lib/auth";
+
+/**
+ * Dynamic, and EXPLICITLY so rather than by consequence.
+ *
+ * This page reads the session, which would normally opt it out of static
+ * rendering on its own — except that `authEnabled` is false when no OIDC
+ * secrets are present, so `auth()` is never called and Next sees no dynamic
+ * API. The build output then depends on whether a secret happened to be set
+ * when the build ran: static locally, dynamic on the box, or the reverse.
+ *
+ * A page that is static in one environment and dynamic in another is the same
+ * shape of bug as the middleware rewrite that took production down — green
+ * everywhere it was checked, wrong where it ran. So it is declared.
+ */
+export const dynamic = "force-dynamic";
 
 /**
  * The tool is the page. Not a marketing page with the product behind a button:
@@ -15,12 +32,31 @@ import { Shell } from "./_components/page-shell";
  *
  * The argument for the product sits underneath, for the visit where they are
  * deciding whether to trust it rather than trying to get through a Tuesday.
+ *
+ * SIGNED IN, THIS IS THE DASHBOARD. Somebody with an account does not need the
+ * pitch for a product they already use; they need their own words back. Same
+ * address, different page — which is what "Start" has to mean for it not to be
+ * a lie in the navigation.
+ *
+ * THE COST, STATED: reading the session here opts this route into dynamic
+ * rendering for everyone, and it is the `priority: 1` page a search engine
+ * fetches. Paid deliberately. The alternative was a middleware rewrite, which
+ * is what took production down for every signed-in visitor — `nextUrl.clone()`
+ * inherits the external protocol behind Caddy and Next dialled TLS at an http
+ * socket. A correct dynamic page beats a statically rendered 500, and crawlers
+ * are always signed out so the HTML they get is unchanged.
  */
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   const t = dict.home;
+
+  // `auth()` rather than a cookie check: this decides what somebody SEES, and
+  // the dashboard reads their conversations. A forged cookie must get the
+  // marketing page, not somebody else's page shaped like theirs.
+  const session = authEnabled ? await auth() : null;
+  if (session?.actorId) return <Dashboard locale={locale} />;
 
   return (
     <Shell>
