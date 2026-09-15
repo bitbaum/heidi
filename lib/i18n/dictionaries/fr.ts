@@ -12,6 +12,7 @@ export const fr: Dictionary = {
     chat: "Chat",
     grammar: "Grammaire",
     dialect: "Dialectes",
+    vocabulary: "Vocabulaire",
     method: "Méthode",
     contribute: "Participer",
     about: "À propos",
@@ -472,6 +473,24 @@ export const fr: Dictionary = {
    * up confidently wrong. Forms need no translation; the frame around them is
    * what is written here.
    */
+  /**
+   * The vocabulary page. The WORDS are in the variety pack — a form and its
+   * German equivalent are not in any language — and only the frame is here:
+   * a title, the note about which direction the page runs in, and a label per
+   * group.
+   */
+  vocabulary: {
+    title: "Les mots les plus utiles",
+    lead: "Pas les mots pour touristes, mais ceux sur lesquels une phrase se bloque : les petits, les constants, ceux qu'aucune règle de correspondance ne rattrape.",
+    note: "Sens : dialecte → allemand. Il s'agit ici de comprendre, pas d'écrire — ce que vous devriez écrire vous-même se trouve du côté des dialectes.",
+    groups: {
+      function: "Petits mots, grand effet",
+      verbs: "Les verbes qui reviennent sans cesse",
+      everyday: "Le quotidien",
+      greetings: "Salutations et politesse",
+    },
+  },
+
   dialect: {
     title: "Le suisse allemand",
     lead: "Ce que c'est, pourquoi vous ne le comprenez pas alors que vous savez l'allemand — et quel dialecte se parle où.",

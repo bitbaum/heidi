@@ -16,6 +16,7 @@ export type RouteKey =
   | "home"
   | "chat"
   | "dialect"
+  | "vocabulary"
   | "grammar"
   | "method"
   | "contribute"
@@ -69,6 +70,7 @@ export const ROUTES: readonly Route[] = [
   // the product works.
   { key: "grammar", segment: "grammar", group: "use", indexed: true, priority: 0.7 },
   { key: "dialect", segment: "dialect", group: "use", indexed: true, priority: 0.7 },
+  { key: "vocabulary", segment: "vocabulary", group: "use", indexed: true, priority: 0.7 },
   { key: "method", segment: "method", group: "why", indexed: true, priority: 0.8 },
   { key: "contribute", segment: "contribute", group: "project", indexed: true, priority: 0.6 },
   { key: "about", segment: "about", group: "project", indexed: true, priority: 0.5 },

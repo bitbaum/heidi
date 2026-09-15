@@ -61,12 +61,20 @@ export const SOURCES = {
    * info and we need to ensure it is all correct" is not solved by being
    * careful, it is solved by making carelessness fail the build.
    *
-   * The Schweizerisches Idiotikon belongs here too and is deliberately NOT
-   * added yet: it is the reference for WORD-level claims, and the vocabulary
-   * page that would cite it does not exist. A source defined before anything
-   * cites it is the stale reference waiting to be attached to the wrong claim
-   * — which the test below refuses, correctly.
+   * The Idiotikon is here for a different KIND of claim than the two atlases:
+   * an atlas maps where a form is spoken and says nothing about what it means,
+   * so a gloss cites the dictionary. It was deliberately held out until the
+   * vocabulary page existed, because the test below refuses a source nothing
+   * cites — correctly.
    */
+  "idiotikon": {
+    kind: "reference",
+    authors: "Antiquarische Gesellschaft in Zürich",
+    year: 1881,
+    title: "Schweizerisches Idiotikon: Wörterbuch der schweizerdeutschen Sprache",
+    venue: "Sixteen volumes, published from 1881 onwards and still in progress; the reference dictionary of Swiss German",
+    url: "https://www.idiotikon.ch/",
+  },
   "sds-atlas": {
     kind: "reference",
     authors: "Hotzenköcherle, Schläpfer, Trüb, Zinsli (eds.)",

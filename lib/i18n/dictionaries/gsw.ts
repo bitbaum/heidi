@@ -35,6 +35,7 @@ export const gsw: Dictionary = {
     chat: "Chat",
     grammar: "Grammatik",
     dialect: "Mundarte",
+    vocabulary: "Wortschatz",
     method: "Methode",
     contribute: "Mitmache",
     about: "Über öis",
@@ -497,6 +498,24 @@ export const gsw: Dictionary = {
    * up confidently wrong. Forms need no translation; the frame around them is
    * what is written here.
    */
+  /**
+   * The vocabulary page. The WORDS are in the variety pack — a form and its
+   * German equivalent are not in any language — and only the frame is here:
+   * a title, the note about which direction the page runs in, and a label per
+   * group.
+   */
+  vocabulary: {
+    title: "D wichtigschte Wörter",
+    lead: "Nöd d Wörter für Tourischte, sondern die, wo en Satz dra hänge bliibt: di churze, ständige, wo kei Lutregel hilft.",
+    note: "Richtig: Mundart → Dütsch. Da gaht's ums Verstah, nöd ums Schriibe — was Si sälber schriibe söttet, staht bi de Mundarte.",
+    groups: {
+      function: "Chliini Wörter, grossi Wirkig",
+      verbs: "Verbe wo ständig vorchömed",
+      everyday: "Alltag",
+      greetings: "Begrüessig und Höflichkeit",
+    },
+  },
+
   dialect: {
     title: "Schwiizerdütsch",
     lead: "Was es isch, werum Si's nöd verstönd, obwohl Si Dütsch chönd — und weli Mundart wo gschwätzt wird.",

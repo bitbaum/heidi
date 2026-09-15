@@ -289,6 +289,75 @@ export const ZURICH_GERMAN: VarietyPack = {
    * it is not a harder version of something they know, it is a different move.
    * Anything they could work out from German is deliberately absent.
    */
+  /**
+   * The words that actually block comprehension, and nothing that does not.
+   *
+   * Chosen by the same test as the grammar topics: what stops a person who
+   * already reads German. Content words are mostly cognate and the
+   * correspondences carry them — a reader who knows `k → ch` gets `Chind` for
+   * free — so listing nouns would be padding. What no correspondence rescues
+   * is the short constant stuff: negation, the quantifiers, `mir` meaning
+   * *wir*, and the dozen verbs that turn up in every other sentence.
+   *
+   * Deliberately NOT a phrasebook. Nobody fails to follow a Zurich lunch table
+   * because they cannot say "good evening".
+   *
+   * Sourced to the Idiotikon, the sixteen-volume reference dictionary of Swiss
+   * German, which is what a word-level claim needs and a dialect atlas is not.
+   */
+  vocabulary: [
+    // The short words. Individually tiny, collectively most of why a sentence
+    // is unfollowable.
+    { target: "nöd", bridge: "nicht", group: "function" },
+    { target: "au", bridge: "auch", group: "function" },
+    { target: "scho", bridge: "schon", group: "function" },
+    { target: "no", bridge: "noch", group: "function" },
+    { target: "nüme", bridge: "nicht mehr", group: "function" },
+    { target: "öppis", bridge: "etwas", group: "function" },
+    { target: "öpper", bridge: "jemand", group: "function" },
+    { target: "öppe", bridge: "etwa", group: "function" },
+    { target: "niene", bridge: "nirgends", group: "function" },
+    { target: "villicht", bridge: "vielleicht", group: "function" },
+    { target: "eifach", bridge: "einfach", group: "function" },
+    { target: "gäll", bridge: "nicht wahr", group: "function" },
+    // The one that silently breaks a whole sentence: a German reader takes
+    // `mir` for the dative "me" and loses the subject.
+    { target: "mir", bridge: "wir", group: "function" },
+    { target: "ächli", bridge: "ein bisschen", group: "function" },
+
+    { target: "si", bridge: "sein", group: "verbs" },
+    { target: "ha", bridge: "haben", group: "verbs" },
+    { target: "gah", bridge: "gehen", group: "verbs" },
+    { target: "cho", bridge: "kommen", group: "verbs" },
+    { target: "mache", bridge: "machen", group: "verbs" },
+    { target: "luege", bridge: "schauen", group: "verbs" },
+    { target: "säge", bridge: "sagen", group: "verbs" },
+    { target: "wüsse", bridge: "wissen", group: "verbs" },
+    { target: "chönne", bridge: "können", group: "verbs" },
+    { target: "müesse", bridge: "müssen", group: "verbs" },
+    // Both mean something else in German, which is worse than being unknown:
+    // a German reader understands them confidently and wrongly.
+    { target: "schaffe", bridge: "arbeiten", group: "verbs" },
+    { target: "poschte", bridge: "einkaufen", group: "verbs" },
+
+    { target: "Velo", bridge: "Fahrrad", group: "everyday" },
+    { target: "Znüni", bridge: "Vormittagssnack", group: "everyday" },
+    { target: "Zvieri", bridge: "Nachmittagssnack", group: "everyday" },
+    { target: "Güetzi", bridge: "Keks", group: "everyday" },
+    { target: "Rüebli", bridge: "Karotte", group: "everyday" },
+    { target: "Poulet", bridge: "Hähnchen", group: "everyday" },
+    { target: "Trottoir", bridge: "Bürgersteig", group: "everyday" },
+
+    { target: "Grüezi", bridge: "Guten Tag", group: "greetings" },
+    { target: "Hoi", bridge: "Hallo", group: "greetings" },
+    { target: "Salü", bridge: "Hallo", group: "greetings" },
+    { target: "Ade", bridge: "Auf Wiedersehen", group: "greetings" },
+    { target: "merci", bridge: "danke", group: "greetings" },
+    { target: "Exgüsi", bridge: "Entschuldigung", group: "greetings" },
+  ],
+
+  vocabularySources: ["idiotikon"],
+
   grammar: [
     {
       // The single biggest one. There is no simple past in speech at all, so

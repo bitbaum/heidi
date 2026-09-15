@@ -87,6 +87,7 @@ test("no source is defined but never cited", () => {
   // vouches for itself the same way, and a source used only there is being
   // used, not orphaned.
   for (const area of areasOf(VARIETY)) for (const id of area.sources) used.add(id);
+  for (const id of VARIETY.vocabularySources ?? []) used.add(id);
 
   const orphans = Object.keys(SOURCES).filter((id) => !used.has(id));
   assert.deepEqual(orphans, [], `defined but never cited: ${orphans.join(", ")}`);
