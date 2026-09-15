@@ -28,7 +28,20 @@ import { draftTransport } from "./chat/transports";
  * transport that posts the whole thread every time — which is also why this
  * surface still works with no database and no account.
  */
-export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function Chat({
+  locale,
+  dict,
+  dialect,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+  /**
+   * The variety being taught: its BCP-47 tag, so a screen reader does not read
+   * Züritüütsch with German phonology, and the pack's flagship line, offered as
+   * the first thing a visitor can press.
+   */
+  dialect: { tag: string; showcase?: string };
+}) {
   const t = dict.chat;
   const byok = useByok();
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -53,20 +66,23 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
   return (
     <section aria-label="Heidi" className="flex w-full flex-col">
-      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 pb-3">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>
-          {byok.ready && byok.config && (
-            <button
-              type="button"
-              onClick={() => setSheetOpen(true)}
-              className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-caps text-ok hover:text-fg-primary"
-            >
-              <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ok" />
-              {byok.config.model}
-            </button>
-          )}
-        </div>
+      {/* The instruction used to be the SECOND HALF OF THE PAGE SUBHEAD, three
+          hundred pixels above the box it describes, while the box itself was
+          captioned "EXPLANATIONS IN GERMAN" in 11px mono — a setting, announced
+          louder than the invitation. The sentence now sits on the thing it
+          tells you to use, at a size a person reads. */}
+      <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2 pb-2">
+        {!started && <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.placeholder}</p>}
+        {started && byok.ready && byok.config && (
+          <button
+            type="button"
+            onClick={() => setSheetOpen(true)}
+            className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-caps text-ok hover:text-fg-primary"
+          >
+            <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ok" />
+            {byok.config.model}
+          </button>
+        )}
         {started && (
           <button type="button" onClick={chat.reset} className="min-h-9 text-sm text-link underline underline-offset-4 hover:text-accent">
             {t.newChat}
@@ -107,7 +123,26 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         }}
       />
 
-      {!started && <Examples t={t} onPick={chat.send} />}
+      {/* Their placement, kept: the badge is a SETTING, and it was announcing
+          itself louder than the invitation when it sat above the box. Below,
+          and only before a conversation starts. */}
+      {!started && (
+        <div className="mt-2 flex flex-wrap items-center justify-end gap-x-3 gap-y-1">
+          <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>
+          {byok.ready && byok.config && (
+            <button
+              type="button"
+              onClick={() => setSheetOpen(true)}
+              className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-caps text-ok hover:text-fg-primary"
+            >
+              <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ok" />
+              {byok.config.model}
+            </button>
+          )}
+        </div>
+      )}
+
+      {!started && <Examples t={t} dialect={dialect} onPick={chat.send} />}
 
       {sheetOpen && (
         <ModelSheet
@@ -123,30 +158,58 @@ export function Chat({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 }
 
 /**
- * Three things worth pasting, BELOW the input rather than above it.
+ * The fastest route to the only moment that matters: a real Zurich sentence,
+ * decoded, in this visitor's own hands. Pressing one SENDS it.
  *
- * They used to sit between the intro and the composer, which put the one
- * control the whole page exists for about 700px down a phone screen — you had
- * to scroll past three examples of the problem to reach the thing that solves
- * it. Examples are a prompt for someone who has nothing to paste; someone who
- * does should meet the box first.
- *
- * This stays in the home page's own file: it is marketing copy, not chat
- * machinery, and no other surface wants it.
  */
-function Examples({ t, onPick }: { t: Dictionary["chat"]; onPick: (s: string) => void }) {
+function Examples({
+  t,
+  dialect,
+  onPick,
+}: {
+  t: Dictionary["chat"];
+  dialect: { tag: string; showcase?: string };
+  onPick: (s: string) => void;
+}) {
+  // Understand first, then say — the same order the product argues, and the
+  // reason the compose example is last rather than third. Interleaved, the one
+  // card without a dialect line read as a gap in the row instead of as the
+  // other half of what Heidi does.
+  const entries = [
+    ...(dialect.showcase ? [{ kind: "dialect" as const, text: dialect.showcase }] : []),
+    ...t.examples,
+  ].sort((a, b) => Number(a.kind === "compose") - Number(b.kind === "compose"));
+
   return (
-    <div className="mt-3">
+    <div className="mt-4">
       <h2 className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.suggestionsTitle}</h2>
-      <ul className="mt-2 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-        {t.examples.map((ex) => (
-          <li key={ex} className="sm:max-w-[22rem]">
+      <ul className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        {entries.map((ex) => (
+          <li key={ex.text}>
             <button
               type="button"
-              onClick={() => onPick(ex)}
-              className="h-full w-full rounded-control border border-border-subtle bg-surface-page px-3 py-2.5 text-left text-sm text-fg-secondary transition-colors hover:border-border-strong hover:text-fg-primary"
+              onClick={() => onPick(ex.text)}
+              className={`group flex h-full w-full flex-col justify-between gap-2 rounded-control border border-border-subtle p-3 text-left transition-colors hover:border-accent ${
+                ex.kind === "compose" ? "bg-surface-raised" : "bg-surface-page"
+              }`}
             >
-              {ex}
+              <span
+                // A dialect line is quoted in the variety's own language so it
+                // is read — by a person and by a screen reader — as Zurich
+                // German rather than as German with odd spelling.
+                {...(ex.kind === "dialect" ? { lang: dialect.tag } : {})}
+                className={
+                  ex.kind === "dialect"
+                    ? "font-heading text-base font-semibold leading-snug tracking-display text-dialect"
+                    : "text-sm leading-relaxed text-fg-secondary"
+                }
+              >
+                {ex.kind === "dialect" ? `«${ex.text}»` : ex.text}
+              </span>
+              <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-caps text-fg-muted group-hover:text-accent">
+                {ex.kind === "dialect" ? t.exampleUnderstand : t.exampleCompose}
+                <span aria-hidden="true">&rarr;</span>
+              </span>
             </button>
           </li>
         ))}

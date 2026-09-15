@@ -60,11 +60,8 @@ export const gsw: Dictionary = {
   },
 
   home: {
-    eyebrow: "Mir fönd a mit Züri",
     headline: "Schwiizerdütsch verstaa. Dänn schriibe wie öpper vo do.",
-    sub: "Für alli wo Dütsch chönd und am Mittagstisch trotzdem nüüt verstönd. Füged ii, was Si becho händ — oder schriibed, was Si wänd säge.",
-    showcaseLabel: "Heisst uf Hochdütsch",
-    showcaseMeaning: "Kommst du heute Abend auch noch vorbei?",
+    sub: "Für alli wo Dütsch chönd und am Mittagstisch trotzdem nüüt verstönd.",
     dialectTitle: "Mir foönd a mit Züri",
     dialectBody:
       "Schwiizerdütsch isch kei Sprach, sondern e Familie. Heidi cha hüt Züritüütsch würklich guet und seit Ihne das lieber, als so z tue, als ob si alles chönnti. Grad drum wiist d Prüefig Berner Forme zrugg: nöd wil Bärndütsch falsch wär, sondern wil mir grad Züri unterrichted. Wiiteri Dialekt chömed dezue — jede mit eigene Stimme und eigener Prüefig.",
@@ -92,10 +89,12 @@ export const gsw: Dictionary = {
     send: "Schicke",
     thinking: "Heidi liist mit …",
     you: "Si",
+    exampleUnderstand: "Was heisst das?",
+    exampleCompose: "Für mi schriibe",
     examples: [
-      "Im Kauz scho, hät mer nöd so gfalle. Du au?",
-      "Säg ihne, dass i zäh Minute spöter chum — fründlich.",
-      "Häsch du am Samschtig scho öppis vor?",
+      { kind: "dialect", text: "Im Kauz scho, hät mer nöd so gfalle. Du au?" },
+      { kind: "compose", text: "Säg ihne, dass i zäh Minute spöter chum — fründlich." },
+      { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],
     glossTitle: "Wörter wo sölled bliibe",
     suggestionsTitle: "Zum Uusprobiere",
