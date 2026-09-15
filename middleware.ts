@@ -1,6 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { DEFAULT_LOCALE, LOCALES, isLocale, negotiate } from "./lib/i18n/locales";
-import { SESSION_COOKIES, landingFor } from "./lib/i18n/landing";
 
 /**
  * Every page lives under a locale segment, so a bare path has to pick one.
@@ -17,28 +16,40 @@ import { SESSION_COOKIES, landingFor } from "./lib/i18n/landing";
 const COOKIE = "heidi_locale";
 const ONE_YEAR = 60 * 60 * 24 * 365;
 
+/**
+ * NOTHING HERE REWRITES. Read this before adding one.
+ *
+ * A rewrite of the locale root to the dashboard for signed-in visitors took
+ * the site down in production, and every test passed — including a production
+ * build exercised in a browser, because the failure needs a real reverse proxy
+ * to appear.
+ *
+ * `request.nextUrl.clone()` inherits the EXTERNAL protocol behind Caddy, so
+ * the cloned URL reads `https://localhost:4025/...` while the app itself
+ * listens on plain http at that port. Next sees an origin it does not consider
+ * its own, treats the rewrite as an external proxy target, and dials TLS at an
+ * http socket:
+ *
+ *   Failed to proxy https://localhost:4025/de/portal
+ *   EPROTO ... tls_validate_record_header: wrong version number
+ *
+ * Every signed-out visitor was fine, which is why it reached production: the
+ * rewrite only ran when a session cookie was present, and neither CI nor a
+ * local `pnpm start` has a reverse proxy in front of it.
+ *
+ * "Show a different page at the same address" is still the right idea — it is
+ * just a decision for the PAGE to make, where no URL is reconstructed and no
+ * protocol is guessed.
+ */
+
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const first = pathname.split("/")[1] ?? "";
   if (isLocale(first)) {
-    /**
-     * Signed in, the locale root IS the dashboard — a REWRITE, so the address
-     * stays `/de` and the nav item labelled "Start" still means start.
-     *
-     * A redirect here was the first attempt and was wrong: it sent people to
-     * `/chat`, so pressing Start landed you somewhere that was not the start
-     * page. See `lib/i18n/landing.ts` for the rest of the reasoning; only the
-     * cookie read lives here, and it reads presence alone.
-     */
-    const signedIn = SESSION_COOKIES.some((name) => Boolean(request.cookies.get(name)?.value));
-    const landing = landingFor(pathname, signedIn);
-
     // Already localised. Remember it, so a later bare path lands here again.
-    const target = request.nextUrl.clone();
-    if (landing) target.pathname = landing;
-    const response = landing ? NextResponse.rewrite(target) : NextResponse.next();
+    const response = NextResponse.next();
     if (request.cookies.get(COOKIE)?.value !== first) {
       response.cookies.set(COOKIE, first, { maxAge: ONE_YEAR, sameSite: "lax", path: "/" });
     }
