@@ -1,5 +1,6 @@
 import type { Answer, Gloss, Suggestion, Tone } from "./types.ts";
 import { TONES } from "./types.ts";
+import { decodeMoves } from "./moves.ts";
 
 /**
  * An `Answer` read back out of storage, checked rather than asserted.
@@ -84,6 +85,10 @@ export function decodeAnswer(value: unknown): Answer | null {
     suggestions: Array.isArray(a.suggestions)
       ? a.suggestions.map(suggestion).filter((s): s is Suggestion => s !== null)
       : [],
+    // Same rule as `tone`: an id we no longer recognise is dropped rather
+    // than rendered, because a chip whose label cannot be looked up is a blank
+    // button that does nothing when pressed.
+    ...(decodeMoves(a.next).length ? { next: decodeMoves(a.next) } : {}),
     ...(str(a.note) ? { note: a.note as string } : {}),
     // Provenance. An answer with no model attached is a rumour, so an old row
     // missing it says so rather than borrowing today's model's name.

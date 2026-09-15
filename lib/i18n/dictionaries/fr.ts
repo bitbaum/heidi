@@ -122,6 +122,26 @@ export const fr: Dictionary = {
       menuOpen: "Conversations",
       menuClose: "Fermer",
     },
+    /**
+     * The one-tap follow-ups. `label` is what the chip says; `say` is the
+     * message it sends, which lands in the transcript as an ordinary turn —
+     * a follow-up you cannot see is a conversation you cannot re-read.
+     *
+     * The ids come from `lib/domain/chat/moves.ts` and are a CLOSED set. The
+     * model chooses which to offer; it never writes these words, because a
+     * label the model invented arrives in whatever language it felt like and
+     * can promise something pressing it does not do.
+     */
+    moves: {
+      title: "Et maintenant ?",
+      reply: { label: "Écrire une réponse", say: "Comment est-ce que je réponds à ça ?" },
+      shorter: { label: "Plus court", say: "Dites-le plus brièvement." },
+      warmer: { label: "Plus chaleureux", say: "Dites-le un peu plus chaleureusement." },
+      firmer: { label: "Plus ferme", say: "Dites-le plus fermement — j'ai déjà demandé deux fois." },
+      formal: { label: "Plus formel", say: "Écrivez-le plus formellement, pour un message officiel." },
+      casual: { label: "Plus détendu", say: "Dites-le plus simplement, entre amis." },
+      simpler: { label: "Plus simple", say: "Dites-le avec des mots plus simples." },
+    },
   },
 
   model: {

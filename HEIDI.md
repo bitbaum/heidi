@@ -438,14 +438,37 @@ separate the words they kept from the forms they already knew. Derived, not
 tracked: no lookup counter and no record of what a particular person failed to
 understand, because six kept words that all turn `k` into `ch` already say it.
 
+**And the answer now proposes what to do next.** It used to end and leave the
+learner holding *"…and now what?"* — where every way out cost them a sentence
+they had to compose ("can you make that shorter", "how would I reply to this"),
+and composing a request ABOUT an answer is a harder job than reading it. Most
+people did not bother, which is why the product felt like a lookup rather than
+a conversation. The biggest gap it closes is the most obvious one: somebody
+pastes a message a Swiss colleague sent them, Heidi decodes it beautifully, and
+never asks whether they need to ANSWER it.
+
+Two or three chips, each one tap, chosen by the model for that exchange. The
+rephrase axes widened from two to six, because *shorter* and *warmer* are not
+what people most often need — *firmer* is what you want when your landlord has
+ignored you twice, and *formal* is what an email to an employer needs.
+
+**The vocabulary is closed, and that is the whole design.** The model picks ids
+from a fixed list; the dictionaries supply the wording in seven languages. A
+label the model wrote itself would arrive in whatever language it felt like,
+could promise something pressing it does not do, and could not be tested —
+there is no assertion to write about a string that differs every time. A test
+asserts every id has wording in every locale, so adding a move without its
+seven translations fails the build rather than rendering a blank button in six
+languages. Pressing a chip sends an ORDINARY message, visible in the
+transcript: a follow-up you cannot see is a conversation you cannot re-read.
+
 **Next**, in order: capture what the learner did not know into a learner model —
 **the existing Heidi GPT generates that evidence daily and throws all of it
 away**, and every question asked of it is a labelled datapoint about what a real
-learner could not understand; then the answer proposing the next move, so a
-learner never has to compose a meta-request to get the obvious follow-up; then
-Swiss Standard German as a first-class output, since Zurich is diglossic and an
-email to a landlord is not written in dialect; then the listening lab, once
-there are recordings to put in it.
+learner could not understand; then Swiss Standard German as a first-class
+output, since Zurich is diglossic and an email to a landlord is not written in
+dialect; then a word in context and a grammar area an answer can link into;
+then the listening lab, once there are recordings to put in it.
 
 Two loops explain Heidi better than any feature list:
 

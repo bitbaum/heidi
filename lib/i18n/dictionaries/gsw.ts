@@ -145,6 +145,26 @@ export const gsw: Dictionary = {
       menuOpen: "Gspräch",
       menuClose: "Zuemache",
     },
+    /**
+     * The one-tap follow-ups. `label` is what the chip says; `say` is the
+     * message it sends, which lands in the transcript as an ordinary turn —
+     * a follow-up you cannot see is a conversation you cannot re-read.
+     *
+     * The ids come from `lib/domain/chat/moves.ts` and are a CLOSED set. The
+     * model chooses which to offer; it never writes these words, because a
+     * label the model invented arrives in whatever language it felt like and
+     * can promise something pressing it does not do.
+     */
+    moves: {
+      title: "Und jetz?",
+      reply: { label: "Antwort schriibe", say: "Wie antworte ich da druf?" },
+      shorter: { label: "Chürzer", say: "Fasseds chürzer." },
+      warmer: { label: "Wärmer", say: "Sageds echli herzlicher." },
+      firmer: { label: "Bestimmter", say: "Sageds bestimmter — ich han scho zweimal gfragt." },
+      formal: { label: "Förmlicher", say: "Schriibeds förmlicher, für e offizielli Nachricht." },
+      casual: { label: "Lockerer", say: "Sageds lockerer, under Fründe." },
+      simpler: { label: "Eifacher", say: "Sageds mit eifachere Wörter." },
+    },
   },
 
   model: {

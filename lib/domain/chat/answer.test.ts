@@ -94,3 +94,23 @@ test("one enormous word is truncated rather than emptied", () => {
   assert.ok(title.length <= MAX_TITLE + 1);
   assert.ok(title.startsWith("xxx"));
 });
+
+test("next moves survive the round trip through jsonb", () => {
+  const a = decodeAnswer({
+    text: "Sie fragen, ob jemand vorbeikommt.",
+    next: [{ id: "reply" }, { id: "rephrase", axis: "firmer" }],
+  });
+  assert.deepEqual(a?.next, [{ id: "reply" }, { id: "rephrase", axis: "firmer" }]);
+});
+
+test("a move the model invented is dropped, not rendered", () => {
+  // Same rule as `tone`: a chip whose label cannot be looked up is a blank
+  // button that does nothing when pressed, which is worse than no button.
+  const a = decodeAnswer({ text: "x", next: [{ id: "book-a-flight" }, { id: "rephrase", axis: "sarcastic" }] });
+  assert.equal(a?.next, undefined, "no valid moves means no `next` at all, not an empty row of chips");
+});
+
+test("an answer written before moves existed simply has none", () => {
+  const a = decodeAnswer({ text: "x", glosses: [], suggestions: [] });
+  assert.equal(a?.next, undefined);
+});

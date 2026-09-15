@@ -28,6 +28,7 @@ export function Transcript({
   busy,
   nameFor,
   onRetry,
+  onMove,
   endRef,
   className,
 }: {
@@ -39,6 +40,11 @@ export function Transcript({
   /** Resolve another human's display name. Absent in a two-party chat. */
   nameFor?: (actorId: string) => string;
   onRetry?: (message: ChatMessage) => void;
+  /**
+   * Send a follow-up on the reader's behalf, for the chips under an answer.
+   * Absent on a surface that cannot send, where chips would be dead buttons.
+   */
+  onMove?: (say: string) => void;
   endRef?: RefObject<HTMLDivElement | null>;
   className?: string;
 }) {
@@ -58,7 +64,7 @@ export function Transcript({
                 // from THIS message rather than from the end matters: taking
                 // the last question would tag every kept word in a long thread
                 // with whatever was asked most recently.
-                <AnswerView answer={m.answer} t={t} context={askedBefore(messages, i, me)} />
+                <AnswerView answer={m.answer} t={t} context={askedBefore(messages, i, me)} onMove={onMove} />
               ) : (
                 <p className="whitespace-pre-wrap text-base leading-relaxed text-fg-primary">{m.body}</p>
               )}
