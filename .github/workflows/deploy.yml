@@ -18,3 +18,15 @@ jobs:
       app: heidi
     secrets:
       HETZNER_SSH_PRIVATE_KEY: ${{ secrets.HETZNER_SSH_PRIVATE_KEY }}
+
+  # A green deploy is not a working site. This requests every page a visitor
+  # can reach, twice — once with a session cookie and once without — because a
+  # middleware rewrite once took the locale root down for every signed-in
+  # visitor while the test suite, the build and a browser check were all green.
+  # See scripts/smoke.sh for what the cookie does and does not prove.
+  smoke:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash scripts/smoke.sh
