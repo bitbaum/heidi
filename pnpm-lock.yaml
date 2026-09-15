@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@bitbaum/ai-kit':
-        specifier: ^0.15.0
-        version: 0.15.0(react@19.2.4)
+        specifier: ^1.8.0
+        version: 1.8.0(react@19.2.4)
       drizzle-orm:
         specifier: ^0.45.2
         version: 0.45.2(@types/pg@8.23.1)(pg@8.23.0)
@@ -154,8 +154,8 @@ packages:
     resolution: {integrity: sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==}
     engines: {node: '>=6.9.0'}
 
-  '@bitbaum/ai-kit@0.15.0':
-    resolution: {integrity: sha512-anYal45ZeoyF10HbtLVv3o1DPJGDNetbVjtdC6wHHVRW/IQIep4Y95tCKUW+Ftr5Gd6tLRalFfgZAsRdBewqUw==}
+  '@bitbaum/ai-kit@1.8.0':
+    resolution: {integrity: sha512-R4Snee/IPPJRHGZX65cTd748Bb5flaUS3J8p4bJsP6nwMLiYs9lTbcmj7FIGZL0itz2FnNbtciWKptNV2LU1AA==}
     engines: {node: '>=20'}
     peerDependencies:
       react: '>=18'
@@ -2845,7 +2845,7 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@bitbaum/ai-kit@0.15.0(react@19.2.4)':
+  '@bitbaum/ai-kit@1.8.0(react@19.2.4)':
     dependencies:
       ai-forms: 0.1.2(react@19.2.4)
     optionalDependencies:
