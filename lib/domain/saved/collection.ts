@@ -125,6 +125,9 @@ export function decode(raw: string): SavedCollection | null {
         ...(typeof w.step === "number" && Number.isFinite(w.step) ? { step: w.step } : {}),
         ...(typeof w.dueAt === "string" ? { dueAt: w.dueAt } : {}),
         ...(typeof w.reviewedAt === "string" ? { reviewedAt: w.reviewedAt } : {}),
+        ...(Array.isArray(w.examples) && w.examples.some((e) => typeof e === "string")
+          ? { examples: w.examples.filter((e): e is string => typeof e === "string").slice(0, 2) }
+          : {}),
       });
     }
     return { version: SAVED_VERSION, words: words.slice(0, MAX_WORDS) };

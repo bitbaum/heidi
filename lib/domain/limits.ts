@@ -42,6 +42,17 @@ export const modelCheck = slidingWindow({ limit: 6, windowMs: 5 * 60_000 });
 export const dictation = slidingWindow({ limit: 20, windowMs: 5 * 60_000 });
 
 /**
+ * Sentences generated for a word somebody just kept.
+ *
+ * Higher than the chat limit because it is a much smaller call — about 174
+ * tokens against 2,234 — and because it fires as a side effect of pressing
+ * save, which a learner working through a long message does several times in a
+ * row. Rationing it at chat rates would punish exactly the behaviour the
+ * feature exists to encourage.
+ */
+export const example = slidingWindow({ limit: 60, windowMs: 5 * 60_000 });
+
+/**
  * Making and joining study groups.
  *
  * Tight, because both write rows nobody asked for: a script could otherwise

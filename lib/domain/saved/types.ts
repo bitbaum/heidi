@@ -58,6 +58,18 @@ export type SavedWord = {
   dueAt?: string;
   /** ISO 8601. When it was last asked. */
   reviewedAt?: string;
+
+  /**
+   * One or two sentences using this word somewhere OTHER than where it was
+   * found — see `example.ts`. Additive and optional like the review fields, so
+   * no version bump: a word saved before this existed simply shows the context
+   * it came from, which is what it did before.
+   *
+   * Generated once, at save time, and stored. Regenerating on every review
+   * would spend a model call to show the same learner the same sentence, and
+   * would make the review surface need a network.
+   */
+  examples?: string[];
 };
 
 /**

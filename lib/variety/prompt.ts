@@ -206,3 +206,34 @@ export function systemPrompt(pack: VarietyPack, explainIn = "English"): string {
     .filter(Boolean)
     .join("\n");
 }
+
+/**
+ * A cheap prompt for one thing: meeting a kept word again.
+ *
+ * DELIBERATELY NOT `systemPrompt`. That one is 2,234 tokens — it carries the
+ * modes, the gloss contract, the suggestion rules, the next-move vocabulary
+ * and the whole forbidden-forms list, because an answer needs all of it. Two
+ * example sentences need almost none of it, and sending the big prompt would
+ * cost roughly ten times as much for a job that is a fraction of the size.
+ *
+ * The forbidden forms ARE kept, in short. They are the one part the gate will
+ * reject, so omitting them just means generating text that gets thrown away.
+ */
+export function examplePrompt(pack: VarietyPack, word: { target: string; bridge: string }): string {
+  const avoid = forbiddenExamples(pack).slice(0, 12);
+
+  return [
+    `Write two short, natural ${pack.name} sentences using the word "${word.target}".`,
+    "Rules:",
+    `- Each sentence is ONE line of everyday ${pack.name}, at most about twelve words.`,
+    `- The word "${word.target}" must appear in both, unchanged.`,
+    "- Ordinary situations a person would actually be in. No dictionary sentences,",
+    "  no definitions, and do not explain the word — they already know what it",
+    `  means (${word.bridge}). The point is meeting it somewhere new.`,
+    "- Two DIFFERENT situations. The same sentence twice is one example.",
+    avoid.length ? `- Never write: ${avoid.join(", ")}.` : "",
+    'Answer as JSON and nothing else: { "examples": ["…", "…"] }',
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
