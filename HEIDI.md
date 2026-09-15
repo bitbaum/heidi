@@ -357,9 +357,21 @@ instead of a new query with no past.
 
 It answers first and completely, because at 08:55 before a meeting someone
 needs the message decoded, not a lesson; the words worth keeping sit underneath
-and never block the thing they came for. Dictation is the browser's own
-recogniser — free, instant, no audio leaves the device, and explicitly NOT a
-claim to transcribe dialect, which nothing does well.
+and never block the thing they came for.
+
+**Dictation prefers the browser's own recogniser** — free, instant, and no
+audio leaves the device. But that API is a promise the browser does not always
+keep: on Chromium builds without Google's speech service it accepts `start()`
+and never fires an event, and Firefox does not implement it at all. So there is
+a server fallback, and since 2026-09-15 it walks a CHAIN through
+`transcribe()` in `@bitbaum/ai-kit` rather than being one `fetch` at one vendor
+with one key. That function was added upstream in the same week, because the
+fleet had three copies of the hand-rolled shape and the package that owns model
+routing had the endpoint declared in its registry with nothing behind it.
+
+Either way it is explicitly NOT a claim to transcribe DIALECT, which nothing
+does well — it transcribes what the learner wants to SAY, in a language they
+already have, which is the job the browser was supposed to do. §8 binds this.
 
 **Two packages, each doing its own job.** `threadkit` owns the thread: who
 participates, what each may see, and *whether the assistant speaks at all*.
