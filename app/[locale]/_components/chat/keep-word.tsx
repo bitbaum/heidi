@@ -3,6 +3,7 @@
 import type { Gloss } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
 import { useSaved } from "../use-saved";
+import { useByok } from "../use-byok";
 
 /**
  * Keep a word, or let go of one.
@@ -28,6 +29,9 @@ export function KeepWord({
   context?: string;
 }) {
   const saved = useSaved();
+  // Forwarded so the example sentences are generated on the model they
+  // brought, when they brought one — same key, same quality, their bill.
+  const byok = useByok();
   // The bridge form is what makes a word reviewable. `standard` is the
   // bridge-language equivalent; `english` is the explanation in the reader's
   // language, which is the honest fallback when there is no single equivalent.
@@ -42,7 +46,9 @@ export function KeepWord({
   return (
     <button
       type="button"
-      onClick={() => (kept ? saved.forget(gloss.form) : saved.save({ target: gloss.form, bridge, context }))}
+      onClick={() =>
+        kept ? saved.forget(gloss.form) : saved.save({ target: gloss.form, bridge, context }, byok.config)
+      }
       aria-pressed={kept}
       aria-label={`${kept ? t.savedWord : t.saveWord}: ${gloss.form}`}
       title={kept ? t.savedWord : t.saveWord}

@@ -7,6 +7,7 @@ import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { DISPLAY } from "@/lib/variety/display";
 import { useGrade, useReview } from "./use-review";
+import type { ReviewWord } from "@/lib/domain/saved/review";
 
 /**
  * The review surface: one word, asked rather than shown.
@@ -87,9 +88,19 @@ export function ReviewPanel({ t, locale }: { t: Dictionary["review"]; locale: Lo
           {current.target}
         </p>
 
-        {current.context && (
+        {/* A SENTENCE THE WORD LIVES IN, and a different one each time where we
+            have the choice.
+
+            The word is shown alone above; seen only ever in the sentence it was
+            first found in, it gets learned attached to that sentence rather
+            than learned. Rotating on the review count means a word met four
+            times has been met in more than one place, which is the thing
+            varied input actually does. Falls back to the original sentence,
+            which is what this showed before examples existed, and to nothing
+            at all for a single-word lookup that never had one. */}
+        {sentenceFor(current) && (
           <p lang={DISPLAY.tag} className="mt-2 text-sm italic leading-relaxed text-fg-muted">
-            «{current.context}»
+            «{sentenceFor(current)}»
           </p>
         )}
 
@@ -165,4 +176,21 @@ function Empty({ title, hint, children }: { title: string; hint: string; childre
       {children}
     </div>
   );
+}
+
+/**
+ * Which sentence to show under the prompt.
+ *
+ * Generated examples first, rotating by how many times the word has come back,
+ * so the second review is not a re-run of the first. `step` is used rather
+ * than a random pick because a card that changes on every re-render is a card
+ * that changes while you are reading it.
+ */
+function sentenceFor(word: ReviewWord): string | undefined {
+  const examples = word.examples ?? [];
+  if (examples.length > 0) {
+    const seen = typeof word.step === "number" && Number.isFinite(word.step) ? Math.max(0, Math.trunc(word.step)) : 0;
+    return examples[seen % examples.length];
+  }
+  return word.context;
 }

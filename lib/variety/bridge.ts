@@ -1,4 +1,9 @@
-import type { Bridge, VarietyPack, VarietyRule } from "./pack.ts";
+// `siblingOf` lives in pack.ts, where the prompt already imports it from. A
+// second copy here was a straight duplicate — two answers to "which bridge do
+// we mean" that could drift apart.
+import { siblingOf, type VarietyPack, type VarietyRule } from "./pack.ts";
+
+export { siblingOf };
 
 /**
  * The bridge Heidi can also WRITE in, as opposed to merely translate from.
@@ -16,11 +21,6 @@ import type { Bridge, VarietyPack, VarietyRule } from "./pack.ts";
  * behaviour with no code change — the same discipline the rest of `lib/variety`
  * already enforces.
  */
-
-/** The first `sibling` bridge, or undefined for a pack that has none. */
-export function siblingOf(pack: VarietyPack): Bridge | undefined {
-  return pack.bridges.find((b) => b.relation === "sibling");
-}
 
 /**
  * The gate for that bridge, or nothing.
