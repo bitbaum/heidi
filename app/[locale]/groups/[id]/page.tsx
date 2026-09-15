@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { auth, authEnabled } from "@/lib/auth";
+import { auth, authEnabled, signIn } from "@/lib/auth";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
@@ -59,17 +59,38 @@ export default async function GroupPage({
   const session = await auth();
   const actorId = session?.actorId;
   if (!actorId) {
+    // A group URL is a link someone was GIVEN, so the person opening it signed
+    // out is usually a member arriving from a message — and this page used to
+    // tell them to sign in while offering no way to do it, under a heading that
+    // said "Study groups" twice. Its one link went to the portal, which throws
+    // away which group they were coming for.
+    //
+    // The invite page already had this right; the same server action runs here,
+    // with the group id in `redirectTo` so the round trip through OrangeCat
+    // lands them where they were going. A non-member still gets notFound()
+    // afterwards, exactly as before — signing in is not membership, and the
+    // copy deliberately does not promise an invitation it cannot confirm.
     return (
       <Shell>
-        <PageHeader eyebrow={t.title} title={t.title} />
+        <PageHeader title={t.title} lead={t.lead} />
         <Section>
-          <p className="max-w-measure text-base text-fg-secondary">{t.signInFirst}</p>
-          <Link
-            href={href(locale, "portal")}
-            className="mt-4 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
-          >
-            {t.back}
-          </Link>
+          <div className="max-w-measure rounded-control border border-border-strong bg-surface-raised px-4 py-5">
+            <p className="text-base leading-relaxed text-fg-secondary">{t.signInFirst}</p>
+            <form
+              className="mt-4"
+              action={async () => {
+                "use server";
+                await signIn("orangecat", { redirectTo: href(locale, `groups/${id}`) });
+              }}
+            >
+              <button
+                type="submit"
+                className="inline-flex min-h-11 items-center rounded-control bg-accent px-6 font-medium text-on-accent hover:opacity-90"
+              >
+                {dict.auth.signInWith}
+              </button>
+            </form>
+          </div>
         </Section>
       </Shell>
     );
