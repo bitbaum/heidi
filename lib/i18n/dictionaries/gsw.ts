@@ -33,8 +33,6 @@ export const gsw: Dictionary = {
   nav: {
     home: "Afang",
     method: "Methode",
-    research: "Forschig",
-    check: "Dialekt-Prüefig",
     contribute: "Mitmache",
     about: "Über öis",
     portal: "Min Bereich",
@@ -86,6 +84,7 @@ export const gsw: Dictionary = {
   },
 
   chat: {
+    emptyTitle: "Frag d Heidi",
     placeholder: "Füged ii, was Si becho händ — oder schriibed, was Si wänd säge.",
     composer: "Nachricht a Heidi",
     saveWord: "Wort merke",
@@ -93,7 +92,6 @@ export const gsw: Dictionary = {
     send: "Schicke",
     thinking: "Heidi liist mit …",
     you: "Si",
-    emptyTitle: "Fröged Heidi",
     examples: [
       "Im Kauz scho, hät mer nöd so gfalle. Du au?",
       "Säg ihne, dass i zäh Minute spöter chum — fründlich.",
@@ -211,6 +209,7 @@ export const gsw: Dictionary = {
   ],
 
   method: {
+    contents: "Uf dere Site",
     title: "D Methode",
     lead: "Heidi isch nach dem baut, was d Forschig tatsächlich zeigt — und nöd nach dem, was sich als Sprachkurs guet verchauft. Das füehrt zu es paar Entscheidige, wo uf de erst Blick komisch wirked.",
     sections: [

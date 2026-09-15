@@ -195,7 +195,10 @@ test("route segments are the same in every language", () => {
     // `check` was removed as a page: it asked the visitor to paste Zurich
     // German, which is the one thing Heidi's learner cannot yet produce. The
     // rule list lives on `method` now, and `/:locale/check` redirects there.
-    ["", "method", "research", "contribute", "about", "portal", "settings"],
+    // `research` merged into `method`: it was the evidence FOR the method, and
+    // a reader met the two as peers with no way to tell which was which.
+    // /:locale/research redirects to /:locale/method#facts.
+    ["", "method", "contribute", "about", "portal", "settings"],
   );
 });
 

@@ -69,7 +69,9 @@ test("Swiss German is a distinct translation, not a copy of the German", () => {
   const de = getDictionary("de");
   const gsw = getDictionary("gsw");
   assert.notEqual(gsw.home.headline, de.home.headline);
-  assert.notEqual(gsw.nav.check, de.nav.check);
+  // "Methode" is spelled the same in both, which is why this asserts on a
+  // word that actually differs rather than one that happens not to.
+  assert.notEqual(gsw.nav.home, de.nav.home);
   assert.notEqual(gsw.settings.title, de.settings.title);
 });
 

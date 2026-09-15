@@ -10,8 +10,6 @@ export const it: Dictionary = {
   nav: {
     home: "Inizio",
     method: "Metodo",
-    research: "Ricerca",
-    check: "Verifica",
     contribute: "Partecipare",
     about: "Chi siamo",
     portal: "Il mio spazio",
@@ -63,6 +61,7 @@ export const it: Dictionary = {
   },
 
   chat: {
+    emptyTitle: "Chieda a Heidi",
     placeholder: "Incollate quello che avete ricevuto — o scrivete quello che volete dire.",
     composer: "Messaggio a Heidi",
     saveWord: "Tenere questa parola",
@@ -70,7 +69,6 @@ export const it: Dictionary = {
     send: "Invia",
     thinking: "Heidi sta leggendo …",
     you: "Voi",
-    emptyTitle: "Chiedete a Heidi",
     examples: [
       "Im Kauz scho, hät mer nöd so gfalle. Du au?",
       "Di' loro che arrivo dieci minuti più tardi — gentilmente.",
@@ -147,6 +145,7 @@ export const it: Dictionary = {
   ],
 
   method: {
+    contents: "In questa pagina",
     title: "Il metodo",
     lead: "Heidi è costruita su ciò che la ricerca mostra davvero, non su ciò che si vende bene come corso di lingua. Questo porta ad alcune decisioni che a prima vista sorprendono.",
     sections: [

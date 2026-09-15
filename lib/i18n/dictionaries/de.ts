@@ -29,8 +29,6 @@ export const de = {
   nav: {
     home: "Start",
     method: "Methode",
-    research: "Forschung",
-    check: "Dialekt-Check",
     contribute: "Mitmachen",
     about: "Über uns",
     portal: "Mein Bereich",
@@ -82,6 +80,7 @@ export const de = {
   },
 
   chat: {
+    emptyTitle: "Fragen Sie Heidi",
     placeholder: "Fügen Sie ein, was Sie bekommen haben — oder schreiben Sie, was Sie sagen möchten.",
     composer: "Nachricht an Heidi",
     saveWord: "Wort merken",
@@ -89,7 +88,6 @@ export const de = {
     send: "Senden",
     thinking: "Heidi liest mit …",
     you: "Sie",
-    emptyTitle: "Fragen Sie Heidi",
     examples: [
       "Im Kauz scho, hät mer nöd so gfalle. Du au?",
       "Sag ihnen, dass ich zehn Minuten später komme — freundlich.",
@@ -166,6 +164,7 @@ export const de = {
   ],
 
   method: {
+    contents: "Auf dieser Seite",
     title: "Die Methode",
     lead: "Heidi ist nach dem gebaut, was die Forschung tatsächlich zeigt — und nicht nach dem, was sich als Sprachkurs gut verkauft. Das führt zu ein paar Entscheidungen, die auf den ersten Blick seltsam wirken.",
     sections: [

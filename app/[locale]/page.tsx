@@ -150,7 +150,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             {t.methodLink}
           </Link>
           <Link
-            href={href(locale, "research")}
+            // Research merged into Method: the evidence is the argument FOR
+            // the method, not a peer of it. The anchor keeps the link honest.
+            href={`${href(locale, "method")}#facts`}
             className="inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
           >
             {t.researchLink}
