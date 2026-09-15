@@ -37,11 +37,28 @@ export type Gloss = {
   rule: string;
 };
 
+/**
+ * Which variety a sendable line is IN.
+ *
+ * `target` is the dialect. `bridge` is Swiss Standard German — the written
+ * half of a diglossic pair, and the one an email to a landlord, a doctor or an
+ * employer is actually written in.
+ *
+ * This field exists because the gate has to know which standard to judge
+ * against. Without it a Swiss Standard German line goes through the DIALECT
+ * gate, which flags it as not-Zurich-German — correctly, and uselessly,
+ * because it was never meant to be. The learner would be shown a warning on
+ * the one line that was right for their situation.
+ */
+export type SuggestionVariety = "target" | "bridge";
+
 /** Something sendable. `clean` is the deterministic gate's verdict, not the model's. */
 export type Suggestion = {
   label: string;
   text: string;
   english: string;
+  /** Absent means `target` — the overwhelming majority, and what old rows are. */
+  variety?: SuggestionVariety;
   clean: boolean;
   /** Why it is not clean. Shown, not hidden — drift we cannot see is drift we ship. */
   flags: string[];

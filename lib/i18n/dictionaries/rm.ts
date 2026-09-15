@@ -93,6 +93,12 @@ export const rm: Dictionary = {
     glossTitle: "Pleds da tegnair",
     suggestionsTitle: "Per empruvar",
     sendThis: "Quai pudais Vus trametter",
+    /**
+     * The badge on a sendable line that is the WRITTEN standard rather than
+     * dialect. The pair is the point: one to send a landlord, one to send a
+     * friend, and no way to tell them apart without this.
+     */
+    writtenStandard: "tudestg scrit",
     copy: "Copiar",
     copied: "Copià",
     flagged: "Betg tudestg da Turitg:",
@@ -157,6 +163,7 @@ export const rm: Dictionary = {
       formal: { label: "Pli formal", say: "Scrivai quai pli formalmain, per in messadi official." },
       casual: { label: "Pli simpel", say: "Diai quai pli liber, tranter amis." },
       simpler: { label: "Pleds pli facils", say: "Diai quai cun pleds pli facils." },
+      swiss: { label: "En tudestg scrit", say: "Scrivai quai en tudestg standard svizzer, betg en idiom." },
     },
   },
 

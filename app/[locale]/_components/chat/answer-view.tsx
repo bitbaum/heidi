@@ -100,10 +100,32 @@ export function AnswerView({
             {a.suggestions.map((s) => (
               <li key={`${s.label}-${s.text}`} className="rounded-control border border-border-subtle p-2">
                 <div className="flex items-baseline justify-between gap-3">
-                  <span className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{s.label}</span>
+                  <span className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">
+                    {s.label}
+                    {/* Which language this line actually IS. Without it the two
+                        sit side by side looking like two moods of one thing,
+                        and the person cannot tell which to send to a landlord
+                        and which to send to a friend — which is the entire
+                        decision the pair exists to help them make. */}
+                    {s.variety === "bridge" && (
+                      <span className="ml-2 rounded-sm bg-surface-sunk px-1.5 py-0.5 text-fg-secondary">
+                        {t.writtenStandard}
+                      </span>
+                    )}
+                  </span>
                   <Copy text={s.text} t={t} />
                 </div>
-                <p className="mt-0.5 text-base leading-relaxed text-dialect">{s.text}</p>
+                {/* A bridge line is not dialect, so it is not coloured or
+                    tagged as dialect — a screen reader reading Swiss Standard
+                    German with Zurich phonology is exactly the confusion this
+                    whole field exists to remove. */}
+                <p
+                  className={`mt-0.5 text-base leading-relaxed ${
+                    s.variety === "bridge" ? "text-fg-primary" : "text-dialect"
+                  }`}
+                >
+                  {s.text}
+                </p>
                 {s.english && <p className="text-sm text-fg-secondary">{s.english}</p>}
                 {!s.clean && (
                   <p className="mt-1 font-mono text-[11px] text-accent">

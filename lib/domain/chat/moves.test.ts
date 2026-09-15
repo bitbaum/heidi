@@ -73,6 +73,9 @@ describe("what Heidi offers to do next", () => {
     // Pinned so that adding a move without adding its seven translations is a
     // failing test rather than a blank chip in six languages.
     assert.deepEqual([...MOVE_IDS], ["reply", "rephrase"]);
-    assert.deepEqual([...REPHRASE_AXES], ["shorter", "warmer", "firmer", "formal", "casual", "simpler"]);
+    assert.deepEqual(
+      [...REPHRASE_AXES],
+      ["shorter", "warmer", "firmer", "formal", "casual", "simpler", "swiss"],
+    );
   });
 });

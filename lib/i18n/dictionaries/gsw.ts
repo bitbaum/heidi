@@ -100,6 +100,12 @@ export const gsw: Dictionary = {
     glossTitle: "Wörter wo sölled bliibe",
     suggestionsTitle: "Zum Uusprobiere",
     sendThis: "Das chönd Si schicke",
+    /**
+     * The badge on a sendable line that is the WRITTEN standard rather than
+     * dialect. The pair is the point: one to send a landlord, one to send a
+     * friend, and no way to tell them apart without this.
+     */
+    writtenStandard: "Schriftdütsch",
     copy: "Kopiere",
     copied: "Kopiert",
     flagged: "Nöd Züritüütsch:",
@@ -164,6 +170,7 @@ export const gsw: Dictionary = {
       formal: { label: "Förmlicher", say: "Schriibeds förmlicher, für e offizielli Nachricht." },
       casual: { label: "Lockerer", say: "Sageds lockerer, under Fründe." },
       simpler: { label: "Eifacher", say: "Sageds mit eifachere Wörter." },
+      swiss: { label: "Uf Schriftdütsch", say: "Schriibeds das uf Schwiizer Schriftdütsch, nöd uf Mundart." },
     },
   },
 

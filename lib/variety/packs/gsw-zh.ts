@@ -46,7 +46,88 @@ export const ZURICH_GERMAN: VarietyPack = {
 
   bridges: [
     // Ranked. The sibling is what correspondences are computed from.
-    { tag: "de-CH", name: "Swiss Standard German", relation: "sibling" },
+    {
+      tag: "de-CH",
+      name: "Swiss Standard German",
+      relation: "sibling",
+      /**
+       * What makes written German Swiss rather than German.
+       *
+       * Deliberately short and deliberately certain. Every entry here is a
+       * thing a learner CANNOT detect — that is the test for belonging in
+       * this list. Somebody who writes a careful German email asking about a
+       * *Fahrrad* has written perfect German and marked themselves as
+       * foreign in the first line, and no amount of care on their part would
+       * have caught it. That is exactly the gap the target gate exists to
+       * close, one variety over.
+       *
+       * Nothing marginal is included. Regional words that vary WITHIN
+       * Switzerland, or that a Swiss writer might reasonably use, are left
+       * out: a gate that nags about defensible choices trains people to
+       * ignore it, and then it is worth nothing on the day it is right.
+       */
+      rules: [
+        {
+          // Not a spelling preference — Switzerland does not use the letter.
+          // It was dropped from Swiss orthography entirely, so a ß in text
+          // claiming to be Swiss is as wrong as a form that does not exist.
+          match: /ß/u,
+          display: "ß",
+          severity: "unattested",
+          reason: "Switzerland does not use ß at all; Swiss German writing always uses ss.",
+          suggest: "ss",
+        },
+        {
+          match: "Fahrrad",
+          severity: "foreign",
+          reason: "Germany's word. Swiss Standard German says Velo.",
+          origin: "Germany",
+          suggest: "Velo",
+        },
+        {
+          match: "Bürgersteig",
+          severity: "foreign",
+          reason: "Germany's word. Swiss Standard German says Trottoir.",
+          origin: "Germany",
+          suggest: "Trottoir",
+        },
+        {
+          match: "Abitur",
+          severity: "foreign",
+          reason: "Germany's school-leaving exam. The Swiss one is the Matura.",
+          origin: "Germany",
+          suggest: "Matura",
+        },
+        {
+          match: "parken",
+          severity: "foreign",
+          reason: "Germany's verb. Swiss Standard German says parkieren.",
+          origin: "Germany",
+          suggest: "parkieren",
+        },
+        {
+          match: "Sahne",
+          severity: "foreign",
+          reason: "Germany's word. Swiss Standard German says Rahm.",
+          origin: "Germany",
+          suggest: "Rahm",
+        },
+        {
+          match: "Strassenbahn",
+          severity: "foreign",
+          reason: "Germany's word. In Switzerland it is the Tram.",
+          origin: "Germany",
+          suggest: "Tram",
+        },
+        {
+          match: "Tüte",
+          severity: "foreign",
+          reason: "Germany's word. Swiss Standard German says Sack.",
+          origin: "Germany",
+          suggest: "Sack",
+        },
+      ],
+    },
     { tag: "de", name: "Standard German", relation: "roof" },
     { tag: "en", name: "English", relation: "gloss" },
   ],

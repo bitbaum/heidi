@@ -77,6 +77,12 @@ export const it: Dictionary = {
     glossTitle: "Parole da tenere",
     suggestionsTitle: "Da provare",
     sendThis: "Potete mandare questo",
+    /**
+     * The badge on a sendable line that is the WRITTEN standard rather than
+     * dialect. The pair is the point: one to send a landlord, one to send a
+     * friend, and no way to tell them apart without this.
+     */
+    writtenStandard: "tedesco scritto",
     copy: "Copia",
     copied: "Copiato",
     flagged: "Non è zurighese:",
@@ -141,6 +147,7 @@ export const it: Dictionary = {
       formal: { label: "Più formale", say: "Scrivetelo in modo più formale, per un messaggio ufficiale." },
       casual: { label: "Più informale", say: "Ditelo in modo più informale, tra amici." },
       simpler: { label: "Più semplice", say: "Ditelo con parole più semplici." },
+      swiss: { label: "In tedesco scritto", say: "Scrivetelo in tedesco standard svizzero, non in dialetto." },
     },
   },
 

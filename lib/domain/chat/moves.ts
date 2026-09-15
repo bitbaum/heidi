@@ -44,7 +44,27 @@ export type MoveId = (typeof MOVE_IDS)[number];
  * under every answer is a toolbar, and a toolbar is what the mode switch was
  * removed for.
  */
-export const REPHRASE_AXES = ["shorter", "warmer", "firmer", "formal", "casual", "simpler"] as const;
+export const REPHRASE_AXES = [
+  "shorter",
+  "warmer",
+  "firmer",
+  "formal",
+  "casual",
+  "simpler",
+  /**
+   * The odd one out, and the most useful.
+   *
+   * Not a tone but a VARIETY: give me this in the written standard instead of
+   * dialect. It belongs here rather than in its own move because it is the
+   * same gesture from the person's side — "say that differently" — and giving
+   * it a separate mechanism would mean two ways to ask one question.
+   *
+   * It is the one people will need most and would never think to ask for,
+   * because nothing tells a learner that the language you speak to a
+   * neighbour is not the language you write to their insurer.
+   */
+  "swiss",
+] as const;
 export type RephraseAxis = (typeof REPHRASE_AXES)[number];
 
 export type NextMove =
