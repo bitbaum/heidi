@@ -38,6 +38,26 @@ export type SavedWord = {
   context?: string;
   /** ISO 8601. When it was first kept — re-saving does not reset it. */
   savedAt: string;
+
+  /**
+   * Review state, all optional. See `review.ts` for what drives it.
+   *
+   * ADDED WITHOUT BUMPING `version`, deliberately. A version bump would make
+   * `decode` treat every existing browser's list as absent — which is the
+   * correct behaviour for a shape that CHANGED, and the wrong one for a shape
+   * that only GREW. These fields are additive and optional: old data decodes
+   * with them missing (and a word with no schedule is simply due), and a build
+   * without this code reads a word that has them and ignores them. Bumping
+   * would have silently emptied every saved list in the wild to add a feature
+   * about not losing things.
+   */
+
+  /** How many consecutive recalls. Indexes `REVIEW_STEPS`. */
+  step?: number;
+  /** ISO 8601. When to ask again. Absent means now. */
+  dueAt?: string;
+  /** ISO 8601. When it was last asked. */
+  reviewedAt?: string;
 };
 
 /**
