@@ -39,11 +39,8 @@ export const it: Dictionary = {
   },
 
   home: {
-    eyebrow: "Si comincia da Zurigo",
     headline: "Capire lo svizzero tedesco. E poi scrivere come chi è di qui.",
-    sub: "Per chi sa già il tedesco e a tavola continua a non capire nulla. Incollate quello che avete ricevuto — o scrivete quello che volete dire.",
-    showcaseLabel: "In italiano",
-    showcaseMeaning: "Passi anche tu stasera?",
+    sub: "Per chi sa già il tedesco e a tavola continua a non capire nulla.",
     dialectTitle: "Cominciamo da Zurigo",
     dialectBody:
       "Lo svizzero tedesco non è una lingua ma una famiglia. Oggi Heidi conosce davvero bene lo zurighese, e preferisce dirvelo piuttosto che fingere di coprire tutto. È anche esattamente il motivo per cui la verifica rifiuta le forme bernesi: non perché il bernese sia sbagliato, ma perché in questo momento insegniamo Zurigo. Seguiranno altri dialetti — ciascuno con le proprie voci e la propria verifica.",
@@ -71,10 +68,12 @@ export const it: Dictionary = {
     thinking: "Heidi sta leggendo …",
     you: "Voi",
     emptyTitle: "Chiedete a Heidi",
+    exampleUnderstand: "Che cosa significa?",
+    exampleCompose: "Scrivilo per me",
     examples: [
-      "Im Kauz scho, hät mer nöd so gfalle. Du au?",
-      "Di' loro che arrivo dieci minuti più tardi — gentilmente.",
-      "Häsch du am Samschtig scho öppis vor?",
+      { kind: "dialect", text: "Im Kauz scho, hät mer nöd so gfalle. Du au?" },
+      { kind: "compose", text: "Di' loro che arrivo dieci minuti più tardi — gentilmente." },
+      { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],
     glossTitle: "Parole da tenere",
     suggestionsTitle: "Da provare",

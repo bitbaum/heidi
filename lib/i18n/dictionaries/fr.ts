@@ -39,11 +39,8 @@ export const fr: Dictionary = {
   },
 
   home: {
-    eyebrow: "On commence par Zurich",
     headline: "Comprendre le suisse allemand. Puis écrire comme quelqu'un d'ici.",
-    sub: "Pour celles et ceux qui parlent déjà allemand et ne comprennent toujours rien à table. Collez ce que vous avez reçu — ou écrivez ce que vous voulez dire.",
-    showcaseLabel: "En français",
-    showcaseMeaning: "Tu passes aussi ce soir ?",
+    sub: "Pour celles et ceux qui parlent déjà allemand et ne comprennent toujours rien à table.",
     dialectTitle: "Nous commençons par Zurich",
     dialectBody:
       "Le suisse allemand n'est pas une langue mais une famille. Aujourd'hui Heidi maîtrise vraiment bien le zurichois, et préfère vous le dire plutôt que de faire semblant de tout couvrir. C'est aussi exactement pourquoi la vérification rejette les formes bernoises : non parce que le bernois serait faux, mais parce que c'est Zurich que nous enseignons pour l'instant. D'autres dialectes suivront — chacun avec ses propres voix et sa propre vérification.",
@@ -71,10 +68,12 @@ export const fr: Dictionary = {
     thinking: "Heidi lit …",
     you: "Vous",
     emptyTitle: "Demandez à Heidi",
+    exampleUnderstand: "Ça veut dire quoi ?",
+    exampleCompose: "L'écrire pour moi",
     examples: [
-      "Im Kauz scho, hät mer nöd so gfalle. Du au?",
-      "Dis-leur que j'arrive dix minutes en retard — gentiment.",
-      "Häsch du am Samschtig scho öppis vor?",
+      { kind: "dialect", text: "Im Kauz scho, hät mer nöd so gfalle. Du au?" },
+      { kind: "compose", text: "Dis-leur que j'arrive dix minutes en retard — gentiment." },
+      { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],
     glossTitle: "Mots à retenir",
     suggestionsTitle: "À essayer",

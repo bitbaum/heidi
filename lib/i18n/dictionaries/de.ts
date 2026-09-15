@@ -58,11 +58,8 @@ export const de = {
   },
 
   home: {
-    eyebrow: "Wir fangen mit Zürich an",
     headline: "Schweizerdeutsch verstehen. Dann schreiben wie jemand von hier.",
-    sub: "Für alle, die Deutsch können und am Mittagstisch trotzdem nichts verstehen. Fügen Sie ein, was Sie bekommen haben — oder schreiben Sie, was Sie sagen möchten.",
-    showcaseLabel: "Heisst auf Deutsch",
-    showcaseMeaning: "Kommst du heute Abend auch noch vorbei?",
+    sub: "Für alle, die Deutsch können und am Mittagstisch trotzdem nichts verstehen.",
     dialectTitle: "Wir beginnen mit Zürich",
     dialectBody:
       "Schweizerdeutsch ist keine Sprache, sondern eine Familie. Heidi beherrscht heute Zürichdeutsch richtig gut und sagt Ihnen das lieber, als so zu tun, als könnte es alles. Genau darum weist die Prüfung Berner Formen zurück: nicht weil Berndeutsch falsch wäre, sondern weil wir gerade Zürich unterrichten. Weitere Dialekte kommen dazu — jeder mit eigenen Stimmen und eigener Prüfung.",
@@ -90,10 +87,12 @@ export const de = {
     thinking: "Heidi liest mit …",
     you: "Sie",
     emptyTitle: "Fragen Sie Heidi",
+    exampleUnderstand: "Was heisst das?",
+    exampleCompose: "Für mich schreiben",
     examples: [
-      "Im Kauz scho, hät mer nöd so gfalle. Du au?",
-      "Sag ihnen, dass ich zehn Minuten später komme — freundlich.",
-      "Häsch du am Samschtig scho öppis vor?",
+      { kind: "dialect", text: "Im Kauz scho, hät mer nöd so gfalle. Du au?" },
+      { kind: "compose", text: "Sag ihnen, dass ich zehn Minuten später komme — freundlich." },
+      { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],
     glossTitle: "Wörter, die bleiben sollten",
     suggestionsTitle: "Zum Ausprobieren",

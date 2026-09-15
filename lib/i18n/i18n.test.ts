@@ -100,14 +100,31 @@ test("dialect examples stay identical across locales; instructions get translate
   // are the thing being LEARNED — translating them would destroy the example.
   // The instruction one ("tell them I am late") is something the reader says
   // in their own language, so it must NOT stay German.
+  //
+  // This used to read examples[0] and examples[2] by POSITION, which meant the
+  // list's meaning lived in a test rather than in the data, and the UI could
+  // not tell the two kinds apart at all — it rendered three identical grey
+  // boxes for what are actually the product's two different modes. The kind is
+  // on the entry now; this checks the kinds rather than the slots.
   const de = getDictionary("de");
   for (const locale of LOCALES) {
     const examples = getDictionary(locale).chat.examples;
-    assert.equal(examples.length, de.chat.examples.length);
-    assert.equal(examples[0], de.chat.examples[0], `${locale} translated a dialect example`);
-    assert.equal(examples[2], de.chat.examples[2], `${locale} translated a dialect example`);
-    if (locale !== "de") {
-      assert.notEqual(examples[1], de.chat.examples[1], `${locale} left the instruction untranslated`);
+    assert.deepEqual(
+      examples.map((e) => e.kind),
+      de.chat.examples.map((e) => e.kind),
+      `${locale} changed which examples are dialect`,
+    );
+    assert.ok(
+      examples.some((e) => e.kind === "dialect") && examples.some((e) => e.kind === "compose"),
+      `${locale} must offer both something to understand and something to say`,
+    );
+    for (const [i, example] of examples.entries()) {
+      const source = de.chat.examples[i];
+      if (example.kind === "dialect") {
+        assert.equal(example.text, source.text, `${locale} translated a dialect example`);
+      } else if (locale !== "de") {
+        assert.notEqual(example.text, source.text, `${locale} left the instruction untranslated`);
+      }
     }
   }
 });
