@@ -46,6 +46,12 @@ export type DisplayCorrespondence = {
   rule: string;
 };
 
+/** A grammar topic, forms only. Its words live in the dictionaries, by id. */
+export type DisplayGrammar = {
+  id: string;
+  examples: readonly { target: string; bridge: string }[];
+};
+
 export type DisplayVariety = {
   tag: string;
   name: string;
@@ -54,6 +60,12 @@ export type DisplayVariety = {
   family?: { name: string; endonym: string; planned: readonly string[]; atlas?: Atlas };
   rules: readonly DisplayRule[];
   correspondences: readonly DisplayCorrespondence[];
+  /**
+   * Survives the projection intact: a pair of forms is not English prose. The
+   * sentence explaining each one is translated and lives in the dictionaries,
+   * looked up by `id`.
+   */
+  grammar: readonly DisplayGrammar[];
   /** `note` is deliberately absent — it is a paragraph of English. */
   orthography: { convention: string };
   /**
@@ -94,6 +106,10 @@ export const DISPLAY: DisplayVariety = {
     bridge: c.bridge,
     target: c.target,
     rule: c.rule,
+  })),
+  grammar: (VARIETY.grammar ?? []).map((t) => ({
+    id: t.id,
+    examples: t.examples.map((e) => ({ target: e.target, bridge: e.bridge })),
   })),
   orthography: { convention: VARIETY.orthography.convention },
   showcase: VARIETY.showcase ? { line: VARIETY.showcase.line } : undefined,

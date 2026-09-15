@@ -4,6 +4,7 @@ import type { RefObject } from "react";
 import type { ChatMessage } from "@/lib/domain/chat/types";
 import { HEIDI_ID } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n/locales";
 import { AnswerView } from "./answer-view";
 import { Failed, FromHeidi, Mine, Said } from "./bubble";
 import { Dot } from "./icons";
@@ -29,6 +30,7 @@ export function Transcript({
   nameFor,
   onRetry,
   onMove,
+  locale,
   endRef,
   className,
 }: {
@@ -45,6 +47,8 @@ export function Transcript({
    * Absent on a surface that cannot send, where chips would be dead buttons.
    */
   onMove?: (say: string) => void;
+  /** For the grammar link on a chip. Absent means no grammar chips. */
+  locale?: Locale;
   endRef?: RefObject<HTMLDivElement | null>;
   className?: string;
 }) {
@@ -64,7 +68,13 @@ export function Transcript({
                 // from THIS message rather than from the end matters: taking
                 // the last question would tag every kept word in a long thread
                 // with whatever was asked most recently.
-                <AnswerView answer={m.answer} t={t} context={askedBefore(messages, i, me)} onMove={onMove} />
+                <AnswerView
+                  answer={m.answer}
+                  t={t}
+                  context={askedBefore(messages, i, me)}
+                  onMove={onMove}
+                  locale={locale}
+                />
               ) : (
                 <p className="whitespace-pre-wrap text-base leading-relaxed text-fg-primary">{m.body}</p>
               )}

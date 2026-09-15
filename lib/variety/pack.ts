@@ -115,6 +115,45 @@ export type Correspondence = {
   cue: string;
 };
 
+/**
+ * One point of grammar, as DATA rather than as a lesson.
+ *
+ * WHERE THE WORDS LIVE, and why they are not here.
+ *
+ * A pack is English-source and the site speaks seven languages, so an
+ * explanation written in this file could only ever be shown to an English
+ * reader — and `DISPLAY` exists precisely to stop English prose leaking out of
+ * a pack into a page. So the split is the same one `lib/research/sources.ts`
+ * already makes: what is NOT in any language lives here, and what has to be
+ * translated is keyed by `id` in the dictionaries.
+ *
+ * What is not in any language: the forms themselves. `Ich bi gange` is Zurich
+ * German whoever is reading the page, and the Standard German beside it is the
+ * comparison that makes it legible. Those are the part a learner actually
+ * looks at.
+ *
+ * A topic is deliberately SMALL. The evidence this repo already cites is that
+ * correspondences work as attentional cues next to something you are about to
+ * meet again, and fail as a lecture you sit through first (Bergsma 2014 found
+ * no intelligibility gain from 50 minutes of them; Pederson & Guion-Anderson
+ * 2010 found cueing attention to one contrast is what separated learning from
+ * none). So: a pair of forms, a sentence of rule, and the thing that trips
+ * people. Not a chapter.
+ */
+export type GrammarTopic = {
+  /**
+   * Stable, lowercase, hyphenated. It is a URL fragment and the argument of a
+   * `grammar` move, so renaming one breaks links an answer has already given
+   * out — treat it as permanent.
+   */
+  id: string;
+  /**
+   * The contrast, target beside bridge. Two or three: one example is an
+   * anecdote and five is a drill.
+   */
+  examples: readonly { target: string; bridge: string }[];
+};
+
 /** How confident we are that a flagged form is actually wrong. */
 export type Severity =
   /** Belongs to an identifiable OTHER variety. The learner cannot detect this; we must. */
@@ -281,6 +320,12 @@ export type VarietyPack = {
   bridges: readonly Bridge[];
   learner: LearnerProfile;
   correspondences: readonly Correspondence[];
+  /**
+   * The handful of structural facts that make this variety hard to follow for
+   * somebody who already reads the bridge. Empty for a pack that has not
+   * written them yet — the page simply does not appear.
+   */
+  grammar?: readonly GrammarTopic[];
   /**
    * One line of the target variety that a speaker of the bridge language
    * cannot parse — the hero shows it, then answers it. Optional: a pack

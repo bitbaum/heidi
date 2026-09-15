@@ -72,10 +72,40 @@ describe("what Heidi offers to do next", () => {
   test("the vocabulary is closed, and these are its members", () => {
     // Pinned so that adding a move without adding its seven translations is a
     // failing test rather than a blank chip in six languages.
-    assert.deepEqual([...MOVE_IDS], ["reply", "rephrase"]);
+    assert.deepEqual([...MOVE_IDS], ["reply", "rephrase", "grammar"]);
     assert.deepEqual(
       [...REPHRASE_AXES],
       ["shorter", "warmer", "firmer", "formal", "casual", "simpler", "swiss"],
     );
   });
+});
+
+test("a grammar move carries a topic, and the topic must look like an id", () => {
+  assert.deepEqual(decodeMoves([{ id: "grammar", topic: "no-preterite" }]), [
+    { id: "grammar", topic: "no-preterite" },
+  ]);
+
+  // It becomes a URL fragment, so the shape is checked here even though
+  // whether the topic EXISTS is the renderer's question.
+  assert.deepEqual(decodeMoves([{ id: "grammar", topic: "../../etc/passwd" }]), []);
+  assert.deepEqual(decodeMoves([{ id: "grammar", topic: "Not An Id" }]), []);
+  assert.deepEqual(decodeMoves([{ id: "grammar" }]), [], "a topic is not optional");
+});
+
+test("two grammar moves on different topics are two suggestions", () => {
+  assert.equal(
+    decodeMoves([
+      { id: "grammar", topic: "no-preterite" },
+      { id: "grammar", topic: "wo-relative" },
+    ]).length,
+    2,
+  );
+  assert.equal(
+    decodeMoves([
+      { id: "grammar", topic: "no-preterite" },
+      { id: "grammar", topic: "no-preterite" },
+    ]).length,
+    1,
+    "and the same topic twice is one",
+  );
 });

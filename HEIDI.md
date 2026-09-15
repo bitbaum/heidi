@@ -199,8 +199,8 @@ first. The seam is drawn now so the extraction is mechanical then.
 
 ## 5. What is true of the repo today
 
-A seven-language site — home, chat, method, contribute, about, plus a personal
-portal and settings — with the assistant on the home page AND at full size on
+A seven-language site — home, chat, grammar, method, contribute, about, plus a
+personal portal and settings — with the assistant on the home page AND at full size on
 `/chat`, the deterministic gate shown as evidence on `/method`, and the variety
 layer underneath.
 
@@ -487,13 +487,43 @@ unattested (Switzerland does not use the letter at all), and Germany's lexis is
 a gate that nags about defensible choices trains people to ignore it, and is
 then worth nothing on the day it is right.
 
+**And any word is now askable, not just the ones Heidi chose to gloss.** The
+word a learner is stuck on is by definition the one nobody predicted, so a
+feature that only worked on predicted words missed the case it existed for.
+Selecting a word in Heidi's half of the transcript offers to ask about it; the
+answer comes back with a gloss, and the gloss already carries the keep button —
+which is what finally joins "I did not know this word" to the review queue.
+Selection rather than a button per word, because wrapping every word would
+triple the DOM and wreck copy-paste, which is the most common thing anyone does
+with these messages.
+
+**And grammar has a place to live.** Four things that stop a German reader
+following spoken Zurich German — no preterite, `wo` as the universal relative,
+possession built from the dative, and the `-li` that is on everything and often
+means nothing small. Chosen by what blocks COMPREHENSION rather than by what a
+grammar book would cover: somebody who reads German already has the vocabulary
+and the word order, and what derails them is a past tense that does not exist.
+
+Each topic is one sentence of rule, the forms beside the German they already
+have, and the thing that actually trips them. Not a chapter — the evidence this
+document already cites is that these work as cues beside something you are
+about to meet again and produce no measurable gain as a lecture you sit through
+first, so a page that taught Zurich grammar front-to-back would be the version
+that was measured and found not to work.
+
+It is deep-linkable, and an answer that turned on a structure offers a chip
+straight to the topic. The FORMS live in the variety pack and the WORDS in the
+dictionaries, joined by topic id: `Ich bi gange` is Zurich German whoever is
+reading, while the sentence explaining it has to exist seven times. A test
+asserts the two sides of that join agree in every locale, and that our own
+examples pass our own dialect gate.
+
 **Next**, in order: capture what the learner did not know into a learner model —
 **the existing Heidi GPT generates that evidence daily and throws all of it
 away**, and every question asked of it is a labelled datapoint about what a real
-learner could not understand; then a word met again in context, and any word in
-an answer savable rather than only the ones Heidi chose to gloss; then a grammar
-area an answer can link into; then the listening lab, once there are recordings
-to put in it.
+learner could not understand; then meeting a kept word again in a NEW sentence
+rather than only the one it came from; then the listening lab, once there are
+recordings to put in it.
 
 Two loops explain Heidi better than any feature list:
 

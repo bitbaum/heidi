@@ -26,6 +26,7 @@ export const rm: Dictionary = {
   nav: {
     home: "Cumenzament",
     chat: "Chat",
+    grammar: "Grammatica",
     method: "Metoda",
     contribute: "Far part",
     about: "Davart nus",
@@ -157,6 +158,7 @@ export const rm: Dictionary = {
     moves: {
       title: "Ed ussa?",
       reply: { label: "Scriver ina resposta", say: "Co respund jau a quai?" },
+      grammar: { label: "La grammatica davos", say: "Declerai a mai la grammatica davos quai." },
       shorter: { label: "Pli curt", say: "Diai quai pli curt." },
       warmer: { label: "Pli chaud", say: "Diai quai in pau pli chaudamain." },
       firmer: { label: "Pli decis", say: "Diai quai pli decis — jau hai gia dumandà duas giadas." },
@@ -462,6 +464,46 @@ export const rm: Dictionary = {
     notFoundBody: "Forsa è il link vegl, forsa avain nus spustà insatge.",
     backHome: "Turnar al cumenzament",
   },
+  /**
+   * The grammar area. The FORMS live in the variety pack — `Ich bi gange` is
+   * Zurich German whoever is reading — and the words that explain them live
+   * here, keyed by the pack's topic id, because an explanation has to be
+   * translated and a pack is English-source.
+   *
+   * A topic is small on purpose: one sentence of rule and the thing that
+   * actually trips somebody who already reads German. The evidence this repo
+   * cites is that these work as cues beside something you are about to meet
+   * again, and fail as a lecture you sit through first.
+   */
+  grammar: {
+    title: "Grammatica",
+    lead: "Quatter chaussas che rendan il turitgais difficil da suandar per insatgi che legia gia tudestg. Naginas lecziuns — mo quai che Vus vegnis a udir, e nua ch'igl impedescha.",
+    ruleLabel: "La regla",
+    watchLabel: "Nua ch'igl impedescha",
+    topics: {
+      "no-preterite": {
+        title: "Nagin preterit",
+        rule: "Il turitgais discurrì n'ha nagin passà simpel: tut il passà vegn dit cun il perfect.",
+        watch: "Vus spetgais «ging», «war», «sagte» — e quai na vegn mai. Sche Vus udis «bi», «hät» u «händ» plus in particip, è quai il passà.",
+      },
+      "wo-relative": {
+        title: "«wo» empè da der, die, das",
+        rule: "Las relativas cumenzan bunamain adina cun «wo», nunvariabel, tge schlattaina u cas ch'i saja.",
+        watch: "Vus legiais «wo» sco «nua?» e perdais la frasa. Qua vul quai dir «che», «il qual» — mai in lieu.",
+      },
+      "possessive-dative": {
+        title: "La posseziun a l'invers",
+        rule: "Il genitiv n'exista betg: la posseziun vegn construida cun il dativ plus in possessiv, u cun «vo».",
+        watch: "«Em Peter sis Auto» n'è nagin sbagl, quai è la furma normala. Emprim la persuna, lura la chaussa.",
+      },
+      "diminutive-li": {
+        title: "Il -li sin tut",
+        rule: "La furma diminutiva sin -li è fitg productiva e na signifitga savens nagut pitschen.",
+        watch: "«Es Bierli» n'è betg ina biera pitschna, mabain ina biera ditga amiaivlamain. Na prendai betg il -li a la lettra.",
+      },
+    },
+  },
+
   saved: {
     title: "Voss pleds",
     lead: "Quai ch'Els han tschertgà e vulì tegnair. Tut resta en quest navigatur, sin quest apparat — betg tar nus.",

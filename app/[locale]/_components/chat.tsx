@@ -147,6 +147,7 @@ export function Chat({
             busy={chat.busy}
             onRetry={chat.retry}
             onMove={chat.send}
+            locale={locale}
             endRef={endRef}
             className="flex flex-col gap-4 rounded-control border border-border-strong bg-surface-raised p-3 sm:p-4"
           />

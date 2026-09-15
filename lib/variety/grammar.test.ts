@@ -1,0 +1,96 @@
+import { test, describe } from "node:test";
+import assert from "node:assert/strict";
+import { check } from "./check.ts";
+import { ZURICH_GERMAN } from "./packs/gsw-zh.ts";
+import { DISPLAY } from "./display.ts";
+import { getDictionary } from "../i18n/index.ts";
+import { LOCALES } from "../i18n/locales.ts";
+
+/**
+ * The grammar area is a join between two files: the pack holds the forms and
+ * the dictionaries hold the words, keyed by topic id. A join has exactly one
+ * interesting failure — a key on one side and not the other — and it fails
+ * silently, as a topic that renders nothing or a heading with no examples.
+ */
+describe("grammar topics", () => {
+  const topics = ZURICH_GERMAN.grammar ?? [];
+
+  test("the pack has topics at all", () => {
+    assert.ok(topics.length >= 4, "the page exists to hold these; an empty one is a promise unkept");
+  });
+
+  test("every topic has its words in every language", () => {
+    // Adding a topic without translating it renders a heading for a section
+    // with nothing in it — in six languages, silently, because the author
+    // checked German.
+    for (const locale of LOCALES) {
+      const t = getDictionary(locale).grammar;
+      for (const topic of topics) {
+        const words = t.topics[topic.id as keyof typeof t.topics];
+        assert.ok(words, `${locale} has no words for "${topic.id}"`);
+        assert.ok(words.title.trim(), `${locale}.${topic.id} has no title`);
+        assert.ok(words.rule.trim(), `${locale}.${topic.id} has no rule`);
+        assert.ok(words.watch.trim(), `${locale}.${topic.id} does not say what trips people`);
+      }
+      assert.ok(t.title.trim() && t.lead.trim() && t.ruleLabel.trim() && t.watchLabel.trim());
+    }
+  });
+
+  test("no dictionary describes a topic the pack does not have", () => {
+    // The other direction of the same join: words nobody will ever see,
+    // translated seven times.
+    const known = new Set(topics.map((t) => t.id));
+    for (const locale of LOCALES) {
+      for (const id of Object.keys(getDictionary(locale).grammar.topics)) {
+        assert.ok(known.has(id), `${locale} explains "${id}", which is not in the pack`);
+      }
+    }
+  });
+
+  test("ids are URL-safe and stable-looking", () => {
+    // They are anchors and the argument of a `grammar` move, so an answer can
+    // hand one out and expect it to still resolve later.
+    for (const topic of topics) {
+      assert.match(topic.id, /^[a-z][a-z0-9-]*$/, `"${topic.id}" is not a usable URL fragment`);
+    }
+  });
+
+  test("every topic shows a real contrast, more than once", () => {
+    for (const topic of topics) {
+      assert.ok(topic.examples.length >= 2, `${topic.id}: one example is an anecdote`);
+      for (const example of topic.examples) {
+        assert.ok(example.target.trim(), `${topic.id} has an example with no dialect form`);
+        assert.ok(example.bridge.trim(), `${topic.id} has an example with nothing to compare it to`);
+        assert.notEqual(
+          example.target.trim(),
+          example.bridge.trim(),
+          `${topic.id}: a pair that is identical demonstrates nothing`,
+        );
+      }
+    }
+  });
+
+  test("our own dialect examples pass our own dialect gate", () => {
+    // The same rule the site's Swiss German copy is held to. If Heidi's
+    // grammar page cannot pass Heidi's checker, either the checker is wrong or
+    // the page is, and we would rather find out here than have a Zurich reader
+    // find it on a page about Zurich grammar.
+    for (const topic of topics) {
+      for (const example of topic.examples) {
+        const verdict = check(example.target, ZURICH_GERMAN);
+        assert.equal(
+          verdict.ok,
+          true,
+          `${topic.id}: "${example.target}" — ${verdict.findings.map((f) => f.form).join(", ")}`,
+        );
+      }
+    }
+  });
+
+  test("the display projection carries the forms and no English", () => {
+    assert.equal(DISPLAY.grammar.length, topics.length);
+    for (const topic of DISPLAY.grammar) {
+      assert.deepEqual(Object.keys(topic).sort(), ["examples", "id"], "nothing else survives the projection");
+    }
+  });
+});
