@@ -17,6 +17,9 @@ import { ACCEPTED, MAX_EDGE, MAX_BYTES } from "@/lib/domain/chat/image";
  * fidelity in the first place.
  */
 
+/** How many pictures can ride along with one message. */
+export const MAX_IMAGES = 3;
+
 export type Prepared = { dataUrl: string; width: number; height: number };
 
 export async function downscale(file: File): Promise<Prepared> {

@@ -66,11 +66,19 @@ export function soloThread(createdAt = new Date()): Thread {
   };
 }
 
-/** Our messages in threadkit's shape — only what it needs to order and gate. */
-export function toThreadMessages(messages: ChatMessage[]): Message[] {
+/**
+ * Our messages in threadkit's shape — only what it needs to order and gate.
+ *
+ * `threadId` is a parameter because this is called for GROUP threads too, and
+ * it used to stamp every message with `THREAD_ID` ("solo") regardless. Harmless
+ * while `runAiTurn` does not gate on it, and exactly the kind of latent
+ * disagreement between a thread and its messages that stops being harmless
+ * without warning.
+ */
+export function toThreadMessages(messages: ChatMessage[], threadId: string = THREAD_ID): Message[] {
   return messages.map((m) => ({
     id: m.id,
-    threadId: THREAD_ID,
+    threadId,
     authorId: m.authorId,
     body: m.body,
     createdAt: new Date(m.createdAt),
@@ -102,7 +110,7 @@ export async function heidiTurn(
     model: string;
   },
 ): Promise<TurnResult> {
-  const result = await runAiTurn(thread, toThreadMessages(messages), {
+  const result = await runAiTurn(thread, toThreadMessages(messages, thread.id), {
     actorId: HEIDI_ID,
     systemPrompt: opts.systemPrompt,
     model: opts.model,
