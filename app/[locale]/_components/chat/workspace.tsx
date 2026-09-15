@@ -318,6 +318,7 @@ export function ChatWorkspace({
                 t={t}
                 busy={chat.busy}
                 onRetry={chat.retry}
+                onMove={chat.send}
                 endRef={endRef}
                 className="flex flex-col gap-4"
               />

@@ -141,6 +141,26 @@ export const de = {
       menuOpen: "Gespräche",
       menuClose: "Schliessen",
     },
+    /**
+     * The one-tap follow-ups. `label` is what the chip says; `say` is the
+     * message it sends, which lands in the transcript as an ordinary turn —
+     * a follow-up you cannot see is a conversation you cannot re-read.
+     *
+     * The ids come from `lib/domain/chat/moves.ts` and are a CLOSED set. The
+     * model chooses which to offer; it never writes these words, because a
+     * label the model invented arrives in whatever language it felt like and
+     * can promise something pressing it does not do.
+     */
+    moves: {
+      title: "Und jetzt?",
+      reply: { label: "Antwort schreiben", say: "Wie antworte ich darauf?" },
+      shorter: { label: "Kürzer", say: "Fassen Sie das kürzer." },
+      warmer: { label: "Wärmer", say: "Sagen Sie das etwas herzlicher." },
+      firmer: { label: "Bestimmter", say: "Sagen Sie das bestimmter — ich habe schon zweimal gefragt." },
+      formal: { label: "Förmlicher", say: "Schreiben Sie das förmlicher, für eine offizielle Nachricht." },
+      casual: { label: "Lockerer", say: "Sagen Sie das lockerer, unter Freunden." },
+      simpler: { label: "Einfacher", say: "Sagen Sie das mit einfacheren Wörtern." },
+    },
   },
 
   model: {

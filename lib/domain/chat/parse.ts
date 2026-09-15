@@ -18,6 +18,7 @@
 import { check } from "../../variety/check.ts";
 import type { VarietyPack } from "../../variety/pack.ts";
 import { type Answer, type Gloss, type Mode, MODES, type Suggestion, TONES, type Tone } from "./types.ts";
+import { decodeMoves } from "./moves.ts";
 
 /** `k → ch`, `k -> ch` and `K  →  CH` are the same claim. */
 function normaliseRule(rule: string): string {
@@ -229,6 +230,9 @@ export function parseAnswer(raw: string, pack: VarietyPack, model: string): Answ
       .filter((g): g is Gloss => g !== null)
       .slice(0, 4),
     suggestions,
+    // Validated against the closed vocabulary here, at generation time, so a
+    // move the model invented never reaches storage in the first place.
+    ...(decodeMoves(data.next).length ? { next: decodeMoves(data.next) } : {}),
     ...(str(data.note) ? { note: str(data.note) } : {}),
     model,
   };

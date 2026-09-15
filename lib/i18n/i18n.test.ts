@@ -13,6 +13,7 @@ import {
 } from "./locales.ts";
 import { INDEXED_ROUTES, NAV_ROUTES, ROUTES, href } from "./routes.ts";
 import { BYOK_PROVIDERS } from "../domain/model/providers.ts";
+import { MOVE_IDS, REPHRASE_AXES } from "../domain/chat/moves.ts";
 
 test("German is the default, not English", () => {
   // The site is about living in a German-speaking city. Defaulting to English
@@ -242,5 +243,39 @@ test("the headline promises an order, not a pair of features", () => {
       sequence[locale].some((word) => second.startsWith(word)),
       `${locale}: second sentence opens "${second.slice(0, 12)}…" — it must state a sequence (${sequence[locale].join(" / ")}), not join two claims`,
     );
+  }
+});
+
+test("every next-move has wording in every language", () => {
+  // The guard on the closed vocabulary. The model picks ids and the dictionary
+  // supplies the words, so an id with no entry is a blank button that does
+  // nothing when pressed — in six languages, silently, because German would
+  // have been the one the author checked.
+  const keys = [...MOVE_IDS.filter((id) => id !== "rephrase"), ...REPHRASE_AXES];
+
+  for (const locale of LOCALES) {
+    const moves = getDictionary(locale).chat.moves;
+    for (const key of keys) {
+      const wording = moves[key as keyof typeof moves];
+      assert.ok(wording, `${locale} has no wording for the "${key}" move`);
+      assert.ok(typeof wording === "object" && wording.label.trim(), `${locale}.${key} has no label`);
+      assert.ok(typeof wording === "object" && wording.say.trim(), `${locale}.${key} has nothing to say`);
+    }
+    assert.ok(moves.title.trim(), `${locale} has no heading for the moves`);
+  }
+});
+
+test("a move's label and the message it sends are DIFFERENT strings", () => {
+  // They do different jobs: the label is a button and has to be short, the
+  // message lands in the transcript and has to read as a sentence somebody
+  // would have typed. Making them the same is how a chat fills up with turns
+  // reading "Shorter".
+  for (const locale of LOCALES) {
+    const moves = getDictionary(locale).chat.moves;
+    for (const key of REPHRASE_AXES) {
+      const wording = moves[key as keyof typeof moves];
+      if (typeof wording !== "object") continue;
+      assert.notEqual(wording.label, wording.say, `${locale}.${key} sends its own button label as the message`);
+    }
   }
 });

@@ -47,6 +47,8 @@ export type Suggestion = {
   flags: string[];
 };
 
+import type { NextMove } from "./moves.ts";
+
 /** One turn from Heidi. */
 export type Answer = {
   mode: Mode;
@@ -65,6 +67,12 @@ export type Answer = {
   toneNote?: string;
   glosses: Gloss[];
   suggestions: Suggestion[];
+  /**
+   * What to offer doing next — the two or three moves that make sense for
+   * THIS answer, each one tap. See `moves.ts` for why the vocabulary is
+   * closed. Absent on an old row, which simply shows no chips.
+   */
+  next?: NextMove[];
   note?: string;
   /** Which model answered. An answer with no provenance is a rumour. */
   model: string;

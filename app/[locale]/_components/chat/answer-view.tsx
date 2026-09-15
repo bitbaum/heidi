@@ -1,6 +1,7 @@
 "use client";
 
 import type { Answer } from "@/lib/domain/chat/types";
+import { moveKey, type NextMove } from "@/lib/domain/chat/moves";
 import type { Dictionary } from "@/lib/i18n";
 import { Copy } from "./copy-button";
 import { KeepWord } from "./keep-word";
@@ -28,11 +29,17 @@ export function AnswerView({
   answer,
   t,
   context,
+  onMove,
 }: {
   answer: Answer;
   t: Dictionary["chat"];
   /** The learner's line this answers, carried onto any word they keep. */
   context?: string;
+  /**
+   * Send the follow-up a chip stands for. Absent where the surface cannot send
+   * — a read-only transcript shows no chips rather than dead ones.
+   */
+  onMove?: (say: string) => void;
 }) {
   const a = answer;
 
@@ -111,10 +118,60 @@ export function AnswerView({
 
       {a.note && <p className="mt-3 text-sm text-fg-muted">{a.note}</p>}
 
+      {onMove && a.next && a.next.length > 0 && <NextMoves moves={a.next} t={t} onMove={onMove} />}
+
       {/* Provenance. An answer with no model attached is a rumour. */}
       <p className="mt-3 border-t border-border-subtle pt-2 font-mono text-[10px] text-fg-muted">
         {t.checkedNote} · {a.model}
       </p>
     </>
+  );
+}
+
+/**
+ * The two or three things worth doing next, each one tap.
+ *
+ * Pressing one sends an ordinary message — the sentence the person would
+ * otherwise have had to compose. It appears in the transcript as that
+ * sentence, because a follow-up you cannot see is a conversation you cannot
+ * re-read, and the thread is the product.
+ *
+ * The wording is ours, in the reader's language, looked up by id. The model
+ * chooses WHICH to offer and never what they say: a label it wrote itself
+ * would arrive in whatever language it felt like and could promise something
+ * pressing it does not do.
+ */
+function NextMoves({
+  moves,
+  t,
+  onMove,
+}: {
+  moves: NextMove[];
+  t: Dictionary["chat"];
+  onMove: (say: string) => void;
+}) {
+  return (
+    <div className="mt-4 border-t border-border-subtle pt-3">
+      <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{t.moves.title}</p>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {moves.map((move) => {
+          const wording = t.moves[moveKey(move) as keyof typeof t.moves];
+          // A move with no wording cannot be rendered as a button — it would
+          // be blank. `decodeMoves` already drops unknown ids, so this is the
+          // belt to that braces rather than an expected branch.
+          if (!wording || typeof wording === "string") return null;
+          return (
+            <button
+              key={moveKey(move)}
+              type="button"
+              onClick={() => onMove(wording.say)}
+              className="inline-flex min-h-9 items-center rounded-control border border-border-subtle px-3 text-sm text-fg-secondary transition-colors hover:border-accent hover:text-fg-primary"
+            >
+              {wording.label}
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }

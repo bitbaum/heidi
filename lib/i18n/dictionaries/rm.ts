@@ -138,6 +138,26 @@ export const rm: Dictionary = {
       menuOpen: "Conversaziuns",
       menuClose: "Serrar",
     },
+    /**
+     * The one-tap follow-ups. `label` is what the chip says; `say` is the
+     * message it sends, which lands in the transcript as an ordinary turn —
+     * a follow-up you cannot see is a conversation you cannot re-read.
+     *
+     * The ids come from `lib/domain/chat/moves.ts` and are a CLOSED set. The
+     * model chooses which to offer; it never writes these words, because a
+     * label the model invented arrives in whatever language it felt like and
+     * can promise something pressing it does not do.
+     */
+    moves: {
+      title: "Ed ussa?",
+      reply: { label: "Scriver ina resposta", say: "Co respund jau a quai?" },
+      shorter: { label: "Pli curt", say: "Diai quai pli curt." },
+      warmer: { label: "Pli chaud", say: "Diai quai in pau pli chaudamain." },
+      firmer: { label: "Pli decis", say: "Diai quai pli decis — jau hai gia dumandà duas giadas." },
+      formal: { label: "Pli formal", say: "Scrivai quai pli formalmain, per in messadi official." },
+      casual: { label: "Pli simpel", say: "Diai quai pli liber, tranter amis." },
+      simpler: { label: "Pleds pli facils", say: "Diai quai cun pleds pli facils." },
+    },
   },
 
   model: {

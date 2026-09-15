@@ -130,6 +130,26 @@ export const ru: Dictionary = {
       menuOpen: "Разговоры",
       menuClose: "Закрыть",
     },
+    /**
+     * The one-tap follow-ups. `label` is what the chip says; `say` is the
+     * message it sends, which lands in the transcript as an ordinary turn —
+     * a follow-up you cannot see is a conversation you cannot re-read.
+     *
+     * The ids come from `lib/domain/chat/moves.ts` and are a CLOSED set. The
+     * model chooses which to offer; it never writes these words, because a
+     * label the model invented arrives in whatever language it felt like and
+     * can promise something pressing it does not do.
+     */
+    moves: {
+      title: "Что дальше?",
+      reply: { label: "Написать ответ", say: "Как мне на это ответить?" },
+      shorter: { label: "Короче", say: "Скажите это короче." },
+      warmer: { label: "Теплее", say: "Скажите это чуть теплее." },
+      firmer: { label: "Твёрже", say: "Скажите это твёрже — я уже спрашивал дважды." },
+      formal: { label: "Официальнее", say: "Напишите это официальнее, для делового сообщения." },
+      casual: { label: "Проще", say: "Скажите это непринуждённее, по-дружески." },
+      simpler: { label: "Простыми словами", say: "Скажите это более простыми словами." },
+    },
   },
 
   model: {
