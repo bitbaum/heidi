@@ -24,54 +24,41 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <Shell>
-      {/* The hero DEMONSTRATES rather than claims.
-          It used to say "Schweizerdeutsch verstehen" and leave it there — a
-          benefit stated, which every language site states. But the whole
-          product is the gap between what arrives on your phone and what you
-          understand, so the fastest way to be believed is to open that gap and
-          close it in one glance, before anyone has read a word of persuasion.
-          The line is real Züritüütsch a German speaker cannot parse; the
-          answer sits directly under it.
+      {/* One column, because the fold has ONE job: get a real Zurich sentence
+          decoded in this person's hands. It used to spend the right half on a
+          figure that quoted a line AND printed its meaning underneath — a
+          picture of the product, placed next to the product. It proved nothing,
+          because the visitor did not do it, and it pushed the box that does the
+          work below the middle of the screen.
 
-          Two columns, because the argument was in a narrow left column with
-          the right half of a 1440 screen empty, and because the demonstration
-          earns its own space rather than pushing the input further down. */}
-      <section className="grid gap-5 pb-6 pt-6 sm:pb-8 sm:pt-12 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-14">
-        <div>
-          <p className="font-mono text-[11px] uppercase tracking-caps text-accent">{t.eyebrow}</p>
-          <h1
-            id="headline"
-            className="mt-2 max-w-[18ch] font-heading text-title font-bold leading-[1.02] tracking-display text-fg-primary"
-          >
-            {t.headline}
-          </h1>
-          <p className="mt-3 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.sub}</p>
-        </div>
-
-        {DISPLAY.showcase && (
-          <figure className="rounded-control border border-border-strong bg-surface-raised p-4 sm:p-6">
-            <blockquote
-              lang={DISPLAY.tag}
-              className="font-heading text-section font-semibold leading-tight tracking-display text-dialect"
-            >
-              {`«${DISPLAY.showcase.line}»`}
-            </blockquote>
-            <figcaption className="mt-3 border-t border-border-subtle pt-3">
-              <span className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">
-                {t.showcaseLabel}
-              </span>
-              <p className="mt-1 text-lead leading-relaxed text-fg-primary">{t.showcaseMeaning}</p>
-            </figcaption>
-          </figure>
-        )}
+          That line is now the first thing you can press (see Chat's examples).
+          Same asset, opposite effect: it opens the gap and offers to close it
+          instead of closing it for you. */}
+      <section className="pb-9 pt-8 sm:pb-16 sm:pt-14">
+        <h1
+          id="headline"
+          className="max-w-[26ch] font-heading text-title font-bold leading-[1.04] tracking-display text-fg-primary"
+        >
+          {t.headline}
+        </h1>
+        {/* The eyebrow above this said "We are starting with Zurich" — a limit,
+            announced before the visitor knew what the thing does, and then said
+            again as its own heading further down the page. The scope belongs
+            where it is argued, not in the greeting. */}
+        <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.sub}</p>
       </section>
 
       <div className="pb-12 sm:pb-16">
-        <Chat locale={locale} dict={dict} />
+        <Chat locale={locale} dict={dict} dialect={{ tag: DISPLAY.tag, showcase: DISPLAY.showcase?.line }} />
       </div>
 
       <section className="border-y border-border-subtle py-10 sm:py-12" aria-labelledby="rules">
-        <h2 id="rules" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+        {/* Five sections, and their headings used to alternate between an
+            11px mono caption and a full title with nothing deciding which — so
+            "a dozen rules open hundreds of words", one of the best lines on the
+            site, was whispered underneath type three times its size. A section
+            is a section; they are all titled now. */}
+        <h2 id="rules" className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
           {t.correspondencesTitle}
         </h2>
         <div className="mt-6">
@@ -126,7 +113,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </section>
 
       <section className="border-b border-border-subtle py-12 sm:py-16" aria-labelledby="pillars">
-        <h2 id="pillars" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+        <h2 id="pillars" className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
           {t.pillarsTitle}
         </h2>
         <div className="mt-6 grid gap-10 sm:grid-cols-3 sm:gap-8">
@@ -161,7 +148,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </section>
 
       <section className="my-12 border-l-2 border-accent bg-surface-raised px-5 py-6 sm:my-16 sm:px-6">
-        <h2 className="font-heading text-xl font-semibold leading-tight tracking-display text-fg-primary">
+        <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
           {t.contributeTitle}
         </h2>
         <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.contributeBody}</p>

@@ -37,11 +37,8 @@ export const en: Dictionary = {
   },
 
   home: {
-    eyebrow: "Starting with Zurich",
     headline: "Understand Swiss German. Then write like someone from here.",
-    sub: "For people who already know German and still understand nothing at the lunch table. Paste what you received — or write what you mean.",
-    showcaseLabel: "Means, in English",
-    showcaseMeaning: "Are you coming over tonight as well?",
+    sub: "For people who already know German and still understand nothing at the lunch table.",
     dialectTitle: "We start with Zurich",
     dialectBody:
       "Swiss German is not one language but a family. Today Heidi is genuinely good at Zurich German, and would rather tell you that than pretend to cover everything. It is also exactly why the check rejects Bernese forms: not because Bernese is wrong, but because Zurich is what we are teaching right now. More dialects follow — each with its own voices and its own check.",
@@ -69,10 +66,12 @@ export const en: Dictionary = {
     send: "Send",
     thinking: "Heidi is reading …",
     you: "You",
+    exampleUnderstand: "What does it mean?",
+    exampleCompose: "Write it for me",
     examples: [
-      "Im Kauz scho, hät mer nöd so gfalle. Du au?",
-      "Tell them I am running ten minutes late — friendly.",
-      "Häsch du am Samschtig scho öppis vor?",
+      { kind: "dialect", text: "Im Kauz scho, hät mer nöd so gfalle. Du au?" },
+      { kind: "compose", text: "Tell them I am running ten minutes late — friendly." },
+      { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],
     glossTitle: "Words worth keeping",
     suggestionsTitle: "Try one of these",
