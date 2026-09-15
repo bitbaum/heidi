@@ -12,6 +12,7 @@ export const en: Dictionary = {
     chat: "Chat",
     grammar: "Grammar",
     dialect: "Dialects",
+    vocabulary: "Vocabulary",
     method: "Method",
     contribute: "Contribute",
     about: "About",
@@ -472,6 +473,24 @@ export const en: Dictionary = {
    * up confidently wrong. Forms need no translation; the frame around them is
    * what is written here.
    */
+  /**
+   * The vocabulary page. The WORDS are in the variety pack — a form and its
+   * German equivalent are not in any language — and only the frame is here:
+   * a title, the note about which direction the page runs in, and a label per
+   * group.
+   */
+  vocabulary: {
+    title: "The words worth knowing first",
+    lead: "Not the words for tourists, but the ones a sentence snags on: the short, constant ones no sound rule rescues.",
+    note: "Direction: dialect → German. This is for understanding what was said, not for writing — what you should write yourself is over in the dialects section.",
+    groups: {
+      function: "Small words, large effect",
+      verbs: "Verbs that turn up constantly",
+      everyday: "Everyday things",
+      greetings: "Greetings and politeness",
+    },
+  },
+
   dialect: {
     title: "Swiss German",
     lead: "What it is, why you cannot follow it even though you read German — and which dialect is spoken where.",

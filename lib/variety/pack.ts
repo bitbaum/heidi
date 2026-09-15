@@ -154,6 +154,34 @@ export type GrammarTopic = {
   examples: readonly { target: string; bridge: string }[];
 };
 
+/**
+ * The words that buy the most comprehension, grouped by what kind of word they
+ * are.
+ *
+ * WHICH WORDS. Not a phrasebook. A German reader already recognises most Swiss
+ * German content words, because they are cognate and the correspondences carry
+ * them — `Chind` is transparently `Kind` once you know `k → ch`. What actually
+ * stops them is the short, constant words no correspondence rescues: `nöd`,
+ * `öppis`, `mir` meaning *wir*, and the handful of verbs that appear in every
+ * other sentence. Those are worth a page; "hello" and "thank you" are not the
+ * reason anybody cannot follow a lunch table.
+ *
+ * THE DIRECTION IS TARGET → BRIDGE, which resolves what looks like a
+ * contradiction with the Swiss Standard German gate. This page says *Velo*
+ * means *Fahrrad* — and that gate flags *Fahrrad* as Germany's word. Both are
+ * right, because they face opposite ways: understanding what somebody said,
+ * versus writing something to send. Comprehension first is the whole product.
+ */
+export type VocabularyGroup = "function" | "verbs" | "everyday" | "greetings";
+
+export type VocabularyEntry = {
+  /** The form in the taught variety. */
+  target: string;
+  /** What a reader of the bridge language recognises. */
+  bridge: string;
+  group: VocabularyGroup;
+};
+
 /** How confident we are that a flagged form is actually wrong. */
 export type Severity =
   /** Belongs to an identifiable OTHER variety. The learner cannot detect this; we must. */
@@ -381,6 +409,20 @@ export type VarietyPack = {
    * written them yet — the page simply does not appear.
    */
   grammar?: readonly GrammarTopic[];
+  /**
+   * The words worth knowing first. Empty for a pack that has not chosen them
+   * yet — the page simply does not appear.
+   */
+  vocabulary?: readonly VocabularyEntry[];
+  /**
+   * Who vouches for the vocabulary. Ids from `lib/research/sources.ts`.
+   *
+   * Separate from a dialect area's sources because it is a different KIND of
+   * claim needing a different authority: an atlas maps where a form is spoken
+   * and says nothing about what it means. Citing the SDS for a gloss would be
+   * a reference that looks right and does not support the sentence above it.
+   */
+  vocabularySources?: readonly string[];
   /**
    * One line of the target variety that a speaker of the bridge language
    * cannot parse — the hero shows it, then answers it. Optional: a pack

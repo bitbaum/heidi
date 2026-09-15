@@ -12,6 +12,7 @@ export const it: Dictionary = {
     chat: "Chat",
     grammar: "Grammatica",
     dialect: "Dialetti",
+    vocabulary: "Lessico",
     method: "Metodo",
     contribute: "Partecipare",
     about: "Chi siamo",
@@ -472,6 +473,24 @@ export const it: Dictionary = {
    * up confidently wrong. Forms need no translation; the frame around them is
    * what is written here.
    */
+  /**
+   * The vocabulary page. The WORDS are in the variety pack — a form and its
+   * German equivalent are not in any language — and only the frame is here:
+   * a title, the note about which direction the page runs in, and a label per
+   * group.
+   */
+  vocabulary: {
+    title: "Le parole più utili",
+    lead: "Non le parole da turista, ma quelle su cui una frase si inceppa: le corte, le costanti, quelle che nessuna regola di corrispondenza recupera.",
+    note: "Direzione: dialetto → tedesco. Qui si tratta di capire, non di scrivere — quello che dovreste scrivere voi si trova nella sezione dei dialetti.",
+    groups: {
+      function: "Parole piccole, grande effetto",
+      verbs: "Verbi che tornano di continuo",
+      everyday: "Vita quotidiana",
+      greetings: "Saluti e cortesia",
+    },
+  },
+
   dialect: {
     title: "Lo svizzero tedesco",
     lead: "Che cos'è, perché non lo capite pur sapendo il tedesco — e quale dialetto si parla dove.",

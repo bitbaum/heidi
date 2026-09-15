@@ -99,6 +99,14 @@ export type DisplayVariety = {
   grammar: readonly DisplayGrammar[];
   /** Every dialect area of the family. Empty for a pack that has not mapped one. */
   areas: readonly DisplayArea[];
+  /**
+   * The words worth knowing first. A form, its bridge equivalent and a group
+   * key — all three survive the projection because none is English prose; the
+   * group's LABEL is translated and lives in the dictionaries.
+   */
+  vocabulary: readonly { target: string; bridge: string; group: string }[];
+  /** Ids into `lib/research/sources.ts` — keys, not prose, so they project. */
+  vocabularySources: readonly string[];
   /** `note` is deliberately absent — it is a paragraph of English. */
   orthography: { convention: string };
   /**
@@ -144,6 +152,12 @@ export const DISPLAY: DisplayVariety = {
     id: t.id,
     examples: t.examples.map((e) => ({ target: e.target, bridge: e.bridge })),
   })),
+  vocabulary: (VARIETY.vocabulary ?? []).map((w) => ({
+    target: w.target,
+    bridge: w.bridge,
+    group: w.group,
+  })),
+  vocabularySources: VARIETY.vocabularySources ?? [],
   areas: areasOf(VARIETY).map((area) => ({
     id: area.id,
     endonym: area.endonym,

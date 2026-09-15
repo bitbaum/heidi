@@ -31,6 +31,7 @@ export const de = {
     chat: "Chat",
     grammar: "Grammatik",
     dialect: "Mundarten",
+    vocabulary: "Wortschatz",
     method: "Methode",
     contribute: "Mitmachen",
     about: "Über uns",
@@ -492,6 +493,24 @@ export const de = {
    * up confidently wrong. Forms need no translation; the frame around them is
    * what is written here.
    */
+  /**
+   * The vocabulary page. The WORDS are in the variety pack — a form and its
+   * German equivalent are not in any language — and only the frame is here:
+   * a title, the note about which direction the page runs in, and a label per
+   * group.
+   */
+  vocabulary: {
+    title: "Die wichtigsten Wörter",
+    lead: "Nicht die Wörter für Touristen, sondern die, an denen ein Satz hängen bleibt: die kurzen, ständigen, für die keine Lautregel hilft.",
+    note: "Richtung: Mundart → Deutsch. Hier geht es ums Verstehen, nicht ums Schreiben — was Sie selbst schreiben sollten, steht bei den Mundarten.",
+    groups: {
+      function: "Kleine Wörter, grosse Wirkung",
+      verbs: "Verben, die ständig vorkommen",
+      everyday: "Alltag",
+      greetings: "Begrüssung und Höflichkeit",
+    },
+  },
+
   dialect: {
     title: "Schweizerdeutsch",
     lead: "Was es ist, warum Sie es nicht verstehen, obwohl Sie Deutsch können — und welche Mundart wo gesprochen wird.",

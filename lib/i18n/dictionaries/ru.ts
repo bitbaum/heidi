@@ -20,6 +20,7 @@ export const ru: Dictionary = {
     chat: "Чат",
     grammar: "Грамматика",
     dialect: "Диалекты",
+    vocabulary: "Словарь",
     method: "Метод",
     contribute: "Участвовать",
     about: "О проекте",
@@ -480,6 +481,24 @@ export const ru: Dictionary = {
    * up confidently wrong. Forms need no translation; the frame around them is
    * what is written here.
    */
+  /**
+   * The vocabulary page. The WORDS are in the variety pack — a form and its
+   * German equivalent are not in any language — and only the frame is here:
+   * a title, the note about which direction the page runs in, and a label per
+   * group.
+   */
+  vocabulary: {
+    title: "Самые нужные слова",
+    lead: "Не слова для туристов, а те, на которых фраза спотыкается: короткие, постоянные, те, что не спасает ни одно звуковое правило.",
+    note: "Направление: диалект → немецкий. Здесь речь о понимании, а не о письме — что писать самому, сказано в разделе о диалектах.",
+    groups: {
+      function: "Маленькие слова, большой эффект",
+      verbs: "Глаголы, которые встречаются постоянно",
+      everyday: "Повседневное",
+      greetings: "Приветствия и вежливость",
+    },
+  },
+
   dialect: {
     title: "Швейцарский немецкий",
     lead: "Что это такое, почему вы его не понимаете, хотя знаете немецкий, — и какой диалект где звучит.",

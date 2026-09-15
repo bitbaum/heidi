@@ -28,6 +28,7 @@ export const rm: Dictionary = {
     chat: "Chat",
     grammar: "Grammatica",
     dialect: "Idioms",
+    vocabulary: "Vocabulari",
     method: "Metoda",
     contribute: "Far part",
     about: "Davart nus",
@@ -488,6 +489,24 @@ export const rm: Dictionary = {
    * up confidently wrong. Forms need no translation; the frame around them is
    * what is written here.
    */
+  /**
+   * The vocabulary page. The WORDS are in the variety pack — a form and its
+   * German equivalent are not in any language — and only the frame is here:
+   * a title, the note about which direction the page runs in, and a label per
+   * group.
+   */
+  vocabulary: {
+    title: "Ils pleds ils pli utils",
+    lead: "Betg ils pleds per turists, mabain quels vi dals quals ina frasa resta tacca: ils curts, ils constants, quels che nagina regla da correspundenza na tira ora.",
+    note: "Direcziun: idiom → tudestg. Qua sa tracti da chapir, betg da scriver — quai che Vus duessas scriver sez stat tar ils idioms.",
+    groups: {
+      function: "Pleds pitschens, grond effect",
+      verbs: "Verbs che returnan adina",
+      everyday: "Mintgadi",
+      greetings: "Salids e curtaschia",
+    },
+  },
+
   dialect: {
     title: "Il tudestg svizzer",
     lead: "Tge ch'igl è, pertge che Vus n'al chapis betg malgrà che Vus savais tudestg — e tge idiom che vegn discurrì nua.",
