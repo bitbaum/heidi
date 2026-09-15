@@ -53,11 +53,8 @@ export const rm: Dictionary = {
   },
 
   home: {
-    eyebrow: "Nus cumenzain cun Turitg",
     headline: "Chapir il tudestg svizzer. E lura scriver sco insatgi da qua.",
-    sub: "Per tut quels che san gia tudestg e na chapeschan tuttina nagut a maisa. Encollai quai che Vus avais retschavì — u scrivai quai che Vus vulais dir.",
-    showcaseLabel: "Per rumantsch",
-    showcaseMeaning: "Vegns ti era oz saira?",
+    sub: "Per tut quels che san gia tudestg e na chapeschan tuttina nagut a maisa.",
     dialectTitle: "Nus cumenzain cun Turitg",
     dialectBody:
       "Il tudestg svizzer n'è betg ina lingua, mabain ina famiglia. Oz sa Heidi propi bain il tudestg da Turitg, ed ella Vus al di pli gugent che far la finta da savair tut. Quai è er precis la raschun pertge che la controlla refusa furmas bernaisas: betg perquai che il bernais fiss fallà, mabain perquai che nus instruin en quest mument Turitg. Ulteriurs dialects vegnan — mintgin cun sias atgnas vuschs e sia atgna controlla.",
@@ -85,10 +82,12 @@ export const rm: Dictionary = {
     send: "Trametter",
     thinking: "Heidi legia …",
     you: "Vus",
+    exampleUnderstand: "Tge vul quai dir?",
+    exampleCompose: "Scriver quai per mai",
     examples: [
-      "Im Kauz scho, hät mer nöd so gfalle. Du au?",
-      "Di ad els che jau arriv diesch minutas pli tard — amiaivlamain.",
-      "Häsch du am Samschtig scho öppis vor?",
+      { kind: "dialect", text: "Im Kauz scho, hät mer nöd so gfalle. Du au?" },
+      { kind: "compose", text: "Di ad els che jau arriv diesch minutas pli tard — amiaivlamain." },
+      { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],
     glossTitle: "Pleds da tegnair",
     suggestionsTitle: "Per empruvar",
