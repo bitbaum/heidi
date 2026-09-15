@@ -159,6 +159,61 @@ export const ZURICH_GERMAN: VarietyPack = {
     { bridge: "gut", target: "guet", rule: "u → ue", cue: "Listen for two vowels sliding together where German has one u." },
   ],
 
+  /**
+   * Four things that stop a German reader following spoken Zurich German.
+   *
+   * Chosen by what actually blocks COMPREHENSION, which is not the same list a
+   * grammar book would give. Somebody who reads German already has the
+   * vocabulary and the word order; what derails them is a past tense that does
+   * not exist, a relative pronoun that never changes, a possessive built the
+   * wrong way round, and a diminutive stuck to half the nouns in the sentence.
+   *
+   * Each one is here because a learner meeting it cannot reason their way out:
+   * it is not a harder version of something they know, it is a different move.
+   * Anything they could work out from German is deliberately absent.
+   */
+  grammar: [
+    {
+      // The single biggest one. There is no simple past in speech at all, so
+      // a German reader waiting for "ging" or "war" waits forever.
+      id: "no-preterite",
+      examples: [
+        { target: "Ich bi geschter hei gange.", bridge: "Ich ging gestern nach Hause." },
+        { target: "Si hät nüüt gseit.", bridge: "Sie sagte nichts." },
+        { target: "Mir händ das scho gmacht.", bridge: "Wir machten das schon." },
+      ],
+    },
+    {
+      // `wo` never inflects. German readers parse it as "where" and lose the
+      // clause.
+      id: "wo-relative",
+      examples: [
+        { target: "De Maa, wo dört staht.", bridge: "Der Mann, der dort steht." },
+        { target: "D Frau, wo ich gsee ha.", bridge: "Die Frau, die ich gesehen habe." },
+        { target: "S Huus, wo mir gwohnt händ.", bridge: "Das Haus, in dem wir gewohnt haben." },
+      ],
+    },
+    {
+      // Possession runs the other way round, and the genitive is simply gone.
+      id: "possessive-dative",
+      examples: [
+        { target: "Em Peter sis Auto.", bridge: "Peters Auto." },
+        { target: "De Anna ihri Schwöschter.", bridge: "Annas Schwester." },
+        { target: "S Dach vom Huus.", bridge: "Das Dach des Hauses." },
+      ],
+    },
+    {
+      // Productive to a degree German is not: it attaches to almost anything
+      // and often carries no smallness at all.
+      id: "diminutive-li",
+      examples: [
+        { target: "Machsch es Bierli?", bridge: "Trinken wir ein Bier?" },
+        { target: "Es Kafi und es Gipfeli.", bridge: "Ein Kaffee und ein Croissant." },
+        { target: "Gang no schnäll go poschte, es Sächeli.", bridge: "Geh noch kurz einkaufen, eine Kleinigkeit." },
+      ],
+    },
+  ],
+
   rules: [
     {
       match: /(?<!\p{L})tüü?tsch(?!\p{L})/giu,

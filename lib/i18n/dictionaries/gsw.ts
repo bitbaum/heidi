@@ -33,6 +33,7 @@ export const gsw: Dictionary = {
   nav: {
     home: "Afang",
     chat: "Chat",
+    grammar: "Grammatik",
     method: "Methode",
     contribute: "Mitmache",
     about: "Über öis",
@@ -164,6 +165,7 @@ export const gsw: Dictionary = {
     moves: {
       title: "Und jetz?",
       reply: { label: "Antwort schriibe", say: "Wie antworte ich da druf?" },
+      grammar: { label: "D Grammatik dezue", say: "Erkläred Si mir d Grammatik dehinder." },
       shorter: { label: "Chürzer", say: "Fasseds chürzer." },
       warmer: { label: "Wärmer", say: "Sageds echli herzlicher." },
       firmer: { label: "Bestimmter", say: "Sageds bestimmter — ich han scho zweimal gfragt." },
@@ -471,6 +473,46 @@ export const gsw: Dictionary = {
     notFoundBody: "Villicht isch de Link alt, villicht händ mir öppis verschobe.",
     backHome: "Zrugg zum Afang",
   },
+  /**
+   * The grammar area. The FORMS live in the variety pack — `Ich bi gange` is
+   * Zurich German whoever is reading — and the words that explain them live
+   * here, keyed by the pack's topic id, because an explanation has to be
+   * translated and a pack is English-source.
+   *
+   * A topic is small on purpose: one sentence of rule and the thing that
+   * actually trips somebody who already reads German. The evidence this repo
+   * cites is that these work as cues beside something you are about to meet
+   * again, and fail as a lecture you sit through first.
+   */
+  grammar: {
+    title: "Grammatik",
+    lead: "Vier Sache, wo Züritüütsch schwer verständlich mached für öpper, wo scho Dütsch liest. Kei Lektione — nur das, wo Si ghöred, und wo's hakt.",
+    ruleLabel: "D Regle",
+    watchLabel: "Wo's hakt",
+    topics: {
+      "no-preterite": {
+        title: "Kei Präteritum",
+        rule: "Gschwätzts Züritüütsch hät kei eifachi Vergangeheit: alles Vergangene staht im Perfekt.",
+        watch: "Si warted uf «ging», «war», «sagte» — und es chunnt nie. Wänn Si «bi», «hät» oder «händ» plus Partizip ghöred, isch das d Vergangeheit.",
+      },
+      "wo-relative": {
+        title: "«wo» statt der, die, das",
+        rule: "Relativsätz fanged fascht immer mit «wo» aa, unveränderet, egal weles Gschlächt oder wele Fall.",
+        watch: "Si läsed «wo» als «wo?» und verlüüred de Satz. Es heisst da «der», «die», «das» oder «den» — nie en Ort.",
+      },
+      "possessive-dative": {
+        title: "Bsitz andersume",
+        rule: "De Genitiv fählt: Bsitz wird mit Dativ plus Possessivpronome bildet, oder mit «vo».",
+        watch: "«Em Peter sis Auto» isch kein Fähler, sondern di normali Form. D Person chunnt zerscht, d Sach dernah.",
+      },
+      "diminutive-li": {
+        title: "S -li a allem",
+        rule: "D Verchlinerigsform uf -li isch sehr produktiv und bedüüted oft gar nüüt Chliises.",
+        watch: "«Es Bierli» isch kei chlises Bier, sondern es fründlich gseits Bier. Nämed Si s -li nöd wörtlich.",
+      },
+    },
+  },
+
   saved: {
     title: "Dini Wörter",
     lead: "Was du naagschlage und bhalte wottsch. Alles liit i dem Browser, uf dem Grät — und nöd bi eus.",

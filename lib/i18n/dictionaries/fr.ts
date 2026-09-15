@@ -10,6 +10,7 @@ export const fr: Dictionary = {
   nav: {
     home: "Accueil",
     chat: "Chat",
+    grammar: "Grammaire",
     method: "Méthode",
     contribute: "Participer",
     about: "À propos",
@@ -141,6 +142,7 @@ export const fr: Dictionary = {
     moves: {
       title: "Et maintenant ?",
       reply: { label: "Écrire une réponse", say: "Comment est-ce que je réponds à ça ?" },
+      grammar: { label: "La grammaire derrière", say: "Expliquez-moi la grammaire derrière ça." },
       shorter: { label: "Plus court", say: "Dites-le plus brièvement." },
       warmer: { label: "Plus chaleureux", say: "Dites-le un peu plus chaleureusement." },
       firmer: { label: "Plus ferme", say: "Dites-le plus fermement — j'ai déjà demandé deux fois." },
@@ -446,6 +448,46 @@ export const fr: Dictionary = {
     notFoundBody: "Le lien est peut-être ancien, ou nous avons déplacé quelque chose.",
     backHome: "Retour à l'accueil",
   },
+  /**
+   * The grammar area. The FORMS live in the variety pack — `Ich bi gange` is
+   * Zurich German whoever is reading — and the words that explain them live
+   * here, keyed by the pack's topic id, because an explanation has to be
+   * translated and a pack is English-source.
+   *
+   * A topic is small on purpose: one sentence of rule and the thing that
+   * actually trips somebody who already reads German. The evidence this repo
+   * cites is that these work as cues beside something you are about to meet
+   * again, and fail as a lecture you sit through first.
+   */
+  grammar: {
+    title: "Grammaire",
+    lead: "Quatre choses qui rendent le zurichois difficile à suivre pour quelqu'un qui lit déjà l'allemand. Pas de leçons — seulement ce que vous allez entendre, et où ça coince.",
+    ruleLabel: "La règle",
+    watchLabel: "Où ça coince",
+    topics: {
+      "no-preterite": {
+        title: "Pas de prétérit",
+        rule: "Le zurichois parlé n'a pas de passé simple : tout le passé se dit au parfait.",
+        watch: "Vous attendez « ging », « war », « sagte » — et cela ne vient jamais. Si vous entendez « bi », « hät » ou « händ » suivi d'un participe, c'est le passé.",
+      },
+      "wo-relative": {
+        title: "« wo » à la place de der, die, das",
+        rule: "Les relatives commencent presque toujours par « wo », invariable, quel que soit le genre ou le cas.",
+        watch: "Vous lisez « wo » comme « où ? » et vous perdez la phrase. Ici, cela veut dire « qui », « que » — jamais un lieu.",
+      },
+      "possessive-dative": {
+        title: "La possession à l'envers",
+        rule: "Le génitif n'existe pas : la possession se construit avec le datif et un possessif, ou avec « vo ».",
+        watch: "« Em Peter sis Auto » n'est pas une faute, c'est la forme normale. La personne d'abord, la chose ensuite.",
+      },
+      "diminutive-li": {
+        title: "Le -li sur tout",
+        rule: "Le diminutif en -li est très productif et n'indique souvent rien de petit.",
+        watch: "« Es Bierli » n'est pas une petite bière, c'est une bière dite gentiment. Ne prenez pas le -li au pied de la lettre.",
+      },
+    },
+  },
+
   saved: {
     title: "Vos mots",
     lead: "Ce que vous avez cherché et voulu garder. Tout reste dans ce navigateur, sur cet appareil — pas chez nous.",

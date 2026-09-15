@@ -29,6 +29,7 @@ export const de = {
   nav: {
     home: "Start",
     chat: "Chat",
+    grammar: "Grammatik",
     method: "Methode",
     contribute: "Mitmachen",
     about: "Über uns",
@@ -160,6 +161,7 @@ export const de = {
     moves: {
       title: "Und jetzt?",
       reply: { label: "Antwort schreiben", say: "Wie antworte ich darauf?" },
+      grammar: { label: "Die Grammatik dazu", say: "Erklären Sie mir die Grammatik dahinter." },
       shorter: { label: "Kürzer", say: "Fassen Sie das kürzer." },
       warmer: { label: "Wärmer", say: "Sagen Sie das etwas herzlicher." },
       firmer: { label: "Bestimmter", say: "Sagen Sie das bestimmter — ich habe schon zweimal gefragt." },
@@ -466,6 +468,46 @@ export const de = {
     notFoundBody: "Vielleicht ist der Link alt, vielleicht haben wir etwas verschoben.",
     backHome: "Zurück zum Start",
   },
+  /**
+   * The grammar area. The FORMS live in the variety pack — `Ich bi gange` is
+   * Zurich German whoever is reading — and the words that explain them live
+   * here, keyed by the pack's topic id, because an explanation has to be
+   * translated and a pack is English-source.
+   *
+   * A topic is small on purpose: one sentence of rule and the thing that
+   * actually trips somebody who already reads German. The evidence this repo
+   * cites is that these work as cues beside something you are about to meet
+   * again, and fail as a lecture you sit through first.
+   */
+  grammar: {
+    title: "Grammatik",
+    lead: "Vier Dinge, die Zürichdeutsch für jemanden schwer verständlich machen, der Deutsch schon liest. Keine Lektionen — nur das, was Sie hören werden, und wo es hakt.",
+    ruleLabel: "Die Regel",
+    watchLabel: "Wo es hakt",
+    topics: {
+      "no-preterite": {
+        title: "Kein Präteritum",
+        rule: "Gesprochenes Zürichdeutsch hat keine einfache Vergangenheit: alles Vergangene steht im Perfekt.",
+        watch: "Sie warten auf «ging», «war», «sagte» — und es kommt nie. Wenn Sie «bi», «hät» oder «händ» plus Partizip hören, ist das die Vergangenheit.",
+      },
+      "wo-relative": {
+        title: "«wo» statt der, die, das",
+        rule: "Relativsätze werden fast immer mit «wo» eingeleitet, unverändert, egal welches Geschlecht oder welcher Fall.",
+        watch: "Sie lesen «wo» als «wo?» und verlieren den Satz. Es heisst hier «der», «die», «das» oder «den» — nie ein Ort.",
+      },
+      "possessive-dative": {
+        title: "Besitz andersherum",
+        rule: "Der Genitiv fehlt: Besitz wird mit Dativ plus Possessivpronomen gebildet, oder mit «vo».",
+        watch: "«Em Peter sis Auto» ist nicht «dem Peter sein Auto» als Fehler, sondern die normale Form. Die Person kommt zuerst, die Sache danach.",
+      },
+      "diminutive-li": {
+        title: "Das -li an allem",
+        rule: "Die Verkleinerungsform auf -li ist sehr produktiv und bedeutet oft gar nichts Kleines.",
+        watch: "«Es Bierli» ist kein kleines Bier, sondern ein freundlich gesagtes Bier. Nehmen Sie -li nicht wörtlich.",
+      },
+    },
+  },
+
   saved: {
     title: "Ihre Wörter",
     lead: "Was Sie nachgeschlagen und behalten wollten. Alles liegt in diesem Browser, auf diesem Gerät — nicht bei uns.",

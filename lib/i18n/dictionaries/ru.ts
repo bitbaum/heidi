@@ -18,6 +18,7 @@ export const ru: Dictionary = {
   nav: {
     home: "Начало",
     chat: "Чат",
+    grammar: "Грамматика",
     method: "Метод",
     contribute: "Участвовать",
     about: "О проекте",
@@ -149,6 +150,7 @@ export const ru: Dictionary = {
     moves: {
       title: "Что дальше?",
       reply: { label: "Написать ответ", say: "Как мне на это ответить?" },
+      grammar: { label: "Грамматика за этим", say: "Объясните грамматику, которая за этим стоит." },
       shorter: { label: "Короче", say: "Скажите это короче." },
       warmer: { label: "Теплее", say: "Скажите это чуть теплее." },
       firmer: { label: "Твёрже", say: "Скажите это твёрже — я уже спрашивал дважды." },
@@ -454,6 +456,46 @@ export const ru: Dictionary = {
     notFoundBody: "Возможно, ссылка устарела, а возможно, мы что-то перенесли.",
     backHome: "Вернуться в начало",
   },
+  /**
+   * The grammar area. The FORMS live in the variety pack — `Ich bi gange` is
+   * Zurich German whoever is reading — and the words that explain them live
+   * here, keyed by the pack's topic id, because an explanation has to be
+   * translated and a pack is English-source.
+   *
+   * A topic is small on purpose: one sentence of rule and the thing that
+   * actually trips somebody who already reads German. The evidence this repo
+   * cites is that these work as cues beside something you are about to meet
+   * again, and fail as a lecture you sit through first.
+   */
+  grammar: {
+    title: "Грамматика",
+    lead: "Четыре вещи, из-за которых цюрихский трудно понять тому, кто уже читает по-немецки. Не уроки — только то, что вы услышите, и где спотыкаются.",
+    ruleLabel: "Правило",
+    watchLabel: "Где спотыкаются",
+    topics: {
+      "no-preterite": {
+        title: "Нет прошедшего простого",
+        rule: "В разговорном цюрихском нет претерита: всё прошедшее выражается перфектом.",
+        watch: "Вы ждёте «ging», «war», «sagte» — и не дожидаетесь. Если слышите «bi», «hät» или «händ» плюс причастие, это и есть прошедшее.",
+      },
+      "wo-relative": {
+        title: "«wo» вместо der, die, das",
+        rule: "Придаточные почти всегда начинаются с «wo», неизменяемого, независимо от рода и падежа.",
+        watch: "Вы читаете «wo» как «где?» и теряете фразу. Здесь это «который» — никогда не место.",
+      },
+      "possessive-dative": {
+        title: "Принадлежность наоборот",
+        rule: "Родительного падежа нет: принадлежность строится дательным плюс притяжательное, или через «vo».",
+        watch: "«Em Peter sis Auto» — не ошибка, а обычная форма. Сначала человек, потом вещь.",
+      },
+      "diminutive-li": {
+        title: "Это -li на всём",
+        rule: "Уменьшительное на -li очень продуктивно и часто не означает ничего маленького.",
+        watch: "«Es Bierli» — не маленькое пиво, а пиво, сказанное по-доброму. Не понимайте -li буквально.",
+      },
+    },
+  },
+
   saved: {
     title: "Ваши слова",
     lead: "То, что вы посмотрели и захотели сохранить. Всё хранится в этом браузере, на этом устройстве — не у нас.",

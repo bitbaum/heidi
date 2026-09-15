@@ -10,6 +10,7 @@ export const en: Dictionary = {
   nav: {
     home: "Start",
     chat: "Chat",
+    grammar: "Grammar",
     method: "Method",
     contribute: "Contribute",
     about: "About",
@@ -141,6 +142,7 @@ export const en: Dictionary = {
     moves: {
       title: "What now?",
       reply: { label: "Write a reply", say: "How do I reply to this?" },
+      grammar: { label: "The grammar behind it", say: "Explain the grammar behind that." },
       shorter: { label: "Shorter", say: "Say that more briefly." },
       warmer: { label: "Warmer", say: "Say that a bit more warmly." },
       firmer: { label: "Firmer", say: "Say that more firmly — I have already asked twice." },
@@ -446,6 +448,46 @@ export const en: Dictionary = {
     notFoundBody: "Maybe the link is old, maybe we moved something.",
     backHome: "Back to the start",
   },
+  /**
+   * The grammar area. The FORMS live in the variety pack — `Ich bi gange` is
+   * Zurich German whoever is reading — and the words that explain them live
+   * here, keyed by the pack's topic id, because an explanation has to be
+   * translated and a pack is English-source.
+   *
+   * A topic is small on purpose: one sentence of rule and the thing that
+   * actually trips somebody who already reads German. The evidence this repo
+   * cites is that these work as cues beside something you are about to meet
+   * again, and fail as a lecture you sit through first.
+   */
+  grammar: {
+    title: "Grammar",
+    lead: "Four things that make Zurich German hard to follow for somebody who already reads German. Not lessons — just what you will hear, and where it catches you.",
+    ruleLabel: "The rule",
+    watchLabel: "Where it catches you",
+    topics: {
+      "no-preterite": {
+        title: "No simple past",
+        rule: "Spoken Zurich German has no preterite at all: everything past is said with the perfect.",
+        watch: "You are waiting for ging, war, sagte — and it never comes. When you hear bi, hät or händ plus a participle, that IS the past.",
+      },
+      "wo-relative": {
+        title: "wo instead of der, die, das",
+        rule: "Relative clauses almost always start with wo, unchanging, whatever the gender or case.",
+        watch: "You read wo as where? and lose the sentence. Here it means who, which or that — never a place.",
+      },
+      "possessive-dative": {
+        title: "Possession the other way round",
+        rule: "There is no genitive: possession is built from the dative plus a possessive, or with vo.",
+        watch: "Em Peter sis Auto is not a mistake, it is the normal form. The person comes first, the thing after.",
+      },
+      "diminutive-li": {
+        title: "The -li on everything",
+        rule: "The -li diminutive is highly productive and often means nothing small at all.",
+        watch: "Es Bierli is not a small beer, it is a beer said kindly. Do not take -li literally.",
+      },
+    },
+  },
+
   saved: {
     title: "Your words",
     lead: "What you looked up and wanted to keep. It all lives in this browser, on this device — not with us.",

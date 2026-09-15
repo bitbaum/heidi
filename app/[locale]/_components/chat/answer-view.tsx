@@ -1,7 +1,11 @@
 "use client";
 
 import type { Answer } from "@/lib/domain/chat/types";
-import { moveKey, type NextMove } from "@/lib/domain/chat/moves";
+import Link from "next/link";
+import { moveId, moveKey, type NextMove } from "@/lib/domain/chat/moves";
+import { href } from "@/lib/i18n/routes";
+import type { Locale } from "@/lib/i18n/locales";
+import { DISPLAY } from "@/lib/variety/display";
 import type { Dictionary } from "@/lib/i18n";
 import { Copy } from "./copy-button";
 import { KeepWord } from "./keep-word";
@@ -30,9 +34,12 @@ export function AnswerView({
   t,
   context,
   onMove,
+  locale,
 }: {
   answer: Answer;
   t: Dictionary["chat"];
+  /** For the grammar link. Absent means grammar chips are not offered. */
+  locale?: Locale;
   /** The learner's line this answers, carried onto any word they keep. */
   context?: string;
   /**
@@ -140,7 +147,9 @@ export function AnswerView({
 
       {a.note && <p className="mt-3 text-sm text-fg-muted">{a.note}</p>}
 
-      {onMove && a.next && a.next.length > 0 && <NextMoves moves={a.next} t={t} onMove={onMove} />}
+      {onMove && a.next && a.next.length > 0 && (
+        <NextMoves moves={a.next} t={t} onMove={onMove} locale={locale} />
+      )}
 
       {/* Provenance. An answer with no model attached is a rumour. */}
       <p className="mt-3 border-t border-border-subtle pt-2 font-mono text-[10px] text-fg-muted">
@@ -167,10 +176,12 @@ function NextMoves({
   moves,
   t,
   onMove,
+  locale,
 }: {
   moves: NextMove[];
   t: Dictionary["chat"];
   onMove: (say: string) => void;
+  locale?: Locale;
 }) {
   return (
     <div className="mt-4 border-t border-border-subtle pt-3">
@@ -182,13 +193,39 @@ function NextMoves({
           // be blank. `decodeMoves` already drops unknown ids, so this is the
           // belt to that braces rather than an expected branch.
           if (!wording || typeof wording === "string") return null;
+
+          const style =
+            "inline-flex min-h-9 items-center rounded-control border border-border-subtle px-3 text-sm text-fg-secondary transition-colors hover:border-accent hover:text-fg-primary";
+
+          /**
+           * Grammar is the one move that NAVIGATES rather than asks.
+           *
+           * The explanation already exists, written once and translated, and
+           * it is better than anything the model would improvise for the
+           * fourth time this week — which is the whole reason the page is
+           * there. So it is a link, which also means it opens in a new tab if
+           * the person wants to keep the conversation.
+           *
+           * The topic must exist in THIS locale's dictionary. `decodeMoves`
+           * checked the shape; only the renderer can check that the words are
+           * there, and a chip pointing at an anchor nothing renders would
+           * scroll to the top of the page and look broken.
+           */
+          if (move.id === "grammar") {
+            // `DISPLAY.grammar` rather than the dictionary: a test asserts the
+            // two agree in every locale, and this component is only handed
+            // `dict.chat`, which does not carry the topics.
+            const known = locale && DISPLAY.grammar.some((topic) => topic.id === move.topic);
+            if (!known) return null;
+            return (
+              <Link key={moveId(move)} href={`${href(locale, "grammar")}#${move.topic}`} className={style}>
+                {wording.label}
+              </Link>
+            );
+          }
+
           return (
-            <button
-              key={moveKey(move)}
-              type="button"
-              onClick={() => onMove(wording.say)}
-              className="inline-flex min-h-9 items-center rounded-control border border-border-subtle px-3 text-sm text-fg-secondary transition-colors hover:border-accent hover:text-fg-primary"
-            >
+            <button key={moveId(move)} type="button" onClick={() => onMove(wording.say)} className={style}>
               {wording.label}
             </button>
           );
