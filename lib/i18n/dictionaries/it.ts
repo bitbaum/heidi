@@ -45,6 +45,7 @@ export const it: Dictionary = {
     dialectBody:
       "Lo svizzero tedesco non è una lingua ma una famiglia. Oggi Heidi conosce davvero bene lo zurighese, e preferisce dirvelo piuttosto che fingere di coprire tutto. È anche esattamente il motivo per cui la verifica rifiuta le forme bernesi: non perché il bernese sia sbagliato, ma perché in questo momento insegniamo Zurigo. Seguiranno altri dialetti — ciascuno con le proprie voci e la propria verifica.",
     dialectPlanned: "Previsto",
+    dialectOthers: "Altri dialetti",
     trustTitle: "Ogni riga è verificata prima che la vediate",
     trustBody:
       "Un modello linguistico a cui si chiede lo svizzero tedesco vi darà volentieri del bernese, senza che possiate accorgervene. Da Heidi non è quindi il modello a decidere che cosa sia zurighese: lo fa un controllo a regole fisse, che potete eseguire voi stessi.",

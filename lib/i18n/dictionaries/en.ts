@@ -45,6 +45,7 @@ export const en: Dictionary = {
     dialectBody:
       "Swiss German is not one language but a family. Today Heidi is genuinely good at Zurich German, and would rather tell you that than pretend to cover everything. It is also exactly why the check rejects Bernese forms: not because Bernese is wrong, but because Zurich is what we are teaching right now. More dialects follow — each with its own voices and its own check.",
     dialectPlanned: "Planned",
+    dialectOthers: "Other dialects",
     trustTitle: "Every line is checked before you see it",
     trustBody:
       "A language model asked for Swiss German will happily hand you Bernese, and you would have no way to tell. So at Heidi the model does not decide what counts as Zurich German. A fixed rule check does, and you can run it yourself.",

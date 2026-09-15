@@ -61,6 +61,7 @@ export const rm: Dictionary = {
     dialectBody:
       "Il tudestg svizzer n'è betg ina lingua, mabain ina famiglia. Oz sa Heidi propi bain il tudestg da Turitg, ed ella Vus al di pli gugent che far la finta da savair tut. Quai è er precis la raschun pertge che la controlla refusa furmas bernaisas: betg perquai che il bernais fiss fallà, mabain perquai che nus instruin en quest mument Turitg. Ulteriurs dialects vegnan — mintgin cun sias atgnas vuschs e sia atgna controlla.",
     dialectPlanned: "Planisà",
+    dialectOthers: "Auters idioms",
     trustTitle: "Mintga lingia vegn controllada avant che Vus la vesais",
     trustBody:
       "In model da lingua al qual ins dumonda tudestg svizzer dat gugent bernais, e Vus n'avessas nagina pussaivladad da l'annotar. Tar Heidi na decida pia betg il model tge che è tudestg da Turitg: quai fa ina controlla cun reglas fixas, che Vus pudais exequir svess.",

@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { check } from "./check.ts";
 import { frontDoor, siblingOf, type VarietyPack } from "./pack.ts";
 import { ZURICH_GERMAN } from "./packs/gsw-zh.ts";
+import { areasOf, isTaught } from "./family.ts";
 import { UKRAINIAN } from "./packs/uk.ts";
 
 const PACKS: ReadonlyArray<[string, VarietyPack]> = [
@@ -81,28 +82,36 @@ test("Zurich German is one dialect of a family, not the whole language", () => {
   assert.ok(family, "Zurich German must name the family it belongs to");
   assert.equal(family?.name, "Swiss German");
   assert.ok((family?.planned.length ?? 0) > 0, "the dialects we do not teach yet must be named");
-  assert.ok(family?.planned.includes("Bern"));
+  assert.ok(family?.planned.includes("baerndueuetsch"));
 });
 
-test("every planned dialect is placed on the map, and nothing is placed that is not planned", () => {
-  // The figure draws `planned` and looks each name up in `atlas.places`. A
-  // dialect added to one list and not the other does not throw — it silently
-  // vanishes from the map, or leaves a dot no legend explains. Both halves are
-  // named here so the drift is a test failure instead.
+test("every planned dialect is a real area", () => {
+  // The roadmap used to hold display names and the map held its own copy of
+  // the same points, matched by string. They did not match: "Aargau" and
+  // "Wallis" refer to areas named after Aarau and Brig, so both drew as "not
+  // on the roadmap" while sitting on it. One list of areas, referenced by id,
+  // and a planned id with no area is now a failure rather than a silent
+  // downgrade on the map.
   const family = ZURICH_GERMAN.family;
-  const atlas = family?.atlas;
-  assert.ok(atlas, "the Swiss German family should be drawable");
+  const ids = new Set(areasOf(ZURICH_GERMAN).map((a) => a.id));
 
-  const planned = [...(family?.planned ?? [])].sort();
-  const placed = Object.keys(atlas?.places ?? {}).sort();
-  assert.deepEqual(placed, planned, "planned dialects and placed dialects must be the same set");
+  for (const id of family?.planned ?? []) {
+    assert.ok(ids.has(id), `planned "${id}" is not an area in family.areas`);
+  }
+});
+
+test("the taught variety is not also on the roadmap", () => {
+  // "Coming soon" for the thing that is already here.
+  const taught = areasOf(ZURICH_GERMAN).find((a) => isTaught(ZURICH_GERMAN, a));
+  assert.ok(taught);
+  assert.equal(ZURICH_GERMAN.family?.planned.includes(taught.id), false);
 });
 
 test("the dialects sit inside the country they are spoken in", () => {
   // Coordinates are easy to transpose — lon/lat the wrong way round puts Bern
   // in Somalia, and the figure would still render, just wrongly.
   const atlas = ZURICH_GERMAN.family?.atlas;
-  const points = [atlas?.home, ...Object.values(atlas?.places ?? {})];
+  const points = [atlas?.home, ...areasOf(ZURICH_GERMAN).map((a) => a.place)];
   for (const p of points) {
     assert.ok(p, "every place is defined");
     assert.ok(p!.lon > 5.9 && p!.lon < 10.5, `lon ${p!.lon} is outside Switzerland`);
@@ -114,7 +123,17 @@ test("every region the gate rejects is a named sibling, not a mystery", () => {
   // The gate rejects Bernese because we teach Zurich, not because Bernese is
   // wrong. A rejected origin we have no plan for means the scope claimed on
   // the home page has drifted from what the checker actually does.
-  const known = new Set([...(ZURICH_GERMAN.family?.planned ?? []), "Ostschweiz"]);
+  // Tied to the atlas rather than to the roadmap, which is the real invariant:
+  // the gate may reject a form for belonging to a dialect area we have mapped,
+  // or to the roof language. Anything else is an origin nobody can place.
+  const known = new Set([
+    ...areasOf(ZURICH_GERMAN)
+      .map((a) => a.ruleOrigin)
+      .filter((o): o is string => Boolean(o)),
+    // Germany is not a Swiss dialect area. It is the roof language, and its
+    // forms are rejected for a different reason — see the bridge rules.
+    "Germany",
+  ]);
   const rejected = ZURICH_GERMAN.rules
     .filter((r) => r.severity === "foreign" && r.origin)
     .map((r) => r.origin as string);

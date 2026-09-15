@@ -25,6 +25,19 @@
  * see `gooskens-2007`.
  */
 
+/**
+ * What kind of thing is being cited, because the test for "is this a real
+ * citation" is genuinely different for each.
+ *
+ * An ARTICLE has a DOI, and anything without one is a PDF on somebody's
+ * homepage wearing a reference's clothes. A REFERENCE work — a dialect atlas,
+ * a standing dictionary — has no DOI and never will; its stable identifier is
+ * its publisher's record. Widening the article rule to admit them would have
+ * thrown away the check that makes it worth having, so the two are named apart
+ * instead.
+ */
+export type SourceKind = "article" | "reference";
+
 export type Source = {
   authors: string;
   year: number;
@@ -33,9 +46,44 @@ export type Source = {
   venue: string;
   /** DOI-resolved where one exists, otherwise a stable catalogue record. */
   url: string;
+  /** Absent means `article`, which is what all of these were to begin with. */
+  kind?: SourceKind;
 };
 
 export const SOURCES = {
+  /**
+   * DIALECTOLOGY, as opposed to the acquisition research above.
+   *
+   * These support claims about where a form is spoken, which is a different
+   * kind of assertion from "spacing improves retention" and needs a different
+   * kind of source. Every dialect claim on the site names one of these, and a
+   * test refuses a claim that names none — because "there will be a lot of
+   * info and we need to ensure it is all correct" is not solved by being
+   * careful, it is solved by making carelessness fail the build.
+   *
+   * The Schweizerisches Idiotikon belongs here too and is deliberately NOT
+   * added yet: it is the reference for WORD-level claims, and the vocabulary
+   * page that would cite it does not exist. A source defined before anything
+   * cites it is the stale reference waiting to be attached to the wrong claim
+   * — which the test below refuses, correctly.
+   */
+  "sds-atlas": {
+    kind: "reference",
+    authors: "Hotzenköcherle, Schläpfer, Trüb, Zinsli (eds.)",
+    year: 1997,
+    title: "Sprachatlas der deutschen Schweiz (SDS)",
+    venue: "Francke, Bern. Eight volumes, 1962–1997; over 1,500 maps from fieldwork carried out 1939–1958, covering the Alemannic dialects of Switzerland and the Walser dialects of northern Italy",
+    url: "https://de.wikipedia.org/wiki/Sprachatlas_der_deutschen_Schweiz",
+  },
+  "kleiner-sprachatlas": {
+    kind: "reference",
+    authors: "Christen, Glaser & Friedli (eds.)",
+    year: 2010,
+    title: "Kleiner Sprachatlas der deutschen Schweiz",
+    venue: "Huber, Frauenfeld. The condensed, general-readership edition of the SDS",
+    url: "https://www.schwabe.ch/produkt/kleiner-sprachatlas-der-deutschen-schweiz-9783796554001-t-13488",
+  },
+
   "gooskens-2018": {
     authors: "Gooskens, van Heuven, Golubović, Schüppert, Swarte & Voigt",
     year: 2018,

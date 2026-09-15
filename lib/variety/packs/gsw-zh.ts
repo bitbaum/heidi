@@ -23,24 +23,141 @@ export const ZURICH_GERMAN: VarietyPack = {
     endonym: "Schwiizerdütsch",
     // The dialects the gate currently rejects. They are not errors — they are
     // the next packs. Ordered by how many speakers they would reach.
-    planned: ["Bern", "Basel", "Luzern", "St. Gallen", "Aargau", "Wallis"],
+    // Area ids, in the order we expect to add them.
+    planned: [
+      "baerndueuetsch",
+      "baseldytsch",
+      "innerschwyzertuetsch",
+      "ostschwiizertuetsch",
+      "aargauerdueuetsch",
+      "wallisertitsch",
+    ],
 
-    // Where each of those is spoken — the canton's main town, which is what a
-    // dialect is named after in practice. These are points, not territories:
-    // an isogloss does not follow a cantonal border, and claiming it did would
-    // be the inaccuracy that made us avoid a map in the first place. Marking
-    // "Bernese is spoken at Bern" asserts only what is true.
+    /**
+     * Every German-speaking dialect area of Switzerland — what EXISTS, as
+     * opposed to `planned`, which is what Heidi intends to teach next.
+     *
+     * The two were one list, and that is how the map came to answer "where is
+     * Swiss German spoken?" with a roadmap. A reader looking at Switzerland
+     * with six dots on it reasonably asked where Graubünden was; the answer
+     * was "nobody put it on the roadmap", which is not an answer about
+     * language at all.
+     *
+     * AREAS, NOT CANTONS, because that is what dialects are. Central
+     * Switzerland is one area across six cantons and Basel is one across two.
+     * `cantons` is listed because it is the handle a reader actually has —
+     * they know which canton they are in — and not because the dialect stops
+     * at the border. It does not.
+     *
+     * Sourced to the SDS, the eight-volume atlas built on fieldwork from
+     * 1939–58, and its general-readership condensation. Every entry names one;
+     * `family.test.ts` refuses an entry that names none.
+     */
+    areas: [
+      {
+        id: "zueritueuetsch",
+        endonym: "Züritüütsch",
+        cantons: ["ZH"],
+        town: "Zürich",
+        place: { lon: 8.5417, lat: 47.3769 },
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+      {
+        id: "baerndueuetsch",
+        endonym: "Bärndütsch",
+        cantons: ["BE"],
+        town: "Bern",
+        place: { lon: 7.4474, lat: 46.948 },
+        ruleOrigin: "Bern",
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+      {
+        id: "baseldytsch",
+        endonym: "Baseldytsch",
+        cantons: ["BS", "BL"],
+        town: "Basel",
+        place: { lon: 7.5886, lat: 47.5596 },
+        ruleOrigin: "Basel",
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+      {
+        id: "innerschwyzertuetsch",
+        endonym: "Innerschwyzertütsch",
+        cantons: ["LU", "UR", "SZ", "OW", "NW", "ZG"],
+        town: "Luzern",
+        place: { lon: 8.3093, lat: 47.0502 },
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+      {
+        id: "ostschwiizertuetsch",
+        endonym: "Ostschwiizertütsch",
+        cantons: ["SG", "TG", "AR", "AI", "SH"],
+        town: "St. Gallen",
+        place: { lon: 9.3767, lat: 47.4245 },
+        ruleOrigin: "Ostschweiz",
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+      {
+        id: "aargauerdueuetsch",
+        endonym: "Aargauerdütsch",
+        cantons: ["AG"],
+        town: "Aarau",
+        place: { lon: 8.0456, lat: 47.3909 },
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+      {
+        id: "glarnertueuetsch",
+        endonym: "Glarnertüütsch",
+        cantons: ["GL"],
+        town: "Glarus",
+        place: { lon: 9.0678, lat: 47.0404 },
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+      {
+        id: "solothurnerdueuetsch",
+        endonym: "Solothurnerdütsch",
+        cantons: ["SO"],
+        town: "Solothurn",
+        place: { lon: 7.5378, lat: 47.2088 },
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+      {
+        id: "seyslerdueuetsch",
+        endonym: "Seyslertütsch",
+        cantons: ["FR"],
+        town: "Freiburg",
+        place: { lon: 7.162, lat: 46.8065 },
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+      {
+        // The one the map was missing, and not a small omission: Graubünden is
+        // Switzerland's largest canton and its German is Alemannic throughout.
+        id: "buendnerdueuetsch",
+        endonym: "Bündnerdütsch",
+        cantons: ["GR"],
+        town: "Chur",
+        place: { lon: 9.53, lat: 46.85 },
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+      {
+        // Highest Alemannic, and the reason the SDS extends past the border:
+        // the Walser carried these dialects into northern Italy.
+        id: "wallisertitsch",
+        endonym: "Wallisertitsch",
+        cantons: ["VS"],
+        // Brig, not Sion. Sion is the cantonal capital and French-speaking;
+        // the German half of Valais is the upper valley, and naming a dialect
+        // after a town that does not speak it is exactly the sort of error
+        // this file exists to avoid.
+        town: "Brig",
+        place: { lon: 7.988, lat: 46.316 },
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+    ],
+
     atlas: {
       region: "switzerland",
       home: { lon: 8.5417, lat: 47.3769 }, // Zürich
-      places: {
-        Bern: { lon: 7.4474, lat: 46.948 },
-        Basel: { lon: 7.5886, lat: 47.5596 },
-        Luzern: { lon: 8.3093, lat: 47.0502 },
-        "St. Gallen": { lon: 9.3767, lat: 47.4245 },
-        Aargau: { lon: 8.0456, lat: 47.3909 }, // Aarau, the cantonal town
-        Wallis: { lon: 7.359, lat: 46.2311 }, // Sion/Sitten
-      },
     },
   },
 

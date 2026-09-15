@@ -1,4 +1,5 @@
 import { VARIETY } from "./active.ts";
+import { areasOf, isTaught, marksFor } from "./family.ts";
 import { ruleLabel, type Severity } from "./pack.ts";
 import type { Atlas } from "./pack.ts";
 
@@ -52,6 +53,30 @@ export type DisplayGrammar = {
   examples: readonly { target: string; bridge: string }[];
 };
 
+/**
+ * A dialect area, projected.
+ *
+ * Everything here survives because none of it is in any language: a slug, an
+ * endonym (which is a NAME, and a name does not translate), canton codes, a
+ * town and a point. The sentence explaining the dialect is translated and
+ * lives in the dictionaries, keyed by `id` — the same split the grammar topics
+ * make.
+ *
+ * `marks` is projected too, and it is the interesting one: it is READ from the
+ * pack's rules rather than stored, so a page cannot show a form the gate does
+ * not enforce. An empty list is the honest "Heidi cannot place this yet".
+ */
+export type DisplayArea = {
+  id: string;
+  endonym: string;
+  cantons: readonly string[];
+  town: string;
+  place: { lon: number; lat: number };
+  marks: readonly { theirs: string; ours: string }[];
+  /** True for the one variety this deployment actually teaches. */
+  taught: boolean;
+};
+
 export type DisplayVariety = {
   tag: string;
   name: string;
@@ -66,6 +91,8 @@ export type DisplayVariety = {
    * looked up by `id`.
    */
   grammar: readonly DisplayGrammar[];
+  /** Every dialect area of the family. Empty for a pack that has not mapped one. */
+  areas: readonly DisplayArea[];
   /** `note` is deliberately absent — it is a paragraph of English. */
   orthography: { convention: string };
   /**
@@ -110,6 +137,15 @@ export const DISPLAY: DisplayVariety = {
   grammar: (VARIETY.grammar ?? []).map((t) => ({
     id: t.id,
     examples: t.examples.map((e) => ({ target: e.target, bridge: e.bridge })),
+  })),
+  areas: areasOf(VARIETY).map((area) => ({
+    id: area.id,
+    endonym: area.endonym,
+    cantons: area.cantons,
+    town: area.town,
+    place: { lon: area.place.lon, lat: area.place.lat },
+    marks: marksFor(VARIETY, area),
+    taught: isTaught(VARIETY, area),
   })),
   orthography: { convention: VARIETY.orthography.convention },
   showcase: VARIETY.showcase ? { line: VARIETY.showcase.line } : undefined,
