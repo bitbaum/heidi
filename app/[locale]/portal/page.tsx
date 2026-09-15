@@ -9,8 +9,12 @@ import { CowMark } from "../_components/cow-mark";
 import { SignOutButton } from "../_components/account-control";
 import { SavedWords } from "../_components/saved-words";
 import { GroupList } from "../_components/group-list";
+import { ReviewPanel } from "../_components/review-panel";
+import { PatternsPanel } from "../_components/patterns-panel";
+import { RecentConversations } from "../_components/recent-conversations";
 import { dbConfigured } from "@/lib/db";
 import { groupsFor } from "@/lib/domain/groups/store";
+import { conversationsFor } from "@/lib/domain/conversations/store";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -34,8 +38,12 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
   const signedIn = Boolean(session?.actorId);
 
   // Queried here rather than fetched on mount: the page already has the
-  // session, and a signed-out visitor costs no query at all.
-  const groups = signedIn && dbConfigured() ? await groupsFor(session!.actorId!) : [];
+  // session, and a signed-out visitor costs no query at all. In parallel,
+  // because neither answer depends on the other and this page is now the
+  // signed-in landing surface — two round trips in series would be felt.
+  const [groups, conversations] = signedIn && dbConfigured()
+    ? await Promise.all([groupsFor(session!.actorId!), conversationsFor(session!.actorId!)])
+    : [[], []];
 
   return (
     <Shell>
@@ -63,15 +71,62 @@ export default async function PortalPage({ params }: { params: Promise<{ locale:
       </header>
 
       <div className="grid gap-10 border-t border-border-subtle pt-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-12">
-        {/* Theirs, and it needs no account — so it leads. */}
+        {/* SOMETHING TO DO LEADS, and everything else is underneath it.
+            This page used to open with a list — their saved words — and a list
+            is a thing to look at. The question a personal page has to answer
+            first is "what should I do next", and for this product the honest
+            answer is the one the roadmap already named: the words you did not
+            know, asked again at the right moment. The list is still here; it
+            is just no longer the first thing, because reading your own
+            vocabulary is not practising it.
+
+            It needs no account, which is why it can lead: review runs entirely
+            in the browser, on the words already in it. */}
         <main>
           <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
-            {dict.saved.title}
+            {dict.review.title}
           </h2>
           <p className="mb-5 mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">
-            {dict.saved.lead}
+            {dict.review.lead}
           </p>
-          <SavedWords t={dict.saved} locale={LOCALE_TAGS[locale]} />
+          <ReviewPanel t={dict.review} locale={locale} />
+
+          {/* Only for someone signed in, because only then is there anything
+              to resume — a signed-out conversation lives in their browser and
+              is already on the page they left it on. */}
+          {signedIn && (
+            <section aria-labelledby="recent" className="mt-12 border-t border-border-subtle pt-10">
+              <h2
+                id="recent"
+                className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+              >
+                {dict.review.recentTitle}
+              </h2>
+              <div className="mt-3">
+                <RecentConversations
+                  conversations={conversations}
+                  t={dict.review}
+                  locale={locale}
+                  untitled={dict.chat.full.untitled}
+                />
+              </div>
+            </section>
+          )}
+
+          <PatternsPanel t={dict.review} />
+
+          <section aria-labelledby="words" className="mt-12 border-t border-border-subtle pt-10">
+            <h2
+              id="words"
+              className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+            >
+              {dict.saved.title}
+            </h2>
+            <p className="mb-5 mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">
+              {dict.saved.lead}
+            </p>
+            <SavedWords t={dict.saved} locale={LOCALE_TAGS[locale]} />
+          </section>
 
           {/* Groups sit beside the words rather than in the sidebar: they are
               the other half of what this page is FOR, and a list of rooms you

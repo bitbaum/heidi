@@ -383,7 +383,7 @@ export const ru: Dictionary = {
     account: "Аккаунт",
     portalTitle: "Моё пространство",
     portalLead:
-      "Здесь появится ваша часть Heidi: слова, которые вы искали, люди для практики и репетиторы, если они вам нужны.",
+      "Ваши слова, когда придёт время их повторить, — и то, что чаще всего вас останавливает.",
     signedInAs: "Вы вошли как",
     notSignedIn: "Вы не вошли",
     notSignedInBody:
@@ -440,6 +440,33 @@ export const ru: Dictionary = {
     onThisDevice: "Только на этом устройстве",
     savedOn: "Сохранено",
     openChat: "Посмотреть слово",
+  },
+
+  /**
+   * The dashboard: spaced review, and what the learner's own list says about
+   * them. No streak, no score, no percentage — HEIDI.md §8 names each of those
+   * as the thing this must not become.
+   */
+  review: {
+    title: "Пора повторить",
+    lead: "Слова, которые вы сохранили, возвращаются сюда — через день, потом через три, потом через неделю. Спрашивать позже работает лучше, чем спрашивать чаще.",
+    due: "на повторение",
+    none: "Сегодня повторять нечего.",
+    noneHint: "Возвращайтесь завтра — или посмотрите что-нибудь новое.",
+    empty: "Пока нечего повторять.",
+    emptyHint: "Сохраните слово в разговоре, и Хайди спросит вас о нём позже.",
+    tomorrow: "завтра",
+    settled: "усвоено",
+    prompt: "Что это значит?",
+    show: "Показать",
+    knew: "Знал",
+    missed: "Ещё нет",
+    done: "На сегодня всё.",
+    patternsTitle: "Что вас чаще всего останавливает",
+    patternsLead: "Эти закономерности есть в словах, которые вы сохранили. Не оценка — просто то, что есть в вашем списке.",
+    patternsCount: "ваших слов",
+    recentTitle: "Продолжить",
+    recentEmpty: "Разговоров пока нет.",
   },
   groups: {
     title: "Учебные группы",

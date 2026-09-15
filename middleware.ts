@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { DEFAULT_LOCALE, LOCALES, isLocale, negotiate } from "./lib/i18n/locales";
+import { SESSION_COOKIES, landingFor } from "./lib/i18n/landing";
 
 /**
  * Every page lives under a locale segment, so a bare path has to pick one.
@@ -16,29 +17,28 @@ import { DEFAULT_LOCALE, LOCALES, isLocale, negotiate } from "./lib/i18n/locales
 const COOKIE = "heidi_locale";
 const ONE_YEAR = 60 * 60 * 24 * 365;
 
-/**
- * NO, THE LOCALE ROOT IS NOT REDIRECTED FOR SIGNED-IN VISITORS.
- *
- * It was, briefly, sending them to `/chat` on the theory that somebody with an
- * account wants the tool rather than the pitch. The theory is fine and the
- * implementation was wrong: "Start" is a link in the navigation, and a person
- * who presses a link labelled Start expects the start page. Silently landing
- * them somewhere else makes one of the seven nav items a lie — and the one
- * that reads as "take me back to the beginning", which is what people press
- * when they are lost.
- *
- * The right version of the idea is a different page at the same address, not a
- * different address: signed in, `/` IS your dashboard. That needs the
- * dashboard to exist, and it arrives with it.
- */
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const first = pathname.split("/")[1] ?? "";
   if (isLocale(first)) {
+    /**
+     * Signed in, the locale root IS the dashboard — a REWRITE, so the address
+     * stays `/de` and the nav item labelled "Start" still means start.
+     *
+     * A redirect here was the first attempt and was wrong: it sent people to
+     * `/chat`, so pressing Start landed you somewhere that was not the start
+     * page. See `lib/i18n/landing.ts` for the rest of the reasoning; only the
+     * cookie read lives here, and it reads presence alone.
+     */
+    const signedIn = SESSION_COOKIES.some((name) => Boolean(request.cookies.get(name)?.value));
+    const landing = landingFor(pathname, signedIn);
+
     // Already localised. Remember it, so a later bare path lands here again.
-    const response = NextResponse.next();
+    const target = request.nextUrl.clone();
+    if (landing) target.pathname = landing;
+    const response = landing ? NextResponse.rewrite(target) : NextResponse.next();
     if (request.cookies.get(COOKIE)?.value !== first) {
       response.cookies.set(COOKIE, first, { maxAge: ONE_YEAR, sameSite: "lax", path: "/" });
     }

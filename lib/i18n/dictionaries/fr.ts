@@ -375,7 +375,7 @@ export const fr: Dictionary = {
     account: "Compte",
     portalTitle: "Mon espace",
     portalLead:
-      "C'est ici qu'apparaîtra votre partie de Heidi : les mots que vous avez cherchés, des personnes avec qui pratiquer, et des tuteurs si vous en voulez.",
+      "Vos mots, au moment de les revoir — et ce qui vous arrête le plus souvent.",
     signedInAs: "Connecté en tant que",
     notSignedIn: "Vous n'êtes pas connecté",
     notSignedInBody:
@@ -432,6 +432,33 @@ export const fr: Dictionary = {
     onThisDevice: "Uniquement sur cet appareil",
     savedOn: "Gardé le",
     openChat: "Chercher quelque chose",
+  },
+
+  /**
+   * The dashboard: spaced review, and what the learner's own list says about
+   * them. No streak, no score, no percentage — HEIDI.md §8 names each of those
+   * as the thing this must not become.
+   */
+  review: {
+    title: "À réviser",
+    lead: "Les mots que vous avez gardés reviennent ici — après un jour, puis trois, puis une semaine. Demander plus tard marche mieux que demander plus souvent.",
+    due: "à réviser",
+    none: "Rien à réviser aujourd'hui.",
+    noneHint: "Revenez demain — ou cherchez quelque chose de nouveau.",
+    empty: "Aucun mot à réviser pour l'instant.",
+    emptyHint: "Gardez un mot pendant une conversation, et Heidi vous le redemandera plus tard.",
+    tomorrow: "demain",
+    settled: "acquis",
+    prompt: "Ça veut dire quoi ?",
+    show: "Révéler",
+    knew: "Je savais",
+    missed: "Pas encore",
+    done: "Terminé pour aujourd'hui.",
+    patternsTitle: "Ce qui vous arrête le plus souvent",
+    patternsLead: "Ces régularités se trouvent dans les mots que vous avez gardés. Pas une note — seulement ce qui est dans votre propre liste.",
+    patternsCount: "de vos mots",
+    recentTitle: "Reprendre",
+    recentEmpty: "Aucune conversation pour l'instant.",
   },
   groups: {
     title: "Groupes d'étude",

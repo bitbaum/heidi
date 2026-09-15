@@ -375,7 +375,7 @@ export const en: Dictionary = {
     account: "Account",
     portalTitle: "My space",
     portalLead:
-      "This is where your own part of Heidi appears: the words you looked up, people to practise with, and tutors if you want them.",
+      "Your words, when it is time to see them again — and what keeps catching you.",
     signedInAs: "Signed in as",
     notSignedIn: "You are not signed in",
     notSignedInBody:
@@ -432,6 +432,33 @@ export const en: Dictionary = {
     onThisDevice: "On this device only",
     savedOn: "Kept",
     openChat: "Look something up",
+  },
+
+  /**
+   * The dashboard: spaced review, and what the learner's own list says about
+   * them. No streak, no score, no percentage — HEIDI.md §8 names each of those
+   * as the thing this must not become.
+   */
+  review: {
+    title: "Due for review",
+    lead: "Words you kept come back here — after a day, then three, then a week. Asking later works better than asking more often.",
+    due: "due",
+    none: "Nothing due today.",
+    noneHint: "Come back tomorrow — or go and look something up.",
+    empty: "No words to review yet.",
+    emptyHint: "Keep a word during a conversation and Heidi will ask you about it later.",
+    tomorrow: "due tomorrow",
+    settled: "settled",
+    prompt: "What does this mean?",
+    show: "Show me",
+    knew: "I knew it",
+    missed: "Not yet",
+    done: "That's today done.",
+    patternsTitle: "What keeps catching you",
+    patternsLead: "These regularities are in the words you kept. Not a score — just what is in your own list.",
+    patternsCount: "of your words",
+    recentTitle: "Pick up where you left off",
+    recentEmpty: "No conversations yet.",
   },
   groups: {
     title: "Study groups",

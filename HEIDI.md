@@ -422,11 +422,30 @@ already produced on every answer used to be drawn once and thrown away, so
 looking the same word up on Tuesday and Friday accumulated nothing. One tap now
 keeps it, in the browser, with the sentence it came from.
 
+**And spaced reuse, which was the next item on this list and is now the
+dashboard.** Kept words come back on an expanding schedule — a day, then three,
+then a week — and they come back as a QUESTION rather than a list, because
+being asked beats being shown by about half a standard deviation
+([Yang 2021](https://doi.org/10.1037/bul0000309)) and spacing's advantage is
+larger on a delayed test than an immediate one
+([Kim & Webb 2022](https://doi.org/10.1111/lang.12479)). Deliberately not
+SM-2 or FSRS: those model hundreds of reviews a day across thousands of cards,
+and fitting a curve to a learner's eleven kept words is the false precision §8
+forbids. Fixed intervals carry the finding and nothing more.
+
+Beside it, **what keeps catching you** — the correspondences that actually
+separate the words they kept from the forms they already knew. Derived, not
+tracked: no lookup counter and no record of what a particular person failed to
+understand, because six kept words that all turn `k` into `ch` already say it.
+
 **Next**, in order: capture what the learner did not know into a learner model —
 **the existing Heidi GPT generates that evidence daily and throws all of it
 away**, and every question asked of it is a labelled datapoint about what a real
-learner could not understand; then spaced reuse of what was hard; then the
-listening lab, once there are recordings to put in it.
+learner could not understand; then the answer proposing the next move, so a
+learner never has to compose a meta-request to get the obvious follow-up; then
+Swiss Standard German as a first-class output, since Zurich is diglossic and an
+email to a landlord is not written in dialect; then the listening lab, once
+there are recordings to put in it.
 
 Two loops explain Heidi better than any feature list:
 

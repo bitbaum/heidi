@@ -395,7 +395,7 @@ export const de = {
     account: "Konto",
     portalTitle: "Mein Bereich",
     portalLead:
-      "Hier entsteht Ihr persönlicher Teil von Heidi: die Wörter, die Sie nachgeschlagen haben, Menschen zum Üben, und Tutorinnen und Tutoren, wenn Sie welche möchten.",
+      "Ihre Wörter, wenn es Zeit ist, sie wieder anzuschauen — und was Ihnen dabei immer wieder begegnet.",
     signedInAs: "Angemeldet als",
     notSignedIn: "Sie sind nicht angemeldet",
     notSignedInBody:
@@ -452,6 +452,33 @@ export const de = {
     onThisDevice: "Nur auf diesem Gerät",
     savedOn: "Gemerkt",
     openChat: "Etwas nachschlagen",
+  },
+
+  /**
+   * The dashboard: spaced review, and what the learner's own list says about
+   * them. No streak, no score, no percentage — HEIDI.md §8 names each of those
+   * as the thing this must not become.
+   */
+  review: {
+    title: "Zum Wiederholen",
+    lead: "Wörter, die Sie behalten wollten, kommen hier zurück — erst nach einem Tag, dann nach drei, dann nach einer Woche. Später zu fragen wirkt besser als öfter zu fragen.",
+    due: "fällig",
+    none: "Heute nichts fällig.",
+    noneHint: "Kommen Sie morgen wieder — oder schlagen Sie etwas Neues nach.",
+    empty: "Noch keine Wörter zum Wiederholen.",
+    emptyHint: "Merken Sie sich ein Wort im Gespräch, dann fragt Heidi Sie später danach.",
+    tomorrow: "morgen fällig",
+    settled: "sitzen",
+    prompt: "Was heisst das?",
+    show: "Auflösen",
+    knew: "Wusste ich",
+    missed: "Noch nicht",
+    done: "Für heute durch.",
+    patternsTitle: "Was Ihnen immer wieder begegnet",
+    patternsLead: "Diese Regelmässigkeiten stecken in den Wörtern, die Sie behalten haben. Keine Note — nur das, was in Ihrer eigenen Liste steht.",
+    patternsCount: "Ihrer Wörter",
+    recentTitle: "Weitermachen",
+    recentEmpty: "Noch keine Gespräche.",
   },
   groups: {
     title: "Lerngruppen",
