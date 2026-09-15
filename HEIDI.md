@@ -199,10 +199,12 @@ first. The seam is drawn now so the extraction is mechanical then.
 
 ## 5. What is true of the repo today
 
-A seven-language site — home, chat, grammar, method, contribute, about, plus a
-personal portal and settings — with the assistant on the home page AND at full size on
-`/chat`, the deterministic gate shown as evidence on `/method`, and the variety
-layer underneath.
+A seven-language site — home, chat, a reference section (grammar, dialects,
+vocabulary), method, contribute, about, plus a personal dashboard and settings
+— with the assistant on the home page AND at full size on `/chat`, the
+deterministic gate shown as evidence on `/method`, and the variety layer
+underneath. Signed in, the home page IS the dashboard: same address, different
+page, because "Start" has to mean start.
 
 There are now accounts and a database. Identity is federated to OrangeCat and
 Heidi holds no users table; Postgres holds study groups and private
@@ -487,6 +489,17 @@ unattested (Switzerland does not use the letter at all), and Germany's lexis is
 a gate that nags about defensible choices trains people to ignore it, and is
 then worth nothing on the day it is right.
 
+**And a kept word comes back somewhere new.** The review card showed the
+sentence the word was found in — the same sentence every time — so the word got
+learned attached to that context rather than learned. It now carries one or two
+further sentences, generated once at save time and gated like everything else.
+Free for everyone, and that was a measurement rather than a concession: the
+call is about 174 tokens in and 60 out, roughly five hundredths of a rappen for
+the lifetime of that word, so a learner who fills the entire 500-word cap costs
+about a quarter of a franc. Gating that would be arbitrary, and people can feel
+arbitrary. Saving never waits for it: the word is written first and the call
+fires after, so a failure costs nothing anybody did.
+
 **And any word is now askable, not just the ones Heidi chose to gloss.** The
 word a learner is stuck on is by definition the one nobody predicted, so a
 feature that only worked on predicted words missed the case it existed for.
@@ -518,12 +531,39 @@ reading, while the sentence explaining it has to exist seven times. A test
 asserts the two sides of that join agree in every locale, and that our own
 examples pass our own dialect gate.
 
+**And a reference section, built on one rule: a claim is DATA, gated and
+tested, not prose somebody wrote.** `/dialect` says what Swiss German is —
+spoken rather than written, no correct spelling, not one language — and lists
+every dialect area in the country. `/vocabulary` carries the words that
+actually block a sentence, which are the short constant ones no sound
+correspondence rescues, not the ones a phrasebook would pick. A test enforces
+that: function words and verbs must outnumber the rest, or the page is a
+phrasebook however it is labelled.
+
+The area pages carry NO prose. Eleven areas across seven languages is
+seventy-seven blocks nobody here can check, and a machine-translated claim
+about where a form is spoken is how a reference page ends up confidently wrong
+in six languages at once. What is there instead is the endonym, the cantons,
+the town, and the forms the gate can actually tell apart — READ from the rules,
+so no page can show a form the checker does not enforce. An area we cannot
+place yet says so rather than inventing something plausible.
+
+**And the map now says which claim it is making.** It drew `family.planned` —
+a roadmap — which is why a reader asked where Graubünden was and got an answer
+about product priorities rather than about language. Three things that were one
+list are now three: where the dialects are, what Heidi will teach, and what the
+gate can detect. All twenty-one German-speaking cantons are covered, and a test
+says so.
+
+Sourced, and the tests refuse an unsourced claim: the SDS for where a form is
+spoken, the Idiotikon for what a word means. Citing the atlas for a gloss would
+be a reference that looks right and does not support the sentence above it.
+
 **Next**, in order: capture what the learner did not know into a learner model —
 **the existing Heidi GPT generates that evidence daily and throws all of it
 away**, and every question asked of it is a labelled datapoint about what a real
-learner could not understand; then meeting a kept word again in a NEW sentence
-rather than only the one it came from; then the listening lab, once there are
-recordings to put in it.
+learner could not understand; then the listening lab, once there are recordings
+to put in it.
 
 Two loops explain Heidi better than any feature list:
 
