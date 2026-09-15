@@ -72,6 +72,25 @@ export type Bridge = {
   /** Shown to the learner, in English. */
   name: string;
   relation: BridgeRelation;
+  /**
+   * A gate over text claiming to be THIS bridge, not the target.
+   *
+   * Zurich is diglossic, and pretending otherwise teaches half the
+   * competence: dialect is what is spoken and written informally, Swiss
+   * Standard German is what an email to a landlord, a doctor or an employer
+   * is written in. A product that only ever produces dialect quietly sets
+   * people up to send a chat message to an insurance company.
+   *
+   * So Heidi offers Swiss Standard German too — and the moment it does, it
+   * needs to be checkable, because "Swiss Standard German" from a model is
+   * overwhelmingly likely to be Germany's German with nothing Swiss about it.
+   * That is precisely the failure the target gate exists for, one variety
+   * over: fluent, grammatical, and undetectable by the learner, who cannot
+   * know that asking for a *Fahrrad* marks them as foreign.
+   *
+   * Absent for a bridge we make no claim to produce.
+   */
+  rules?: readonly VarietyRule[];
 };
 
 /**

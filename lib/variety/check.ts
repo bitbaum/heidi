@@ -66,9 +66,26 @@ function patternOf(rule: VarietyRule): RegExp {
 }
 
 export function check(text: string, pack: VarietyPack, threshold: Threshold = "foreign"): CheckResult {
+  return checkAgainst(text, pack.rules, threshold);
+}
+
+/**
+ * The same gate, over any rule set.
+ *
+ * `check` is the target variety; this is what lets a BRIDGE be checked too.
+ * The two are one function because they are one idea — a model asked for a
+ * variety will produce a neighbouring one, fluently, and the learner cannot
+ * tell. That is as true of "Swiss Standard German" coming back as Germany's
+ * German as it is of Zurich German coming back Bernese.
+ */
+export function checkAgainst(
+  text: string,
+  rules: readonly VarietyRule[],
+  threshold: Threshold = "foreign",
+): CheckResult {
   const findings: Finding[] = [];
 
-  for (const rule of pack.rules) {
+  for (const rule of rules) {
     for (const m of text.matchAll(patternOf(rule))) {
       findings.push({
         form: m[0],

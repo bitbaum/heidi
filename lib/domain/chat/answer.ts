@@ -50,6 +50,9 @@ function suggestion(value: unknown): Suggestion | null {
     label: typeof s.label === "string" ? s.label : "",
     text,
     english: typeof s.english === "string" ? s.english : "",
+    // A stored row may predate this field; absent means the dialect, which is
+    // what every row written before Swiss Standard German existed was.
+    ...(s.variety === "bridge" ? { variety: "bridge" as const } : {}),
     // `clean` false means the gate flagged it. An old row with no verdict is
     // treated as CLEAN, because showing an unexplained warning on a line the
     // gate never judged would invent a problem.

@@ -85,6 +85,12 @@ export const ru: Dictionary = {
     glossTitle: "Слова, которые стоит запомнить",
     suggestionsTitle: "Попробуйте",
     sendThis: "Это можно отправить",
+    /**
+     * The badge on a sendable line that is the WRITTEN standard rather than
+     * dialect. The pair is the point: one to send a landlord, one to send a
+     * friend, and no way to tell them apart without this.
+     */
+    writtenStandard: "письменный немецкий",
     copy: "Копировать",
     copied: "Скопировано",
     flagged: "Не цюрихский:",
@@ -149,6 +155,7 @@ export const ru: Dictionary = {
       formal: { label: "Официальнее", say: "Напишите это официальнее, для делового сообщения." },
       casual: { label: "Проще", say: "Скажите это непринуждённее, по-дружески." },
       simpler: { label: "Простыми словами", say: "Скажите это более простыми словами." },
+      swiss: { label: "Письменным немецким", say: "Напишите это на швейцарском литературном немецком, а не на диалекте." },
     },
   },
 

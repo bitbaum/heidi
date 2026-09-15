@@ -462,13 +462,38 @@ seven translations fails the build rather than rendering a blank button in six
 languages. Pressing a chip sends an ORDINARY message, visible in the
 transcript: a follow-up you cannot see is a conversation you cannot re-read.
 
+**And Swiss Standard German is now an output, not just a bridge.** Zurich is
+diglossic, and the product had only ever produced the spoken half: dialect is
+what is said and what is written informally between people who know each other,
+while an email to a landlord, a doctor, an employer or an insurer is written in
+Swiss Standard German. Producing only dialect taught half the competence and
+quietly set people up to send a chat message to an insurance company.
+
+This was already in the data model — `de-CH` is the pack's first `sibling`
+bridge, the variety the correspondences are computed from — so the work was
+using the design rather than extending it. A suggestion now carries which
+variety it is IN, because the gate has to judge it against the right standard:
+a Swiss Standard German line sent through the DIALECT gate is flagged as
+not-Zurich-German, correctly and uselessly, and the learner sees a warning on
+the one line that fits their situation.
+
+**And the bridge has its own gate**, for the same reason the target does. Asked
+for Swiss Standard German, a model will hand back Germany's German — fluent,
+grammatical, and undetectable by the person reading it, who cannot know that
+asking about a *Fahrrad* marks them as foreign in the first line. So: `ß` is
+unattested (Switzerland does not use the letter at all), and Germany's lexis is
+`foreign` with the Swiss form to use instead — *Velo*, *Trottoir*, *Matura*,
+*parkieren*, *Tram*, *Rahm*, *Sack*. The list is short and certain on purpose;
+a gate that nags about defensible choices trains people to ignore it, and is
+then worth nothing on the day it is right.
+
 **Next**, in order: capture what the learner did not know into a learner model —
 **the existing Heidi GPT generates that evidence daily and throws all of it
 away**, and every question asked of it is a labelled datapoint about what a real
-learner could not understand; then Swiss Standard German as a first-class
-output, since Zurich is diglossic and an email to a landlord is not written in
-dialect; then a word in context and a grammar area an answer can link into;
-then the listening lab, once there are recordings to put in it.
+learner could not understand; then a word met again in context, and any word in
+an answer savable rather than only the ones Heidi chose to gloss; then a grammar
+area an answer can link into; then the listening lab, once there are recordings
+to put in it.
 
 Two loops explain Heidi better than any feature list:
 

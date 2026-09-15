@@ -96,6 +96,12 @@ export const de = {
     glossTitle: "Wörter, die bleiben sollten",
     suggestionsTitle: "Zum Ausprobieren",
     sendThis: "Das können Sie schicken",
+    /**
+     * The badge on a sendable line that is the WRITTEN standard rather than
+     * dialect. The pair is the point: one to send a landlord, one to send a
+     * friend, and no way to tell them apart without this.
+     */
+    writtenStandard: "Schriftdeutsch",
     copy: "Kopieren",
     copied: "Kopiert",
     flagged: "Nicht Zürichdeutsch:",
@@ -160,6 +166,7 @@ export const de = {
       formal: { label: "Förmlicher", say: "Schreiben Sie das förmlicher, für eine offizielle Nachricht." },
       casual: { label: "Lockerer", say: "Sagen Sie das lockerer, unter Freunden." },
       simpler: { label: "Einfacher", say: "Sagen Sie das mit einfacheren Wörtern." },
+      swiss: { label: "Auf Schriftdeutsch", say: "Schreiben Sie das auf Schweizer Schriftdeutsch, nicht auf Mundart." },
     },
   },
 

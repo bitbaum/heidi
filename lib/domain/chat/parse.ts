@@ -15,7 +15,8 @@
  *     person least able to spot it.
  */
 
-import { check } from "../../variety/check.ts";
+import { check, checkAgainst } from "../../variety/check.ts";
+import { bridgeRules, canWriteBridge } from "../../variety/bridge.ts";
 import type { VarietyPack } from "../../variety/pack.ts";
 import { type Answer, type Gloss, type Mode, MODES, type Suggestion, TONES, type Tone } from "./types.ts";
 import { decodeMoves } from "./moves.ts";
@@ -141,11 +142,28 @@ function toSuggestion(value: unknown, pack: VarietyPack): Suggestion | null {
   const v = value as Record<string, unknown>;
   const text = str(v.text);
   if (!text) return null;
-  const verdict = check(text, pack);
+
+  /**
+   * Judged against the standard it CLAIMS to be.
+   *
+   * A Swiss Standard German line sent through the dialect gate is flagged as
+   * not-Zurich-German — correctly, and uselessly, because it was never meant
+   * to be. The learner would see a warning on the one line that fits their
+   * situation, and learn to ignore warnings.
+   *
+   * A bridge claim is only honoured when the pack actually carries rules for
+   * its sibling. Otherwise the label would promise a check that does not
+   * exist, which is worse than not offering the variety at all — so it falls
+   * back to being judged as the target, where it will be flagged loudly.
+   */
+  const asBridge = v.variety === "bridge" && canWriteBridge(pack);
+  const verdict = asBridge ? checkAgainst(text, bridgeRules(pack)) : check(text, pack);
+
   return {
     label: str(v.label, "—"),
     text,
     english: str(v.english),
+    ...(asBridge ? { variety: "bridge" as const } : {}),
     clean: verdict.ok,
     // Kept and marked rather than dropped: silently discarding a flagged line
     // would hide the fact that the model is drifting, and that drift is the
