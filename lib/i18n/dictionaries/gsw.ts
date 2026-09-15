@@ -261,65 +261,65 @@ export const gsw: Dictionary = {
         claim: "Kontakt schlaht sprachlichi Distanz.",
         detail:
           "Über 1833 Hörerinne und 70 Sprachpaar häre isch de Kontakt mit de Teschtsprach wichtiger gsi als lexikalischi, lautlichi oder orthografischi Distanz.",
-        source: "Gooskens, van Heuven, Golubović, Schüppert, Swarte & Voigt, 2017/18",
-      },
-      {
-        claim: "Konsonanteregle säged Verständlichkeit dütlich besser vorus als Vokalregle.",
-        detail:
-          "r ≈ −.74 gägenüber −.29. Zwei vo öisne vier Regle uf de Startsiite sind Vokalregle und demit di schwächeri Wett.",
-        source: "Gooskens & Heeringa",
+        source: ["gooskens-2018"],
       },
       {
         claim: "Training mit vill Stimme isch das, wo uf unbekannti Stimme übergaht.",
         detail:
           "Mit ere einzige Stimm z üebe cha uf grad dere Stimm besser abschniide und übertreit sich nöd. Für regionali Dialekt eigens bestätiget.",
-        source: "Logan, Lively & Pisoni 1991; Clopper & Pisoni 2004",
+        source: ["lively-1993", "clopper-2004"],
       },
       {
         claim: "Z säge, uf was mer söll lose, isch en Wirkstoff und kei Dekoration.",
         detail:
           "Gliichs Material, gliichi Rückmäldig: glernt het nur d Gruppe, wo uf de relevant Kontrascht hingwise worde isch.",
-        source: "Pederson & Guion-Anderson, 2010",
+        source: ["pederson-2010"],
       },
       {
         claim: "Abrüefe mit Rückmäldig schlaht Nachläse.",
         detail: "222 Studie, 48'478 Lernendi; g ≈ 0.50, mit Rückmäldig 0.54 gägenüber 0.37 ohni.",
-        source: "Yang, Luo, Vadillo, Yu & Shanks, 2021",
+        source: ["yang-2021"],
       },
       {
         claim: "Verteilts Üebe schlaht gballts, und de Vorsprung wachst mit de Ziit.",
         detail: "g ≈ 0.76 sofort, g ≈ 1.15 nach Verzögerig, über 48 Experimänt und 3411 Persone.",
-        source: "Kim & Webb, 2022",
+        source: ["kim-webb-2022"],
       },
       {
         claim: "Untertitel hälfed — nach em Hörversuech, nöd während dem.",
         detail:
           "Grosse Effekt uf de Wortschatz (g ≈ 0.87), offebar wil Text hilft, de Lutstrom i Wörter z zerlege. Dauerhaft iigblendete Text wird zur Chrucke.",
-        source: "Montero-Perez, Van Den Noortgate & Desmet, 2013",
+        source: ["montero-perez-2013"],
       },
       {
         claim: "Hörtraining verbesseret s eigene Rede nur schwach.",
         detail: "d ≈ 0.92 für d Wahrnähmig, d ≈ 0.54 für d Produktion, ohni Zämehang zwüsche beidne.",
-        source: "Sakai & Moorman, 2018",
+        source: ["sakai-moorman-2018"],
       },
       {
         claim: "Dialekt schriibe isch i de Schwiiz digital normal, nöd Slang.",
         detail: "Das isch de Grund, werum «schriibe wie öpper vo do» e echti Kompetänz isch und kei Spielerei.",
-        source: "Universität Bern, Texting in Time; UZH, What's Up",
+        source: ["whatsup-uzh"],
       },
     ],
     hypotheses: [
       {
+        claim: "Konsonante-Regle säged d Verständlichkeit villicht besser vorus als Vokal-Regle.",
+        detail:
+          "Bewise isch, dass lautlichi Distanz d Verständlichkeit besser vorussäit als lexikalischi. D konkrete Zahle, wo die Site früener für Konsonante gäge Vokal aagfüehrt hät, händ mer i kerner zuegänglichi Quelle chönne nachprüefe — drum staht s da und nöd under «Gsicheret». Zwei vo eusne vier Regle uf de Startsite sind Vokal-Regle und somit di schwächeri Wette.",
+        source: ["gooskens-2007"],
+      },
+      {
         claim: "Lautregle wirked als Hiiwiis i de Üebig, obwohl si als Lektion nöd wirked.",
         detail:
           "De einzig suber Tescht vo de Lektionsform — 50 Minute Niderländisch-Friesisch — het kei signifikanti Wirkig zeigt, und d Autore sälber warned dervor, das z verallgemeinere. Di ganz europäisch Interkomprehensions-Didaktik isch nach Uussag vo de füehrende Forschende praktisch nöd evaluiert. Öisi Variante isch also di ungeteschteti. Drum mässed mir si.",
-        source: "Bergsma, Swarte & Gooskens, 2014",
+        source: ["bergsma-2014"],
       },
       {
         claim: "E churzi Igwöhnig verbesseret mässbar s Verstaa vo ere fremde Stimm.",
         detail:
           "Was nach öppe ere Minute beleit isch, isch e höcheri Verarbeitigsgschwindigkeit — nöd meh verstandeni Wörter. Mir behauptet drum nöd, dass Si nach ere Minute meh verstönd.",
-        source: "Clarke & Garrett, 2004",
+        source: ["clarke-garrett-2004"],
       },
     ],
     decisions: [

@@ -197,63 +197,64 @@ export const en: Dictionary = {
         claim: "Exposure beats linguistic distance.",
         detail:
           "Across 1,833 listeners and 70 language pairs, exposure to the test language mattered more than lexical, phonological or orthographic distance.",
-        source: "Gooskens, van Heuven, Golubović, Schüppert, Swarte & Voigt, 2017/18",
-      },
-      {
-        claim: "Consonant rules predict intelligibility far better than vowel rules.",
-        detail: "r ≈ −.74 against −.29. Two of our four front-page rules are vowel rules, and so the weaker bet.",
-        source: "Gooskens & Heeringa",
+        source: ["gooskens-2018"],
       },
       {
         claim: "Training with many voices is what carries over to unfamiliar ones.",
         detail:
           "Practising with a single voice can score better on that voice and fails to transfer. Confirmed specifically for regional dialects.",
-        source: "Logan, Lively & Pisoni 1991; Clopper & Pisoni 2004",
+        source: ["lively-1993", "clopper-2004"],
       },
       {
         claim: "Saying what to listen for is an active ingredient, not decoration.",
         detail: "Same material, same feedback: only the group cued to the relevant contrast learned it.",
-        source: "Pederson & Guion-Anderson, 2010",
+        source: ["pederson-2010"],
       },
       {
         claim: "Retrieval with feedback beats rereading.",
         detail: "222 studies, 48,478 learners; g ≈ 0.50, and 0.54 with feedback against 0.37 without.",
-        source: "Yang, Luo, Vadillo, Yu & Shanks, 2021",
+        source: ["yang-2021"],
       },
       {
         claim: "Spaced practice beats massed, and the lead grows over time.",
         detail: "g ≈ 0.76 immediately, g ≈ 1.15 after a delay, across 48 experiments and 3,411 people.",
-        source: "Kim & Webb, 2022",
+        source: ["kim-webb-2022"],
       },
       {
         claim: "Captions help — after the listening attempt, not during it.",
         detail:
           "Large effect on vocabulary (g ≈ 0.87), apparently because text helps cut the stream of sound into words. Permanently visible text becomes a crutch.",
-        source: "Montero-Perez, Van Den Noortgate & Desmet, 2013",
+        source: ["montero-perez-2013"],
       },
       {
         claim: "Listening training improves your own speaking only weakly.",
         detail: "d ≈ 0.92 for perception, d ≈ 0.54 for production, with no correlation between the two.",
-        source: "Sakai & Moorman, 2018",
+        source: ["sakai-moorman-2018"],
       },
       {
         claim: "Writing dialect is digitally normal in Switzerland, not slang.",
         detail: "That is why “write like someone from here” is a real competence and not a gimmick.",
-        source: "University of Bern, Texting in Time; UZH, What's Up",
+        source: ["whatsup-uzh"],
       },
     ],
     hypotheses: [
       {
+        claim: "Consonant rules may predict intelligibility better than vowel rules.",
+        detail:
+          "What is established is that phonetic distance predicts intelligibility better than lexical distance. The precise figures this page once used to set consonants against vowels are in no source we could open — so the claim sits here rather than under Established. Two of our four front-page rules are vowel rules, and so the weaker bet either way.",
+        source: ["gooskens-2007"],
+      },
+      {
         claim: "Sound rules work as a cue inside practice even though they fail as a lesson.",
         detail:
           "The only clean test of the lesson form — 50 minutes of Dutch–Frisian — showed no significant effect, and the authors themselves warn against generalising it. The entire European intercomprehension tradition is, in the words of the leading researchers, essentially unevaluated. Our version is therefore the untested one. So we measure it.",
-        source: "Bergsma, Swarte & Gooskens, 2014",
+        source: ["bergsma-2014"],
       },
       {
         claim: "A short tuning session measurably improves comprehension of an unfamiliar voice.",
         detail:
           "What is established after about a minute is faster processing — not more words understood. So we do not claim that a minute makes you understand more.",
-        source: "Clarke & Garrett, 2004",
+        source: ["clarke-garrett-2004"],
       },
     ],
     decisions: [

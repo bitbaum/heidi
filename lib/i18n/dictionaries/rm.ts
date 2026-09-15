@@ -213,63 +213,64 @@ export const rm: Dictionary = {
         claim: "L'exposiziun surpassa la distanza linguistica.",
         detail:
           "Sur 1833 taidlunzas e 70 pèrs da linguas contava l'exposiziun a la lingua testada dapli che la distanza lexicala, fonologica u ortografica.",
-        source: "Gooskens, van Heuven, Golubović, Schüppert, Swarte & Voigt, 2017/18",
-      },
-      {
-        claim: "Reglas da consonantas prevesan l'intelligibilitad bler meglier che reglas da vocals.",
-        detail: "r ≈ −.74 cunter −.29. Duas da nossas quatter reglas sin la pagina principala èn reglas da vocals, pia la scumessa pli flaivla.",
-        source: "Gooskens & Heeringa",
+        source: ["gooskens-2018"],
       },
       {
         claim: "Exercitar cun bleras vuschs è quai che passa a vuschs nunenconuschentas.",
         detail:
           "Exercitar cun ina suletta vusch po dar meglras resultats gist sin quella vusch e na passa betg. Confermà specificamain per dialects regiunals.",
-        source: "Logan, Lively & Pisoni 1991; Clopper & Pisoni 2004",
+        source: ["lively-1993", "clopper-2004"],
       },
       {
         claim: "Dir sin tge tadlar è in ingredient activ, betg in ornament.",
         detail: "Medem material, medem resun: mo il gruppa avisada dal contrast relevant ha emprendì.",
-        source: "Pederson & Guion-Anderson, 2010",
+        source: ["pederson-2010"],
       },
       {
         claim: "Rechattar cun resun surpassa il relegier.",
         detail: "222 studis, 48 478 emprendents; g ≈ 0,50, e 0,54 cun resun cunter 0,37 senza.",
-        source: "Yang, Luo, Vadillo, Yu & Shanks, 2021",
+        source: ["yang-2021"],
       },
       {
         claim: "Pratica distribuida surpassa la concentrada, e l'avantatg crescha cun il temp.",
         detail: "g ≈ 0,76 immediatamain, g ≈ 1,15 suenter in intervall, sur 48 experiments e 3411 persunas.",
-        source: "Kim & Webb, 2022",
+        source: ["kim-webb-2022"],
       },
       {
         claim: "Sutstitels gidan — suenter l'emprova da tadlar, betg durant.",
         detail:
           "Grond effect sin il vocabulari (g ≈ 0,87), apparentamain perquai che il text gida a taglier il flum da tuns en pleds. In text adina visibel daventa ina grutscha.",
-        source: "Montero-Perez, Van Den Noortgate & Desmet, 2013",
+        source: ["montero-perez-2013"],
       },
       {
         claim: "Exercizi da tadlar meglierescha mo flaivlamain Vossa atgna pronunzia.",
         detail: "d ≈ 0,92 per la perceptziun, d ≈ 0,54 per la producziun, senza correlaziun tranter las duas.",
-        source: "Sakai & Moorman, 2018",
+        source: ["sakai-moorman-2018"],
       },
       {
         claim: "Scriver en dialect è digitalmain normal en Svizra, betg giargun.",
         detail: "Perquai è «scriver sco insatgi da qua» ina cumpetenza vaira e betg in gieu.",
-        source: "Universitad da Berna, Texting in Time; UZH, What's Up",
+        source: ["whatsup-uzh"],
       },
     ],
     hypotheses: [
       {
+        claim: "Reglas da consonantas predisan forsa meglier l'intelligibilitad che reglas da vocals.",
+        detail:
+          "Quai ch'è cumprovà: la distanza fonetica predi l'intelligibilitad meglier che la distanza lexicala. Las cifras precisas cun las qualas questa pagina cumparegliava consonantas e vocals, na vain nus betg pudì verifitgar en ina funtauna accessibla — perquai stat l'asserziun qua e betg sut «Cumprovà». Duas da noss quatter reglas sin la pagina principala èn reglas da vocals, e perquai la scumessa pli flaivla.",
+        source: ["gooskens-2007"],
+      },
+      {
         claim: "Reglas da tun funcziuneschan sco indizi en la pratica er sch'ellas fallan sco lecziun.",
         detail:
           "L'unic test net da la furma «lecziun» — 50 minutas ollandais-fris — n'ha mussà nagin effect significativ, ed ils auturs sezs avertan da generalisar. Tut la tradiziun europeica da l'intercomprensiun è, tenor ils perscrutaders decisivs, praticamain betg evaluada. Nossa variante è pia quella betg testada. Perquai la mesirain nus.",
-        source: "Bergsma, Swarte & Gooskens, 2014",
+        source: ["bergsma-2014"],
       },
       {
         claim: "Ina curta adattaziun meglierescha mesirablamain la comprensiun d'ina vusch nunenconuschenta.",
         detail:
           "Quai ch'è segir suenter var ina minuta è ina pli gronda spertadad da lavurar — betg dapli pleds chapids. Nus na pretendain pia betg ch'ina minuta Vus fa chapir dapli.",
-        source: "Clarke & Garrett, 2004",
+        source: ["clarke-garrett-2004"],
       },
     ],
     decisions: [
