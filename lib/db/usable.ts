@@ -17,8 +17,12 @@ import { db } from "./index.ts";
  * heidi's provisioning sets `ALTER DEFAULT PRIVILEGES FOR ROLE postgres` so
  * that grant happens automatically for tables created in future. This is the
  * belt to that braces: it asserts the property directly, against the real
- * database, and it runs on every deploy because the health endpoint is what
- * the pipeline waits for.
+ * database.
+ *
+ * `app/api/health` calls it once per process and reports the answer in its
+ * body. That wiring was missing for a while — this docblock claimed it and
+ * only the test suite actually ran it, which catches exactly as many outages
+ * as no check at all.
  *
  * One catalogue query. It reads no group's messages.
  */

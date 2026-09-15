@@ -63,6 +63,21 @@ export function remove(collection: SavedCollection, target: string): SavedCollec
   return { version: SAVED_VERSION, words: collection.words.filter((w) => identity(w) !== key) };
 }
 
+/**
+ * Replace one word in place, by identity, keeping its position.
+ *
+ * Keeping the position matters: the list is newest-first and reviewing a word
+ * is not saving it again. A grade that moved the word to the top would reorder
+ * someone's vocabulary every time they answered a question about it.
+ */
+export function update(collection: SavedCollection, word: SavedWord): SavedCollection {
+  const key = identity(word);
+  return {
+    version: SAVED_VERSION,
+    words: collection.words.map((w) => (identity(w) === key ? word : w)),
+  };
+}
+
 export function has(collection: SavedCollection | null, target: string): boolean {
   if (!collection) return false;
   const key = identity({ target });
@@ -102,6 +117,14 @@ export function decode(raw: string): SavedCollection | null {
         bridge: w.bridge.trim(),
         savedAt: w.savedAt,
         ...(typeof w.context === "string" && w.context.trim() ? { context: w.context.trim() } : {}),
+        // Review state is carried through rather than rebuilt from defaults:
+        // this decoder constructs each word field by field, so a field it does
+        // not name is a field that is silently dropped on every single read —
+        // which would reset everyone's schedule to "due" on page load and make
+        // the spacing feature quietly do nothing.
+        ...(typeof w.step === "number" && Number.isFinite(w.step) ? { step: w.step } : {}),
+        ...(typeof w.dueAt === "string" ? { dueAt: w.dueAt } : {}),
+        ...(typeof w.reviewedAt === "string" ? { reviewedAt: w.reviewedAt } : {}),
       });
     }
     return { version: SAVED_VERSION, words: words.slice(0, MAX_WORDS) };

@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 import { createBrowserStore, useBrowserStore, useStorageReady } from "@/lib/browser/store";
-import { add, decode, has, remove } from "@/lib/domain/saved/collection";
+import { add, decode, has, remove, update } from "@/lib/domain/saved/collection";
 import { EMPTY, type SavedWord } from "@/lib/domain/saved/types";
 
 /**
@@ -32,6 +32,18 @@ export function useSaved() {
     store.write(remove(current, target));
   }, []);
 
+  /**
+   * Write a word back in place — how a review answer is recorded.
+   *
+   * `update`, not remove-then-add: the list is newest-first, and re-adding
+   * would move a word to the top every time the learner answered a question
+   * about it, quietly reordering their vocabulary as a side effect of using it.
+   */
+  const grade = useCallback((word: SavedWord) => {
+    const current = store.read() ?? EMPTY;
+    store.write(update(current, word));
+  }, []);
+
   const clear = useCallback(() => store.clear(), []);
 
   return {
@@ -44,6 +56,7 @@ export function useSaved() {
     count: collection.words.length,
     isSaved: useCallback((target: string) => has(collection, target), [collection]),
     save,
+    grade,
     forget,
     clear,
   };

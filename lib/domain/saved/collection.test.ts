@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { add, decode, has, identity, isKeepable, oldestFirst, remove } from "./collection.ts";
+import { add, decode, has, identity, isKeepable, oldestFirst, remove, update } from "./collection.ts";
 import { EMPTY, MAX_WORDS, SAVED_VERSION, type SavedCollection } from "./types.ts";
 
 const word = (target: string, bridge = "Kommst du", savedAt = "2026-09-12T10:00:00.000Z") => ({
@@ -126,4 +126,65 @@ test("revision order is oldest first, which is not storage order", () => {
   c = add(c, word("second", "b", "2026-06-01T00:00:00.000Z"));
   assert.deepEqual(c.words.map((w) => w.target), ["second", "first"]);
   assert.deepEqual(oldestFirst(c).map((w) => w.target), ["first", "second"]);
+});
+
+test("the decoder carries review state through, rather than rebuilding a word without it", () => {
+  // This decoder constructs each word field by field, so a field it does not
+  // name is dropped on EVERY read. Dropping these would reset the schedule to
+  // "due" on every page load and make spaced review quietly do nothing — the
+  // feature would look fine and be worthless.
+  const stored = JSON.stringify({
+    version: 1,
+    words: [
+      {
+        target: "Chind",
+        bridge: "Kind",
+        savedAt: "2026-01-01T00:00:00.000Z",
+        step: 3,
+        dueAt: "2026-03-01T00:00:00.000Z",
+        reviewedAt: "2026-02-01T00:00:00.000Z",
+      },
+    ],
+  });
+
+  const [kept] = decode(stored)!.words;
+  assert.equal(kept.step, 3);
+  assert.equal(kept.dueAt, "2026-03-01T00:00:00.000Z");
+  assert.equal(kept.reviewedAt, "2026-02-01T00:00:00.000Z");
+});
+
+test("a word saved before review existed decodes without it, and is simply due", () => {
+  // Why `version` did NOT have to be bumped: the shape grew, it did not
+  // change, so old data is still valid data. Bumping would have emptied every
+  // saved list in the wild in order to add a feature about not losing things.
+  const old = JSON.stringify({
+    version: 1,
+    words: [{ target: "gäll", bridge: "nicht wahr", savedAt: "2026-01-01T00:00:00.000Z" }],
+  });
+  const [kept] = decode(old)!.words;
+  assert.equal(kept.step, undefined);
+  assert.equal(kept.dueAt, undefined);
+});
+
+test("nonsense review state is dropped rather than carried", () => {
+  const stored = JSON.stringify({
+    version: 1,
+    words: [{ target: "Huus", bridge: "Haus", savedAt: "2026-01-01T00:00:00.000Z", step: "three", dueAt: 42 }],
+  });
+  const [kept] = decode(stored)!.words;
+  assert.equal(kept.step, undefined);
+  assert.equal(kept.dueAt, undefined);
+  assert.equal(kept.target, "Huus", "and the word itself survives");
+});
+
+test("updating a word keeps its position in the list", () => {
+  // Reviewing a word is not saving it again. A grade that moved it to the top
+  // would reorder someone's vocabulary every time they answered a question.
+  const first = add(EMPTY, word("eis", "eins", "2026-01-01T00:00:00.000Z"));
+  const second = add(first, word("zwei", "zwei", "2026-01-02T00:00:00.000Z"));
+  assert.deepEqual(second.words.map((w) => w.target), ["zwei", "eis"]);
+
+  const graded = update(second, { ...second.words[1], step: 2 });
+  assert.deepEqual(graded.words.map((w) => w.target), ["zwei", "eis"], "order is unchanged");
+  assert.equal(graded.words[1].step, 2);
 });
