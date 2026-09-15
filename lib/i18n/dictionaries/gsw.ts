@@ -201,7 +201,7 @@ export const gsw: Dictionary = {
     account: "Konto",
     portalTitle: "Min Bereich",
     portalLead:
-      "Do entstaht Ihre persönlich Teil vo Heidi: d Wörter wo Si nachegschlage händ, Lüüt zum Üebe, und Tutorinne und Tutore, wänn Si weli wänd.",
+      "Ihri Wörter, wänns Ziit isch für si wieder aazluege — und was Ihne debii immer wieder begegnet.",
     signedInAs: "Aagmäldet als",
     notSignedIn: "Si sind nöd aagmäldet",
     notSignedInBody:
@@ -457,6 +457,33 @@ export const gsw: Dictionary = {
     onThisDevice: "Nume uf dem Grät",
     savedOn: "Gmerkt",
     openChat: "Öppis naaschlaa",
+  },
+
+  /**
+   * The dashboard: spaced review, and what the learner's own list says about
+   * them. No streak, no score, no percentage — HEIDI.md §8 names each of those
+   * as the thing this must not become.
+   */
+  review: {
+    title: "Zum Wiederhole",
+    lead: "Wörter, wo Si händ wele bhalte, chömed da zrugg — zerscht nach eim Tag, denn nach drü, denn nach ere Wuche. Spöter frage bringt meh als öfters frage.",
+    due: "fällig",
+    none: "Hüt isch nüt fällig.",
+    noneHint: "Chömed morn wieder — oder schlaged öppis Neus nache.",
+    empty: "Na kei Wörter zum Wiederhole.",
+    emptyHint: "Merked Ihne es Wort im Gspräch, denn fragt Si d Heidi spöter dernach.",
+    tomorrow: "morn fällig",
+    settled: "sitzed",
+    prompt: "Was heisst das?",
+    show: "Uflöse",
+    knew: "Han i gwüsst",
+    missed: "Na nöd",
+    done: "Für hüt duruus.",
+    patternsTitle: "Was Ihne immer wieder begegnet",
+    patternsLead: "Die Regelmässigkeite stecked i de Wörter, wo Si bhalte händ. Kei Note — nur das, wo i Ihrer eigene Liste staht.",
+    patternsCount: "vo Ihrne Wörter",
+    recentTitle: "Wiitermache",
+    recentEmpty: "Na kei Gspräch.",
   },
   groups: {
     title: "Lerngruppe",

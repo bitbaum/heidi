@@ -391,7 +391,7 @@ export const rm: Dictionary = {
     account: "Conto",
     portalTitle: "Mes intschess",
     portalLead:
-      "Qua nascha Vossa part da Heidi: ils pleds che Vus avais tschertgà, persunas per exercitar, e tutuors sche Vus als vulais.",
+      "Voss pleds, cura ch'igl è ura da revair els — e quai che As ferma il pli savens.",
     signedInAs: "Annunzià sco",
     notSignedIn: "Vus n'essas betg annunzià",
     notSignedInBody:
@@ -448,6 +448,33 @@ export const rm: Dictionary = {
     onThisDevice: "Mo sin quest apparat",
     savedOn: "Tegnì ils",
     openChat: "Tschertgar insatge",
+  },
+
+  /**
+   * The dashboard: spaced review, and what the learner's own list says about
+   * them. No streak, no score, no percentage — HEIDI.md §8 names each of those
+   * as the thing this must not become.
+   */
+  review: {
+    title: "Da repeter",
+    lead: "Ils pleds che Vus avais mantegnì returnan qua — suenter in di, lura suenter trais, lura suenter ina emna. Dumandar pli tard funcziuna meglier che dumandar pli savens.",
+    due: "da repeter",
+    none: "Oz n'è nagut da repeter.",
+    noneHint: "Vegni puspè damaun — u tschertgai insatge nov.",
+    empty: "Anc nagins pleds da repeter.",
+    emptyHint: "Mantegnai in pled durant ina conversaziun, lura As dumonda Heidi pli tard.",
+    tomorrow: "damaun",
+    settled: "segirs",
+    prompt: "Tge vul quai dir?",
+    show: "Mussar",
+    knew: "Quai savevi",
+    missed: "Anc betg",
+    done: "Per oz è quai tut.",
+    patternsTitle: "Quai che As ferma adina puspè",
+    patternsLead: "Questas regularitads èn en ils pleds che Vus avais mantegnì. Nagina nota — mo quai ch'è en Vossa atgna glista.",
+    patternsCount: "da Voss pleds",
+    recentTitle: "Cuntinuar",
+    recentEmpty: "Anc naginas conversaziuns.",
   },
   groups: {
     title: "Gruppas da studi",
