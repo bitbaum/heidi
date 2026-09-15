@@ -197,63 +197,64 @@ export const it: Dictionary = {
         claim: "L'esposizione batte la distanza linguistica.",
         detail:
           "Su 1833 ascoltatori e 70 coppie di lingue, l'esposizione alla lingua testata contava più della distanza lessicale, fonologica od ortografica.",
-        source: "Gooskens, van Heuven, Golubović, Schüppert, Swarte & Voigt, 2017/18",
-      },
-      {
-        claim: "Le regole consonantiche prevedono l'intelligibilità molto meglio di quelle vocaliche.",
-        detail: "r ≈ −.74 contro −.29. Due delle nostre quattro regole in home page sono vocaliche, quindi la scommessa più debole.",
-        source: "Gooskens & Heeringa",
+        source: ["gooskens-2018"],
       },
       {
         claim: "Allenarsi con molte voci è ciò che si trasferisce alle voci sconosciute.",
         detail:
           "Esercitarsi con una sola voce può rendere di più su quella voce e non si trasferisce. Confermato specificamente per i dialetti regionali.",
-        source: "Logan, Lively & Pisoni 1991; Clopper & Pisoni 2004",
+        source: ["lively-1993", "clopper-2004"],
       },
       {
         claim: "Dire che cosa ascoltare è un principio attivo, non un ornamento.",
         detail: "Stesso materiale, stesso riscontro: ha imparato solo il gruppo avvertito del contrasto rilevante.",
-        source: "Pederson & Guion-Anderson, 2010",
+        source: ["pederson-2010"],
       },
       {
         claim: "Richiamare alla memoria con riscontro batte il rileggere.",
         detail: "222 studi, 48 478 studenti; g ≈ 0,50, e 0,54 con riscontro contro 0,37 senza.",
-        source: "Yang, Luo, Vadillo, Yu & Shanks, 2021",
+        source: ["yang-2021"],
       },
       {
         claim: "La pratica distribuita batte quella concentrata, e il vantaggio cresce nel tempo.",
         detail: "g ≈ 0,76 subito, g ≈ 1,15 dopo un intervallo, su 48 esperimenti e 3411 persone.",
-        source: "Kim & Webb, 2022",
+        source: ["kim-webb-2022"],
       },
       {
         claim: "I sottotitoli aiutano — dopo il tentativo di ascolto, non durante.",
         detail:
           "Effetto ampio sul lessico (g ≈ 0,87), apparentemente perché il testo aiuta a tagliare il flusso sonoro in parole. Un testo sempre visibile diventa una stampella.",
-        source: "Montero-Perez, Van Den Noortgate & Desmet, 2013",
+        source: ["montero-perez-2013"],
       },
       {
         claim: "L'allenamento all'ascolto migliora solo debolmente la vostra pronuncia.",
         detail: "d ≈ 0,92 per la percezione, d ≈ 0,54 per la produzione, senza correlazione fra le due.",
-        source: "Sakai & Moorman, 2018",
+        source: ["sakai-moorman-2018"],
       },
       {
         claim: "Scrivere in dialetto è digitalmente normale in Svizzera, non è gergo.",
         detail: "Per questo «scrivere come chi è di qui» è una competenza vera e non un gioco.",
-        source: "Università di Berna, Texting in Time; UZH, What's Up",
+        source: ["whatsup-uzh"],
       },
     ],
     hypotheses: [
       {
+        claim: "Le regole consonantiche potrebbero predire l'intelligibilità meglio di quelle vocaliche.",
+        detail:
+          "È accertato che la distanza fonetica predice l'intelligibilità meglio di quella lessicale. Le cifre precise con cui questa pagina contrapponeva consonanti e vocali non le abbiamo potute verificare in nessuna fonte accessibile: l'affermazione sta quindi qui e non sotto «Accertato». Due delle nostre quattro regole in home page sono vocaliche, quindi la scommessa più debole.",
+        source: ["gooskens-2007"],
+      },
+      {
         claim: "Le regole fonetiche funzionano come indizio dentro la pratica anche se falliscono come lezione.",
         detail:
           "L'unico test pulito della forma «lezione» — 50 minuti di olandese-frisone — non ha mostrato effetti significativi, e gli autori stessi mettono in guardia dal generalizzare. L'intera tradizione europea dell'intercomprensione è, a detta dei ricercatori di riferimento, praticamente non valutata. La nostra variante è quindi quella non testata. Perciò la misuriamo.",
-        source: "Bergsma, Swarte & Gooskens, 2014",
+        source: ["bergsma-2014"],
       },
       {
         claim: "Un breve adattamento migliora in modo misurabile la comprensione di una voce sconosciuta.",
         detail:
           "Ciò che è accertato dopo circa un minuto è una maggiore velocità di elaborazione — non più parole capite. Non sosteniamo quindi che un minuto vi faccia capire di più.",
-        source: "Clarke & Garrett, 2004",
+        source: ["clarke-garrett-2004"],
       },
     ],
     decisions: [

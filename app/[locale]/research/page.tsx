@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
+import { SOURCES, type SourceId } from "@/lib/research/sources";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -9,13 +10,42 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return { title: dict.research.title, description: dict.research.lead };
 }
 
-/** One evidence claim. The source line is the point — an unsourced claim here would be the thing this page exists to avoid. */
-function Claim({ claim, detail, source }: { claim: string; detail: string; source: string }) {
+/**
+ * One evidence claim, and the paper it rests on.
+ *
+ * The comment that used to sit here said "the source line is the point — an
+ * unsourced claim here would be the thing this page exists to avoid", directly
+ * above code that printed an author and a year in grey and linked to nothing.
+ * A reader could not check a single number on the page.
+ *
+ * Now every claim carries a resolvable link. That is the whole difference
+ * between citing a paper and mentioning one.
+ */
+function Claim({ claim, detail, source }: { claim: string; detail: string; source: readonly SourceId[] }) {
   return (
     <li className="border-b border-border-subtle py-5 last:border-b-0">
       <p className="max-w-measure font-medium leading-snug text-fg-primary">{claim}</p>
       <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{detail}</p>
-      <p className="mt-2 font-mono text-[11px] text-fg-muted">{source}</p>
+      <ul className="mt-3 flex flex-col gap-1">
+        {source.map((id) => {
+          const s = SOURCES[id];
+          return (
+            <li key={id}>
+              <a
+                href={s.url}
+                target="_blank"
+                rel="noreferrer"
+                // The full reference, not a bare "[1]": someone deciding
+                // whether to click deserves to know the venue and the year
+                // before they leave the page.
+                className="font-mono text-[11px] leading-relaxed text-fg-muted underline decoration-border-subtle underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+              >
+                {s.authors} {s.year}. {s.title}. <span className="not-italic">{s.venue}</span>.
+              </a>
+            </li>
+          );
+        })}
+      </ul>
     </li>
   );
 }

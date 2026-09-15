@@ -6,6 +6,19 @@
  * Swiss Standard German: no ß, ever. The deterministic gate rejects it in
  * dialect, and it would be incoherent for the site around it to use it.
  */
+import type { SourceId } from "../../research/sources.ts";
+
+/**
+ * The papers a claim rests on.
+ *
+ * A function rather than a bare array so that `typeof de` — which is the
+ * Dictionary type every other locale is checked against — carries `SourceId`
+ * instead of widening to `string[]`. That makes a typo in a citation a build
+ * error in all seven languages, which is the only way a reference stays
+ * attached to the claim it actually supports.
+ */
+const cite = (...ids: SourceId[]): readonly SourceId[] => ids;
+
 export const de = {
   meta: {
     title: "Heidi — Schweizerdeutsch verstehen",
@@ -203,64 +216,65 @@ export const de = {
         claim: "Kontakt schlägt sprachliche Distanz.",
         detail:
           "Über 1833 Hörerinnen und 70 Sprachpaare hinweg war Kontakt mit der Testsprache wichtiger als lexikalische, lautliche oder orthografische Distanz.",
-        source: "Gooskens, van Heuven, Golubović, Schüppert, Swarte & Voigt, 2017/18",
-      },
-      {
-        claim: "Konsonantenregeln sagen Verständlichkeit deutlich besser voraus als Vokalregeln.",
-        detail: "r ≈ −.74 gegenüber −.29. Zwei unserer vier Regeln auf der Startseite sind Vokalregeln und damit die schwächere Wette.",
-        source: "Gooskens & Heeringa",
+        source: cite("gooskens-2018"),
       },
       {
         claim: "Training mit vielen Stimmen ist das, was auf unbekannte Stimmen übergeht.",
         detail:
           "Mit einer einzigen Stimme zu üben kann auf genau dieser Stimme besser abschneiden und überträgt sich nicht. Für regionale Dialekte eigens bestätigt.",
-        source: "Logan, Lively & Pisoni 1991; Clopper & Pisoni 2004",
+        source: cite("lively-1993", "clopper-2004"),
       },
       {
         claim: "Zu sagen, worauf man hören soll, ist ein Wirkstoff und nicht Dekoration.",
         detail:
           "Gleiches Material, gleiche Rückmeldung: gelernt hat nur die Gruppe, die auf den relevanten Kontrast hingewiesen wurde.",
-        source: "Pederson & Guion-Anderson, 2010",
+        source: cite("pederson-2010"),
       },
       {
         claim: "Abrufen mit Rückmeldung schlägt Nachlesen.",
         detail: "222 Studien, 48'478 Lernende; g ≈ 0.50, mit Rückmeldung 0.54 gegenüber 0.37 ohne.",
-        source: "Yang, Luo, Vadillo, Yu & Shanks, 2021",
+        source: cite("yang-2021"),
       },
       {
         claim: "Verteiltes Üben schlägt geballtes, und der Vorsprung wächst mit der Zeit.",
         detail: "g ≈ 0.76 sofort, g ≈ 1.15 nach Verzögerung, über 48 Experimente und 3411 Personen.",
-        source: "Kim & Webb, 2022",
+        source: cite("kim-webb-2022"),
       },
       {
         claim: "Untertitel helfen — nach dem Hörversuch, nicht währenddessen.",
         detail:
           "Grosser Effekt auf Wortschatz (g ≈ 0.87), offenbar weil Text hilft, den Lautstrom in Wörter zu zerlegen. Dauerhaft eingeblendeter Text wird zur Krücke.",
-        source: "Montero-Perez, Van Den Noortgate & Desmet, 2013",
+        source: cite("montero-perez-2013"),
       },
       {
         claim: "Hörtraining verbessert das eigene Sprechen nur schwach.",
         detail: "d ≈ 0.92 für die Wahrnehmung, d ≈ 0.54 für die Produktion, ohne Zusammenhang zwischen beiden.",
-        source: "Sakai & Moorman, 2018",
+        source: cite("sakai-moorman-2018"),
       },
       {
         claim: "Dialekt zu schreiben ist in der Schweiz digital normal, nicht Slang.",
         detail: "Das ist der Grund, warum «schreiben wie jemand von hier» eine echte Kompetenz ist und keine Spielerei.",
-        source: "Universität Bern, Texting in Time; UZH, What's Up",
+        source: cite("whatsup-uzh"),
       },
     ],
     hypotheses: [
       {
+        claim: "Konsonantenregeln könnten die Verständlichkeit besser vorhersagen als Vokalregeln.",
+        detail:
+          "Belegt ist, dass lautliche Distanz die Verständlichkeit besser vorhersagt als lexikalische. Die konkreten Zahlen, mit denen diese Seite früher Konsonanten gegen Vokale stellte, konnten wir in keiner zugänglichen Quelle nachprüfen — also steht die Aussage hier und nicht unter «Gesichert». Zwei unserer vier Regeln auf der Startseite sind Vokalregeln und damit die schwächere Wette.",
+        source: cite("gooskens-2007"),
+      },
+      {
         claim: "Lautregeln wirken als Hinweis in der Übung, obwohl sie als Lektion nicht wirken.",
         detail:
           "Der einzige saubere Test der Lektionsform — 50 Minuten Niederländisch-Friesisch — zeigte keine signifikante Wirkung, und die Autoren selbst warnen davor, das zu verallgemeinern. Die gesamte europäische Interkomprehensions-Didaktik ist nach Aussage der führenden Forschenden praktisch nicht evaluiert. Unsere Variante ist also die ungetestete. Deshalb messen wir sie.",
-        source: "Bergsma, Swarte & Gooskens, 2014",
+        source: cite("bergsma-2014"),
       },
       {
         claim: "Eine kurze Eingewöhnung verbessert messbar das Verstehen einer fremden Stimme.",
         detail:
           "Was nach rund einer Minute belegt ist, ist eine höhere Verarbeitungsgeschwindigkeit — nicht mehr verstandene Wörter. Wir behaupten deshalb nicht, dass Sie nach einer Minute mehr verstehen.",
-        source: "Clarke & Garrett, 2004",
+        source: cite("clarke-garrett-2004"),
       },
     ],
     decisions: [

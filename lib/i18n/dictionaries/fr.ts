@@ -197,63 +197,64 @@ export const fr: Dictionary = {
         claim: "L'exposition l'emporte sur la distance linguistique.",
         detail:
           "Sur 1833 auditeurs et 70 paires de langues, l'exposition à la langue testée comptait plus que la distance lexicale, phonologique ou orthographique.",
-        source: "Gooskens, van Heuven, Golubović, Schüppert, Swarte & Voigt, 2017/18",
-      },
-      {
-        claim: "Les règles consonantiques prédisent bien mieux l'intelligibilité que les vocaliques.",
-        detail: "r ≈ −.74 contre −.29. Deux de nos quatre règles en page d'accueil sont vocaliques, donc le pari le plus faible.",
-        source: "Gooskens & Heeringa",
+        source: ["gooskens-2018"],
       },
       {
         claim: "S'entraîner avec de nombreuses voix est ce qui se transfère aux voix inconnues.",
         detail:
           "S'exercer avec une seule voix peut mieux réussir sur cette voix-là et ne se transfère pas. Confirmé spécifiquement pour les dialectes régionaux.",
-        source: "Logan, Lively & Pisoni 1991 ; Clopper & Pisoni 2004",
+        source: ["lively-1993", "clopper-2004"],
       },
       {
         claim: "Dire quoi écouter est un principe actif, pas un ornement.",
         detail: "Même matériel, même retour : seul le groupe averti du contraste pertinent a appris.",
-        source: "Pederson & Guion-Anderson, 2010",
+        source: ["pederson-2010"],
       },
       {
         claim: "Se rappeler avec retour l'emporte sur la relecture.",
         detail: "222 études, 48 478 apprenants ; g ≈ 0,50, et 0,54 avec retour contre 0,37 sans.",
-        source: "Yang, Luo, Vadillo, Yu & Shanks, 2021",
+        source: ["yang-2021"],
       },
       {
         claim: "La pratique espacée l'emporte sur la pratique massée, et l'avance grandit avec le temps.",
         detail: "g ≈ 0,76 immédiatement, g ≈ 1,15 après un délai, sur 48 expériences et 3411 personnes.",
-        source: "Kim & Webb, 2022",
+        source: ["kim-webb-2022"],
       },
       {
         claim: "Les sous-titres aident — après la tentative d'écoute, pas pendant.",
         detail:
           "Effet important sur le vocabulaire (g ≈ 0,87), apparemment parce que le texte aide à découper le flux sonore en mots. Un texte affiché en permanence devient une béquille.",
-        source: "Montero-Perez, Van Den Noortgate & Desmet, 2013",
+        source: ["montero-perez-2013"],
       },
       {
         claim: "L'entraînement à l'écoute n'améliore que faiblement votre propre prononciation.",
         detail: "d ≈ 0,92 pour la perception, d ≈ 0,54 pour la production, sans corrélation entre les deux.",
-        source: "Sakai & Moorman, 2018",
+        source: ["sakai-moorman-2018"],
       },
       {
         claim: "Écrire en dialecte est numériquement normal en Suisse, ce n'est pas de l'argot.",
         detail: "C'est pourquoi « écrire comme quelqu'un d'ici » est une vraie compétence et non un gadget.",
-        source: "Université de Berne, Texting in Time ; UZH, What's Up",
+        source: ["whatsup-uzh"],
       },
     ],
     hypotheses: [
       {
+        claim: "Les règles consonantiques prédisent peut-être mieux l'intelligibilité que les règles vocaliques.",
+        detail:
+          "Ce qui est établi, c'est que la distance phonétique prédit mieux l'intelligibilité que la distance lexicale. Les chiffres précis que cette page opposait autrefois — consonnes contre voyelles — nous n'avons pu les vérifier dans aucune source accessible : l'affirmation figure donc ici et non sous « Établi ». Deux de nos quatre règles en page d'accueil sont vocaliques, donc le pari le plus faible.",
+        source: ["gooskens-2007"],
+      },
+      {
         claim: "Les règles sonores fonctionnent comme indice dans la pratique même si elles échouent comme leçon.",
         detail:
           "Le seul test propre de la forme « leçon » — 50 minutes de néerlandais-frison — n'a montré aucun effet significatif, et les auteurs eux-mêmes mettent en garde contre toute généralisation. Toute la tradition européenne d'intercompréhension est, selon les chercheurs de référence, pratiquement non évaluée. Notre variante est donc celle qui n'a pas été testée. Nous la mesurons.",
-        source: "Bergsma, Swarte & Gooskens, 2014",
+        source: ["bergsma-2014"],
       },
       {
         claim: "Une courte mise en oreille améliore de façon mesurable la compréhension d'une voix inconnue.",
         detail:
           "Ce qui est établi après environ une minute, c'est une vitesse de traitement accrue — pas davantage de mots compris. Nous n'affirmons donc pas qu'une minute vous fait comprendre plus.",
-        source: "Clarke & Garrett, 2004",
+        source: ["clarke-garrett-2004"],
       },
     ],
     decisions: [
