@@ -11,6 +11,9 @@ import { Transcript } from "./chat/transcript";
 import { useConversation } from "./chat/use-conversation";
 import { draftTransport } from "./chat/transports";
 
+/** How many pictures can ride along with one message. */
+const MAX_IMAGES = 3;
+
 /**
  * A conversation, not a form.
  *
@@ -20,13 +23,6 @@ import { draftTransport } from "./chat/transports";
  * problem first is us pushing our internal structure onto them. The model
  * works it out now, and a follow-up ("why did they say it like that?") is just
  * the next message instead of a new query with no memory.
- *
- * This file was 724 lines. The transcript, the bubbles, the answer renderer and
- * the composer now live in `./chat/`, because the group chat needed all four
- * and had grown its own worse copies of two of them. What is left here is what
- * is genuinely the home page's: the examples, the model badge, and a stateless
- * transport that posts the whole thread every time — which is also why this
- * surface still works with no database and no account.
  */
 export function Chat({
   locale,
@@ -66,13 +62,17 @@ export function Chat({
 
   return (
     <section aria-label="Heidi" className="flex w-full flex-col">
-      {/* The instruction used to be the SECOND HALF OF THE PAGE SUBHEAD, three
-          hundred pixels above the box it describes, while the box itself was
-          captioned "EXPLANATIONS IN GERMAN" in 11px mono — a setting, announced
-          louder than the invitation. The sentence now sits on the thing it
-          tells you to use, at a size a person reads. */}
+      {/* The instruction used to be the second half of the page subhead, three
+          hundred pixels above the box it describes. It sits on the thing it
+          tells you to use — and it is the box's real `<label>`, not a `<p>`
+          beside a hidden twin, because two labels for one control means a
+          screen reader says the sentence twice. */}
       <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2 pb-2">
-        {!started && <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.placeholder}</p>}
+        {!started && (
+          <label htmlFor="chat-input" className="max-w-measure text-base leading-relaxed text-fg-secondary">
+            {t.placeholder}
+          </label>
+        )}
         {started && byok.ready && byok.config && (
           <button
             type="button"
@@ -84,7 +84,11 @@ export function Chat({
           </button>
         )}
         {started && (
-          <button type="button" onClick={chat.reset} className="min-h-9 text-sm text-link underline underline-offset-4 hover:text-accent">
+          <button
+            type="button"
+            onClick={chat.reset}
+            className="min-h-9 text-sm text-link underline underline-offset-4 hover:text-accent"
+          >
             {t.newChat}
           </button>
         )}
@@ -113,6 +117,8 @@ export function Chat({
         locale={locale}
         sticky={started}
         className="mt-3"
+        // The visible label above is the box's label while it is on screen.
+        labelledOutside={!started}
         images={{
           attached: chat.attached,
           onAccept: chat.accept,
@@ -123,9 +129,8 @@ export function Chat({
         }}
       />
 
-      {/* Their placement, kept: the badge is a SETTING, and it was announcing
-          itself louder than the invitation when it sat above the box. Below,
-          and only before a conversation starts. */}
+      {/* A setting, so it sits below the invitation rather than shouting over
+          it — and only before there is a conversation to read. */}
       {!started && (
         <div className="mt-2 flex flex-wrap items-center justify-end gap-x-3 gap-y-1">
           <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>
@@ -157,11 +162,6 @@ export function Chat({
   );
 }
 
-/**
- * The fastest route to the only moment that matters: a real Zurich sentence,
- * decoded, in this visitor's own hands. Pressing one SENDS it.
- *
- */
 function Examples({
   t,
   dialect,

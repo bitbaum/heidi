@@ -36,6 +36,7 @@ export function Composer({
   className,
   sticky,
   autoFocus,
+  labelledOutside,
 }: {
   value: string;
   onChange: (next: string) => void;
@@ -61,6 +62,15 @@ export function Composer({
   className?: string;
   sticky?: boolean;
   autoFocus?: boolean;
+  /**
+   * The caller renders its own visible `<label htmlFor="chat-input">`.
+   *
+   * Two labels for one control is a bug, not redundancy: a screen reader
+   * announces the sentence, then announces it again. The home page shows the
+   * invitation as a real label before a conversation starts, so the sr-only
+   * one here must stand down while that is on screen.
+   */
+  labelledOutside?: boolean;
 }) {
   const areaRef = useRef<HTMLTextAreaElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -143,9 +153,11 @@ export function Composer({
           }
         }}
       >
-        <label htmlFor="chat-input" className="sr-only">
-          {t.placeholder}
-        </label>
+        {!labelledOutside && (
+          <label htmlFor="chat-input" className="sr-only">
+            {t.placeholder}
+          </label>
+        )}
         <textarea
           id="chat-input"
           ref={areaRef}
