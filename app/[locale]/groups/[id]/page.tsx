@@ -9,6 +9,8 @@ import { dbConfigured } from "@/lib/db";
 import { groupById, membersOf, messagesIn } from "@/lib/domain/groups/store";
 import { visibleMessages } from "threadkit";
 import { groupThread, mayInvite, mayPost } from "@/lib/domain/groups/rules";
+import { decodeAnswer } from "@/lib/domain/chat/answer";
+import type { ChatMessage } from "@/lib/domain/chat/types";
 import { PageHeader, Section, Shell } from "../../_components/page-shell";
 import { GroupChat } from "../../_components/group-chat";
 import { InvitePanel } from "../../_components/invite-panel";
@@ -98,7 +100,23 @@ export default async function GroupPage({
       })),
     ).map((m) => m.id),
   );
-  const initialMessages = all.filter((m) => allowed.has(m.id));
+  // `answer` comes back out of jsonb as `unknown`, written by whichever
+  // version of the prompt was live that day. Decoding rather than casting is
+  // what lets the shared transcript render it at all — the group used to give
+  // up here and show the plain body, which is why nobody in a group has ever
+  // seen a gloss.
+  const initialMessages: ChatMessage[] = all
+    .filter((m) => allowed.has(m.id))
+    .map((m) => {
+      const answer = decodeAnswer(m.answer);
+      return {
+        id: m.id,
+        authorId: m.authorId,
+        body: m.body,
+        createdAt: m.createdAt,
+        ...(answer ? { answer } : {}),
+      };
+    });
   const initialMembers = members
     .filter((m) => !m.leftAt)
     .map((m) => ({ actorId: m.actorId, displayName: m.displayName }));
@@ -112,6 +130,7 @@ export default async function GroupPage({
           groupId={group.id}
           t={t}
           chatT={dict.chat}
+          modelT={dict.model}
           locale={locale}
           me={actorId}
           initialMessages={initialMessages}
