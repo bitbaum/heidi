@@ -40,14 +40,17 @@
 const FRAME_MS = 20;
 
 /**
- * The gap that counts as a pause.
+ * The gap that counts as a pause — the SAME definition the transcript half
+ * uses, imported rather than copied.
  *
- * 250 ms is the conventional silent-pause threshold in the fluency literature,
- * and the reason is phonetic rather than arbitrary: the silence inside a `t`
- * or a `k` is tens of milliseconds, so a lower threshold reports a person's
- * consonants back to them as hesitation.
+ * `lib/speech/fluency.ts` measures pauses from the words a recogniser returned
+ * and this file measures them from the signal. Two thresholds would make the
+ * product report a different number of pauses for one recording depending on
+ * which half answered, with nothing failing: both internally consistent and
+ * quietly disagreeing. See `lib/speech/pause.ts` for the phonetic reason the
+ * number is 250.
  */
-const MIN_PAUSE_MS = 250;
+import { MIN_PAUSE_MS } from "../../speech/pause.ts";
 
 /** A blip shorter than this is a click or a breath, not a run of speech. */
 const MIN_RUN_MS = 120;
