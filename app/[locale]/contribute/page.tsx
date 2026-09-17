@@ -52,7 +52,7 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
           >
             {t.ctaButton}
           </a>
-          <p className="mt-3 font-mono text-[11px] text-fg-muted">{CONTACT_EMAIL}</p>
+          <p className="mt-3 font-mono text-caption text-fg-muted">{CONTACT_EMAIL}</p>
         </div>
       </Section>
     </Shell>

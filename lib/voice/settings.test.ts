@@ -31,11 +31,11 @@ test("one unintelligible field does not throw away the others", () => {
   // whole object over one unknown value is how a person's settings vanish on
   // the day we deploy.
   const decoded = decodeVoiceSettings(JSON.stringify({ speak: true, rate: "fast", correction: "brutal" }));
-  assert.deepEqual(decoded, {
-    speak: true,
-    rate: DEFAULT_VOICE_SETTINGS.rate,
-    correction: DEFAULT_VOICE_SETTINGS.correction,
-  });
+  // Spread the defaults rather than listing the fields. Listing them made this
+  // test fail the moment a NEW setting was added — which is the opposite of
+  // what it is for: the whole claim is that an unrecognised shape keeps
+  // whatever is intelligible and falls back on the rest.
+  assert.deepEqual(decoded, { ...DEFAULT_VOICE_SETTINGS, speak: true });
 });
 
 test("nonsense in storage reads as nothing stored", () => {

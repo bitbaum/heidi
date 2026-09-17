@@ -34,7 +34,7 @@ export function VoiceSection({ t }: { t: Dictionary["voice"] }) {
           honest line is "we do not know yet" rather than "your browser cannot
           do this". Rendering nothing until it is known avoids saying either. */}
       {speech.supported ? (
-        <p className="mt-3 max-w-measure font-mono text-[11px] leading-relaxed text-fg-muted">
+        <p className="mt-3 max-w-measure font-mono text-caption leading-relaxed text-fg-muted">
           {t.claim[speech.claim]}
         </p>
       ) : null}

@@ -141,21 +141,21 @@ export function DialectFigure({ plannedLabel, othersLabel }: { plannedLabel: str
       <figcaption className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5">
         <span className="inline-flex items-center gap-2">
           <span aria-hidden="true" className="inline-block h-3 w-3 rounded-full bg-accent" />
-          <span className="font-mono text-[11px] uppercase tracking-caps text-fg-primary">{DISPLAY.endonym}</span>
+          <span className="font-mono text-caption uppercase tracking-caps text-fg-primary">{DISPLAY.endonym}</span>
         </span>
         <span className="inline-flex items-center gap-2">
           <span
             aria-hidden="true"
             className="inline-block h-3 w-3 rounded-full border-2 border-border-strong bg-surface-page"
           />
-          <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{plannedLabel}</span>
+          <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{plannedLabel}</span>
         </span>
         <span className="inline-flex items-center gap-2">
           <span
             aria-hidden="true"
             className="inline-block h-3 w-3 rounded-full border-2 border-border-subtle bg-surface-page"
           />
-          <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{othersLabel}</span>
+          <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{othersLabel}</span>
         </span>
       </figcaption>
     </figure>

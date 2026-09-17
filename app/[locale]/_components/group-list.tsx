@@ -83,7 +83,7 @@ export function GroupList({
                   <span className="block truncate font-heading text-lg leading-tight tracking-display text-fg-primary">
                     {g.name}
                   </span>
-                  <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+                  <span className="mt-0.5 block font-mono text-caption uppercase tracking-caps text-fg-muted">
                     {g.memberCount} {t.members}
                   </span>
                 </span>

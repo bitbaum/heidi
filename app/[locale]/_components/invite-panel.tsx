@@ -104,7 +104,7 @@ export function InvitePanel({
           type="button"
           onClick={rotate}
           disabled={busy}
-          className="min-h-9 font-mono text-[11px] uppercase tracking-caps text-fg-muted underline underline-offset-4 transition-colors hover:text-accent disabled:opacity-50"
+          className="min-h-9 font-mono text-caption uppercase tracking-caps text-fg-muted underline underline-offset-4 transition-colors hover:text-accent disabled:opacity-50"
         >
           {t.rotate}
         </button>

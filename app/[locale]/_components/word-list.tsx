@@ -147,7 +147,7 @@ export function KeptCount({ t, portalHref }: { t: Dictionary["vocabulary"]; port
 
   return (
     <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-fg-secondary">
-      <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+      <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
         {saved.count} {t.keptSome}
       </span>
       <a href={portalHref} className="text-link underline underline-offset-4 hover:text-accent">

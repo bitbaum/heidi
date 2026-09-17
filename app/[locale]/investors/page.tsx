@@ -85,7 +85,7 @@ export default async function InvestorsPage({ params }: { params: Promise<{ loca
   return (
     <Shell>
       <header className="-mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
-        <p className="font-mono text-[11px] uppercase tracking-caps text-accent">Heidi</p>
+        <p className="font-mono text-caption uppercase tracking-caps text-accent">Heidi</p>
         <h1 className="mt-3 max-w-[22ch] font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
           Understanding the language spoken around you
         </h1>
@@ -102,7 +102,7 @@ export default async function InvestorsPage({ params }: { params: Promise<{ loca
         <ul className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
           {METRICS.map((metric) => (
             <li key={metric.label}>
-              <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{metric.label}</p>
+              <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{metric.label}</p>
               <p className="mt-0.5 font-heading text-lg font-semibold tracking-display text-fg-primary">
                 {metric.value}
               </p>

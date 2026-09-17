@@ -32,6 +32,22 @@ export type VoiceSettings = {
   rate: number;
   /** How much to say about the learner's own production. See `correction.ts`. */
   correction: CorrectionLevel;
+  /**
+   * Read aloud even when the device has no German voice installed.
+   *
+   * OFF by default, and the default is the honest one. With no German voice,
+   * `pickVoice` returns nothing, and an engine handed an utterance with no
+   * voice substitutes the SYSTEM DEFAULT — on a device configured in English,
+   * an English voice reading Zurich German. That is not a degraded version of
+   * the feature; it is a pronunciation model for a language nobody speaks, fed
+   * to the one person who cannot tell.
+   *
+   * It is a setting rather than a flat refusal because a learner may
+   * reasonably judge a wrong-accented reading better than silence for getting
+   * the WORDS — and that is their call to make, once told. What the product
+   * must not do is make it for them silently, which is what it did.
+   */
+  speakWithoutGermanVoice: boolean;
 };
 
 /** Below this it stops sounding like speech; above it, a learner loses the ends of words. */
@@ -44,6 +60,7 @@ export const DEFAULT_VOICE_SETTINGS: VoiceSettings = {
   // here even though it is the right default for a general-purpose reader.
   rate: 0.9,
   correction: DEFAULT_CORRECTION,
+  speakWithoutGermanVoice: false,
 };
 
 export function clampRate(rate: number): number {
@@ -73,6 +90,10 @@ export function decodeVoiceSettings(raw: string): VoiceSettings | null {
     speak: typeof value.speak === "boolean" ? value.speak : DEFAULT_VOICE_SETTINGS.speak,
     rate: typeof value.rate === "number" ? clampRate(value.rate) : DEFAULT_VOICE_SETTINGS.rate,
     correction: isCorrectionLevel(value.correction) ? value.correction : DEFAULT_VOICE_SETTINGS.correction,
+    speakWithoutGermanVoice:
+      typeof value.speakWithoutGermanVoice === "boolean"
+        ? value.speakWithoutGermanVoice
+        : DEFAULT_VOICE_SETTINGS.speakWithoutGermanVoice,
   };
 }
 

@@ -52,7 +52,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
           {t.title}
         </h1>
         <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.lead}</p>
-        <p className="mt-3 font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.bindingNote}</p>
+        <p className="mt-3 font-mono text-caption uppercase tracking-caps text-fg-muted">{t.bindingNote}</p>
       </header>
 
       <Section title={t.flowsTitle} lead={t.flowsLead}>
@@ -63,22 +63,22 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
               className="grid gap-1 rounded-control border border-border-subtle p-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_minmax(0,1fr)] sm:gap-4"
             >
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted sm:hidden">{t.col.what}</p>
+                <p className="font-mono text-caption uppercase tracking-caps text-fg-muted sm:hidden">{t.col.what}</p>
                 <p className="text-base font-medium leading-snug text-fg-primary">
                   {t.flows[flow.id as keyof typeof t.flows]}
                 </p>
               </div>
 
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted sm:hidden">{t.col.where}</p>
+                <p className="font-mono text-caption uppercase tracking-caps text-fg-muted sm:hidden">{t.col.where}</p>
                 <p className="text-sm leading-snug text-fg-secondary">{t.place[flow.place]}</p>
                 {/* The literal key or table, so the claim can be checked in a
                     browser's dev tools rather than taken on trust. */}
-                <p className="font-mono text-[11px] leading-snug text-fg-muted">{flow.where}</p>
+                <p className="font-mono text-caption leading-snug text-fg-muted">{flow.where}</p>
               </div>
 
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted sm:hidden">{t.col.who}</p>
+                <p className="font-mono text-caption uppercase tracking-caps text-fg-muted sm:hidden">{t.col.who}</p>
                 <p
                   className={`text-sm leading-snug ${
                     flow.recipients.length > 0 ? "text-accent" : "text-fg-muted"
@@ -98,7 +98,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
           {MODEL_VENDORS.map((vendor) => (
             <li
               key={vendor}
-              className="rounded-control border border-border-strong px-3 py-1 font-mono text-[11px] uppercase tracking-caps text-fg-primary"
+              className="rounded-control border border-border-strong px-3 py-1 font-mono text-caption uppercase tracking-caps text-fg-primary"
             >
               {vendor}
             </li>
@@ -133,7 +133,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
       <Section title={t.rightsTitle}>
         <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.rightsBody}</p>
         <p className="mt-4">
-          <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.contactTitle}</span>{" "}
+          <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.contactTitle}</span>{" "}
           <a
             href={`mailto:${CONTACT_EMAIL}`}
             className="text-link underline underline-offset-4 hover:text-accent"

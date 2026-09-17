@@ -89,12 +89,12 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
                 </h3>
                 {/* The direction is the point of the whole table, so it is the
                     one thing set in the accent rather than in grey. */}
-                <p className="font-mono text-[11px] uppercase tracking-caps text-accent">
+                <p className="font-mono text-caption uppercase tracking-caps text-accent">
                   {t.directions[corpus.direction]}
                 </p>
               </div>
 
-              <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-1 font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+              <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-1 font-mono text-caption uppercase tracking-caps text-fg-muted">
                 {corpus.hours !== undefined && <Fact label={t.hours} value={String(corpus.hours)} />}
                 {corpus.speakers !== undefined && (
                   <Fact label={t.speakers} value={corpus.speakers.toLocaleString(locale)} />
@@ -125,14 +125,14 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
                   figure IS the content. */}
               <div>
                 <p className="font-heading text-2xl font-semibold tracking-display text-dialect">{result.wer}%</p>
-                <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{t.wer}</p>
+                <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.wer}</p>
               </div>
               <div>
                 <h3 className="font-heading text-base font-semibold tracking-display text-fg-primary">
                   {result.system}{" "}
                   <span className="font-mono text-sm font-normal text-fg-muted">{result.year}</span>
                 </h3>
-                <p className="mt-0.5 flex flex-wrap gap-x-3 font-mono text-[10px] uppercase tracking-caps text-fg-muted">
+                <p className="mt-0.5 flex flex-wrap gap-x-3 font-mono text-caption uppercase tracking-caps text-fg-muted">
                   <span>{result.tuned ? t.fineTuned : t.zeroShot}</span>
                   <span>{result.open ? t.weightsOpen : t.weightsClosed}</span>
                 </p>
@@ -152,7 +152,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
                   {t.speakingNames[system.id]}
                   {system.year && <span className="font-mono text-sm font-normal text-fg-muted"> {system.year}</span>}
                 </h3>
-                <p className="flex flex-wrap gap-x-3 font-mono text-[11px] uppercase tracking-caps">
+                <p className="flex flex-wrap gap-x-3 font-mono text-caption uppercase tracking-caps">
                   {/* Dialect or standard is the distinction a buyer is being
                       denied elsewhere, so it is the loud one. */}
                   <span className={system.dialect ? "text-accent" : "text-fg-muted"}>
@@ -181,7 +181,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
                 <h3 className="font-heading text-base font-semibold tracking-display text-fg-primary">
                   {model.name} <span className="font-mono text-sm font-normal text-fg-muted">{model.year}</span>
                 </h3>
-                <p className="flex flex-wrap gap-x-3 font-mono text-[11px] uppercase tracking-caps">
+                <p className="flex flex-wrap gap-x-3 font-mono text-caption uppercase tracking-caps">
                   {/* Measured, or merely announced. The whole reason this
                       column exists. */}
                   <span className={model.evaluated ? "text-accent" : "text-fg-muted"}>
@@ -215,7 +215,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
       </section>
 
       <section aria-labelledby="sources" className="border-t border-border-subtle py-8">
-        <h2 id="sources" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+        <h2 id="sources" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
           {dict.dialect.sourcesTitle}
         </h2>
         <ul className="mt-3 flex flex-col gap-2">

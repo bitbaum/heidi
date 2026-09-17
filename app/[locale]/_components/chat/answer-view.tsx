@@ -64,7 +64,7 @@ export function AnswerView({
       {a.dialect && (
         <div className="mt-3 rounded-control border border-border-subtle bg-surface-raised p-3">
           <div className="flex items-baseline justify-between gap-3">
-            <span className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{t.sendThis}</span>
+            <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.sendThis}</span>
             <span className="flex shrink-0 items-start gap-3">
               <Speak text={a.dialect} t={voiceT} dialect />
               <Copy text={a.dialect} t={t} />
@@ -74,7 +74,7 @@ export function AnswerView({
           {/* A flagged line is MARKED, never dropped. The learner cannot audit
               this work, so drift has to stay visible rather than be tidied. */}
           {a.dialectClean === false && (
-            <p className="mt-1 font-mono text-[11px] text-accent">
+            <p className="mt-1 font-mono text-caption text-accent">
               {t.flagged} {a.dialectFlags?.join(", ")}
             </p>
           )}
@@ -91,7 +91,7 @@ export function AnswerView({
 
       {a.glosses.length > 0 && (
         <div className="mt-3 border-t border-border-subtle pt-3">
-          <h3 className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{t.glossTitle}</h3>
+          <h3 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.glossTitle}</h3>
           <ul className="mt-2 flex flex-col gap-1.5">
             {a.glosses.map((g) => (
               <li key={g.form} className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
@@ -100,7 +100,7 @@ export function AnswerView({
                 {g.standard && <span className="font-mono text-xs text-fg-muted">{g.standard}</span>}
                 <span className="text-sm text-fg-secondary">{g.english}</span>
                 {g.rule && (
-                  <span className="rounded-control bg-surface-sunk px-1.5 font-mono text-[10px] text-fg-muted">
+                  <span className="rounded-control bg-surface-sunk px-1.5 font-mono text-caption text-fg-muted">
                     {g.rule}
                   </span>
                 )}
@@ -112,12 +112,12 @@ export function AnswerView({
 
       {a.suggestions.length > 0 && (
         <div className="mt-3 border-t border-border-subtle pt-3">
-          <h3 className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{t.suggestionsTitle}</h3>
+          <h3 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.suggestionsTitle}</h3>
           <ul className="mt-2 flex flex-col gap-2">
             {a.suggestions.map((s) => (
               <li key={`${s.label}-${s.text}`} className="rounded-control border border-border-subtle p-2">
                 <div className="flex items-baseline justify-between gap-3">
-                  <span className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">
+                  <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
                     {s.label}
                     {/* Which language this line actually IS. Without it the two
                         sit side by side looking like two moods of one thing,
@@ -148,7 +148,7 @@ export function AnswerView({
                 </p>
                 {s.english && <p className="text-sm text-fg-secondary">{s.english}</p>}
                 {!s.clean && (
-                  <p className="mt-1 font-mono text-[11px] text-accent">
+                  <p className="mt-1 font-mono text-caption text-accent">
                     {t.flagged} {s.flags.join(", ")}
                   </p>
                 )}
@@ -165,7 +165,7 @@ export function AnswerView({
       )}
 
       {/* Provenance. An answer with no model attached is a rumour. */}
-      <p className="mt-3 border-t border-border-subtle pt-2 font-mono text-[10px] text-fg-muted">
+      <p className="mt-3 border-t border-border-subtle pt-2 font-mono text-caption text-fg-muted">
         {t.checkedNote} · {a.model}
       </p>
     </>
@@ -198,7 +198,7 @@ function NextMoves({
 }) {
   return (
     <div className="mt-4 border-t border-border-subtle pt-3">
-      <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{t.moves.title}</p>
+      <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.moves.title}</p>
       <div className="mt-2 flex flex-wrap gap-2">
         {moves.map((move) => {
           const wording = t.moves[moveKey(move) as keyof typeof t.moves];

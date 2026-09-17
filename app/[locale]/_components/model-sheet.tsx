@@ -126,7 +126,7 @@ export function ModelSheet({
 
         {current && (
           <p className="mt-4 flex flex-wrap items-center gap-2 rounded-control border border-ok bg-surface-page px-3 py-2 text-sm">
-            <span className="font-mono text-[11px] uppercase tracking-caps text-ok">{t.connected}</span>
+            <span className="font-mono text-caption uppercase tracking-caps text-ok">{t.connected}</span>
             <span className="text-fg-primary">
               {t.connectedWith} {current.model}
             </span>
@@ -135,7 +135,7 @@ export function ModelSheet({
 
         <div className="mt-5 flex flex-col gap-4">
           <div>
-            <label htmlFor="byok-provider" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+            <label htmlFor="byok-provider" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
               {t.providerLabel}
             </label>
             <select
@@ -160,7 +160,7 @@ export function ModelSheet({
             </select>
             {provider && (
               <p className="mt-1 flex flex-wrap items-center gap-2">
-                <span className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">
+                <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
                   {provider.visionModel ? t.canSee : t.textOnly}
                 </span>
                 <a
@@ -176,7 +176,7 @@ export function ModelSheet({
           </div>
 
           <div>
-            <label htmlFor="byok-key" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+            <label htmlFor="byok-key" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
               {t.keyLabel}
             </label>
             <input
@@ -195,7 +195,7 @@ export function ModelSheet({
           </div>
 
           <div>
-            <label htmlFor="byok-model" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+            <label htmlFor="byok-model" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
               {t.modelLabel}
             </label>
             <input
@@ -252,9 +252,9 @@ export function ModelSheet({
         )}
 
         <div className="mt-6 border-t border-border-subtle pt-4">
-          <h3 className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.safetyTitle}</h3>
+          <h3 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.safetyTitle}</h3>
           <p className="mt-2 text-sm leading-relaxed text-fg-secondary">{t.safetyBody}</p>
-          <h3 className="mt-4 font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.whyTitle}</h3>
+          <h3 className="mt-4 font-mono text-caption uppercase tracking-caps text-fg-muted">{t.whyTitle}</h3>
           <p className="mt-2 text-sm leading-relaxed text-fg-secondary">{t.whyBody}</p>
         </div>
       </div>

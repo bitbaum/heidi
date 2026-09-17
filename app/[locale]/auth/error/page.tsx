@@ -23,7 +23,7 @@ export default async function AuthErrorPage({ params }: { params: Promise<{ loca
   return (
     <Shell>
       <div className="py-20 sm:py-28">
-        <p className="font-mono text-[11px] uppercase tracking-caps text-accent">{dict.auth.signIn}</p>
+        <p className="font-mono text-caption uppercase tracking-caps text-accent">{dict.auth.signIn}</p>
         <h1 className="mt-3 max-w-[20ch] font-heading text-3xl font-semibold leading-tight tracking-display text-fg-primary sm:text-4xl">
           {dict.auth.errorTitle}
         </h1>

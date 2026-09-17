@@ -132,7 +132,7 @@ export function GroupChat({
         placeholder={t.composer}
         locale={locale}
         className="mt-3"
-        footer={<p className="mt-2 px-1 font-mono text-[11px] text-fg-muted">{t.heidiHint}</p>}
+        footer={<p className="mt-2 px-1 font-mono text-caption text-fg-muted">{t.heidiHint}</p>}
       />
     </section>
   );

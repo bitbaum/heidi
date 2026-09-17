@@ -48,23 +48,23 @@ function Row({ source, t }: { source: ListeningSource; t: T }) {
         >
           {source.name}
         </a>
-        <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{source.publisher}</span>
+        <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{source.publisher}</span>
       </div>
 
       <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
         <span
-          className={`font-mono text-[11px] uppercase tracking-caps ${
+          className={`font-mono text-caption uppercase tracking-caps ${
             source.spoken === "standard" ? "text-fg-muted" : "text-accent"
           }`}
         >
           {t.spoken[source.spoken]}
         </span>
         {chips.map((chip) => (
-          <span key={chip} className="text-[13px] leading-snug text-fg-muted">
+          <span key={chip} className="text-sm leading-snug text-fg-muted">
             {chip}
           </span>
         ))}
-        {source.linkKind === "about" && <span className="text-[13px] leading-snug text-fg-muted">{t.about}</span>}
+        {source.linkKind === "about" && <span className="text-sm leading-snug text-fg-muted">{t.about}</span>}
       </div>
     </li>
   );
@@ -124,7 +124,7 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
                   a general note nobody reads before clicking. */}
               {group.medium === "film" && (
                 <div className="mt-6 max-w-measure border-l-2 border-border-subtle pl-4">
-                  <h3 className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.bernTitle}</h3>
+                  <h3 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.bernTitle}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-fg-secondary">{t.bernBody}</p>
                 </div>
               )}

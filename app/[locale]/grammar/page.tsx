@@ -62,7 +62,7 @@ export default async function GrammarPage({ params }: { params: Promise<{ locale
               </h2>
 
               <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">
-                <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.ruleLabel}</span>
+                <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.ruleLabel}</span>
                 <br />
                 {words.rule}
               </p>
@@ -89,7 +89,7 @@ export default async function GrammarPage({ params }: { params: Promise<{ locale
               {/* Last, not first: it only means anything once you have seen the
                   pair above it. */}
               <div className="mt-4 border-l-2 border-accent pl-4">
-                <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.watchLabel}</p>
+                <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.watchLabel}</p>
                 <p className="mt-1 max-w-measure text-base leading-relaxed text-fg-primary">{words.watch}</p>
               </div>
 

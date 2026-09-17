@@ -57,7 +57,17 @@ function synth(): SynthLike | null {
 /** Stable identity: `useSyncExternalStore` calls this on every render. */
 const detectSupport = () => synth() !== null;
 
-export type SpeechState = "idle" | "speaking";
+/**
+ * `no-voice` is a real outcome, not an error.
+ *
+ * A device with no German voice installed cannot read Zurich German, and the
+ * control has to be able to say so. Before this existed the hook spoke anyway
+ * with `utterance.voice = null`, and every engine answers that by substituting
+ * the system default — an English voice reading German, which is the thing
+ * `lib/voice/variety.ts` was written to refuse and the thing a listener
+ * actually reported hearing.
+ */
+export type SpeechState = "idle" | "speaking" | "no-voice";
 
 export type Speech = {
   /** Whether this browser can speak at all. False on the server's first pass. */
@@ -73,7 +83,12 @@ export type Speech = {
   stop: () => void;
 };
 
-export function useSpeech(rate: number): Speech {
+/**
+ * `allowAnyVoice` defaults to false so a caller that has not been updated
+ * refuses rather than performs — the safe direction for a flag whose other
+ * setting produces confident nonsense.
+ */
+export function useSpeech(rate: number, allowAnyVoice = false): Speech {
   const supported = useClientValue(detectSupport, false);
   const [state, setState] = useState<SpeechState>("idle");
   const [voice, setVoice] = useState<VoiceLike | null>(null);
@@ -133,13 +148,31 @@ export function useSpeech(rate: number): Speech {
         .SpeechSynthesisUtterance;
       if (!Utterance) return;
 
+      // THE REFUSAL — which the comment below already described, and which the
+      // code then went ahead and did anyway.
+      //
+      // With no German voice installed, `voice` is null. Assigning that and
+      // calling `speak` makes the engine substitute the system default, and on
+      // a device configured in English that is an English voice reading Zurich
+      // German. For a learner who cannot yet hear the difference that is not a
+      // degraded feature, it is a pronunciation model for a language nobody
+      // speaks, delivered with confidence — exactly what `variety.ts` exists to
+      // refuse, arriving through the one path that never asked it.
+      //
+      // `allowAnyVoice` is the learner's own informed override and is off by
+      // default. See `speakWithoutGermanVoice` in lib/voice/settings.ts.
+      if (!voice && !allowAnyVoice) {
+        setState("no-voice");
+        return;
+      }
+
       const utterance = new Utterance(body);
       utterance.lang = SPEECH_LANG;
       utterance.rate = clampRate(rate);
       // Naming the voice as well as the language matters: with only `lang`
       // set, engines fall back to the system default, which on a device
       // configured in English is an English voice reading German.
-      utterance.voice = voice;
+      if (voice) utterance.voice = voice;
       utterance.onend = () => {
         speaking.current = false;
         setState("idle");
@@ -155,7 +188,7 @@ export function useSpeech(rate: number): Speech {
       setState("speaking");
       s.speak(utterance);
     },
-    [rate, voice],
+    [rate, voice, allowAnyVoice],
   );
 
   return { supported, state, claim: claimFor(voice), speak, stop };

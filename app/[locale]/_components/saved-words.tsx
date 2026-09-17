@@ -46,14 +46,14 @@ export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: stri
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
           {saved.count} {t.countLabel} · {t.onThisDevice}
         </p>
         <div className="flex items-center gap-4">
           <button
             type="button"
             onClick={() => download(saved.words, t.title)}
-            className="min-h-9 font-mono text-[11px] uppercase tracking-caps text-link underline underline-offset-4 hover:text-accent"
+            className="min-h-9 font-mono text-caption uppercase tracking-caps text-link underline underline-offset-4 hover:text-accent"
           >
             {t.exportLabel}
           </button>
@@ -71,7 +71,7 @@ export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: stri
               }
             }}
             onBlur={() => setConfirming(false)}
-            className={`min-h-9 font-mono text-[11px] uppercase tracking-caps underline underline-offset-4 ${
+            className={`min-h-9 font-mono text-caption uppercase tracking-caps underline underline-offset-4 ${
               confirming ? "text-accent" : "text-fg-muted hover:text-fg-primary"
             }`}
           >
@@ -87,11 +87,11 @@ export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: stri
               <p className="font-heading text-xl leading-tight tracking-display text-dialect">{w.target}</p>
               <p className="mt-0.5 text-base leading-snug text-fg-secondary">{w.bridge}</p>
               {w.context && (
-                <p className="mt-1.5 truncate font-mono text-[11px] text-fg-muted" title={w.context}>
+                <p className="mt-1.5 truncate font-mono text-caption text-fg-muted" title={w.context}>
                   {w.context}
                 </p>
               )}
-              <p className="mt-1 font-mono text-[10px] uppercase tracking-caps text-fg-muted">
+              <p className="mt-1 font-mono text-caption uppercase tracking-caps text-fg-muted">
                 {t.savedOn} {formatDate(w.savedAt, locale)}
               </p>
             </div>

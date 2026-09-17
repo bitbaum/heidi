@@ -57,6 +57,21 @@
   --text-title: clamp(1.875rem, 4.4vw, 3.25rem);
   --text-section: clamp(1.5rem, 2.6vw, 2rem);
   --text-lead: clamp(1.0625rem, 1.4vw, 1.25rem);
+  /*
+   * The eyebrow / label size, which was `text-[11px]` and `text-[10px]`
+   * scattered across three dozen components.
+   *
+   * Two problems, and the second is why it is a token. Ten and eleven pixels
+   * are below what anybody reads on a phone — a responsive audit flagged them
+   * on every page — and a size written as an arbitrary value in each component
+   * cannot be changed anywhere. This file is the only source for type, and a
+   * caption is type.
+   *
+   * 12px is the floor rather than a preference: it is the smallest size that
+   * survives a phone held at arm's length on a tram, which is where this
+   * product is read.
+   */
+  --text-caption: 0.75rem;
 
   /* Tier 1 — primitives. Two of them, and the greys between. */
   --primitive-white: #ffffff;

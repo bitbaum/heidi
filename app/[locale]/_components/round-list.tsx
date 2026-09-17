@@ -91,7 +91,7 @@ export function RoundList({
             <li key={round.id} className="bg-surface-page p-4">
               <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                 <h3 className="font-heading text-lg leading-tight tracking-display text-fg-primary">{round.title}</h3>
-                <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+                <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
                   {/* Computed on the server — see `Round.live`. */}
                   {round.live && <span className="text-accent">{t.live} · </span>}
                   {round.format === "webinar" ? t.webinar : t.circle}
@@ -105,7 +105,7 @@ export function RoundList({
                 {round.durationMinutes} {t.minutes}
               </p>
 
-              <p className="mt-1 font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+              <p className="mt-1 font-mono text-caption uppercase tracking-caps text-fg-muted">
                 {t.hostedBy} {round.hostName} · {round.attending}/{round.capacity} {t.attending}
               </p>
 
@@ -137,14 +137,14 @@ export function RoundList({
                   </button>
                 )}
                 {signedIn && !round.mine && round.attending >= round.capacity && (
-                  <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.full}</span>
+                  <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.full}</span>
                 )}
                 {signedIn && round.mine && round.hostId !== actorId && (
                   <button
                     type="button"
                     onClick={() => void act(round, "leave")}
                     disabled={busy === round.id}
-                    className="min-h-11 px-2 font-mono text-[11px] uppercase tracking-caps text-fg-muted disabled:opacity-50"
+                    className="min-h-11 px-2 font-mono text-caption uppercase tracking-caps text-fg-muted disabled:opacity-50"
                   >
                     {t.leave}
                   </button>
@@ -158,7 +158,7 @@ export function RoundList({
                     type="button"
                     onClick={() => void act(round, "cancel")}
                     disabled={busy === round.id}
-                    className="min-h-11 px-2 font-mono text-[11px] uppercase tracking-caps text-accent disabled:opacity-50"
+                    className="min-h-11 px-2 font-mono text-caption uppercase tracking-caps text-accent disabled:opacity-50"
                   >
                     {t.cancelRound}
                   </button>
@@ -273,7 +273,7 @@ function OpenRound({
   );
 
   const field = "mt-1 w-full rounded-control border border-border-subtle bg-surface-page p-3 text-base text-fg-primary";
-  const label = "block font-mono text-[11px] uppercase tracking-caps text-fg-muted";
+  const label = "block font-mono text-caption uppercase tracking-caps text-fg-muted";
 
   return (
     <details className="mt-6 rounded-control border border-border-subtle bg-surface-raised p-4">

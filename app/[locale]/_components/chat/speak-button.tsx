@@ -47,7 +47,7 @@ export function Speak({ text, t, dialect = false }: { text: string; t: Dictionar
       {/* Shown once it has spoken, not before: an explanation of a sound
           nobody has heard yet is noise on the page. */}
       {speaking && (
-        <span className="max-w-measure text-[11px] leading-snug text-fg-muted">
+        <span className="max-w-measure text-caption leading-snug text-fg-muted">
           {t.claim[speech.claim]}
           {dialect && speech.claim !== "none" && ` ${t.dialectCaveat}`}
         </span>

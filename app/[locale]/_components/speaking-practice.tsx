@@ -192,7 +192,7 @@ export function SpeakingPractice({
         {t.practiceTitle}
       </h2>
       <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{t.practiceLead}</p>
-      {about && <p className="mt-2 font-mono text-[11px] uppercase tracking-caps text-fg-muted">{about}</p>}
+      {about && <p className="mt-2 font-mono text-caption uppercase tracking-caps text-fg-muted">{about}</p>}
 
       <div className="mt-5 rounded-control border border-border-subtle bg-surface-raised p-4 sm:p-6">
         {/* The control. One big target, centred, reachable with a thumb. */}
@@ -301,7 +301,7 @@ export function SpeakingPractice({
 
             {suggestion && (
               <div className="mt-4 rounded-control border border-border-subtle bg-surface-page p-3">
-                <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.suggestionTitle}</p>
+                <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.suggestionTitle}</p>
                 <p className="mt-2 text-base leading-relaxed text-fg-primary">{suggestion.better}</p>
                 {suggestion.why && <p className="mt-2 text-sm leading-relaxed text-fg-secondary">{suggestion.why}</p>}
                 {suggestion.flagged && suggestion.flagged.length > 0 && (
@@ -344,7 +344,7 @@ function Measured({ t, delivery }: { t: T; delivery: Delivery }) {
 function Figure({ label, value }: { label: string; value: string }) {
   return (
     <div className="bg-surface-page px-3 py-3">
-      <dt className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{label}</dt>
+      <dt className="font-mono text-caption uppercase tracking-caps text-fg-muted">{label}</dt>
       <dd className="mt-1 font-heading text-xl leading-none tracking-display text-fg-primary">{value}</dd>
     </div>
   );
@@ -361,7 +361,7 @@ function History({ t, takes, forget }: { t: T; takes: Take[]; forget: (id: strin
               <span className="block truncate text-sm text-fg-primary">
                 {take.said || take.about || t.historyEmpty}
               </span>
-              <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+              <span className="mt-0.5 block font-mono text-caption uppercase tracking-caps text-fg-muted">
                 {Math.round(take.delivery.speechMs / 1000)}
                 {t.seconds} · {take.delivery.pauseCount} {t.pauseLabel}
               </span>
@@ -369,7 +369,7 @@ function History({ t, takes, forget }: { t: T; takes: Take[]; forget: (id: strin
             <button
               type="button"
               onClick={() => forget(take.id)}
-              className="min-h-10 shrink-0 px-2 font-mono text-[11px] uppercase tracking-caps text-fg-muted"
+              className="min-h-10 shrink-0 px-2 font-mono text-caption uppercase tracking-caps text-fg-muted"
             >
               {t.deleteTake}
             </button>

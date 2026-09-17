@@ -114,7 +114,7 @@ export function SiteHeader({
                     {/* Every dialect, one tap from anywhere. This is the part
                         that makes it a panel rather than a dropdown. */}
                     <div className="border-t border-border-subtle pt-4 sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0">
-                      <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">
+                      <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
                         {dict.dialect.areasTitle}
                       </p>
                       <ul className="mt-2 grid grid-cols-2 gap-x-6 gap-y-1">
@@ -186,7 +186,7 @@ export function SiteHeader({
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="site-menu"
-            className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-3 font-mono text-[11px] uppercase tracking-caps text-fg-primary lg:hidden"
+            className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-3 font-mono text-caption uppercase tracking-caps text-fg-primary lg:hidden"
           >
             {dict.nav.menu}
           </button>
@@ -198,7 +198,7 @@ export function SiteHeader({
           <nav aria-label={dict.nav.menu} className="mx-auto w-full max-w-shell px-5 py-4 sm:px-8">
             {groups.map(({ group, routes }) => (
               <section key={group} className="mb-4 last:mb-0">
-                <h2 className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{groupLabel(group)}</h2>
+                <h2 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{groupLabel(group)}</h2>
                 <ul className="mt-1 flex flex-col">
                   {routes.map((route) => (
                     <li key={route.key}>

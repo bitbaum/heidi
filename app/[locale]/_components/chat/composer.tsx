@@ -259,7 +259,7 @@ export function Composer({
       </div>
 
       {dictationEnabled && (speech.listening || speech.transcribing) && (
-        <p role="status" className="mt-1 px-1 font-mono text-[11px] uppercase tracking-caps text-accent">
+        <p role="status" className="mt-1 px-1 font-mono text-caption uppercase tracking-caps text-accent">
           {speech.transcribing ? t.micTranscribing : t.micListening}
         </p>
       )}
