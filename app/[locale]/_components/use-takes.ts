@@ -31,8 +31,16 @@ export function useTakes() {
     store.write(withoutTake(current, id));
   }, []);
 
-  /** The take before a given one, for "fewer pauses than last time". */
-  const before = useCallback((id: string) => previousTake(store.read() ?? EMPTY, id), []);
+  /**
+   * The take before a given one, for "fewer pauses than last time".
+   *
+   * Reads the SUBSCRIBED array rather than calling `store.read()`. Both give
+   * the same answer, but `read` parses storage afresh, so the take it returns
+   * is a new object on every render — and a caller that feeds it to `useMemo`
+   * then recomputes forever. `useBrowserStore`'s snapshot is cached, which is
+   * the property that makes memoising above it work at all.
+   */
+  const before = useCallback((id: string) => previousTake(takes, id), [takes]);
 
   return {
     takes,

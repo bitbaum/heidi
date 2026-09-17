@@ -23,12 +23,19 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 /**
  * Speaking rounds.
  *
- * THE ORDER OF THIS PAGE IS AN ARGUMENT.
+ * THE ORDER OF THIS PAGE IS THE ORDER OF ITS OWN LEAD SENTENCE.
  *
- * Practice first, then what is coming up, then the board. Practice is the only
- * part that works signed out, alone, immediately, on a phone — and a page that
- * opened with an empty calendar would tell a first visitor to come back later,
- * which is the one thing a new feature cannot afford to say.
+ * "Webinars and circles on topics you propose. And in between: practise out
+ * loud." So: what is coming up, then where those come from, then the practice
+ * that fills the gap between them.
+ *
+ * It was built the other way round — practice first, because that is the half
+ * that works signed out and needs no calendar to have anything in it. That
+ * reasoning is real but it loses to a simpler test: read the lead, then look
+ * at the page. They disagreed, and a reader resolves that disagreement by
+ * deciding the page is about something other than what it says it is about.
+ * The empty states are two short lines, and the practice section is one scroll
+ * below them, so the cost of being honest about the subject is small.
  *
  * The lists are queried on the SERVER and passed down, like the groups list:
  * a signed-in visitor should not watch an empty box while a round trip fetches
@@ -65,8 +72,6 @@ export default async function SpeakingPage({ params }: { params: Promise<{ local
     <Shell>
       <PageHeader eyebrow={dict.nav.speaking} title={t.title} lead={t.lead} />
       <Section>
-        <SpeakingPractice t={t} locale={locale} />
-
         {configured ? (
           <>
             <RoundList
@@ -80,8 +85,10 @@ export default async function SpeakingPage({ params }: { params: Promise<{ local
             <TopicBoard t={t} signedIn={Boolean(actorId)} topics={topics} />
           </>
         ) : (
-          <p className="mt-12 max-w-measure text-base leading-relaxed text-fg-secondary">{t.notConfigured}</p>
+          <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.notConfigured}</p>
         )}
+
+        <SpeakingPractice t={t} locale={locale} />
       </Section>
     </Shell>
   );

@@ -78,7 +78,7 @@ export function RoundList({
   );
 
   return (
-    <section aria-labelledby="rounds-heading" className="mt-12">
+    <section aria-labelledby="rounds-heading">
       <h2 id="rounds-heading" className="font-heading text-section leading-tight tracking-display text-fg-primary">
         {t.roundsTitle}
       </h2>

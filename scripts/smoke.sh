@@ -58,7 +58,7 @@ both / 307
 
 # Every page a visitor can reach by name. Both ways round, because the outage
 # this file exists for was invisible from one of them.
-for path in /de /de/chat /de/grammar /de/method /de/portal /de/contribute /de/about /en /fr; do
+for path in /de /de/chat /de/speaking /de/grammar /de/method /de/portal /de/contribute /de/about /en /fr; do
   both "$path" 200
 done
 

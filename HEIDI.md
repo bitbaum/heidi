@@ -824,13 +824,20 @@ away**, and every question asked of it is a labelled datapoint about what a real
 learner could not understand; then the listening lab, once there are recordings
 to put in it.
 
-Two loops explain Heidi better than any feature list:
+Three loops explain Heidi better than any feature list:
 
 > Upload a real message → understand it → reply naturally → learn one thing from
 > it → meet that thing again later.
 
 > Hear a real Zurich speaker → half-fail → get one cue → understand a
 > *different* speaker better.
+
+> Say it out loud → see what the recording actually shows → write down what you
+> said → find the one word that was not from here → say it to someone next week.
+
+Note what the third loop does not contain: a mark out of ten. It ends in a
+room with other people, because that is where speaking a language happens and
+a score is what a product offers instead.
 
 ---
 

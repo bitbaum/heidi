@@ -18,11 +18,9 @@ type T = Dictionary["speaking"];
 /**
  * Record yourself, and be told what is actually knowable about it.
  *
- * FIRST ON THE PAGE, above the rounds, and that is a deliberate ordering. It
- * is the only thing here that works signed out, alone, on a phone, at the
- * moment somebody arrives — a proposals board with nothing on it is a poor
- * first thing to meet, and a calendar of meetings is an invitation to come
- * back later rather than to do something now.
+ * The half that needs nobody else. It works signed out, alone, on a phone,
+ * with an empty calendar above it — which is what makes the page useful on the
+ * day before its first round exists.
  *
  * The shape of the screen is the shape of the honesty:
  *

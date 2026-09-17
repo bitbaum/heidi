@@ -76,10 +76,17 @@ export function TopicBoard({
               <p className="mt-3 font-mono text-[11px] uppercase tracking-caps text-fg-muted">
                 {topic.interest} {t.wouldCome}
                 {topic.roundId && ` · ${t.scheduled}`}
-                {/* A signal, never a gate: a host may schedule anything, and
-                    a new instance with three users has to be able to hold its
-                    first round. */}
-                {!topic.roundId && topic.interest >= INTEREST_TO_SCHEDULE && ` · ${t.scheduleIt}`}
+                {/*
+                  A signal, never a gate: a host may schedule anything, and a
+                  new instance with three users has to be able to hold its first
+                  round. In the accent colour because it is addressed at a
+                  reader who could act on it — "Runde eröffnen" is on this same
+                  page, with a selector carrying exactly these topics — and
+                  flat grey next to the count read as one more dead caption.
+                */}
+                {!topic.roundId && topic.interest >= INTEREST_TO_SCHEDULE && (
+                  <span className="text-accent"> · {t.scheduleIt}</span>
+                )}
               </p>
 
               {signedIn && (
