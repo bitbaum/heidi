@@ -482,6 +482,8 @@ export const de = {
       theme: "Helle oder dunkle Darstellung",
       dictation: "Diktieren",
       pictures: "Bilder",
+      speakingTakes: "Sprechaufnahmen",
+      speakingSuggestion: "Satz zum Prüfen",
       account: "Konto",
       groups: "Lerngruppen",
       feedback: "Rückmelde-Fenster",

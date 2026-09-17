@@ -453,6 +453,8 @@ export const rm: Dictionary = {
       theme: "Apparientscha clera u stgira",
       dictation: "Dictar",
       pictures: "Maletgs",
+      speakingTakes: "Registraziuns da discurs",
+      speakingSuggestion: "Frasa tramessa per controlla",
       account: "Conto",
       groups: "Gruppas d'emprender",
       feedback: "Fanestra da resposta",

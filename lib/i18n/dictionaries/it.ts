@@ -437,6 +437,8 @@ export const it: Dictionary = {
       theme: "Aspetto chiaro o scuro",
       dictation: "Dettatura",
       pictures: "Immagini",
+      speakingTakes: "Registrazioni parlate",
+      speakingSuggestion: "Frase inviata per il controllo",
       account: "Account",
       groups: "Gruppi di studio",
       feedback: "Finestra di riscontro",

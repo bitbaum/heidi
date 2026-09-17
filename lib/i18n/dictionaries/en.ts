@@ -437,6 +437,8 @@ export const en: Dictionary = {
       theme: "Light or dark appearance",
       dictation: "Dictation",
       pictures: "Pictures",
+      speakingTakes: "Speaking recordings",
+      speakingSuggestion: "Sentence sent to be checked",
       account: "Account",
       groups: "Study groups",
       feedback: "Feedback widget",

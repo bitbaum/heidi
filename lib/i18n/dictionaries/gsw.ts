@@ -509,6 +509,8 @@ export const gsw: Dictionary = {
       theme: "Helli oder dunkli Darstellig",
       dictation: "Diktiere",
       pictures: "Bilder",
+      speakingTakes: "Schwätz-Ufnaame",
+      speakingSuggestion: "Satz zum Prüefe",
       account: "Konto",
       groups: "Lerngruppe",
       feedback: "Rückmälde-Fänschter",

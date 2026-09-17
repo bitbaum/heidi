@@ -445,6 +445,8 @@ export const ru: Dictionary = {
       theme: "Светлое или тёмное оформление",
       dictation: "Диктовка",
       pictures: "Изображения",
+      speakingTakes: "Записи речи",
+      speakingSuggestion: "Фраза, отправленная на проверку",
       account: "Аккаунт",
       groups: "Учебные группы",
       feedback: "Окно обратной связи",
