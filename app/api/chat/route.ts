@@ -1,11 +1,18 @@
 import { createHealthTracker } from "@bitbaum/ai-kit";
-import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
-import { soloThread } from "@/lib/domain/chat/thread";
-import { respondInThread } from "@/lib/domain/chat/respond";
-import { HEIDI_ID, LEARNER_ID, type ChatMessage } from "@/lib/domain/chat/types";
-import { readByok, redact } from "@/lib/domain/model/byok";
-import { MAX_IMAGES, readImage } from "@/lib/domain/chat/image";
-import { callerKey, chat as chatLimit, tooMany } from "@/lib/domain/limits";
+import { sseResponse } from "@bitbaum/ai-kit/sse";
+import type { StreamEvent } from "../../../lib/domain/chat/events.ts";
+import { DEFAULT_LOCALE, isLocale, type Locale } from "../../../lib/i18n/locales.ts";
+import { soloThread } from "../../../lib/domain/chat/thread.ts";
+import { respondInThread } from "../../../lib/domain/chat/respond.ts";
+import { HEIDI_ID, LEARNER_ID, type ChatMessage } from "../../../lib/domain/chat/types.ts";
+import { readByok, redact } from "../../../lib/domain/model/byok.ts";
+import { MAX_IMAGES, readImage } from "../../../lib/domain/chat/image.ts";
+import { callerKey, chat as chatLimit, tooMany } from "../../../lib/domain/limits.ts";
+
+// Relative `.ts` imports, not the `@/*` alias: node's test runner exercises
+// this handler directly, and the alias only resolves inside Next's build. Same
+// reason as `app/api/check/route.ts`, and the reason the guards below can be
+// asserted at all.
 
 export const dynamic = "force-dynamic";
 
@@ -55,12 +62,13 @@ export async function POST(request: Request) {
     return bad("Could not read that request.", 400);
   }
 
-  const { input, history, locale, byok, images } = (body ?? {}) as {
+  const { input, history, locale, byok, images, stream } = (body ?? {}) as {
     input?: unknown;
     history?: unknown;
     locale?: unknown;
     byok?: unknown;
     images?: unknown;
+    stream?: unknown;
   };
 
   const text = typeof input === "string" ? input.trim() : "";
@@ -90,16 +98,62 @@ export async function POST(request: Request) {
     { id: "now", authorId: LEARNER_ID, body: text, createdAt: now.toISOString() },
   ];
 
+  const turn = {
+    thread: soloThread(new Date(messages[0].createdAt)),
+    messages,
+    locale: reader,
+    byok,
+    pictures,
+    health: llmHealth,
+    signal: request.signal,
+  };
+
+  /**
+   * The same turn, reported as it happens.
+   *
+   * ONE route rather than two, because everything above this line — the rate
+   * limit, the input ceiling, the picture checks, the history rebuild — is
+   * identical and is the part that must not diverge. Only the shape of the
+   * reply differs, and it differs at the last possible moment.
+   *
+   * What goes over the wire is a tagged union, not raw tokens: `text` events
+   * carry the explanation so far, and exactly one terminal event says how it
+   * ended. A stream that just stopped would be indistinguishable from a vendor
+   * dying mid-sentence, which is the failure this is most likely to hit.
+   */
+  if (stream === true) {
+    return sseResponse<StreamEvent>(
+      async (emit) => {
+        const result = await respondInThread({
+          ...turn,
+          // Deltas are dropped once empty: the model writes `mode` before
+          // `text`, so the first few events would otherwise be "" and the
+          // reader would see the thinking dots replaced by nothing.
+          onText: (soFar) => {
+            if (soFar) emit({ type: "text", text: soFar });
+          },
+        });
+
+        if (result.status === "unconfigured") emit({ type: "error", kind: "unconfigured" });
+        else if (result.status === "silent") emit({ type: "silent" });
+        else emit({ type: "answer", answer: result.answer });
+      },
+      {
+        signal: request.signal,
+        // Without this a job that throws closes a 200 having said nothing, and
+        // the client cannot tell that from an answer that never came.
+        onError: (error) => {
+          if (!request.signal.aborted) {
+            console.error("[heidi/chat:stream]", redact(error instanceof Error ? error.message : String(error)));
+          }
+          return { type: "error", kind: "failed" };
+        },
+      },
+    );
+  }
+
   try {
-    const result = await respondInThread({
-      thread: soloThread(new Date(messages[0].createdAt)),
-      messages,
-      locale: reader,
-      byok,
-      pictures,
-      health: llmHealth,
-      signal: request.signal,
-    });
+    const result = await respondInThread(turn);
 
     if (result.status === "unconfigured") {
       // The honest answer, not a crash and not a fake one. The deterministic

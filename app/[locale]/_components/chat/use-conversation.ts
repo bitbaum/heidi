@@ -43,6 +43,15 @@ export function useConversation({
   const [busy, setBusy] = useState(false);
   const [attached, setAttached] = useState<string[]>([]);
   const [attachError, setAttachError] = useState<string | null>(null);
+  /**
+   * The explanation as it arrives, for the surfaces whose transport streams.
+   *
+   * NOT a message. It is a preview of a turn that has not been checked yet, and
+   * it is replaced wholesale by the real message the moment the answer lands —
+   * so nothing downstream can mistake it for something that passed the gate,
+   * and a failed turn leaves no half-answer behind.
+   */
+  const [streaming, setStreaming] = useState("");
 
   const accept = useCallback(
     async (files: File[]) => {
@@ -91,10 +100,21 @@ export function useConversation({
       setMessages(retry ? base : [...base, mine]);
       setInput("");
       setBusy(true);
+      setStreaming("");
 
-      const result = await transport({ text: trimmed, history, locale, byok, images });
+      const result = await transport({
+        text: trimmed,
+        history,
+        locale,
+        byok,
+        images,
+        onText: setStreaming,
+      });
 
       setBusy(false);
+      // Cleared BEFORE the message lands, so there is never a frame showing
+      // the preview and the finished answer at the same time.
+      setStreaming("");
 
       if (result.status === "ok") {
         setMessages((prev) => [...prev, ...result.messages.filter((m) => m.authorId !== me || !retry)]);
@@ -132,6 +152,8 @@ export function useConversation({
     input,
     setInput,
     busy,
+    /** The unchecked explanation so far. "" whenever nothing is in flight. */
+    streaming,
     send,
     retry,
     reset,

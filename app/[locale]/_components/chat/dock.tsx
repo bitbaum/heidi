@@ -341,6 +341,7 @@ function DockPanel({
             me={LEARNER_ID}
             t={t}
             busy={chat.busy}
+            streaming={chat.streaming}
             onRetry={chat.retry}
             onMove={chat.send}
             locale={locale}
