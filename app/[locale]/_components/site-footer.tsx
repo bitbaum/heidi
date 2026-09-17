@@ -102,6 +102,23 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
               >
                 {dict.nav.settings}
               </Link>
+              {/* The two pages an institution looks for before it takes a
+                  project seriously, and the two a site of this kind most often
+                  does not have. The footer is where people look for them. */}
+              <Link
+                href={href(locale, "privacy")}
+                prefetch={false}
+                className="mt-3 inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
+              >
+                {dict.nav.privacy}
+              </Link>
+              <Link
+                href={href(locale, "impressum")}
+                prefetch={false}
+                className="mt-3 inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
+              >
+                {dict.nav.impressum}
+              </Link>
             </div>
           </div>
         </div>

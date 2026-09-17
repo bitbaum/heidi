@@ -38,6 +38,9 @@ export const de = {
     about: "Über uns",
     portal: "Mein Bereich",
     settings: "Einstellungen",
+    privacy: "Datenschutz",
+    impressum: "Impressum",
+    investors: "Investoren",
     groupUse: "Benutzen",
     groupReference: "Nachschlagen",
     groupWhy: "Warum so",
@@ -130,7 +133,7 @@ export const de = {
     copy: "Kopieren",
     copied: "Kopiert",
     flagged: "Nicht Zürichdeutsch:",
-    checkedNote: "Gegen Zürcher Formen geprüft",
+    checkedNote: "Keine fremden Dialektformen gefunden",
     mic: "Diktieren",
     micStop: "Aufnahme beenden",
     micListening: "Ich höre …",
@@ -450,6 +453,67 @@ export const de = {
     statusClosed: "eingestellt",
   },
 
+  /**
+   * The privacy page. Short LABELS only — every fact it prints (where a thing
+   * lives, who receives it, which storage key) comes from
+   * `lib/config/privacy.ts`, because a fact is not a translation and seven
+   * copies of "Falkenstein" are seven chances for one to say Zurich.
+   *
+   * `bindingNote` is not boilerplate. A legal text nobody on this project can
+   * read is worse than one clearly marked as a courtesy translation, and the
+   * repo already refuses to machine-translate claims it cannot check — the
+   * dialect area pages carry no prose for the same reason.
+   */
+  privacy: {
+    title: "Was mit Ihren Worten passiert",
+    lead: "Heidi liest Nachrichten, die Menschen einander geschickt haben. Das ist heikel, deshalb steht hier genau, was wo liegt und wer es sonst noch sieht.",
+    bindingNote: "Massgebend ist die deutsche Fassung.",
+    flowsTitle: "Was wo liegt",
+    flowsLead: "Jede Zeile nennt den Speicherort, damit Sie es selbst nachprüfen können.",
+    place: { device: "Nur auf Ihrem Gerät", server: "Auf unserem Server", vendor: "Bei einem Anbieter" },
+    col: { what: "Was", where: "Wo", who: "Wer es sonst sieht" },
+    nobody: "niemand sonst",
+    flows: {
+      draftConversation: "Gespräch ohne Konto",
+      savedConversation: "Gespräch mit Konto",
+      savedWords: "Gemerkte Wörter",
+      ownKey: "Ihr eigener API-Schlüssel",
+      theme: "Helle oder dunkle Darstellung",
+      dictation: "Diktieren",
+      pictures: "Bilder",
+      account: "Konto",
+      groups: "Lerngruppen",
+      feedback: "Rückmelde-Fenster",
+    },
+    hostingTitle: "Wo der Server steht",
+    hostingNote: "Nicht in der Schweiz. Das sagen wir lieber selbst, als dass Sie es herausfinden.",
+    vendorsTitle: "Wer die Nachrichten beantwortet",
+    vendorsNote: "Eine Nachricht wird an eines dieser Unternehmen geschickt, um beantwortet zu werden. Wir haben mit keinem davon einen Auftragsverarbeitungsvertrag. Für Personendaten aus einem Beruf mit Schweigepflicht ist Heidi darum heute nicht geeignet.",
+    broughtKeyNote: "Mit eigenem Schlüssel geht die Nachricht stattdessen an den Anbieter, den Sie wählen.",
+    notDoneTitle: "Was wir nicht tun",
+    notDone: {
+      analytics: "Keine Analyse-Werkzeuge",
+      advertising: "Keine Werbung",
+      profileSale: "Kein Verkauf von Daten",
+      trackingCookies: "Keine Tracking-Cookies",
+    },
+    notDoneNote: "Nachprüfbar: Der Quelltext ist offen, und ein Test hält diese Aussage aktuell.",
+    rightsTitle: "Löschen",
+    rightsBody: "Was auf Ihrem Gerät liegt, entfernen Sie selbst in den Einstellungen. Gespeicherte Gespräche löschen Sie im Chat; dabei verschwindet der Text wirklich. Für alles andere schreiben Sie uns.",
+    contactTitle: "Kontakt",
+    updatedLabel: "Stand",
+  },
+
+  impressum: {
+    title: "Impressum",
+    operatorLabel: "Betrieben von",
+    contactLabel: "Kontakt",
+    sourceLabel: "Quelltext",
+    statusLabel: "Rechtsform",
+    statusNote: "Heidi ist kein eingetragenes Unternehmen. Die Seite wird privat betrieben, der Quelltext ist offen.",
+    addressNote: "Eine Postadresse nennen wir, sobald es eine gibt.",
+  },
+
   contribute: {
     title: "Wir suchen Zürcher Stimmen",
     lead: "Jede Sekunde Dialekt, die Sie bei Heidi hören werden, kommt von einem echten Menschen aus Zürich. Das ist teuer und langsam, und wir machen es trotzdem.",
@@ -514,7 +578,7 @@ export const de = {
     accountBody: "Zum Speichern Ihrer Wörter und für Lerngruppen. Zum Übersetzen brauchen Sie kein Konto.",
     dataTitle: "Was auf diesem Gerät liegt",
     dataBody:
-      "Ihr Gespräch bleibt in diesem Tab und verschwindet, wenn Sie ihn schliessen. Ein eigener Schlüssel liegt im Speicher dieses Browsers, bis Sie ihn entfernen. Auf unseren Servern liegt nichts davon. Gemerkte Wörter liegen ebenfalls hier, bis Sie sie entfernen.",
+      "Ihr Gespräch bleibt in diesem Browser — auch wenn Sie den Tab schliessen — bis Sie «Neues Gespräch» drücken. Angemeldet wird es stattdessen auf unserem Server gespeichert. Um beantwortet zu werden, geht jede Nachricht an einen Modellanbieter. Ein eigener Schlüssel und gemerkte Wörter liegen nur hier.",
   },
 
   auth: {
