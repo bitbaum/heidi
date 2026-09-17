@@ -669,9 +669,41 @@ export const gsw: Dictionary = {
       series: "Serie",
       film: "Film",
     },
-    bernTitle: "D bekannte Film sind bärndütsch",
-    bernBody:
-      "De Schwiizer Film und d Serie chömed grösstenteils us Bärn. Wer si durearbeitet, trainiert s Ohr uf en Dialäkt zwei Stund vo Züri äwägg — guet z wüsse, bevor Sie sich frödged, worum nüt devo na Ihrne Nachbere tönt.",
+    filmsTitle: "Wele Dialäkt Sie ghöred",
+    filmsBody:
+      "De Schwiizer Film isch nöd ein Akzänt. Bi jedem Iitrag staht, us welem Dialäktgebiet er chunt — so chönd Sie zwüsche dem uswähle, was um Sie ume gredt wird, und dem, was Ihne im Zug begägnet. Bärn isch stark vertrete, wil dete de meischt Schwiizer Film entstaht — und d Zürcher Film gits, und si stönd da.",
+    commentary: {
+      "der-bestatter":
+        "Bärndütsch, und d Serie, wo da fascht alli gseh händ — de Dialäkt, wo e Schwiizerin nachmacht, wänn Sie um en Akzänt bitted.",
+      "wilder":
+        "Krimi über mehreri Staffle und mehreri Dialäktgebiet. Guet, zum ghöre, dass Schwiizerdütsch nöd ei Sach isch.",
+      "tschugger":
+        "Wallisertitsch, wofür anderi Schwiizer Untertitel bruuched. En Witz under Schwiizer — und würklich kein Aafang.",
+      "neumatt":
+        "Bärndütsch, e Buurefamilie. De Tonfall vo Familiestriit, nöd vom Färnseh.",
+      "die-schweizermacher":
+        "Züritüütsch vo 1978 und immer na de Film übers Schwiizerwärde. De Akzänt hät sich sithär verschobe, was für sich ghörenswert isch.",
+      "mein-name-ist-eugen":
+        "Bärndütsch, und grösstenteils redendi Chind — langsamer und dütlicher als Erwachsenedialog.",
+      "der-goalie-bin-ig":
+        "Dichts Bärndütsch, nach eme Roman, wo dadrin gschribe isch. De Titel isch e Grammatikstund: s Verb isch `bin`, s Pronome chunt zletscht.",
+      "achtung-fertig-charlie":
+        "Armeekomödie und d gmeinsam Referänz vo fascht jedem Schwiizer under füfzg.",
+      "bon-schuur-ticino":
+        "E Komödie, wo d Sprachfrag sälber d Prämisse isch — was passiert, wänn s Land sich für eini entscheide muess.",
+      "die-goettliche-ordnung":
+        "Appezäll 1971, Fraue kämpfed fürs Stimmrächt. Ostschwiizer Dialäkt, und es Stück Gschicht, wo Sie druf aagsproche werded: Appezäll Innerrhode hät d Fraue erscht 1990 a d Landsgmeind glah, lang nach em Filmänd.",
+      "zwingli":
+        "Züri sini eigeni Reformation, uf Züritüütsch. Eine vo de wenige Spielfilm i genau dere Sprach, wo da unterrichtet wird.",
+      "wolkenbruch":
+        "Züritüütsch mit Jiddisch dernäbe — e zwöiti Lektion drüber, wie nach zwei Sprache binenand ligged und trotzdem zwei bliibed.",
+      "platzspitzbaby":
+        "Züritüütsch, d Drogejahr vo de Stadt us de Sicht vomene Chind. Schwers Thema, ungwöhnlich klari Sprach.",
+      "heidi-2015":
+        "Für Chind gmacht und drum langsam und dütlich gredt. Vermuetlich de eifachscht Spielfilm uf dere Lischte — und z Graubünde aagsidlet, nöd i dessen Dialäkt gredt.",
+      "seitentriebe":
+        "Alltäglichs Schwiizerdütsch zwüsche Paar — die halbe Sätz und Unterbrüch, wo Sändesprach wegbüglet.",
+    },
   },
 
   errors: {

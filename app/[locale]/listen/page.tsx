@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { byMedium } from "@/lib/listening/flow";
+import { DISPLAY } from "@/lib/variety/display";
 import type { ListeningSource } from "@/lib/listening/sources";
 import { Shell } from "../_components/page-shell";
 
@@ -26,13 +27,20 @@ type T = ReturnType<typeof getDictionary>["listening"];
  * number would turn a derivation into a claim, and there is no scale behind it
  * to defend. A test in `sources.test.ts` keeps the data side of that promise.
  */
-function Row({ source, t }: { source: ListeningSource; t: T }) {
+function Row({ source, t, areaNames }: { source: ListeningSource; t: T; areaNames: Map<string, string> }) {
   const chips = [
     t.voices[source.voices],
     source.scripted ? t.scripted : t.spontaneous,
     source.subtitles === "none" ? null : t.subtitles[source.subtitles],
     source.reach === "ch" ? t.reachCh : null,
   ].filter(Boolean) as string[];
+
+  // The ENDONYM, from the atlas, and therefore not translated: Bärndütsch is
+  // called Bärndütsch in every language, the same decision the dialect area
+  // pages already made. It is the fact a reader most wants from a film row and
+  // the register has carried it since the first commit without showing it.
+  const area = source.area ? areaNames.get(source.area) : undefined;
+  const commentary = (t.commentary as Record<string, string | undefined>)[source.id];
 
   return (
     <li className="border-t border-border-subtle py-4 first:border-t-0">
@@ -59,6 +67,9 @@ function Row({ source, t }: { source: ListeningSource; t: T }) {
         >
           {t.spoken[source.spoken]}
         </span>
+        {/* Beside the variety and before the mechanics: "which dialect" is the
+            second question a reader has, and for a film it is often the first. */}
+        {area && <span className="font-mono text-[11px] uppercase tracking-caps text-dialect">{area}</span>}
         {chips.map((chip) => (
           <span key={chip} className="text-[13px] leading-snug text-fg-muted">
             {chip}
@@ -66,6 +77,11 @@ function Row({ source, t }: { source: ListeningSource; t: T }) {
         ))}
         {source.linkKind === "about" && <span className="text-[13px] leading-snug text-fg-muted">{t.about}</span>}
       </div>
+
+      {/* Heidi's own reason for the row. Only where there is something to say
+          that the fields cannot say themselves — an empty paragraph under
+          forty rows would be a page of grey noise. */}
+      {commentary && <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-secondary">{commentary}</p>}
     </li>
   );
 }
@@ -87,6 +103,11 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = getDictionary(locale).listening;
   const groups = byMedium();
+  // id -> endonym, built once, from the DISPLAY projection rather than the
+  // pack. A page that imports `variety/active` pulls the whole pack — English
+  // maintainer prose included — into what a reader is served, and there is a
+  // test that refuses it. The projection is the reader-facing half.
+  const areaNames = new Map(DISPLAY.areas.map((area) => [area.id, area.endonym]));
 
   return (
     <Shell>
@@ -117,15 +138,15 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
               </h2>
               <ul className="mt-4 flex flex-col">
                 {group.sources.map((source) => (
-                  <Row key={source.id} source={source} t={t} />
+                  <Row key={source.id} source={source} t={t} areaNames={areaNames} />
                 ))}
               </ul>
               {/* Said where it is useful — beside the films — rather than in
                   a general note nobody reads before clicking. */}
               {group.medium === "film" && (
                 <div className="mt-6 max-w-measure border-l-2 border-border-subtle pl-4">
-                  <h3 className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.bernTitle}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-fg-secondary">{t.bernBody}</p>
+                  <h3 className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.filmsTitle}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-fg-secondary">{t.filmsBody}</p>
                 </div>
               )}
             </section>

@@ -648,9 +648,41 @@ export const it: Dictionary = {
       series: "Serie",
       film: "Film",
     },
-    bernTitle: "I film famosi sono bernesi",
-    bernBody:
-      "Il cinema e le serie svizzere vengono soprattutto da Berna: seguirli allena l'orecchio a un dialetto a due ore da Zurigo. Utile saperlo prima di chiedersi perché nulla di tutto ciò somigli ai suoi vicini.",
+    filmsTitle: "Quale dialetto sentirà",
+    filmsBody:
+      "Il cinema svizzero non è un accento solo. Ogni voce dice da quale area dialettale viene, così può scegliere fra quello che si parla intorno a lei e quelli che incontrerà in treno. Berna è molto presente perché è lì che si fa gran parte della fiction svizzera — e i film zurighesi esistono, e sono qui.",
+    commentary: {
+      "der-bestatter":
+        "Bernese, e la serie che qui hanno visto quasi tutti — il dialetto che uno svizzero imiterà se gli chiede di fare un accento.",
+      "wilder":
+        "Un poliziesco su più stagioni e più aree dialettali. Utile per sentire che lo svizzero tedesco non è una cosa sola.",
+      "tschugger":
+        "Vallesano, per cui gli altri svizzeri hanno bisogno dei sottotitoli. Una battuta fra svizzeri — e davvero non un inizio.",
+      "neumatt":
+        "Bernese, una famiglia di contadini. Il registro dei litigi in famiglia, non quello della televisione.",
+      "die-schweizermacher":
+        "Zurighese del 1978, e ancora il film su come si diventa svizzeri. L'accento nel frattempo si è spostato, il che vale la pena sentire.",
+      "mein-name-ist-eugen":
+        "Bernese, e in gran parte bambini che parlano — più lentamente e più nitidamente degli adulti.",
+      "der-goalie-bin-ig":
+        "Bernese fitto, da un romanzo scritto in quella lingua. Il titolo è una lezione di grammatica: il verbo è `bin` e il pronome viene per ultimo.",
+      "achtung-fertig-charlie":
+        "Commedia militare, e il riferimento condiviso da quasi ogni svizzero sotto i cinquanta.",
+      "bon-schuur-ticino":
+        "Una commedia la cui premessa è la questione linguistica stessa — che cosa succede se il paese deve sceglierne una.",
+      "die-goettliche-ordnung":
+        "Appenzello nel 1971, donne che lottano per il voto. Dialetto della Svizzera orientale, e un pezzo di storia su cui le faranno domande: Appenzello Interno ammise le donne alla sua Landsgemeinde solo nel 1990, molto dopo la fine del film.",
+      "zwingli":
+        "La Riforma zurighese, in zurighese. Uno dei pochi lungometraggi nella varietà che qui si insegna davvero.",
+      "wolkenbruch":
+        "Zurighese con accanto lo yiddish — una seconda lezione su quanto vicine possano stare due lingue restando due.",
+      "platzspitzbaby":
+        "Zurighese, gli anni dell'eroina in città visti da una bambina. Tema duro, pronuncia insolitamente chiara.",
+      "heidi-2015":
+        "Fatto per bambini, quindi parlato lentamente e con semplicità. Probabilmente il film più facile di questa lista — ambientato nei Grigioni senza parlarne il dialetto.",
+      "seitentriebe":
+        "Svizzero tedesco quotidiano fra coppie — le mezze frasi e le interruzioni che la lingua televisiva leviga.",
+    },
   },
 
   errors: {

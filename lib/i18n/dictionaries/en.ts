@@ -644,9 +644,41 @@ export const en: Dictionary = {
       series: "Series",
       film: "Films",
     },
-    bernTitle: "The famous films are Bernese",
-    bernBody:
-      "Swiss cinema and drama come mostly out of Bern, so working through them trains an ear for a dialect two hours from Zurich. Worth knowing before you wonder why none of it sounds like your neighbours.",
+    filmsTitle: "Which dialect you will hear",
+    filmsBody:
+      "Swiss film is not one accent. Every entry says which dialect area it comes from, so you can choose between the one spoken around you and the ones you will meet on a train. Bern is heavily represented because that is where most Swiss drama is made — and the Zurich features exist, and are here.",
+    commentary: {
+      "der-bestatter":
+        "Bernese, and the series most people here have seen — the dialect a Swiss person will imitate if you ask them to do an accent.",
+      "wilder":
+        "Crime across several seasons and several dialect areas. Good for hearing that Swiss German is not one thing.",
+      "tschugger":
+        "Wallis German, which other Swiss people need subtitles for. A joke among Swiss people, and genuinely not where to start.",
+      "neumatt":
+        "Bernese, a farming family. The register of family arguments rather than of broadcasting.",
+      "die-schweizermacher":
+        "Zurich German from 1978 and still the film about becoming Swiss. The accent has moved since, which is itself worth hearing.",
+      "mein-name-ist-eugen":
+        "Bernese, and largely children speaking — slower and more clearly articulated than adult dialogue.",
+      "der-goalie-bin-ig":
+        "Dense Bernese, from a novel written in it. The title is a grammar lesson: the verb is `bin` and the pronoun comes last.",
+      "achtung-fertig-charlie":
+        "Army comedy, and the shared reference nearly every Swiss man under fifty has.",
+      "bon-schuur-ticino":
+        "A comedy whose premise is the language question itself — what happens when the country has to pick one.",
+      "die-goettliche-ordnung":
+        "Appenzell in 1971, women campaigning for the federal vote. Eastern Swiss dialect, and a piece of history you will be asked about: Appenzell Innerrhoden did not admit women to its Landsgemeinde until 1990, long after the film ends.",
+      "zwingli":
+        "Zurich's own reformation, in Zurich German. One of the few feature films in the variety this deployment actually teaches.",
+      "wolkenbruch":
+        "Zurich German with Yiddish beside it — a second lesson, about how close two languages can sit and still be two.",
+      "platzspitzbaby":
+        "Zurich German, the city's heroin years seen by a child. A hard subject and unusually clear speech.",
+      "heidi-2015":
+        "Made for children, so spoken slowly and plainly. Probably the easiest feature on this list, and set in Graubünden rather than spoken in its dialect.",
+      "seitentriebe":
+        "Everyday Swiss German between couples — the half-sentences and interruptions that broadcast speech irons out.",
+    },
   },
 
   errors: {
