@@ -10,7 +10,7 @@ import { byokChain, readByok } from "../model/byok.ts";
 import { visionMessage } from "./image.ts";
 import { describeMessage, parseMessage } from "./email.ts";
 import { withReply } from "./moves.ts";
-import { LEARNER_ID } from "./types.ts";
+import { HEIDI_ID } from "./types.ts";
 
 /**
  * Ask Heidi to take a turn in a thread — ANY thread.
@@ -39,10 +39,20 @@ const TIMEOUT_MS = 25_000;
  * Returns "" for ordinary text, which is most turns. See `email.ts` for why
  * this is a deterministic parse rather than something the model is asked to do.
  */
-function pastedContext(messages: ChatMessage[]): string {
+export function pastedContext(messages: ChatMessage[]): string {
   for (let i = messages.length - 1; i >= 0; i--) {
     const message = messages[i];
-    if (message.authorId !== LEARNER_ID) continue;
+    /**
+     * "Not Heidi", NOT "is the learner".
+     *
+     * The obvious test is `authorId === LEARNER_ID`, and it is wrong here in a
+     * way that fails silently: `LEARNER_ID` is the id the SOLO thread stamps
+     * on the reader's turns, and this function also serves groups — where
+     * every human carries their own OrangeCat actor id and none of them is
+     * `LEARNER_ID`. Written that way, pasting a letter into a study group
+     * would quietly get none of this, and nothing would look broken.
+     */
+    if (message.authorId === HEIDI_ID) continue;
     const parsed = parseMessage(message.body);
     // A bare quoted chain with no envelope is not worth a note: the model can
     // read it perfectly well, and the only thing to say would be "some of this
