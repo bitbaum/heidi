@@ -30,6 +30,7 @@ export const de = {
     home: "Start",
     chat: "Chat",
     speaking: "Sprechrunden",
+    listen: "Hören",
     grammar: "Grammatik",
     dialect: "Mundarten",
     vocabulary: "Wortschatz",
@@ -639,6 +640,73 @@ export const de = {
     ],
     closing:
       "Konkret heisst das: zuerst weitere Deutschschweizer Dialekte, danach eine Sprache ausserhalb der Schweiz — dieselbe Maschine, ein anderer Sprachsatz. Was wir dabei lernen, schreiben wir auf.",
+  },
+
+  voice: {
+    speak: "Vorlesen",
+    stop: "Stopp",
+    unsupported: "Dieser Browser kann nichts vorlesen.",
+    claim: {
+      swissStandard: "Schweizer Hochdeutsch-Stimme — nicht Zürichdeutsch.",
+      german: "Eine Stimme aus Deutschland. Ihr Gerät hat keine schweizerische.",
+      none: "Dieses Gerät hat gar keine deutsche Stimme. Heidi schweigt lieber, als Deutsch mit englischem Mund zu lesen.",
+    },
+    dialectCaveat:
+      "Eine Maschine liest Dialektschreibung mit einer Hochdeutsch-Stimme. Gut, um das Wort im Satz zu finden — nie, um die Aussprache zu übernehmen.",
+    settingsTitle: "Heidis Stimme",
+    settingsBody:
+      "Gesprochen wird nur, wenn Sie darum bitten. Kein Browser bringt eine Zürcher Stimme mit — das Nächste, was ein Gerät anbietet, ist Schweizer Hochdeutsch, und Heidi sagt jedes Mal, was Sie gerade hören.",
+    speakAnswers: "Antworten vorlesen",
+    rate: "Tempo",
+    correctionTitle: "Korrekturen",
+    correctionBody:
+      "Wie viel Heidi zu dem sagt, was Sie geschrieben haben. Nie zu Ihrer Schreibweise: Zürichdeutsch hat keine richtige Schreibung, da lässt sich nichts falsch machen.",
+    correctionLevels: {
+      off: "Nichts sagen",
+      blocking: "Nur, was gar kein Schweizerdeutsch ist",
+      all: "Auch Formen aus anderen Dialekten",
+    },
+    correctionHelp: {
+      off: "Heidi antwortet und lässt Ihre Wörter in Ruhe.",
+      blocking: "Die übliche Einstellung. Dinge, die kein Schweizer schreibt, etwa das scharfe S.",
+      all: "Dazu Berndeutsch und andere Regionen — echte Wörter, am falschen Ort.",
+    },
+    silence: {
+      off: "Korrekturen sind ausgeschaltet.",
+      spoken:
+        "Gesprochenes korrigiert Heidi nicht. Was die Spracherkennung zurückgibt, ist ihre Schreibung und nicht Ihre — sie schreibt Hochdeutsch, egal was Sie gesagt haben. Eine Rüge dafür würde die Maschine korrigieren und Ihnen verrechnen.",
+      clean: "Nichts zu beanstanden.",
+    },
+    cannotHear:
+      "Ob Ihre Aussprache stimmt, kann Heidi Ihnen nicht sagen. Das kann heute nichts zuverlässig. Was sie kann: Sie verstehen und antworten.",
+  },
+
+  listening: {
+    title: "Wo Sie es hören",
+    lead: "Die Schweiz macht sehr viel Radio, Fernsehen und Film auf Mundart, das meiste davon gratis. Nur sagt niemand einem Lernenden, was davon überhaupt Mundart ist — deshalb steht das hier bei jedem Eintrag zuerst.",
+    diglossiaTitle: "Die Hälfte der Schweizer Medien ist nicht Mundart",
+    diglossiaBody:
+      "Die Tagesschau wird auf Hochdeutsch gelesen, das Magazin direkt danach läuft auf Mundart. Eine Stunde Tagesschau ist eine Stunde in dem Deutsch, das Sie schon haben.",
+    basisNote:
+      "Die Angaben stammen aus dem Format der jeweiligen Sendung. Niemand hier hat alle durchgehört und aufgeschrieben, was zu hören war — es sind also sorgfältige Schlüsse und keine Messungen, und das steht hier, bis jemand diese Arbeit macht.",
+    spoken: { dialect: "Mundart", standard: "Schweizer Hochdeutsch", mixed: "Beides" },
+    voices: { one: "Eine Stimme", few: "Wenige Stimmen", many: "Viele gleichzeitig" },
+    subtitles: { standard: "Hochdeutsche Untertitel", auto: "Automatische Untertitel", none: "Keine Untertitel" },
+    scripted: "Abgelesen",
+    spontaneous: "Frei gesprochen",
+    reachCh: "Läuft nur in der Schweiz",
+    about: "Worum es geht",
+    medium: {
+      podcast: "Podcasts",
+      radio: "Radio",
+      youtube: "YouTube",
+      tv: "Fernsehen",
+      series: "Serien",
+      film: "Filme",
+    },
+    bernTitle: "Die bekannten Filme sind berndeutsch",
+    bernBody:
+      "Der Schweizer Film und die Serien kommen grösstenteils aus Bern. Wer sie durcharbeitet, trainiert das Ohr auf einen Dialekt zwei Stunden von Zürich entfernt — gut zu wissen, bevor Sie sich fragen, warum nichts davon nach Ihren Nachbarn klingt.",
   },
 
   errors: {

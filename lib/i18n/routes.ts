@@ -16,6 +16,7 @@ export type RouteKey =
   | "home"
   | "chat"
   | "speaking"
+  | "listen"
   | "dialect"
   | "vocabulary"
   | "grammar"
@@ -81,6 +82,11 @@ export const ROUTES: readonly Route[] = [
   // scheduled conversation group is a public thing, and somebody searching for
   // one in Zurich is looking for exactly this page.
   { key: "speaking", segment: "speaking", group: "use", indexed: true, priority: 0.85 },
+  // Under `use` rather than `reference`: this is somewhere you GO and then
+  // spend twenty minutes listening, not something you look up mid-sentence.
+  // Indexed and high, because "Swiss German podcasts" is a real search with a
+  // real answer, and the answer nobody else gives is which of them are dialect.
+  { key: "listen", segment: "listen", group: "use", indexed: true, priority: 0.85 },
   // `reference`, not `why`: you reach for these mid-conversation when an answer
   // turned on something you did not know. An essay about how the product works
   // is a different kind of page and sits under `why`.

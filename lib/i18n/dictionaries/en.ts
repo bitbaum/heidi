@@ -11,6 +11,7 @@ export const en: Dictionary = {
     home: "Start",
     chat: "Chat",
     speaking: "Speaking",
+    listen: "Listen",
     grammar: "Grammar",
     dialect: "Dialects",
     vocabulary: "Vocabulary",
@@ -579,6 +580,73 @@ export const en: Dictionary = {
     ],
     closing:
       "Concretely: more Swiss German dialects first, then a language outside Switzerland — the same machine, a different language pack. What we learn on the way, we write down.",
+  },
+
+  voice: {
+    speak: "Read aloud",
+    stop: "Stop",
+    unsupported: "This browser cannot read anything aloud.",
+    claim: {
+      swissStandard: "Swiss Standard German voice — not Zurich dialect.",
+      german: "A voice from Germany. Your device has no Swiss one.",
+      none: "This device has no German voice at all, so Heidi stays quiet rather than reading German with an English mouth.",
+    },
+    dialectCaveat:
+      "A machine reading dialect spelling with a Standard German voice. Use it to find the word in the sentence, never to copy how it sounds.",
+    settingsTitle: "Heidi's voice",
+    settingsBody:
+      "Nothing is ever spoken until you ask for it. No browser anywhere ships a Zurich voice — the closest any device offers is Swiss Standard German, and Heidi says which one you are hearing every time she speaks.",
+    speakAnswers: "Read answers aloud",
+    rate: "Speed",
+    correctionTitle: "Corrections",
+    correctionBody:
+      "How much Heidi says about what you wrote. Never your spelling: Zurich German has no correct spelling, so there is nothing there to be wrong about.",
+    correctionLevels: {
+      off: "Say nothing",
+      blocking: "Only what is not Swiss German at all",
+      all: "Also forms from another dialect",
+    },
+    correctionHelp: {
+      off: "Heidi answers and leaves your words alone.",
+      blocking: "The usual setting. Things no Swiss German writes, such as ß.",
+      all: "Adds Bernese and other regions — real words, in the wrong place.",
+    },
+    silence: {
+      off: "Corrections are switched off.",
+      spoken:
+        "Heidi does not correct spoken words. What comes back from speech recognition is its spelling and not yours — it writes Standard German whatever you said — so flagging it would correct the machine and charge it to you.",
+      clean: "Nothing to flag.",
+    },
+    cannotHear:
+      "Heidi cannot tell you whether your accent is right. Nothing can, reliably, today. What she can do is understand you and answer.",
+  },
+
+  listening: {
+    title: "Where to hear it",
+    lead: "The Swiss make a great deal of radio, television and film in dialect, most of it free. Nobody tells a learner which of it is dialect at all — so that is the first thing every entry here says.",
+    diglossiaTitle: "Half of Swiss media is not in dialect",
+    diglossiaBody:
+      "The evening bulletin is read in Standard German; the magazine straight after it is in dialect. An hour practised on the Tagesschau is an hour of the German you already have.",
+    basisNote:
+      "The labels come from the format of each programme. Nobody here has listened to all of them and written down what they heard, so these are careful inferences rather than measurements — and they will say so until somebody does that work.",
+    spoken: { dialect: "Dialect", standard: "Swiss Standard German", mixed: "Both" },
+    voices: { one: "One voice", few: "A few voices", many: "Many at once" },
+    subtitles: { standard: "Standard German subtitles", auto: "Machine subtitles", none: "No subtitles" },
+    scripted: "Read from a script",
+    spontaneous: "Spoken on the spot",
+    reachCh: "Plays only in Switzerland",
+    about: "About this",
+    medium: {
+      podcast: "Podcasts",
+      radio: "Radio",
+      youtube: "YouTube",
+      tv: "Television",
+      series: "Series",
+      film: "Films",
+    },
+    bernTitle: "The famous films are Bernese",
+    bernBody:
+      "Swiss cinema and drama come mostly out of Bern, so working through them trains an ear for a dialect two hours from Zurich. Worth knowing before you wonder why none of it sounds like your neighbours.",
   },
 
   errors: {
