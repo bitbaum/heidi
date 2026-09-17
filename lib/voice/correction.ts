@@ -68,7 +68,25 @@ export function isCorrectionLevel(value: unknown): value is CorrectionLevel {
   return value === "off" || value === "blocking" || value === "all";
 }
 
-/** Where the text came from. The single most important input here — see rule 3. */
+/**
+ * Where the text came from. The single most important input here — see rule 3.
+ *
+ * THE THIRD CASE IS NOT HERE, AND THAT IS DELIBERATE. A learner who speaks and
+ * then WRITES DOWN what they said has produced text that is their own rendering
+ * of their own speech: the words are theirs, so word choice is judgeable, and
+ * `lib/domain/speaking/feedback.ts` is the module that does it. Routing that
+ * case to `"spoken"` here would silence the one surface where a spoken take CAN
+ * honestly be commented on. It is named in this comment rather than added as a
+ * value so that the next person meets the distinction instead of guessing.
+ *
+ * The two modules also disagree about severity, correctly, and the reason is
+ * worth keeping: `feedback.ts` keeps only `foreign` findings and drops
+ * `unattested` ones, because an `unattested` finding is ORTHOGRAPHIC and there
+ * is no way to SAY a `ß`. This module's `blocking` level does the opposite for
+ * typed text, where orthography is exactly what the learner produced and where
+ * `unattested` is the most certain judgement available. Same gate, two
+ * surfaces, two defensible mappings — not a duplication to be collapsed.
+ */
 export type Origin =
   /** The learner typed it. Their forms, their choices, correctable. */
   | "typed"

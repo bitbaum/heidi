@@ -901,6 +901,15 @@ speech is not variety-checked at any level, and the three silences — you turne
 this off, this cannot be judged, you made no mistakes — are told apart rather
 than collapsed into a blank space.
 
+**Two correction surfaces, and they disagree on purpose.** `feedback.ts` judges
+a spoken take the learner WROTE DOWN, and keeps only `foreign` findings: an
+`unattested` finding is orthographic and there is no way to say a `ß`.
+`lib/voice/correction.ts` judges typed text, where orthography is exactly what
+the learner produced and `unattested` is the most certain judgement available,
+so its default keeps that and nothing else. Same gate, two surfaces, two
+defensible mappings. Both files say so, because the next person to meet them
+will reasonably assume one is a copy of the other.
+
 **Built: where to hear it, as a register.** The recordings the listening lab
 waits on do not exist yet. The largest source of dialect exposure in the world
 does, and it needs no corpus and no licence: the media the Swiss already make
