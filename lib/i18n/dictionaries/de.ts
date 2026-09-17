@@ -553,7 +553,7 @@ export const de = {
       },
       {
         title: "Was noch fehlt",
-        body: "Heute: Verstehen und Antworten auf echten Text. Als Nächstes: das Hörlabor, in dem Sie eine Zürcher Stimme hören, sich eingewöhnen und wir messen, wie viel Sie von einer anderen verstehen. Das braucht Aufnahmen, und die entstehen gerade.",
+        body: "Heute: Verstehen und Antworten auf echten Text, eine Antwort vorgelesen bekommen, und ein Verzeichnis, wo am Radio und am Fernsehen wirklich Mundart gesprochen wird. Als Nächstes: das Hörlabor, in dem Sie eine Zürcher Stimme hören, sich eingewöhnen und wir messen, wie viel Sie von einer anderen verstehen. Das braucht Aufnahmen, und die entstehen gerade.",
       },
     ],
     stateTitle: "Stand heute",
@@ -639,7 +639,7 @@ export const de = {
       },
     ],
     closing:
-      "Konkret heisst das: zuerst weitere Deutschschweizer Dialekte, danach eine Sprache ausserhalb der Schweiz — dieselbe Maschine, ein anderer Sprachsatz. Was wir dabei lernen, schreiben wir auf.",
+      "Konkret heisst das: zuerst weitere Deutschschweizer Dialekte, danach eine Sprache ausserhalb der Schweiz — dieselbe Maschine, ein anderer Sprachsatz. Die gesprochene Hälfte reist mit: Jede dieser Sprachen wird weit öfter gehört als geschrieben, und für jede gibt es Medien, die niemand nach Mundart und Hochsprache sortiert hat. Was wir dabei lernen, schreiben wir auf.",
   },
 
   voice: {

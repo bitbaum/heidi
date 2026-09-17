@@ -580,7 +580,7 @@ export const gsw: Dictionary = {
       },
       {
         title: "Was na fählt",
-        body: "Hüt: Verstaa und Antworte uf echte Text. Als nächts: s Hörlabor, wo Si e Zürcher Stimm ghöred, sich iigwöhned und mir mässed, wie vill Si vo ere andere verstönd. Das bruucht Ufnahme, und die entstönd grad.",
+        body: "Hüt: Verstaa und Antworte uf echte Text, e Antwort vorgläse übercho, und es Verzeichnis, wo am Radio und am Färnseh würklich Mundart gredt wird. Als nächts: s Hörlabor, wo Si e Zürcher Stimm ghöred, sich iigwöhned und mir mässed, wie vill Si vo ere andere verstönd. Das bruucht Ufnahme, und die entstönd grad.",
       },
     ],
     stateTitle: "Stand hüt",
@@ -604,7 +604,7 @@ export const gsw: Dictionary = {
       },
     ],
     closing:
-      "Konkret heisst das: zerscht wiiteri Dütschschwiizer Dialekt, denn e Sprach usserhalb vo de Schwiiz — diselb Maschine, en andere Sprachsatz. Was mir debii lerned, schriibed mir uf.",
+      "Konkret heisst das: zerscht wiiteri Dütschschwiizer Dialekt, denn e Sprach usserhalb vo de Schwiiz — diselb Maschine, en andere Sprachsatz. D gredti Helfti reist mit: Jedi vo dene Sprache wird viel öfter ghört als gschribe, und für jedi gits Medie, wo niemert na Mundart und Hochsprach sortiert hät. Was mir debii lerned, schriibed mir uf.",
   },
 
   voice: {

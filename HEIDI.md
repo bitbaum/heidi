@@ -20,6 +20,20 @@ needs one page that cannot drift from itself.
 Live at `heidi.orangecat.ch`. An OrangeCat property, built and dispatched
 through Loki.
 
+**The channel is spoken, and the product had better be too.** Zurich German is
+a language people HEAR. It has no standard orthography (§6), the lunch table
+that prompted this product is audio, and a learner who can only read it has
+solved a version of the problem that does not occur. So hearing this language
+and being heard in it are not a feature tier above the text — they are the
+subject, arrived at late.
+
+What that does NOT mean is a promise the field cannot keep. Everything below —
+the overclaim register in §8, the gate over synthetic voices in §6, the refusal
+to correct a transcript's forms in §9 — exists so that adding the spoken
+channel did not quietly add four claims we cannot support. The honest summary
+is one sentence: **Heidi can speak to you and understand you speaking; she
+cannot tell you whether you sound right, and neither can anything else.**
+
 ---
 
 ## 2. The problem, from first principles
@@ -320,6 +334,19 @@ been reviewed by a native Zurich speaker. An LLM must not be the sole grader of
 another LLM's dialect. A native panel is required before any generated dialect
 reaches a learner.
 
+**The same gate applies to sound, and there it is stricter.** Every argument
+above survives being read aloud and gets worse, because written text can be
+stared at and looked up while speech is gone the moment it is said. So
+`lib/voice/variety.ts` judges what a synthetic voice is actually speaking, and
+its rule is absolute rather than probabilistic: **no synthesiser is ever
+reported as dialect.** Not "probably not" — no platform ships a Züritüütsch
+voice, `de-CH` is Swiss Standard German on every operating system in reach, and
+§7.2 records the market selling the accent as the dialect. Dialect can only come
+from a source verified to be dialect, which today means a recorded human being.
+
+The consequence is what makes it worth having: because the gate knows, every
+control that speaks can say what it is about to speak, and does.
+
 ---
 
 ## 7. Corrections to the record
@@ -377,6 +404,31 @@ because being wrong in public is expensive and quiet correction is cheap.
 - ❌ Any claim that correspondence rules are proven to help. They are our
   hypothesis, and we say so.
 - ❌ Presenting a Zurich spelling as the correct one. There is no correct one.
+- ❌ "Heidi speaks Zurich German." **No synthesiser anywhere does.** A `de-CH`
+  voice is Swiss STANDARD German — the written language read aloud in a Swiss
+  accent — and §7.2 already records that most voices sold as "Swiss German" are
+  exactly that. ✅ "This is a Swiss Standard German voice, not Zurich dialect",
+  said every time she speaks. `lib/voice/variety.ts` has no code path that
+  returns `dialect`, and a test feeds it voices named *Züritüütsch* and
+  *Schweizerdeutsch Mundart* to prove it is not fooled by a label.
+- ❌ "Heidi hears your dialect and corrects your pronunciation." She hears TEXT
+  produced by a recogniser, and §7.4 says what that recogniser does: it
+  transcribes dialect INTO Standard German. There is no audio, no confidence
+  and no phoneme alignment anywhere in the correction path, so a score would
+  have to be invented rather than measured. ✅ "Heidi cannot tell you whether
+  your accent is right. Nothing can, reliably."
+- ❌ Correcting the FORMS in a transcript of what somebody said. Those forms are
+  the recogniser's spelling, not the speaker's — flagging `ist` or `nicht` in a
+  transcript corrects the machine and bills it to the learner, who may have
+  said `isch` and `nöd` perfectly. This is refused at every correction level
+  rather than at the low ones.
+- ❌ Calling a machine reading Zurich spelling in a Standard German voice a
+  model of the pronunciation. It is a way to find a word in a sentence, and
+  the copy beside it says so.
+- ❌ Publishing a listening source as dialect because it is Swiss. Half of
+  Swiss broadcasting is Standard German by format, which is exactly the trap a
+  learner cannot see; `lib/listening/sources.ts` labels every row and names
+  what the label rests on.
 
 ---
 
@@ -818,6 +870,72 @@ against. That is the same rule the shared-package extraction follows: build it
 at the second consumer, not the first. The seam is the capability flag, which
 is already read.
 
+**Built: the spoken channel, and the gate that had to come with it.** The
+product could read and write a language that is mostly heard. Three things
+changed that, and the third is the one that took the thinking.
+
+*Heidi speaks.* A speak control sits beside every copy control — on the dialect
+line and on each suggestion, which are the lines a learner has to produce and
+the ones "what does this actually sound like" was unanswerable for. The
+browser's own synthesiser, for the two reasons dictation chose it in the same
+order: free and instant, and no text leaves the device to be read back.
+
+*And she says what she is speaking with.* No browser ships a Zurich voice —
+`de-CH` is Swiss Standard German — so `lib/voice/variety.ts` is the variety
+gate for sound, and has no path that returns `dialect` at all. That is not an
+omission for a later commit to widen; it is the claim the module exists to
+refuse, and a test feeds it plausible Swiss-sounding voice names to prove it.
+The claim rides in the flow of the page rather than a tooltip: phones have no
+hover, screen readers announce it last, and the learner cannot hear the
+difference, which is the whole reason they are here.
+
+*Correction is a setting with three rules above it.* Never spelling, because
+there is no correct one (§6). Never pronunciation, and that is structural
+rather than principled — the correction path receives no audio, no confidence
+and no alignment, so a percentage would have to be invented. And never the
+forms in a transcript, which is the one that is easy to get wrong and silently
+ruins the feature: §7.4 says recognition transcribes dialect into Standard
+German, so a learner who said `isch` and `nöd` perfectly gets back `ist` and
+`nicht` and would be corrected, confidently and in detail, for being right. So
+speech is not variety-checked at any level, and the three silences — you turned
+this off, this cannot be judged, you made no mistakes — are told apart rather
+than collapsed into a blank space.
+
+**Built: where to hear it, as a register.** The recordings the listening lab
+waits on do not exist yet. The largest source of dialect exposure in the world
+does, and it needs no corpus and no licence: the media the Swiss already make
+for themselves. `lib/listening/sources.ts` is fifty of them — podcasts, radio,
+YouTube, television, series and films — and what makes it more than a list of
+Swiss channels is that every row says WHAT IS SPOKEN.
+
+That is the same lemons problem §6 built the gate for, one level up. Swiss
+media splits along the diglossia in a way nobody tells a learner: the evening
+bulletin is read in Standard German and the magazine after it is in dialect.
+Somebody sent to the Tagesschau to practise Swiss German gets an hour of the
+German they already have, concludes this is easy, and is no closer to the lunch
+table.
+
+`basis` is required on every row and `listened` is claimed nowhere, because
+nobody here has sat down with these programmes and written down what they
+heard. A test fails the moment a row claims it, so the day somebody spends that
+afternoon, the page copy has to change with it. There is no difficulty number
+anywhere — what is written down is observable (how many voices at once, read or
+spontaneous, whether publisher subtitles exist) and `demand()` derives an
+ordering, so an argument about the ordering is an argument about four weights
+in one place.
+
+Two things the register knows that a reader would not: the famous Swiss films
+and series are mostly BERNESE, so working through them trains a Zurich learner's
+ear on a dialect two hours away; and Zurich material specifically is scarce —
+four rows against a dozen pan-Swiss ones, which is why `area` is a preference
+in the flow and never a filter.
+
+Kept honest by `scripts/check-listening-links.mjs`, which has three verdicts
+rather than two: a Cloudflare challenge is not a dead link, and only GONE fails
+the run. Its first pass caught `youtube.com/@srf3` answering 200 under the name
+SRF Unterhaltung, and its own normaliser calling TeleZüri a mismatch because it
+decomposed the umlaut to a bare `u` where the publisher writes `ue`.
+
 **Next**, in order: capture what the learner did not know into a learner model —
 **the existing Heidi GPT generates that evidence daily and throws all of it
 away**, and every question asked of it is a labelled datapoint about what a real
@@ -825,6 +943,22 @@ learner could not understand; then the listening lab, once there are recordings
 to put in it.
 
 Three loops explain Heidi better than any feature list:
+Three things the spoken channel now makes concrete, in the order they are worth
+doing:
+
+1. **Listen to the register and flip `basis` to `listened`.** It is the
+   cheapest real improvement available to this product — an afternoon per dozen
+   programmes, no corpus, no licence, no model — and it converts forty careful
+   inferences into forty facts.
+2. **A verified dialect voice.** §7.2 says at least one vendor advertises
+   commercially-cleared Züridütsch, unverified by us. Verifying one would be
+   the first time Heidi could speak the language she teaches; the gate is
+   already built to receive it, and nothing else has to change.
+3. **The listening lab**, which is where the register and the recordings meet:
+   a source a learner can already reach, a measurement of what they caught, and
+   the same speaker-change effect the two loops below describe.
+
+Two loops explain Heidi better than any feature list:
 
 > Upload a real message → understand it → reply naturally → learn one thing from
 > it → meet that thing again later.

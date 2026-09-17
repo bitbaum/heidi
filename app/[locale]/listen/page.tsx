@@ -36,7 +36,11 @@ function Row({ source, t }: { source: ListeningSource; t: T }) {
 
   return (
     <li className="border-t border-border-subtle py-4 first:border-t-0">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      {/* The publisher sits beside the name rather than pushed to the far
+          right of the page. Right-aligned, it drifted an inch of empty space
+          away from the thing it names at desktop width, and read as belonging
+          to nothing. */}
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <a
           href={source.url}
           rel="noreferrer"

@@ -508,7 +508,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Ce qui manque encore",
-        body: "Aujourd'hui : comprendre et répondre à du vrai texte. Ensuite : le laboratoire d'écoute, où vous entendez une voix zurichoise, vous vous y faites, et nous mesurons ce que vous saisissez d'une autre. Cela demande des enregistrements, et ils se font.",
+        body: "Aujourd'hui : comprendre et répondre à du vrai texte, entendre une réponse lue à voix haute, et un registre indiquant où le dialecte est réellement parlé à l'antenne. Ensuite : le laboratoire d'écoute, où vous entendez une voix zurichoise, vous vous y faites, et nous mesurons ce que vous saisissez d'une autre. Cela demande des enregistrements, et ils se font.",
       },
     ],
     stateTitle: "Où nous en sommes",
@@ -579,7 +579,7 @@ export const fr: Dictionary = {
       },
     ],
     closing:
-      "Concrètement : d'abord d'autres dialectes alémaniques, ensuite une langue hors de Suisse — la même machine, un autre jeu linguistique. Ce que nous apprenons en chemin, nous l'écrivons.",
+      "Concrètement : d'abord d'autres dialectes alémaniques, ensuite une langue hors de Suisse — la même machine, un autre jeu linguistique. La moitié parlée voyage avec : chacune de ces langues s'entend bien plus qu'elle ne s'écrit, et pour chacune il existe des médias que personne n'a triés entre dialecte et langue standard. Ce que nous apprenons en chemin, nous l'écrivons.",
   },
 
   voice: {

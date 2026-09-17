@@ -508,7 +508,7 @@ export const en: Dictionary = {
       },
       {
         title: "What is still missing",
-        body: "Today: understanding and replying to real text. Next: the listening lab, where you hear one Zurich voice, tune in, and we measure how much you catch of another. That needs recordings, and they are being made.",
+        body: "Today: understanding and replying to real text, hearing an answer read aloud, and a register of where dialect is actually spoken on air. Next: the listening lab, where you hear one Zurich voice, tune in, and we measure how much you catch of another. That needs recordings, and they are being made.",
       },
     ],
     stateTitle: "Where things stand",
@@ -579,7 +579,7 @@ export const en: Dictionary = {
       },
     ],
     closing:
-      "Concretely: more Swiss German dialects first, then a language outside Switzerland — the same machine, a different language pack. What we learn on the way, we write down.",
+      "Concretely: more Swiss German dialects first, then a language outside Switzerland — the same machine, a different language pack. The spoken half travels with it: every one of these languages is heard far more often than it is written, and for every one of them there is media nobody has sorted into dialect and standard. What we learn on the way, we write down.",
   },
 
   voice: {

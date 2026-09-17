@@ -147,6 +147,19 @@ function ordered(candidates: readonly ListeningSource[], area?: string): Listeni
       const bHit = b.area === area ? 0 : 1;
       if (aHit !== bHit) return aHit - bHit;
     }
+    // Dialect before Standard German, ahead of every other consideration.
+    //
+    // Found by looking at the rendered page rather than by thinking about it:
+    // ordering by demand alone put Echo der Zeit, Kontext and the
+    // Wissenschaftsmagazin at the top of "Podcasts", because Standard German
+    // read from a script is genuinely the easiest listening here. So a page
+    // whose entire argument is "half of this is not dialect" opened with three
+    // rows of exactly that, and the first thing a scanning reader would have
+    // pressed was the wrong thing. Easiest-first is right WITHIN a variety and
+    // wrong across the two.
+    const byVariety = Number(!isDialectal(a)) - Number(!isDialectal(b));
+    if (byVariety !== 0) return byVariety;
+
     const byDemand = demand(a) - demand(b);
     if (byDemand !== 0) return byDemand;
     return a.id.localeCompare(b.id, "en");

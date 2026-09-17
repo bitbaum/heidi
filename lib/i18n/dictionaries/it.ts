@@ -508,7 +508,7 @@ export const it: Dictionary = {
       },
       {
         title: "Che cosa manca ancora",
-        body: "Oggi: capire e rispondere a testo vero. Poi: il laboratorio di ascolto, dove sentite una voce zurighese, vi ci abituate, e misuriamo quanto cogliete di un'altra. Servono registrazioni, e si stanno facendo.",
+        body: "Oggi: capire e rispondere a testo vero, sentire una risposta letta ad alta voce, e un registro di dove il dialetto si parla davvero in onda. Poi: il laboratorio di ascolto, dove sentite una voce zurighese, vi ci abituate, e misuriamo quanto cogliete di un'altra. Servono registrazioni, e si stanno facendo.",
       },
     ],
     stateTitle: "A che punto siamo",
@@ -579,7 +579,7 @@ export const it: Dictionary = {
       },
     ],
     closing:
-      "Concretamente: prima altri dialetti svizzero-tedeschi, poi una lingua fuori dalla Svizzera — la stessa macchina, un altro pacchetto linguistico. Quello che impariamo per strada, lo scriviamo.",
+      "Concretamente: prima altri dialetti svizzero-tedeschi, poi una lingua fuori dalla Svizzera — la stessa macchina, un altro pacchetto linguistico. La metà parlata viaggia con noi: ognuna di queste lingue si sente molto più di quanto si scriva, e per ognuna esistono media che nessuno ha diviso fra dialetto e lingua standard. Quello che impariamo per strada, lo scriviamo.",
   },
 
   voice: {

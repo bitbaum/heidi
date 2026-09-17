@@ -524,7 +524,7 @@ export const rm: Dictionary = {
       },
       {
         title: "Tge che manca anc",
-        body: "Oz: chapir e respunder a text ver. Lura: il laboratori da tadlar, nua che Vus udis ina vusch turitgaisa, Vus Vus adattais, e nus mesirain quant che Vus chapis d'ina autra. Quai dumonda registraziuns, ed ellas vegnan fatgas.",
+        body: "Oz: chapir e respunder a text ver, udir ina resposta legida ad auta vusch, ed in register da nua ch'il dialect vegn propi discurrì en radio e televisiun. Lura: il laboratori da tadlar, nua che Vus udis ina vusch turitgaisa, Vus Vus adattais, e nus mesirain quant che Vus chapis d'ina autra. Quai dumonda registraziuns, ed ellas vegnan fatgas.",
       },
     ],
     stateTitle: "Nua che nus essan",
@@ -595,7 +595,7 @@ export const rm: Dictionary = {
       },
     ],
     closing:
-      "Concretamain: l'emprim ulteriurs dialects tudestg-svizzers, lura ina lingua ordaifer la Svizra — la medema maschina, in auter pachet linguistic. Quai che nus emprendain sin la via, quai scrivain nus.",
+      "Concretamain: l'emprim ulteriurs dialects tudestg-svizzers, lura ina lingua ordaifer la Svizra — la medema maschina, in auter pachet linguistic. La mesadad discurrida viagia cun nus: mintgina da questas linguas vegn udida bler pli savens che scritta, e per mintgina datti medias che nagin n'ha tschernì tranter dialect e lingua standard. Quai che nus emprendain sin la via, quai scrivain nus.",
   },
 
   voice: {

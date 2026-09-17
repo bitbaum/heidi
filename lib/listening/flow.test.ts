@@ -146,6 +146,25 @@ test("a topic nothing matches returns empty, not everything", () => {
   assert.ok(none.every((s) => s.topics.includes("sport")));
 });
 
+test("dialect comes before Standard German, however easy the Standard German is", () => {
+  // The regression this pins was visible only on the rendered page: ordering
+  // by demand alone opened "Podcasts" with three Standard German rows,
+  // because a scripted bulletin genuinely IS the easiest listening here — on
+  // a page whose whole argument is that half of this material is not dialect.
+  for (const group of byMedium()) {
+    const lastDialectal = group.sources.reduce(
+      (last, s, i) => (s.spoken === "dialect" || s.spoken === "mixed" ? i : last),
+      -1,
+    );
+    const firstStandard = group.sources.findIndex((s) => s.spoken === "standard");
+    if (lastDialectal === -1 || firstStandard === -1) continue;
+    assert.ok(
+      firstStandard > lastDialectal,
+      `${group.medium}: Standard German at ${firstStandard} comes before dialect at ${lastDialectal}`,
+    );
+  }
+});
+
 test("grouping covers the whole register exactly once", () => {
   const groups = byMedium();
   const ids = groups.flatMap((g) => g.sources.map((s) => s.id));
