@@ -24,7 +24,10 @@ export type RouteKey =
   | "contribute"
   | "about"
   | "portal"
-  | "settings";
+  | "settings"
+  | "privacy"
+  | "impressum"
+  | "investors";
 
 /**
  * What a page is FOR, which is the thing a flat list of five links cannot say.
@@ -98,6 +101,16 @@ export const ROUTES: readonly Route[] = [
   // the nav of a site you are not signed in to reads as a locked door.
   { key: "portal", segment: "portal", indexed: false, priority: 0.3 },
   { key: "settings", segment: "settings", indexed: false, priority: 0.3 },
+  // Reached from the footer rather than the menu. INDEXED, unlike the personal
+  // pages: an institution checking whether this is a serious project looks for
+  // exactly these two, and a privacy page a search engine cannot see is a
+  // privacy page nobody finds when it matters.
+  { key: "privacy", segment: "privacy", indexed: true, priority: 0.4 },
+  { key: "impressum", segment: "impressum", indexed: true, priority: 0.4 },
+  // Not indexed and not in the sitemap: it is a password-gated room, and a
+  // sitemap entry advertising it would contradict its own robots meta — the
+  // disagreement search engines treat as a reason to distrust both signals.
+  { key: "investors", segment: "investors", indexed: false, priority: 0.1 },
 ];
 
 /**

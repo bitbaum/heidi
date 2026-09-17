@@ -178,13 +178,21 @@ test("every navigable route has a label in every language", () => {
   }
 });
 
-test("the portal is never in the sitemap", () => {
-  // It is noindex. A sitemap that advertises it contradicts the page's own
-  // robots meta, and search engines distrust both signals when they disagree.
-  // Neither the portal nor settings: both are noindex, and both are personal.
-  assert.ok(!INDEXED_ROUTES.some((r) => r.key === "portal"));
-  assert.ok(!INDEXED_ROUTES.some((r) => r.key === "settings"));
-  assert.equal(INDEXED_ROUTES.length, ROUTES.length - 2);
+test("nothing private is in the sitemap", () => {
+  // Each of these is noindex. A sitemap that advertises one contradicts the
+  // page's own robots meta, and search engines distrust both signals when they
+  // disagree. The portal and settings are personal; the investor room is
+  // password-gated, and listing it would be a sign on the door.
+  const PRIVATE = ["portal", "settings", "investors"] as const;
+  for (const key of PRIVATE) {
+    assert.ok(!INDEXED_ROUTES.some((r) => r.key === key), `${key} must not be indexed`);
+  }
+  assert.equal(INDEXED_ROUTES.length, ROUTES.length - PRIVATE.length);
+
+  // Privacy and the legal notice ARE indexed, deliberately: an institution
+  // checking whether this is a serious project looks for exactly those two.
+  assert.ok(INDEXED_ROUTES.some((r) => r.key === "privacy"));
+  assert.ok(INDEXED_ROUTES.some((r) => r.key === "impressum"));
 });
 
 test("no English source copy from the provider list reaches a page", () => {
@@ -237,6 +245,10 @@ test("route segments are the same in every language", () => {
       "about",
       "portal",
       "settings",
+      // The two pages an institution looks for, and the gated room.
+      "privacy",
+      "impressum",
+      "investors",
     ],
   );
 });
