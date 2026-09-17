@@ -305,6 +305,48 @@ export const ZURICH_GERMAN: VarietyPack = {
    * Sourced to the Idiotikon, the sixteen-volume reference dictionary of Swiss
    * German, which is what a word-level claim needs and a dialect atlas is not.
    */
+  /**
+   * WHERE THE DETAIL ON A WORD MAY COME FROM, AND WHERE IT MAY NOT.
+   *
+   * Checked against the actual licences on 2026-09-17, because "it is online
+   * and free to read" and "we may ship it" are different claims and the gap
+   * between them is where an open-source language product gets itself sued.
+   *
+   * MAY BE CITED AS EVIDENCE, NEVER COPIED FROM:
+   *   Sprachatlas der deutschen Schweiz (sprachatlas.ch) — CC BY-SA 4.0, with
+   *     a live API. It is the citable authority for the ARTICLE SYSTEM: map
+   *     3869 gives `də` at 66 of 66 Zurich survey points for the masculine
+   *     nominative, map 3866 gives `s` at 66 of 66 for the neuter. Worth
+   *     knowing before anyone calls this settled: map 3870, the feminine
+   *     dative, is SPLIT inside the canton — 57 points `dr` against 48 `də`.
+   *     Zurich German is not one system even in Zurich.
+   *   Schweizerisches Idiotikon — the reference dictionary, and the authority
+   *     for whether a word and a gender are Zurich-attested at all. Careful:
+   *     its CC BY-SA 4.0 covers the REST API, which returns headwords and
+   *     definitions ONLY. The scans and OCR — which is where the gender
+   *     markings and the example sentences actually live — publish no licence
+   *     whatsoever.
+   *
+   * MUST NOT BE USED AS A SOURCE OF TEXT:
+   *   ArchiMob — non-commercial under all three of its published statements,
+   *     and NoDerivatives under the Zenodo one. Consult it; do not lift.
+   *   SwissCrawl, the Swiss SMS Corpus — non-commercial.
+   *   NOAH's Corpus — the annotations are CC BY 4.0, the sentences are
+   *     third-party text under no licence at all.
+   *   Weber, `Zürichdeutsche Grammatik` (1948) — in copyright until 31 Dec
+   *     2027. Weber, `Die Mundart des Zürcher Oberlandes` (1923) is readable
+   *     on e-Helvetica but PRIVATE USE ONLY. Weber & Bächtold's dictionary
+   *     runs to 2054.
+   *
+   * SO: EVERY EXAMPLE SENTENCE IN THIS FILE IS WRITTEN HERE, and every entry
+   * below goes further than that — it reuses a sentence this pack ALREADY
+   * publishes in its own grammar topics. Not one string in the additions below
+   * is a new claim about the language; they are forms this file already
+   * asserts, promoted into the vocabulary where a learner can find them.
+   *
+   * The one thing still outstanding is the one §9 already names: none of it
+   * has been reviewed by a native Zurich speaker.
+   */
   vocabulary: [
     // The short words. Individually tiny, collectively most of why a sentence
     // is unfollowable.
@@ -326,7 +368,35 @@ export const ZURICH_GERMAN: VarietyPack = {
     { target: "ächli", bridge: "ein bisschen", group: "function" },
 
     { target: "si", bridge: "sein", group: "verbs" },
-    { target: "ha", bridge: "haben", group: "verbs" },
+    {
+      /**
+       * The only paradigm this pack can already fill from its own pages.
+       *
+       * `häsch`, `hät` and `händ` all appear in sentences this file or its
+       * dictionaries already publish — "Häsch du am Samschtig scho öppis vor?",
+       * "Si hät nüüt gseit", "Mir händ das scho gmacht". So the table is a
+       * reorganisation, not an assertion.
+       *
+       * The first person is deliberately absent. `ha` is the headword here and
+       * a row identical to its own headword teaches nothing — which is exactly
+       * what the vocabulary test refuses. Filling it would need a source, and
+       * the sources that could settle it are the ones listed above as
+       * unusable.
+       *
+       * It matters more than any other verb because it carries every compound
+       * past in the language: `no-preterite` is the pack's biggest grammar
+       * topic and this is the auxiliary it runs on.
+       */
+      target: "ha",
+      bridge: "haben",
+      group: "verbs",
+      forms: [
+        { label: "du", target: "häsch", bridge: "hast" },
+        { label: "er", target: "hät", bridge: "hat" },
+        { label: "mir", target: "händ", bridge: "haben" },
+      ],
+      source: "idiotikon",
+    },
     { target: "gah", bridge: "gehen", group: "verbs" },
     { target: "cho", bridge: "kommen", group: "verbs" },
     { target: "mache", bridge: "machen", group: "verbs" },
@@ -340,6 +410,54 @@ export const ZURICH_GERMAN: VarietyPack = {
     { target: "schaffe", bridge: "arbeiten", group: "verbs" },
     { target: "poschte", bridge: "einkaufen", group: "verbs" },
 
+    /**
+     * Three nouns, one per gender, and every string here already appears in
+     * this file's own grammar examples — `De Maa, wo dört staht`,
+     * `D Frau, wo ich gsee ha`, `S Dach vom Huus`. Promoting them into the
+     * vocabulary adds no claim; it makes a claim the pack already makes
+     * findable, and gives the article a place to live.
+     *
+     * They also make the article drill possible at all. Every noun the list
+     * had was neuter — `s Velo`, `s Znüni`, `s Güetzi`, `s Rüebli` — because
+     * four of them are `-li` diminutives, which this pack already teaches take
+     * the neuter. An exercise whose answer is `s` every time is not an
+     * exercise.
+     */
+    {
+      target: "Maa",
+      bridge: "Mann",
+      group: "everyday",
+      article: "de",
+      example: { target: "De Maa, wo dört staht.", bridge: "Der Mann, der dort steht." },
+      source: "sds-atlas",
+    },
+    {
+      /**
+       * `Frau` would have been the obvious feminine, and the vocabulary test
+       * refuses it: the word is identical in both varieties, and a row whose
+       * two halves are the same string teaches nothing. Correct — the article
+       * is the whole difference there, and this list is not where that is
+       * taught.
+       *
+       * `Schwöschter` carries both: it differs from the German word AND it is
+       * feminine. The pack's own `D Frau, wo ich gsee ha.` is what attests the
+       * feminine article; this entry is what makes it learnable.
+       */
+      target: "Schwöschter",
+      bridge: "Schwester",
+      group: "everyday",
+      article: "d",
+      example: { target: "De Anna ihri Schwöschter.", bridge: "Annas Schwester." },
+      source: "sds-atlas",
+    },
+    {
+      target: "Huus",
+      bridge: "Haus",
+      group: "everyday",
+      article: "s",
+      example: { target: "S Dach vom Huus.", bridge: "Das Dach des Hauses." },
+      source: "sds-atlas",
+    },
     { target: "Velo", bridge: "Fahrrad", group: "everyday" },
     { target: "Znüni", bridge: "Vormittagssnack", group: "everyday" },
     { target: "Zvieri", bridge: "Nachmittagssnack", group: "everyday" },

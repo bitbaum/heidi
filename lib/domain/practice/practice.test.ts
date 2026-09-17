@@ -200,9 +200,51 @@ describe("the summary invents nothing", () => {
 
 describe("nothing is invented", () => {
   test("every item traces to the pack or to the learner's own words", () => {
+    /**
+     * Four provenances, and each one names something that exists: a variety
+     * rule, a grammar topic, a word in the vocabulary, or a phrase the learner
+     * saved themselves. `word` joined the list when articles and paradigms
+     * did — it is the narrowest of the four, because it must resolve to an
+     * entry, and an entry is the only place a gender or a form is ever
+     * asserted.
+     *
+     * Checking the KIND alone would let a typo pass as provenance, so the
+     * pointer is followed.
+     */
     const saved = [word("Chunnsch", "kommst du")];
+    /**
+     * Both directions, because half the pairs come from `bridgeRules` — the
+     * mirrored set that catches the German word a learner reaches for. Those
+     * rules are derived rather than written, so they are absent from
+     * `pack.rules` and a check against that alone would call the better half of
+     * the drill unsourced.
+     */
+    const rules = new Set(
+      [...VARIETY.rules, ...bridgeRules(VARIETY)]
+        .map((r) => r.match)
+        .filter((m): m is string => typeof m === "string")
+        .map((m) => m.trim()),
+    );
+    const topics = new Set((VARIETY.grammar ?? []).map((t) => t.id));
+    const words = new Set((VARIETY.vocabulary ?? []).map((w) => w.target));
+
     for (const item of allItems(VARIETY, saved)) {
-      assert.ok(["rule", "grammar", "saved"].includes(item.source.kind), `${item.id} has no provenance`);
+      const from = item.source;
+      switch (from.kind) {
+        case "rule":
+          assert.ok(rules.has(from.rule), `${item.id} cites a rule the pack does not have`);
+          break;
+        case "grammar":
+          assert.ok(topics.has(from.topic), `${item.id} cites a grammar topic the pack does not have`);
+          break;
+        case "word":
+          assert.ok(words.has(from.word), `${item.id} cites a word the pack does not have`);
+          break;
+        case "saved":
+          break;
+        default:
+          assert.fail(`${item.id} has no provenance`);
+      }
     }
   });
 });

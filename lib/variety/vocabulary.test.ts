@@ -91,9 +91,31 @@ describe("the vocabulary", () => {
   });
 
   test("the projection carries the words and no English prose", () => {
+    /**
+     * The guarantee is unchanged — nothing English-prose-shaped may reach a
+     * page through the projection — but the field list grew, so the check is
+     * now an ALLOWLIST rather than an exact set. Every name on it is either
+     * the variety's own words (`target`, `example.target`), the bridge
+     * language's (`bridge`), or a closed key a dictionary renders (`group`,
+     * `article`, a form's `label`, a `source` id).
+     *
+     * An exact-set assertion would have had to be relaxed every time a field
+     * was added, which is how a guard quietly becomes a formality. A named
+     * allowlist still fails on a field nobody thought about.
+     */
+    const ALLOWED = ["article", "bridge", "example", "forms", "group", "source", "target"];
     assert.equal(DISPLAY.vocabulary.length, words.length);
+
     for (const word of DISPLAY.vocabulary) {
-      assert.deepEqual(Object.keys(word).sort(), ["bridge", "group", "target"]);
+      for (const key of Object.keys(word)) {
+        assert.ok(ALLOWED.includes(key), `the projection carries an unexpected field: ${key}`);
+      }
+      for (const form of word.forms ?? []) {
+        assert.deepEqual(Object.keys(form).sort(), ["bridge", "label", "target"]);
+      }
+      if (word.example) {
+        assert.deepEqual(Object.keys(word.example).sort(), ["bridge", "target"]);
+      }
     }
   });
 
