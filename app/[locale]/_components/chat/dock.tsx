@@ -337,6 +337,7 @@ function DockPanel({
       <div ref={transcriptRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-3">
         {started || chat.busy ? (
           <Transcript
+            voiceT={dict.voice}
             messages={chat.messages}
             me={LEARNER_ID}
             t={t}

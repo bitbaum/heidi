@@ -11,6 +11,7 @@ export const fr: Dictionary = {
     home: "Accueil",
     chat: "Chat",
     speaking: "Cercles de parole",
+    listen: "Écouter",
     grammar: "Grammaire",
     dialect: "Dialectes",
     vocabulary: "Vocabulaire",
@@ -507,7 +508,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Ce qui manque encore",
-        body: "Aujourd'hui : comprendre et répondre à du vrai texte. Ensuite : le laboratoire d'écoute, où vous entendez une voix zurichoise, vous vous y faites, et nous mesurons ce que vous saisissez d'une autre. Cela demande des enregistrements, et ils se font.",
+        body: "Aujourd'hui : comprendre et répondre à du vrai texte, entendre une réponse lue à voix haute, et un registre indiquant où le dialecte est réellement parlé à l'antenne. Ensuite : le laboratoire d'écoute, où vous entendez une voix zurichoise, vous vous y faites, et nous mesurons ce que vous saisissez d'une autre. Cela demande des enregistrements, et ils se font.",
       },
     ],
     stateTitle: "Où nous en sommes",
@@ -578,7 +579,78 @@ export const fr: Dictionary = {
       },
     ],
     closing:
-      "Concrètement : d'abord d'autres dialectes alémaniques, ensuite une langue hors de Suisse — la même machine, un autre jeu linguistique. Ce que nous apprenons en chemin, nous l'écrivons.",
+      "Concrètement : d'abord d'autres dialectes alémaniques, ensuite une langue hors de Suisse — la même machine, un autre jeu linguistique. La moitié parlée voyage avec : chacune de ces langues s'entend bien plus qu'elle ne s'écrit, et pour chacune il existe des médias que personne n'a triés entre dialecte et langue standard. Ce que nous apprenons en chemin, nous l'écrivons.",
+  },
+
+  voice: {
+    speak: "Lire à voix haute",
+    stop: "Arrêter",
+    unsupported: "Ce navigateur ne peut rien lire à voix haute.",
+    claim: {
+      swissStandard: "Voix en allemand standard suisse — pas en dialecte zurichois.",
+      german: "Une voix d'Allemagne. Votre appareil n'en a pas de suisse.",
+      none: "Cet appareil n'a aucune voix allemande. Heidi préfère se taire plutôt que de lire de l'allemand avec une bouche anglaise.",
+    },
+    dialectCaveat:
+      "Une machine lit une orthographe dialectale avec une voix d'allemand standard. Utile pour repérer le mot dans la phrase, jamais pour copier la prononciation.",
+    settingsTitle: "La voix de Heidi",
+    settingsBody:
+      "Rien n'est prononcé tant que vous ne le demandez pas. Aucun navigateur ne livre de voix zurichoise — le plus proche qu'un appareil propose est l'allemand standard suisse, et Heidi dit chaque fois ce que vous entendez.",
+    speakAnswers: "Lire les réponses à voix haute",
+    rate: "Vitesse",
+    correctionTitle: "Corrections",
+    correctionBody:
+      "Ce que Heidi dit de ce que vous avez écrit. Jamais votre orthographe : le zurichois n'a pas d'orthographe correcte, il n'y a donc rien à y fauter.",
+    correctionLevels: {
+      off: "Ne rien dire",
+      blocking: "Seulement ce qui n'est pas du suisse allemand du tout",
+      all: "Aussi les formes d'un autre dialecte",
+    },
+    correctionHelp: {
+      off: "Heidi répond et laisse vos mots tranquilles.",
+      blocking: "Le réglage habituel. Ce qu'aucun Suisse n'écrit, comme le ß.",
+      all: "Ajoute le bernois et d'autres régions — de vrais mots, au mauvais endroit.",
+    },
+    silence: {
+      off: "Les corrections sont désactivées.",
+      spoken:
+        "Heidi ne corrige pas ce qui est dit à l'oral. Ce que la reconnaissance vocale renvoie est son orthographe et non la vôtre — elle écrit de l'allemand standard quoi que vous ayez dit. Le signaler reviendrait à corriger la machine et à vous le facturer.",
+      clean: "Rien à signaler.",
+    },
+    cannotHear:
+      "Heidi ne peut pas vous dire si votre accent est juste. Rien ne le peut de façon fiable aujourd'hui. Ce qu'elle peut faire : vous comprendre et vous répondre.",
+  },
+
+  listening: {
+    title: "Où l'entendre",
+    lead: "La Suisse produit énormément de radio, de télévision et de cinéma en dialecte, en grande partie gratuits. Mais personne ne dit à un apprenant ce qui est vraiment du dialecte — c'est donc la première chose indiquée ici pour chaque entrée.",
+    diglossiaTitle: "La moitié des médias suisses n'est pas en dialecte",
+    diglossiaBody:
+      "Le journal du soir est lu en allemand standard ; le magazine qui suit est en dialecte. Une heure passée sur la Tagesschau est une heure dans l'allemand que vous avez déjà.",
+    basisNote:
+      "Les étiquettes proviennent du format de chaque émission. Personne ici ne les a toutes écoutées pour noter ce qu'il entendait : ce sont donc des déductions prudentes et non des mesures, et cela restera écrit tant que ce travail n'aura pas été fait.",
+    spoken: { dialect: "Dialecte", standard: "Allemand standard suisse", mixed: "Les deux" },
+    voices: { one: "Une voix", few: "Quelques voix", many: "Beaucoup à la fois" },
+    subtitles: {
+      standard: "Sous-titres en allemand standard",
+      auto: "Sous-titres automatiques",
+      none: "Sans sous-titres",
+    },
+    scripted: "Lu sur un texte",
+    spontaneous: "Parlé sur le vif",
+    reachCh: "Ne se lit qu'en Suisse",
+    about: "De quoi il s'agit",
+    medium: {
+      podcast: "Podcasts",
+      radio: "Radio",
+      youtube: "YouTube",
+      tv: "Télévision",
+      series: "Séries",
+      film: "Films",
+    },
+    bernTitle: "Les films connus sont bernois",
+    bernBody:
+      "Le cinéma et les séries suisses viennent surtout de Berne : les enchaîner entraîne l'oreille à un dialecte à deux heures de Zurich. Bon à savoir avant de vous demander pourquoi rien de tout cela ne ressemble à vos voisins.",
   },
 
   errors: {

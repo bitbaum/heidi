@@ -11,6 +11,7 @@ export const it: Dictionary = {
     home: "Inizio",
     chat: "Chat",
     speaking: "Gruppi di parola",
+    listen: "Ascoltare",
     grammar: "Grammatica",
     dialect: "Dialetti",
     vocabulary: "Lessico",
@@ -507,7 +508,7 @@ export const it: Dictionary = {
       },
       {
         title: "Che cosa manca ancora",
-        body: "Oggi: capire e rispondere a testo vero. Poi: il laboratorio di ascolto, dove sentite una voce zurighese, vi ci abituate, e misuriamo quanto cogliete di un'altra. Servono registrazioni, e si stanno facendo.",
+        body: "Oggi: capire e rispondere a testo vero, sentire una risposta letta ad alta voce, e un registro di dove il dialetto si parla davvero in onda. Poi: il laboratorio di ascolto, dove sentite una voce zurighese, vi ci abituate, e misuriamo quanto cogliete di un'altra. Servono registrazioni, e si stanno facendo.",
       },
     ],
     stateTitle: "A che punto siamo",
@@ -578,7 +579,78 @@ export const it: Dictionary = {
       },
     ],
     closing:
-      "Concretamente: prima altri dialetti svizzero-tedeschi, poi una lingua fuori dalla Svizzera — la stessa macchina, un altro pacchetto linguistico. Quello che impariamo per strada, lo scriviamo.",
+      "Concretamente: prima altri dialetti svizzero-tedeschi, poi una lingua fuori dalla Svizzera — la stessa macchina, un altro pacchetto linguistico. La metà parlata viaggia con noi: ognuna di queste lingue si sente molto più di quanto si scriva, e per ognuna esistono media che nessuno ha diviso fra dialetto e lingua standard. Quello che impariamo per strada, lo scriviamo.",
+  },
+
+  voice: {
+    speak: "Leggi ad alta voce",
+    stop: "Ferma",
+    unsupported: "Questo browser non può leggere nulla ad alta voce.",
+    claim: {
+      swissStandard: "Voce in tedesco standard svizzero — non in dialetto zurighese.",
+      german: "Una voce dalla Germania. Il suo apparecchio non ne ha una svizzera.",
+      none: "Questo apparecchio non ha alcuna voce tedesca. Heidi preferisce tacere piuttosto che leggere il tedesco con una bocca inglese.",
+    },
+    dialectCaveat:
+      "Una macchina legge una grafia dialettale con una voce di tedesco standard. Utile per individuare la parola nella frase, mai per copiarne la pronuncia.",
+    settingsTitle: "La voce di Heidi",
+    settingsBody:
+      "Non viene detto nulla finché non lo chiede lei. Nessun browser porta con sé una voce zurighese: il massimo che un apparecchio offre è il tedesco standard svizzero, e Heidi dice ogni volta che cosa sta sentendo.",
+    speakAnswers: "Leggi le risposte ad alta voce",
+    rate: "Velocità",
+    correctionTitle: "Correzioni",
+    correctionBody:
+      "Quanto Heidi dice di ciò che lei ha scritto. Mai della sua ortografia: lo zurighese non ha una grafia corretta, quindi non c'è nulla da sbagliare.",
+    correctionLevels: {
+      off: "Non dire nulla",
+      blocking: "Solo ciò che non è affatto svizzero tedesco",
+      all: "Anche le forme di un altro dialetto",
+    },
+    correctionHelp: {
+      off: "Heidi risponde e lascia stare le sue parole.",
+      blocking: "L'impostazione consueta. Cose che nessuno svizzero scrive, come la ß.",
+      all: "Aggiunge il bernese e altre regioni — parole vere, nel posto sbagliato.",
+    },
+    silence: {
+      off: "Le correzioni sono disattivate.",
+      spoken:
+        "Heidi non corregge il parlato. Quello che restituisce il riconoscimento vocale è la sua grafia e non la sua — scrive tedesco standard qualunque cosa lei abbia detto. Segnalarlo significherebbe correggere la macchina e addebitarlo a lei.",
+      clean: "Nulla da segnalare.",
+    },
+    cannotHear:
+      "Se la sua pronuncia sia giusta, Heidi non può dirglielo. Oggi non può farlo nulla in modo affidabile. Quello che può fare è capirla e risponderle.",
+  },
+
+  listening: {
+    title: "Dove sentirlo",
+    lead: "La Svizzera produce moltissima radio, televisione e cinema in dialetto, in gran parte gratis. Solo che a chi impara nessuno dice che cosa sia davvero dialetto — perciò qui è la prima cosa indicata per ogni voce.",
+    diglossiaTitle: "Metà dei media svizzeri non è in dialetto",
+    diglossiaBody:
+      "Il telegiornale della sera si legge in tedesco standard; la rubrica subito dopo è in dialetto. Un'ora passata sulla Tagesschau è un'ora nel tedesco che lei ha già.",
+    basisNote:
+      "Le etichette derivano dal formato di ogni trasmissione. Nessuno qui le ha ascoltate tutte annotando ciò che sentiva: sono quindi deduzioni prudenti e non misurazioni, e resterà scritto finché qualcuno non farà quel lavoro.",
+    spoken: { dialect: "Dialetto", standard: "Tedesco standard svizzero", mixed: "Entrambi" },
+    voices: { one: "Una voce", few: "Poche voci", many: "Molte insieme" },
+    subtitles: {
+      standard: "Sottotitoli in tedesco standard",
+      auto: "Sottotitoli automatici",
+      none: "Senza sottotitoli",
+    },
+    scripted: "Letto da un testo",
+    spontaneous: "Parlato a braccio",
+    reachCh: "Si vede solo in Svizzera",
+    about: "Di che cosa si tratta",
+    medium: {
+      podcast: "Podcast",
+      radio: "Radio",
+      youtube: "YouTube",
+      tv: "Televisione",
+      series: "Serie",
+      film: "Film",
+    },
+    bernTitle: "I film famosi sono bernesi",
+    bernBody:
+      "Il cinema e le serie svizzere vengono soprattutto da Berna: seguirli allena l'orecchio a un dialetto a due ore da Zurigo. Utile saperlo prima di chiedersi perché nulla di tutto ciò somigli ai suoi vicini.",
   },
 
   errors: {

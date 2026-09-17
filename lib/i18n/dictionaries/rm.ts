@@ -27,6 +27,7 @@ export const rm: Dictionary = {
     home: "Cumenzament",
     chat: "Chat",
     speaking: "Rundas da discurs",
+    listen: "Tadlar",
     grammar: "Grammatica",
     dialect: "Idioms",
     vocabulary: "Vocabulari",
@@ -523,7 +524,7 @@ export const rm: Dictionary = {
       },
       {
         title: "Tge che manca anc",
-        body: "Oz: chapir e respunder a text ver. Lura: il laboratori da tadlar, nua che Vus udis ina vusch turitgaisa, Vus Vus adattais, e nus mesirain quant che Vus chapis d'ina autra. Quai dumonda registraziuns, ed ellas vegnan fatgas.",
+        body: "Oz: chapir e respunder a text ver, udir ina resposta legida ad auta vusch, ed in register da nua ch'il dialect vegn propi discurrì en radio e televisiun. Lura: il laboratori da tadlar, nua che Vus udis ina vusch turitgaisa, Vus Vus adattais, e nus mesirain quant che Vus chapis d'ina autra. Quai dumonda registraziuns, ed ellas vegnan fatgas.",
       },
     ],
     stateTitle: "Nua che nus essan",
@@ -594,7 +595,78 @@ export const rm: Dictionary = {
       },
     ],
     closing:
-      "Concretamain: l'emprim ulteriurs dialects tudestg-svizzers, lura ina lingua ordaifer la Svizra — la medema maschina, in auter pachet linguistic. Quai che nus emprendain sin la via, quai scrivain nus.",
+      "Concretamain: l'emprim ulteriurs dialects tudestg-svizzers, lura ina lingua ordaifer la Svizra — la medema maschina, in auter pachet linguistic. La mesadad discurrida viagia cun nus: mintgina da questas linguas vegn udida bler pli savens che scritta, e per mintgina datti medias che nagin n'ha tschernì tranter dialect e lingua standard. Quai che nus emprendain sin la via, quai scrivain nus.",
+  },
+
+  voice: {
+    speak: "Leger ad auta vusch",
+    stop: "Fermar",
+    unsupported: "Quest navigatur na po leger nagut ad auta vusch.",
+    claim: {
+      swissStandard: "Vusch en tudestg standard svizzer — betg en dialect turitgais.",
+      german: "Ina vusch da la Germania. Voss apparat n'ha nagina svizra.",
+      none: "Quest apparat n'ha nagina vusch tudestga. Heidi taschai plitost che leger tudestg cun ina bucca englaisa.",
+    },
+    dialectCaveat:
+      "Ina maschina legia ina ortografia dialectala cun ina vusch da tudestg standard. Bun per chattar il pled en la frasa, mai per surpigliar la pronunzia.",
+    settingsTitle: "La vusch da Heidi",
+    settingsBody:
+      "Nagut vegn ditg avant che Vus giavischais quai. Nagin navigatur porta ina vusch turitgaisa — il pli datiers ch'in apparat offra è il tudestg standard svizzer, e Heidi di mintga giada tge che Vus udis.",
+    speakAnswers: "Leger las respostas ad auta vusch",
+    rate: "Spertadad",
+    correctionTitle: "Correcturas",
+    correctionBody:
+      "Quant che Heidi di davart quai che Vus avais scrit. Mai davart Vossa ortografia: il turitgais n'ha nagina scrittira gista, uschia n'i è nagut da far fallà.",
+    correctionLevels: {
+      off: "Na dir nagut",
+      blocking: "Mo quai che n'è betg tudestg svizzer",
+      all: "Er formas d'in auter dialect",
+    },
+    correctionHelp: {
+      off: "Heidi responda e lascha star Voss pleds.",
+      blocking: "L'endrizzament usual. Chaussas che nagin Svizzer scriva, sco il ß.",
+      all: "Agiunta il bernais ed autras regiuns — pleds vairs, al lieu fallà.",
+    },
+    silence: {
+      off: "Las correcturas èn deactivadas.",
+      spoken:
+        "Heidi na curregia betg quai ch'è ditg a bucca. Quai che la renconuschientscha vocala dat enavos è sia scrittira e betg la Vossa — ella scriva tudestg standard, tge che Vus avais era ditg. Ella signalar vuless dir curreger la maschina e Vus la far pajar.",
+      clean: "Nagut da signalar.",
+    },
+    cannotHear:
+      "Sche Vossa pronunzia è gista na po Heidi betg dir. Oz na po quai nagut da maniera fidada. Quai ch'ella po: Vus chapir e respunder.",
+  },
+
+  listening: {
+    title: "Nua udir quai",
+    lead: "La Svizra fa fitg bler radio, televisiun e film en dialect, la gronda part gratuitamain. Mo nagin di ad in emprendider tge ch'è propi dialect — perquai è quai qua la emprima chaussa che mintga endataziun di.",
+    diglossiaTitle: "La mesadad dals medias svizzers n'è betg dialect",
+    diglossiaBody:
+      "Las novitads da la saira vegnan legidas en tudestg standard; il magazin suenter va en dialect. In'ura cun la Tagesschau è in'ura en il tudestg che Vus avais gia.",
+    basisNote:
+      "Las etichettas derivan dal format da mintga emissiun. Nagin qua ha tadlà tut e notà tge ch'el ha udì — igl èn perquai conclusiuns attentas e betg mesiraziuns, e quai resta scrit enfin che insatgi fa quella lavur.",
+    spoken: { dialect: "Dialect", standard: "Tudestg standard svizzer", mixed: "Omadus" },
+    voices: { one: "Ina vusch", few: "Paucas vuschs", many: "Bleras ensemen" },
+    subtitles: {
+      standard: "Suttitels en tudestg standard",
+      auto: "Suttitels automatics",
+      none: "Nagins suttitels",
+    },
+    scripted: "Legì d'in text",
+    spontaneous: "Discurrì liber",
+    reachCh: "Va mo en Svizra",
+    about: "Da tge ch'i sa tracta",
+    medium: {
+      podcast: "Podcasts",
+      radio: "Radio",
+      youtube: "YouTube",
+      tv: "Televisiun",
+      series: "Seria",
+      film: "Films",
+    },
+    bernTitle: "Ils films enconuschents èn bernais",
+    bernBody:
+      "Il film e las serias svizras vegnan per gronda part da Berna: chi che las lavura tras trenescha l'ureglia sin in dialect dus uras davent da Turitg. Bun da savair avant che Vus As dumandais pertge che nagut na tuna sco Voss vischins.",
   },
 
   errors: {

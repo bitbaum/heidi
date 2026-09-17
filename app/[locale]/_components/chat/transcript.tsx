@@ -8,6 +8,7 @@ import type { Locale } from "@/lib/i18n/locales";
 import { AnswerView } from "./answer-view";
 import { Failed, FromHeidi, Mine, Said } from "./bubble";
 import { Dot } from "./icons";
+import { useSpokenAnswers } from "./use-spoken-answers";
 
 /**
  * The conversation, whoever is in it.
@@ -26,6 +27,7 @@ export function Transcript({
   messages,
   me,
   t,
+  voiceT,
   busy,
   streaming,
   nameFor,
@@ -39,6 +41,7 @@ export function Transcript({
   /** The reader's own actor id — `LEARNER_ID` solo, the OIDC sub in a group. */
   me: string;
   t: Dictionary["chat"];
+  voiceT: Dictionary["voice"];
   busy?: boolean;
   /**
    * The explanation arriving, before the answer has been checked.
@@ -62,6 +65,11 @@ export function Transcript({
   endRef?: RefObject<HTMLDivElement | null>;
   className?: string;
 }) {
+  // Here rather than in each surface: every transcript is a place an answer
+  // can arrive, and a rule about what happens when one does belongs with the
+  // component that renders them all.
+  useSpokenAnswers(messages);
+
   return (
     <div className={className} aria-live="polite">
       {messages.map((m, i) => {
@@ -81,6 +89,7 @@ export function Transcript({
                 <AnswerView
                   answer={m.answer}
                   t={t}
+                  voiceT={voiceT}
                   context={askedBefore(messages, i, me)}
                   onMove={onMove}
                   locale={locale}

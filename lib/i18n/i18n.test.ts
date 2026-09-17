@@ -232,10 +232,15 @@ test("route segments are the same in every language", () => {
     // `speaking` sits beside the chat under `use`: it is the other thing you
     // DO here rather than something looked up. Its segment stays English like
     // every other one.
+    // `listen` is new: where a learner can actually hear this language today,
+    // with the one fact nobody else supplies — whether each programme is
+    // dialect or Swiss Standard German. Under `use` rather than `reference`,
+    // because you go there and spend twenty minutes, not four seconds.
     [
       "",
       "chat",
       "speaking",
+      "listen",
       "grammar",
       "dialect",
       "vocabulary",

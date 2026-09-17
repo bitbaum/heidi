@@ -34,6 +34,7 @@ export const gsw: Dictionary = {
     home: "Afang",
     chat: "Chat",
     speaking: "Schwätzrunde",
+    listen: "Ghöre",
     grammar: "Grammatik",
     dialect: "Mundarte",
     vocabulary: "Wortschatz",
@@ -579,7 +580,7 @@ export const gsw: Dictionary = {
       },
       {
         title: "Was na fählt",
-        body: "Hüt: Verstaa und Antworte uf echte Text. Als nächts: s Hörlabor, wo Si e Zürcher Stimm ghöred, sich iigwöhned und mir mässed, wie vill Si vo ere andere verstönd. Das bruucht Ufnahme, und die entstönd grad.",
+        body: "Hüt: Verstaa und Antworte uf echte Text, e Antwort vorgläse übercho, und es Verzeichnis, wo am Radio und am Färnseh würklich Mundart gredt wird. Als nächts: s Hörlabor, wo Si e Zürcher Stimm ghöred, sich iigwöhned und mir mässed, wie vill Si vo ere andere verstönd. Das bruucht Ufnahme, und die entstönd grad.",
       },
     ],
     stateTitle: "Stand hüt",
@@ -603,7 +604,74 @@ export const gsw: Dictionary = {
       },
     ],
     closing:
-      "Konkret heisst das: zerscht wiiteri Dütschschwiizer Dialekt, denn e Sprach usserhalb vo de Schwiiz — diselb Maschine, en andere Sprachsatz. Was mir debii lerned, schriibed mir uf.",
+      "Konkret heisst das: zerscht wiiteri Dütschschwiizer Dialekt, denn e Sprach usserhalb vo de Schwiiz — diselb Maschine, en andere Sprachsatz. D gredti Helfti reist mit: Jedi vo dene Sprache wird viel öfter ghört als gschribe, und für jedi gits Medie, wo niemert na Mundart und Hochsprach sortiert hät. Was mir debii lerned, schriibed mir uf.",
+  },
+
+  voice: {
+    speak: "Vorläse",
+    stop: "Stopp",
+    unsupported: "Dä Browser cha nüt vorläse.",
+    claim: {
+      swissStandard: "Schwiizer Hochdütsch-Stimm — nöd Züritüütsch.",
+      german: "E Stimm us Dütschland. Din Apparat hät kei schwiizerischi.",
+      none: "Dä Apparat hät gar kei dütschi Stimm. D Heidi seit lieber nüt, als dass si Dütsch mit eme änglische Muul list.",
+    },
+    dialectCaveat:
+      "E Maschine list Mundart-Schrift mit ere Hochdütsch-Stimm. Guet, zum s Wort im Satz finde — nie, zum d Uussprach übernäh.",
+    settingsTitle: "D Heidi ihri Stimm",
+    settingsBody:
+      "Gredt wird nur, wänn Sie drum bitted. Kein Browser bringt e Zürcher Stimm mit — s Nächschte, wo en Apparat cha, isch Schwiizer Hochdütsch, und d Heidi seit jedes Mal, was Sie grad ghöred.",
+    speakAnswers: "Antworte vorläse",
+    rate: "Tempo",
+    correctionTitle: "Korrekture",
+    correctionBody:
+      "Wie viel d Heidi zu dem seit, wo Sie gschribe händ. Nie zu Ihrer Schriibwiis: Züritüütsch hät kei richtigi Schriibig, da cha me nüt falsch mache.",
+    correctionLevels: {
+      off: "Nüt säge",
+      blocking: "Nur, was gar kein Schwiizerdütsch isch",
+      all: "Au Forme us andere Dialäkt",
+    },
+    correctionHelp: {
+      off: "D Heidi antwortet und lat Ihri Wörter i Rueh.",
+      blocking: "S normale. Sache, wo kein Schwiizer schribt, zum Bispil s scharfe S.",
+      all: "Dezue Bärndütsch und anderi Regione — echti Wörter, am falsche Ort.",
+    },
+    silence: {
+      off: "D Korrekture sind abgstellt.",
+      spoken:
+        "Gredts korrigiert d Heidi nöd. Was d Spracherkennig zruggäh, isch ihri Schriibig und nöd Ihri — si schribt Hochdütsch, egal was Sie gseit händ. Es Zeiche derfür würd d Maschine korrigiere und Ihne verrächne.",
+      clean: "Nüt z beanstande.",
+    },
+    cannotHear:
+      "Ob Ihri Uussprach stimmt, cha Ihne d Heidi nöd säge. Das cha hüt nüt zuverlässig. Was si cha: Sie verstah und antworte.",
+  },
+
+  listening: {
+    title: "Wo Sie s ghöred",
+    lead: "D Schwiiz macht sehr viel Radio, Färnseh und Film uf Mundart, s meischte gratis. Nur seit niemert eim, was devo überhaupt Mundart isch — drum staht das da bi jedem Iitrag zerscht.",
+    diglossiaTitle: "D Helfti vo de Schwiizer Medie isch nöd Mundart",
+    diglossiaBody:
+      "D Tagesschau wird uf Hochdütsch gläse, s Magazin grad dernah lauft uf Mundart. E Stund Tagesschau isch e Stund i dem Dütsch, wo Sie scho händ.",
+    basisNote:
+      "D Aagabe chömed us em Format vo de jewilige Sändig. Niemert hät si alli dureghört und ufgschribe, was z ghöre gsi isch — es sind also sorgfältigi Schlüss und kei Mässige, und das staht da, bis öpper die Arbet macht.",
+    spoken: { dialect: "Mundart", standard: "Schwiizer Hochdütsch", mixed: "Beides" },
+    voices: { one: "Ei Stimm", few: "Weni Stimme", many: "Vieli zäme" },
+    subtitles: { standard: "Hochdütschi Untertitel", auto: "Automatischi Untertitel", none: "Kei Untertitel" },
+    scripted: "Abgläse",
+    spontaneous: "Frei gredt",
+    reachCh: "Lauft nur i de Schwiiz",
+    about: "Worum s gaht",
+    medium: {
+      podcast: "Podcasts",
+      radio: "Radio",
+      youtube: "YouTube",
+      tv: "Färnseh",
+      series: "Serie",
+      film: "Film",
+    },
+    bernTitle: "D bekannte Film sind bärndütsch",
+    bernBody:
+      "De Schwiizer Film und d Serie chömed grösstenteils us Bärn. Wer si durearbeitet, trainiert s Ohr uf en Dialäkt zwei Stund vo Züri äwägg — guet z wüsse, bevor Sie sich frödged, worum nüt devo na Ihrne Nachbere tönt.",
   },
 
   errors: {
