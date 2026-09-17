@@ -237,7 +237,13 @@ function DockPanel({
        * composer sits underneath the toolbar — the trap the full-screen chat
        * already documents in globals.css.
        */
-      className="fixed inset-0 z-50 flex flex-col border-border-strong bg-surface-page sm:inset-auto sm:bottom-4 sm:right-4 sm:h-[min(38rem,calc(100dvh-6rem))] sm:w-[26rem] sm:rounded-control sm:border sm:shadow-lg"
+      /*
+       * `sm:bottom-20` clears the launcher rather than covering it. At
+       * `bottom-4` the card sat exactly on top of the button that opened it,
+       * so on a laptop the one control that closes the dock was underneath the
+       * dock. Measured on screen, not reasoned about.
+       */
+      className="fixed inset-0 z-50 flex flex-col border-border-strong bg-surface-page sm:inset-auto sm:bottom-20 sm:right-4 sm:h-[min(34rem,calc(100dvh-8rem))] sm:w-[26rem] sm:rounded-control sm:border sm:shadow-lg"
     >
       <header className="flex items-center justify-between gap-2 border-b border-border-strong px-4 py-3">
         <div className="flex min-w-0 items-center gap-2">
