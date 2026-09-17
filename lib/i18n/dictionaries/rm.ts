@@ -664,9 +664,41 @@ export const rm: Dictionary = {
       series: "Seria",
       film: "Films",
     },
-    bernTitle: "Ils films enconuschents èn bernais",
-    bernBody:
-      "Il film e las serias svizras vegnan per gronda part da Berna: chi che las lavura tras trenescha l'ureglia sin in dialect dus uras davent da Turitg. Bun da savair avant che Vus As dumandais pertge che nagut na tuna sco Voss vischins.",
+    filmsTitle: "Tge dialect che Vus vegnis ad udir",
+    filmsBody:
+      "Il film svizzer n'è betg in singul accent. Mintga endataziun di da tge regiun dialectala ch'ella vegn, uschia pudais Vus tscherner tranter quai che vegn discurrì enturn Vus e quai che Vus inscuntrais en il tren. Berna è ferm represchentada perquai che la gronda part da la finziun svizra vegn fatga là — ed ils films turitgais existan, ed els èn qua.",
+    commentary: {
+      "der-bestatter":
+        "Bernais, e la seria che qua han vis bunamain tuts — il dialect ch'in Svizzer imitescha sche Vus al dumandais d'imitar in accent.",
+      "wilder":
+        "In criminal sur pliras stagiuns e pliras regiuns dialectalas. Bun per udir che il tudestg svizzer n'è betg ina singula chaussa.",
+      "tschugger":
+        "Vallesan, per il qual auters Svizzers dovran suttitels. In spass tranter Svizzers — e propi betg in cumenzament.",
+      "neumatt":
+        "Bernais, ina famiglia da purs. Il tun da dispitas en famiglia, betg quel da la televisiun.",
+      "die-schweizermacher":
+        "Turitgais dal 1978, e adina anc il film davart il daventar Svizzer. L'accent sa ha midà dapi lura, quai ch'è sez da udir.",
+      "mein-name-ist-eugen":
+        "Bernais, e per gronda part uffants che discurran — pli plaun e pli cler ch'in dialog d'aduts.",
+      "der-goalie-bin-ig":
+        "Bernais dens, d'in roman scrit en quella lingua. Il titel è ina lecziun da grammatica: il verb è `bin` ed il pronom vegn a la fin.",
+      "achtung-fertig-charlie":
+        "Cumedia militara, e la referenza cuminaivla da bunamain mintga Svizzer sut tschuncanta.",
+      "bon-schuur-ticino":
+        "Ina cumedia che ha sco premissa la dumonda linguistica sezza — tge che capita sche il pajais sto tscherner ina.",
+      "die-goettliche-ordnung":
+        "Appenzell il 1971, dunnas che cumbattan per il dretg da votar. Dialect da la Svizra orientala, ed in toc istorgia che Vus vegnis dumandads: Appenzell Dadens ha laschà las dunnas a sia Landsgemeinde pir il 1990, ditg suenter la fin dal film.",
+      "zwingli":
+        "La refurma turitgaisa, en turitgais. In dals paucs films da lunghezza en la varietad che vegn propi instruida qua.",
+      "wolkenbruch":
+        "Turitgais cun jiddic dasperas — ina segunda lecziun davart quant datiers che duas linguas pon star e restar duas.",
+      "platzspitzbaby":
+        "Turitgais, ils onns da l'eroina en la citad vis d'in uffant. Tema dir, pronunzia nunusitadamain clera.",
+      "heidi-2015":
+        "Fatg per uffants, perquai discurrì plaun e simpel. Probablamain il film il pli simpel da questa glista — situà en il Grischun senza discurrer ses dialect.",
+      "seitentriebe":
+        "Tudestg svizzer da mintgadi tranter pèrs — las mesas frasas e las interrupziuns che la lingua da televisiun stira ora.",
+    },
   },
 
   errors: {

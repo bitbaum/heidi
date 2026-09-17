@@ -704,9 +704,41 @@ export const de = {
       series: "Serien",
       film: "Filme",
     },
-    bernTitle: "Die bekannten Filme sind berndeutsch",
-    bernBody:
-      "Der Schweizer Film und die Serien kommen grösstenteils aus Bern. Wer sie durcharbeitet, trainiert das Ohr auf einen Dialekt zwei Stunden von Zürich entfernt — gut zu wissen, bevor Sie sich fragen, warum nichts davon nach Ihren Nachbarn klingt.",
+    filmsTitle: "Welchen Dialekt Sie hören",
+    filmsBody:
+      "Der Schweizer Film ist nicht ein Akzent. Bei jedem Eintrag steht, aus welchem Dialektgebiet er kommt — so können Sie zwischen dem wählen, was um Sie herum gesprochen wird, und dem, was Ihnen im Zug begegnet. Bern ist stark vertreten, weil dort der meiste Schweizer Film entsteht — und die Zürcher Filme gibt es, und sie stehen hier.",
+    commentary: {
+      "der-bestatter":
+        "Berndeutsch, und die Serie, die hier fast alle gesehen haben — der Dialekt, den eine Schweizerin nachmacht, wenn Sie um einen Akzent bitten.",
+      "wilder":
+        "Krimi über mehrere Staffeln und mehrere Dialektgebiete. Gut, um zu hören, dass Schweizerdeutsch nicht eine Sache ist.",
+      "tschugger":
+        "Walliserdeutsch, für das andere Schweizer Untertitel brauchen. Ein Witz unter Schweizern — und wirklich kein Anfang.",
+      "neumatt":
+        "Berndeutsch, eine Bauernfamilie. Der Tonfall von Familienstreit, nicht von Fernsehen.",
+      "die-schweizermacher":
+        "Zürichdeutsch von 1978 und immer noch der Film über das Schweizerwerden. Der Akzent hat sich seither verschoben, was für sich hörenswert ist.",
+      "mein-name-ist-eugen":
+        "Berndeutsch, und grösstenteils sprechende Kinder — langsamer und deutlicher als Erwachsenendialog.",
+      "der-goalie-bin-ig":
+        "Dichtes Berndeutsch, nach einem Roman, der darin geschrieben ist. Der Titel ist eine Grammatikstunde: das Verb ist `bin`, das Pronomen kommt zuletzt.",
+      "achtung-fertig-charlie":
+        "Armeekomödie und die gemeinsame Referenz fast jedes Schweizers unter fünfzig.",
+      "bon-schuur-ticino":
+        "Eine Komödie, deren Prämisse die Sprachfrage selbst ist — was passiert, wenn das Land sich für eine entscheiden muss.",
+      "die-goettliche-ordnung":
+        "Appenzell 1971, Frauen kämpfen für das Stimmrecht. Ostschweizer Dialekt, und ein Stück Geschichte, nach dem Sie gefragt werden: Appenzell Innerrhoden liess Frauen erst 1990 an die Landsgemeinde, lange nach dem Filmende.",
+      "zwingli":
+        "Zürichs eigene Reformation, auf Zürichdeutsch. Einer der wenigen Spielfilme in genau der Sprache, die hier unterrichtet wird.",
+      "wolkenbruch":
+        "Zürichdeutsch mit Jiddisch daneben — eine zweite Lektion darüber, wie nah zwei Sprachen beieinander liegen und trotzdem zwei bleiben.",
+      "platzspitzbaby":
+        "Zürichdeutsch, die Drogenjahre der Stadt aus der Sicht eines Kindes. Schweres Thema, ungewöhnlich klare Sprache.",
+      "heidi-2015":
+        "Für Kinder gemacht und entsprechend langsam und deutlich gesprochen. Vermutlich der einfachste Spielfilm auf dieser Liste — und in Graubünden angesiedelt, nicht in dessen Dialekt gesprochen.",
+      "seitentriebe":
+        "Alltägliches Schweizerdeutsch zwischen Paaren — die halben Sätze und Unterbrechungen, die Sendesprache wegbügelt.",
+    },
   },
 
   errors: {
