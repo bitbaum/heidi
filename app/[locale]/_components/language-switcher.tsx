@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+
+import { useDismiss } from "./use-dismiss";
 import Link from "next/link";
 import {
   GROUP_ORDER,
@@ -38,6 +40,7 @@ export function LanguageSwitcher({
 }) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
+  const button = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
 
   // The path below the locale, so switching keeps you on the page you are
@@ -47,25 +50,18 @@ export function LanguageSwitcher({
     return parts.length > 0 && isLocale(parts[0]) ? parts.slice(1).join("/") : parts.join("/");
   })();
 
-  useEffect(() => {
-    if (!open) return;
-    const onPointer = (e: MouseEvent) => {
-      if (root.current && !root.current.contains(e.target as Node)) setOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("mousedown", onPointer);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onPointer);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
+  /**
+   * Escape used to close this and leave focus nowhere — the panel unmounted
+   * from under it and the next Tab restarted the page at the skip link. The
+   * shared hook is the version that returns focus to the trigger.
+   */
+  const dismiss = useCallback(() => setOpen(false), []);
+  useDismiss({ open, onDismiss: dismiss, containerRef: root, focusRef: button });
 
   return (
     <div ref={root} className="relative">
       <button
+        ref={button}
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}

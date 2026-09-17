@@ -74,13 +74,35 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
               <span className="font-medium text-fg-primary">{dict.footer.openSource}</span> —{" "}
               {dict.footer.openSourceNote}
             </p>
-            <Link
-              href={href(locale, "about")}
-              prefetch={false}
-              className="mt-3 inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
-            >
-              {dict.nav.about}
-            </Link>
+            <div className="flex flex-wrap items-center gap-x-5">
+              <Link
+                href={href(locale, "about")}
+                prefetch={false}
+                className="mt-3 inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
+              >
+                {dict.nav.about}
+              </Link>
+              {/*
+                Settings, as a PLAIN LINK, and this is not decoration.
+
+                Signed in, settings and sign-out moved inside the avatar menu —
+                which is a client component whose trigger is a button. So for a
+                reader with JavaScript off or still loading, the only route to
+                their own settings disappeared the moment they signed in. A
+                signed-out visitor kept the standalone gear; a signed-in one had
+                nothing.
+
+                A footer link costs one line, works with no JavaScript at all,
+                and is where people look for this anyway.
+              */}
+              <Link
+                href={href(locale, "settings")}
+                prefetch={false}
+                className="mt-3 inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
+              >
+                {dict.nav.settings}
+              </Link>
+            </div>
           </div>
         </div>
 

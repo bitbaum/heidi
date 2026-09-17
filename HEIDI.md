@@ -201,10 +201,10 @@ first. The seam is drawn now so the extraction is mechanical then.
 
 A seven-language site — home, chat, a reference section (grammar, dialects,
 vocabulary), method, contribute, about, plus a personal dashboard and settings
-— with the assistant on the home page AND at full size on `/chat`, the
-deterministic gate shown as evidence on `/method`, and the variety layer
-underneath. Signed in, the home page IS the dashboard: same address, different
-page, because "Start" has to mean start.
+— with the assistant on the home page, at full size on `/chat`, AND docked on
+every other page, the deterministic gate shown as evidence on `/method`, and
+the variety layer underneath. Signed in, the home page IS the dashboard: same
+address, different page, because "Start" has to mean start.
 
 There are now accounts and a database. Identity is federated to OrangeCat and
 Heidi holds no users table; Postgres holds study groups and private
@@ -252,6 +252,36 @@ browser. There is still no audio and no learner model.
 - **Saved vocabulary is device-local.** `lib/browser/store.ts` over
   localStorage, not a table — it needs no account, works signed out, and keeps
   Heidi from holding a record of what a particular person cannot understand.
+- **The theme is the reader's.** `globals.css` had carried a full dark palette
+  since the retheme, in blocks guarded on `data-theme` — and nothing ever set
+  that attribute, so the palette was unreachable. Light, dark or the device's
+  own, stamped by an inline script before first paint, because an effect runs
+  after it and a reader who chose dark would watch a white page flash to black
+  on every navigation.
+- **The assistant is reachable from every page.** Chat is how people use this
+  product, and it existed on two surfaces out of eleven: a reader on
+  `/grammar` had to notice the nav, work out which link was the chat, and lose
+  the page they were reading. Signed in it was worse — the locale root is the
+  dashboard, so the landing page had no composer at all. The dock
+  (`_components/chat/dock.tsx`) is the same conversation as the other two
+  surfaces, because all three read one store through `use-draft-chat.ts`.
+- **A page that already holds a conversation marks itself**, with
+  `data-chat="surface"`, and `globals.css` hides the dock when the document
+  contains one. CSS rather than a list of pathnames, because whether the locale
+  root holds a chat depends on whether the visitor is signed in — which a route
+  table cannot know and the rendering page always does. Same mechanism as
+  `data-chrome="chat"`.
+- **The account is one control, not three.** An avatar menu replaced a gear
+  icon beside a pill with a green status dot that nothing measured. What is in
+  it comes from `ACCOUNT_MENU_KEYS` in `lib/i18n/routes.ts`, so a menu entry
+  naming a page the site does not have is a build error — the same rule that
+  keeps the nav and the sitemap from disagreeing.
+- **One dismiss implementation, for everything that opens over the page.**
+  `use-dismiss.ts`. It had been written twice and the copies disagreed: one
+  returned focus to its trigger on Escape and one dropped it to the top of the
+  document. The mobile menu had neither, and no way to close at all short of
+  pressing the button again — found by the test that asserts every
+  `aria-expanded` control uses the hook.
 
 ---
 
@@ -570,6 +600,92 @@ says so.
 Sourced, and the tests refuse an unsourced claim: the SDS for where a form is
 spoken, the Idiotikon for what a word means. Citing the atlas for a gloss would
 be a reference that looks right and does not support the sentence above it.
+
+**Built: a pasted message is read as a message, not as text.** The situation
+this product exists for is that a letter arrived from a landlord, an insurer or
+a Verwaltung, it is half-readable, and it has to be ANSWERED. People paste the
+whole thing: headers, signature, the quoted chain of the last four replies.
+
+Handed that raw, a model answers the quoted message rather than the new one,
+spends its four glosses translating *"Gesendet: Montag, 3. März 2025"*, and
+never asks the obvious question. So the envelope is now recovered
+DETERMINISTICALLY (`lib/domain/chat/email.ts`) and handed over as labelled
+fields — from, subject, date, the new message, and a note that an older chain
+was left out. Headers are one of the few things here that really are a regular
+language, so they are parsed rather than inferred, and the header names are
+matched in German, French, Italian, English and Russian because Outlook
+localises them to the SENDER's interface language, not the reader's.
+
+It refuses to guess. No recognisable envelope and no quoted chain means the
+paste is ordinary text, which is what most pastes are — a parser that found
+structure everywhere would mangle the two-line WhatsApp message that is the
+other half of this product's input.
+
+**And the reply offer no longer depends on the model remembering.** The prompt
+says `reply` is "the most useful button on this list and the easiest to
+forget", and then asks a model to remember it — on a chain whose whole design
+is that any vendor may be serving, including a small free one having a bad
+minute. When the paste was deterministically recognised as a message addressed
+to the reader, the offer is added by the harness (`withReply`) rather than
+hoped for. It goes first, so the cap drops something the model guessed at
+instead of the one move we are sure about.
+
+**The rephrase axes grew from six to eleven**, and the five new ones are not
+more tone dials. Six dials say the same thing differently; `decline`,
+`apologise`, `thank` and `ask` change what the message DOES, and they are the
+four a learner most often cannot perform in a language they half-have.
+`decline` matters most and no phrasebook teaches it: saying no to a landlord
+without giving offence is hard in your own language, and in a second one people
+either agree to things they did not want or write something that reads as rude
+and never find out. `ask` is the move for post that is too ambiguous to answer
+— asking is allowed, and learners rarely believe it is.
+
+**Built: the reference pages do something.** `/vocabulary` was two columns of
+text, sixty times, and `/grammar` was a page to read. Everything the product
+knows how to do with a word — keep it, ask it back at the right moment, meet it
+in a new sentence — already existed and was reachable only from inside a chat
+answer. Both pages now hand work to the assistant through one event
+(`lib/browser/ask.ts`), and what they send is an ordinary sentence that lands in
+the transcript as the reader's own message. There is no hidden prompt channel
+anywhere in this product: a turn you cannot see is a conversation you cannot
+re-read.
+
+**Built: what a computer can and cannot do with this language, published.**
+§8 is an overclaim register — a list of things this product must not say, the
+largest of which is that it transcribes dialect. The strongest form of that
+discipline is not a promise to be careful; it is publishing what the field can
+actually do, with the numbers, so a reader can hold our claims against it.
+
+`/technology` is that page. Five public speech corpora with their hours,
+speakers, regions and licences; three ASR results as word error rate on one
+test set so they can be read against each other; four speech-synthesis systems;
+three language models. Every row names a paper, and the thirteen new sources
+were each opened and checked against the claim they support.
+
+The central fact is visible in the table without a word of argument: almost
+every Swiss German speech corpus pairs dialect SPEECH with STANDARD GERMAN
+text, because in a diglossic country writing down what was said is a
+translation task rather than a transcription one. That is why "Swiss German
+speech recognition" nearly always means "produces Standard German", and why
+Heidi's dictation does too.
+
+Three things the page says that a product page would not:
+
+- The best Swiss German word error rate we could verify is 12.1%, and those
+  weights are not published.
+- Most voices sold as "Swiss German" are Swiss STANDARD German — the written
+  language read aloud. Real dialect synthesis is research prototypes.
+- Apertus, Switzerland's open LLM, carries a Swiss German component of 6,000
+  post-training examples and publishes **no dialect evaluation at all**. The
+  table marks it `dialect not evaluated`, which is the difference between a
+  claim and a result.
+
+Its numbers live in `lib/research/language-tech.ts` and not in the
+dictionaries, for the reason the citations do not either: a figure is not
+translatable, and seven copies of "343 hours" are seven chances for one of them
+to become 340. The English `note` on each row is maintainer copy and is
+deliberately NOT rendered — `providers.ts` already records what happens when an
+English source-copy field reaches a component.
 
 **Next**, in order: capture what the learner did not know into a learner model —
 **the existing Heidi GPT generates that evidence daily and throws all of it

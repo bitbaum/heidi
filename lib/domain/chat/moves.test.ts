@@ -1,6 +1,8 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { MAX_MOVES, MOVE_IDS, REPHRASE_AXES, decodeMoves, moveKey } from "./moves.ts";
+import { MAX_MOVES, MOVE_IDS, REPHRASE_AXES, decodeMoves, moveKey, withReply } from "./moves.ts";
+import { LOCALES } from "../../i18n/locales.ts";
+import { getDictionary } from "../../i18n/index.ts";
 
 describe("what Heidi offers to do next", () => {
   test("a reply move survives", () => {
@@ -70,13 +72,56 @@ describe("what Heidi offers to do next", () => {
   });
 
   test("the vocabulary is closed, and these are its members", () => {
-    // Pinned so that adding a move without adding its seven translations is a
-    // failing test rather than a blank chip in six languages.
+    // Pinned so that growing the vocabulary is a deliberate act with a diff,
+    // rather than something that happens on the way to somewhere else.
     assert.deepEqual([...MOVE_IDS], ["reply", "rephrase", "grammar"]);
     assert.deepEqual(
       [...REPHRASE_AXES],
-      ["shorter", "warmer", "firmer", "formal", "casual", "simpler", "swiss"],
+      [
+        // six tone dials …
+        "shorter",
+        "warmer",
+        "firmer",
+        "formal",
+        "casual",
+        "simpler",
+        // … four speech acts …
+        "decline",
+        "apologise",
+        "thank",
+        "ask",
+        // … and the one that is a variety rather than either.
+        "swiss",
+      ],
     );
+  });
+
+  test("every move has wording in every language", () => {
+    /**
+     * The claim the pin above USED to make and did not check.
+     *
+     * It asserted the list and stopped, with a comment saying this made a
+     * missing translation a failing test. It did not: nothing here read a
+     * dictionary, so adding an axis and forgetting six languages would have
+     * passed, and the chip would have rendered blank for every reader who is
+     * not German. Checked properly now, in all seven.
+     */
+    for (const locale of LOCALES) {
+      const moves = getDictionary(locale).chat.moves;
+      for (const axis of REPHRASE_AXES) {
+        const entry = moves[axis as keyof typeof moves];
+        assert.ok(entry, `${locale}: no wording for the "${axis}" move`);
+        const { label, say } = entry as { label?: string; say?: string };
+        assert.ok(label && label.trim().length > 0, `${locale}: the "${axis}" chip has no label`);
+        // `say` is what lands in the transcript as the reader's own message.
+        // An empty one would send nothing and look like a broken button.
+        assert.ok(say && say.trim().length > 0, `${locale}: the "${axis}" move sends no message`);
+      }
+      for (const id of MOVE_IDS) {
+        if (id === "rephrase") continue; // its wording is per axis, checked above
+        assert.ok(moves[id], `${locale}: no wording for the "${id}" move`);
+      }
+    }
   });
 });
 
@@ -108,4 +153,33 @@ test("two grammar moves on different topics are two suggestions", () => {
     1,
     "and the same topic twice is one",
   );
+});
+
+describe("the reply offer does not depend on the model remembering", () => {
+  test("it is added when absent", () => {
+    assert.deepEqual(withReply([]), [{ id: "reply" }]);
+    assert.deepEqual(withReply([{ id: "rephrase", axis: "shorter" }]), [
+      { id: "reply" },
+      { id: "rephrase", axis: "shorter" },
+    ]);
+  });
+
+  test("it is not duplicated when the model already offered it", () => {
+    const already = [{ id: "reply" } as const, { id: "rephrase", axis: "formal" } as const];
+    assert.deepEqual(withReply([...already]), already);
+  });
+
+  test("it goes FIRST, so the cap drops a guess rather than the sure thing", () => {
+    const full = [
+      { id: "rephrase", axis: "shorter" } as const,
+      { id: "rephrase", axis: "warmer" } as const,
+      { id: "grammar", topic: "no-preterite" } as const,
+    ];
+    const result = withReply([...full]);
+    assert.equal(result.length, MAX_MOVES, "still within the cap");
+    assert.deepEqual(result[0], { id: "reply" });
+    // The third guess fell off the end, not the reply.
+    assert.equal(result.length, 3);
+    assert.ok(!result.some((m) => m.id === "grammar"));
+  });
 });

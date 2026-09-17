@@ -5,9 +5,11 @@ import "../globals.css";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS, isLocale, type Locale } from "@/lib/i18n/locales";
 import { SITE_URL } from "@/lib/config/site";
+import { THEME_SCRIPT } from "@/lib/browser/theme";
 import { SiteHeader } from "./_components/site-header";
 import { AccountControl } from "./_components/account-control";
 import { SiteFooter } from "./_components/site-footer";
+import { ChatDock } from "./_components/chat/dock";
 
 /**
  * This is the root layout. There is deliberately no `app/layout.tsx`: `<html
@@ -66,8 +68,44 @@ export default async function LocaleLayout({
   const dict = getDictionary(locale);
 
   return (
-    <html lang={LOCALE_TAGS[locale]}>
+    <html
+      lang={LOCALE_TAGS[locale]}
+      /**
+       * Because the script below deliberately changes this element before
+       * React ever sees it.
+       *
+       * The server cannot know the reader's theme — it is in their browser —
+       * so the server renders `<html>` bare and the pre-paint script stamps
+       * `data-theme` on it. React then hydrates, finds an attribute it did not
+       * write, and reports a mismatch. The attribute is correct; React's
+       * expectation is what is wrong.
+       *
+       * This is NOT a blanket silencer. React applies it to THIS element's own
+       * attributes and one level deep, not to the tree — so a real mismatch
+       * inside the page still fails loudly. It is the documented way to do
+       * exactly this, and the alternative is to render nothing until an effect
+       * runs, which is the flash the script exists to prevent.
+       */
+      suppressHydrationWarning>
       <body className="flex min-h-screen flex-col">
+        {/*
+          The reader's theme, stamped BEFORE anything is painted.
+
+          `globals.css` has carried a full dark palette since the retheme,
+          guarded on `data-theme` — and nothing ever set that attribute, so the
+          palette was unreachable. This is what makes it reachable.
+
+          An inline script rather than an effect, and first in the body rather
+          than anywhere else, because an effect runs after the first paint: a
+          reader who chose dark would watch a white page flash to black on
+          every single navigation. That defect is worse than having no toggle.
+
+          `dangerouslySetInnerHTML` is the only way to emit an inline script
+          from React, and what goes in is generated from constants in
+          `lib/browser/theme.ts` — no interpolated user input, nothing that
+          could come from a request.
+        */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-control focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent"
@@ -82,6 +120,11 @@ export default async function LocaleLayout({
         </main>
 
         <SiteFooter locale={locale} dict={dict} />
+
+        {/* Heidi, reachable from every page. It hides itself on the pages that
+            already hold a conversation — see the note in the component and the
+            `data-chat="surface"` rule in globals.css. */}
+        <ChatDock locale={locale} dict={dict} />
 
         {/* The Loki feedback widget. The owner looks at their own site,
             points at what they do not like, and an agent changes it. Env-gated,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Dictionary } from "@/lib/i18n";
@@ -9,6 +9,7 @@ import { href, navGroups, type NavGroup } from "@/lib/i18n/routes";
 import { LanguageSwitcher } from "./language-switcher";
 import { CowMark } from "./cow-mark";
 import { NavPanel } from "./nav-panel";
+import { useDismiss } from "./use-dismiss";
 import { DISPLAY } from "@/lib/variety/display";
 
 /**
@@ -38,6 +39,20 @@ export function SiteHeader({
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const groups = navGroups();
+  const bar = useRef<HTMLElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null);
+
+  /**
+   * The mobile menu could not be dismissed.
+   *
+   * It had `aria-expanded` and no way to close short of pressing the button
+   * again or following a link: Escape did nothing, a tap on the page behind it
+   * did nothing, and a browser Back left it hanging open over the new page.
+   * The two dropdowns in this same header both handled all three. Found by the
+   * test that asserts every `aria-expanded` control uses this hook.
+   */
+  const dismiss = useCallback(() => setOpen(false), []);
+  useDismiss({ open, onDismiss: dismiss, containerRef: bar, focusRef: menuButton });
 
   const groupLabel = (group: NavGroup) =>
     group === "use"
@@ -54,7 +69,7 @@ export function SiteHeader({
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b border-border-strong bg-surface-page">
+    <header ref={bar} className="sticky top-0 z-30 border-b border-border-strong bg-surface-page">
       <div className="mx-auto flex w-full max-w-shell items-center justify-between gap-4 px-5 py-3 sm:px-8">
         <Link
           href={href(locale, "")}
@@ -166,6 +181,7 @@ export function SiteHeader({
             groupLabels={{ national: dict.nav.langNational, dialect: dict.nav.langDialect, other: dict.nav.langOther }}
           />
           <button
+            ref={menuButton}
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}

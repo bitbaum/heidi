@@ -30,6 +30,7 @@ export function Composer({
   modelT,
   placeholder,
   locale,
+  id = "chat-input",
   images,
   dictation: dictationEnabled = true,
   footer,
@@ -46,6 +47,19 @@ export function Composer({
   modelT: Dictionary["model"];
   placeholder: string;
   locale: Locale;
+  /**
+   * The id the box claims, and the one its label points at.
+   *
+   * A prop rather than a constant because two composers can now be in one
+   * document: the dock floats over the home page, which has its own. `htmlFor`
+   * resolves to the FIRST match in the document, so a duplicate id silently
+   * hands the dock's label to the page's box — the reader tabs into one
+   * control and hears the name of another.
+   *
+   * Defaulted, not required, so the surfaces that were here first keep the id
+   * their visible labels already reference.
+   */
+  id?: string;
   /** Absent means this surface takes no pictures. */
   images?: {
     attached: string[];
@@ -154,12 +168,12 @@ export function Composer({
         }}
       >
         {!labelledOutside && (
-          <label htmlFor="chat-input" className="sr-only">
+          <label htmlFor={id} className="sr-only">
             {t.placeholder}
           </label>
         )}
         <textarea
-          id="chat-input"
+          id={id}
           ref={areaRef}
           value={value}
           autoFocus={autoFocus}

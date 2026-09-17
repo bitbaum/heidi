@@ -19,6 +19,7 @@ export type RouteKey =
   | "vocabulary"
   | "grammar"
   | "method"
+  | "technology"
   | "contribute"
   | "about"
   | "portal"
@@ -78,6 +79,13 @@ export const ROUTES: readonly Route[] = [
   { key: "dialect", segment: "dialect", group: "reference", indexed: true, priority: 0.7 },
   { key: "vocabulary", segment: "vocabulary", group: "reference", indexed: true, priority: 0.7 },
   { key: "method", segment: "method", group: "why", indexed: true, priority: 0.8 },
+  // Beside the method, not inside it. `/method` argues how Heidi teaches; this
+  // reports what a computer can currently do with this language at all — a
+  // different kind of claim, and the public form of §8's refusal to say Heidi
+  // transcribes dialect. Indexed, because somebody searching for "Swiss German
+  // speech recognition" is looking for exactly this and will otherwise find a
+  // vendor selling them Swiss Standard German.
+  { key: "technology", segment: "technology", group: "why", indexed: true, priority: 0.65 },
   { key: "contribute", segment: "contribute", group: "project", indexed: true, priority: 0.6 },
   { key: "about", segment: "about", group: "project", indexed: true, priority: 0.5 },
   // Reached from the account control, not the menu: a personal space listed in
@@ -85,6 +93,34 @@ export const ROUTES: readonly Route[] = [
   { key: "portal", segment: "portal", indexed: false, priority: 0.3 },
   { key: "settings", segment: "settings", indexed: false, priority: 0.3 },
 ];
+
+/**
+ * What the avatar menu in the header offers, in order.
+ *
+ * HERE rather than in the component, for the reason this whole file exists:
+ * these are pages, and a menu that names a page the site does not have is the
+ * same defect as a nav item missing from the sitemap. Typed as a tuple of
+ * `RouteKey` so an entry that is not a real route is a build error, and so the
+ * dictionary can carry one description per entry and no more.
+ *
+ * Both are `indexed: false` personal routes, which is why they are not in
+ * `navGroups()` — a personal space listed in the nav of a site you are not
+ * signed in to reads as a locked door. The account control is the door.
+ */
+export const ACCOUNT_MENU_KEYS = ["portal", "settings"] as const;
+export type AccountMenuKey = (typeof ACCOUNT_MENU_KEYS)[number];
+
+/** The account menu, resolved to routes. Throws at build if one goes missing. */
+export function accountMenu(): { key: AccountMenuKey; segment: string }[] {
+  return ACCOUNT_MENU_KEYS.map((key) => {
+    const route = ROUTES.find((r) => r.key === key);
+    // Not a soft failure: a menu that silently drops an entry when a route is
+    // renamed is how the only link to settings disappears without a test
+    // noticing. This runs at render on the server, so it fails loudly and early.
+    if (!route) throw new Error(`account menu names a route that does not exist: ${key}`);
+    return { key, segment: route.segment };
+  });
+}
 
 /** `/de`, `/fr/method`. Never a trailing slash, so links and canonicals agree. */
 export function href(locale: Locale, segment: string): string {

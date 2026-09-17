@@ -30,6 +30,7 @@ export const rm: Dictionary = {
     dialect: "Idioms",
     vocabulary: "Vocabulari",
     method: "Metoda",
+    technology: "Tecnica",
     contribute: "Far part",
     about: "Davart nus",
     portal: "Mes intschess",
@@ -80,6 +81,17 @@ export const rm: Dictionary = {
   },
 
   chat: {
+    dock: {
+      open: "Dumandar Heidi",
+      close: "Serrar",
+      title: "Heidi",
+      lead: "Dumandai davart quai che Vus legiais — u encollai in messadi che Vus avais retschavì.",
+      prompts: [
+        "Co di jau per turitgais ch'jau vegn pli tard?",
+        "Tge differenza dat i tranter il dialect e il tudestg scrit?",
+        "Numnai mai trais pleds ch'jau aud qua mintga di.",
+      ],
+    },
     emptyTitle: "Dumandai Heidi",
     placeholder: "Encollai quai che Vus avais retschavì — u scrivai quai che Vus vulais dir.",
     composer: "Messadi a Heidi",
@@ -169,6 +181,10 @@ export const rm: Dictionary = {
       formal: { label: "Pli formal", say: "Scrivai quai pli formalmain, per in messadi official." },
       casual: { label: "Pli simpel", say: "Diai quai pli liber, tranter amis." },
       simpler: { label: "Pleds pli facils", say: "Diai quai cun pleds pli facils." },
+      decline: { label: "Refusar cortaisamain", say: "Scrivai quai sco ina refusa cortaisa." },
+      apologise: { label: "Sa scusar", say: "Scrivai quai sco ina scusa." },
+      thank: { label: "Engraziar", say: "Scrivai quai sco in engraziament." },
+      ask: { label: "Dumandar puspè", say: "Formulai ina dumonda enavos — jau n'hai betg chapì dal tut." },
       swiss: { label: "En tudestg scrit", say: "Scrivai quai en tudestg standard svizzer, betg en idiom." },
     },
   },
@@ -361,6 +377,61 @@ export const rm: Dictionary = {
       "Il tudestg da Turitg n'ha nagina ortografia uffiziala. Questa controlla na Vus di mai che Vossa scrittira saja fallida — mo ch'ina furma vegn d'ina autra regiun.",
   },
 
+  technology: {
+    title: "Tge ch'in computer sa far cun il tudestg svizzer",
+    lead: "E tge ch'el na sa betg far. Questa pagina rimna quai ch'è vairamain vegnì mesirà en quest champ — cun las cifras e las funtaunas, per che Vus possias controllar nossas affirmaziuns.",
+    hardTitle: "Pertge ch'i è grev",
+    hardBody: [
+      "I n'exista nagina ortografia uffiziala. I dat recumandaziuns dal 1938 che la dialectologia dovra — ma era transcriptuors scolads las applitgeschan differentamain, e quasi nagin na scriva uschè ad ina amia.",
+      "Ins discurra il dialect, ins scriva il tudestg standard. Scriver giu quai ch'è vegnì ditg n'è perquai betg ina transcripziun, mabain ina translaziun — ed uschè è construì quasi tut quai ch'exista.",
+      "Ed i è ina pitschna lingua en il senn da las datas: las pli grondas collecziuns publicas èn intgins tschient uras, e quasi tuttas èn mo licenziadas per la perscrutaziun.",
+    ],
+    corporaTitle: "Danunder che las datas vegnan",
+    corporaLead: "Las collecziuns publicas sin las qualas quest champ sa basa. La colonna «direcziun» è la pli impurtanta: quasi tut auda dialect e scriva standard.",
+    asrTitle: "Chapir",
+    asrLead: "Quota d'errurs da pleds sin il medem set da test, per che las cifras sajan cumparegliablas. Tut quests sistems produceschan tudestg standard — la cifra di quant bain ch'i è vegnì translatà, betg quant bain ch'i è vegnì scrit en dialect.",
+    speakingTitle: "Discurrer",
+    speakingLead: "Qua engianna il martgà. Quai che vegn vendì sco vusch «tudestga svizra» è per il pli tudestg standard svizzer — la lingua scritta, legida ad auta vusch. Vaira sintesa dialectala exista quasi mo en la perscrutaziun.",
+    modelsTitle: "Models da lingua",
+    modelsLead: "Sch'in model domina propi il dialect, u sche quai stat mo en la communicaziun a la pressa. «Evaluà» vul dir ch'insatgi l'ha mesirà e publitgà.",
+    heidiTitle: "Tge che quai munta per Heidi",
+    heidiBody: [
+      "Il dictar na scriva betg il dialect. El scriva quai che Vus vulais dir, en la lingua che Vus avais gia — precis quai che la perscrutaziun sa far.",
+      "Heidi na discurra betg. Ina vusch che pronunziass fallà il turitgais na pudessias Vus betg controllar, e quai è il sulet sbagl che quest product na dastga betg far.",
+      "La controlla dal dialect funcziuna senza model. Ella è ina glista fixa da reglas, betg in model da lingua — perquai na po ella betg cumenzar ad inventar.",
+    ],
+    directionLabel: "Direcziun",
+    directions: {
+      "speech-to-standard": "dialect udì → standard scrit",
+      "speech-to-dialect": "dialect udì → dialect scrit",
+      "dialect-text": "dialect, scrit",
+      "text-to-speech": "text → dialect discurrì",
+    },
+    hours: "uras",
+    speakers: "pledaders",
+    regions: "regiuns",
+    licence: "licenza",
+    licences: { research: "mo perscrutaziun", unpublished: "nagina licenza publitgada", textOnly: "text; audio sin dumonda" },
+    wer: "quota d'errurs da pleds",
+    zeroShot: "senza training",
+    fineTuned: "reexercità",
+    speakingNames: {
+      commercial: "Vuschs commerzialas «de-CH»",
+      eth: "ETH Turitg, Swiss Voice",
+      vits: "T5 e VITS, pipeline da perscrutaziun",
+      voiceCloning: "Clonaziun da vusch da podcasts",
+    },
+    weightsOpen: "pais publitgads",
+    weightsClosed: "pais betg publitgads",
+    isDialect: "dialect",
+    isStandard: "tudestg standard svizzer",
+    evaluated: "dialect evaluà",
+    notEvaluated: "dialect betg evaluà",
+    statusResearch: "perscrutaziun",
+    statusService: "servetsch",
+    statusClosed: "serrà",
+  },
+
   contribute: {
     title: "Nus tschertgain vuschs turitgaisas",
     lead: "Mintga secunda da dialect che Vus vegnis a udir tar Heidi vegn d'ina persuna reala da Turitg. Quai è char e plaun, e nus al fain tuttina.",
@@ -403,6 +474,9 @@ export const rm: Dictionary = {
   },
 
   settings: {
+    appearanceTitle: "Apparientscha",
+    appearanceBody: "Cler, stgir, u sco Voss apparat è endrizzà. La tscherna resta en quest navigatur.",
+    theme: { label: "Apparientscha", system: "Apparat", light: "Cler", dark: "Stgir" },
     title: "Configuraziuns",
     lead: "Tut quai che Heidi sa da Vus, en in sulet lieu — e tut sa vegnir allontanà.",
     languageTitle: "Lingua da la pagina",
@@ -418,6 +492,10 @@ export const rm: Dictionary = {
   },
 
   auth: {
+    menu: {
+      portal: "Voss pleds e Vossas conversaziuns",
+      settings: "Lingua, model, conto",
+    },
     signIn: "S'annunziar",
     signOut: "Sa deconnectar",
     signInWith: "S'annunziar cun OrangeCat",
@@ -497,6 +575,12 @@ export const rm: Dictionary = {
    * group.
    */
   vocabulary: {
+    keptTitle: "Pleds tegnids",
+    keptNone: "Tuccai + per tegnair in pled. Heidi Vus dumonda pli tard.",
+    keptSome: "en repetiziun",
+    practise: "Repeter ussa",
+    askLabel: "Mussar en ina frasa",
+    askSay: "Mussai mai «{word}» en duas frasas curtas dal mintgadi.",
     title: "Ils pleds ils pli utils",
     lead: "Betg ils pleds per turists, mabain quels vi dals quals ina frasa resta tacca: ils curts, ils constants, quels che nagina regla da correspundenza na tira ora.",
     note: "Direcziun: idiom → tudestg. Qua sa tracti da chapir, betg da scriver — quai che Vus duessas scriver sez stat tar ils idioms.",
@@ -529,6 +613,8 @@ export const rm: Dictionary = {
   },
 
   grammar: {
+    practiseLabel: "Exercitar quai",
+    practiseSay: "Dai mai duas frasas per exercitar «{word}» — lura ma dumandai davart ina.",
     title: "Grammatica",
     lead: "Quatter chaussas che rendan il turitgais difficil da suandar per insatgi che legia gia tudestg. Naginas lecziuns — mo quai che Vus vegnis a udir, e nua ch'igl impedescha.",
     ruleLabel: "La regla",

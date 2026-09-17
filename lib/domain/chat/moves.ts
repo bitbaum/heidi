@@ -52,6 +52,32 @@ export const REPHRASE_AXES = [
   "casual",
   "simpler",
   /**
+   * The four SPEECH ACTS, as opposed to the six tone dials above.
+   *
+   * The dials all answer "say the same thing differently". These four change
+   * what the message DOES, and they are here because they are the four a
+   * learner most often cannot perform in a language they half-have — the
+   * point at which people give up and switch to English, or send nothing.
+   *
+   * `decline` is the one that matters most and the one no phrasebook teaches.
+   * Saying no to a landlord, a neighbour or an employer without giving offence
+   * is difficult in your OWN language; in a second one, without the register
+   * to soften it, a learner either agrees to things they did not want or
+   * writes something that reads as rude and never finds out.
+   *
+   * `apologise` and `thank` are the two Swiss-register moves where the
+   * bridge language actively misleads: the German forms a learner already has
+   * are either too stiff or too familiar here.
+   *
+   * `ask` turns a message into a question back — the move for when the thing
+   * they received is not clear enough to answer, which is extremely common
+   * with official post and which learners almost never think is allowed.
+   */
+  "decline",
+  "apologise",
+  "thank",
+  "ask",
+  /**
    * The odd one out, and the most useful.
    *
    * Not a tone but a VARIETY: give me this in the written standard instead of
@@ -131,6 +157,34 @@ export function decodeMoves(raw: unknown): NextMove[] {
   }
 
   return moves;
+}
+
+/**
+ * Guarantee the reply offer, whatever the model remembered to do.
+ *
+ * THE HARNESS HAS TO BE BETTER THAN THE MODEL AT THIS. The system prompt says
+ * `reply` "is the most useful button on this list and the easiest to forget",
+ * and then asks a model to remember it — on a chain whose whole design is that
+ * any vendor may be serving, including a small free one having a bad minute.
+ * An instruction is not a guarantee, and this particular omission is invisible:
+ * the answer looks complete, and the learner is simply never offered the one
+ * thing they actually came for.
+ *
+ * So when the paste was DETERMINISTICALLY recognised as a message addressed to
+ * them — real headers, a real sender; see `email.ts` — the offer is added here
+ * rather than hoped for. That condition is the honest limit of what can be
+ * decided without a model: somebody who pasted a line of overheard dialect is
+ * not owed a reply button, and gets none.
+ *
+ * FIRST, and within the cap. A move appended after three others would be
+ * dropped by the same limit that keeps the row from becoming a menu, so the
+ * one move we know belongs goes at the front and something the model guessed
+ * at falls off the end instead.
+ */
+export function withReply(moves: NextMove[]): NextMove[] {
+  if (moves.some((m) => m.id === "reply")) return moves;
+  const reply: NextMove = { id: "reply" };
+  return [reply, ...moves].slice(0, MAX_MOVES);
 }
 
 /** The dictionary key a move's label and message live under. */

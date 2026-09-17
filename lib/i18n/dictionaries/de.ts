@@ -33,6 +33,7 @@ export const de = {
     dialect: "Mundarten",
     vocabulary: "Wortschatz",
     method: "Methode",
+    technology: "Technik",
     contribute: "Mitmachen",
     about: "Über uns",
     portal: "Mein Bereich",
@@ -83,6 +84,25 @@ export const de = {
   },
 
   chat: {
+    /**
+     * The dock — Heidi floating over every page that is not already a chat.
+     *
+     * `prompts` are sent VERBATIM as a message when tapped, so each one has to
+     * be a complete question that stands on its own. "What does this word
+     * mean?" reads well on a button and arrives at the model with no word
+     * attached; these three are answerable exactly as written.
+     */
+    dock: {
+      open: "Heidi fragen",
+      close: "Schliessen",
+      title: "Heidi",
+      lead: "Fragen Sie, was Sie gerade lesen — oder fügen Sie eine Nachricht ein, die Sie bekommen haben.",
+      prompts: [
+        "Wie sage ich auf Zürichdeutsch, dass ich später komme?",
+        "Was ist der Unterschied zwischen Mundart und Schriftdeutsch?",
+        "Nennen Sie mir drei Wörter, die ich hier täglich höre.",
+      ],
+    },
     emptyTitle: "Fragen Sie Heidi",
     placeholder: "Fügen Sie ein, was Sie bekommen haben — oder schreiben Sie, was Sie sagen möchten.",
     composer: "Nachricht an Heidi",
@@ -172,6 +192,10 @@ export const de = {
       formal: { label: "Förmlicher", say: "Schreiben Sie das förmlicher, für eine offizielle Nachricht." },
       casual: { label: "Lockerer", say: "Sagen Sie das lockerer, unter Freunden." },
       simpler: { label: "Einfacher", say: "Sagen Sie das mit einfacheren Wörtern." },
+      decline: { label: "Höflich absagen", say: "Schreiben Sie das als höfliche Absage." },
+      apologise: { label: "Entschuldigen", say: "Schreiben Sie das als Entschuldigung." },
+      thank: { label: "Danken", say: "Schreiben Sie das als Dank." },
+      ask: { label: "Nachfragen", say: "Formulieren Sie eine Rückfrage — ich habe das nicht ganz verstanden." },
       swiss: { label: "Auf Schriftdeutsch", say: "Schreiben Sie das auf Schweizer Schriftdeutsch, nicht auf Mundart." },
     },
   },
@@ -365,6 +389,67 @@ export const de = {
       "Zürichdeutsch hat keine offizielle Rechtschreibung. Diese Prüfung sagt Ihnen nie, dass Ihre Schreibweise falsch ist — nur, dass eine Form aus einer anderen Region kommt.",
   },
 
+  /**
+   * The technology page. Prose only — every hour, speaker count, error rate
+   * and licence lives in `lib/research/language-tech.ts`, because a number is
+   * not translatable and seven copies of "343 hours" are seven chances for one
+   * of them to become 340. Same decision as the dialect area pages.
+   */
+  technology: {
+    title: "Was ein Computer mit Schweizerdeutsch kann",
+    lead: "Und was er nicht kann. Diese Seite sammelt, was in diesem Feld wirklich gemessen wurde — mit Zahlen und Quellen, damit Sie unsere Aussagen daran prüfen können.",
+    hardTitle: "Warum es schwierig ist",
+    hardBody: [
+      "Es gibt keine offizielle Rechtschreibung. Es gibt Empfehlungen aus dem Jahr 1938, die in der Dialektforschung benutzt werden — aber selbst geschulte Leute wenden sie unterschiedlich an, und kaum jemand schreibt so, wenn er einer Freundin schreibt.",
+      "Gesprochen wird Mundart, geschrieben wird Hochdeutsch. Deshalb ist «aufschreiben, was gesagt wurde» hier keine Transkription, sondern eine Übersetzung — und genau so ist fast jedes System gebaut, das es gibt.",
+      "Und es ist eine kleine Sprache im Datensinn: die grössten öffentlichen Sammlungen sind ein paar hundert Stunden, und fast alle sind nur für die Forschung lizenziert.",
+    ],
+    corporaTitle: "Woher die Daten kommen",
+    corporaLead: "Die öffentlichen Sammlungen, auf denen dieses Feld steht. Die Spalte «Richtung» ist die wichtigste: sie zeigt, dass fast alles Mundart hört und Hochdeutsch schreibt.",
+    asrTitle: "Verstehen",
+    asrLead: "Wortfehlerrate auf demselben Testsatz, damit die Zahlen vergleichbar sind. Alle diese Systeme schreiben Schriftdeutsch — die Zahl sagt, wie gut übersetzt wurde, nicht wie gut Mundart geschrieben wurde.",
+    speakingTitle: "Sprechen",
+    speakingLead: "Hier ist der Markt irreführend. Was als «Schweizerdeutsche Stimme» verkauft wird, ist meist Schweizer Hochdeutsch — die geschriebene Sprache, vorgelesen. Echte Mundart-Synthese gibt es fast nur in der Forschung.",
+    modelsTitle: "Sprachmodelle",
+    modelsLead: "Ob ein Modell Mundart wirklich kann, oder ob das nur in der Medienmitteilung steht. «Geprüft» heisst: jemand hat es gemessen und veröffentlicht.",
+    heidiTitle: "Was das für Heidi heisst",
+    heidiBody: [
+      "Das Diktieren schreibt nicht Mundart auf. Es schreibt, was Sie sagen wollen, in der Sprache, die Sie schon können — genau das, was die Forschung kann.",
+      "Heidi spricht nicht. Eine Stimme, die Zürichdeutsch falsch ausspricht, wäre für Sie nicht überprüfbar, und das ist der einzige Fehler, den dieses Produkt nicht machen darf.",
+      "Die Dialektprüfung läuft ohne Modell. Sie ist eine feste Regelliste, kein Sprachmodell — deshalb kann sie nicht anfangen, sich Dinge auszudenken.",
+    ],
+    directionLabel: "Richtung",
+    directions: {
+      "speech-to-standard": "Mundart gehört → Hochdeutsch geschrieben",
+      "speech-to-dialect": "Mundart gehört → Mundart geschrieben",
+      "dialect-text": "Mundart geschrieben",
+      "text-to-speech": "Text → Mundart gesprochen",
+    },
+    hours: "Stunden",
+    speakers: "Sprechende",
+    regions: "Regionen",
+    licence: "Lizenz",
+    licences: { research: "nur Forschung", unpublished: "keine Lizenz veröffentlicht", textOnly: "Text; Audio auf Anfrage" },
+    wer: "Wortfehlerrate",
+    zeroShot: "ohne Training",
+    fineTuned: "nachtrainiert",
+    speakingNames: {
+      commercial: "Kommerzielle «de-CH»-Stimmen",
+      eth: "ETH Zürich, Swiss Voice",
+      vits: "T5 und VITS, Forschungspipeline",
+      voiceCloning: "Stimmübertragung aus Podcasts",
+    },
+    weightsOpen: "Gewichte offen",
+    weightsClosed: "Gewichte nicht veröffentlicht",
+    isDialect: "Mundart",
+    isStandard: "Schweizer Hochdeutsch",
+    evaluated: "Mundart geprüft",
+    notEvaluated: "Mundart nicht geprüft",
+    statusResearch: "Forschung",
+    statusService: "Dienst",
+    statusClosed: "eingestellt",
+  },
+
   contribute: {
     title: "Wir suchen Zürcher Stimmen",
     lead: "Jede Sekunde Dialekt, die Sie bei Heidi hören werden, kommt von einem echten Menschen aus Zürich. Das ist teuer und langsam, und wir machen es trotzdem.",
@@ -407,6 +492,17 @@ export const de = {
   },
 
   settings: {
+    /**
+     * Appearance. The palette existed long before the control did: the dark
+     * blocks in globals.css are guarded on `data-theme`, and nothing set it.
+     *
+     * "System" is named as a real option rather than implied by the absence of
+     * the other two, because it is the default and the right answer for most
+     * readers — a device that turns dark at dusk should take Heidi with it.
+     */
+    appearanceTitle: "Darstellung",
+    appearanceBody: "Hell, dunkel, oder wie es Ihr Gerät gerade eingestellt hat. Die Wahl bleibt in diesem Browser.",
+    theme: { label: "Darstellung", system: "Gerät", light: "Hell", dark: "Dunkel" },
     title: "Einstellungen",
     lead: "Alles, was Heidi über Sie weiss, an einem Ort — und alles davon können Sie wieder entfernen.",
     languageTitle: "Sprache der Seite",
@@ -422,6 +518,17 @@ export const de = {
   },
 
   auth: {
+    /**
+     * One line under each entry of the avatar menu, saying what is behind it.
+     *
+     * Keyed by `AccountMenuKey`, so an entry added to the menu without a
+     * description — or a description for a menu entry that no longer exists —
+     * is a build error in all seven languages at once.
+     */
+    menu: {
+      portal: "Ihre Wörter und Gespräche",
+      settings: "Sprache, Modell, Konto",
+    },
     signIn: "Anmelden",
     signOut: "Abmelden",
     signInWith: "Mit OrangeCat anmelden",
@@ -501,6 +608,20 @@ export const de = {
    * group.
    */
   vocabulary: {
+    /**
+     * Two things a reader can now DO with a word, instead of only reading it.
+     *
+     * `askSay` is sent verbatim as a message and must contain `{word}` — see
+     * `lib/i18n/fill.ts`, and the test that checks every locale kept it. The
+     * placeholder sits mid-sentence because that is where it falls in most of
+     * these languages, which is the whole reason a placeholder exists here.
+     */
+    keptTitle: "Gemerkte Wörter",
+    keptNone: "Tippen Sie auf +, um ein Wort zu behalten. Heidi fragt Sie später danach.",
+    keptSome: "im Wiederholen",
+    practise: "Jetzt wiederholen",
+    askLabel: "Im Satz zeigen",
+    askSay: "Zeigen Sie mir «{word}» in zwei kurzen Sätzen aus dem Alltag.",
     title: "Die wichtigsten Wörter",
     lead: "Nicht die Wörter für Touristen, sondern die, an denen ein Satz hängen bleibt: die kurzen, ständigen, für die keine Lautregel hilft.",
     note: "Richtung: Mundart → Deutsch. Hier geht es ums Verstehen, nicht ums Schreiben — was Sie selbst schreiben sollten, steht bei den Mundarten.",
@@ -533,6 +654,14 @@ export const de = {
   },
 
   grammar: {
+    /**
+     * Practising a topic, rather than only reading it.
+     *
+     * `practiseSay` is sent verbatim and must contain `{word}` — here the
+     * topic's own title — for the same reason as `vocabulary.askSay`.
+     */
+    practiseLabel: "Damit üben",
+    practiseSay: "Geben Sie mir zwei Sätze zum Üben von «{word}» — und fragen Sie mich danach einen ab.",
     title: "Grammatik",
     lead: "Vier Dinge, die Zürichdeutsch für jemanden schwer verständlich machen, der Deutsch schon liest. Keine Lektionen — nur das, was Sie hören werden, und wo es hakt.",
     ruleLabel: "Die Regel",

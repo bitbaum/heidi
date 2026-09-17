@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { DISPLAY } from "@/lib/variety/display";
+import { fill } from "@/lib/i18n/fill";
 import { Shell } from "../_components/page-shell";
+import { AskButton } from "../_components/ask-button";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -89,6 +91,22 @@ export default async function GrammarPage({ params }: { params: Promise<{ locale
               <div className="mt-4 border-l-2 border-accent pl-4">
                 <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.watchLabel}</p>
                 <p className="mt-1 max-w-measure text-base leading-relaxed text-fg-primary">{words.watch}</p>
+              </div>
+
+              {/* The way out of reading and into using it.
+
+                  This page is deliberately not a course — the evidence it
+                  rests on says a correspondence works as a cue beside
+                  something you are about to meet again, and does nothing as a
+                  lecture you sit through first. A button that turns the topic
+                  into two sentences and a question is that cue, on demand,
+                  without the reader having to leave the page or compose the
+                  request themselves. */}
+              <div className="mt-5">
+                <AskButton
+                  say={fill(t.practiseSay, { word: words.title })}
+                  label={t.practiseLabel}
+                />
               </div>
             </section>
           );

@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useCallback, useId, useRef, useState } from "react";
+
+import { useDismiss } from "./use-dismiss";
 
 /**
  * A nav item that opens a panel.
@@ -22,13 +24,10 @@ import { useEffect, useId, useRef, useState } from "react";
  * site nav; `role="menu"` would actually make it WORSE by trapping arrow keys
  * and telling a screen reader these are commands rather than destinations.
  *
- * Three behaviours are the whole job, and each is a bug if missing:
- *
- *   Escape closes it and returns focus to the button, or a keyboard user is
- *     stranded inside a panel they cannot dismiss.
- *   A click outside closes it, because every other menu on the web does.
- *   Moving to another page closes it — a panel surviving a navigation looks
- *     like the new page rendered wrongly.
+ * The three behaviours that are the whole job — Escape closes and returns
+ * focus, a pointer outside closes, a navigation closes — now live in
+ * `useDismiss`, because this file had them right and the language switcher
+ * next door had them subtly wrong. One copy, and it is this one.
  */
 export function NavPanel({
   label,
@@ -45,30 +44,8 @@ export function NavPanel({
   const wrapRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    if (!open) return;
-
-    function onKey(event: KeyboardEvent) {
-      if (event.key !== "Escape") return;
-      setOpen(false);
-      // Back to the button. Leaving focus on a removed panel drops it to the
-      // top of the document, and the next Tab starts the page over.
-      buttonRef.current?.focus();
-    }
-
-    function onPointer(event: PointerEvent) {
-      if (!wrapRef.current?.contains(event.target as Node)) setOpen(false);
-    }
-
-    document.addEventListener("keydown", onKey);
-    // Capture: a link inside the panel navigates on click, and the listener
-    // must not race the navigation to decide whether it was outside.
-    document.addEventListener("pointerdown", onPointer, true);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.removeEventListener("pointerdown", onPointer, true);
-    };
-  }, [open]);
+  const dismiss = useCallback(() => setOpen(false), []);
+  useDismiss({ open, onDismiss: dismiss, containerRef: wrapRef, focusRef: buttonRef });
 
   return (
     <div ref={wrapRef} className="relative">

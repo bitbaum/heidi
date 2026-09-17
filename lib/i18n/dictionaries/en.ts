@@ -14,6 +14,7 @@ export const en: Dictionary = {
     dialect: "Dialects",
     vocabulary: "Vocabulary",
     method: "Method",
+    technology: "Technology",
     contribute: "Contribute",
     about: "About",
     portal: "My space",
@@ -64,6 +65,17 @@ export const en: Dictionary = {
   },
 
   chat: {
+    dock: {
+      open: "Ask Heidi",
+      close: "Close",
+      title: "Heidi",
+      lead: "Ask about whatever you are reading — or paste a message someone sent you.",
+      prompts: [
+        "How do I say in Zurich German that I will be late?",
+        "What is the difference between dialect and written German here?",
+        "Give me three words I will hear here every day.",
+      ],
+    },
     emptyTitle: "Ask Heidi",
     placeholder: "Paste what you received — or write what you want to say.",
     composer: "Message Heidi",
@@ -153,6 +165,10 @@ export const en: Dictionary = {
       formal: { label: "More formal", say: "Write that more formally, for an official message." },
       casual: { label: "More casual", say: "Say that more casually, between friends." },
       simpler: { label: "Simpler", say: "Say that with simpler words." },
+      decline: { label: "Say no politely", say: "Write that as a polite refusal." },
+      apologise: { label: "Apologise", say: "Write that as an apology." },
+      thank: { label: "Say thank you", say: "Write that as a thank-you." },
+      ask: { label: "Ask back", say: "Turn that into a question back — I did not quite understand it." },
       swiss: { label: "In written German", say: "Write that in Swiss Standard German, not dialect." },
     },
   },
@@ -345,6 +361,61 @@ export const en: Dictionary = {
       "Zurich German has no official spelling. This check never tells you your spelling is wrong — only that a form comes from another region.",
   },
 
+  technology: {
+    title: "What a computer can do with Swiss German",
+    lead: "And what it cannot. This page collects what has actually been measured in the field — with the numbers and the sources, so you can check our claims against them.",
+    hardTitle: "Why it is hard",
+    hardBody: [
+      "There is no official spelling. There are recommendations from 1938 that dialectology uses — but even trained transcribers apply them differently, and almost nobody writes that way to a friend.",
+      "Dialect is spoken; the standard is written. So writing down what was said is not transcription here, it is translation — and that is how nearly every system that exists is built.",
+      "And it is a small language in the sense that matters for data: the largest public collections are a few hundred hours, and almost all of them are licensed for research only.",
+    ],
+    corporaTitle: "Where the data comes from",
+    corporaLead: "The public collections this field rests on. The direction column is the one to read: it shows that almost everything hears dialect and writes the standard.",
+    asrTitle: "Understanding",
+    asrLead: "Word error rate on the same test set, so the numbers can be compared. All of these produce Standard German — the figure says how well it translated, not how well it wrote dialect.",
+    speakingTitle: "Speaking",
+    speakingLead: "Here the marketplace misleads. What is sold as a Swiss German voice is usually Swiss Standard German — the written language, read aloud. Real dialect synthesis exists almost only in research.",
+    modelsTitle: "Language models",
+    modelsLead: "Whether a model really handles dialect, or whether that is only in the press release. Evaluated means somebody measured it and published the result.",
+    heidiTitle: "What this means for Heidi",
+    heidiBody: [
+      "Dictation does not write dialect down. It writes what you want to say, in the language you already have — which is exactly what the research can do.",
+      "Heidi does not speak. A voice that pronounced Zurich German wrongly is something you could not check, and that is the one mistake this product must not make.",
+      "The dialect check runs without a model. It is a fixed list of rules, not a language model, which is why it cannot start inventing things.",
+    ],
+    directionLabel: "Direction",
+    directions: {
+      "speech-to-standard": "dialect heard → standard written",
+      "speech-to-dialect": "dialect heard → dialect written",
+      "dialect-text": "dialect, written",
+      "text-to-speech": "text → dialect spoken",
+    },
+    hours: "hours",
+    speakers: "speakers",
+    regions: "regions",
+    licence: "licence",
+    licences: { research: "research only", unpublished: "no licence published", textOnly: "text; audio on request" },
+    wer: "word error rate",
+    zeroShot: "no training",
+    fineTuned: "fine-tuned",
+    speakingNames: {
+      commercial: "Commercial de-CH voices",
+      eth: "ETH Zurich, Swiss Voice",
+      vits: "T5 and VITS research pipeline",
+      voiceCloning: "Voice cloning from podcasts",
+    },
+    weightsOpen: "weights published",
+    weightsClosed: "weights not published",
+    isDialect: "dialect",
+    isStandard: "Swiss Standard German",
+    evaluated: "dialect evaluated",
+    notEvaluated: "dialect not evaluated",
+    statusResearch: "research",
+    statusService: "service",
+    statusClosed: "closed down",
+  },
+
   contribute: {
     title: "We are looking for Zurich voices",
     lead: "Every second of dialect you will hear in Heidi comes from a real person in Zurich. That is expensive and slow, and we are doing it anyway.",
@@ -387,6 +458,9 @@ export const en: Dictionary = {
   },
 
   settings: {
+    appearanceTitle: "Appearance",
+    appearanceBody: "Light, dark, or whatever your device is set to. The choice stays in this browser.",
+    theme: { label: "Appearance", system: "Device", light: "Light", dark: "Dark" },
     title: "Settings",
     lead: "Everything Heidi knows about you, in one place — and all of it removable.",
     languageTitle: "Site language",
@@ -402,6 +476,10 @@ export const en: Dictionary = {
   },
 
   auth: {
+    menu: {
+      portal: "Your words and conversations",
+      settings: "Language, model, account",
+    },
     signIn: "Sign in",
     signOut: "Sign out",
     signInWith: "Sign in with OrangeCat",
@@ -481,6 +559,12 @@ export const en: Dictionary = {
    * group.
    */
   vocabulary: {
+    keptTitle: "Words you kept",
+    keptNone: "Tap + to keep a word. Heidi will ask you about it later.",
+    keptSome: "in review",
+    practise: "Review now",
+    askLabel: "Show it in a sentence",
+    askSay: "Show me «{word}» in two short everyday sentences.",
     title: "The words worth knowing first",
     lead: "Not the words for tourists, but the ones a sentence snags on: the short, constant ones no sound rule rescues.",
     note: "Direction: dialect → German. This is for understanding what was said, not for writing — what you should write yourself is over in the dialects section.",
@@ -513,6 +597,8 @@ export const en: Dictionary = {
   },
 
   grammar: {
+    practiseLabel: "Practise this",
+    practiseSay: "Give me two sentences to practise «{word}» — then test me on one.",
     title: "Grammar",
     lead: "Four things that make Zurich German hard to follow for somebody who already reads German. Not lessons — just what you will hear, and where it catches you.",
     ruleLabel: "The rule",

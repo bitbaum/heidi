@@ -14,6 +14,7 @@ export const fr: Dictionary = {
     dialect: "Dialectes",
     vocabulary: "Vocabulaire",
     method: "Méthode",
+    technology: "Technique",
     contribute: "Participer",
     about: "À propos",
     portal: "Mon espace",
@@ -64,6 +65,17 @@ export const fr: Dictionary = {
   },
 
   chat: {
+    dock: {
+      open: "Demander à Heidi",
+      close: "Fermer",
+      title: "Heidi",
+      lead: "Posez une question sur ce que vous lisez — ou collez un message que vous avez reçu.",
+      prompts: [
+        "Comment dire en zurichois que je vais arriver en retard ?",
+        "Quelle est la différence entre le dialecte et l'allemand écrit ?",
+        "Donnez-moi trois mots que j'entendrai ici tous les jours.",
+      ],
+    },
     emptyTitle: "Demandez à Heidi",
     placeholder: "Collez ce que vous avez reçu — ou écrivez ce que vous voulez dire.",
     composer: "Message à Heidi",
@@ -153,6 +165,10 @@ export const fr: Dictionary = {
       formal: { label: "Plus formel", say: "Écrivez-le plus formellement, pour un message officiel." },
       casual: { label: "Plus détendu", say: "Dites-le plus simplement, entre amis." },
       simpler: { label: "Plus simple", say: "Dites-le avec des mots plus simples." },
+      decline: { label: "Refuser poliment", say: "Écrivez cela comme un refus poli." },
+      apologise: { label: "S'excuser", say: "Écrivez cela comme des excuses." },
+      thank: { label: "Remercier", say: "Écrivez cela comme un remerciement." },
+      ask: { label: "Demander une précision", say: "Formulez une question en retour — je n'ai pas bien compris." },
       swiss: { label: "En allemand écrit", say: "Écrivez-le en allemand standard suisse, pas en dialecte." },
     },
   },
@@ -345,6 +361,61 @@ export const fr: Dictionary = {
       "Le zurichois n'a pas d'orthographe officielle. Cette vérification ne vous dira jamais que votre graphie est fausse — seulement qu'une forme vient d'une autre région.",
   },
 
+  technology: {
+    title: "Ce qu'un ordinateur sait faire du suisse allemand",
+    lead: "Et ce qu'il ne sait pas faire. Cette page rassemble ce qui a réellement été mesuré dans ce domaine — avec les chiffres et les sources, pour que vous puissiez y confronter nos affirmations.",
+    hardTitle: "Pourquoi c'est difficile",
+    hardBody: [
+      "Il n'existe pas d'orthographe officielle. Il existe des recommandations de 1938 qu'utilise la dialectologie — mais même des transcripteurs formés les appliquent différemment, et presque personne n'écrit ainsi à une amie.",
+      "On parle le dialecte, on écrit l'allemand standard. Écrire ce qui a été dit n'est donc pas ici une transcription mais une traduction — et c'est ainsi qu'est construit presque tout ce qui existe.",
+      "Et c'est une petite langue au sens des données : les plus grandes collections publiques font quelques centaines d'heures, et presque toutes ne sont concédées que pour la recherche.",
+    ],
+    corporaTitle: "D'où viennent les données",
+    corporaLead: "Les collections publiques sur lesquelles repose ce domaine. La colonne « sens » est la plus parlante : presque tout entend du dialecte et écrit du standard.",
+    asrTitle: "Comprendre",
+    asrLead: "Taux d'erreur de mots sur le même jeu de test, pour que les chiffres soient comparables. Tous ces systèmes produisent de l'allemand standard — le chiffre dit la qualité de la traduction, pas celle de l'écriture en dialecte.",
+    speakingTitle: "Parler",
+    speakingLead: "Ici le marché induit en erreur. Ce qui est vendu comme une voix « suisse allemande » est le plus souvent de l'allemand standard suisse — la langue écrite, lue à voix haute. La vraie synthèse dialectale n'existe presque qu'en recherche.",
+    modelsTitle: "Modèles de langue",
+    modelsLead: "Si un modèle maîtrise vraiment le dialecte, ou si cela ne figure que dans le communiqué de presse. « Évalué » signifie que quelqu'un l'a mesuré et publié.",
+    heidiTitle: "Ce que cela signifie pour Heidi",
+    heidiBody: [
+      "La dictée n'écrit pas le dialecte. Elle écrit ce que vous voulez dire, dans la langue que vous avez déjà — précisément ce que la recherche sait faire.",
+      "Heidi ne parle pas. Une voix qui prononcerait mal le zurichois, vous ne pourriez pas le vérifier, et c'est la seule erreur que ce produit ne doit pas commettre.",
+      "Le contrôle dialectal fonctionne sans modèle. C'est une liste de règles fixe, pas un modèle de langue — c'est pourquoi il ne peut rien inventer.",
+    ],
+    directionLabel: "Sens",
+    directions: {
+      "speech-to-standard": "dialecte entendu → standard écrit",
+      "speech-to-dialect": "dialecte entendu → dialecte écrit",
+      "dialect-text": "dialecte, écrit",
+      "text-to-speech": "texte → dialecte parlé",
+    },
+    hours: "heures",
+    speakers: "locuteurs",
+    regions: "régions",
+    licence: "licence",
+    licences: { research: "recherche uniquement", unpublished: "aucune licence publiée", textOnly: "texte ; audio sur demande" },
+    wer: "taux d'erreur de mots",
+    zeroShot: "sans entraînement",
+    fineTuned: "réentraîné",
+    speakingNames: {
+      commercial: "Voix commerciales « de-CH »",
+      eth: "ETH Zurich, Swiss Voice",
+      vits: "T5 et VITS, pipeline de recherche",
+      voiceCloning: "Clonage de voix à partir de podcasts",
+    },
+    weightsOpen: "poids publiés",
+    weightsClosed: "poids non publiés",
+    isDialect: "dialecte",
+    isStandard: "allemand standard suisse",
+    evaluated: "dialecte évalué",
+    notEvaluated: "dialecte non évalué",
+    statusResearch: "recherche",
+    statusService: "service",
+    statusClosed: "cessé",
+  },
+
   contribute: {
     title: "Nous cherchons des voix zurichoises",
     lead: "Chaque seconde de dialecte que vous entendrez chez Heidi vient d'une personne réelle de Zurich. C'est cher et lent, et nous le faisons quand même.",
@@ -387,6 +458,9 @@ export const fr: Dictionary = {
   },
 
   settings: {
+    appearanceTitle: "Apparence",
+    appearanceBody: "Clair, sombre, ou selon le réglage de votre appareil. Le choix reste dans ce navigateur.",
+    theme: { label: "Apparence", system: "Appareil", light: "Clair", dark: "Sombre" },
     title: "Réglages",
     lead: "Tout ce que Heidi sait de vous, au même endroit — et tout est effaçable.",
     languageTitle: "Langue du site",
@@ -402,6 +476,10 @@ export const fr: Dictionary = {
   },
 
   auth: {
+    menu: {
+      portal: "Vos mots et vos conversations",
+      settings: "Langue, modèle, compte",
+    },
     signIn: "Se connecter",
     signOut: "Se déconnecter",
     signInWith: "Se connecter avec OrangeCat",
@@ -481,6 +559,12 @@ export const fr: Dictionary = {
    * group.
    */
   vocabulary: {
+    keptTitle: "Mots gardés",
+    keptNone: "Touchez + pour garder un mot. Heidi vous le redemandera plus tard.",
+    keptSome: "en révision",
+    practise: "Réviser maintenant",
+    askLabel: "Voir dans une phrase",
+    askSay: "Montrez-moi « {word} » dans deux courtes phrases du quotidien.",
     title: "Les mots les plus utiles",
     lead: "Pas les mots pour touristes, mais ceux sur lesquels une phrase se bloque : les petits, les constants, ceux qu'aucune règle de correspondance ne rattrape.",
     note: "Sens : dialecte → allemand. Il s'agit ici de comprendre, pas d'écrire — ce que vous devriez écrire vous-même se trouve du côté des dialectes.",
@@ -513,6 +597,8 @@ export const fr: Dictionary = {
   },
 
   grammar: {
+    practiseLabel: "S'exercer",
+    practiseSay: "Donnez-moi deux phrases pour m'exercer à « {word} » — puis interrogez-moi sur l'une d'elles.",
     title: "Grammaire",
     lead: "Quatre choses qui rendent le zurichois difficile à suivre pour quelqu'un qui lit déjà l'allemand. Pas de leçons — seulement ce que vous allez entendre, et où ça coince.",
     ruleLabel: "La règle",

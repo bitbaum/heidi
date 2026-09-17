@@ -14,6 +14,7 @@ export const it: Dictionary = {
     dialect: "Dialetti",
     vocabulary: "Lessico",
     method: "Metodo",
+    technology: "Tecnologia",
     contribute: "Partecipare",
     about: "Chi siamo",
     portal: "Il mio spazio",
@@ -64,6 +65,17 @@ export const it: Dictionary = {
   },
 
   chat: {
+    dock: {
+      open: "Chiedi a Heidi",
+      close: "Chiudi",
+      title: "Heidi",
+      lead: "Chieda di ciò che sta leggendo — o incolli un messaggio che ha ricevuto.",
+      prompts: [
+        "Come dico in zurighese che arrivo più tardi?",
+        "Che differenza c'è tra il dialetto e il tedesco scritto?",
+        "Mi dica tre parole che sentirò qui ogni giorno.",
+      ],
+    },
     emptyTitle: "Chieda a Heidi",
     placeholder: "Incollate quello che avete ricevuto — o scrivete quello che volete dire.",
     composer: "Messaggio a Heidi",
@@ -153,6 +165,10 @@ export const it: Dictionary = {
       formal: { label: "Più formale", say: "Scrivetelo in modo più formale, per un messaggio ufficiale." },
       casual: { label: "Più informale", say: "Ditelo in modo più informale, tra amici." },
       simpler: { label: "Più semplice", say: "Ditelo con parole più semplici." },
+      decline: { label: "Rifiutare gentilmente", say: "Scriva questo come un rifiuto gentile." },
+      apologise: { label: "Scusarsi", say: "Scriva questo come una scusa." },
+      thank: { label: "Ringraziare", say: "Scriva questo come un ringraziamento." },
+      ask: { label: "Chiedere chiarimenti", say: "Formuli una domanda di ritorno — non ho capito bene." },
       swiss: { label: "In tedesco scritto", say: "Scrivetelo in tedesco standard svizzero, non in dialetto." },
     },
   },
@@ -345,6 +361,61 @@ export const it: Dictionary = {
       "Lo zurighese non ha un'ortografia ufficiale. Questa verifica non vi dirà mai che la vostra grafia è sbagliata — solo che una forma viene da un'altra regione.",
   },
 
+  technology: {
+    title: "Che cosa sa fare un computer con lo svizzero tedesco",
+    lead: "E che cosa non sa fare. Questa pagina raccoglie ciò che è stato davvero misurato in questo campo — con i numeri e le fonti, così che possa verificare le nostre affermazioni.",
+    hardTitle: "Perché è difficile",
+    hardBody: [
+      "Non esiste un'ortografia ufficiale. Esistono raccomandazioni del 1938 usate in dialettologia — ma persino i trascrittori formati le applicano in modo diverso, e quasi nessuno scrive così a un'amica.",
+      "Si parla il dialetto, si scrive il tedesco standard. Mettere per iscritto ciò che è stato detto non è quindi una trascrizione ma una traduzione — ed è così che è costruito quasi tutto ciò che esiste.",
+      "Ed è una lingua piccola nel senso che conta per i dati: le raccolte pubbliche maggiori sono di poche centinaia di ore, e quasi tutte hanno licenza solo per la ricerca.",
+    ],
+    corporaTitle: "Da dove vengono i dati",
+    corporaLead: "Le raccolte pubbliche su cui poggia questo campo. La colonna «direzione» è quella da leggere: quasi tutto ascolta dialetto e scrive standard.",
+    asrTitle: "Capire",
+    asrLead: "Tasso di errore sulle parole, sullo stesso insieme di test, così i numeri sono confrontabili. Tutti questi sistemi producono tedesco standard — la cifra dice quanto bene hanno tradotto, non quanto bene hanno scritto in dialetto.",
+    speakingTitle: "Parlare",
+    speakingLead: "Qui il mercato inganna. Ciò che viene venduto come voce «svizzero tedesca» è di solito tedesco standard svizzero — la lingua scritta, letta ad alta voce. La vera sintesi dialettale esiste quasi solo nella ricerca.",
+    modelsTitle: "Modelli linguistici",
+    modelsLead: "Se un modello conosce davvero il dialetto, o se lo dice solo il comunicato stampa. «Valutato» significa che qualcuno l'ha misurato e pubblicato.",
+    heidiTitle: "Che cosa significa per Heidi",
+    heidiBody: [
+      "La dettatura non scrive il dialetto. Scrive ciò che lei vuole dire, nella lingua che già possiede — esattamente ciò che la ricerca sa fare.",
+      "Heidi non parla. Una voce che pronunciasse male lo zurighese lei non potrebbe verificarla, ed è l'unico errore che questo prodotto non deve commettere.",
+      "Il controllo del dialetto funziona senza modello. È un elenco fisso di regole, non un modello linguistico — per questo non può mettersi a inventare.",
+    ],
+    directionLabel: "Direzione",
+    directions: {
+      "speech-to-standard": "dialetto ascoltato → standard scritto",
+      "speech-to-dialect": "dialetto ascoltato → dialetto scritto",
+      "dialect-text": "dialetto, scritto",
+      "text-to-speech": "testo → dialetto parlato",
+    },
+    hours: "ore",
+    speakers: "parlanti",
+    regions: "regioni",
+    licence: "licenza",
+    licences: { research: "solo ricerca", unpublished: "nessuna licenza pubblicata", textOnly: "testo; audio su richiesta" },
+    wer: "tasso di errore sulle parole",
+    zeroShot: "senza addestramento",
+    fineTuned: "riaddestrato",
+    speakingNames: {
+      commercial: "Voci commerciali «de-CH»",
+      eth: "ETH Zurigo, Swiss Voice",
+      vits: "T5 e VITS, pipeline di ricerca",
+      voiceCloning: "Clonazione vocale da podcast",
+    },
+    weightsOpen: "pesi pubblicati",
+    weightsClosed: "pesi non pubblicati",
+    isDialect: "dialetto",
+    isStandard: "tedesco standard svizzero",
+    evaluated: "dialetto valutato",
+    notEvaluated: "dialetto non valutato",
+    statusResearch: "ricerca",
+    statusService: "servizio",
+    statusClosed: "cessato",
+  },
+
   contribute: {
     title: "Cerchiamo voci zurighesi",
     lead: "Ogni secondo di dialetto che sentirete su Heidi viene da una persona reale di Zurigo. È costoso e lento, e lo facciamo lo stesso.",
@@ -387,6 +458,9 @@ export const it: Dictionary = {
   },
 
   settings: {
+    appearanceTitle: "Aspetto",
+    appearanceBody: "Chiaro, scuro, o come è impostato il suo dispositivo. La scelta resta in questo browser.",
+    theme: { label: "Aspetto", system: "Dispositivo", light: "Chiaro", dark: "Scuro" },
     title: "Impostazioni",
     lead: "Tutto quello che Heidi sa di voi, in un posto solo — e tutto si può togliere.",
     languageTitle: "Lingua del sito",
@@ -402,6 +476,10 @@ export const it: Dictionary = {
   },
 
   auth: {
+    menu: {
+      portal: "Le sue parole e conversazioni",
+      settings: "Lingua, modello, account",
+    },
     signIn: "Accedi",
     signOut: "Esci",
     signInWith: "Accedi con OrangeCat",
@@ -481,6 +559,12 @@ export const it: Dictionary = {
    * group.
    */
   vocabulary: {
+    keptTitle: "Parole tenute",
+    keptNone: "Tocchi + per tenere una parola. Heidi gliela richiederà più tardi.",
+    keptSome: "in ripasso",
+    practise: "Ripassa ora",
+    askLabel: "Mostrala in una frase",
+    askSay: "Mi mostri «{word}» in due brevi frasi di tutti i giorni.",
     title: "Le parole più utili",
     lead: "Non le parole da turista, ma quelle su cui una frase si inceppa: le corte, le costanti, quelle che nessuna regola di corrispondenza recupera.",
     note: "Direzione: dialetto → tedesco. Qui si tratta di capire, non di scrivere — quello che dovreste scrivere voi si trova nella sezione dei dialetti.",
@@ -513,6 +597,8 @@ export const it: Dictionary = {
   },
 
   grammar: {
+    practiseLabel: "Esercitati",
+    practiseSay: "Mi dia due frasi per esercitarmi con «{word}» — poi mi interroghi su una.",
     title: "Grammatica",
     lead: "Quattro cose che rendono lo zurighese difficile da seguire per chi già legge il tedesco. Niente lezioni — solo quello che sentirete, e dove ci si blocca.",
     ruleLabel: "La regola",

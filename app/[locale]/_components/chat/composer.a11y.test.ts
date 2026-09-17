@@ -40,7 +40,7 @@ function sources(dir: string): string[] {
 }
 
 const VISIBLE_LABEL = /<label\s+htmlFor="chat-input"(?![^>]*className="sr-only")/;
-const SR_ONLY_LABEL = /<label\s+htmlFor="chat-input"\s+className="sr-only"/;
+const SR_ONLY_LABEL = /<label\s+htmlFor=\{id\}\s+className="sr-only"/;
 
 describe("the chat box has exactly one label", () => {
   test("the sr-only label stands down when the caller supplies its own", () => {
@@ -50,9 +50,13 @@ describe("the chat box has exactly one label", () => {
     assert.match(src, SR_ONLY_LABEL, "the composer should still carry a fallback label");
     assert.match(
       src,
-      /\{!labelledOutside\s*&&\s*\(\s*<label\s+htmlFor="chat-input"/,
+      /\{!labelledOutside\s*&&\s*\(\s*<label\s+htmlFor=\{id\}/,
       "the composer's sr-only label must be guarded by `labelledOutside`",
     );
+    // The label must point at the box's ACTUAL id rather than a constant: the
+    // dock renders a second composer over pages that already have one, and a
+    // hard-coded id would give both boxes the same name.
+    assert.match(src, /<textarea\s+id=\{id\}/, "the box and its fallback label must share one id");
   });
 
   test("a caller renders its own label if and only if it says so", () => {
@@ -75,10 +79,49 @@ describe("the chat box has exactly one label", () => {
     }
   });
 
-  test("only one element claims the id the label points at", () => {
-    // `htmlFor` resolves to the FIRST match in the document. A second
-    // `id="chat-input"` would take the name meant for the other box.
-    const owners = sources(COMPONENTS).filter((f) => readFileSync(f, "utf8").includes('id="chat-input"'));
-    assert.deepEqual(owners, [COMPOSER]);
+  test("the dock's box does not take the page's id", () => {
+    /**
+     * `htmlFor` and `getElementById` both resolve to the FIRST match in the
+     * document. Two composers in ONE document would therefore share a label:
+     * the reader tabs into one box and hears the name of the other.
+     *
+     * The invariant is narrower than "all ids are unique", and getting that
+     * wrong is what the first version of this test did. The page-level
+     * surfaces — the home fold, the full-screen chat, a group — are each on a
+     * DIFFERENT page and never co-occur, so they may all use the default. The
+     * dock is the one that floats over all of them, so it is the one that must
+     * differ. Asserting global uniqueness would fail on three surfaces that
+     * can never meet.
+     */
+    const composerIds = (file: string): string[] => {
+      const src = readFileSync(file, "utf8");
+      return [...src.matchAll(/<Composer[\s\S]*?\/>/g)].map((block) => {
+        // A literal `id="…"`, a constant `id={NAME}` declared in the same file,
+        // or nothing at all — which is the composer's own default.
+        const literal = block[0].match(/\bid="([^"]+)"/);
+        if (literal) return literal[1];
+        const named = block[0].match(/\bid=\{(\w+)\}/);
+        if (!named) return "chat-input";
+        const declared = src.match(new RegExp(`const ${named[1]} = "([^"]+)"`));
+        return declared ? declared[1] : `unresolved:${named[1]}`;
+      });
+    };
+
+    const files = sources(COMPONENTS).filter((f) => f !== COMPOSER && !f.endsWith(".test.ts"));
+    const dockFiles = files.filter((f) => f.endsWith("dock.tsx"));
+    assert.equal(dockFiles.length, 1, "expected exactly one dock");
+
+    const dockIds = dockFiles.flatMap(composerIds);
+    const pageIds = files.filter((f) => !f.endsWith("dock.tsx")).flatMap(composerIds);
+
+    assert.ok(dockIds.length >= 1, "the dock should render a composer");
+    assert.ok(pageIds.length >= 1, "expected page-level composers too");
+
+    for (const id of dockIds) {
+      assert.ok(
+        !pageIds.includes(id),
+        `the dock's box claims "${id}", which a page-level composer also uses — the dock floats OVER those pages, so one would take the other's label`,
+      );
+    }
   });
 });
