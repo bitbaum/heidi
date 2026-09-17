@@ -1,7 +1,16 @@
 import type { VarietyPack, VarietyRule } from "../../variety/pack.ts";
 import { bridgeRules } from "../../variety/bridge.ts";
 import type { SavedWord } from "../saved/types.ts";
-import { ARTICLES, type ArticleItem, type ClozeItem, type PairItem, type PracticeItem, type RecallItem } from "./types.ts";
+import {
+  ARTICLES,
+  MIN_FORMS_TO_ASK,
+  type ArticleItem,
+  type ClozeItem,
+  type FormItem,
+  type PairItem,
+  type PracticeItem,
+  type RecallItem,
+} from "./types.ts";
 
 /**
  * Turning a variety pack and a learner's own words into things to be asked.
@@ -175,9 +184,54 @@ export function articleItems(pack: VarietyPack): ArticleItem[] {
   return items;
 }
 
+/**
+ * Which form goes with which person.
+ *
+ * One item per form, so a verb with four forms is four questions rather than
+ * one — the paradigm is the thing being learned, and asking about only its
+ * first row teaches the first row.
+ *
+ * The distractors are the verb's own other forms. That is the whole reason
+ * this can be marked objectively without inventing anything: a wrong option is
+ * a real form of the same verb, sitting in the wrong row.
+ */
+export function formItems(pack: VarietyPack): FormItem[] {
+  const items: FormItem[] = [];
+
+  for (const entry of pack.vocabulary ?? []) {
+    const forms = entry.forms ?? [];
+    // Two options is a coin toss and one is not a question.
+    if (forms.length < MIN_FORMS_TO_ASK) continue;
+
+    const options = forms.map((f) => f.target);
+
+    for (const [index, form] of forms.entries()) {
+      items.push({
+        id: `form:${entry.target.toLowerCase()}:${form.label}`,
+        kind: "form",
+        marking: "objective",
+        word: entry.target,
+        bridge: entry.bridge,
+        label: form.label,
+        options,
+        answer: index,
+        source: { kind: "word", word: entry.target },
+      });
+    }
+  }
+
+  return items;
+}
+
 /** Everything that could be asked, before a session decides what to ask. */
 export function allItems(pack: VarietyPack, saved: readonly SavedWord[]): PracticeItem[] {
-  return [...pairItems(pack), ...articleItems(pack), ...clozeItems(pack), ...recallItems(saved)];
+  return [
+    ...pairItems(pack),
+    ...articleItems(pack),
+    ...formItems(pack),
+    ...clozeItems(pack),
+    ...recallItems(saved),
+  ];
 }
 
 /**

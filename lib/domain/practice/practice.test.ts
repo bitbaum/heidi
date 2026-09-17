@@ -3,9 +3,9 @@ import assert from "node:assert/strict";
 import { VARIETY } from "../../variety/active.ts";
 import { check, checkAgainst } from "../../variety/check.ts";
 import { bridgeRules } from "../../variety/bridge.ts";
-import { allItems, clozeItems, pairItems, recallItems } from "./generate.ts";
+import { allItems, articleItems, clozeItems, formItems, pairItems, recallItems } from "./generate.ts";
 import { buildSession, summarise } from "./session.ts";
-import { SESSION_SIZE } from "./types.ts";
+import { MIN_FORMS_TO_ASK, SESSION_SIZE } from "./types.ts";
 import type { SavedWord } from "../saved/types.ts";
 
 /**
@@ -203,6 +203,60 @@ describe("nothing is invented", () => {
     const saved = [word("Chunnsch", "kommst du")];
     for (const item of allItems(VARIETY, saved)) {
       assert.ok(["rule", "grammar", "saved"].includes(item.source.kind), `${item.id} has no provenance`);
+    }
+  });
+});
+
+describe("article and form items", () => {
+  test("an article item offers all three, always", () => {
+    // Offering only the plausible two would leak the answer.
+    for (const item of articleItems(VARIETY)) {
+      assert.deepEqual([...item.options], ["de", "d", "s"]);
+      assert.equal(
+        item.options[item.answer],
+        VARIETY.vocabulary?.find((w) => w.target === item.noun)?.article,
+      );
+    }
+  });
+
+  test("a noun with no declared article produces no item", () => {
+    /**
+     * The guarantee that matters more than any item this generates. The schema
+     * keeps `article` optional so that "nobody has checked this" stays
+     * expressible, and an exercise that quietly filled the gap would be the one
+     * place in the product that invents language.
+     */
+    const asked = new Set(articleItems(VARIETY).map((i) => i.noun));
+    for (const entry of VARIETY.vocabulary ?? []) {
+      if (!entry.article) {
+        assert.ok(!asked.has(entry.target), `${entry.target} was asked about without a declared article`);
+      }
+    }
+  });
+
+  test("a form item's distractors are the verb's OWN forms", () => {
+    // Nothing invented to distract with — which is what lets this be marked
+    // objectively in a variety nobody here can adjudicate.
+    for (const item of formItems(VARIETY)) {
+      const entry = VARIETY.vocabulary?.find((w) => w.target === item.word);
+      const real = new Set((entry?.forms ?? []).map((f) => f.target));
+      for (const option of item.options) {
+        assert.ok(real.has(option), `${item.id} offers "${option}", which is not a form of ${item.word}`);
+      }
+      assert.equal(
+        item.options[item.answer],
+        entry?.forms?.find((f) => f.label === item.label)?.target,
+      );
+    }
+  });
+
+  test("a thin paradigm is not asked about at all", () => {
+    for (const entry of VARIETY.vocabulary ?? []) {
+      if ((entry.forms ?? []).length >= MIN_FORMS_TO_ASK) continue;
+      assert.ok(
+        !formItems(VARIETY).some((i) => i.word === entry.target),
+        `${entry.target} has fewer than ${MIN_FORMS_TO_ASK} forms but is asked about`,
+      );
     }
   });
 });

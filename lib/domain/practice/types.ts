@@ -148,7 +148,34 @@ export type ArticleItem = {
   source: ItemSource;
 };
 
-export type PracticeItem = PairItem | RecallItem | ClozeItem | ArticleItem;
+/**
+ * Which form of the verb goes with this person.
+ *
+ * OBJECTIVE, and the distractors are what make it so: they are the SAME verb's
+ * other forms, taken from the pack. A learner choosing between `bi`, `bisch`
+ * and `isch` is doing the thing a paradigm is for — nothing is invented to
+ * distract them, and no plausible-looking wrong form had to be made up, which
+ * is where a generated drill would otherwise start writing the language.
+ *
+ * Needs at least three forms on the entry. Two would be a coin toss and one is
+ * not a question, so a thinner entry produces no item.
+ */
+export type FormItem = {
+  id: string;
+  kind: "form";
+  marking: "objective";
+  /** The headword, so the learner knows which verb is being asked about. */
+  word: string;
+  bridge: string;
+  /** Which person is wanted — a closed key the dictionary renders. */
+  label: string;
+  /** The verb's own forms, in pack order. */
+  options: readonly string[];
+  answer: number;
+  source: ItemSource;
+};
+
+export type PracticeItem = PairItem | RecallItem | ClozeItem | ArticleItem | FormItem;
 
 /**
  * The three articles, in the order they are always shown.
@@ -158,6 +185,14 @@ export type PracticeItem = PairItem | RecallItem | ClozeItem | ArticleItem;
  * the copy that goes stale. A test asserts the two agree.
  */
 export const ARTICLES = ["de", "d", "s"] as const;
+
+/**
+ * How many forms an entry needs before its paradigm is worth asking about.
+ *
+ * Three: two options is a coin toss, and the distractors have to be the verb's
+ * own forms rather than invented ones.
+ */
+export const MIN_FORMS_TO_ASK = 3;
 
 /** How an answer came back. `skipped` is a real outcome, not a failure. */
 export type Outcome = "right" | "wrong" | "skipped";
