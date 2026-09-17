@@ -43,8 +43,43 @@ export function buildSession({
   seen?: readonly string[];
   size?: number;
 }): PracticeItem[] {
+  return orderSession({ items: allItems(pack, saved), saved, now, seen, size });
+}
+
+/**
+ * The same session, from items that have already been generated.
+ *
+ * WHY A SECOND ENTRY POINT EXISTS, since one is otherwise a smell.
+ *
+ * The two halves of a session come from two places that cannot meet on one
+ * side of the wire. The pack's items are the same for everybody and belong on
+ * the server, where the pack already lives — shipping `VarietyPack` to the
+ * browser to regenerate them would send every rule's prose and every grammar
+ * topic's explanation in order to build eight questions out of them. The
+ * learner's own words are in their browser's storage and have never been sent
+ * anywhere, which is the point of §7 and not a thing to relax for an exercise
+ * page.
+ *
+ * So the page generates the pack half on the server, the client generates the
+ * recall half from storage, and this orders the two together. The ordering —
+ * due first, then a balanced mix, then interleaved — is the part that must not
+ * fork, and now cannot.
+ */
+export function orderSession({
+  items,
+  saved,
+  now,
+  seen = [],
+  size = SESSION_SIZE,
+}: {
+  items: readonly PracticeItem[];
+  saved: readonly SavedWord[];
+  now: Date;
+  seen?: readonly string[];
+  size?: number;
+}): PracticeItem[] {
   const dueIds = new Set(due([...saved], now).map((word) => `recall:${word.target.trim().toLocaleLowerCase()}`));
-  const everything = allItems(pack, saved);
+  const everything = items;
 
   const isDueRecall = (item: PracticeItem) => item.kind === "recall" && dueIds.has(item.id);
 

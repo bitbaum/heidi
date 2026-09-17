@@ -30,6 +30,7 @@ export const de = {
     home: "Start",
     chat: "Chat",
     speaking: "Sprechrunden",
+    practice: "Üben",
     listen: "Hören",
     grammar: "Grammatik",
     dialect: "Mundarten",
@@ -766,6 +767,73 @@ export const de = {
       everyday: "Alltag",
       greetings: "Begrüssung und Höflichkeit",
     },
+    articleLabel: "Artikel",
+    formsLabel: "Formen",
+    exampleLabel: "Im Satz",
+  },
+
+  /**
+   * Die Übungsseite.
+   *
+   * ZWEI ARTEN VON FRAGE, und die Wörter dafür dürfen nicht dieselben sein.
+   * Bei einer objektiven Frage sagt die Seite «richtig» oder «nicht ganz» —
+   * das darf sie, weil die Regel im Pack die Antwort festlegt. Bei einer
+   * selbst bewerteten Frage fragt sie «Gewusst?», und das ist keine höfliche
+   * Umschreibung: für Züritüütsch gibt es keine amtliche Rechtschreibung, und
+   * wer eine getippte Antwort bewertet, sagt irgendwann jemandem, er habe
+   * falsch geschrieben, was gar nicht falsch war.
+   *
+   * KEIN PUNKTESTAND. Am Schluss stehen drei Zahlen, die stimmen — gefragt,
+   * auf Anhieb, kommt nochmals. Keine Prozente, keine Serie, kein Level.
+   */
+  practice: {
+    title: "Üben",
+    lead: "Acht Fragen, in zwei Minuten. Aus den Regeln, die Heidi selbst anwendet — und aus den Wörtern, die Sie behalten haben.",
+    note: "Was Sie gemerkt haben, bleibt in Ihrem Browser. Für die Fragen aus dem Wortschatz brauchen Sie kein Konto.",
+    start: "Losgehen",
+    restart: "Nochmals acht",
+    progress: "Frage {n} von {total}",
+    skip: "Überspringen",
+    show: "Auflösen",
+    knew: "Gewusst",
+    missed: "Nochmals",
+    next: "Weiter",
+    right: "Richtig",
+    wrong: "Nicht ganz",
+    ask: {
+      pairTarget: "Welches davon ist Züritüütsch?",
+      pairBridge: "Welches davon schreibt man in der Schweiz?",
+      article: "Welcher Artikel gehört dazu?",
+      form: "Welche Form passt?",
+      cloze: "Welches Wort fehlt?",
+      recall: "Was heisst das?",
+    },
+    origin: "Das andere ist {origin}.",
+    /**
+     * Die Personen einer Verbtabelle, in der Sprache der Leserin.
+     *
+     * Die Schlüssel sind die des Packs und dürfen sich nicht ändern; die
+     * Wörter rechts sind Beschriftung. «er» steht für alle drei Formen der
+     * dritten Person, weil das Verb sie nicht unterscheidet — eine eigene
+     * Zeile für jede wäre dreimal dieselbe Frage.
+     */
+    persons: {
+      ich: "ich",
+      du: "du",
+      er: "er / sie / es",
+      mir: "wir",
+      ihr: "ihr",
+      si: "sie",
+      plural: "Mehrzahl",
+      past: "Vergangenheit",
+    },
+    grammarLink: "Dazu in der Grammatik",
+    wordLink: "Dazu im Wortschatz",
+    doneTitle: "Fertig für jetzt.",
+    doneAsked: "gefragt",
+    doneRight: "auf Anhieb",
+    doneAgain: "kommen nochmals",
+    savedHint: "Im Chat merken Sie sich Wörter mit +. Die kommen dann hier zurück, wenn es Zeit dafür ist.",
   },
 
   dialect: {
