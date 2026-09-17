@@ -439,6 +439,7 @@ export const de = {
     zeroShot: "ohne Training",
     fineTuned: "nachtrainiert",
     speakingNames: {
+      swissVendors: "Schweizer Anbieter mit Mundart-Angebot",
       commercial: "Kommerzielle «de-CH»-Stimmen",
       eth: "ETH Zürich, Swiss Voice",
       vits: "T5 und VITS, Forschungspipeline",

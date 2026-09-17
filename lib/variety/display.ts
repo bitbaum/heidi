@@ -181,7 +181,7 @@ export const DISPLAY: DisplayVariety = {
   })),
   orthography: { convention: VARIETY.orthography.convention },
   capabilities: {
-    asr: VARIETY.capabilities.asr,
+    asr: VARIETY.capabilities.recognition.available,
     tts: VARIETY.capabilities.tts,
     licensedAudio: VARIETY.capabilities.licensedAudio,
   },

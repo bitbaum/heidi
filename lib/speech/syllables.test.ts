@@ -7,7 +7,7 @@ import { countSyllables, countSyllablesIn, words, type SyllableRule } from "./sy
  * these tests are about the ENGINE: a second language supplies a different
  * rule and must get the same behaviour out of it.
  */
-const GERMAN: SyllableRule = { vowels: "aeiouäöüy" };
+const GERMAN: SyllableRule = { vowels: "aeiouäöüy", adjacentVowelsMerge: true };
 
 const counted: Array<[string, number]> = [
   ["Haus", 1],
@@ -101,7 +101,7 @@ test("the engine is not German — a different rule gives different answers", ()
   // A rule that does not know umlauts are vowels sees no nucleus in `Häuser`
   // beyond the `e`, which is exactly the kind of wrong a hardcoded engine
   // would be for the second language it met.
-  const noUmlauts: SyllableRule = { vowels: "aeiou" };
+  const noUmlauts: SyllableRule = { vowels: "aeiou", adjacentVowelsMerge: true };
   assert.equal(countSyllables("Häuser", noUmlauts), 2, "ä is not a vowel to this rule, but u and e are");
   assert.equal(countSyllables("Häuser", GERMAN), 2);
   assert.equal(countSyllables("für", noUmlauts), 1, "and a word of pure umlaut still cannot be zero");

@@ -9,7 +9,7 @@
  * are what "fluency" means in the research sense, as distinct from how good
  * somebody sounds.
  *
- * ONE RULE: COUNT VOWEL GROUPS.
+ * ONE RULE, WITH ONE SWITCH: COUNT VOWEL GROUPS, OR VOWEL LETTERS.
  *
  * A run of adjacent vowel letters is one nucleus. That is the whole algorithm,
  * and it arrived at that size by being written larger first: an earlier draft
@@ -42,8 +42,22 @@
  * edited. A pack supplies the rule; nothing in this file names a language.
  */
 export type SyllableRule = {
-  /** Letters that can be a nucleus, lowercase. Adjacent ones form ONE. */
+  /** Letters that can be a nucleus, lowercase. */
   vowels: string;
+  /**
+   * Do adjacent vowel LETTERS form one nucleus, or one each?
+   *
+   * THE SECOND PACK FOUND THIS, which is the entire argument for writing one.
+   * German writes its diphthongs as adjacent vowels — `Haus` is one syllable,
+   * `eine` is two — so merging is right and the rule needed no digraph table.
+   * Ukrainian has no diphthongs: every vowel letter is its own nucleus, and
+   * `дякую` is дя-ку-ю. Merging counts it as two and nothing fails; the rate
+   * it feeds is simply wrong by a third, in a language nobody here reads.
+   *
+   * A boolean rather than a clever heuristic, because the two behaviours are
+   * a genuine property of a writing system and not a thing to infer per word.
+   */
+  adjacentVowelsMerge: boolean;
 };
 
 /**
@@ -62,7 +76,8 @@ export function countSyllables(word: string, rule: SyllableRule): number {
   let inNucleus = false;
   for (const ch of cleaned) {
     if (vowels.has(ch)) {
-      if (!inNucleus) count++;
+      // Merging counts a RUN of vowels once; not merging counts each letter.
+      if (!inNucleus || !rule.adjacentVowelsMerge) count++;
       inNucleus = true;
     } else {
       inNucleus = false;

@@ -228,23 +228,72 @@ export type SpeechSystem = {
   /** True only when it produces DIALECT speech rather than the standard. */
   dialect: boolean;
   status: "research" | "service" | "closed";
+  /**
+   * Has anybody HERE listened to it, or tested it against real audio?
+   *
+   * The same discipline `lib/listening/sources.ts` applies to its programmes,
+   * and for a sharper reason: §7 records that most "Swiss German" TTS on the
+   * market is Standard German in a Swiss accent, so a vendor's own label is
+   * the one thing that cannot settle the question. A row claiming dialect on
+   * the strength of a marketing page is the lemons problem of §2 with us on
+   * the wrong side of it.
+   *
+   * Claimed nowhere today, and a test enforces that. The day somebody spends
+   * an afternoon with real Zurich audio, this flips and the copy changes with
+   * it.
+   */
+  verified: boolean;
   note: string;
   source?: SourceId;
 };
 
-export type SpeechSystemId = "commercial" | "eth" | "vits" | "voiceCloning";
+export type SpeechSystemId = "commercial" | "swissVendors" | "eth" | "vits" | "voiceCloning";
 
 export const SPEAKING: readonly SpeechSystem[] = [
   {
     id: "commercial",
     dialect: false,
     status: "service",
+    verified: false,
     note: "What the large cloud vendors sell as German (Switzerland). It is Swiss Standard German read aloud — the written language, not the spoken one. There is no dialect locale.",
+  },
+  {
+    /**
+     * The category that did not exist when this register was written, and the
+     * one that would change the product most if it holds up.
+     *
+     * Swiss specialist vendors now sell dialect recognition and dialect
+     * synthesis together, hosted in Switzerland, and at least one advertises
+     * STT that returns DIALECT TEXT rather than translating into Standard
+     * German. If that is true it is not an improvement in degree: it is the
+     * thing `lib/speech/evidence.ts` says would make a transcript evidence
+     * about a speaker's own forms — the difference between measuring
+     * somebody's dialect and refusing to.
+     *
+     * WHY IT IS A ROW AND NOT A CAPABILITY FLIP. One vendor advertises "97.4%
+     * dialect accuracy" with no test set named and no independent evaluation,
+     * against a published honest baseline of 25.6% WER for the whole field.
+     * That is a tenfold claim, unaudited, on a sales page. It may well be
+     * real — but the numbers above it came from people who published their
+     * method, and this one did not.
+     *
+     * THE EXPERIMENT THAT WOULD SETTLE IT is cheap and nobody has run it: take
+     * the free trial credits, feed it real Zurich speech, and compare against a
+     * transcript a Zurich speaker wrote. Until then `verified` stays false and
+     * the pack keeps `returnsSpokenVariety: false`.
+     */
+    id: "swissVendors",
+    year: 2026,
+    dialect: true,
+    status: "service",
+    verified: false,
+    note: "Swiss vendors selling dialect STT and TTS as a hosted API, some offering transcription that keeps dialect text rather than translating it into Standard German. Accuracy is advertised rather than published: no test set, no independent evaluation, and a figure far above the best peer-reviewed result for the field. Nobody here has fed one real Zurich audio.",
   },
   {
     id: "eth",
     dialect: true,
     status: "research",
+    verified: false,
     note: "Standard German text translated to dialect text, then synthesised, across the 8 SwissDial dialects. The dataset was released; we could not confirm that any model or API is publicly available.",
     source: "swissdial",
   },
@@ -253,6 +302,7 @@ export const SPEAKING: readonly SpeechSystem[] = [
     year: 2023,
     dialect: true,
     status: "research",
+    verified: false,
     note: "Compared three training corpora and found a small, carefully transcribed one beat a large noisy one — best rated 4.1 of 5 by native listeners, against about 4.8 for real recordings.",
     source: "tts-comparison",
   },
@@ -261,6 +311,7 @@ export const SPEAKING: readonly SpeechSystem[] = [
     year: 2025,
     dialect: true,
     status: "research",
+    verified: false,
     note: "About 5,000 hours of Swiss podcast audio, automatically labelled, used to make Standard German text come out as dialect speech in a cloned voice. A preprint, submitted and not yet accepted.",
     source: "tts-voice-adaptation",
   },

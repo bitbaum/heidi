@@ -413,6 +413,7 @@ export const ru: Dictionary = {
     zeroShot: "без дообучения",
     fineTuned: "дообучена",
     speakingNames: {
+      swissVendors: "Швейцарские поставщики с диалектом",
       commercial: "Коммерческие голоса «de-CH»",
       eth: "ETH Цюрих, Swiss Voice",
       vits: "T5 и VITS, исследовательский конвейер",

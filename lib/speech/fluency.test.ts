@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { MIN_PAUSE_MS, countFilledPauses, measureFluency, type TimedWord } from "./fluency.ts";
 import type { SyllableRule } from "./syllables.ts";
 
-const GERMAN: SyllableRule = { vowels: "aeiouäöüy" };
+const GERMAN: SyllableRule = { vowels: "aeiouäöüy", adjacentVowelsMerge: true };
 const FILLERS = ["äh", "ähm", "öh", "ehm", "hm"];
 
 /**

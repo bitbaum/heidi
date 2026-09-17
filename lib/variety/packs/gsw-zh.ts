@@ -434,12 +434,52 @@ export const ZURICH_GERMAN: VarietyPack = {
     note: "Zurich German has no official spelling. Dieth-Schreibung exists but needs diacritics no one has on a keyboard, so real writing is ad-hoc. We spell consistently so you meet the same word the same way twice; your spelling is not wrong.",
   },
 
+  speech: {
+    // `de-CH`, not this pack's own `gsw-*` tag: no platform ships a Zurich
+    // German voice, and asking a synthesiser for `gsw` gets silence. What
+    // `de-CH` gets is Swiss Standard German in a Swiss accent, which the voice
+    // gate reports honestly rather than passing off as dialect. It was a
+    // constant inside the voice module until this field existed, which meant a
+    // Ukrainian deployment would still have asked for Swiss German.
+    lang: "de-CH",
+    vowels: "aeiouäöüy",
+    // German writes its diphthongs as adjacent vowels: `Haus` is one syllable.
+    adjacentVowelsMerge: true,
+    fillers: ["äh", "ähm", "öh", "ehm", "hm", "mhm"],
+    // LanguageTool has no Swiss German, and that is correct rather than a gap:
+    // a checker built for a standard would flag every dialect form as an error,
+    // which is the §6 failure with a different engine behind it.
+    grammarCode: null,
+    // The bridge does have one, and `de-CH` rather than `de-DE` so that Swiss
+    // spelling — no ß — is what it checks against.
+    bridgeGrammarCode: "de-CH",
+  },
+
   capabilities: {
     // No production-grade dialect ASR exists. The state of the art transcribes
     // Swiss German INTO Standard German — it translates the dialect away, which
     // is precisely the information a learner needs. Best honest published
     // figure is ~25.6% WER after fine-tuning on 1,367h.
-    asr: false,
+    // Recognition EXISTS and is usable — Whisper answers Swiss German at a
+    // published 25.6% WER. What it does not do is answer in the variety that
+    // was SPOKEN: every corpus was built to map dialect speech to Standard
+    // German text, so the transcript carries what was meant and nothing about
+    // which forms were used. `returnsSpokenVariety: false` is the whole reason
+    // `lib/voice/correction.ts` may not judge a spoken take's forms, and it is
+    // a different statement from "there is no ASR", which is what the old
+    // boolean was forced to say.
+    //
+    // Swiss specialist vendors now advertise dialect-PRESERVING recognition.
+    // Nobody here has tested one, so this stays as it is; see the
+    // `swissVendors` row in lib/research/language-tech.ts for the experiment
+    // that would settle it. The day it is verified, this object is the edit —
+    // no engine code changes.
+    recognition: { available: true, returnsSpokenVariety: false, wer: 25.6 },
+    // The bridge is the other answer, and it is why a speaking surface can
+    // exist at all today: Standard German recognition returns Standard German,
+    // so a learner practising the German they need at a doctor's desk CAN be
+    // told about their own words.
+    bridgeRecognition: { available: true, returnsSpokenVariety: true, wer: 6.4 },
     // Contested. At least one vendor now advertises commercially licensed
     // Züridütsch voices; most "Swiss German" TTS on the market is Standard
     // German in a Swiss accent. Stays false until someone listens to output.

@@ -421,6 +421,7 @@ export const rm: Dictionary = {
     zeroShot: "senza training",
     fineTuned: "reexercità",
     speakingNames: {
+      swissVendors: "Purschiders svizzers cun purschida da dialect",
       commercial: "Vuschs commerzialas «de-CH»",
       eth: "ETH Turitg, Swiss Voice",
       vits: "T5 e VITS, pipeline da perscrutaziun",

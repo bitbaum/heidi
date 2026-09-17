@@ -405,6 +405,7 @@ export const en: Dictionary = {
     zeroShot: "no training",
     fineTuned: "fine-tuned",
     speakingNames: {
+      swissVendors: "Swiss vendors offering dialect",
       commercial: "Commercial de-CH voices",
       eth: "ETH Zurich, Swiss Voice",
       vits: "T5 and VITS research pipeline",

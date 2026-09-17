@@ -21,6 +21,7 @@
  */
 
 import type { Place as GeoPlace, RegionId as GeoRegionId } from "../geo/region.ts";
+import type { Recognition } from "../speech/evidence.ts";
 
 /** BCP-47 where one exists. Zurich German is `gsw-u-sd-chzh`; Ukrainian is `uk`. */
 export type VarietyTag = string;
@@ -263,12 +264,88 @@ export type Orthography = {
  * enables or hides; it never assumes.
  */
 export type Capabilities = {
-  /** Speech recognition INTO this variety's own script (not translated away). */
-  asr: boolean;
+  /**
+   * What recognition does to the TARGET variety.
+   *
+   * Replaced a bare `asr: boolean`, because a boolean cannot express the fact
+   * that decides the whole speaking surface: a recogniser may exist, work
+   * well, and still answer in a DIFFERENT variety from the one that was
+   * spoken. Swiss German recognition transcribes dialect into Standard German
+   * — so `available` is true and `returnsSpokenVariety` is false, and the two
+   * together are what `lib/speech/evidence.ts` reads to decide whether a
+   * transcript may be judged as the learner's own words.
+   *
+   * With one flag those two cases were indistinguishable, and the safe reading
+   * was to call ASR unavailable — which was wrong in the other direction,
+   * because Heidi CAN understand dialect speech, she simply cannot write it
+   * down faithfully.
+   */
+  recognition: Recognition;
+  /**
+   * The same question about the BRIDGE variety, which has a different answer
+   * and is the reason the speaking surface can exist at all today.
+   *
+   * Zurich is diglossic: the German somebody needs at a doctor's desk is Swiss
+   * Standard German, recognition for it returns what was said, and §9 already
+   * makes producing it a product output. Absent for a pack with no sibling
+   * bridge.
+   */
+  bridgeRecognition?: Recognition;
   /** Speech synthesis good enough to put in front of a learner. */
   tts: boolean;
   /** Commercially licensed recorded audio exists; if false, we record it. */
   licensedAudio: boolean;
+};
+
+/**
+ * The linguistic facts the speech engine needs, supplied rather than assumed.
+ *
+ * `lib/speech/` measures syllables, counts hesitations and asks a grammar
+ * service for findings, and NOT ONE of those files may know what language it
+ * is working on — the same house rule §4 states for the gate and the prompt.
+ * Before this existed the syllable rule lived in a test, the filler words
+ * lived in a test, and `SPEECH_LANG = "de-CH"` was a constant in the voice
+ * module: swapping the pack to Ukrainian would have kept asking the
+ * synthesiser for Swiss German.
+ */
+export type SpeechProfile = {
+  /**
+   * The BCP-47 tag to ask a synthesiser for.
+   *
+   * Not the same as the pack's `tag`: Zurich German is requested as `de-CH`
+   * because no platform has a `gsw` voice, and asking for one gets silence.
+   */
+  lang: string;
+  /** Letters that can be a syllable nucleus. */
+  vowels: string;
+  /**
+   * Do adjacent vowel LETTERS form one nucleus, or one each?
+   *
+   * The field the second pack forced into existence. German writes diphthongs
+   * as adjacent vowels, so `Haus` is one syllable and merging is right.
+   * Ukrainian has no diphthongs — `дякую` is дя-ку-ю — so merging reports two
+   * where a speaker says three, and nothing anywhere fails. A rate wrong by a
+   * third, in a language nobody here reads, is exactly the kind of error a
+   * contract test over every pack exists to catch.
+   */
+  adjacentVowelsMerge: boolean;
+  /**
+   * What this language hesitates with — `äh`, `ähm`.
+   *
+   * Counted and never judged: native speakers produce them constantly, and a
+   * product that flags them teaches somebody to talk like a document.
+   */
+  fillers: readonly string[];
+  /**
+   * The LanguageTool language code, or null where the variety has no checker.
+   *
+   * Null for Zurich German and that is correct rather than a gap: LanguageTool
+   * has no Swiss German, and it would be worse if it did — a checker built for
+   * a standard would flag every dialect form as an error. The bridge has one.
+   */
+  grammarCode: string | null;
+  /** The grammar code for the bridge variety, where the checker does exist. */
+  bridgeGrammarCode?: string | null;
 };
 
 /**
@@ -436,6 +513,10 @@ export type VarietyPack = {
   rules: readonly VarietyRule[];
   orthography: Orthography;
   capabilities: Capabilities;
+  /**
+   * What the speech engine needs to work on this language. See `SpeechProfile`.
+   */
+  speech: SpeechProfile;
 };
 
 /** The surface this pack opens on — never assumed, always read. */

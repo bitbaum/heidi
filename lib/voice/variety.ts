@@ -26,6 +26,8 @@
  * tuning their ear to the wrong thing.
  */
 
+import { VARIETY } from "../variety/active.ts";
+
 /**
  * What is coming out of the speaker. Ordered from the target outwards, which
  * is also the order of how useful it is to this learner.
@@ -142,4 +144,11 @@ export function claimFor(voice: VoiceLike | null): VoiceClaim {
  * the worst outcome available. `de-CH` gets the closest real thing, and
  * `claimFor` makes sure the learner is told what that closest real thing is.
  */
-export const SPEECH_LANG = "de-CH";
+/**
+ * Read from the PACK rather than written here.
+ *
+ * It was `"de-CH"`, a Swiss fact inside engine code — so a Lesya build would
+ * have kept asking the synthesiser for Swiss German. §4's house rule is that
+ * nothing outside `lib/variety/packs/` names one.
+ */
+export const SPEECH_LANG = VARIETY.speech.lang;

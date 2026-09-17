@@ -63,5 +63,29 @@ export const UKRAINIAN: VarietyPack = {
     note: "Ukrainian has an official orthography, so a spelling really can be wrong.",
   },
 
-  capabilities: { asr: true, tts: true, licensedAudio: true },
+  speech: {
+    lang: "uk-UA",
+    // Ukrainian vowels, including the two the Latin-alphabet rule would miss.
+    vowels: "аеєиіїоуюя",
+    // Ukrainian has no diphthongs — every vowel letter is its own nucleus, so
+    // `дякую` is three syllables and merging would report two.
+    adjacentVowelsMerge: false,
+    fillers: ["еее", "ем", "ну", "теє"],
+    // Ukrainian has a LanguageTool checker, so the full speaking surface is
+    // available on day one here — which is the whole point of the contract:
+    // the engine did not change, the pack answered differently.
+    grammarCode: "uk-UA",
+    // No sibling bridge to check separately; Ukrainian IS the standard.
+    bridgeGrammarCode: null,
+  },
+
+  capabilities: {
+    // The contrast that makes the field worth having. Ukrainian recognition
+    // returns Ukrainian, so a transcript IS the learner's own words and
+    // grammar, vocabulary and speech rate are all measurable — the surfaces
+    // Zurich German cannot have, available here without an engine change.
+    recognition: { available: true, returnsSpokenVariety: true, wer: 8.0 },
+    tts: true,
+    licensedAudio: true,
+  },
 };

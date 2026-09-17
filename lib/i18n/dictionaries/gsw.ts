@@ -477,6 +477,7 @@ export const gsw: Dictionary = {
     zeroShot: "ohni Training",
     fineTuned: "nachetrainiert",
     speakingNames: {
+      swissVendors: "Schwiizer Aabieter mit Mundart-Aagebot",
       commercial: "Kommerziälli «de-CH»-Stimme",
       eth: "ETH Züri, Swiss Voice",
       vits: "T5 und VITS, Forschigspipeline",
