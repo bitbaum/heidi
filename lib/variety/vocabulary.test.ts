@@ -104,3 +104,93 @@ describe("the vocabulary", () => {
     assert.ok(PACK.vocabularySources?.includes("idiotikon"), "the vocabulary must cite the Idiotikon");
   });
 });
+
+/**
+ * The detail a word can carry beyond its gloss — and the rules that keep it
+ * from becoming the place where this product starts inventing language.
+ *
+ * An article, a paradigm and an example sentence are all CLAIMS ABOUT THE
+ * LANGUAGE, which is a different kind of statement from a target/bridge pair
+ * and needs its own guarantees. §6's whole argument is that the learner cannot
+ * audit any of them: somebody told that *Velo* is masculine has no way to find
+ * out otherwise, and will say it wrong for a year.
+ */
+describe("what a word says beyond its meaning", () => {
+  const words = PACK.vocabulary ?? [];
+
+  test("an article is one of the variety's three, never a German one", () => {
+    // `der` here would be a German article presented as a Zurich one — the
+    // invisible error the whole product is built around.
+    for (const word of words) {
+      if (!word.article) continue;
+      assert.ok(
+        ["de", "d", "s"].includes(word.article),
+        `${word.target} claims the article "${word.article}", which this variety does not have`,
+      );
+    }
+  });
+
+  test("every claim about the language names who vouches for it", () => {
+    /**
+     * The rule that makes it safe to add more. A bare target/bridge pair
+     * inherits the pack's `vocabularySources`; an article, a paradigm or an
+     * example is a further assertion, and this repo does not publish an
+     * assertion about the language that names nobody.
+     */
+    for (const word of words) {
+      const claims = Boolean(word.article || word.forms?.length || word.example);
+      if (!claims) continue;
+      assert.ok(
+        word.source && word.source.trim().length > 0,
+        `${word.target} carries an article, forms or an example and cites no source`,
+      );
+    }
+  });
+
+  test("an example sentence passes the variety gate", () => {
+    // It is generated dialect reaching a learner, so it faces the same checker
+    // every generated line faces. An example carrying a Bernese form would
+    // teach the exact thing the gate exists to prevent, from the reference
+    // page rather than from a model.
+    for (const word of words) {
+      if (!word.example) continue;
+      const verdict = check(word.example.target, PACK);
+      assert.equal(verdict.ok, true, `${word.target}'s example is flagged: ${verdict.findings.map((f) => f.form).join(", ")}`);
+    }
+  });
+
+  test("an example actually contains the word it illustrates", () => {
+    // An example that does not use the word is a sentence, not an example —
+    // and this is the kind of thing that survives review because it reads well.
+    for (const word of words) {
+      if (!word.example) continue;
+      assert.match(
+        word.example.target.toLowerCase(),
+        new RegExp(word.target.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+        `${word.target}'s example does not contain it`,
+      );
+    }
+  });
+
+  test("a form is not the same string as the headword", () => {
+    // A paradigm row identical to the lemma teaches nothing and usually means
+    // the row was filled in to make the table look complete.
+    for (const word of words) {
+      for (const form of word.forms ?? []) {
+        assert.notEqual(
+          form.target.toLowerCase(),
+          word.target.toLowerCase(),
+          `${word.target} lists a form identical to itself (${form.label})`,
+        );
+        assert.ok(form.bridge.trim().length > 0, `${word.target}'s ${form.label} has no bridge form`);
+      }
+    }
+  });
+
+  test("no word claims the same form label twice", () => {
+    for (const word of words) {
+      const labels = (word.forms ?? []).map((f) => f.label);
+      assert.equal(new Set(labels).size, labels.length, `${word.target} repeats a form label`);
+    }
+  });
+});
