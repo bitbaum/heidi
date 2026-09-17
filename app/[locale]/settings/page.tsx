@@ -7,6 +7,7 @@ import { href } from "@/lib/i18n/routes";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
 import { SignOutButton } from "../_components/account-control";
 import { ModelSection } from "./model-section";
+import { ThemeControl } from "../_components/theme-control";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -36,7 +37,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
     <Shell>
       <PageHeader eyebrow={dict.nav.settings} title={t.title} lead={t.lead} />
 
-      <Section title={t.languageTitle}>
+      <Section id="language" title={t.languageTitle}>
         <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.languageBody}</p>
         <ul className="mt-4 flex flex-wrap gap-2">
           {LOCALES.map((l) => (
@@ -58,11 +59,20 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
         </ul>
       </Section>
 
-      <Section title={t.modelTitle}>
+      {/* `id` on every section, so an answer or a link can point at the one
+          setting it is about rather than at the top of the page. */}
+      <Section id="appearance" title={t.appearanceTitle}>
+        <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.appearanceBody}</p>
+        <div className="mt-4">
+          <ThemeControl t={t.theme} />
+        </div>
+      </Section>
+
+      <Section id="model" title={t.modelTitle}>
         <ModelSection t={t} model={dict.model} />
       </Section>
 
-      <Section title={t.accountTitle}>
+      <Section id="account" title={t.accountTitle}>
         <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.accountBody}</p>
         <div className="mt-4">
           {!authEnabled ? (
@@ -92,7 +102,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
         </div>
       </Section>
 
-      <Section title={t.dataTitle}>
+      <Section id="data" title={t.dataTitle}>
         <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.dataBody}</p>
         <Link
           href={href(locale, "portal")}

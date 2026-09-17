@@ -63,6 +63,7 @@ export async function AccountControl({ locale, dict }: { locale: Locale; dict: D
       email={session.user?.email}
       image={session.user?.image}
       t={{ account: dict.auth.account, signedInAs: dict.auth.signedInAs }}
+      themeT={dict.settings.theme}
       items={accountMenu().map((entry) => ({
         key: entry.key,
         href: href(locale, entry.segment),

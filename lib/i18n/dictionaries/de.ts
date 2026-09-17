@@ -430,6 +430,17 @@ export const de = {
   },
 
   settings: {
+    /**
+     * Appearance. The palette existed long before the control did: the dark
+     * blocks in globals.css are guarded on `data-theme`, and nothing set it.
+     *
+     * "System" is named as a real option rather than implied by the absence of
+     * the other two, because it is the default and the right answer for most
+     * readers — a device that turns dark at dusk should take Heidi with it.
+     */
+    appearanceTitle: "Darstellung",
+    appearanceBody: "Hell, dunkel, oder wie es Ihr Gerät gerade eingestellt hat. Die Wahl bleibt in diesem Browser.",
+    theme: { label: "Darstellung", system: "Gerät", light: "Hell", dark: "Dunkel" },
     title: "Einstellungen",
     lead: "Alles, was Heidi über Sie weiss, an einem Ort — und alles davon können Sie wieder entfernen.",
     languageTitle: "Sprache der Seite",

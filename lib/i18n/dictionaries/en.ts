@@ -402,6 +402,9 @@ export const en: Dictionary = {
   },
 
   settings: {
+    appearanceTitle: "Appearance",
+    appearanceBody: "Light, dark, or whatever your device is set to. The choice stays in this browser.",
+    theme: { label: "Appearance", system: "Device", light: "Light", dark: "Dark" },
     title: "Settings",
     lead: "Everything Heidi knows about you, in one place — and all of it removable.",
     languageTitle: "Site language",

@@ -418,6 +418,9 @@ export const rm: Dictionary = {
   },
 
   settings: {
+    appearanceTitle: "Apparientscha",
+    appearanceBody: "Cler, stgir, u sco Voss apparat è endrizzà. La tscherna resta en quest navigatur.",
+    theme: { label: "Apparientscha", system: "Apparat", light: "Cler", dark: "Stgir" },
     title: "Configuraziuns",
     lead: "Tut quai che Heidi sa da Vus, en in sulet lieu — e tut sa vegnir allontanà.",
     languageTitle: "Lingua da la pagina",

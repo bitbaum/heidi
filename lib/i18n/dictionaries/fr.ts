@@ -402,6 +402,9 @@ export const fr: Dictionary = {
   },
 
   settings: {
+    appearanceTitle: "Apparence",
+    appearanceBody: "Clair, sombre, ou selon le réglage de votre appareil. Le choix reste dans ce navigateur.",
+    theme: { label: "Apparence", system: "Appareil", light: "Clair", dark: "Sombre" },
     title: "Réglages",
     lead: "Tout ce que Heidi sait de vous, au même endroit — et tout est effaçable.",
     languageTitle: "Langue du site",

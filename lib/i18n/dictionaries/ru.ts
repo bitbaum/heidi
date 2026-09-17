@@ -410,6 +410,9 @@ export const ru: Dictionary = {
   },
 
   settings: {
+    appearanceTitle: "Оформление",
+    appearanceBody: "Светлое, тёмное или как настроено на вашем устройстве. Выбор сохраняется в этом браузере.",
+    theme: { label: "Оформление", system: "Устройство", light: "Светлое", dark: "Тёмное" },
     title: "Настройки",
     lead: "Всё, что Heidi знает о вас, в одном месте — и всё это можно удалить.",
     languageTitle: "Язык сайта",

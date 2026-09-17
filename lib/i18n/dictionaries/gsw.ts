@@ -227,6 +227,9 @@ export const gsw: Dictionary = {
   },
 
   settings: {
+    appearanceTitle: "Darstellig",
+    appearanceBody: "Hell, dunkel, oder eso wie s Ihres Grät grad iigstellt hät. D Wahl bliibt i dem Browser.",
+    theme: { label: "Darstellig", system: "Grät", light: "Hell", dark: "Dunkel" },
     title: "Iistellige",
     lead: "Alles, was Heidi über Si weiss, a eim Ort — und alles dervo chönd Si wieder ewägnäh.",
     languageTitle: "Sprach vo de Siite",

@@ -4,6 +4,7 @@ import { useCallback, useId, useRef, useState } from "react";
 import Link from "next/link";
 
 import { useDismiss } from "./use-dismiss";
+import { ThemeRow } from "./theme-control";
 
 /**
  * The signed-in learner, as one control.
@@ -40,6 +41,7 @@ export function AccountMenu({
   image,
   items,
   t,
+  themeT,
   /**
    * The sign-out form, rendered on the SERVER and passed in.
    *
@@ -54,6 +56,8 @@ export function AccountMenu({
   image?: string | null;
   items: ReadonlyArray<{ key: string; href: string; label: string; description?: string }>;
   t: { account: string; signedInAs: string };
+  /** Appearance wording, from `settings.theme` — the same strings the settings page uses. */
+  themeT: { label: string; system: string; light: string; dark: string };
   signOutSlot: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -126,6 +130,18 @@ export function AccountMenu({
               </li>
             ))}
           </ul>
+
+          {/* Appearance IN the menu, not only in settings.
+
+              This is the pattern both of the products next door settle on, and
+              the reason is the phone: there the header is a wordmark, a
+              language button and this menu, so the menu is the only chrome a
+              reader can reach without navigating away from what they were
+              doing. It changes the page in place and never closes the menu —
+              you pick a theme by looking at the result. */}
+          <div className="border-b border-border-subtle px-4 py-3">
+            <ThemeRow t={themeT} />
+          </div>
 
           <div className="px-4 py-3">{signOutSlot}</div>
         </div>

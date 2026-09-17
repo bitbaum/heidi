@@ -402,6 +402,9 @@ export const it: Dictionary = {
   },
 
   settings: {
+    appearanceTitle: "Aspetto",
+    appearanceBody: "Chiaro, scuro, o come è impostato il suo dispositivo. La scelta resta in questo browser.",
+    theme: { label: "Aspetto", system: "Dispositivo", light: "Chiaro", dark: "Scuro" },
     title: "Impostazioni",
     lead: "Tutto quello che Heidi sa di voi, in un posto solo — e tutto si può togliere.",
     languageTitle: "Lingua del sito",
