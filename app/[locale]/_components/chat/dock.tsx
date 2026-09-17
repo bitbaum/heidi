@@ -25,6 +25,13 @@ import { useDraftChat } from "./use-draft-chat";
  */
 const DOCK_INPUT_ID = "heidi-dock-input";
 
+/** Ids for asks. A counter cannot collide; a clock can, and text repeats. */
+let askCounter = 0;
+function nextAskId(): number {
+  askCounter += 1;
+  return askCounter;
+}
+
 /**
  * Heidi, on every page.
  *
@@ -64,7 +71,7 @@ export function ChatDock({ locale, dict }: { locale: Locale; dict: Dictionary })
    * can send it is inside the panel, and the panel does not exist until this
    * press opens it.
    */
-  const [asked, setAsked] = useState<string | null>(null);
+  const [asked, setAsked] = useState<{ id: number; text: string } | null>(null);
   const panelId = useId();
   const wrap = useRef<HTMLDivElement>(null);
   const launcher = useRef<HTMLButtonElement>(null);
@@ -73,7 +80,16 @@ export function ChatDock({ locale, dict }: { locale: Locale; dict: Dictionary })
     function onAsk(event: Event) {
       const text = askedText(event);
       if (!text) return;
-      setAsked(text);
+      /**
+       * A monotonic id, NOT the text.
+       *
+       * Deduping on the text meant pressing the same word twice did nothing
+       * the second time: the effect saw the value it had already sent and
+       * returned early — without clearing `asked`, which then sat there and
+       * replayed the moment a fresh panel mounted. Asking the same question
+       * twice is a perfectly ordinary thing to want.
+       */
+      setAsked({ id: nextAskId(), text });
       setOpen(true);
     }
     window.addEventListener(ASK_EVENT, onAsk);
@@ -90,6 +106,19 @@ export function ChatDock({ locale, dict }: { locale: Locale; dict: Dictionary })
     // reader is very often mid-sentence, and the thing they clicked is usually
     // the word they are asking about.
     onPointerOutside: false,
+    /**
+     * Nor because they followed a link.
+     *
+     * A menu closing on navigation is right; a dock is the opposite case. It
+     * lives in the root layout precisely so it outlives the page under it —
+     * and following a grammar link FROM an answer is a thing this product
+     * actively encourages, so closing on it would punish the intended move.
+     *
+     * It also lost work: `useConversation` has no abort handling, so a reply
+     * still in flight when the panel unmounted was dropped before it reached
+     * the draft store. The reader came back to their question and no answer.
+     */
+    onNavigate: false,
   });
 
   return (
@@ -115,7 +144,15 @@ export function ChatDock({ locale, dict }: { locale: Locale; dict: Dictionary })
           onAskHandled={() => setAsked(null)}
           onClose={() => {
             dismiss();
-            launcher.current?.focus();
+            /**
+             * Only where the launcher still exists to receive it. While the
+             * panel is open on a phone the launcher carries `hidden`, so it is
+             * `display:none` and `.focus()` is a silent no-op that leaves
+             * focus on `document.body` — the exact defect the Escape path was
+             * written to avoid. `offsetParent` is null for a hidden element,
+             * which is the cheapest honest test for "is this focusable".
+             */
+            if (launcher.current?.offsetParent !== null) launcher.current?.focus();
           }}
         />
       )}
@@ -172,8 +209,8 @@ function DockPanel({
   id: string;
   locale: Locale;
   dict: Dictionary;
-  /** A question handed in by a page, waiting to be sent. */
-  asked: string | null;
+  /** A question handed in by a page, waiting to be sent. Identified by id. */
+  asked: { id: number; text: string } | null;
   onAskHandled: () => void;
   onClose: () => void;
 }) {
@@ -197,12 +234,12 @@ function DockPanel({
    * `onAskHandled` clears it upstream so that closing and reopening the dock
    * does not replay a question some page asked an hour ago.
    */
-  const sent = useRef<string | null>(null);
+  const sent = useRef<number | null>(null);
   const send = chat.send;
   useEffect(() => {
-    if (!ready || !asked || sent.current === asked) return;
-    sent.current = asked;
-    send(asked);
+    if (!ready || !asked || sent.current === asked.id) return;
+    sent.current = asked.id;
+    send(asked.text);
     onAskHandled();
   }, [ready, asked, send, onAskHandled]);
 

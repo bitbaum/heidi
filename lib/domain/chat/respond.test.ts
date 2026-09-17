@@ -25,8 +25,11 @@ Bitte bestätigen Sie den Termin bis Freitag.`;
 describe("the pasted-message note", () => {
   test("is built from a solo thread's turn", () => {
     const context = pastedContext([said(LEARNER_ID, EMAIL)]);
-    assert.match(context, /Heizungsablesung/);
-    assert.match(context, /THE READER PASTED A MESSAGE/);
+    assert.match(context, /Heizungsablesung/, "the subject is what identifies it");
+    assert.match(context, /LATEST TURN IS A MESSAGE THEY RECEIVED/);
+    // The body stays in the user turn where it belongs — see the injection
+    // test in email.test.ts.
+    assert.doesNotMatch(context, /bestätigen Sie den Termin/);
   });
 
   test("is built from a GROUP member's turn too", () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, type RefObject } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import { usePathname } from "next/navigation";
 
 /**
@@ -56,12 +56,24 @@ export function useDismiss({
    * clicked the page to read the word you were asking about.
    */
   onPointerOutside = true,
+  /**
+   * Whether a navigation dismisses it. True for a menu — a panel that survives
+   * a route change reads as the new page having rendered wrongly.
+   *
+   * FALSE for the chat dock, which lives in the root layout and is meant to
+   * outlive the page under it. Closing it on navigation also threw away an
+   * answer that was still in flight: `useConversation` has no abort handling,
+   * so a reply arriving after the panel unmounted was never written to the
+   * draft store, and reopening showed the question with no answer.
+   */
+  onNavigate = true,
 }: {
   open: boolean;
   onDismiss: () => void;
   containerRef: RefObject<HTMLElement | null>;
   focusRef?: RefObject<HTMLElement | null>;
   onPointerOutside?: boolean;
+  onNavigate?: boolean;
 }): void {
   const pathname = usePathname();
 
@@ -106,9 +118,34 @@ export function useDismiss({
    * No focus restore here — the page underneath has changed, and pulling focus
    * back to a trigger the reader has navigated away from would be worse than
    * leaving it where the router put it.
+   *
+   * IT COMPARES THE PATH, rather than counting runs, and that distinction was
+   * paid for twice.
+   *
+   * React runs an effect with a dependency array on the INITIAL commit as well
+   * as on changes. So the naive version fires once on mount — and for a caller
+   * that is already open when it mounts, that means dismissing itself
+   * immediately. The model sheet is exactly that caller: it exists only while
+   * open, so it passes `open: true`. Pressing "connect your own model" opened
+   * a sheet that closed in the same tick, which made BYOK — and with it every
+   * picture — unreachable. No test caught it, because it needs a browser.
+   *
+   * The obvious repair is a "skip the first run" ref, and it is WRONG HERE:
+   * `reactStrictMode` is on, so in development React invokes every effect
+   * twice while the ref persists across both. The guard is spent on the first
+   * invocation and the second closes the sheet anyway. Measured in the
+   * browser — the sheet still refused to open after that "fix".
+   *
+   * Storing the path and comparing it asks the question this effect actually
+   * means: not "is this the first run?" but "have we navigated?". Mount and
+   * StrictMode's replay both see the same path and do nothing; a real
+   * navigation differs and dismisses.
    */
+  const seenPath = useRef(pathname);
   useEffect(() => {
-    if (open) onDismiss();
+    if (seenPath.current === pathname) return;
+    seenPath.current = pathname;
+    if (open && onNavigate) onDismiss();
     // Only `pathname`. Depending on `open` would close it the instant it opened.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);

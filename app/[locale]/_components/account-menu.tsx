@@ -77,7 +77,10 @@ export function AccountMenu({
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        aria-controls={id}
+        // Only while the panel exists. The menu is mounted on open, so a
+        // permanent `aria-controls` points at an id that is not in the
+        // document — which a screen reader reports as a broken reference.
+        aria-controls={open ? id : undefined}
         // The name is the accessible name. "User menu" would be the same four
         // words on every account, and the one thing a screen reader user
         // cannot see here is WHOSE account it is.
