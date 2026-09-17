@@ -11,6 +11,30 @@ export const SITE_URL = "https://heidi.orangecat.ch";
 export const CONTACT_EMAIL = "heidi@fleetcrown.orangecat.ch";
 
 /**
+ * Who operates the site, for the legal notice.
+ *
+ * Taken from the LICENSE, which already names the copyright holder — one
+ * identity, not a second one invented for a footer. A legal notice that names
+ * somebody the repository does not is the first thing a careful reader notices.
+ */
+export const OPERATOR = "Cato";
+
+/**
+ * A postal address, once there is one to give.
+ *
+ * EMPTY ON PURPOSE, and the page renders nothing rather than a placeholder.
+ * Swiss law expects an address on a commercial site; Heidi sells nothing yet,
+ * so the honest state is "not applicable, and said so" rather than a line that
+ * looks filled in. Publishing a private home address is also a real exposure,
+ * so this should be a c/o or a business address when it is filled in — not
+ * wherever the operator happens to sleep.
+ */
+export const POSTAL_ADDRESS = "";
+
+/** The source, which is the strongest thing this notice can point at. */
+export const SOURCE_URL = "https://github.com/bitbaum/heidi";
+
+/**
  * What the assistant is called — the brand, not the language.
  *
  * Deliberately here and not in the variety pack: the pack describes what is
