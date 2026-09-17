@@ -86,6 +86,34 @@ export const ROUTES: readonly Route[] = [
   { key: "settings", segment: "settings", indexed: false, priority: 0.3 },
 ];
 
+/**
+ * What the avatar menu in the header offers, in order.
+ *
+ * HERE rather than in the component, for the reason this whole file exists:
+ * these are pages, and a menu that names a page the site does not have is the
+ * same defect as a nav item missing from the sitemap. Typed as a tuple of
+ * `RouteKey` so an entry that is not a real route is a build error, and so the
+ * dictionary can carry one description per entry and no more.
+ *
+ * Both are `indexed: false` personal routes, which is why they are not in
+ * `navGroups()` — a personal space listed in the nav of a site you are not
+ * signed in to reads as a locked door. The account control is the door.
+ */
+export const ACCOUNT_MENU_KEYS = ["portal", "settings"] as const;
+export type AccountMenuKey = (typeof ACCOUNT_MENU_KEYS)[number];
+
+/** The account menu, resolved to routes. Throws at build if one goes missing. */
+export function accountMenu(): { key: AccountMenuKey; segment: string }[] {
+  return ACCOUNT_MENU_KEYS.map((key) => {
+    const route = ROUTES.find((r) => r.key === key);
+    // Not a soft failure: a menu that silently drops an entry when a route is
+    // renamed is how the only link to settings disappears without a test
+    // noticing. This runs at render on the server, so it fails loudly and early.
+    if (!route) throw new Error(`account menu names a route that does not exist: ${key}`);
+    return { key, segment: route.segment };
+  });
+}
+
 /** `/de`, `/fr/method`. Never a trailing slash, so links and canonicals agree. */
 export function href(locale: Locale, segment: string): string {
   return segment ? `/${locale}/${segment}` : `/${locale}`;

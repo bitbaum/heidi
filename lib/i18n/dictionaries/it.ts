@@ -64,6 +64,17 @@ export const it: Dictionary = {
   },
 
   chat: {
+    dock: {
+      open: "Chiedi a Heidi",
+      close: "Chiudi",
+      title: "Heidi",
+      lead: "Chieda di ciò che sta leggendo — o incolli un messaggio che ha ricevuto.",
+      prompts: [
+        "Come dico in zurighese che arrivo più tardi?",
+        "Che differenza c'è tra il dialetto e il tedesco scritto?",
+        "Mi dica tre parole che sentirò qui ogni giorno.",
+      ],
+    },
     emptyTitle: "Chieda a Heidi",
     placeholder: "Incollate quello che avete ricevuto — o scrivete quello che volete dire.",
     composer: "Messaggio a Heidi",
@@ -153,6 +164,10 @@ export const it: Dictionary = {
       formal: { label: "Più formale", say: "Scrivetelo in modo più formale, per un messaggio ufficiale." },
       casual: { label: "Più informale", say: "Ditelo in modo più informale, tra amici." },
       simpler: { label: "Più semplice", say: "Ditelo con parole più semplici." },
+      decline: { label: "Rifiutare gentilmente", say: "Scriva questo come un rifiuto gentile." },
+      apologise: { label: "Scusarsi", say: "Scriva questo come una scusa." },
+      thank: { label: "Ringraziare", say: "Scriva questo come un ringraziamento." },
+      ask: { label: "Chiedere chiarimenti", say: "Formuli una domanda di ritorno — non ho capito bene." },
       swiss: { label: "In tedesco scritto", say: "Scrivetelo in tedesco standard svizzero, non in dialetto." },
     },
   },
@@ -402,6 +417,10 @@ export const it: Dictionary = {
   },
 
   auth: {
+    menu: {
+      portal: "Le sue parole e conversazioni",
+      settings: "Lingua, modello, account",
+    },
     signIn: "Accedi",
     signOut: "Esci",
     signInWith: "Accedi con OrangeCat",
@@ -481,6 +500,12 @@ export const it: Dictionary = {
    * group.
    */
   vocabulary: {
+    keptTitle: "Parole tenute",
+    keptNone: "Tocchi + per tenere una parola. Heidi gliela richiederà più tardi.",
+    keptSome: "in ripasso",
+    practise: "Ripassa ora",
+    askLabel: "Mostrala in una frase",
+    askSay: "Mi mostri «{word}» in due brevi frasi di tutti i giorni.",
     title: "Le parole più utili",
     lead: "Non le parole da turista, ma quelle su cui una frase si inceppa: le corte, le costanti, quelle che nessuna regola di corrispondenza recupera.",
     note: "Direzione: dialetto → tedesco. Qui si tratta di capire, non di scrivere — quello che dovreste scrivere voi si trova nella sezione dei dialetti.",
@@ -513,6 +538,8 @@ export const it: Dictionary = {
   },
 
   grammar: {
+    practiseLabel: "Esercitati",
+    practiseSay: "Mi dia due frasi per esercitarmi con «{word}» — poi mi interroghi su una.",
     title: "Grammatica",
     lead: "Quattro cose che rendono lo zurighese difficile da seguire per chi già legge il tedesco. Niente lezioni — solo quello che sentirete, e dove ci si blocca.",
     ruleLabel: "La regola",

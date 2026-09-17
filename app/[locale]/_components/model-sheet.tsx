@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+
+import { useDismiss } from "./use-dismiss";
 import type { ByokConfig } from "@/lib/domain/model/byok";
 import { BYOK_PROVIDERS, findProvider, type ProviderId } from "@/lib/domain/model/providers";
 import type { Dictionary } from "@/lib/i18n";
@@ -54,14 +56,21 @@ export function ModelSheet({
   const [typedModel, setTypedModel] = useState<string | null>(current?.model ?? null);
   const model = typedModel ?? provider?.visionModel ?? provider?.textModel ?? "";
 
+  /**
+   * Escape closes it. No outside-pointer dismissal: this sheet holds a key the
+   * person is part-way through typing, and losing it to a stray click on the
+   * backdrop would mean fetching the credential again.
+   *
+   * No `focusRef` either — the control that opened this sheet is frequently
+   * gone by the time it closes (the attach button belongs to a composer that
+   * may have been replaced), so focus goes to the dialog on open and the
+   * closing path lets the caller decide.
+   */
+  useDismiss({ open: true, onDismiss: onClose, containerRef: dialogRef, onPointerOutside: false });
+
   useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKeyDown);
     dialogRef.current?.focus();
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [onClose]);
+  }, []);
 
   async function test() {
     if (!provider || !key.trim() || !model.trim()) return;

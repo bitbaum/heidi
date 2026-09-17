@@ -3,7 +3,9 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { DISPLAY } from "@/lib/variety/display";
 import { SOURCES, citation, type SourceId } from "@/lib/research/sources";
+import { href } from "@/lib/i18n/routes";
 import { Shell } from "../_components/page-shell";
+import { KeptCount, WordList } from "../_components/word-list";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -32,7 +34,8 @@ const GROUPS = ["function", "verbs", "everyday", "greetings"] as const;
 export default async function VocabularyPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
-  const t = getDictionary(locale).vocabulary;
+  const dict = getDictionary(locale);
+  const t = dict.vocabulary;
 
   const sources = DISPLAY.vocabularySources.filter((s): s is SourceId => s in SOURCES);
 
@@ -44,6 +47,13 @@ export default async function VocabularyPage({ params }: { params: Promise<{ loc
         </h1>
         <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.lead}</p>
         <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{t.note}</p>
+
+        {/* What the reader is carrying, and the way back into reviewing it.
+            The list below is now something to act on rather than only read,
+            and this is the line that says so. */}
+        <div className="mt-6">
+          <KeptCount t={t} portalHref={href(locale, "portal")} />
+        </div>
       </header>
 
       <div className="flex flex-col gap-12 border-t border-border-subtle pt-10">
@@ -59,25 +69,10 @@ export default async function VocabularyPage({ params }: { params: Promise<{ loc
 
               {/* Two columns of pairs rather than a table: a table implies
                   columns you can sort and compare down, and there is nothing
-                  to compare — each row is one fact on its own. */}
-              <ul className="mt-5 grid gap-x-8 gap-y-px sm:grid-cols-2">
-                {words.map((word) => (
-                  <li
-                    key={word.target}
-                    className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] items-baseline gap-3 border-b border-border-subtle py-2.5"
-                  >
-                    <span
-                      lang={DISPLAY.tag}
-                      className="font-heading text-base font-semibold leading-snug tracking-display text-dialect"
-                    >
-                      {word.target}
-                    </span>
-                    <span lang="de" className="text-base leading-snug text-fg-secondary">
-                      {word.bridge}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+                  to compare — each row is one fact on its own. The two
+                  controls per row are what make it a place to learn rather
+                  than a place to read; see `word-list.tsx`. */}
+              <WordList words={words} t={t} chatT={dict.chat} />
             </section>
           );
         })}

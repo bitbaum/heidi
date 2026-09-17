@@ -8,6 +8,9 @@ import { parseAnswer } from "./parse.ts";
 import type { Answer, ChatMessage } from "./types.ts";
 import { byokChain, readByok } from "../model/byok.ts";
 import { visionMessage } from "./image.ts";
+import { describeMessage, parseMessage } from "./email.ts";
+import { withReply } from "./moves.ts";
+import { LEARNER_ID } from "./types.ts";
 
 /**
  * Ask Heidi to take a turn in a thread — ANY thread.
@@ -24,6 +27,30 @@ import { visionMessage } from "./image.ts";
 
 /** Per link, not shared — a shared deadline is spent by the first vendor. */
 const TIMEOUT_MS = 25_000;
+
+/**
+ * If the reader's latest turn was a pasted message, say so — in structure.
+ *
+ * Only the LATEST turn. An email pasted four messages ago has already been
+ * answered; re-describing it every turn would spend the budget re-explaining a
+ * letter while the reader is asking about something else, and would make the
+ * model drift back to it.
+ *
+ * Returns "" for ordinary text, which is most turns. See `email.ts` for why
+ * this is a deterministic parse rather than something the model is asked to do.
+ */
+function pastedContext(messages: ChatMessage[]): string {
+  for (let i = messages.length - 1; i >= 0; i--) {
+    const message = messages[i];
+    if (message.authorId !== LEARNER_ID) continue;
+    const parsed = parseMessage(message.body);
+    // A bare quoted chain with no envelope is not worth a note: the model can
+    // read it perfectly well, and the only thing to say would be "some of this
+    // is older", which the quoting already shows.
+    return parsed && parsed.kind === "headers" ? describeMessage(parsed) : "";
+  }
+  return "";
+}
 
 export type RespondResult =
   | { status: "answered"; answer: Answer }
@@ -53,8 +80,16 @@ export async function respondInThread(args: {
 
   const pictures = args.pictures ?? [];
 
+  // Recognised deterministically, before any model is asked. Used twice: to
+  // tell the model what it is looking at, and — after the answer comes back —
+  // to guarantee the reply offer the model may have forgotten.
+  const pasted = pastedContext(args.messages);
+
   const turn = await heidiTurn(args.thread, args.messages, {
-    systemPrompt: systemPrompt(VARIETY, EXPLANATION_LANGUAGE[args.locale]),
+    // The pasted-message note is appended HERE rather than by each caller, so
+    // every surface that can hold a conversation gets it without having to
+    // remember. That is the whole reason this function exists.
+    systemPrompt: [systemPrompt(VARIETY, EXPLANATION_LANGUAGE[args.locale]), pasted].filter(Boolean).join("\n\n"),
     model: chain[0]?.model ?? "unknown",
     complete: async ({ system, prompt, maxTokens, temperature }) => {
       const { text: raw } = await complete({
@@ -84,5 +119,11 @@ export async function respondInThread(args: {
   // spends no model call and is not an error.
   if (turn.status === "skipped") return { status: "silent", reason: turn.reason };
 
-  return { status: "answered", answer: parseAnswer(turn.raw, VARIETY, turn.model) };
+  const answer = parseAnswer(turn.raw, VARIETY, turn.model);
+
+  // The one follow-up we can be sure about without asking a model. See
+  // `withReply` for why an instruction in the prompt is not enough.
+  if (pasted) return { status: "answered", answer: { ...answer, next: withReply(answer.next ?? []) } };
+
+  return { status: "answered", answer };
 }

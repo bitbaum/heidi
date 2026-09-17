@@ -87,6 +87,17 @@ export const gsw: Dictionary = {
   },
 
   chat: {
+    dock: {
+      open: "D Heidi frage",
+      close: "Zuemache",
+      title: "Heidi",
+      lead: "Fraged eifach, was Si grad läsed — oder füeged ii, was Si becho händ.",
+      prompts: [
+        "Wie sägi uf Züritüütsch, dass i spöter chume?",
+        "Was isch de Unterschied zwüsched Mundart und Schriftdüütsch?",
+        "Säged mer drü Wörter, wo n i da jede Tag ghöre.",
+      ],
+    },
     emptyTitle: "Frag d Heidi",
     placeholder: "Füged ii, was Si becho händ — oder schriibed, was Si wänd säge.",
     composer: "Nachricht a Heidi",
@@ -176,6 +187,10 @@ export const gsw: Dictionary = {
       formal: { label: "Förmlicher", say: "Schriibeds förmlicher, für e offizielli Nachricht." },
       casual: { label: "Lockerer", say: "Sageds lockerer, under Fründe." },
       simpler: { label: "Eifacher", say: "Sageds mit eifachere Wörter." },
+      decline: { label: "Höflich absäge", say: "Schriebed Si das als höflichi Absag." },
+      apologise: { label: "Entschuldige", say: "Schriebed Si das als Entschuldigung." },
+      thank: { label: "Danke", say: "Schriebed Si das als Dank." },
+      ask: { label: "Nachefrage", say: "Formuliered Si e Rückfrag — i ha das nöd ganz verstande." },
       swiss: { label: "Uf Schriftdütsch", say: "Schriibeds das uf Schwiizer Schriftdütsch, nöd uf Mundart." },
     },
   },
@@ -228,6 +243,10 @@ export const gsw: Dictionary = {
   },
 
   auth: {
+    menu: {
+      portal: "Ihri Wörter und Gspräch",
+      settings: "Sprach, Modäll, Konto",
+    },
     signIn: "Aamälde",
     signOut: "Abmälde",
     signInWith: "Mit OrangeCat aamälde",
@@ -506,6 +525,12 @@ export const gsw: Dictionary = {
    * group.
    */
   vocabulary: {
+    keptTitle: "Gmerkti Wörter",
+    keptNone: "Tipped uf +, zum es Wort behalte. D Heidi fragt Si spöter dernah.",
+    keptSome: "am Wiederhole",
+    practise: "Jetz wiederhole",
+    askLabel: "Im Satz zeige",
+    askSay: "Zeiged mer «{word}» i zwei churze Sätz us em Alltag.",
     title: "D wichtigschte Wörter",
     lead: "Nöd d Wörter für Tourischte, sondern die, wo en Satz dra hänge bliibt: di churze, ständige, wo kei Lutregel hilft.",
     note: "Richtig: Mundart → Dütsch. Da gaht's ums Verstah, nöd ums Schriibe — was Si sälber schriibe söttet, staht bi de Mundarte.",
@@ -538,6 +563,8 @@ export const gsw: Dictionary = {
   },
 
   grammar: {
+    practiseLabel: "Demit üebe",
+    practiseSay: "Gäbed mer zwei Sätz zum Üebe vo «{word}» — und fraged mi dänn eine ab.",
     title: "Grammatik",
     lead: "Vier Sache, wo Züritüütsch schwer verständlich mached für öpper, wo scho Dütsch liest. Kei Lektione — nur das, wo Si ghöred, und wo's hakt.",
     ruleLabel: "D Regle",

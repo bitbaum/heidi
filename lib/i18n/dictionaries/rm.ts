@@ -80,6 +80,17 @@ export const rm: Dictionary = {
   },
 
   chat: {
+    dock: {
+      open: "Dumandar Heidi",
+      close: "Serrar",
+      title: "Heidi",
+      lead: "Dumandai davart quai che Vus legiais — u encollai in messadi che Vus avais retschavì.",
+      prompts: [
+        "Co di jau per turitgais ch'jau vegn pli tard?",
+        "Tge differenza dat i tranter il dialect e il tudestg scrit?",
+        "Numnai mai trais pleds ch'jau aud qua mintga di.",
+      ],
+    },
     emptyTitle: "Dumandai Heidi",
     placeholder: "Encollai quai che Vus avais retschavì — u scrivai quai che Vus vulais dir.",
     composer: "Messadi a Heidi",
@@ -169,6 +180,10 @@ export const rm: Dictionary = {
       formal: { label: "Pli formal", say: "Scrivai quai pli formalmain, per in messadi official." },
       casual: { label: "Pli simpel", say: "Diai quai pli liber, tranter amis." },
       simpler: { label: "Pleds pli facils", say: "Diai quai cun pleds pli facils." },
+      decline: { label: "Refusar cortaisamain", say: "Scrivai quai sco ina refusa cortaisa." },
+      apologise: { label: "Sa scusar", say: "Scrivai quai sco ina scusa." },
+      thank: { label: "Engraziar", say: "Scrivai quai sco in engraziament." },
+      ask: { label: "Dumandar puspè", say: "Formulai ina dumonda enavos — jau n'hai betg chapì dal tut." },
       swiss: { label: "En tudestg scrit", say: "Scrivai quai en tudestg standard svizzer, betg en idiom." },
     },
   },
@@ -418,6 +433,10 @@ export const rm: Dictionary = {
   },
 
   auth: {
+    menu: {
+      portal: "Voss pleds e Vossas conversaziuns",
+      settings: "Lingua, model, conto",
+    },
     signIn: "S'annunziar",
     signOut: "Sa deconnectar",
     signInWith: "S'annunziar cun OrangeCat",
@@ -497,6 +516,12 @@ export const rm: Dictionary = {
    * group.
    */
   vocabulary: {
+    keptTitle: "Pleds tegnids",
+    keptNone: "Tuccai + per tegnair in pled. Heidi Vus dumonda pli tard.",
+    keptSome: "en repetiziun",
+    practise: "Repeter ussa",
+    askLabel: "Mussar en ina frasa",
+    askSay: "Mussai mai «{word}» en duas frasas curtas dal mintgadi.",
     title: "Ils pleds ils pli utils",
     lead: "Betg ils pleds per turists, mabain quels vi dals quals ina frasa resta tacca: ils curts, ils constants, quels che nagina regla da correspundenza na tira ora.",
     note: "Direcziun: idiom → tudestg. Qua sa tracti da chapir, betg da scriver — quai che Vus duessas scriver sez stat tar ils idioms.",
@@ -529,6 +554,8 @@ export const rm: Dictionary = {
   },
 
   grammar: {
+    practiseLabel: "Exercitar quai",
+    practiseSay: "Dai mai duas frasas per exercitar «{word}» — lura ma dumandai davart ina.",
     title: "Grammatica",
     lead: "Quatter chaussas che rendan il turitgais difficil da suandar per insatgi che legia gia tudestg. Naginas lecziuns — mo quai che Vus vegnis a udir, e nua ch'igl impedescha.",
     ruleLabel: "La regla",

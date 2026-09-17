@@ -64,6 +64,17 @@ export const en: Dictionary = {
   },
 
   chat: {
+    dock: {
+      open: "Ask Heidi",
+      close: "Close",
+      title: "Heidi",
+      lead: "Ask about whatever you are reading — or paste a message someone sent you.",
+      prompts: [
+        "How do I say in Zurich German that I will be late?",
+        "What is the difference between dialect and written German here?",
+        "Give me three words I will hear here every day.",
+      ],
+    },
     emptyTitle: "Ask Heidi",
     placeholder: "Paste what you received — or write what you want to say.",
     composer: "Message Heidi",
@@ -153,6 +164,10 @@ export const en: Dictionary = {
       formal: { label: "More formal", say: "Write that more formally, for an official message." },
       casual: { label: "More casual", say: "Say that more casually, between friends." },
       simpler: { label: "Simpler", say: "Say that with simpler words." },
+      decline: { label: "Say no politely", say: "Write that as a polite refusal." },
+      apologise: { label: "Apologise", say: "Write that as an apology." },
+      thank: { label: "Say thank you", say: "Write that as a thank-you." },
+      ask: { label: "Ask back", say: "Turn that into a question back — I did not quite understand it." },
       swiss: { label: "In written German", say: "Write that in Swiss Standard German, not dialect." },
     },
   },
@@ -402,6 +417,10 @@ export const en: Dictionary = {
   },
 
   auth: {
+    menu: {
+      portal: "Your words and conversations",
+      settings: "Language, model, account",
+    },
     signIn: "Sign in",
     signOut: "Sign out",
     signInWith: "Sign in with OrangeCat",
@@ -481,6 +500,12 @@ export const en: Dictionary = {
    * group.
    */
   vocabulary: {
+    keptTitle: "Words you kept",
+    keptNone: "Tap + to keep a word. Heidi will ask you about it later.",
+    keptSome: "in review",
+    practise: "Review now",
+    askLabel: "Show it in a sentence",
+    askSay: "Show me «{word}» in two short everyday sentences.",
     title: "The words worth knowing first",
     lead: "Not the words for tourists, but the ones a sentence snags on: the short, constant ones no sound rule rescues.",
     note: "Direction: dialect → German. This is for understanding what was said, not for writing — what you should write yourself is over in the dialects section.",
@@ -513,6 +538,8 @@ export const en: Dictionary = {
   },
 
   grammar: {
+    practiseLabel: "Practise this",
+    practiseSay: "Give me two sentences to practise «{word}» — then test me on one.",
     title: "Grammar",
     lead: "Four things that make Zurich German hard to follow for somebody who already reads German. Not lessons — just what you will hear, and where it catches you.",
     ruleLabel: "The rule",

@@ -1,18 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { LEARNER_ID } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
-import { useByok } from "./use-byok";
 import { ModelSheet } from "./model-sheet";
 import { Composer } from "./chat/composer";
 import { Transcript } from "./chat/transcript";
-import { useConversation } from "./chat/use-conversation";
-import { draftTransport } from "./chat/transports";
+import { useDraftChat } from "./chat/use-draft-chat";
 import { WordPick } from "./chat/word-pick";
-import { readDraft, useDraft } from "./use-draft";
 import { href } from "@/lib/i18n/routes";
 
 /**
@@ -40,55 +37,21 @@ export function Chat({
   dialect: { tag: string; showcase?: string };
 }) {
   const t = dict.chat;
-  const byok = useByok();
-  const draft = useDraft();
-  const [sheetOpen, setSheetOpen] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
   const transcriptRef = useRef<HTMLDivElement>(null);
 
-  const chat = useConversation({
-    transport: draftTransport(),
-    locale,
-    t,
-    imageTooBig: dict.model.imageTooBig,
-    byok: byok.config,
-    me: LEARNER_ID,
-  });
+  /**
+   * The same wiring the dock and the full-screen chat use, so all three really
+   * are one conversation rather than three that happen to look alike. The
+   * restore guard in particular is load-bearing and used to live here alone.
+   */
+  const { chat, byok, reset, started, modelSheet } = useDraftChat({ locale, dict });
 
   // Follow the conversation down, but only once it has started — an empty
   // thread scrolling itself on load would yank the page away from the reader.
   useEffect(() => {
     if (chat.messages.length > 0) endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [chat.messages]);
-
-  /**
-   * The same store the full-screen chat reads, in both directions.
-   *
-   * That is what makes "open full screen" continue this conversation instead
-   * of starting a new one — and what makes coming BACK here find it still
-   * going. Nothing is transferred: a transcript in a query string would land
-   * in the access log, the `Referer` header and browser history.
-   *
-   * The seed guard is load-bearing. Writing on mount, before the restore,
-   * would clear the stored conversation every time somebody merely visited the
-   * home page — the box would look untouched and the thread would be gone.
-   */
-  const { messages, setMessages } = chat;
-  const seeded = useRef(false);
-  useEffect(() => {
-    if (seeded.current || !draft.ready) return;
-    seeded.current = true;
-    const stored = readDraft();
-    if (stored?.messages.length) setMessages(stored.messages);
-  }, [draft.ready, setMessages]);
-
-  const keepDraft = draft.keep;
-  useEffect(() => {
-    if (!seeded.current) return;
-    keepDraft(messages, locale);
-  }, [messages, locale, keepDraft]);
-
-  const started = chat.messages.length > 0;
 
   return (
     <section aria-label="Heidi" className="flex w-full flex-col">
@@ -106,7 +69,7 @@ export function Chat({
         {started && byok.ready && byok.config && (
           <button
             type="button"
-            onClick={() => setSheetOpen(true)}
+            onClick={() => modelSheet.show()}
             className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-caps text-ok hover:text-fg-primary"
           >
             <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ok" />
@@ -126,10 +89,7 @@ export function Chat({
             </Link>
             <button
               type="button"
-              onClick={() => {
-                draft.forget();
-                chat.reset();
-              }}
+              onClick={reset}
               className="min-h-9 text-sm text-link underline underline-offset-4 hover:text-accent"
             >
               {t.newChat}
@@ -173,7 +133,7 @@ export function Chat({
           onRemove: chat.removeAttachment,
           error: chat.attachError,
           enabled: byok.canSee,
-          onNeedsKey: () => setSheetOpen(true),
+          onNeedsKey: () => modelSheet.show(),
         }}
       />
 
@@ -185,7 +145,7 @@ export function Chat({
           {byok.ready && byok.config && (
             <button
               type="button"
-              onClick={() => setSheetOpen(true)}
+              onClick={() => modelSheet.show()}
               className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-caps text-ok hover:text-fg-primary"
             >
               <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ok" />
@@ -199,13 +159,13 @@ export function Chat({
 
       <WordPick containerRef={transcriptRef} t={t} onAsk={chat.send} />
 
-      {sheetOpen && (
+      {modelSheet.open && (
         <ModelSheet
           t={dict.model}
           current={byok.config}
           onSave={byok.save}
           onClear={byok.clear}
-          onClose={() => setSheetOpen(false)}
+          onClose={modelSheet.hide}
         />
       )}
     </section>

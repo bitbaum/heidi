@@ -8,6 +8,7 @@ import { SITE_URL } from "@/lib/config/site";
 import { SiteHeader } from "./_components/site-header";
 import { AccountControl } from "./_components/account-control";
 import { SiteFooter } from "./_components/site-footer";
+import { ChatDock } from "./_components/chat/dock";
 
 /**
  * This is the root layout. There is deliberately no `app/layout.tsx`: `<html
@@ -82,6 +83,11 @@ export default async function LocaleLayout({
         </main>
 
         <SiteFooter locale={locale} dict={dict} />
+
+        {/* Heidi, reachable from every page. It hides itself on the pages that
+            already hold a conversation — see the note in the component and the
+            `data-chat="surface"` rule in globals.css. */}
+        <ChatDock locale={locale} dict={dict} />
 
         {/* The Loki feedback widget. The owner looks at their own site,
             points at what they do not like, and an agent changes it. Env-gated,

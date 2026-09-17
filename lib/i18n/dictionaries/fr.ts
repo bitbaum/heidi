@@ -64,6 +64,17 @@ export const fr: Dictionary = {
   },
 
   chat: {
+    dock: {
+      open: "Demander à Heidi",
+      close: "Fermer",
+      title: "Heidi",
+      lead: "Posez une question sur ce que vous lisez — ou collez un message que vous avez reçu.",
+      prompts: [
+        "Comment dire en zurichois que je vais arriver en retard ?",
+        "Quelle est la différence entre le dialecte et l'allemand écrit ?",
+        "Donnez-moi trois mots que j'entendrai ici tous les jours.",
+      ],
+    },
     emptyTitle: "Demandez à Heidi",
     placeholder: "Collez ce que vous avez reçu — ou écrivez ce que vous voulez dire.",
     composer: "Message à Heidi",
@@ -153,6 +164,10 @@ export const fr: Dictionary = {
       formal: { label: "Plus formel", say: "Écrivez-le plus formellement, pour un message officiel." },
       casual: { label: "Plus détendu", say: "Dites-le plus simplement, entre amis." },
       simpler: { label: "Plus simple", say: "Dites-le avec des mots plus simples." },
+      decline: { label: "Refuser poliment", say: "Écrivez cela comme un refus poli." },
+      apologise: { label: "S'excuser", say: "Écrivez cela comme des excuses." },
+      thank: { label: "Remercier", say: "Écrivez cela comme un remerciement." },
+      ask: { label: "Demander une précision", say: "Formulez une question en retour — je n'ai pas bien compris." },
       swiss: { label: "En allemand écrit", say: "Écrivez-le en allemand standard suisse, pas en dialecte." },
     },
   },
@@ -402,6 +417,10 @@ export const fr: Dictionary = {
   },
 
   auth: {
+    menu: {
+      portal: "Vos mots et vos conversations",
+      settings: "Langue, modèle, compte",
+    },
     signIn: "Se connecter",
     signOut: "Se déconnecter",
     signInWith: "Se connecter avec OrangeCat",
@@ -481,6 +500,12 @@ export const fr: Dictionary = {
    * group.
    */
   vocabulary: {
+    keptTitle: "Mots gardés",
+    keptNone: "Touchez + pour garder un mot. Heidi vous le redemandera plus tard.",
+    keptSome: "en révision",
+    practise: "Réviser maintenant",
+    askLabel: "Voir dans une phrase",
+    askSay: "Montrez-moi « {word} » dans deux courtes phrases du quotidien.",
     title: "Les mots les plus utiles",
     lead: "Pas les mots pour touristes, mais ceux sur lesquels une phrase se bloque : les petits, les constants, ceux qu'aucune règle de correspondance ne rattrape.",
     note: "Sens : dialecte → allemand. Il s'agit ici de comprendre, pas d'écrire — ce que vous devriez écrire vous-même se trouve du côté des dialectes.",
@@ -513,6 +538,8 @@ export const fr: Dictionary = {
   },
 
   grammar: {
+    practiseLabel: "S'exercer",
+    practiseSay: "Donnez-moi deux phrases pour m'exercer à « {word} » — puis interrogez-moi sur l'une d'elles.",
     title: "Grammaire",
     lead: "Quatre choses qui rendent le zurichois difficile à suivre pour quelqu'un qui lit déjà l'allemand. Pas de leçons — seulement ce que vous allez entendre, et où ça coince.",
     ruleLabel: "La règle",

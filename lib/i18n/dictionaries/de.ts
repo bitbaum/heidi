@@ -83,6 +83,25 @@ export const de = {
   },
 
   chat: {
+    /**
+     * The dock — Heidi floating over every page that is not already a chat.
+     *
+     * `prompts` are sent VERBATIM as a message when tapped, so each one has to
+     * be a complete question that stands on its own. "What does this word
+     * mean?" reads well on a button and arrives at the model with no word
+     * attached; these three are answerable exactly as written.
+     */
+    dock: {
+      open: "Heidi fragen",
+      close: "Schliessen",
+      title: "Heidi",
+      lead: "Fragen Sie, was Sie gerade lesen — oder fügen Sie eine Nachricht ein, die Sie bekommen haben.",
+      prompts: [
+        "Wie sage ich auf Zürichdeutsch, dass ich später komme?",
+        "Was ist der Unterschied zwischen Mundart und Schriftdeutsch?",
+        "Nennen Sie mir drei Wörter, die ich hier täglich höre.",
+      ],
+    },
     emptyTitle: "Fragen Sie Heidi",
     placeholder: "Fügen Sie ein, was Sie bekommen haben — oder schreiben Sie, was Sie sagen möchten.",
     composer: "Nachricht an Heidi",
@@ -172,6 +191,10 @@ export const de = {
       formal: { label: "Förmlicher", say: "Schreiben Sie das förmlicher, für eine offizielle Nachricht." },
       casual: { label: "Lockerer", say: "Sagen Sie das lockerer, unter Freunden." },
       simpler: { label: "Einfacher", say: "Sagen Sie das mit einfacheren Wörtern." },
+      decline: { label: "Höflich absagen", say: "Schreiben Sie das als höfliche Absage." },
+      apologise: { label: "Entschuldigen", say: "Schreiben Sie das als Entschuldigung." },
+      thank: { label: "Danken", say: "Schreiben Sie das als Dank." },
+      ask: { label: "Nachfragen", say: "Formulieren Sie eine Rückfrage — ich habe das nicht ganz verstanden." },
       swiss: { label: "Auf Schriftdeutsch", say: "Schreiben Sie das auf Schweizer Schriftdeutsch, nicht auf Mundart." },
     },
   },
@@ -422,6 +445,17 @@ export const de = {
   },
 
   auth: {
+    /**
+     * One line under each entry of the avatar menu, saying what is behind it.
+     *
+     * Keyed by `AccountMenuKey`, so an entry added to the menu without a
+     * description — or a description for a menu entry that no longer exists —
+     * is a build error in all seven languages at once.
+     */
+    menu: {
+      portal: "Ihre Wörter und Gespräche",
+      settings: "Sprache, Modell, Konto",
+    },
     signIn: "Anmelden",
     signOut: "Abmelden",
     signInWith: "Mit OrangeCat anmelden",
@@ -501,6 +535,20 @@ export const de = {
    * group.
    */
   vocabulary: {
+    /**
+     * Two things a reader can now DO with a word, instead of only reading it.
+     *
+     * `askSay` is sent verbatim as a message and must contain `{word}` — see
+     * `lib/i18n/fill.ts`, and the test that checks every locale kept it. The
+     * placeholder sits mid-sentence because that is where it falls in most of
+     * these languages, which is the whole reason a placeholder exists here.
+     */
+    keptTitle: "Gemerkte Wörter",
+    keptNone: "Tippen Sie auf +, um ein Wort zu behalten. Heidi fragt Sie später danach.",
+    keptSome: "im Wiederholen",
+    practise: "Jetzt wiederholen",
+    askLabel: "Im Satz zeigen",
+    askSay: "Zeigen Sie mir «{word}» in zwei kurzen Sätzen aus dem Alltag.",
     title: "Die wichtigsten Wörter",
     lead: "Nicht die Wörter für Touristen, sondern die, an denen ein Satz hängen bleibt: die kurzen, ständigen, für die keine Lautregel hilft.",
     note: "Richtung: Mundart → Deutsch. Hier geht es ums Verstehen, nicht ums Schreiben — was Sie selbst schreiben sollten, steht bei den Mundarten.",
@@ -533,6 +581,14 @@ export const de = {
   },
 
   grammar: {
+    /**
+     * Practising a topic, rather than only reading it.
+     *
+     * `practiseSay` is sent verbatim and must contain `{word}` — here the
+     * topic's own title — for the same reason as `vocabulary.askSay`.
+     */
+    practiseLabel: "Damit üben",
+    practiseSay: "Geben Sie mir zwei Sätze zum Üben von «{word}» — und fragen Sie mich danach einen ab.",
     title: "Grammatik",
     lead: "Vier Dinge, die Zürichdeutsch für jemanden schwer verständlich machen, der Deutsch schon liest. Keine Lektionen — nur das, was Sie hören werden, und wo es hakt.",
     ruleLabel: "Die Regel",

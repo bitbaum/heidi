@@ -147,16 +147,19 @@ export default async function GroupPage({
       <PageHeader eyebrow={`${initialMembers.length} ${t.members}`} title={group.name} />
 
       <Section>
-        <GroupChat
-          groupId={group.id}
-          t={t}
-          chatT={dict.chat}
-          modelT={dict.model}
-          locale={locale}
-          me={actorId}
-          initialMessages={initialMessages}
-          initialMembers={initialMembers}
-        />
+        {/* Already a conversation, so the dock stands down over it. */}
+        <div data-chat="surface">
+          <GroupChat
+            groupId={group.id}
+            t={t}
+            chatT={dict.chat}
+            modelT={dict.model}
+            locale={locale}
+            me={actorId}
+            initialMessages={initialMessages}
+            initialMembers={initialMembers}
+          />
+        </div>
       </Section>
 
       {/* Only the organiser. The panel is not rendered at all for anyone else
