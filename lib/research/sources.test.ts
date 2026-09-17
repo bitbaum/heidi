@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { SOURCES, citation, shortCitation, type Source, type SourceId } from "./sources.ts";
+import { techSources } from "./language-tech.ts";
 import { areasOf } from "../variety/family.ts";
 import { VARIETY } from "../variety/active.ts";
 import { getDictionary } from "../i18n/index.ts";
@@ -36,11 +37,25 @@ test("every source is reachable — a link, not a mention", () => {
     assert.match(s.url, /^https:\/\//, `${id} has no https link`);
 
     if ((s.kind ?? "article") === "article") {
-      // A DOI or a stable catalogue record. A search results page or a PDF on
-      // somebody's homepage is not a citation.
+      /**
+       * A DOI or a permanent proceedings record. A search results page or a
+       * PDF on somebody's homepage is not a citation.
+       *
+       * WIDENED DELIBERATELY for the language-technology sources. Almost none
+       * of that literature has a DOI, and that is not a quality signal: it is
+       * published at ACL and its workshops, where the Anthology record is the
+       * permanent citable identifier — more stable than many DOIs, free to
+       * read, and what the papers themselves cite each other by. CEUR-WS is
+       * the same arrangement for the Swiss Text conference.
+       *
+       * What is still refused is what was refused before: a link that is not a
+       * record. An arXiv preprint has to come in through `doi.org/10.48550/…`
+       * and say "preprint" in its venue, so a reader is told what they are
+       * looking at rather than being shown a URL that resembles a journal.
+       */
       assert.ok(
-        /doi\.org|pubmed\.ncbi\.nlm\.nih\.gov|\.uzh\.ch|\.unibe\.ch/.test(s.url),
-        `${id} does not resolve through a DOI or a stable record: ${s.url}`,
+        /doi\.org|pubmed\.ncbi\.nlm\.nih\.gov|\.uzh\.ch|\.unibe\.ch|aclanthology\.org|ceur-ws\.org/.test(s.url),
+        `${id} does not resolve through a DOI or a permanent proceedings record: ${s.url}`,
       );
     } else {
       // A reference work has no DOI and never will. What it must have is a
@@ -88,6 +103,10 @@ test("no source is defined but never cited", () => {
   // used, not orphaned.
   for (const area of areasOf(VARIETY)) for (const id of area.sources) used.add(id);
   for (const id of VARIETY.vocabularySources ?? []) used.add(id);
+  // The technology page vouches for every figure it prints the same way, and
+  // its data lives outside the dictionaries because a number is not
+  // translatable. See `language-tech.ts`.
+  for (const id of techSources()) used.add(id);
 
   const orphans = Object.keys(SOURCES).filter((id) => !used.has(id));
   assert.deepEqual(orphans, [], `defined but never cited: ${orphans.join(", ")}`);

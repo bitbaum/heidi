@@ -19,6 +19,7 @@ export type RouteKey =
   | "vocabulary"
   | "grammar"
   | "method"
+  | "technology"
   | "contribute"
   | "about"
   | "portal"
@@ -78,6 +79,13 @@ export const ROUTES: readonly Route[] = [
   { key: "dialect", segment: "dialect", group: "reference", indexed: true, priority: 0.7 },
   { key: "vocabulary", segment: "vocabulary", group: "reference", indexed: true, priority: 0.7 },
   { key: "method", segment: "method", group: "why", indexed: true, priority: 0.8 },
+  // Beside the method, not inside it. `/method` argues how Heidi teaches; this
+  // reports what a computer can currently do with this language at all — a
+  // different kind of claim, and the public form of §8's refusal to say Heidi
+  // transcribes dialect. Indexed, because somebody searching for "Swiss German
+  // speech recognition" is looking for exactly this and will otherwise find a
+  // vendor selling them Swiss Standard German.
+  { key: "technology", segment: "technology", group: "why", indexed: true, priority: 0.65 },
   { key: "contribute", segment: "contribute", group: "project", indexed: true, priority: 0.6 },
   { key: "about", segment: "about", group: "project", indexed: true, priority: 0.5 },
   // Reached from the account control, not the menu: a personal space listed in

@@ -33,6 +33,7 @@ export const de = {
     dialect: "Mundarten",
     vocabulary: "Wortschatz",
     method: "Methode",
+    technology: "Technik",
     contribute: "Mitmachen",
     about: "Über uns",
     portal: "Mein Bereich",
@@ -386,6 +387,67 @@ export const de = {
     noteTitle: "Zur Rechtschreibung",
     noteBody:
       "Zürichdeutsch hat keine offizielle Rechtschreibung. Diese Prüfung sagt Ihnen nie, dass Ihre Schreibweise falsch ist — nur, dass eine Form aus einer anderen Region kommt.",
+  },
+
+  /**
+   * The technology page. Prose only — every hour, speaker count, error rate
+   * and licence lives in `lib/research/language-tech.ts`, because a number is
+   * not translatable and seven copies of "343 hours" are seven chances for one
+   * of them to become 340. Same decision as the dialect area pages.
+   */
+  technology: {
+    title: "Was ein Computer mit Schweizerdeutsch kann",
+    lead: "Und was er nicht kann. Diese Seite sammelt, was in diesem Feld wirklich gemessen wurde — mit Zahlen und Quellen, damit Sie unsere Aussagen daran prüfen können.",
+    hardTitle: "Warum es schwierig ist",
+    hardBody: [
+      "Es gibt keine offizielle Rechtschreibung. Es gibt Empfehlungen aus dem Jahr 1938, die in der Dialektforschung benutzt werden — aber selbst geschulte Leute wenden sie unterschiedlich an, und kaum jemand schreibt so, wenn er einer Freundin schreibt.",
+      "Gesprochen wird Mundart, geschrieben wird Hochdeutsch. Deshalb ist «aufschreiben, was gesagt wurde» hier keine Transkription, sondern eine Übersetzung — und genau so ist fast jedes System gebaut, das es gibt.",
+      "Und es ist eine kleine Sprache im Datensinn: die grössten öffentlichen Sammlungen sind ein paar hundert Stunden, und fast alle sind nur für die Forschung lizenziert.",
+    ],
+    corporaTitle: "Woher die Daten kommen",
+    corporaLead: "Die öffentlichen Sammlungen, auf denen dieses Feld steht. Die Spalte «Richtung» ist die wichtigste: sie zeigt, dass fast alles Mundart hört und Hochdeutsch schreibt.",
+    asrTitle: "Verstehen",
+    asrLead: "Wortfehlerrate auf demselben Testsatz, damit die Zahlen vergleichbar sind. Alle diese Systeme schreiben Schriftdeutsch — die Zahl sagt, wie gut übersetzt wurde, nicht wie gut Mundart geschrieben wurde.",
+    speakingTitle: "Sprechen",
+    speakingLead: "Hier ist der Markt irreführend. Was als «Schweizerdeutsche Stimme» verkauft wird, ist meist Schweizer Hochdeutsch — die geschriebene Sprache, vorgelesen. Echte Mundart-Synthese gibt es fast nur in der Forschung.",
+    modelsTitle: "Sprachmodelle",
+    modelsLead: "Ob ein Modell Mundart wirklich kann, oder ob das nur in der Medienmitteilung steht. «Geprüft» heisst: jemand hat es gemessen und veröffentlicht.",
+    heidiTitle: "Was das für Heidi heisst",
+    heidiBody: [
+      "Das Diktieren schreibt nicht Mundart auf. Es schreibt, was Sie sagen wollen, in der Sprache, die Sie schon können — genau das, was die Forschung kann.",
+      "Heidi spricht nicht. Eine Stimme, die Zürichdeutsch falsch ausspricht, wäre für Sie nicht überprüfbar, und das ist der einzige Fehler, den dieses Produkt nicht machen darf.",
+      "Die Dialektprüfung läuft ohne Modell. Sie ist eine feste Regelliste, kein Sprachmodell — deshalb kann sie nicht anfangen, sich Dinge auszudenken.",
+    ],
+    directionLabel: "Richtung",
+    directions: {
+      "speech-to-standard": "Mundart gehört → Hochdeutsch geschrieben",
+      "speech-to-dialect": "Mundart gehört → Mundart geschrieben",
+      "dialect-text": "Mundart geschrieben",
+      "text-to-speech": "Text → Mundart gesprochen",
+    },
+    hours: "Stunden",
+    speakers: "Sprechende",
+    regions: "Regionen",
+    licence: "Lizenz",
+    licences: { research: "nur Forschung", unpublished: "keine Lizenz veröffentlicht", textOnly: "Text; Audio auf Anfrage" },
+    wer: "Wortfehlerrate",
+    zeroShot: "ohne Training",
+    fineTuned: "nachtrainiert",
+    speakingNames: {
+      commercial: "Kommerzielle «de-CH»-Stimmen",
+      eth: "ETH Zürich, Swiss Voice",
+      vits: "T5 und VITS, Forschungspipeline",
+      voiceCloning: "Stimmübertragung aus Podcasts",
+    },
+    weightsOpen: "Gewichte offen",
+    weightsClosed: "Gewichte nicht veröffentlicht",
+    isDialect: "Mundart",
+    isStandard: "Schweizer Hochdeutsch",
+    evaluated: "Mundart geprüft",
+    notEvaluated: "Mundart nicht geprüft",
+    statusResearch: "Forschung",
+    statusService: "Dienst",
+    statusClosed: "eingestellt",
   },
 
   contribute: {

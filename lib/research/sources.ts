@@ -196,6 +196,141 @@ export const SOURCES = {
     venue: "Dutch Journal of Applied Linguistics 3(1), 45–61",
     url: "https://doi.org/10.1075/dujal.3.1.03ber",
   },
+  /**
+   * SWISS GERMAN LANGUAGE TECHNOLOGY — a third kind of claim again.
+   *
+   * The acquisition papers above support "this is how people learn"; the
+   * atlases support "this form is spoken there". These support "this is what a
+   * computer can currently do with this language", which is the subject of the
+   * technology page and the evidence behind §8's refusal to claim dialect
+   * transcription.
+   *
+   * Almost none of them have a DOI, and that is not a quality signal: this
+   * field publishes at ACL and its workshops, where the Anthology record IS
+   * the permanent citable identifier — more stable than most DOIs, and free to
+   * read. The reachability test widened to admit those records rather than
+   * pretending an arXiv link is a journal.
+   *
+   * EVERY FIGURE QUOTED FROM THESE ON THE SITE WAS READ FROM THE PAPER, not
+   * from its abstract. Where a paper and its distribution page disagree — the
+   * exact META-SHARE variant on STT4SG-350 — the site says the general thing
+   * both support rather than picking one.
+   */
+  "archimob": {
+    authors: "Samardžić, Scherrer & Glaser",
+    year: 2016,
+    title: "ArchiMob — A Corpus of Spoken Swiss German",
+    venue: "Proceedings of LREC 2016, 4061–4066, Portorož",
+    url: "https://aclanthology.org/L16-1641/",
+  },
+  "swiss-parliaments": {
+    authors: "Plüss, Neukom, Scheller & Vogel",
+    year: 2021,
+    title: "Swiss Parliaments Corpus, an Automatically Aligned Swiss German Speech to Standard German Text Corpus",
+    venue: "Proceedings of the Swiss Text Analytics Conference 2021, CEUR-WS Vol-2957",
+    url: "https://ceur-ws.org/Vol-2957/",
+  },
+  "swissdial": {
+    authors: "Dogan-Schönberger, Mäder & Hofmann",
+    year: 2021,
+    // Named as a preprint on purpose: it has no venue, and citing it as a
+    // conference paper would be a claim about peer review that is not true.
+    title: "SwissDial: Parallel Multidialectal Corpus of Spoken Swiss German",
+    venue: "arXiv preprint 2103.11401 — not peer-reviewed",
+    url: "https://doi.org/10.48550/arXiv.2103.11401",
+  },
+  "sds-200": {
+    authors: "Plüss, Hürlimann, Cuny, Stöckli, Kapotis, Hartmann, Ulasik, Scheller, Schraner, Jain, Deriu, Cieliebak & Vogel",
+    year: 2022,
+    title: "SDS-200: A Swiss German Speech to Standard German Text Corpus",
+    venue: "Proceedings of LREC 2022, 3250–3256, Marseille",
+    url: "https://aclanthology.org/2022.lrec-1.347/",
+  },
+  "stt4sg-350": {
+    authors: "Plüss, Deriu, Schraner, Paonessa, Hartmann, Schmidt, Scheller, Hürlimann, Samardžić, Vogel & Cieliebak",
+    year: 2023,
+    title: "STT4SG-350: A Speech Corpus for All Swiss German Dialect Regions",
+    venue: "Proceedings of ACL 2023 (Short Papers), 1763–1772, Toronto",
+    url: "https://doi.org/10.18653/v1/2023.acl-short.150",
+  },
+  "whisper-gsw": {
+    authors: "Dolev, Lutz & Aepli",
+    year: 2024,
+    title: "Does Whisper Understand Swiss German? An Automatic, Qualitative and Human Evaluation",
+    venue: "Proceedings of VarDial 2024, 28–40, Mexico City",
+    url: "https://doi.org/10.18653/v1/2024.vardial-1.3",
+  },
+  "whisper-finetune": {
+    authors: "Timmel, Paonessa, Vogel, Perruchoud & Kakooee",
+    year: 2025,
+    title: "Fine-tuning Whisper on Low-Resource Languages for Real-World Applications",
+    venue: "Proceedings of the Swiss Text Analytics Conference 2025",
+    url: "https://aclanthology.org/2025.swisstext-1.5/",
+  },
+  "swissbert": {
+    authors: "Vamvas, Graën & Sennrich",
+    year: 2023,
+    title: "SwissBERT: The Multilingual Language Model for Switzerland",
+    venue: "Proceedings of the Swiss Text Analytics Conference 2023, 54–69",
+    url: "https://aclanthology.org/2023.swisstext-1.6/",
+  },
+  "swissbert-gsw": {
+    authors: "Vamvas, Aepli & Sennrich",
+    year: 2024,
+    title: "Modular Adaptation of Multilingual Encoders to Written Swiss German Dialect",
+    venue: "Proceedings of the 1st Workshop on Modular and Open Multilingual NLP, 16–23, St Julians",
+    url: "https://doi.org/10.18653/v1/2024.moomin-1.3",
+  },
+  "vardial-2019": {
+    authors: "Zampieri, Malmasi, Scherrer, Samardžić, Tyers, Silfverberg, Klyueva, Pan, Huang, Ionescu, Butnaru & Jauhiainen",
+    year: 2019,
+    title: "A Report on the Third VarDial Evaluation Campaign",
+    venue: "Proceedings of VarDial 2019, 1–16, Ann Arbor. Best macro F1 on four Swiss German dialect areas: 0.76",
+    url: "https://aclanthology.org/W19-1401/",
+  },
+  "tts-comparison": {
+    authors: "Bollinger, Deriu & Vogel",
+    year: 2023,
+    title: "Text-to-Speech Pipeline for Swiss German — A Comparison",
+    venue: "arXiv preprint 2305.19750 — not peer-reviewed",
+    url: "https://doi.org/10.21256/zhaw-30250",
+  },
+  "tts-voice-adaptation": {
+    authors: "Stucki, Deriu & Cieliebak",
+    year: 2025,
+    title: "Voice Adaptation for Swiss German",
+    venue: "arXiv preprint 2505.22054 — submitted, not yet accepted",
+    url: "https://doi.org/10.48550/arXiv.2505.22054",
+  },
+  "apertus": {
+    authors: "Project Apertus (EPFL, ETH Zurich & CSCS)",
+    year: 2025,
+    title: "Apertus: Democratizing Open and Compliant LLMs for Global Language Environments",
+    venue: "arXiv preprint 2509.14233. Swiss German appears as 6,000 post-training instruction examples; no dialect evaluation is reported",
+    url: "https://doi.org/10.48550/arXiv.2509.14233",
+  },
+  /**
+   * The spelling convention — a REFERENCE, and a proposal rather than a
+   * standard.
+   *
+   * It matters that this is filed as a reference work and described as
+   * recommendations: the single most tempting wrong sentence about Swiss
+   * German is that it has a standard spelling called Dieth. It does not. The
+   * corpora that use it say so in the same breath as reporting that their own
+   * transcribers applied it inconsistently.
+   */
+  "dieth": {
+    kind: "reference",
+    authors: "Dieth",
+    year: 1986,
+    title: "Schwyzertütschi Dialäktschrift",
+    venue:
+      "2nd edition, Sauerländer, Aarau; first published 1938 as recommendations of a commission of the Neue Helvetische Gesellschaft. Widely used in dialectology, applied inconsistently even within one corpus, and unknown to most writers — a proposal, not an orthographic standard",
+    // The same kind of record this file already accepts for the SDS atlas: a
+    // standing reference work with no DOI, described where a reader can check
+    // the claim. A library catalogue was tried first and redirected away.
+    url: "https://de.wikipedia.org/wiki/Dieth-Schreibung",
+  },
   "clarke-garrett-2004": {
     authors: "Clarke & Garrett",
     year: 2004,

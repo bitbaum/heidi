@@ -216,7 +216,23 @@ test("route segments are the same in every language", () => {
     // `research` merged into `method`: it was the evidence FOR the method, and
     // a reader met the two as peers with no way to tell which was which.
     // /:locale/research redirects to /:locale/method#facts.
-    ["", "chat", "grammar", "dialect", "vocabulary", "method", "contribute", "about", "portal", "settings"],
+    // `technology` is new: what a computer can and cannot do with this
+    // language, beside the method rather than inside it. It is the public form
+    // of §8's refusal to claim dialect transcription — the evidence, so a
+    // reader can check our claims rather than take them.
+    [
+      "",
+      "chat",
+      "grammar",
+      "dialect",
+      "vocabulary",
+      "method",
+      "technology",
+      "contribute",
+      "about",
+      "portal",
+      "settings",
+    ],
   );
 });
 
