@@ -687,6 +687,50 @@ to become 340. The English `note` on each row is maintainer copy and is
 deliberately NOT rendered — `providers.ts` already records what happens when an
 English source-copy field reaches a component.
 
+**Built: the explanation arrives as it is written.** Every answer used to
+appear at once, after a silent wait of up to 25 seconds.
+
+**Only the explanation streams, and that is a safety property rather than a
+scoping decision.** `text` is prose in the reader's own language, and §6's gate
+must not judge it — it would flag ordinary German words. Everything the gate
+DOES judge waits for `parseAnswer`: the dialect line, the suggestions, the
+invented-correspondence strip, the gloss-against-itself drop, the
+degenerate-loop refusal. A learner cannot audit dialect (§2), so a form shown
+before it has been checked — even for a second, even unmarked — is the failure
+this product exists to prevent. The prose streams; the language waits for the
+checker.
+
+That needed a primitive the repo did not have. The answer is a JSON object, so
+raw tokens read `{"mode":"understand","text":"Sie f`. `extractJson` already
+repairs truncated JSON and is no use here: it repairs by cutting back to the
+last COMPLETE value, so a string still being written is discarded entirely and
+the explanation would appear in one jump when its closing quote arrived.
+`lib/domain/chat/partial.ts` reads a half-written string instead — a real scan
+tracking string state rather than a regular expression, because the one thing
+people paste into this product is text they did not write, and that is
+occasionally JSON. Its test asserts the property streaming actually needs:
+every prefix of a real answer is showable, never leaking a quote, a brace or
+half an escape.
+
+It is an OBSERVATION on the existing turn, not a second path — `respondInThread`
+takes an `onText` and swaps `complete` for ai-kit's `completeStream`; threadkit
+still decides whether Heidi speaks and every guard still runs on the whole
+answer. One route, too: the rate limit, the input ceiling, the picture checks
+and the history rebuild are the part that must not diverge, so only the reply
+shape branches, at the last possible moment. Tests assert the guards hold
+through both shapes.
+
+A streaming turn always ends with a terminal event. A stream has sent its
+headers by the time anything goes wrong, so it cannot report a status — and a
+stream that merely stopped would be indistinguishable from a vendor dying
+mid-sentence, which is the likeliest failure here. Silence is not a status.
+
+ai-kit stops falling back once a link has produced its first token, because
+replaying from a second vendor would make the reader watch the answer restart.
+A break after that is `StreamInterrupted` and reaches the reader as an ordinary
+failed turn: half an explanation with no gated dialect under it is not an
+answer, so the partial is discarded rather than kept.
+
 **Next**, in order: capture what the learner did not know into a learner model —
 **the existing Heidi GPT generates that evidence daily and throws all of it
 away**, and every question asked of it is a labelled datapoint about what a real
