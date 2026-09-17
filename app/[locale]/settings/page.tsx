@@ -7,6 +7,7 @@ import { href } from "@/lib/i18n/routes";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
 import { SignOutButton } from "../_components/account-control";
 import { ModelSection } from "./model-section";
+import { VoiceSection } from "./voice-section";
 import { ThemeControl } from "../_components/theme-control";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -66,6 +67,13 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
         <div className="mt-4">
           <ThemeControl t={t.theme} />
         </div>
+      </Section>
+
+      {/* Above the model and below appearance: this is the setting most
+          likely to be looked for, because it is the one that changes what the
+          product DOES rather than how it looks. */}
+      <Section id="voice" title={dict.voice.settingsTitle}>
+        <VoiceSection t={dict.voice} />
       </Section>
 
       <Section id="model" title={t.modelTitle}>

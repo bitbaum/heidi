@@ -8,6 +8,7 @@ import type { Locale } from "@/lib/i18n/locales";
 import { DISPLAY } from "@/lib/variety/display";
 import type { Dictionary } from "@/lib/i18n";
 import { Copy } from "./copy-button";
+import { Speak } from "./speak-button";
 import { KeepWord } from "./keep-word";
 
 /**
@@ -32,12 +33,18 @@ import { KeepWord } from "./keep-word";
 export function AnswerView({
   answer,
   t,
+  voiceT,
   context,
   onMove,
   locale,
 }: {
   answer: Answer;
   t: Dictionary["chat"];
+  /**
+   * The voice copy, passed rather than looked up: this is a client component
+   * and `getDictionary` here would ship all seven dictionaries to the browser.
+   */
+  voiceT: Dictionary["voice"];
   /** For the grammar link. Absent means grammar chips are not offered. */
   locale?: Locale;
   /** The learner's line this answers, carried onto any word they keep. */
@@ -58,7 +65,10 @@ export function AnswerView({
         <div className="mt-3 rounded-control border border-border-subtle bg-surface-raised p-3">
           <div className="flex items-baseline justify-between gap-3">
             <span className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{t.sendThis}</span>
-            <Copy text={a.dialect} t={t} />
+            <span className="flex shrink-0 items-start gap-3">
+              <Speak text={a.dialect} t={voiceT} dialect />
+              <Copy text={a.dialect} t={t} />
+            </span>
           </div>
           <p className="mt-1 text-lg leading-relaxed text-dialect">{a.dialect}</p>
           {/* A flagged line is MARKED, never dropped. The learner cannot audit
@@ -120,7 +130,10 @@ export function AnswerView({
                       </span>
                     )}
                   </span>
-                  <Copy text={s.text} t={t} />
+                  <span className="flex shrink-0 items-start gap-3">
+                    <Speak text={s.text} t={voiceT} dialect={s.variety !== "bridge"} />
+                    <Copy text={s.text} t={t} />
+                  </span>
                 </div>
                 {/* A bridge line is not dialect, so it is not coloured or
                     tagged as dialect — a screen reader reading Swiss Standard

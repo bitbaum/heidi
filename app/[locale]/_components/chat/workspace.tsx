@@ -322,6 +322,7 @@ export function ChatWorkspace({
           <div ref={transcriptRef} className="mx-auto w-full max-w-3xl">
             {started || chat.busy ? (
               <Transcript
+                voiceT={dict.voice}
                 messages={messages}
                 me={LEARNER_ID}
                 t={t}

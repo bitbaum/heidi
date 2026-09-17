@@ -101,6 +101,7 @@ export function Chat({
       {(started || chat.busy) && (
         <div ref={transcriptRef}>
           <Transcript
+            voiceT={dict.voice}
             messages={chat.messages}
             me={LEARNER_ID}
             t={t}

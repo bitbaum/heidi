@@ -153,6 +153,7 @@ export default async function GroupPage({
             groupId={group.id}
             t={t}
             chatT={dict.chat}
+            voiceT={dict.voice}
             modelT={dict.model}
             locale={locale}
             me={actorId}

@@ -42,6 +42,7 @@ export function GroupChat({
   groupId,
   t,
   chatT,
+  voiceT,
   modelT,
   locale,
   me,
@@ -51,6 +52,7 @@ export function GroupChat({
   groupId: string;
   t: Dictionary["groups"];
   chatT: Dictionary["chat"];
+  voiceT: Dictionary["voice"];
   modelT: Dictionary["model"];
   locale: Locale;
   me: string;
@@ -109,6 +111,7 @@ export function GroupChat({
         messages={chat.messages}
         me={me}
         t={chatT}
+        voiceT={voiceT}
         busy={chat.busy}
         nameFor={nameFor}
         onRetry={chat.retry}
