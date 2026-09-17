@@ -37,6 +37,10 @@ export const APP_TABLES = [
   "group_messages",
   "conversations",
   "conversation_messages",
+  "speaking_topics",
+  "topic_interest",
+  "speaking_rounds",
+  "round_attendance",
 ] as const;
 
 export type SchemaProblem = { table: string; problem: string };

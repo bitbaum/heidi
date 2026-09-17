@@ -220,9 +220,14 @@ test("route segments are the same in every language", () => {
     // language, beside the method rather than inside it. It is the public form
     // of §8's refusal to claim dialect transcription — the evidence, so a
     // reader can check our claims rather than take them.
+    //
+    // `speaking` sits beside the chat under `use`: it is the other thing you
+    // DO here rather than something looked up. Its segment stays English like
+    // every other one.
     [
       "",
       "chat",
+      "speaking",
       "grammar",
       "dialect",
       "vocabulary",

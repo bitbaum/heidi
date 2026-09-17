@@ -258,3 +258,57 @@ export function examplePrompt(pack: VarietyPack, word: { target: string; bridge:
     .filter(Boolean)
     .join("\n");
 }
+
+/**
+ * One improvement on something a learner said out loud.
+ *
+ * ONE, and the prompt says so three times, because the natural behaviour of a
+ * model handed a learner's sentence is to return a marked-up essay. Somebody
+ * who has just recorded themselves speaking a language they are bad at does
+ * not need eleven corrections; they need the single change that would make the
+ * biggest difference, and they need to still be willing to press record
+ * tomorrow.
+ *
+ * WHAT IT IS FORBIDDEN TO DO, and why each ban is here rather than assumed:
+ *
+ *  - No score, rating or percentage. §8 bans speech-score theatre outright,
+ *    and a model asked to comment on speech will volunteer a mark unprompted.
+ *  - No comment on SPELLING. The text is the learner's own write-up of their
+ *    own speech in a variety with no standard orthography; §6 makes telling
+ *    them it is wrong the one thing this product must never do.
+ *  - No comment on PRONUNCIATION. The model is reading text and never heard
+ *    the recording — anything it said about accent would be invented, fluent
+ *    and unfalsifiable by the one person who cannot check it.
+ *
+ * The suggested line still goes through the deterministic gate before anybody
+ * sees it, exactly like every other generated line. This prompt reduces how
+ * often that gate has to fire; it is not what makes the answer trustworthy.
+ */
+export function takePrompt(
+  pack: VarietyPack,
+  args: { said: string; explainIn?: string },
+): string {
+  const avoid = forbiddenExamples(pack).slice(0, 12);
+  const explainIn = args.explainIn ?? "English";
+
+  return [
+    `A learner of ${pack.name} recorded themselves speaking, then wrote down what they said:`,
+    "",
+    args.said,
+    "",
+    `Give them ONE improvement: the single change that would make this sound more like ${pack.name}`,
+    "as it is actually spoken. Rules:",
+    `- Rewrite their line the way a local would say it, in ${pack.name}. Keep their meaning and`,
+    "  keep their length — you are not writing a better sentence, you are writing THEIR sentence.",
+    `- Explain the one change in at most two short sentences, in ${explainIn}.`,
+    "- ONE change. Not a list, not a second suggestion, not 'also'.",
+    "- NEVER give a score, a rating, a percentage or a level of any kind.",
+    "- NEVER comment on their spelling. This variety has no standard spelling and theirs is not wrong.",
+    "- NEVER comment on their pronunciation or accent. You did not hear them; you are reading text.",
+    "- If the line is already natural, say so and return it unchanged. That is a real answer.",
+    avoid.length ? `- Never write: ${avoid.join(", ")}.` : "",
+    'Answer as JSON and nothing else: { "better": "…", "why": "…" }',
+  ]
+    .filter(Boolean)
+    .join("\n");
+}

@@ -15,6 +15,7 @@ import type { Locale } from "./locales.ts";
 export type RouteKey =
   | "home"
   | "chat"
+  | "speaking"
   | "dialect"
   | "vocabulary"
   | "grammar"
@@ -72,6 +73,11 @@ export const ROUTES: readonly Route[] = [
   // this — but an individual thread at /chat/<id> is not a route at all and
   // carries its own noindex.
   { key: "chat", segment: "chat", group: "use", indexed: true, priority: 0.9 },
+  // Speaking rounds sit under `use` beside the chat, because they are the
+  // other thing you DO here rather than something you look up. Indexed: a
+  // scheduled conversation group is a public thing, and somebody searching for
+  // one in Zurich is looking for exactly this page.
+  { key: "speaking", segment: "speaking", group: "use", indexed: true, priority: 0.85 },
   // `reference`, not `why`: you reach for these mid-conversation when an answer
   // turned on something you did not know. An essay about how the product works
   // is a different kind of page and sits under `why`.

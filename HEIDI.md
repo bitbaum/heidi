@@ -207,9 +207,15 @@ the variety layer underneath. Signed in, the home page IS the dashboard: same
 address, different page, because "Start" has to mean start.
 
 There are now accounts and a database. Identity is federated to OrangeCat and
-Heidi holds no users table; Postgres holds study groups and private
-conversations, and nothing else. Saved vocabulary lives in the visitor's own
-browser. There is still no audio and no learner model.
+Heidi holds no users table; Postgres holds study groups, private conversations
+and the speaking rounds people schedule, and nothing else. Saved vocabulary and
+recorded takes live in the visitor's own browser. There is no learner model
+yet.
+
+There is now audio, and the shape of it matters: a learner can record
+themselves, and the recording is measured **in the browser** and then dropped.
+Heidi has no audio table, no upload endpoint for takes, and no transcript of
+anybody's speech. See §9 and §10.
 
 - **Linguistic knowledge is data**, in the packs — not embedded in prompts. The
   model's instructions are *generated from* the pack (`lib/variety/prompt.ts`),
@@ -731,6 +737,87 @@ A break after that is `StreamInterrupted` and reaches the reader as an ordinary
 failed turn: half an explanation with no gated dialect under it is not an
 answer, so the partial is discarded rather than kept.
 
+**And now there is a place to open your mouth.** Study groups were a thread
+with more than one human in it; speaking rounds are the same social object with
+the medium changed, which is the half a diglossic variety otherwise gives away
+for free. Two shapes, because the difference is social and decides the
+capacity: a **webinar** is one voice and an audience, a **circle** is everyone
+in turn and holds eight. Topics are **proposed by the people who would come**,
+not programmed — the one thing a language school cannot buy is a room of adults
+who want to talk about the thing on the board, and the cheapest way to get it
+is to stop choosing the thing.
+
+"Regularly" is a field rather than a row somebody remembers to create, and that
+made this a time-zone problem rather than a scheduling one. A round is an
+absolute instant; a repeat is a wall-clock promise. Those disagree twice a
+year, and adding 7 × 86,400,000 ms to a Tuesday in March produces a Tuesday at
+20:00 and an empty room. So the recurrence is computed in the zone's calendar
+and converted back, and the tests cross both Swiss changeovers in both
+directions. Sittings are COMPUTED, never stored: a table of generated
+occurrences is a table extended by a job nobody notices has stopped.
+
+**Heidi does not carry the meeting.** `meetingUrl` is an https room the host
+already has — and https only, because that string is rendered as a link for
+every attendee, so accepting the scheme as given would accept `javascript:`.
+Building an SFU is not this product. What Heidi owns is the part nobody else
+does: the topic, the repeat, who is coming, and the take you record around it.
+
+**And the take is where §8 had to be obeyed rather than quoted.** The obvious
+build for "evaluate my speaking" is a pronunciation score, which the overclaim
+register bans by name, and §7 says why it would be worse here than anywhere:
+Swiss German ASR is unsolved, the honest figure is ~25.6% WER, and the state of
+the art transcribes dialect INTO Standard German — it translates away the exact
+thing being learned. A score on top of that is a number with nothing underneath
+it, handed to the one person who cannot check it.
+
+So the evaluation is three things that are each true:
+
+1. **The signal is measured, in the browser.** How long there was sound, where
+   the gaps fell, the longest one, whether the microphone clipped. Arithmetic
+   over samples — reproducible, checkable by anyone with the same audio, and
+   true whatever language was spoken, which is why it works for Lesya
+   unchanged. Nothing in it knows what a phoneme is. There is deliberately no
+   speech RATE: syllables per second needs a transcript to count syllables, so
+   the measure is absent rather than estimated. A test asserts no field of the
+   result reads as a rating, because the way that ban gets broken is not
+   somebody disagreeing with it — it is a well-meaning `score` field appearing
+   because a designer wanted one number for the card.
+2. **The learner writes down what they said**, and the honest reason is on the
+   screen: nothing transcribes this dialect, and a machine transcript labelled
+   "what you said" would be wrong in precisely the way they could not detect.
+   The friction buys the only version of this feature that is not a lie, and
+   writing it out is a retrieval act rather than dead time.
+3. **Their own words go through the deterministic gate** (§6), then one model
+   suggestion on top of text they confirmed — gated like every other generated
+   line. Only `foreign` findings survive: a real form of another variety is a
+   word-choice fact with a spoken correlate, while `unattested` findings are
+   orthographic and there is no way to SAY a `ß`. Flagging one would be telling
+   somebody their spelling is wrong in a variety with no standard spelling,
+   which §6 forbids outright.
+
+The pause threshold is 250 ms, for a phonetic reason rather than a tidy one:
+the silence inside a `t` is tens of milliseconds, so a lower threshold reports
+a person's own consonants back to them as hesitation. Where the sound/silence
+threshold is ambiguous the code takes the reading that finds MORE speech and
+therefore fewer pauses — between a measure that flatters and a measure that
+accuses, the honest failure is the one that flatters, because a pause we missed
+costs nothing and a pause we invented is the product telling somebody they
+hesitated when they did not.
+
+Comparisons are with the learner's own previous take, need a difference beyond
+measurement noise, and are refused between takes of wildly different lengths.
+Both directions are reported; a product that only reports improvement is not
+measuring anything.
+
+**Stated limit:** the sentence explaining why the learner transcribes their own
+speech is gated on `capabilities.asr`, so a pack that HAS usable recognition
+does not get told a fact about a language it is not teaching. But the other
+half — actually offering a machine transcript where one would be trustworthy —
+is NOT built, because no pack with `asr: true` has a deployment to test it
+against. That is the same rule the shared-package extraction follows: build it
+at the second consumer, not the first. The seam is the capability flag, which
+is already read.
+
 **Next**, in order: capture what the learner did not know into a learner model —
 **the existing Heidi GPT generates that evidence daily and throws all of it
 away**, and every question asked of it is a labelled datapoint about what a real
@@ -791,3 +878,23 @@ log line before anything is written.
 
 **Saved words stay on your device.** They need no account, work signed out, and
 keep Heidi from holding a record of what a particular person cannot understand.
+
+**Your voice never reaches us at all.** A recorded take is decoded and measured
+in the page that recorded it, and the audio is dropped; what is kept is a
+handful of numbers and your own write-up of what you said, in your browser,
+under `heidi.takes.v1`. There is no audio table, no upload endpoint
+for takes, and no transcript of anybody's speech anywhere in this product.
+
+This is the strongest version of the call `image_count` already made, and it is
+not a flourish. A table of how somebody sounds when they are bad at a language
+is worse than a table of the words they looked up, and this section opens by
+naming voice notes among the most private things a person owns. The cheapest
+way to honour that is to never hold one — there is then no breach to have, no
+retention policy to write, and no paragraph here that could later turn out to
+be untrue. The cost is stated rather than hidden: clear your browser data and
+your recordings' history is gone, and it does not follow you to a second
+device. That is the same deal saved words make, and it is the right way round.
+
+The one thing that does leave the device is the sentence you typed, when you
+press the button asking for a suggestion — one request, answered and not
+stored, exactly like a signed-out chat.
