@@ -1,3 +1,5 @@
+import { readEventStream } from "@bitbaum/ai-kit/sse";
+import type { StreamEvent } from "@/lib/domain/chat/events";
 import type { ChatMessage } from "@/lib/domain/chat/types";
 import { HEIDI_ID } from "@/lib/domain/chat/types";
 import { decodeAnswer } from "@/lib/domain/chat/answer";
@@ -24,6 +26,15 @@ export type SendArgs = {
   byok: unknown;
   images: string[];
   signal?: AbortSignal;
+  /**
+   * The explanation so far, as it arrives. Each call carries the WHOLE of it,
+   * not a fragment to append — so a dropped frame costs a moment of staleness
+   * rather than a missing word, and the caller needs no accumulator.
+   *
+   * A transport that cannot stream simply never calls it, which is why this is
+   * on the shared args rather than on a separate interface.
+   */
+  onText?: (soFar: string) => void;
 };
 
 export type SendResult =
@@ -131,6 +142,93 @@ export function draftTransport(): Transport {
           },
         ],
       };
+    } catch {
+      return { status: "error", kind: "unreachable" };
+    }
+  };
+}
+
+/**
+ * The same stateless route, watched as it answers.
+ *
+ * WHY IT IS A SEPARATE TRANSPORT AND NOT A FLAG. A transport is exactly "where
+ * a message goes and what comes back", and these two differ in both: one POSTs
+ * and awaits JSON, the other POSTs and reads an event stream. Everything they
+ * share — the optimistic append, the retry that drops the failed turn, the
+ * three error branches — is in `useConversation` and is untouched.
+ *
+ * WHAT IS STREAMED IS ONLY THE EXPLANATION. The dialect line, the glosses and
+ * the suggestions arrive with the final `answer` event, after the deterministic
+ * variety gate has run on them. A learner cannot audit dialect, so a form shown
+ * before it is checked is the one mistake that matters here — see `partial.ts`.
+ *
+ * Falls back to nothing: if the browser or a proxy cannot do event streams the
+ * request fails like any other and the caller retries. There is no silent
+ * downgrade to the blocking path, because a downgrade nobody can see is how you
+ * end up not knowing whether the feature works.
+ */
+export function streamingDraftTransport(): Transport {
+  return async ({ text, history, locale, byok, images, signal, onText }) => {
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          input: text,
+          history: history
+            .filter((m) => m.body)
+            .map((m) => ({ authorId: m.authorId, body: m.body, createdAt: m.createdAt })),
+          locale,
+          byok,
+          images,
+          stream: true,
+        }),
+        signal,
+      });
+
+      if (!res.ok) return errorFor(res.status);
+      if (!res.body) return { status: "error", kind: "failed" };
+
+      let outcome: SendResult | null = null;
+
+      await readEventStream<StreamEvent>(res.body, (event) => {
+        if (event.type === "text") {
+          onText?.(event.text);
+          return;
+        }
+        if (event.type === "silent") {
+          outcome = { status: "silent" };
+          return;
+        }
+        if (event.type === "error") {
+          outcome = { status: "error", kind: event.kind };
+          return;
+        }
+
+        // Decoded, not cast: the shape crossed a wire, and a row written by an
+        // older prompt is exactly what makes `a.glosses.map(...)` throw in
+        // somebody's browser.
+        const answer = decodeAnswer(event.answer);
+        outcome = answer
+          ? {
+              status: "ok",
+              messages: [
+                {
+                  id: localId("heidi"),
+                  authorId: HEIDI_ID,
+                  body: answer.text,
+                  createdAt: new Date().toISOString(),
+                  answer,
+                },
+              ],
+            }
+          : { status: "error", kind: "failed" };
+      });
+
+      // A stream that ended without a terminal event is a vendor that died
+      // mid-sentence, or a proxy that cut the connection. Silence is not a
+      // status, so it is reported as the failure it is.
+      return outcome ?? { status: "error", kind: "failed" };
     } catch {
       return { status: "error", kind: "unreachable" };
     }

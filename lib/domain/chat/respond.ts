@@ -1,4 +1,4 @@
-import { complete, freeChain, usableChain, type HealthTracker } from "@bitbaum/ai-kit";
+import { complete, completeStream, freeChain, usableChain, type HealthTracker } from "@bitbaum/ai-kit";
 import type { Thread } from "threadkit";
 import { VARIETY } from "../../variety/active.ts";
 import { systemPrompt } from "../../variety/prompt.ts";
@@ -9,6 +9,7 @@ import type { Answer, ChatMessage } from "./types.ts";
 import { byokChain, readByok } from "../model/byok.ts";
 import { visionMessage } from "./image.ts";
 import { describeMessage, parseMessage } from "./email.ts";
+import { partialField } from "./partial.ts";
 import { withReply } from "./moves.ts";
 import { HEIDI_ID } from "./types.ts";
 
@@ -23,6 +24,13 @@ import { HEIDI_ID } from "./types.ts";
  *
  * What stays in the routes is what genuinely differs: who is allowed to speak,
  * what a rate limit means there, and where the reply is stored.
+ *
+ * STREAMING IS AN OBSERVATION, NOT A SECOND PATH. Pass `onText` and the model
+ * call goes through ai-kit's `completeStream` instead of `complete`; the turn
+ * is assembled exactly as before and every guard still runs on the whole
+ * answer. A separate "streaming respond" would be the third copy of this
+ * wiring, and the second one already drifted (see the cast `/api/chat` was
+ * still carrying).
  */
 
 /** Per link, not shared — a shared deadline is spent by the first vendor. */
@@ -77,6 +85,18 @@ export async function respondInThread(args: {
   pictures?: string[];
   health?: HealthTracker;
   signal?: AbortSignal;
+  /**
+   * Called as the explanation arrives, with the whole of it so far.
+   *
+   * ONLY the explanation — never the dialect line. `text` is prose in the
+   * reader's own language and is explicitly not judged by the variety gate;
+   * everything the gate DOES judge waits for `parseAnswer`. A learner cannot
+   * audit dialect, so showing them an ungated form even briefly is the failure
+   * this product exists to prevent. See `partial.ts`.
+   *
+   * Absent means the old request/response path, unchanged.
+   */
+  onText?: (soFar: string) => void;
 }): Promise<RespondResult> {
   const own = readByok(args.byok);
   const byokLinks = own.ok ? byokChain(own.config) : null;
@@ -102,7 +122,7 @@ export async function respondInThread(args: {
     systemPrompt: [systemPrompt(VARIETY, EXPLANATION_LANGUAGE[args.locale]), pasted].filter(Boolean).join("\n\n"),
     model: chain[0]?.model ?? "unknown",
     complete: async ({ system, prompt, maxTokens, temperature }) => {
-      const { text: raw } = await complete({
+      const call = {
         chain,
         env,
         health: args.health,
@@ -111,7 +131,7 @@ export async function respondInThread(args: {
         timeoutMs: TIMEOUT_MS,
         signal: args.signal,
         messages: [
-          { role: "system", content: system },
+          { role: "system" as const, content: system },
           // ai-kit's `ChatMessage.content` accepts content parts since 1.x, so
           // this is now typed all the way through. It used to be an
           // `as unknown as` cast with a note asking for exactly that widening.
@@ -119,7 +139,37 @@ export async function respondInThread(args: {
             ? { role: "user" as const, content: visionMessage(prompt, pictures) }
             : { role: "user" as const, content: prompt },
         ],
-      });
+      };
+
+      if (!args.onText) {
+        const { text: raw } = await complete(call);
+        return raw;
+      }
+
+      /**
+       * The same chain, watched as it produces.
+       *
+       * `end` carries the assembled turn, so the accumulator is a fallback
+       * rather than the source of truth — a vendor that stops mid-array still
+       * reaches `parseAnswer`, which repairs truncated JSON and is the only
+       * thing allowed to decide what an answer is.
+       *
+       * ai-kit stops falling back once a link has produced its first token,
+       * because replaying from another vendor would make the reader watch the
+       * answer restart. A break after that is `StreamInterrupted`, which
+       * reaches the caller as an ordinary failed turn — the partial is
+       * discarded rather than kept, since half an explanation with no gated
+       * dialect under it is not an answer.
+       */
+      let raw = "";
+      for await (const delta of completeStream(call)) {
+        if (delta.type === "text") {
+          raw += delta.text;
+          args.onText(partialField(raw));
+        } else if (delta.type === "end") {
+          raw = delta.text;
+        }
+      }
       return raw;
     },
   });

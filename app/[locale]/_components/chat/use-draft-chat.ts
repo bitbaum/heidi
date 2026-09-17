@@ -7,7 +7,7 @@ import { LEARNER_ID } from "@/lib/domain/chat/types";
 import { useByok } from "../use-byok";
 import { readDraft, useDraft } from "../use-draft";
 import { useConversation } from "./use-conversation";
-import { draftTransport } from "./transports";
+import { streamingDraftTransport } from "./transports";
 
 /**
  * The signed-out conversation, wired up — once, for every surface that holds
@@ -21,7 +21,8 @@ import { draftTransport } from "./transports";
  * is why the pieces take a `className`. What they must share is the WIRING,
  * because the wiring is what makes them one conversation rather than three:
  *
- *   the same `draftTransport`, so every surface posts to the same route;
+ *   the same streaming transport, so every surface posts to the same route
+ *     and shows the explanation arriving the same way;
  *   the same draft store, so a question asked in the dock is already there
  *     when the reader opens the full-screen chat;
  *   the same seed guard, which is load-bearing and easy to get wrong.
@@ -45,7 +46,11 @@ export function useDraftChat({ locale, dict }: { locale: Locale; dict: Dictionar
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const chat = useConversation({
-    transport: draftTransport(),
+    // Streaming, so the explanation appears as it is written rather than after
+    // a silent wait of up to 25 seconds. The gated half of the answer — the
+    // dialect line, the glosses, the suggestions — still arrives all at once,
+    // when the checker is done with it.
+    transport: streamingDraftTransport(),
     locale,
     t: dict.chat,
     imageTooBig: dict.model.imageTooBig,

@@ -27,6 +27,7 @@ export function Transcript({
   me,
   t,
   busy,
+  streaming,
   nameFor,
   onRetry,
   onMove,
@@ -39,6 +40,15 @@ export function Transcript({
   me: string;
   t: Dictionary["chat"];
   busy?: boolean;
+  /**
+   * The explanation arriving, before the answer has been checked.
+   *
+   * Rendered in place of the thinking dots, in the same muted grey — it is
+   * deliberately NOT styled like a finished answer, because it is not one yet:
+   * the dialect line, the glosses and the suggestions are still with the
+   * variety gate and appear together when it is done.
+   */
+  streaming?: string;
   /** Resolve another human's display name. Absent in a two-party chat. */
   nameFor?: (actorId: string) => string;
   onRetry?: (message: ChatMessage) => void;
@@ -85,14 +95,23 @@ export function Transcript({
         return <Said key={m.id} body={m.body} name={nameFor?.(m.authorId) ?? m.authorId} />;
       })}
 
-      {busy && (
-        <p role="status" className="flex items-center gap-2 text-sm text-fg-muted">
-          <span className="inline-flex gap-1" aria-hidden="true">
-            <Dot /> <Dot delay="150ms" /> <Dot delay="300ms" />
-          </span>
-          {t.thinking}
-        </p>
-      )}
+      {busy &&
+        (streaming ? (
+          // `aria-live` on the container already announces this; the dots
+          // carried `role="status"` and a second live region inside a live
+          // region makes a screen reader repeat the whole thing on every token.
+          <p className="whitespace-pre-wrap text-base leading-relaxed text-fg-muted">
+            {streaming}
+            <span className="ml-0.5 inline-block h-4 w-px translate-y-0.5 animate-pulse bg-fg-muted" aria-hidden="true" />
+          </p>
+        ) : (
+          <p role="status" className="flex items-center gap-2 text-sm text-fg-muted">
+            <span className="inline-flex gap-1" aria-hidden="true">
+              <Dot /> <Dot delay="150ms" /> <Dot delay="300ms" />
+            </span>
+            {t.thinking}
+          </p>
+        ))}
 
       {endRef && <div ref={endRef} />}
     </div>

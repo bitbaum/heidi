@@ -12,7 +12,7 @@ import { ModelSheet } from "../model-sheet";
 import { Composer } from "./composer";
 import { Transcript } from "./transcript";
 import { useConversation } from "./use-conversation";
-import { conversationTransport, draftTransport, type ConversationSummary } from "./transports";
+import { conversationTransport, streamingDraftTransport, type ConversationSummary } from "./transports";
 import { ConversationList } from "./conversation-list";
 import { WordPick } from "./word-pick";
 
@@ -27,7 +27,8 @@ import { WordPick } from "./word-pick";
  * Two modes, one component, because the difference between them is a transport
  * and a sidebar and genuinely nothing else:
  *
- *   SIGNED OUT — `draftTransport`, and the thread is kept in this browser.
+ *   SIGNED OUT — `streamingDraftTransport`, and the thread is kept in this
+ *     browser.
  *     No conversation row is created; nothing anonymous reaches the database.
  *   SIGNED IN  — `conversationTransport`, and the server remembers. The
  *     conversation row is created on the FIRST MESSAGE, not when the page
@@ -111,7 +112,13 @@ export function ChatWorkspace({
     () =>
       signedIn
         ? conversationTransport({ conversationId, locale, onCreated: handleCreated })
-        : draftTransport(),
+        : // Signed out, the same streaming route the home fold and the dock use,
+          // so the explanation appears as it is written. Signed in, the
+          // conversation route still answers in one piece: it writes two rows
+          // to Postgres before replying, and streaming a turn whose storage has
+          // not happened yet would show a reader an answer that could still
+          // fail to be saved.
+          streamingDraftTransport(),
     [signedIn, conversationId, locale, handleCreated],
   );
 
@@ -319,6 +326,7 @@ export function ChatWorkspace({
                 me={LEARNER_ID}
                 t={t}
                 busy={chat.busy}
+                streaming={chat.streaming}
                 onRetry={chat.retry}
                 onMove={chat.send}
             locale={locale}
