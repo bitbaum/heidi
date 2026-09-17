@@ -236,10 +236,15 @@ test("route segments are the same in every language", () => {
     // with the one fact nobody else supplies — whether each programme is
     // dialect or Swiss Standard German. Under `use` rather than `reference`,
     // because you go there and spend twenty minutes, not four seconds.
+    // `practice` sits beside the chat too, and for the same reason: the chat
+    // is where a word is met and kept, practice is where it comes back. Under
+    // `reference` it would read as one more list to look things up in, which
+    // is what `vocabulary` already is and what this is not.
     [
       "",
       "chat",
       "speaking",
+      "practice",
       "listen",
       "grammar",
       "dialect",

@@ -4,6 +4,7 @@ import type { Dictionary } from "@/lib/i18n";
 import { DISPLAY } from "@/lib/variety/display";
 import { fill } from "@/lib/i18n/fill";
 import { askHeidi } from "@/lib/browser/ask";
+import { wordSlug } from "@/lib/domain/practice/slug";
 import { useSaved } from "./use-saved";
 import { useByok } from "./use-byok";
 
@@ -30,11 +31,20 @@ export function WordList({
   words,
   t,
   chatT,
+  persons,
 }: {
-  words: ReadonlyArray<{ target: string; bridge: string }>;
+  words: ReadonlyArray<{
+    target: string;
+    bridge: string;
+    article?: string;
+    forms?: ReadonlyArray<{ label: string; target: string; bridge: string }>;
+    example?: { target: string; bridge: string };
+  }>;
   t: Dictionary["vocabulary"];
   /** `saveWord` / `savedWord` live in the chat dictionary, where the gloss is. */
   chatT: Dictionary["chat"];
+  /** Person labels for a paradigm, from the practice dictionary that owns them. */
+  persons: Dictionary["practice"]["persons"];
 }) {
   const saved = useSaved();
   // Forwarded so the example sentences are generated on the key they brought,
@@ -52,12 +62,28 @@ export function WordList({
         return (
           <li
             key={word.target}
-            className="group grid grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_auto] items-baseline gap-3 border-b border-border-subtle py-2.5"
+            id={wordSlug(word.target)}
+            className="group grid scroll-mt-24 grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_auto] items-baseline gap-x-3 border-b border-border-subtle py-2.5"
           >
             <span
               lang={DISPLAY.tag}
               className="font-heading text-base font-semibold leading-snug tracking-display text-dialect"
             >
+              {/*
+                THE ARTICLE IS PART OF THE WORD, and printed with it for the
+                same reason a German dictionary prints `der`: a noun learned
+                without its gender has to be learned again the first time it
+                needs one. Muted, because the noun is still the entry.
+
+                Absent where nobody has checked — the pack keeps `article`
+                optional precisely so that gap stays visible rather than being
+                filled with a plausible guess.
+              */}
+              {word.article && (
+                <span className="font-normal text-fg-muted">
+                  {word.article}{" "}
+                </span>
+              )}
               {word.target}
             </span>
             <span lang="de" className="text-base leading-snug text-fg-secondary">
@@ -106,6 +132,47 @@ export function WordList({
                 </button>
               )}
             </span>
+
+            {/*
+              WHAT THE WORD DOES, on its own line across the whole row.
+
+              Only for entries that have it, which is currently a handful —
+              and that is the honest state rather than a layout problem. A row
+              with nothing to add stays exactly as tight as it was, so the list
+              does not pay a line of height per word for a feature four words
+              use.
+
+              The paradigm is one line of `du häsch · er hät`, not a table:
+              three forms do not need axes, and a table in the second column of
+              a two-column list is a layout that breaks on a phone for the sake
+              of looking thorough.
+            */}
+            {(word.forms?.length || word.example) && (
+              <div className="col-span-3 mt-1 flex flex-col gap-0.5">
+                {word.forms && word.forms.length > 0 && (
+                  <p className="text-[13px] leading-relaxed text-fg-secondary">
+                    {word.forms.map((form, i) => (
+                      <span key={form.label}>
+                        {i > 0 && <span aria-hidden="true" className="text-fg-muted"> · </span>}
+                        <span className="text-fg-muted">{persons[form.label as keyof typeof persons] ?? form.label} </span>
+                        <span lang={DISPLAY.tag} className="font-medium text-dialect">
+                          {form.target}
+                        </span>
+                      </span>
+                    ))}
+                  </p>
+                )}
+
+                {word.example && (
+                  <p className="text-[13px] leading-relaxed text-fg-muted">
+                    <span lang={DISPLAY.tag} className="italic">
+                      «{word.example.target}»
+                    </span>{" "}
+                    <span lang="de">{word.example.bridge}</span>
+                  </p>
+                )}
+              </div>
+            )}
           </li>
         );
       })}
