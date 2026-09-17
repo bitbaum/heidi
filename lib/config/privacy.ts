@@ -133,6 +133,38 @@ export const FLOWS: readonly Flow[] = [
     recipients: [...BROUGHT_KEY_VENDORS],
   },
   {
+    /**
+     * A recorded take, and the strongest claim on this page.
+     *
+     * The audio is decoded and measured in the page that recorded it and then
+     * dropped — there is no audio table, no upload endpoint for takes, and no
+     * transcript of anybody's speech anywhere in this product. What stays is a
+     * handful of durations and the learner's own write-up, in their browser.
+     *
+     * It has to be on this page precisely because it is the sensitive one. A
+     * privacy page that enumerates nine flows and silently omits the voice
+     * recording is worse than one that never claimed to be complete.
+     */
+    id: "speakingTakes",
+    place: "device",
+    where: "localStorage · heidi.takes.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
+  {
+    /**
+     * The one thing the speaking surface does send: the sentence the learner
+     * typed out and pressed a button to have checked. Never the audio, and
+     * never stored on our side — one request, answered and forgotten, exactly
+     * like a signed-out chat.
+     */
+    id: "speakingSuggestion",
+    place: "vendor",
+    where: "/api/speaking/take · the confirmed sentence only",
+    leavesDevice: true,
+    recipients: [...MODEL_VENDORS],
+  },
+  {
     id: "account",
     place: "server",
     where: "OrangeCat OIDC · the actor id only",

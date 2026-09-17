@@ -110,6 +110,17 @@ export type DisplayVariety = {
   /** `note` is deliberately absent — it is a paragraph of English. */
   orthography: { convention: string };
   /**
+   * What language technology exists for this variety.
+   *
+   * Three booleans, so it projects: there is no prose here to leak. A page
+   * needs them because they decide which surfaces can exist at all — the
+   * speaking screen explains that nothing transcribes this variety reliably,
+   * which is true of Zurich German and false of Ukrainian, and a component
+   * that assumed rather than read would be asserting a fact about a language
+   * it is not teaching.
+   */
+  capabilities: { asr: boolean; tts: boolean; licensedAudio: boolean };
+  /**
    * One line of the variety itself, for the hero to show and then answer.
    * Only the line — its meaning is language, so it lives in the dictionaries.
    * Nothing here is English prose, which is the whole point of this file.
@@ -169,5 +180,10 @@ export const DISPLAY: DisplayVariety = {
     taught: isTaught(VARIETY, area),
   })),
   orthography: { convention: VARIETY.orthography.convention },
+  capabilities: {
+    asr: VARIETY.capabilities.asr,
+    tts: VARIETY.capabilities.tts,
+    licensedAudio: VARIETY.capabilities.licensedAudio,
+  },
   showcase: VARIETY.showcase ? { line: VARIETY.showcase.line } : undefined,
 };

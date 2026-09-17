@@ -167,3 +167,116 @@ export const conversationMessages = pgTable(
   },
   (t) => [index("conversation_messages_conversation_created_idx").on(t.conversationId, t.createdAt)],
 );
+
+/**
+ * Speaking rounds: the topics people propose, and the sittings they become.
+ *
+ * WHAT IS NOT HERE IS THE POINT.
+ *
+ * There is no audio table and no table of anybody's takes. A recording is
+ * measured in the browser (`domain/speaking/delivery.ts`); the numbers, and
+ * the learner's own write-up of what they said, are kept in their own
+ * localStorage. Neither the sound nor the text ever reaches this database. §10
+ * calls voice notes among the most private things a person owns, and the
+ * cheapest way to honour that is to never hold one. It is the call
+ * `image_count` already made for pictures, taken one step further because
+ * there is not even a count worth keeping.
+ *
+ * So what is stored here is only the SOCIAL half — who proposed what, who is
+ * coming, and when it sits. All of it is meant to be seen by the other people
+ * in the round, which is exactly the property the private half does not have.
+ *
+ * Same identity rule as everywhere else: an actor id is the OIDC `sub`, bare
+ * text, no foreign key, with the display name denormalised at write time.
+ */
+
+export const speakingTopics = pgTable(
+  "speaking_topics",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    title: text("title").notNull(),
+    /** One line of why it is worth an hour. */
+    pitch: text("pitch").notNull(),
+    proposedBy: text("proposed_by").notNull(),
+    proposerName: text("proposer_name").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("speaking_topics_created_idx").on(t.createdAt)],
+);
+
+/**
+ * "I would come to that."
+ *
+ * A row rather than a counter on the topic, because a count cannot answer the
+ * question the page actually asks — whether YOU already said yes — and a
+ * counter with no rows behind it can only ever go up.
+ */
+export const topicInterest = pgTable(
+  "topic_interest",
+  {
+    topicId: uuid("topic_id")
+      .notNull()
+      .references(() => speakingTopics.id, { onDelete: "cascade" }),
+    actorId: text("actor_id").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.topicId, t.actorId] })],
+);
+
+export const speakingRounds = pgTable(
+  "speaking_rounds",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    /**
+     * The proposal it came from. Nullable, and `set null` on delete: a round
+     * people are coming to is a fact, and removing the topic it grew out of
+     * must not remove the meeting.
+     */
+    topicId: uuid("topic_id").references(() => speakingTopics.id, { onDelete: "set null" }),
+    title: text("title").notNull(),
+    /** `webinar` or `circle` — see domain/speaking/types.ts. */
+    format: text("format").notNull(),
+    hostId: text("host_id").notNull(),
+    hostName: text("host_name").notNull(),
+    /**
+     * The first sitting, absolute. Every later one is COMPUTED from this plus
+     * the cadence and the zone, never stored — see domain/speaking/schedule.ts.
+     * A table of generated occurrences would have to be extended by a job
+     * nobody would notice had stopped.
+     */
+    startsAt: timestamp("starts_at", { withTimezone: true }).notNull(),
+    durationMinutes: integer("duration_minutes").notNull(),
+    /** `once`, `weekly` or `fortnightly`. */
+    cadence: text("cadence").notNull(),
+    /**
+     * The zone the repeat is anchored in. Kept even though `starts_at` is
+     * absolute: "every Tuesday at 19:00" survives a daylight-saving change and
+     * an instant plus seven days does not.
+     */
+    timeZone: text("time_zone").notNull(),
+    /** An https room somewhere else. Heidi carries no video. Validated on write. */
+    meetingUrl: text("meeting_url"),
+    capacity: integer("capacity").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    /**
+     * Called off, rather than deleted. People have it in their calendar; a row
+     * that vanishes tells them nothing and a row that says cancelled does.
+     */
+    cancelledAt: timestamp("cancelled_at", { withTimezone: true }),
+  },
+  (t) => [index("speaking_rounds_starts_idx").on(t.startsAt)],
+);
+
+export const roundAttendance = pgTable(
+  "round_attendance",
+  {
+    roundId: uuid("round_id")
+      .notNull()
+      .references(() => speakingRounds.id, { onDelete: "cascade" }),
+    actorId: text("actor_id").notNull(),
+    /** Denormalised from the OIDC profile, like every other name here. */
+    displayName: text("display_name").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.roundId, t.actorId] }), index("round_attendance_actor_idx").on(t.actorId)],
+);

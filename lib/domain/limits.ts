@@ -91,6 +91,26 @@ export const conversationWrite = slidingWindow({ limit: 40, windowMs: 10 * 60_00
 export const conversationMessage = slidingWindow({ limit: 30, windowMs: 5 * 60_000 });
 
 /**
+ * Proposing topics, opening rounds, saying you will come.
+ *
+ * The same shape of hole as `groupWrite` and the same ceiling: every one of
+ * these writes a row nobody asked for, and a proposals board is a thing people
+ * see, so a script filling it with rounds is defacement rather than cost. You
+ * propose a topic roughly never; twenty in ten minutes is already generous.
+ */
+export const speakingWrite = slidingWindow({ limit: 20, windowMs: 10 * 60_000 });
+
+/**
+ * One comment on one spoken take.
+ *
+ * Chat rates, because it is a chat call: the same shared free-tier budget,
+ * spent by the same person, on a text they typed themselves. The recording
+ * never reaches this — only the sentence the learner confirmed — so it costs
+ * no more than any other turn.
+ */
+export const speakingTake = slidingWindow({ limit: 30, windowMs: 5 * 60_000 });
+
+/**
  * The dialect checker. Pure, local, costs nothing but CPU — so this is only
  * about not letting one client monopolise the box.
  */
