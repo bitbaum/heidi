@@ -627,7 +627,7 @@ export const gsw: Dictionary = {
     rate: "Tempo",
     correctionTitle: "Korrekture",
     correctionBody:
-      "Wie viel d Heidi zu dem seit, wo Sie gschribe händ. Nie zu Ihrer Schriibwiis: Züritüütsch hät kei richtigi Schriibig, da cha me nüt falsch mache.",
+      "Wie viel d Heidi zu de Wörter vonere Sprächübig seit, nachdem Sie ufgschribe händ, was Sie gseit händ. Nie zu Ihrer Schriibwiis: Züritüütsch hät kei richtigi Schriibig, da cha me nüt falsch mache — und nie zu dem, wo Sie im Chat tippet, well e Nachricht, wo Ihne öpper gschickt hät, gnau so uusgseht wie eini vo Ihne.",
     correctionLevels: {
       off: "Nüt säge",
       blocking: "Nur, was gar kein Schwiizerdütsch isch",

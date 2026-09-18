@@ -602,7 +602,7 @@ export const it: Dictionary = {
     rate: "Velocità",
     correctionTitle: "Correzioni",
     correctionBody:
-      "Quanto Heidi dice di ciò che lei ha scritto. Mai della sua ortografia: lo zurighese non ha una grafia corretta, quindi non c'è nulla da sbagliare.",
+      "Quanto Heidi dice delle parole di un esercizio orale, dopo che lei ha scritto quello che ha detto. Mai della sua ortografia: lo zurighese non ha una grafia corretta, quindi non c'è nulla da sbagliare — e mai di quello che scrive in chat, perché un messaggio che le ha mandato qualcun altro sembra identico a uno suo.",
     correctionLevels: {
       off: "Non dire nulla",
       blocking: "Solo ciò che non è affatto svizzero tedesco",

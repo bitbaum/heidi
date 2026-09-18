@@ -12,6 +12,7 @@ import { useClientValue } from "@/lib/browser/store";
 import { useTakes } from "./use-takes";
 import { useRecorder, recordingSupported } from "./use-recorder";
 import { useByok } from "./use-byok";
+import { useVoiceSettings } from "./use-voice-settings";
 
 type T = Dictionary["speaking"];
 
@@ -51,6 +52,9 @@ export function SpeakingPractice({
   const recorder = useRecorder();
   const { takes, ready, keep, forget, before } = useTakes();
   const byok = useByok();
+  // The learner's own answer to "how much should Heidi say about my words".
+  // Device-local, so it travels on the request rather than living in a table.
+  const voice = useVoiceSettings();
 
   const [said, setSaid] = useState("");
   const [asking, setAsking] = useState(false);
@@ -136,7 +140,7 @@ export function SpeakingPractice({
       const res = await fetch("/api/speaking/take", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ said: text, locale, byok: byok.config }),
+        body: JSON.stringify({ said: text, locale, byok: byok.config, correction: voice.settings.correction }),
       });
       const data = (await res.json()) as { language?: Note[]; suggestion?: Suggestion | null };
       setLanguage(Array.isArray(data.language) ? data.language : []);
@@ -148,7 +152,7 @@ export function SpeakingPractice({
     } finally {
       setAsking(false);
     }
-  }, [said, asking, locale, byok.config]);
+  }, [said, asking, locale, byok.config, voice.settings.correction]);
 
   /**
    * Start a take, clearing whatever the last one left on screen.

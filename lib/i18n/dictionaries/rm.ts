@@ -618,7 +618,7 @@ export const rm: Dictionary = {
     rate: "Spertadad",
     correctionTitle: "Correcturas",
     correctionBody:
-      "Quant che Heidi di davart quai che Vus avais scrit. Mai davart Vossa ortografia: il turitgais n'ha nagina scrittira gista, uschia n'i è nagut da far fallà.",
+      "Quant che Heidi di davart ils pleds d'in exercizi da discurrer, suenter che Vus avais scrit quai che Vus avais ditg. Mai davart Vossa ortografia: il turitgais n'ha nagina scrittira gista, uschia n'i è nagut da far fallà — e mai davart quai che Vus tippais en il chat, perquai ch'ina messadi che insatgi auter As ha tramess para exact sco ina da Vus.",
     correctionLevels: {
       off: "Na dir nagut",
       blocking: "Mo quai che n'è betg tudestg svizzer",
