@@ -346,6 +346,22 @@ export type SpeechProfile = {
   grammarCode: string | null;
   /** The grammar code for the bridge variety, where the checker does exist. */
   bridgeGrammarCode?: string | null;
+  /**
+   * The commonest words that tell the target and the bridge apart.
+   *
+   * Used to settle, from a real response, the one question a vendor's sales
+   * page cannot: did the recogniser answer in the variety that was SPOKEN, or
+   * translate it into the bridge? See `lib/speech/dialect-marker.ts`.
+   *
+   * FUNCTION WORDS, deliberately. Content words are cognate across these two
+   * varieties and carry the correspondences that make them mutually legible;
+   * what separates them reliably is the handful of words in every sentence —
+   * which also means a ten-second clip is enough to decide.
+   */
+  markers?: {
+    target: readonly string[];
+    bridge: readonly string[];
+  };
 };
 
 /**

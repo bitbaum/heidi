@@ -453,6 +453,20 @@ export const ZURICH_GERMAN: VarietyPack = {
     // The bridge does have one, and `de-CH` rather than `de-DE` so that Swiss
     // spelling — no ß — is what it checks against.
     bridgeGrammarCode: "de-CH",
+    /**
+     * The words that decide whether a recogniser kept the dialect.
+     *
+     * Every pair here is the SAME word in the two varieties, and each appears
+     * in almost any sentence either one produces — which is what makes ten
+     * seconds of audio enough to settle it:
+     *
+     *   isch/ist   nöd/nicht   gaat/geht   öppis/etwas   gsi/gewesen
+     *   hät/hat    chli/klein  au/auch     scho/schon    mir/wir
+     */
+    markers: {
+      target: ["isch", "nöd", "nid", "gaat", "gaht", "öppis", "gsi", "hät", "chli", "au", "scho", "zäme", "öpper"],
+      bridge: ["ist", "nicht", "geht", "etwas", "gewesen", "hat", "klein", "auch", "schon", "zusammen", "jemand"],
+    },
   },
 
   capabilities: {
