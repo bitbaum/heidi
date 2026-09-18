@@ -21,6 +21,14 @@ export function Copy({ text, t }: { text: string; t: Dictionary["chat"] }) {
   return (
     <button
       type="button"
+      /*
+       * Named by what it copies, for the reason the speak control beside it
+       * is: an answer carries several, and "Kopieren" four times over is four
+       * controls a screen reader cannot tell apart. Same shape as
+       * `keep-word.tsx`, and the visible word comes first so voice control
+       * still matches it.
+       */
+      aria-label={`${done ? t.copied : t.copy}: ${text.length > 60 ? `${text.slice(0, 60).trimEnd()}…` : text}`}
       onClick={async () => {
         try {
           await navigator.clipboard.writeText(text);
