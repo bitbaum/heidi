@@ -55,13 +55,13 @@ export default async function PracticePage({ params }: { params: Promise<{ local
       <nav aria-label={t.title} className="mt-12 flex flex-wrap gap-x-6 gap-y-2 border-t border-border-subtle pt-6">
         <Link
           href={href(locale, "grammar")}
-          className="text-sm text-link underline underline-offset-4 hover:text-accent"
+          className="inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
         >
           {dict.nav.grammar}
         </Link>
         <Link
           href={href(locale, "vocabulary")}
-          className="text-sm text-link underline underline-offset-4 hover:text-accent"
+          className="inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
         >
           {dict.nav.vocabulary}
         </Link>

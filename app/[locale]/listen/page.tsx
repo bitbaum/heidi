@@ -52,7 +52,7 @@ function Row({ source, t, areaNames }: { source: ListeningSource; t: T; areaName
         <a
           href={source.url}
           rel="noreferrer"
-          className="text-base font-medium leading-snug text-link underline underline-offset-4 hover:text-accent"
+          className="inline-flex min-h-11 items-center text-base font-medium leading-snug text-link underline underline-offset-4 hover:text-accent"
         >
           {source.name}
         </a>

@@ -309,7 +309,7 @@ export function ChatWorkspace({
           <button
             type="button"
             onClick={() => setMenuOpen(true)}
-            className="min-h-9 text-sm text-link underline underline-offset-4"
+            className="inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4"
           >
             {f.menuOpen}
           </button>

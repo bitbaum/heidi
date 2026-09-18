@@ -109,8 +109,27 @@ const audit = () => {
       // of it. Reporting it as a tap target on every page is reporting an
       // accessibility feature as an accessibility failure.
       !el.classList.contains("sr-only");
-    if (interactive && r.height > 0 && r.height < 44 && r.width > 0) {
-      out.tap.push({ el: name(el), h: Math.round(r.height), w: Math.round(r.width) });
+
+    if (interactive && r.height > 0 && r.width > 0) {
+      // WHAT IS ACTUALLY TAPPABLE, which for a checkbox or a radio is not the
+      // box — it is the label wrapping it. A 16px radio inside a padded label
+      // the width of the column is a comfortable target that a naive
+      // measurement reports as the worst one on the page, and "fix" means
+      // inflating a control that was never the thing a thumb aims at.
+      //
+      // The fifth false-positive class this report has had to lose. Each one
+      // mattered: a finding a reader learns to skip past is worse than no
+      // finding, because it teaches them to skip the real ones beside it.
+      //
+      // Only a WRAPPING label counts. A `for=`-linked label sitting elsewhere
+      // in the DOM is also clickable, but it is not necessarily adjacent, and
+      // crediting a control with the area of something across the page would
+      // hide a genuine problem.
+      const label = el.closest("label");
+      const box = label && el.matches("input[type=checkbox], input[type=radio]") ? label.getBoundingClientRect() : r;
+      if (box.height < 44) {
+        out.tap.push({ el: name(el), h: Math.round(box.height), w: Math.round(box.width) });
+      }
     }
 
     const size = parseFloat(cs.fontSize);

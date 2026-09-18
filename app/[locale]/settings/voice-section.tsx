@@ -40,7 +40,7 @@ export function VoiceSection({ t }: { t: Dictionary["voice"] }) {
       ) : null}
 
       <div className="mt-5 flex flex-col gap-5">
-        <label className="flex max-w-measure items-center justify-between gap-4">
+        <label className="flex min-h-11 max-w-measure items-center justify-between gap-4">
           <span className="text-base text-fg-primary">{t.speakAnswers}</span>
           <input
             type="checkbox"
@@ -59,7 +59,11 @@ export function VoiceSection({ t }: { t: Dictionary["voice"] }) {
             step={0.05}
             value={settings.rate}
             onChange={(e) => set({ rate: Number(e.target.value) })}
-            className="w-full accent-[var(--color-accent)]"
+            /* `h-11`: a range input's own box is about sixteen pixels tall,
+               and every one of those pixels is a place a thumb has to land
+               precisely to start a drag. The track still draws at its natural
+               height, centred — only the area you can grab it by grows. */
+            className="h-11 w-full accent-[var(--color-accent)]"
           />
         </label>
       </div>

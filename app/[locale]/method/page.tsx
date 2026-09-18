@@ -114,7 +114,7 @@ export default async function MethodPage({ params }: { params: Promise<{ locale:
             <li key={item.id}>
               <a
                 href={`#${item.id}`}
-                className="text-base text-link underline decoration-border-subtle underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                className="inline-flex min-h-11 items-center text-base text-link underline decoration-border-subtle underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
               >
                 {item.label}
               </a>

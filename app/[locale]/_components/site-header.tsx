@@ -79,9 +79,14 @@ export function SiteHeader({
           second line on the few widths where it must. A two-line header at one
           breakpoint is a far smaller cost than a site that scrolls sideways. */}
       <div className="mx-auto flex w-full max-w-shell items-center justify-between gap-4 px-5 py-3 sm:px-8">
+        {/* `min-h-11` rather than the mark's own 30px: this is the link back
+            to the start page, it is on every page, and it was the most-missed
+            target on the site — one finding per page in the responsive audit.
+            The row's height does not change, because the header's own padding
+            already exceeds it; only the hit area grows. */}
         <Link
           href={href(locale, "")}
-          className="inline-flex items-center gap-2.5 whitespace-nowrap text-fg-primary"
+          className="inline-flex min-h-11 items-center gap-2.5 whitespace-nowrap text-fg-primary"
         >
           <CowMark size={30} title="Heidi" />
           <span className="font-heading text-xl font-bold tracking-display sm:text-2xl">Heidi</span>
