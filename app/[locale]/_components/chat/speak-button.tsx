@@ -38,12 +38,31 @@ export function Speak({ text, t, dialect = false }: { text: string; t: Dictionar
   // has no way to discover that their device simply has no German voice.
   const failed = speech.state === "failed";
 
+  /**
+   * Enough of the line to tell two buttons apart, and no more: a screen reader
+   * announcing a whole paragraph before the word "button" is its own defect.
+   */
+  const preview = text.length > 60 ? `${text.slice(0, 60).trimEnd()}…` : text;
+
   return (
     <span className="inline-flex flex-col items-start gap-0.5">
       <button
         type="button"
         onClick={() => (speaking ? speech.stop() : speech.speak(text))}
         aria-live="off"
+        /*
+         * NAMED BY WHAT IT WILL READ. An answer carries up to seven of these —
+         * the explanation, the dialect line, and one per suggestion — and
+         * every one of them was called "Vorlesen". Tabbing the page with a
+         * screen reader gave seven identical names and no way to tell which
+         * button read which line. Measured on the live site.
+         *
+         * The label BEGINS with the visible word, which is the shape
+         * `keep-word.tsx` already uses ("Wort merken: nöd"): a voice-control
+         * user saying "click Vorlesen" still matches, so this is not the
+         * visible-label-and-hidden-twin that #46 removed.
+         */
+        aria-label={`${speaking ? t.stop : t.speak}: ${preview}`}
         className="min-h-9 shrink-0 text-sm text-link underline underline-offset-4 hover:text-accent"
       >
         {speaking ? t.stop : t.speak}
