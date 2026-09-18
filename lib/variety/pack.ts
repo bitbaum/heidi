@@ -152,6 +152,20 @@ export type GrammarTopic = {
    * anecdote and five is a drill.
    */
   examples: readonly { target: string; bridge: string }[];
+  /**
+   * One line, in the SOURCE language, saying when this topic is the right one.
+   *
+   * FOR THE MODEL, never for a reader — which is why it is called `note` and
+   * why `display.ts` drops it along with every other source-language field.
+   *
+   * The prompt lists these ids so that an answer can offer a button to the
+   * page instead of explaining the same structure for the fourth time this
+   * week. Listed bare, the model has to guess what `articles` or
+   * `am-progressive` covers from the slug alone, and the button it picks is
+   * only as good as that guess. One line each is the difference between "send
+   * them to the right place" and "send them somewhere plausible".
+   */
+  note?: string;
 };
 
 /**

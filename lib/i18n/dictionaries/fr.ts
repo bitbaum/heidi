@@ -806,7 +806,7 @@ export const fr: Dictionary = {
     practiseLabel: "S'exercer",
     practiseSay: "Donnez-moi deux phrases pour m'exercer à « {word} » — puis interrogez-moi sur l'une d'elles.",
     title: "Grammaire",
-    lead: "Quatre choses qui rendent le zurichois difficile à suivre pour quelqu'un qui lit déjà l'allemand. Pas de leçons — seulement ce que vous allez entendre, et où ça coince.",
+    lead: "Ce qui rend le zurichois difficile à suivre pour quelqu'un qui lit déjà l'allemand — d'abord ce sur quoi une phrase échoue complètement, ensuite ce que vous comprendrez sans jamais le dire vous-même.",
     ruleLabel: "La règle",
     watchLabel: "Où ça coince",
     topics: {
@@ -815,10 +815,20 @@ export const fr: Dictionary = {
         rule: "Le zurichois parlé n'a pas de passé simple : tout le passé se dit au parfait.",
         watch: "Vous attendez « ging », « war », « sagte » — et cela ne vient jamais. Si vous entendez « bi », « hät » ou « händ » suivi d'un participe, c'est le passé.",
       },
+      articles: {
+        title: "de, d, s — il n'y en a pas d'autres",
+        rule: "Trois articles et rien de plus : « de » au masculin, « d » au féminin, « s » au neutre. « der », « die » et « das » n'apparaissent pas.",
+        watch: "Ils ressemblent à des articles allemands avalés, mais c'est la forme entière, pas une contraction relâchée. Et le genre ne suit pas toujours l'allemand : « s Rüebli » est neutre là où la carotte allemande est féminine.",
+      },
       "wo-relative": {
         title: "« wo » à la place de der, die, das",
         rule: "Les relatives commencent presque toujours par « wo », invariable, quel que soit le genre ou le cas.",
         watch: "Vous lisez « wo » comme « où ? » et vous perdez la phrase. Ici, cela veut dire « qui », « que » — jamais un lieu.",
+      },
+      "unified-plural": {
+        title: "Une seule forme verbale pour tout le pluriel",
+        rule: "Nous, vous et ils prennent la même forme du verbe : « mir händ », « ihr händ », « si händ ».",
+        watch: "Vous cherchez la terminaison de la deuxième personne du pluriel et elle n'y est jamais. « Chömed er ? » veut dire « venez-vous ? » — la terminaison ne dit rien de la personne, seul le pronom le fait.",
       },
       "possessive-dative": {
         title: "La possession à l'envers",
@@ -829,6 +839,16 @@ export const fr: Dictionary = {
         title: "Le -li sur tout",
         rule: "Le diminutif en -li est très productif et n'indique souvent rien de petit.",
         watch: "« Es Bierli » n'est pas une petite bière, c'est une bière dite gentiment. Ne prenez pas le -li au pied de la lettre.",
+      },
+      "am-progressive": {
+        title: "« am » plus le verbe — en train de",
+        rule: "Ce qui se passe à l'instant se dit « bi/isch/sind am » plus le verbe nu : « Ich bi am schaffe ».",
+        watch: "L'allemand n'a pas cette forme et se rabat sur « gerade ». Vous suivrez la phrase sans elle — mais ne jamais l'employer est ce qui vous fait sonner comme de l'allemand standard avec des mots zurichois dedans.",
+      },
+      "go-cho-infinitive": {
+        title: "« go » et « cho » devant le second verbe",
+        rule: "Aller quelque part pour faire quelque chose met un « go » devant ; venir met un « cho » : « Ich gang go poschte ».",
+        watch: "Ce petit mot n'existe pas en allemand, alors on l'omet — et on est compris et repéré du même coup. Ce n'est pas un second « aller » : il appartient au verbe qui suit.",
       },
     },
   },

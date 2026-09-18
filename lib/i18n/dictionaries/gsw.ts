@@ -827,7 +827,7 @@ export const gsw: Dictionary = {
     practiseLabel: "Demit üebe",
     practiseSay: "Gäbed mer zwei Sätz zum Üebe vo «{word}» — und fraged mi dänn eine ab.",
     title: "Grammatik",
-    lead: "Vier Sache, wo Züritüütsch schwer verständlich mached für öpper, wo scho Dütsch liest. Kei Lektione — nur das, wo Si ghöred, und wo's hakt.",
+    lead: "Was Züritüütsch schwer verständlich macht für öpper, wo scho Dütsch liest — zerscht das, wo en Satz ganz dra scheiteret, denn das, wo Si zwar verstönd, aber nie sälber sege würded.",
     ruleLabel: "D Regle",
     watchLabel: "Wo's hakt",
     topics: {
@@ -836,10 +836,20 @@ export const gsw: Dictionary = {
         rule: "Gschwätzts Züritüütsch hät kei eifachi Vergangeheit: alles Vergangene staht im Perfekt.",
         watch: "Si warted uf «ging», «war», «sagte» — und es chunnt nie. Wänn Si «bi», «hät» oder «händ» plus Partizip ghöred, isch das d Vergangeheit.",
       },
+      articles: {
+        title: "de, d, s — meh Artikel git's nöd",
+        rule: "Drei Artikel für alles: «de» bim männliche, «d» bim wibliche, «s» bim sächliche Wort. «der», «die» und «das» chömed nöd vor.",
+        watch: "Si gsehnd us wie verschluckti dütschi — sind aber di ganz Form, nöd e bequemi Churzfassig. Und s Gschlächt stimmt nöd immer mit em dütsche überii: «s Rüebli» isch sächlich, d Karotte nöd.",
+      },
       "wo-relative": {
         title: "«wo» statt der, die, das",
         rule: "Relativsätz fanged fascht immer mit «wo» aa, unveränderet, egal weles Gschlächt oder wele Fall.",
         watch: "Si läsed «wo» als «wo?» und verlüüred de Satz. Es heisst da «der», «die», «das» oder «den» — nie en Ort.",
+      },
+      "unified-plural": {
+        title: "Ei Verbform für di ganz Mehrzahl",
+        rule: "Mir, ihr und si überchömed di glich Verbform: «mir händ», «ihr händ», «si händ».",
+        watch: "Si sueched s «-t» vo de zweite Person Mehrzahl und findeds nie. «Chömed er?» heisst «Kommt ihr?» — d Endig seit nüüt über d Person, das macht nur s Pronome dervor.",
       },
       "possessive-dative": {
         title: "Bsitz andersume",
@@ -850,6 +860,16 @@ export const gsw: Dictionary = {
         title: "S -li a allem",
         rule: "D Verchlinerigsform uf -li isch sehr produktiv und bedüüted oft gar nüüt Chliises.",
         watch: "«Es Bierli» isch kei chlises Bier, sondern es fründlich gseits Bier. Nämed Si s -li nöd wörtlich.",
+      },
+      "am-progressive": {
+        title: "«am» plus Verb — grad dra",
+        rule: "Was grad lauft, staht als «bi/isch/sind am» plus Grundform: «Ich bi am schaffe».",
+        watch: "Dütsch hät die Form nöd und behilft sich mit «gerade». Si verstönd de Satz au ohni — aber wer si nie bruucht, tönt duurend nach Hochdütsch mit Züritüütsche Wörter.",
+      },
+      "go-cho-infinitive": {
+        title: "«go» und «cho» vor em zweite Verb",
+        rule: "Wer öppenwohi gaht zum öppis mache, schiebt es «go» dervor; wer chunt, es «cho»: «Ich gang go poschte».",
+        watch: "Im Dütsche git's das Wörtli nöd, also laht mer's wäg — und wird verstande und grad erkennt. Es isch kei zweits «gah», es ghört zum Verb dernah.",
       },
     },
   },
