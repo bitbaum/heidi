@@ -8,8 +8,8 @@ import { join } from "node:path";
  * that sentence true rather than aspirational.
  *
  * WHY IT EXISTS. A responsive audit of every page found caption text at ten and
- * eleven pixels — below what anybody reads on a phone — written as
- * `text-[11px]` in 43 files and 121 places. Every one of them was somebody
+ * eleven pixels — below what anybody reads on a phone — written as an
+ * arbitrary Tailwind size in 43 files and 121 places. Every one of them was somebody
  * making a reasonable local decision, and together they were a type scale
  * nobody owned and nobody could change. Fixing the 121 without this test would
  * buy a clean tree and the same problem in six weeks.
@@ -41,7 +41,7 @@ const FILES = [...sources(join(ROOT, "app")), ...sources(join(ROOT, "lib"))];
 const shown = (path: string) => path.slice(ROOT.length + 1);
 
 test("no component sets a font size outside the type scale", () => {
-  // `text-[11px]`, `text-[0.6rem]` — an arbitrary size in a className.
+  // An arbitrary pixel or rem size in a className, rather than a token.
   const arbitrary = /\btext-\[[0-9.]+(px|rem|em|pt)\]/g;
   const offenders: string[] = [];
 

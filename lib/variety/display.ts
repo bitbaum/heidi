@@ -104,7 +104,22 @@ export type DisplayVariety = {
    * key — all three survive the projection because none is English prose; the
    * group's LABEL is translated and lives in the dictionaries.
    */
-  vocabulary: readonly { target: string; bridge: string; group: string }[];
+  vocabulary: readonly {
+    target: string;
+    bridge: string;
+    group: string;
+    /**
+     * The article, the forms and an example all project for the same reason
+     * the rest does: they are the variety's own words and a closed-set key,
+     * never English prose. `FormLabel` is a key the dictionaries translate,
+     * which is exactly why it was made closed rather than a free string.
+     */
+    article?: string;
+    forms?: readonly { label: string; target: string; bridge: string }[];
+    example?: { target: string; bridge: string };
+    /** An id into `lib/research/sources.ts`, so a page can cite per word. */
+    source?: string;
+  }[];
   /** Ids into `lib/research/sources.ts` — keys, not prose, so they project. */
   vocabularySources: readonly string[];
   /** `note` is deliberately absent — it is a paragraph of English. */
@@ -167,6 +182,10 @@ export const DISPLAY: DisplayVariety = {
     target: w.target,
     bridge: w.bridge,
     group: w.group,
+    ...(w.article ? { article: w.article } : {}),
+    ...(w.forms?.length ? { forms: w.forms.map((f) => ({ label: f.label, target: f.target, bridge: f.bridge })) } : {}),
+    ...(w.example ? { example: { target: w.example.target, bridge: w.example.bridge } } : {}),
+    ...(w.source ? { source: w.source } : {}),
   })),
   vocabularySources: VARIETY.vocabularySources ?? [],
   areas: areasOf(VARIETY).map((area) => ({

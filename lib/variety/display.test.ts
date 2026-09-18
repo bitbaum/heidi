@@ -4,6 +4,7 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { DISPLAY } from "./display.ts";
 import { VARIETY } from "./active.ts";
+import { PACK_ITEMS } from "../domain/practice/published.ts";
 
 /**
  * A variety pack is authored in ONE language — ours — because it is data about
@@ -35,6 +36,10 @@ function tsxFiles(dir: string): string[] {
 test("no component imports the full variety pack", () => {
   // API routes may: they build the model's prompt, and the prompt is English
   // on purpose. `.tsx` is pages and components — everything a reader sees.
+  //
+  // A page that needs more of the pack than `DISPLAY` carries gets its own
+  // projection rather than an exception: see `PACK_ITEMS`, and the walk below
+  // that holds it to the same rule.
   const offenders = tsxFiles("app").filter((f) => /from ["'][^"']*variety\/active["']/.test(readFileSync(f, "utf8")));
 
   assert.deepEqual(
@@ -60,6 +65,36 @@ test("the display projection drops every English-prose field", () => {
   walk(DISPLAY, "DISPLAY");
 
   assert.deepEqual(seen, [], `source-language fields leaked into DISPLAY: ${seen.join(", ")}`);
+});
+
+test("the practice items are a projection too, and carry no prose either", () => {
+  /**
+   * The second thing a page is allowed to see of the pack.
+   *
+   * `/practice` genuinely needs the rules, the grammar examples and the
+   * vocabulary — so it would have been the fourth place English reached a
+   * reader, had it imported the pack. It imports `PACK_ITEMS` instead, and
+   * this is the check that makes that worth anything: the same walk, over the
+   * same forbidden keys, on the artefact that actually reaches the browser.
+   *
+   * Without it, adding an `explanation` to an item type would ship English to
+   * a French learner and no test would notice.
+   */
+  const seen: string[] = [];
+  const walk = (value: unknown, path: string) => {
+    if (Array.isArray(value)) return value.forEach((v, i) => walk(v, `${path}[${i}]`));
+    if (value && typeof value === "object") {
+      for (const [k, v] of Object.entries(value)) {
+        if ((SOURCE_ONLY as readonly string[]).includes(k)) seen.push(`${path}.${k}`);
+        walk(v, `${path}.${k}`);
+      }
+    }
+  };
+  walk(PACK_ITEMS, "PACK_ITEMS");
+
+  assert.deepEqual(seen, [], `source-language fields leaked into the practice items: ${seen.join(", ")}`);
+  // And it must not be empty, or the walk above proves nothing.
+  assert.ok(PACK_ITEMS.length > 0, "the pack generates no practice items at all");
 });
 
 test("the projection still carries what a page actually needs", () => {

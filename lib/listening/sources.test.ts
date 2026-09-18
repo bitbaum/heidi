@@ -2,6 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { LISTENING_SOURCES } from "./sources.ts";
 import { areasOf } from "../variety/family.ts";
+import { getDictionary } from "../i18n/index.ts";
+import { LOCALES } from "../i18n/locales.ts";
 import { VARIETY } from "../variety/active.ts";
 
 /**
@@ -110,6 +112,50 @@ test("no row carries a difficulty number", () => {
       assert.ok(!(forbidden in row), `${s.id} carries a hand-written "${forbidden}"`);
     }
   }
+});
+
+test("every commentary names a source that exists, in every language", () => {
+  // Commentary is keyed by source id, so a renamed or dropped row leaves a
+  // paragraph nothing renders — invisible, and wrong in seven languages at
+  // once. This is the join, checked.
+  const ids = new Set(LISTENING_SOURCES.map((s) => s.id));
+  for (const locale of LOCALES) {
+    const commentary = getDictionary(locale).listening.commentary as Record<string, string>;
+    for (const id of Object.keys(commentary)) {
+      assert.ok(ids.has(id), `${locale}: commentary for "${id}", which is not in the register`);
+      assert.ok(commentary[id].trim().length > 0, `${locale}: commentary for "${id}" is empty`);
+    }
+  }
+});
+
+test("every language comments on the same titles", () => {
+  // Not a shape test: a missing key here means one language silently says less
+  // about a film than another, which is the failure key-parity alone misses.
+  const german = Object.keys(getDictionary("de").listening.commentary).sort();
+  for (const locale of LOCALES) {
+    const mine = Object.keys(getDictionary(locale).listening.commentary).sort();
+    assert.deepEqual(mine, german, `${locale} comments on a different set of titles`);
+  }
+});
+
+test("every film and series says which dialect it is, or admits it does not know", () => {
+  // The point of the section. A film row with no area and no commentary is a
+  // title with nothing a learner can act on — which is the state the register
+  // was in before somebody asked for this.
+  const commentary = getDictionary("de").listening.commentary as Record<string, string>;
+  for (const s of LISTENING_SOURCES) {
+    if (s.medium !== "film" && s.medium !== "series") continue;
+    assert.ok(s.area || commentary[s.id], `${s.id} names neither a dialect area nor anything about itself`);
+  }
+});
+
+test("the Zurich features are here, because that was the scarce thing", () => {
+  // Recorded as a property rather than a comment: the register's own finding
+  // was that Zurich material is scarce, and the fix was to go and find some.
+  const zurichFeatures = LISTENING_SOURCES.filter(
+    (s) => (s.medium === "film" || s.medium === "series") && s.area === "zueritueuetsch",
+  );
+  assert.ok(zurichFeatures.length >= 3, `only ${zurichFeatures.length} Zurich features in the register`);
 });
 
 test("the maintainer note never reaches a reader", () => {

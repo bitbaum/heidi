@@ -72,7 +72,7 @@ export default async function VocabularyPage({ params }: { params: Promise<{ loc
                   to compare — each row is one fact on its own. The two
                   controls per row are what make it a place to learn rather
                   than a place to read; see `word-list.tsx`. */}
-              <WordList words={words} t={t} chatT={dict.chat} />
+              <WordList words={words} t={t} chatT={dict.chat} persons={dict.practice.persons} />
             </section>
           );
         })}

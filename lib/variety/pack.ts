@@ -175,12 +175,84 @@ export type GrammarTopic = {
  */
 export type VocabularyGroup = "function" | "verbs" | "everyday" | "greetings";
 
+/**
+ * The article a learner would actually SAY, as a closed set.
+ *
+ * Zurich German has three, and they are not the German three: `de Maa`,
+ * `d Frau`, `s Chind`. A learner who has read the noun a hundred times in
+ * German still says *der Velo* the first time, because gender is carried by a
+ * word they never had to learn.
+ *
+ * Closed rather than a free string, and that is the point: `"der"` in this
+ * field would be a German article presented as a Zurich one, which is exactly
+ * the invisible error §2 describes. A test refuses anything outside the three.
+ *
+ * A pack for another variety declares its own — this type is the shape, not
+ * the content, and Ukrainian will not have three of anything.
+ */
+export type Article = "de" | "d" | "s";
+
+/**
+ * Which form of a word this is.
+ *
+ * A CLOSED VOCABULARY for the same reason the follow-up moves are: the label
+ * is rendered in seven languages, so it has to be a key the dictionary can
+ * translate rather than a string somebody typed. "du-Form" in a Russian
+ * interface is not a translation, it is German leaking.
+ *
+ * Person labels use the pronoun a paradigm is usually printed with. `plural`
+ * is for nouns; `past` is the participle, which in this variety is the only
+ * past there is — §9's `no-preterite` topic is about precisely that.
+ */
+export type FormLabel = "ich" | "du" | "er" | "mir" | "ihr" | "si" | "plural" | "past";
+
+export type WordForm = {
+  label: FormLabel;
+  /** The form in the taught variety. */
+  target: string;
+  /** The same form in the bridge language, so the contrast is visible. */
+  bridge: string;
+};
+
 export type VocabularyEntry = {
   /** The form in the taught variety. */
   target: string;
   /** What a reader of the bridge language recognises. */
   bridge: string;
   group: VocabularyGroup;
+  /**
+   * The article, for a noun. Absent for everything else, and absent for a noun
+   * whose gender nobody here has checked — an absent article is honest, and a
+   * guessed one is a confident falsehood aimed at somebody who cannot detect it.
+   */
+  article?: Article;
+  /**
+   * The forms worth knowing, for a word whose forms are the difficulty.
+   *
+   * Not a full paradigm for its own sake. `si` and `ha` earn one because they
+   * carry every compound past in the language; a noun earns a plural when the
+   * plural is not what a German reader would produce.
+   */
+  forms?: readonly WordForm[];
+  /**
+   * One sentence the word lives in.
+   *
+   * WRITTEN FOR THIS PRODUCT, never lifted from a dictionary or a corpus. The
+   * open resources for this variety are overwhelmingly research-licensed or
+   * non-commercial, so copying an example sentence would be a licence problem
+   * wearing the costume of a teaching aid — and the repo would have no way to
+   * tell later which sentences were safe.
+   */
+  example?: { target: string; bridge: string };
+  /**
+   * Who vouches for the detail above.
+   *
+   * Required by a test for any entry carrying an `article`, `forms` or an
+   * `example`: those are claims about the language, and this repo does not
+   * publish a claim about the language that names nobody. A bare
+   * target/bridge pair inherits the pack's `vocabularySources` as before.
+   */
+  source?: string;
 };
 
 /** How confident we are that a flagged form is actually wrong. */

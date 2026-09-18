@@ -11,6 +11,7 @@ export const fr: Dictionary = {
     home: "Accueil",
     chat: "Chat",
     speaking: "Cercles de parole",
+    practice: "S'exercer",
     listen: "Écouter",
     grammar: "Grammaire",
     dialect: "Dialectes",
@@ -649,9 +650,41 @@ export const fr: Dictionary = {
       series: "Séries",
       film: "Films",
     },
-    bernTitle: "Les films connus sont bernois",
-    bernBody:
-      "Le cinéma et les séries suisses viennent surtout de Berne : les enchaîner entraîne l'oreille à un dialecte à deux heures de Zurich. Bon à savoir avant de vous demander pourquoi rien de tout cela ne ressemble à vos voisins.",
+    filmsTitle: "Quel dialecte vous allez entendre",
+    filmsBody:
+      "Le cinéma suisse n'est pas un seul accent. Chaque entrée indique de quelle aire dialectale elle vient, pour que vous puissiez choisir entre celui qu'on parle autour de vous et ceux que vous croiserez dans le train. Berne est très représentée parce que c'est là que se fait l'essentiel de la fiction suisse — et les films zurichois existent, ils sont ici.",
+    commentary: {
+      "der-bestatter":
+        "Bernois, et la série que presque tout le monde a vue ici — le dialecte qu'un Suisse imitera si vous lui demandez de faire un accent.",
+      "wilder":
+        "Une série policière sur plusieurs saisons et plusieurs aires dialectales. Idéale pour entendre que le suisse allemand n'est pas une seule chose.",
+      "tschugger":
+        "Le valaisan, pour lequel les autres Suisses ont besoin de sous-titres. Une blague entre Suisses — et vraiment pas un début.",
+      "neumatt":
+        "Bernois, une famille de paysans. Le registre des disputes de famille, pas celui de la télévision.",
+      "die-schweizermacher":
+        "Le zurichois de 1978, et toujours le film sur le fait de devenir suisse. L'accent a bougé depuis, ce qui vaut d'être entendu.",
+      "mein-name-ist-eugen":
+        "Bernois, et surtout des enfants qui parlent — plus lentement et plus distinctement que des adultes.",
+      "der-goalie-bin-ig":
+        "Du bernois dense, tiré d'un roman écrit dans cette langue. Le titre est une leçon de grammaire : le verbe est `bin` et le pronom vient en dernier.",
+      "achtung-fertig-charlie":
+        "Comédie militaire, et la référence commune de presque tout Suisse de moins de cinquante ans.",
+      "bon-schuur-ticino":
+        "Une comédie dont la prémisse est la question linguistique elle-même — ce qui arrive quand le pays doit en choisir une.",
+      "die-goettliche-ordnung":
+        "Appenzell en 1971, des femmes militant pour le droit de vote. Dialecte de Suisse orientale, et un morceau d'histoire sur lequel on vous interrogera : Appenzell Rhodes-Intérieures n'a admis les femmes à sa Landsgemeinde qu'en 1990, bien après la fin du film.",
+      "zwingli":
+        "La Réforme zurichoise, en zurichois. L'un des rares longs métrages dans la variété que ce site enseigne réellement.",
+      "wolkenbruch":
+        "Du zurichois avec du yiddish à côté — une seconde leçon sur la proximité possible entre deux langues qui restent deux.",
+      "platzspitzbaby":
+        "Du zurichois, les années de l'héroïne à Zurich vues par une enfant. Sujet dur, élocution exceptionnellement claire.",
+      "heidi-2015":
+        "Fait pour les enfants, donc parlé lentement et simplement. Sans doute le long métrage le plus facile de cette liste — situé aux Grisons sans en parler le dialecte.",
+      "seitentriebe":
+        "Du suisse allemand quotidien entre couples — les demi-phrases et les interruptions que la langue d'antenne efface.",
+    },
   },
 
   errors: {
@@ -703,6 +736,51 @@ export const fr: Dictionary = {
       everyday: "Le quotidien",
       greetings: "Salutations et politesse",
     },
+    articleLabel: "Article",
+    formsLabel: "Formes",
+    exampleLabel: "Dans une phrase",
+  },
+
+  practice: {
+    title: "S'exercer",
+    lead: "Huit questions, deux minutes. Tirées des règles qu'Heidi applique elle-même — et des mots que vous avez gardés.",
+    note: "Ce que vous gardez reste dans votre navigateur. Les questions tirées du vocabulaire ne demandent aucun compte.",
+    start: "Commencer",
+    restart: "Encore huit",
+    progress: "Question {n} sur {total}",
+    skip: "Passer",
+    show: "Montrer",
+    knew: "Je savais",
+    missed: "À revoir",
+    next: "Suivant",
+    right: "Juste",
+    wrong: "Pas tout à fait",
+    ask: {
+      pairTarget: "Lequel est du zurichois ?",
+      pairBridge: "Lequel écririez-vous en Suisse ?",
+      article: "Quel article va avec ?",
+      form: "Quelle forme convient ?",
+      cloze: "Quel mot manque ?",
+      recall: "Qu'est-ce que cela veut dire ?",
+    },
+    origin: "L'autre, c'est {origin}.",
+    persons: {
+      ich: "je",
+      du: "tu",
+      er: "il / elle",
+      mir: "nous",
+      ihr: "vous",
+      si: "ils / elles",
+      plural: "pluriel",
+      past: "passé",
+    },
+    grammarLink: "La grammaire derrière",
+    wordLink: "Ce mot dans le vocabulaire",
+    doneTitle: "C'est tout pour l'instant.",
+    doneAsked: "questions",
+    doneRight: "du premier coup",
+    doneAgain: "à revoir",
+    savedHint: "Dans le chat, gardez un mot avec +. Il revient ici le moment venu.",
   },
 
   dialect: {
