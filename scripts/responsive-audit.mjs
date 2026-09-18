@@ -92,8 +92,23 @@ const audit = () => {
       if (!parentOut) out.wide.push({ el: name(el), right: Math.round(r.right), vw });
     }
 
+    // Tap targets, and only where the guideline actually applies.
+    //
+    // Two false-positive classes had to go before this report was worth
+    // reading. 44px is about a FINGER, so it is checked at phone width only —
+    // flagging it at 1280 was flagging a mouse pointer. And a link inside a
+    // sentence cannot be 44px tall without wrecking the line height it sits
+    // in; the guideline is about standalone controls, so a link with a
+    // paragraph for an ancestor is skipped.
     const interactive =
-      el.matches("a[href], button, input, select, textarea, summary, [role=button]") && !el.hasAttribute("disabled");
+      vw < 500 &&
+      el.matches("a[href], button, input, select, textarea, summary, [role=button]") &&
+      !el.hasAttribute("disabled") &&
+      !el.closest("p") &&
+      // The skip link is a 1x1 until it is focused, which is the whole point
+      // of it. Reporting it as a tap target on every page is reporting an
+      // accessibility feature as an accessibility failure.
+      !el.classList.contains("sr-only");
     if (interactive && r.height > 0 && r.height < 44 && r.width > 0) {
       out.tap.push({ el: name(el), h: Math.round(r.height), w: Math.round(r.width) });
     }
@@ -115,6 +130,15 @@ const audit = () => {
     const text = [...main.querySelectorAll("h1, h2, p, li")].find((el) => {
       const cs = getComputedStyle(el);
       if (cs.display === "none" || cs.visibility === "hidden") return false;
+      // A ZERO-SIZE RECT IS NOT AT THE LEFT EDGE, it is nowhere.
+      //
+      // Checking the element's own `display` misses the commonest case: a
+      // child of a hidden ancestor computes `display: block` quite happily and
+      // reports a 0×0 rect at 0,0. That made the off-canvas conversation
+      // drawer — correctly hidden on a phone — look like a paragraph flush to
+      // the screen edge, and it was the one finding left in the whole report.
+      const r = el.getBoundingClientRect();
+      if (r.width === 0 || r.height === 0) return false;
       return (el.textContent ?? "").trim().length > 20;
     });
     if (text) {

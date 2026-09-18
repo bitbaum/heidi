@@ -59,7 +59,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                     href={href(l, "")}
                     hrefLang={l}
                     prefetch={false}
-                    className={`text-sm hover:text-fg-primary ${l === locale ? "font-medium text-fg-primary" : "text-fg-secondary"}`}
+                    className={`inline-flex min-h-11 items-center text-sm hover:text-fg-primary ${l === locale ? "font-medium text-fg-primary" : "text-fg-secondary"}`}
                   >
                     {LOCALE_NAMES[l]}
                   </Link>
