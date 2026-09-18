@@ -601,7 +601,7 @@ export const en: Dictionary = {
     rate: "Speed",
     correctionTitle: "Corrections",
     correctionBody:
-      "How much Heidi says about what you wrote. Never your spelling: Zurich German has no correct spelling, so there is nothing there to be wrong about.",
+      "How much Heidi says about the words in a speaking take, after you have written down what you said. Never your spelling: Zurich German has no correct spelling, so there is nothing there to be wrong about — and never what you type in the chat, because a message somebody else sent you looks exactly like one you wrote.",
     correctionLevels: {
       off: "Say nothing",
       blocking: "Only what is not Swiss German at all",

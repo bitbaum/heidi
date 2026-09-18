@@ -601,7 +601,7 @@ export const fr: Dictionary = {
     rate: "Vitesse",
     correctionTitle: "Corrections",
     correctionBody:
-      "Ce que Heidi dit de ce que vous avez écrit. Jamais votre orthographe : le zurichois n'a pas d'orthographe correcte, il n'y a donc rien à y fauter.",
+      "Ce que Heidi dit des mots d'un exercice oral, une fois que vous avez écrit ce que vous avez dit. Jamais votre orthographe : le zurichois n'a pas d'orthographe correcte, il n'y a donc rien à y fauter — et jamais ce que vous tapez dans le chat, car un message que quelqu'un vous a envoyé ressemble exactement à un message de vous.",
     correctionLevels: {
       off: "Ne rien dire",
       blocking: "Seulement ce qui n'est pas du suisse allemand du tout",

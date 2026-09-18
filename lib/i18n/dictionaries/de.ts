@@ -661,7 +661,7 @@ export const de = {
     rate: "Tempo",
     correctionTitle: "Korrekturen",
     correctionBody:
-      "Wie viel Heidi zu dem sagt, was Sie geschrieben haben. Nie zu Ihrer Schreibweise: Zürichdeutsch hat keine richtige Schreibung, da lässt sich nichts falsch machen.",
+      "Wie viel Heidi zu den Wörtern einer Sprechübung sagt, nachdem Sie aufgeschrieben haben, was Sie gesagt haben. Nie zu Ihrer Schreibweise: Zürichdeutsch hat keine richtige Schreibung, da lässt sich nichts falsch machen — und nie zu dem, was Sie im Chat tippen, denn eine Nachricht, die Ihnen jemand geschickt hat, sieht genau aus wie eine von Ihnen.",
     correctionLevels: {
       off: "Nichts sagen",
       blocking: "Nur, was gar kein Schweizerdeutsch ist",

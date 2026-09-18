@@ -9,6 +9,7 @@ import { EXPLANATION_LANGUAGE, isLocale, DEFAULT_LOCALE, type Locale } from "@/l
 import { llmHealth } from "../../chat/route";
 import { callerKey, speakingTake, tooMany } from "@/lib/domain/limits";
 import { MAX_SAID_LENGTH } from "@/lib/domain/speaking/take";
+import { DEFAULT_CORRECTION, isCorrectionLevel } from "@/lib/voice/correction";
 
 export const dynamic = "force-dynamic";
 
@@ -47,7 +48,23 @@ export async function POST(request: Request) {
     return Response.json({ language: [], suggestion: null });
   }
 
-  const { said, locale, byok } = (body ?? {}) as { said?: unknown; locale?: unknown; byok?: unknown };
+  const { said, locale, byok, correction } = (body ?? {}) as {
+    said?: unknown;
+    locale?: unknown;
+    byok?: unknown;
+    correction?: unknown;
+  };
+
+  /**
+   * How much the learner asked to be told. Device-local, so it arrives on the
+   * request rather than from a table — the same reason saved words never got
+   * a row (§10).
+   *
+   * `off` is honoured BEFORE the gate runs, not after: a learner who asked not
+   * to be corrected should not have their sentence judged and the verdict
+   * quietly discarded.
+   */
+  const level = isCorrectionLevel(correction) ? correction : DEFAULT_CORRECTION;
   const text = typeof said === "string" ? said.trim() : "";
   if (!text || text.length > MAX_SAID_LENGTH) return Response.json({ language: [], suggestion: null });
 
@@ -67,7 +84,22 @@ export async function POST(request: Request) {
    * computed before the chain is even looked at: a deployment with no key
    * still tells a learner they said a Bernese word.
    */
-  const language = languageNotes(text, VARIETY);
+  /**
+   * WHY `blocking` AND `all` DO THE SAME THING HERE, on purpose.
+   *
+   * The levels are defined over the gate's severity classes, and a spoken take
+   * only ever has one of them. `feedback.ts` keeps `foreign` findings — a real
+   * word of another variety, which is a thing you can HEAR — and drops
+   * `unattested` ones, because they are orthographic and there is no way to
+   * SAY a `ß`. So on this surface there is exactly one correctable class, and
+   * the two upper levels necessarily coincide; the distinction between them
+   * belongs to typed text, which has no surface yet.
+   *
+   * Mapping `blocking` onto "unattested only" here would have silenced the
+   * word notes entirely at the DEFAULT level — turning somebody else's working
+   * feature off while appearing to configure it.
+   */
+  const language = level === "off" ? [] : languageNotes(text, VARIETY);
 
   const own = readByok(byok);
   const byokLinks = own.ok ? byokChain(own.config) : null;
