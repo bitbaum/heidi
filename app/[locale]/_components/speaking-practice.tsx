@@ -246,7 +246,7 @@ export function SpeakingPractice({
         {recorder.delivery && <Measured t={t} delivery={recorder.delivery} />}
 
         {feedback && (feedback.recording.length > 0 || feedback.delivery.length > 0) && (
-          <ul className="mt-5 grid gap-2">
+          <ul className="mt-5 grid grid-cols-1 gap-2">
             {[...feedback.recording, ...feedback.delivery].map((note, i) => (
               <li key={`${note.id}-${i}`} className="text-sm leading-relaxed text-fg-secondary">
                 {renderNote(t, note)}
@@ -281,7 +281,7 @@ export function SpeakingPractice({
             />
 
             {language.length > 0 && (
-              <ul className="mt-4 grid gap-2">
+              <ul className="mt-4 grid grid-cols-1 gap-2">
                 {language.map((note, i) => (
                   <li key={`${note.id}-${i}`} className="text-sm leading-relaxed text-fg-secondary">
                     {renderNote(t, note)}
@@ -354,7 +354,7 @@ function History({ t, takes, forget }: { t: T; takes: Take[]; forget: (id: strin
   return (
     <div className="mt-8">
       <h3 className="font-heading text-lg leading-tight text-fg-primary">{t.historyTitle}</h3>
-      <ul className="mt-3 grid gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle">
+      <ul className="mt-3 grid grid-cols-1 gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle">
         {takes.slice(0, 10).map((take) => (
           <li key={take.id} className="flex items-center justify-between gap-3 bg-surface-page px-3 py-3">
             <span className="min-w-0">

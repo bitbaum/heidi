@@ -86,7 +86,7 @@ export function RoundList({
       {rounds.length === 0 && <p className="mt-3 font-mono text-sm text-fg-muted">{t.roundsEmpty}</p>}
 
       {rounds.length > 0 && (
-        <ul className="mt-4 grid gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle">
+        <ul className="mt-4 grid grid-cols-1 gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle">
           {rounds.map((round) => (
             <li key={round.id} className="bg-surface-page p-4">
               <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">

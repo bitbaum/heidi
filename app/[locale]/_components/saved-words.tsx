@@ -80,14 +80,25 @@ export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: stri
         </div>
       </div>
 
-      <ul className="mt-4 grid gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle sm:grid-cols-2">
+      <ul className="mt-4 grid grid-cols-1 gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle sm:grid-cols-2">
         {saved.words.map((w) => (
-          <li key={w.target} className="flex items-start justify-between gap-3 bg-surface-page px-4 py-3">
+          <li key={w.target} className="flex min-w-0 items-start justify-between gap-3 bg-surface-page px-4 py-3">
             <div className="min-w-0">
-              <p className="font-heading text-xl leading-tight tracking-display text-dialect">{w.target}</p>
-              <p className="mt-0.5 text-base leading-snug text-fg-secondary">{w.bridge}</p>
+              <p className="break-words font-heading text-xl leading-tight tracking-display text-dialect">{w.target}</p>
+              <p className="mt-0.5 break-words text-base leading-snug text-fg-secondary">{w.bridge}</p>
+              {/* CLAMPED, NOT TRUNCATED, and the difference is the whole bug.
+                  `truncate` is `white-space: nowrap`, and a line that cannot
+                  break reports the full sentence as its minimum width. That
+                  minimum travelled up every auto-sized grid track above it
+                  until the portal was 481px wide on a 360px phone and the
+                  remove button sat off the right edge of the screen.
+                  `line-clamp-2` hides the overflow the same way while leaving
+                  the text breakable, so the row can be as narrow as the screen.
+                  It also reads better here: the sentence is why the word was
+                  worth keeping, and on a touch screen there is no hover to
+                  reveal what one clipped line left out. */}
               {w.context && (
-                <p className="mt-1.5 truncate font-mono text-[11px] text-fg-muted" title={w.context}>
+                <p className="mt-1.5 line-clamp-2 break-words font-mono text-[11px] leading-relaxed text-fg-muted" title={w.context}>
                   {w.context}
                 </p>
               )}

@@ -83,7 +83,7 @@ export function ReviewPanel({ t, locale }: { t: Dictionary["review"]; locale: Lo
             German with German phonology. */}
         <p
           lang={DISPLAY.tag}
-          className="mt-2 font-heading text-2xl font-semibold leading-snug tracking-display text-dialect sm:text-3xl"
+          className="mt-2 break-words font-heading text-2xl font-semibold leading-snug tracking-display text-dialect sm:text-3xl"
         >
           {current.target}
         </p>
@@ -99,14 +99,14 @@ export function ReviewPanel({ t, locale }: { t: Dictionary["review"]; locale: Lo
             which is what this showed before examples existed, and to nothing
             at all for a single-word lookup that never had one. */}
         {sentenceFor(current) && (
-          <p lang={DISPLAY.tag} className="mt-2 text-sm italic leading-relaxed text-fg-muted">
+          <p lang={DISPLAY.tag} className="mt-2 break-words text-sm italic leading-relaxed text-fg-muted">
             «{sentenceFor(current)}»
           </p>
         )}
 
         {revealed ? (
           <div className="mt-5 border-t border-border-subtle pt-4">
-            <p className="text-lg leading-snug text-fg-primary">{current.bridge}</p>
+            <p className="break-words text-lg leading-snug text-fg-primary">{current.bridge}</p>
             <div className="mt-4 flex flex-wrap gap-3">
               <button
                 type="button"

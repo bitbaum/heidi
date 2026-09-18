@@ -72,7 +72,7 @@ export function GroupList({
       {groups.length === 0 && <p className="mt-4 font-mono text-sm text-fg-muted">{t.empty}</p>}
 
       {groups.length > 0 && (
-        <ul className="mt-5 grid gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle sm:grid-cols-2">
+        <ul className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle sm:grid-cols-2">
           {groups.map((g) => (
             <li key={g.id} className="bg-surface-page">
               <Link

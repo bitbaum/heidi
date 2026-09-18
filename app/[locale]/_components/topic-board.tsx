@@ -67,7 +67,7 @@ export function TopicBoard({
       {topics.length === 0 && <p className="mt-4 font-mono text-sm text-fg-muted">{t.boardEmpty}</p>}
 
       {topics.length > 0 && (
-        <ul className="mt-4 grid gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle sm:grid-cols-2">
+        <ul className="mt-4 grid grid-cols-1 gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle sm:grid-cols-2">
           {topics.map((topic) => (
             <li key={topic.id} className="flex flex-col bg-surface-page p-4">
               <h3 className="font-heading text-lg leading-tight tracking-display text-fg-primary">{topic.title}</h3>

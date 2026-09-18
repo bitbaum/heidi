@@ -69,7 +69,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
         </div>
       </header>
 
-      <div className="grid gap-10 border-t border-border-subtle pt-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-12">
+      <div className="grid grid-cols-1 gap-10 border-t border-border-subtle pt-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-12">
         {/* SOMETHING TO DO LEADS, and everything else is underneath it.
             This page used to open with a list — their saved words — and a list
             is a thing to look at. The question a personal page has to answer
