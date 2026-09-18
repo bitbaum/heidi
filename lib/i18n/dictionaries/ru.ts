@@ -1053,6 +1053,12 @@ export const ru: Dictionary = {
     historyTitle: "Ваши записи",
     historyEmpty: "Пока ничего не записано.",
     deleteTake: "Удалить",
+    progressDays: "дней с речью",
+    progressTakes: "записей",
+    progressSpoken: "речи",
+    progressSeconds: "с",
+    progressMinutes: "мин",
+    progressNote: "Посчитано, а не оценено. Это число никогда не падает — две недели перерыва ничего не стоят.",
     privacy: "Звук никогда не покидает ваше устройство. Сохраняются только измерения и ваш собственный текст — в этом браузере, не у нас.",
   },
 

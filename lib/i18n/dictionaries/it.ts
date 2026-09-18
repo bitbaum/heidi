@@ -1045,6 +1045,12 @@ export const it: Dictionary = {
     historyTitle: "Le vostre registrazioni",
     historyEmpty: "Ancora nulla di registrato.",
     deleteTake: "Elimina",
+    progressDays: "giorni parlati",
+    progressTakes: "registrazioni",
+    progressSpoken: "di parlato",
+    progressSeconds: "sec",
+    progressMinutes: "min",
+    progressNote: "Contato, non valutato. Questo numero non cala mai — due settimane di pausa non costano nulla.",
     privacy: "L’audio non lascia mai il vostro dispositivo. Restano solo le misure e il vostro testo — in questo browser, non da noi.",
   },
 

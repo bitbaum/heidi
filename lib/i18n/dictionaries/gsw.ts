@@ -1065,6 +1065,12 @@ export const gsw: Dictionary = {
     historyTitle: "Ihri Ufnaame",
     historyEmpty: "Na nüt ufgno.",
     deleteTake: "Lösche",
+    progressDays: "Täg gredt",
+    progressTakes: "Ufnahme",
+    progressSpoken: "gredt",
+    progressSeconds: "Sek.",
+    progressMinutes: "Min.",
+    progressNote: "Zellt, nöd bewertet. Die Zahl gaat nie abe — zwei Wuche Pause choschtet nüt.",
     privacy: "De Ton verlaat Ihres Grät nie. Gspeicheret wird nu was gmässe worde isch und Ihre eigen Text — i dem Browser, nöd bii öis.",
   },
 

@@ -1061,6 +1061,12 @@ export const rm: Dictionary = {
     historyTitle: "Vossas registraziuns",
     historyEmpty: "Anc nagut registrà.",
     deleteTake: "Stizzar",
+    progressDays: "dis discurrids",
+    progressTakes: "registraziuns",
+    progressSpoken: "discurrì",
+    progressSeconds: "sec",
+    progressMinutes: "min",
+    progressNote: "Dumbrà, betg giuditgà. Quest dumber na sbassa mai — duas emnas da pausa na custan nagut.",
     privacy: "Il tun na bandunescha mai Voss apparat. Vegnan tegnidas mo las mesiraziuns e Voss agen text — en quest navigatur, betg tar nus.",
   },
 

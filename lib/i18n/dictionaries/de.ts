@@ -1137,6 +1137,12 @@ export const de = {
     historyTitle: "Ihre Aufnahmen",
     historyEmpty: "Noch nichts aufgenommen.",
     deleteTake: "Löschen",
+    progressDays: "Tage gesprochen",
+    progressTakes: "Aufnahmen",
+    progressSpoken: "gesprochen",
+    progressSeconds: "Sek.",
+    progressMinutes: "Min.",
+    progressNote: "Gezählt, nicht bewertet. Diese Zahl fällt nie — eine Pause von zwei Wochen kostet nichts.",
     privacy: "Der Ton verlässt Ihr Gerät nie. Gespeichert werden nur die Messwerte und Ihr eigener Text — in diesem Browser, nicht bei uns.",
   },
 

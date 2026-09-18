@@ -1045,6 +1045,12 @@ export const fr: Dictionary = {
     historyTitle: "Vos enregistrements",
     historyEmpty: "Rien d’enregistré pour l’instant.",
     deleteTake: "Supprimer",
+    progressDays: "jours à parler",
+    progressTakes: "enregistrements",
+    progressSpoken: "de parole",
+    progressSeconds: "s",
+    progressMinutes: "min",
+    progressNote: "Compté, pas noté. Ce nombre ne baisse jamais — quinze jours d'absence ne coûtent rien.",
     privacy: "Le son ne quitte jamais votre appareil. Seules les mesures et votre propre texte sont conservés — dans ce navigateur, pas chez nous.",
   },
 

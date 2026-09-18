@@ -9,6 +9,7 @@ import { usable, type Delivery } from "@/lib/domain/speaking/delivery";
 import { MAX_SAID_LENGTH, type Take } from "@/lib/domain/speaking/take";
 import { NOTE_WORDING, type PlainNoteId } from "@/lib/i18n/speaking-notes";
 import { useClientValue } from "@/lib/browser/store";
+import { progressFrom, spokenMinutes } from "@/lib/domain/speaking/progress";
 import { useTakes } from "./use-takes";
 import { useRecorder, recordingSupported } from "./use-recorder";
 import { useByok } from "./use-byok";
@@ -320,6 +321,7 @@ export function SpeakingPractice({
 
       <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.privacy}</p>
 
+      {ready && takes.length > 0 && <ProgressStrip t={t} takes={takes} />}
       {ready && takes.length > 0 && <History t={t} takes={takes} forget={forget} />}
     </section>
   );
@@ -346,6 +348,52 @@ function Figure({ label, value }: { label: string; value: string }) {
     <div className="bg-surface-page px-3 py-3">
       <dt className="font-mono text-caption uppercase tracking-caps text-fg-muted">{label}</dt>
       <dd className="mt-1 font-heading text-xl leading-none tracking-display text-fg-primary">{value}</dd>
+    </div>
+  );
+}
+
+/**
+ * What this person has actually done, from their own takes.
+ *
+ * THE COUNT IS NOT A STREAK, and `lib/domain/speaking/progress.ts` is where
+ * that distinction is argued rather than asserted. The short version: nothing
+ * here resets, so there is no chain to break and a fortnight away costs
+ * nothing — which is the property that separates a measurement from a
+ * retention mechanic.
+ *
+ * Rendered only after storage is ready, because the zone comes from the
+ * browser and the count is computed from device-local takes: a server pass
+ * would have neither, and would render a confident zero.
+ */
+function ProgressStrip({ t, takes }: { t: T; takes: Take[] }) {
+  const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const progress = progressFrom(takes, zone);
+  const minutes = spokenMinutes(progress);
+
+  return (
+    <div className="mt-8">
+      {/* The same grid as the per-take figures above, on purpose: these are
+          the same kind of thing — counted facts about recordings — and giving
+          them a louder treatment would be the visual version of the claim
+          `progress.ts` refuses to make. */}
+      {/* Three columns at every width, unlike the four-figure grid above: three
+          items in a two-column grid leaves a dead cell, and these three
+          numbers are short enough to sit side by side on a phone. */}
+      <dl className="grid grid-cols-3 gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle">
+        <Figure label={t.progressDays} value={String(progress.daysSpoken)} />
+        <Figure label={t.progressTakes} value={String(progress.takes)} />
+        {/* Seconds below a minute: "1 min" over a first thirty-second take is
+            a small lie in the one number somebody might repeat out loud. */}
+        <Figure
+          label={t.progressSpoken}
+          value={
+            minutes > 0
+              ? `${minutes} ${t.progressMinutes}`
+              : `${Math.round(progress.spokenMs / 1000)} ${t.progressSeconds}`
+          }
+        />
+      </dl>
+      <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.progressNote}</p>
     </div>
   );
 }

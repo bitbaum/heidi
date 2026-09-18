@@ -1040,6 +1040,12 @@ export const en: Dictionary = {
     historyTitle: "Your recordings",
     historyEmpty: "Nothing recorded yet.",
     deleteTake: "Delete",
+    progressDays: "days spoken",
+    progressTakes: "recordings",
+    progressSpoken: "spoken",
+    progressSeconds: "sec",
+    progressMinutes: "min",
+    progressNote: "Counted, not graded. This number never falls — a fortnight away costs nothing.",
     privacy: "The sound never leaves your device. What is kept is the measurements and your own text — in this browser, not with us.",
   },
 
