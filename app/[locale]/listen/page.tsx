@@ -1,10 +1,21 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
-import { byMedium } from "@/lib/listening/flow";
+import { byMedium, flow } from "@/lib/listening/flow";
+import { dayCursor } from "@/lib/listening/today";
 import { DISPLAY } from "@/lib/variety/display";
 import type { ListeningSource } from "@/lib/listening/sources";
 import { Shell } from "../_components/page-shell";
+
+/**
+ * Rebuilt hourly, so "three for today" is a promise the page keeps.
+ *
+ * The picks rotate on the day of the year. Prerendered once at build time that
+ * number would freeze on the day it shipped, and the same three rows would be
+ * "today's" for a month — the feature would look implemented and quietly not
+ * be. An hour is far finer than the rotation it serves.
+ */
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -103,6 +114,26 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = getDictionary(locale).listening;
   const groups = byMedium();
+
+  /**
+   * Three to start with, rotating daily.
+   *
+   * WHY THE PAGE NEEDS THIS AS WELL AS THE LIST. Fifty-six rows is a
+   * catalogue, and a catalogue answers "what is there" while the learner
+   * standing in front of it is asking "what do I do now". `flow.ts` was built
+   * to answer the second question and was rendered nowhere at all — the page
+   * shipped as the half that was easy to show.
+   *
+   * `inSwitzerland: false` is the honest default for a reader we know nothing
+   * about: everything offered here plays anywhere, because handing somebody a
+   * link that answers "not available in your country" reads as the product
+   * being broken rather than as a licensing fact.
+   *
+   * The cursor is the day of the year, so the three change tomorrow and are
+   * the same for everyone today — which keeps the page cacheable and keeps
+   * server and client from disagreeing about what today picked.
+   */
+  const today = flow({ inSwitzerland: false }, { take: 3, cursor: dayCursor() });
   // id -> endonym, built once, from the DISPLAY projection rather than the
   // pack. A page that imports `variety/active` pulls the whole pack — English
   // maintainer prose included — into what a reader is served, and there is a
@@ -129,6 +160,25 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
           <p className="mt-3 text-base leading-relaxed text-fg-secondary">{t.diglossiaBody}</p>
           <p className="mt-3 text-sm leading-relaxed text-fg-muted">{t.basisNote}</p>
         </section>
+
+        {/* After the warning and before the catalogue: the trap first, then
+            what to do about it today, then everything there is. */}
+        {today.length > 0 && (
+          <section aria-labelledby="today" className="mt-10 border-t border-border-subtle pt-8">
+            <h2
+              id="today"
+              className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+            >
+              {t.todayTitle}
+            </h2>
+            <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{t.todayBody}</p>
+            <ul className="mt-4 flex flex-col">
+              {today.map((source) => (
+                <Row key={source.id} source={source} t={t} areaNames={areaNames} />
+              ))}
+            </ul>
+          </section>
+        )}
 
         <div className="mt-12 flex flex-col gap-12">
           {groups.map((group) => (

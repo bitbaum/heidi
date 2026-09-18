@@ -626,6 +626,9 @@ export const fr: Dictionary = {
   listening: {
     title: "Où l'entendre",
     lead: "La Suisse produit énormément de radio, de télévision et de cinéma en dialecte, en grande partie gratuits. Mais personne ne dit à un apprenant ce qui est vraiment du dialecte — c'est donc la première chose indiquée ici pour chaque entrée.",
+    todayTitle: "Si vous avez vingt minutes",
+    todayBody:
+      "Trois pour commencer, d'autres demain. Un de chaque genre, le plus doux d'abord, et tous se lisent hors de Suisse — un catalogue vous dit ce qui existe, ce qui n'est pas la même chose que vous dire quoi faire maintenant.",
     diglossiaTitle: "La moitié des médias suisses n'est pas en dialecte",
     diglossiaBody:
       "Le journal du soir est lu en allemand standard ; le magazine qui suit est en dialecte. Une heure passée sur la Tagesschau est une heure dans l'allemand que vous avez déjà.",

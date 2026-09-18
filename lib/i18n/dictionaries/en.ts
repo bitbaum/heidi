@@ -626,6 +626,9 @@ export const en: Dictionary = {
   listening: {
     title: "Where to hear it",
     lead: "The Swiss make a great deal of radio, television and film in dialect, most of it free. Nobody tells a learner which of it is dialect at all — so that is the first thing every entry here says.",
+    todayTitle: "If you have twenty minutes",
+    todayBody:
+      "Three to start with, different tomorrow. One of each kind, gentlest first, and all of them play outside Switzerland — a catalogue tells you what exists, which is not the same as telling you what to do now.",
     diglossiaTitle: "Half of Swiss media is not in dialect",
     diglossiaBody:
       "The evening bulletin is read in Standard German; the magazine straight after it is in dialect. An hour practised on the Tagesschau is an hour of the German you already have.",
