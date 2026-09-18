@@ -92,8 +92,18 @@ describe("grammar cloze", () => {
         !item.bridge.toLowerCase().includes(item.answer.toLowerCase()),
         `${item.id} blanked "${item.answer}", which is visible in the clue`,
       );
-      // And the answer must really be gone from what is shown.
-      assert.ok(!item.prompt.includes(item.answer), `${item.id} still shows its answer`);
+      /**
+       * And the answer must really be gone from what is shown — EVERY
+       * occurrence of it, in any casing.
+       *
+       * A substring check on the exact spelling passed «Mir händ, ihr händ, si
+       * händ.» for a while, because `blank` replaced only the first one and the
+       * test only asked whether the first one was gone. Matched as a whole word
+       * and case-insensitively, so a capitalised occurrence at the start of a
+       * sentence cannot hide either.
+       */
+      const showsAnswer = new RegExp(`(?<![\\p{L}])${item.answer.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\p{L}])`, "iu");
+      assert.ok(!showsAnswer.test(item.prompt), `${item.id} still shows its answer: ${item.prompt}`);
     }
   });
 

@@ -211,7 +211,10 @@ export function systemPrompt(pack: VarietyPack, explainIn = "English"): string {
           "and prefer it to explaining the structure yourself at length, because the",
           "page says it better than you will for the fourth time this week.",
           "",
-          ...pack.grammar.map((topic) => `  ${topic.id}`),
+          // The id ALONE is not enough to choose between eight of them. The
+          // note says when each is the right one, in this prompt's own
+          // language, and never reaches a reader — `display.ts` drops it.
+          ...pack.grammar.map((topic) => (topic.note ? `  ${topic.id} — ${topic.note}` : `  ${topic.id}`)),
           "",
           "Those ids are the only ones that exist. A topic you invent is discarded,",
           "and the person gets no button at all.",

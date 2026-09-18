@@ -481,6 +481,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       // The single biggest one. There is no simple past in speech at all, so
       // a German reader waiting for "ging" or "war" waits forever.
       id: "no-preterite",
+      note: "the answer used a perfect where German would use a simple past, or somebody asked why nobody ever says ging, war or sagte",
       examples: [
         { target: "Ich bi geschter hei gange.", bridge: "Ich ging gestern nach Hause." },
         { target: "Si hät nüüt gseit.", bridge: "Sie sagte nichts." },
@@ -488,9 +489,34 @@ export const ZURICH_GERMAN: VarietyPack = {
       ],
     },
     {
+      /**
+       * Second, because it is the one a German reader gets wrong without
+       * noticing — and the one this pack can now prove.
+       *
+       * `de`, `d` and `s` are the whole article system, and none of them is
+       * the German word. SDS map 3869 gives the masculine nominative as `də`
+       * at 66 of 66 Zurich survey points and map 3866 gives the neuter `s` at
+       * 66 of 66, which is about as settled as a dialect fact gets.
+       *
+       * The third example is there to stop the rule sounding tidier than the
+       * language is: the same atlas splits the canton on the feminine dative,
+       * 57 points saying `dr` against 48 saying `də`. Zurich German is not one
+       * system even in Zurich, and a page that implied otherwise would be
+       * making the same mistake this product exists to correct.
+       */
+      id: "articles",
+      note: "the answer turned on de, d or s — or the person wrote der, die or das, or gave a noun the German gender rather than this one",
+      examples: [
+        { target: "De Maa, d Frau, s Huus.", bridge: "Der Mann, die Frau, das Haus." },
+        { target: "S Velo staht vor em Huus.", bridge: "Das Fahrrad steht vor dem Haus." },
+        { target: "Gib s Rüebli em Chind.", bridge: "Gib die Karotte dem Kind." },
+      ],
+    },
+    {
       // `wo` never inflects. German readers parse it as "where" and lose the
       // clause.
       id: "wo-relative",
+      note: "a relative clause built with wo, or somebody read wo as a question about a place and lost the sentence",
       examples: [
         { target: "De Maa, wo dört staht.", bridge: "Der Mann, der dort steht." },
         { target: "D Frau, wo ich gsee ha.", bridge: "Die Frau, die ich gesehen habe." },
@@ -498,8 +524,31 @@ export const ZURICH_GERMAN: VarietyPack = {
       ],
     },
     {
+      /**
+       * The last of the four that break comprehension outright.
+       *
+       * All three plural persons take one ending, so `mir`, `ihr` and `si`
+       * carry the same verb — where German has `haben / habt / haben` and
+       * `gehen / geht / gehen`, this has one form for the three. A German
+       * reader hunting for the `-t` of the second person plural does not find
+       * it, and `händ` looks like nothing they have ever conjugated.
+       *
+       * It is the reason the vocabulary's paradigms stop where they do: `ha`
+       * carries `mir händ` and nothing separate for `ihr` or `si`, because
+       * there is nothing separate to carry.
+       */
+      id: "unified-plural",
+      note: "a plural verb such as händ, gönd or chömed — or somebody hunting for a separate second-person-plural ending that does not exist",
+      examples: [
+        { target: "Mir händ, ihr händ, si händ.", bridge: "Wir haben, ihr habt, sie haben." },
+        { target: "Chömed er hüt no?", bridge: "Kommt ihr heute noch?" },
+        { target: "Si mached das scho.", bridge: "Sie machen das schon." },
+      ],
+    },
+    {
       // Possession runs the other way round, and the genitive is simply gone.
       id: "possessive-dative",
+      note: "possession said as em Peter sis Auto, or somebody reaching for a genitive that this variety does not have",
       examples: [
         { target: "Em Peter sis Auto.", bridge: "Peters Auto." },
         { target: "De Anna ihri Schwöschter.", bridge: "Annas Schwester." },
@@ -510,10 +559,52 @@ export const ZURICH_GERMAN: VarietyPack = {
       // Productive to a degree German is not: it attaches to almost anything
       // and often carries no smallness at all.
       id: "diminutive-li",
+      note: "a word ending in -li, especially one that means nothing small and was taken literally",
       examples: [
         { target: "Machsch es Bierli?", bridge: "Trinken wir ein Bier?" },
         { target: "Es Kafi und es Gipfeli.", bridge: "Ein Kaffee und ein Croissant." },
         { target: "Gang no schnäll go poschte, es Sächeli.", bridge: "Geh noch kurz einkaufen, eine Kleinigkeit." },
+      ],
+    },
+    {
+      /**
+       * A tense German does not have, used constantly.
+       *
+       * `am` plus the infinitive is how "right now, in the middle of it" is
+       * said, and German has no grammatical equivalent — it reaches for
+       * `gerade` or for nothing. So a German reader understands the words and
+       * misses the aspect, and produces a flat present where a speaker here
+       * would mark the ongoing action.
+       *
+       * Ordered down here with the others they will understand on a second
+       * pass: this one costs you nothing to miss and marks you as foreign to
+       * skip.
+       */
+      id: "am-progressive",
+      note: "am plus a verb for something happening right now, or somebody asking how to say they are in the middle of doing something",
+      examples: [
+        { target: "Ich bi am schaffe.", bridge: "Ich arbeite gerade." },
+        { target: "Si isch am Znacht choche.", bridge: "Sie kocht gerade Abendessen." },
+        { target: "Mir sind scho lang am warte.", bridge: "Wir warten schon lange." },
+      ],
+    },
+    {
+      /**
+       * The little word before the second verb.
+       *
+       * Going somewhere to do something takes `go`, coming takes `cho` — a
+       * particle with no German counterpart at all, which is why a German
+       * speaker says `Ich gang poschte` and is understood, and marked, at
+       * once. The pack already publishes one of these under `diminutive-li`
+       * (`Gang no schnäll go poschte`); this is the topic that explains it
+       * rather than leaving it as scenery in somebody else's example.
+       */
+      id: "go-cho-infinitive",
+      note: "go or cho in front of a second verb — or somebody who left it out, was understood, and read as standard German doing it",
+      examples: [
+        { target: "Ich gang go poschte.", bridge: "Ich gehe einkaufen." },
+        { target: "Chunsch cho hälfe?", bridge: "Kommst du helfen?" },
+        { target: "Si isch go luege gange.", bridge: "Sie ist schauen gegangen." },
       ],
     },
   ],

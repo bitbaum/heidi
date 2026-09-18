@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { check } from "./check.ts";
 import { ZURICH_GERMAN } from "./packs/gsw-zh.ts";
 import { DISPLAY } from "./display.ts";
+import { systemPrompt } from "./prompt.ts";
 import { getDictionary } from "../i18n/index.ts";
 import { LOCALES } from "../i18n/locales.ts";
 
@@ -91,6 +92,36 @@ describe("grammar topics", () => {
     assert.equal(DISPLAY.grammar.length, topics.length);
     for (const topic of DISPLAY.grammar) {
       assert.deepEqual(Object.keys(topic).sort(), ["examples", "id"], "nothing else survives the projection");
+    }
+  });
+
+  test("every topic tells the model when it is the right one", () => {
+    /**
+     * The prompt lists these ids so an answer can offer a button to the page
+     * instead of explaining the same structure again. With eight of them, the
+     * slug alone is not enough to choose between `articles` and
+     * `possessive-dative` for a sentence that involves both — the note is what
+     * makes the choice a reading rather than a guess.
+     *
+     * A topic added without one silently degrades every answer that should
+     * have pointed at it, and nothing else would notice.
+     */
+    for (const topic of topics) {
+      assert.ok(topic.note, `${topic.id} has no note, so the model must guess from the slug`);
+      assert.ok(
+        (topic.note ?? "").length > 20,
+        `${topic.id}'s note is too short to distinguish it from the others`,
+      );
+    }
+  });
+
+  test("the notes reach the prompt, and only the prompt", () => {
+    // Half the guarantee is in the projection test above — `note` does not
+    // survive into DISPLAY. This is the other half: it is actually used.
+    const prompt = systemPrompt(ZURICH_GERMAN);
+    for (const topic of topics) {
+      assert.ok(prompt.includes(topic.id), `the prompt does not list ${topic.id}`);
+      assert.ok(prompt.includes(topic.note ?? ""), `the prompt does not carry ${topic.id}'s note`);
     }
   });
 });

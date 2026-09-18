@@ -898,7 +898,13 @@ export const de = {
     practiseLabel: "Damit üben",
     practiseSay: "Geben Sie mir zwei Sätze zum Üben von «{word}» — und fragen Sie mich danach einen ab.",
     title: "Grammatik",
-    lead: "Vier Dinge, die Zürichdeutsch für jemanden schwer verständlich machen, der Deutsch schon liest. Keine Lektionen — nur das, was Sie hören werden, und wo es hakt.",
+    /**
+     * KEINE ZAHL IM LEAD. Hier stand «Vier Dinge», und das war ab dem Tag
+     * falsch, an dem ein fünftes dazukam — in allen sieben Sprachen
+     * gleichzeitig, weil eine Zahl in der Werbezeile eine Tatsache ist, die
+     * niemand pflegt. Ein Test verbietet sie jetzt.
+     */
+    lead: "Was Zürichdeutsch für jemanden schwer verständlich macht, der Deutsch schon liest — zuerst das, woran ein Satz ganz scheitert, danach das, was Sie zwar verstehen, aber nie selbst sagen würden.",
     ruleLabel: "Die Regel",
     watchLabel: "Wo es hakt",
     topics: {
@@ -907,10 +913,20 @@ export const de = {
         rule: "Gesprochenes Zürichdeutsch hat keine einfache Vergangenheit: alles Vergangene steht im Perfekt.",
         watch: "Sie warten auf «ging», «war», «sagte» — und es kommt nie. Wenn Sie «bi», «hät» oder «händ» plus Partizip hören, ist das die Vergangenheit.",
       },
+      articles: {
+        title: "de, d, s — mehr Artikel gibt es nicht",
+        rule: "Drei Artikel für alles: «de» beim männlichen, «d» beim weiblichen, «s» beim sächlichen Wort. «der», «die» und «das» kommen nicht vor.",
+        watch: "Die Artikel sehen aus wie verschluckte deutsche — sind aber die ganze Form, nicht eine bequeme Kurzfassung. Und das Geschlecht stimmt nicht immer mit dem deutschen überein: «s Rüebli» ist sächlich, die Karotte nicht.",
+      },
       "wo-relative": {
         title: "«wo» statt der, die, das",
         rule: "Relativsätze werden fast immer mit «wo» eingeleitet, unverändert, egal welches Geschlecht oder welcher Fall.",
         watch: "Sie lesen «wo» als «wo?» und verlieren den Satz. Es heisst hier «der», «die», «das» oder «den» — nie ein Ort.",
+      },
+      "unified-plural": {
+        title: "Eine Verbform für die ganze Mehrzahl",
+        rule: "Wir, ihr und sie bekommen dieselbe Verbform: «mir händ», «ihr händ», «si händ».",
+        watch: "Sie suchen das «-t» der zweiten Person Mehrzahl und finden es nie. «Chömed er?» heisst «Kommt ihr?» — die Endung sagt nichts über die Person, das tut nur das Pronomen davor.",
       },
       "possessive-dative": {
         title: "Besitz andersherum",
@@ -921,6 +937,16 @@ export const de = {
         title: "Das -li an allem",
         rule: "Die Verkleinerungsform auf -li ist sehr produktiv und bedeutet oft gar nichts Kleines.",
         watch: "«Es Bierli» ist kein kleines Bier, sondern ein freundlich gesagtes Bier. Nehmen Sie -li nicht wörtlich.",
+      },
+      "am-progressive": {
+        title: "«am» plus Verb — gerade dabei",
+        rule: "Was jetzt gerade läuft, steht als «bi/isch/sind am» plus Grundform: «Ich bi am schaffe».",
+        watch: "Deutsch hat diese Form nicht und behilft sich mit «gerade». Sie verstehen den Satz auch ohne — aber wer sie nie benutzt, klingt dauerhaft nach Hochdeutsch mit Zürcher Wörtern.",
+      },
+      "go-cho-infinitive": {
+        title: "«go» und «cho» vor dem zweiten Verb",
+        rule: "Wer irgendwohin geht, um etwas zu tun, schiebt ein «go» davor; wer kommt, ein «cho»: «Ich gang go poschte».",
+        watch: "Im Deutschen gibt es dieses Wörtchen nicht, also lässt man es weg — und wird verstanden und sofort erkannt. Es ist kein «gehen», sondern gehört zum zweiten Verb.",
       },
     },
   },
