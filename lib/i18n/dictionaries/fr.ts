@@ -388,7 +388,7 @@ export const fr: Dictionary = {
     heidiTitle: "Ce que cela signifie pour Heidi",
     heidiBody: [
       "La dictée n'écrit pas le dialecte. Elle écrit ce que vous voulez dire, dans la langue que vous avez déjà — précisément ce que la recherche sait faire.",
-      "Heidi ne parle pas. Une voix qui prononcerait mal le zurichois, vous ne pourriez pas le vérifier, et c'est la seule erreur que ce produit ne doit pas commettre.",
+      "Heidi lit à voix haute, mais ne prétend jamais parler le dialecte. Un synthétiseur à qui l'on demande du zurichois rend au mieux de l'allemand standard suisse : la voix dit donc ce qu'elle est, et se tait plutôt que de vous livrer une voix anglaise lisant du Züritüütsch.",
       "Le contrôle dialectal fonctionne sans modèle. C'est une liste de règles fixe, pas un modèle de langue — c'est pourquoi il ne peut rien inventer.",
     ],
     directionLabel: "Sens",
@@ -422,6 +422,38 @@ export const fr: Dictionary = {
     statusResearch: "recherche",
     statusService: "service",
     statusClosed: "cessé",
+    evalTitle: "Ce que Heidi mesure quand vous parlez",
+    evalLead:
+      "L'exercice d'expression vous enregistre et rapporte ce qui se mesure réellement — en précisant dans quelle langue. Aucune note sur cent, nulle part.",
+    evalNames: {
+      delivery: "Débit",
+      fluency: "Vitesse et séquences",
+      words: "Mots et formes",
+      grammar: "Grammaire",
+      pronunciation: "Note de prononciation",
+    },
+    evalWhat: {
+      delivery:
+        "Où il y avait du son et où il n'y en avait pas : pauses, durée de la plus longue, part de l'enregistrement où vous parliez vraiment. Cela ne demande aucune transcription, et fonctionne donc pour un dialecte que rien ne sait écrire.",
+      fluency:
+        "Syllabes par seconde, et combien de temps vous parlez avant de vous arrêter. La fluidité au sens de la recherche — comment une pensée sort, pas si elle sonne bien.",
+      words:
+        "Les mots que vous avez choisis, vérifiés avec la même liste de règles fixes que le contrôle dialectal. Pas l'avis d'un modèle.",
+      grammar:
+        "Accords, cas, formes verbales. Uniquement à partir d'une transcription dans la langue que vous avez réellement parlée — sinon la correction porte sur des mots inventés par la machine.",
+      pronunciation:
+        "Non produite. Une note face à un idéal natif est un jugement sur une personne, et aucune amélioration de la reconnaissance ne la rendrait honnête.",
+    },
+    evalVerdicts: {
+      target: "sur le dialecte",
+      bridge: "sur l'allemand standard suisse",
+      none: "pas encore possible",
+      refused: "délibérément non proposée",
+    },
+    evalRefusedNote:
+      "C'est précisément ce que vante chaque concurrent. C'est la ligne que nous laissons vide exprès.",
+    evalFormLimit: "aucune forme jugée au-dessus de",
+    evalSource: "dans le code",
   },
 
   privacy: {

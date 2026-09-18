@@ -388,7 +388,7 @@ export const en: Dictionary = {
     heidiTitle: "What this means for Heidi",
     heidiBody: [
       "Dictation does not write dialect down. It writes what you want to say, in the language you already have — which is exactly what the research can do.",
-      "Heidi does not speak. A voice that pronounced Zurich German wrongly is something you could not check, and that is the one mistake this product must not make.",
+      "Heidi reads aloud, but never claims to be speaking dialect. A synthesiser asked for Zurich German returns Swiss Standard German at best — so the voice says which it is, and stays silent rather than hand you an English voice reading Züritüütsch.",
       "The dialect check runs without a model. It is a fixed list of rules, not a language model, which is why it cannot start inventing things.",
     ],
     directionLabel: "Direction",
@@ -422,6 +422,37 @@ export const en: Dictionary = {
     statusResearch: "research",
     statusService: "service",
     statusClosed: "closed down",
+    evalTitle: "What Heidi measures when you speak",
+    evalLead:
+      "Speaking practice records you and reports what can actually be measured — and says which language it measured. There is no score out of a hundred anywhere.",
+    evalNames: {
+      delivery: "Delivery",
+      fluency: "Speed and runs",
+      words: "Words and forms",
+      grammar: "Grammar",
+      pronunciation: "Pronunciation score",
+    },
+    evalWhat: {
+      delivery:
+        "Where the sound was and where it was not: pauses, how long the longest one was, how much of the take you were actually speaking. This needs no transcript, which is why it works for a dialect nothing can write down.",
+      fluency:
+        "Syllables per second, and how long you go before stopping. Fluency in the research sense — how a thought comes out, not how good it sounds.",
+      words:
+        "Which words you chose, checked against the same fixed rule list the dialect check uses. Not a model's opinion.",
+      grammar:
+        "Agreement, cases, verb forms. Only ever from a transcript in the language you actually spoke — otherwise the correction is about words the machine invented.",
+      pronunciation:
+        "Not produced. A score against a native ideal is a judgement about a person, and no improvement in recognition would make it honest.",
+    },
+    evalVerdicts: {
+      target: "on the dialect",
+      bridge: "on Swiss Standard German",
+      none: "not possible yet",
+      refused: "deliberately not offered",
+    },
+    evalRefusedNote: "This is the one every competitor advertises. It is the row we leave empty on purpose.",
+    evalFormLimit: "no forms judged above",
+    evalSource: "in the code",
   },
 
   privacy: {

@@ -463,7 +463,7 @@ export const gsw: Dictionary = {
     heidiTitle: "Was das für d Heidi heisst",
     heidiBody: [
       "S Diktiere schriibt kei Mundart uf. Es schriibt, was Si wänd säge, i de Sprach wo Si scho chönd — genau das, was d Forschig cha.",
-      "D Heidi redt nöd. E Stimm, wo Züritüütsch falsch uusspricht, chönted Si nöd nachepüefe, und das isch de einzig Fähler, wo das Produkt nöd darf mache.",
+      "D Heidi liist vor, behauptet aber nie, si redi Mundart. En Synthesizer, wo mer um Züritüütsch bittet, git im beschte Fall Schwiizer Hochdütsch — drum seit d Stimm, was si isch, und schwiigt lieber, als Ihne e englischi Stimm z gä, wo Züritüütsch vorliist.",
       "D Dialektprüefig lauft ohni Modäll. Si isch e feschti Regelischte, kei Sprachmodäll — drum cha si nöd afange, sich öppis uusdänke.",
     ],
     directionLabel: "Richtig",
@@ -497,6 +497,37 @@ export const gsw: Dictionary = {
     statusResearch: "Forschig",
     statusService: "Dienscht",
     statusClosed: "iigstellt",
+    evalTitle: "Was d Heidi misst, wenn Si redet",
+    evalLead:
+      "D Sprächüebig nimmt Si uf und meldet, was sich würkli mässe laat — und seit derzue, i welere Sprach gmässe worde isch. Nienert e Note vo hundert.",
+    evalNames: {
+      delivery: "Sprächfluss",
+      fluency: "Tempo und Läuf",
+      words: "Wörter und Forme",
+      grammar: "Grammatik",
+      pronunciation: "Uusspraachnote",
+    },
+    evalWhat: {
+      delivery:
+        "Wo Ton gsi isch und wo nöd: Pause, wie lang die längscht gsi isch, wie vill vo de Ufnahm Si würkli gredt hend. Das bruucht kes Transkript und funktioniert drum au für e Mundart, wo niemer cha ufschriibe.",
+      fluency:
+        "Silbe pro Sekunde, und wie lang Si redet, bevor Si aahaltet. Flüssigkeit im Sinn vo de Forschig — wie en Gedanke uusechunnt, nöd wie guet er tönt.",
+      words:
+        "Weli Wörter Si gwählt hend, prüeft a dere gliiche feschte Regellischte wie d Dialektprüefig. Nöd d Meinig vomene Modäll.",
+      grammar:
+        "Kongruänz, Fäll, Verbforme. Immer nur us eme Transkript i de Sprach, wo Si würkli gredt hend — susch korrigiert mer Wörter, wo d Maschine erfunde hät.",
+      pronunciation:
+        "Wird nöd gmacht. E Note gäg es muettersprachlichs Ideal isch es Urteil über en Mänsch, und kei bessri Erkennig würd si ehrlich mache.",
+    },
+    evalVerdicts: {
+      target: "im Dialekt",
+      bridge: "uf Schwiizer Hochdütsch",
+      none: "nonig möglich",
+      refused: "mit Absicht nöd aabote",
+    },
+    evalRefusedNote: "Genau demit wirbt jede Mitbewärber. Das isch d Zile, wo mir absichtlich leer laand.",
+    evalFormLimit: "kei Forme beurteilt über",
+    evalSource: "im Code",
   },
 
   privacy: {

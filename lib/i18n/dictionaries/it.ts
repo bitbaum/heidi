@@ -388,7 +388,7 @@ export const it: Dictionary = {
     heidiTitle: "Che cosa significa per Heidi",
     heidiBody: [
       "La dettatura non scrive il dialetto. Scrive ciò che lei vuole dire, nella lingua che già possiede — esattamente ciò che la ricerca sa fare.",
-      "Heidi non parla. Una voce che pronunciasse male lo zurighese lei non potrebbe verificarla, ed è l'unico errore che questo prodotto non deve commettere.",
+      "Heidi legge ad alta voce, ma non pretende mai di parlare il dialetto. Un sintetizzatore a cui si chiede lo zurighese restituisce al massimo tedesco standard svizzero: la voce dice quindi che cosa è, e tace piuttosto che darle una voce inglese che legge il Züritüütsch.",
       "Il controllo del dialetto funziona senza modello. È un elenco fisso di regole, non un modello linguistico — per questo non può mettersi a inventare.",
     ],
     directionLabel: "Direzione",
@@ -422,6 +422,38 @@ export const it: Dictionary = {
     statusResearch: "ricerca",
     statusService: "servizio",
     statusClosed: "cessato",
+    evalTitle: "Che cosa misura Heidi quando parlate",
+    evalLead:
+      "L'esercizio di parlato vi registra e riporta ciò che si può davvero misurare — indicando in quale lingua. Nessun voto su cento, da nessuna parte.",
+    evalNames: {
+      delivery: "Erogazione",
+      fluency: "Velocità e sequenze",
+      words: "Parole e forme",
+      grammar: "Grammatica",
+      pronunciation: "Voto di pronuncia",
+    },
+    evalWhat: {
+      delivery:
+        "Dove c'era suono e dove no: pause, quanto è durata la più lunga, quanta parte della registrazione stavate davvero parlando. Non richiede alcuna trascrizione, e perciò funziona per un dialetto che nulla sa scrivere.",
+      fluency:
+        "Sillabe al secondo, e per quanto parlate prima di fermarvi. Fluenza nel senso della ricerca — come esce un pensiero, non quanto suona bene.",
+      words:
+        "Quali parole avete scelto, verificate con la stessa lista fissa di regole del controllo dialettale. Non l'opinione di un modello.",
+      grammar:
+        "Accordi, casi, forme verbali. Solo da una trascrizione nella lingua che avete davvero parlato — altrimenti la correzione riguarda parole inventate dalla macchina.",
+      pronunciation:
+        "Non viene prodotto. Un voto rispetto a un ideale nativo è un giudizio su una persona, e nessun miglioramento del riconoscimento lo renderebbe onesto.",
+    },
+    evalVerdicts: {
+      target: "sul dialetto",
+      bridge: "sul tedesco standard svizzero",
+      none: "non ancora possibile",
+      refused: "deliberatamente non offerto",
+    },
+    evalRefusedNote:
+      "È proprio ciò che pubblicizza ogni concorrente. È la riga che lasciamo vuota di proposito.",
+    evalFormLimit: "nessuna forma giudicata sopra",
+    evalSource: "nel codice",
   },
 
   privacy: {

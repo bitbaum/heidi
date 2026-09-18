@@ -422,7 +422,7 @@ export const de = {
     heidiTitle: "Was das für Heidi heisst",
     heidiBody: [
       "Das Diktieren schreibt nicht Mundart auf. Es schreibt, was Sie sagen wollen, in der Sprache, die Sie schon können — genau das, was die Forschung kann.",
-      "Heidi spricht nicht. Eine Stimme, die Zürichdeutsch falsch ausspricht, wäre für Sie nicht überprüfbar, und das ist der einzige Fehler, den dieses Produkt nicht machen darf.",
+      "Heidi liest vor, behauptet aber nie, Mundart zu sprechen. Ein Synthesizer, den man um Zürichdeutsch bittet, liefert bestenfalls Schweizer Hochdeutsch — also sagt die Stimme, was sie ist, und schweigt lieber, als Ihnen eine englische Stimme zu geben, die Züritüütsch vorliest.",
       "Die Dialektprüfung läuft ohne Modell. Sie ist eine feste Regelliste, kein Sprachmodell — deshalb kann sie nicht anfangen, sich Dinge auszudenken.",
     ],
     directionLabel: "Richtung",
@@ -456,6 +456,38 @@ export const de = {
     statusResearch: "Forschung",
     statusService: "Dienst",
     statusClosed: "eingestellt",
+    evalTitle: "Was Heidi misst, wenn Sie sprechen",
+    evalLead:
+      "Die Sprechübung nimmt Sie auf und meldet, was sich tatsächlich messen lässt — und sagt dazu, in welcher Sprache gemessen wurde. Keine Note von hundert, nirgends.",
+    evalNames: {
+      delivery: "Sprechfluss",
+      fluency: "Tempo und Läufe",
+      words: "Wörter und Formen",
+      grammar: "Grammatik",
+      pronunciation: "Aussprachenote",
+    },
+    evalWhat: {
+      delivery:
+        "Wo Ton war und wo nicht: Pausen, wie lang die längste war, wie viel der Aufnahme Sie wirklich gesprochen haben. Das braucht kein Transkript und funktioniert deshalb für eine Mundart, die niemand aufschreiben kann.",
+      fluency:
+        "Silben pro Sekunde, und wie lange Sie sprechen, bevor Sie anhalten. Flüssigkeit im Sinne der Forschung — wie ein Gedanke herauskommt, nicht wie gut er klingt.",
+      words:
+        "Welche Wörter Sie gewählt haben, geprüft an derselben festen Regelliste wie die Dialektprüfung. Nicht die Meinung eines Modells.",
+      grammar:
+        "Kongruenz, Fälle, Verbformen. Immer nur aus einem Transkript in der Sprache, die Sie wirklich gesprochen haben — sonst korrigiert man Wörter, die die Maschine erfunden hat.",
+      pronunciation:
+        "Wird nicht erstellt. Eine Note gegen ein muttersprachliches Ideal ist ein Urteil über einen Menschen, und keine bessere Erkennung würde sie ehrlich machen.",
+    },
+    evalVerdicts: {
+      target: "im Dialekt",
+      bridge: "auf Schweizer Hochdeutsch",
+      none: "noch nicht möglich",
+      refused: "bewusst nicht angeboten",
+    },
+    evalRefusedNote:
+      "Genau damit wirbt jeder Mitbewerber. Es ist die Zeile, die wir absichtlich leer lassen.",
+    evalFormLimit: "keine Formen beurteilt über",
+    evalSource: "im Code",
   },
 
   /**
