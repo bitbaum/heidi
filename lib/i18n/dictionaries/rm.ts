@@ -549,6 +549,9 @@ export const rm: Dictionary = {
     dataTitle: "Tge che resta sin quest apparat",
     dataBody:
       "Vossa conversaziun resta en quest navigatur — era suenter avair serrà il tab — fin che Vus smatgais Nova conversaziun. Cun conto vegn ella memorisada sin noss server. Per vegnir respundì va mintga messadi ad in purschider da models. Vossa clav ed ils pleds tegnids restan mo qua.",
+    dataEmpty: "Quest navigatur na cuntegna nagut da Vus.",
+    dataForget: "Stizzar",
+    dataExport: "Telechargiar tut",
   },
 
   auth: {

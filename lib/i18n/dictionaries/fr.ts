@@ -533,6 +533,9 @@ export const fr: Dictionary = {
     dataTitle: "Ce qui est gardé sur cet appareil",
     dataBody:
       "Votre conversation reste dans ce navigateur — même après la fermeture de l’onglet — jusqu’à ce que vous appuyiez sur Nouvelle conversation. Connecté, elle est enregistrée sur notre serveur. Pour être traité, chaque message est envoyé à un fournisseur de modèle. Votre clé et vos mots gardés restent ici seulement.",
+    dataEmpty: "Ce navigateur ne contient rien qui vous appartienne.",
+    dataForget: "Supprimer",
+    dataExport: "Tout télécharger",
   },
 
   auth: {

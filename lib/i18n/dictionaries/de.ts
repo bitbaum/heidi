@@ -586,6 +586,9 @@ export const de = {
     dataTitle: "Was auf diesem Gerät liegt",
     dataBody:
       "Ihr Gespräch bleibt in diesem Browser — auch wenn Sie den Tab schliessen — bis Sie «Neues Gespräch» drücken. Angemeldet wird es stattdessen auf unserem Server gespeichert. Um beantwortet zu werden, geht jede Nachricht an einen Modellanbieter. Ein eigener Schlüssel und gemerkte Wörter liegen nur hier.",
+    dataEmpty: "In diesem Browser liegt nichts von Ihnen.",
+    dataForget: "Löschen",
+    dataExport: "Alles herunterladen",
   },
 
   auth: {

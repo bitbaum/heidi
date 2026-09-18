@@ -533,6 +533,9 @@ export const en: Dictionary = {
     dataTitle: "What is held on this device",
     dataBody:
       "Your conversation stays in this browser — including after you close the tab — until you press New chat. Signed in, it is stored on our server instead. To be answered, every message goes to a model vendor. Your own key and saved words stay here only.",
+    dataEmpty: "This browser holds nothing of yours.",
+    dataForget: "Delete",
+    dataExport: "Download everything",
   },
 
   auth: {

@@ -251,6 +251,9 @@ export const gsw: Dictionary = {
     dataTitle: "Was uf dem Grät liit",
     dataBody:
       "Ihres Gspräch bliibt i dem Browser — au wenn Si de Tab zuemached — bis Si «Neus Gspräch» drücked. Aagmäldet wird s statt dem uf eusem Server gspeicheret. Zum beantwortet wärde, gaht jedi Nachricht an en Modällaabieter. En eigne Schlüssel und gmerkti Wörter liged nur da.",
+    dataEmpty: "I dem Browser liit nüt vo Ihne.",
+    dataForget: "Lösche",
+    dataExport: "Alles abelade",
   },
 
   auth: {

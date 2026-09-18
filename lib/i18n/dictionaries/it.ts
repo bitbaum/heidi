@@ -533,6 +533,9 @@ export const it: Dictionary = {
     dataTitle: "Che cosa resta su questo dispositivo",
     dataBody:
       "La sua conversazione resta in questo browser — anche dopo la chiusura della scheda — finché non preme Nuova conversazione. Con l’account viene invece salvata sul nostro server. Per essere elaborato, ogni messaggio va a un fornitore di modelli. La sua chiave e le parole tenute restano solo qui.",
+    dataEmpty: "Questo browser non contiene nulla di vostro.",
+    dataForget: "Elimina",
+    dataExport: "Scarica tutto",
   },
 
   auth: {
