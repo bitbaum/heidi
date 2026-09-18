@@ -723,6 +723,9 @@ export const de = {
   listening: {
     title: "Wo Sie es hören",
     lead: "Die Schweiz macht sehr viel Radio, Fernsehen und Film auf Mundart, das meiste davon gratis. Nur sagt niemand einem Lernenden, was davon überhaupt Mundart ist — deshalb steht das hier bei jedem Eintrag zuerst.",
+    todayTitle: "Wenn Sie zwanzig Minuten haben",
+    todayBody:
+      "Drei zum Anfangen, morgen andere. Von jeder Sorte eine, die sanfteste zuerst, und alle laufen auch ausserhalb der Schweiz — ein Verzeichnis sagt Ihnen, was es gibt, und das ist nicht dasselbe wie zu sagen, was Sie jetzt tun sollen.",
     diglossiaTitle: "Die Hälfte der Schweizer Medien ist nicht Mundart",
     diglossiaBody:
       "Die Tagesschau wird auf Hochdeutsch gelesen, das Magazin direkt danach läuft auf Mundart. Eine Stunde Tagesschau ist eine Stunde in dem Deutsch, das Sie schon haben.",

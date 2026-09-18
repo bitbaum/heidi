@@ -687,6 +687,9 @@ export const gsw: Dictionary = {
   listening: {
     title: "Wo Sie s ghöred",
     lead: "D Schwiiz macht sehr viel Radio, Färnseh und Film uf Mundart, s meischte gratis. Nur seit niemert eim, was devo überhaupt Mundart isch — drum staht das da bi jedem Iitrag zerscht.",
+    todayTitle: "Wänn Sie zwänzg Minute händ",
+    todayBody:
+      "Drü zum Aafange, morn anderi. Vo jedere Sorte eis, s sanfteschte zerscht, und alli laufed au usserhalb vo de Schwiiz — es Verzeichnis seit Ihne, was es git, und das isch nöd s gliiche wie z säge, was Sie jetzt sölled mache.",
     diglossiaTitle: "D Helfti vo de Schwiizer Medie isch nöd Mundart",
     diglossiaBody:
       "D Tagesschau wird uf Hochdütsch gläse, s Magazin grad dernah lauft uf Mundart. E Stund Tagesschau isch e Stund i dem Dütsch, wo Sie scho händ.",
