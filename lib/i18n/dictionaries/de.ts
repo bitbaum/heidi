@@ -29,6 +29,7 @@ export const de = {
   nav: {
     home: "Start",
     chat: "Chat",
+    organisations: "Für Organisationen",
     speaking: "Sprechrunden",
     practice: "Üben",
     listen: "Hören",
@@ -1103,6 +1104,18 @@ export const de = {
     deleteTake: "Löschen",
     privacy: "Der Ton verlässt Ihr Gerät nie. Gespeichert werden nur die Messwerte und Ihr eigener Text — in diesem Browser, nicht bei uns.",
   },
+
+  organisations: {
+    title: "Für Organisationen",
+    lead: "Wo Mundart nicht Ihr Problem ist, sondern das Ihrer Leute.",
+    momentLabel: "Der Moment",
+    stakeLabel: "Was es kostet",
+    offerLabel: "Was Heidi tut",
+    unknownLabel: "Was wir Sie fragen müssten",
+    noCustomers: "Heidi hat heute keine Kunden, keine Pilotprojekte und keine Fallstudien — und diese Seite behauptet auch keine. Was hier steht, ist eine Beschreibung Ihres Problems, so gut wir es von aussen kennen. Sagen Sie uns, wo wir falsch liegen.",
+    talk: "Schreiben Sie uns",
+  },
+
 };
 
 /**

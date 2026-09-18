@@ -258,6 +258,10 @@ test("route segments are the same in every language", () => {
       // The two pages an institution looks for, and the gated room.
       "privacy",
       "impressum",
+      // `organisations` sits under `project`: a care-home director is not on
+      // the learning path, and a sales page in the `use` row would be the nav
+      // answering a question no learner asked.
+      "organisations",
       "investors",
     ],
   );

@@ -70,6 +70,14 @@ export function SiteHeader({
 
   return (
     <header ref={bar} className="sticky top-0 z-30 border-b border-border-strong bg-surface-page">
+      {/* `min-w-0` on the row and `flex-wrap` on the nav.
+          MEASURED, not precautionary: at 1024px in French the header was 1087px
+          wide and every page scrolled sideways — the twenty pixels of headroom
+          the note below predicted, spent by the `use` group growing to five
+          items. Without `min-w-0` a flex child refuses to shrink below its
+          content and pushes the row wider instead; with it, the nav wraps to a
+          second line on the few widths where it must. A two-line header at one
+          breakpoint is a far smaller cost than a site that scrolls sideways. */}
       <div className="mx-auto flex w-full max-w-shell items-center justify-between gap-4 px-5 py-3 sm:px-8">
         <Link
           href={href(locale, "")}
@@ -79,7 +87,7 @@ export function SiteHeader({
           <span className="font-heading text-xl font-bold tracking-display sm:text-2xl">Heidi</span>
         </Link>
 
-        <nav aria-label={dict.nav.menu} className="hidden lg:flex lg:items-center">
+        <nav aria-label={dict.nav.menu} className="hidden min-w-0 lg:flex lg:flex-wrap lg:items-center lg:justify-end lg:gap-y-1">
           {groups.map(({ group, routes }, i) => (
             <div key={group} className="flex items-center">
               {i > 0 && <span aria-hidden="true" className="mx-4 h-4 w-px bg-border-subtle" />}

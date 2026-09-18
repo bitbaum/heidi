@@ -26,6 +26,7 @@ export const rm: Dictionary = {
   nav: {
     home: "Cumenzament",
     chat: "Chat",
+    organisations: "Per organisaziuns",
     speaking: "Rundas da discurs",
     practice: "Exercitar",
     listen: "Tadlar",
@@ -1027,4 +1028,16 @@ export const rm: Dictionary = {
     deleteTake: "Stizzar",
     privacy: "Il tun na bandunescha mai Voss apparat. Vegnan tegnidas mo las mesiraziuns e Voss agen text — en quest navigatur, betg tar nus.",
   },
+
+  organisations: {
+    title: "Per organisaziuns",
+    lead: "Nua ch’il dialect n’è betg Voss problem, mabain quel da Vossa glieud.",
+    momentLabel: "Il mument",
+    stakeLabel: "Tge ch’i custa",
+    offerLabel: "Tge che Heidi fa",
+    unknownLabel: "Tge che nus stuessan dumandar",
+    noCustomers: "Heidi n’ha oz nagins clients, nagins projects pilot e naginas studias da cas — e questa pagina na pretenda nagins. Quai che stat qua è ina descripziun da Voss problem, uschia sco nus al enconuschain da dador. Digei nus nua che nus sbaglian.",
+    talk: "Scrivai a nus",
+  },
+
 };

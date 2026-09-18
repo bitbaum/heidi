@@ -113,6 +113,13 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                 {dict.nav.privacy}
               </Link>
               <Link
+                href={href(locale, "organisations")}
+                prefetch={false}
+                className="mt-3 inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
+              >
+                {dict.nav.organisations}
+              </Link>
+              <Link
                 href={href(locale, "impressum")}
                 prefetch={false}
                 className="mt-3 inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"

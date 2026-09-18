@@ -10,6 +10,7 @@ export const en: Dictionary = {
   nav: {
     home: "Start",
     chat: "Chat",
+    organisations: "For organisations",
     speaking: "Speaking",
     practice: "Practise",
     listen: "Listen",
@@ -1007,4 +1008,16 @@ export const en: Dictionary = {
     deleteTake: "Delete",
     privacy: "The sound never leaves your device. What is kept is the measurements and your own text — in this browser, not with us.",
   },
+
+  organisations: {
+    title: "For organisations",
+    lead: "Where dialect is not your problem but your people's.",
+    momentLabel: "The moment",
+    stakeLabel: "What it costs",
+    offerLabel: "What Heidi does",
+    unknownLabel: "What we would have to ask you",
+    noCustomers: "Heidi has no customers today, no pilots and no case studies — and this page claims none. What is here is a description of your problem as well as we know it from outside. Tell us where we have it wrong.",
+    talk: "Write to us",
+  },
+
 };

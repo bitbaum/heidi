@@ -33,6 +33,7 @@ export const gsw: Dictionary = {
   nav: {
     home: "Afang",
     chat: "Chat",
+    organisations: "Für Organisatione",
     speaking: "Schwätzrunde",
     practice: "Üebe",
     listen: "Ghöre",
@@ -1032,4 +1033,16 @@ export const gsw: Dictionary = {
     deleteTake: "Lösche",
     privacy: "De Ton verlaat Ihres Grät nie. Gspeicheret wird nu was gmässe worde isch und Ihre eigen Text — i dem Browser, nöd bii öis.",
   },
+
+  organisations: {
+    title: "Für Organisatione",
+    lead: "Wo Mundart nöd Ihres Problem isch, sondern das vo Ihrne Lüt.",
+    momentLabel: "De Moment",
+    stakeLabel: "Was es choschtet",
+    offerLabel: "Was d Heidi macht",
+    unknownLabel: "Was mir Si fraage müessted",
+    noCustomers: "D Heidi hät hüt kei Kunde, kei Pilotprojekt und kei Fallstudie — und die Siite behauptet au keini. Was da staht, isch e Beschriibig vo Ihrem Problem, so guet wie mir s vo usse kenned. Säged Si is, wo mir falsch ligged.",
+    talk: "Schriibed Si is",
+  },
+
 };
