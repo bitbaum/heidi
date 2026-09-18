@@ -33,6 +33,30 @@ describe("the desktop header", () => {
     }
   });
 
+  test("the bar does not grow past what the narrowest desktop fits", () => {
+    /**
+     * A PIXEL BUDGET, EXPRESSED AS A COUNT, because this project has no browser
+     * to measure in and the failure mode is not subtle.
+     *
+     * Measured on the deployed site at 1024px — the narrowest width that still
+     * shows the bar — the usable space for the nav is about 606px once the
+     * brand and the real 226px account controls are paid for. The five `use`
+     * links plus two panel triggers come to 562px in Russian, which is the
+     * widest of the seven languages. One more link in this group is ~60-80px
+     * and puts Russian, Romansh and French over, in the exact way that shipped
+     * a sideways-scrolling header once already.
+     *
+     * So: a sixth thing to DO does not go in the bar. It goes in a panel, or
+     * something else comes out. This test is here to make that a decision
+     * somebody takes rather than a regression somebody ships.
+     */
+    const use = navGroups().find((g) => g.group === "use")?.routes ?? [];
+    assert.ok(
+      use.length <= 5,
+      `the "use" group has ${use.length} routes; at 1024px in Russian the bar only fits five — put the next one in a panel`,
+    );
+  });
+
   test("every navigable route sits in a group the header renders", () => {
     // The other half: a route with a group that `navGroups()` does not return
     // is a page in the sitemap that no menu links to.

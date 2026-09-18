@@ -88,14 +88,13 @@ export function SiteHeader({
           THE BAR NAMES WHAT YOU DO; EVERYTHING ELSE IS BEHIND TWO PANELS.
 
           It was ten targets in a row — five verbs, a panel, and four pages
-          about the project — and it had stopped fitting. Measured at 1024px in
-          French: the nav was 836px wide and left 16px before the language
-          control while signed OUT. A signed-in account control is another
-          124px, so that row overflowed. Adding `practice` is what spent the
-          headroom the previous note here recorded.
+          about the project — and it had stopped fitting. At 1024px in French
+          the nav was 836px, against roughly 930px of usable width once the
+          brand and the account controls are paid for. Adding `practice` is
+          what spent the headroom the previous note here recorded.
 
-          After: the nav is 648px, and 16px of headroom is what is left SIGNED
-          IN — the margin the old note recorded for signed out.
+          After: 648px, which fits with about 80px to spare. See the note below
+          on why that margin needed the nav's own spacing tightened too.
 
           So the pages ABOUT the project fold together the way the reference
           pages already had. `why` and `project` stay distinct inside the panel
@@ -107,13 +106,45 @@ export function SiteHeader({
           speaking rounds. That is the right thing to have spent the width on.
         */}
         <nav aria-label={dict.nav.menu} className="hidden lg:flex lg:items-center">
-          {/* Things you DO, named in full. */}
-          <ul className="flex items-center gap-5">
+          {/*
+            Things you DO, named in full.
+
+            `gap-4` and `mx-3` below, not `gap-5` and `mx-4`, and the four
+            pixels are load-bearing. Folding the project pages into a panel cut
+            the nav from 836px to 648px, which was not quite enough: measured on
+            the deployed site at 1024px in French, SIGNED OUT, the real account
+            control is 226px — `Se connecter` plus the language button, which a
+            dev server without auth configured never renders and which I had
+            therefore estimated at 124px. 96 + 648 + 226 + two 16px gaps + 64px
+            of padding is 1066 in a 1024 box, and the page scrolled sideways by
+            10px.
+
+            Tightening the nav's own spacing gives back 32px, so it fits with
+            room rather than by a pixel. Measured in all seven languages.
+          */}
+          <ul className="flex items-center gap-4">
             {groups
               .filter(({ group }) => group === "use")
               .flatMap(({ routes }) => routes)
               .map((route) => (
-                <li key={route.key}>
+                /*
+                  `Start` steps out between 1024 and 1280, and only there.
+
+                  Tightening the spacing was not enough on its own: measured
+                  per language, the nav still wanted 616px in French, 618 in
+                  Romansh and 629 in Russian against a 606px budget at 1024
+                  once the real 226px account controls are paid for. Three of
+                  seven languages scrolling sideways is a broken header, not a
+                  tight one.
+
+                  This is the item to drop because it is the only one whose
+                  destination is already on screen — the wordmark to its left
+                  is the same link. The note above the nav defends NAMING it,
+                  against a wordmark nobody realises is clickable, and that
+                  argument still holds at 1280 where it still appears. It just
+                  stops outranking a language that does not fit.
+                */
+                <li key={route.key} className={route.key === "home" ? "hidden xl:block" : undefined}>
                   <Link
                     href={href(locale, route.segment)}
                     /* Prefetch on INTENT, not on arrival. Next prefetches
@@ -138,7 +169,7 @@ export function SiteHeader({
               ))}
           </ul>
 
-          <span aria-hidden="true" className="mx-4 h-4 w-px bg-border-subtle" />
+          <span aria-hidden="true" className="mx-3 h-4 w-px bg-border-subtle" />
 
           {/* Things you look up mid-conversation. */}
           <NavPanel
@@ -148,7 +179,7 @@ export function SiteHeader({
             <ReferencePanel locale={locale} dict={dict} isCurrent={isCurrent} />
           </NavPanel>
 
-          <span aria-hidden="true" className="mx-4 h-4 w-px bg-border-subtle" />
+          <span aria-hidden="true" className="mx-3 h-4 w-px bg-border-subtle" />
 
           {/* Why it works this way, and who is doing it. */}
           <NavPanel
