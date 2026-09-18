@@ -125,3 +125,29 @@ describe("the chat box has exactly one label", () => {
     }
   });
 });
+
+test("a repeated control names the line it acts on", () => {
+  // One answer carries up to seven speak controls — the explanation, the
+  // dialect line, one per suggestion — and four copy controls beside them.
+  // Measured on the live site: every speak button had the accessible name
+  // "Vorlesen" and every copy button "Kopieren", so tabbing the page gave
+  // eleven controls with two names between them and no way to tell which
+  // acted on which line.
+  //
+  // The fix is the shape `keep-word.tsx` already used ("Wort merken: nöd"):
+  // the label BEGINS with the visible word, so a voice-control user saying
+  // "click Vorlesen" still matches and this is not the visible-label-plus-
+  // hidden-twin that this file's other test exists to forbid.
+  const here = (rel: string) => readFileSync(fileURLToPath(new URL(rel, import.meta.url)), "utf8");
+
+  assert.match(
+    here("./speak-button.tsx"),
+    /aria-label=\{`\$\{speaking \? t\.stop : t\.speak\}: \$\{preview\}`\}/,
+    "the speak control does not say which line it reads",
+  );
+  assert.match(
+    here("./copy-button.tsx"),
+    /aria-label=\{`\$\{done \? t\.copied : t\.copy\}: /,
+    "the copy control does not say which line it copies",
+  );
+});
