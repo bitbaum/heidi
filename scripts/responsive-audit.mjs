@@ -16,10 +16,31 @@
 //   node scripts/responsive-audit.mjs          (against a dev server)
 //   BASE=https://heidi.orangecat.ch node scripts/responsive-audit.mjs
 //
-// Playwright is not a dependency of this app — it is a tool, run by hand
-// before shipping visual work, and adding a browser to the install for it
-// would cost every CI run for something nothing gates on.
-import { chromium } from "playwright";
+// PLAYWRIGHT IS DELIBERATELY NOT A DEPENDENCY. This is a tool run by hand
+// before shipping visual work; adding a browser download to every install and
+// every CI run, for something nothing gates on, is a poor trade.
+//
+// So it is imported at run time and the failure explains itself. An earlier
+// version said all of the above in a comment and then imported `playwright`
+// as though it were installed, which made the script die on its first run for
+// anybody but the author.
+let chromium;
+try {
+  ({ chromium } = await import(process.env.PLAYWRIGHT_MODULE ?? "playwright"));
+} catch {
+  console.error(
+    [
+      "This tool needs Playwright, which is not a dependency of this app (on purpose).",
+      "",
+      "  pnpm dlx playwright install chromium   # once, to fetch a browser",
+      "  PLAYWRIGHT_MODULE=/path/to/node_modules/playwright/index.mjs \\",
+      "    node scripts/responsive-audit.mjs",
+      "",
+      "Any checkout that already has Playwright will do — point at its module.",
+    ].join("\n"),
+  );
+  process.exit(2);
+}
 
 const BASE = process.env.BASE ?? "http://localhost:3000";
 const LOCALE = "de";
@@ -82,12 +103,24 @@ const audit = () => {
     if (hasOwnText && size < 12) out.tiny.push({ el: name(el), size });
   }
 
-  // Gutter: does the main content touch the edge?
-  const main = document.querySelector("main") ?? document.body;
-  const mr = main.getBoundingClientRect();
-  if (mr.left < 12 && vw < 500) {
-    const pad = parseFloat(getComputedStyle(main).paddingLeft || "0");
-    if (pad < 12) out.gutter.push({ el: name(main), left: Math.round(mr.left), pad });
+  // Gutter: does the content a reader actually sees touch the screen edge?
+  //
+  // Measured on the first piece of TEXT rather than on `main`. The earlier
+  // version read `main`'s own padding and so reported a gutter failure on
+  // every page in the site, because the padding lives on a wrapper inside it.
+  // A check that fires everywhere is a check nobody reads, and this one nearly
+  // sent me looking for a layout bug that did not exist.
+  if (vw < 500) {
+    const main = document.querySelector("main") ?? document.body;
+    const text = [...main.querySelectorAll("h1, h2, p, li")].find((el) => {
+      const cs = getComputedStyle(el);
+      if (cs.display === "none" || cs.visibility === "hidden") return false;
+      return (el.textContent ?? "").trim().length > 20;
+    });
+    if (text) {
+      const left = text.getBoundingClientRect().left;
+      if (left < 12) out.gutter.push({ el: name(text), left: Math.round(left), pad: 0 });
+    }
   }
 
   return out;

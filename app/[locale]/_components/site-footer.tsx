@@ -36,7 +36,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                   <Link
                     href={href(locale, route.segment)}
                     prefetch={false}
-                    className="text-sm text-fg-secondary hover:text-fg-primary"
+                    className="inline-flex min-h-11 items-center text-sm text-fg-secondary hover:text-fg-primary"
                   >
                     {dict.nav[route.key]}
                   </Link>
