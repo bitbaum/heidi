@@ -679,6 +679,9 @@ export const rm: Dictionary = {
   listening: {
     title: "Nua udir quai",
     lead: "La Svizra fa fitg bler radio, televisiun e film en dialect, la gronda part gratuitamain. Mo nagin di ad in emprendider tge ch'è propi dialect — perquai è quai qua la emprima chaussa che mintga endataziun di.",
+    todayTitle: "Sche Vus avais ventg minutas",
+    todayBody:
+      "Trais per cumenzar, damaun auters. In da mintga gener, il pli lom l'emprim, e tuts van era ordaifer la Svizra — in catalog di tge ch'i dat, e quai n'è betg il medem sco dir tge far uss.",
     diglossiaTitle: "La mesadad dals medias svizzers n'è betg dialect",
     diglossiaBody:
       "Las novitads da la saira vegnan legidas en tudestg standard; il magazin suenter va en dialect. In'ura cun la Tagesschau è in'ura en il tudestg che Vus avais gia.",

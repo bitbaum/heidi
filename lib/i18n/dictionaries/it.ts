@@ -663,6 +663,9 @@ export const it: Dictionary = {
   listening: {
     title: "Dove sentirlo",
     lead: "La Svizzera produce moltissima radio, televisione e cinema in dialetto, in gran parte gratis. Solo che a chi impara nessuno dice che cosa sia davvero dialetto — perciò qui è la prima cosa indicata per ogni voce.",
+    todayTitle: "Se ha venti minuti",
+    todayBody:
+      "Tre per cominciare, domani altri. Uno per genere, il più dolce per primo, e tutti si vedono anche fuori dalla Svizzera — un catalogo le dice che cosa esiste, che non è lo stesso che dirle che cosa fare adesso.",
     diglossiaTitle: "Metà dei media svizzeri non è in dialetto",
     diglossiaBody:
       "Il telegiornale della sera si legge in tedesco standard; la rubrica subito dopo è in dialetto. Un'ora passata sulla Tagesschau è un'ora nel tedesco che lei ha già.",

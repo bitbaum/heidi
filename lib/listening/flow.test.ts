@@ -1,5 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { demand, eligible, flow, byMedium } from "./flow.ts";
 import { LISTENING_SOURCES, type ListeningSource } from "./sources.ts";
 
@@ -170,4 +171,30 @@ test("grouping covers the whole register exactly once", () => {
   const ids = groups.flatMap((g) => g.sources.map((s) => s.id));
   assert.equal(ids.length, LISTENING_SOURCES.length, "a medium is missing from the grouping order");
   assert.equal(new Set(ids).size, ids.length);
+});
+
+test("the picks are rendered, not merely computed", () => {
+  // The defect this pins: `flow()`, `eligible()` and the whole rotate-and-vary
+  // apparatus were built, tested, and called by NOTHING. The page rendered
+  // `byMedium()` — the catalogue — so "what is there" shipped and "what do I
+  // do now" did not, while every unit test passed.
+  const page = readFileSync(new URL("../../app/[locale]/listen/page.tsx", import.meta.url), "utf8");
+  assert.match(page, /\bflow\(\{/, "the listen page does not call flow() — the daily picks render nowhere");
+  assert.match(page, /t\.todayTitle/, "the picks have no heading, so nothing tells a reader what they are");
+});
+
+test("nobody is offered a link that will not play where they are", () => {
+  // The page knows nothing about the reader, so the flow it renders must ask
+  // for the safe side. A geo-blocked link reads as the product being broken
+  // rather than as a licensing fact.
+  const page = readFileSync(new URL("../../app/[locale]/listen/page.tsx", import.meta.url), "utf8");
+  assert.match(page, /inSwitzerland: false/, "the page offers geo-blocked sources to a reader it cannot place");
+});
+
+test("a frozen build cannot pretend to rotate daily", () => {
+  // Prerendered once, the day number would stick on the day it shipped and the
+  // same three rows would be "today's" for a month — implemented-looking and
+  // quietly false.
+  const page = readFileSync(new URL("../../app/[locale]/listen/page.tsx", import.meta.url), "utf8");
+  assert.match(page, /export const revalidate = \d+/, "the page is frozen at build time but claims a daily rotation");
 });
