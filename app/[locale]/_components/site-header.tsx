@@ -79,27 +79,93 @@ export function SiteHeader({
           <span className="font-heading text-xl font-bold tracking-display sm:text-2xl">Heidi</span>
         </Link>
 
-        <nav aria-label={dict.nav.menu} className="hidden lg:flex lg:items-center">
-          {groups.map(({ group, routes }, i) => (
-            <div key={group} className="flex items-center">
-              {i > 0 && <span aria-hidden="true" className="mx-4 h-4 w-px bg-border-subtle" />}
+        {/*
+          THE BAR NAMES WHAT YOU DO; EVERYTHING ELSE IS BEHIND TWO PANELS.
 
-              {/* The reference pages fold into one item. Flat, they were three
-                  of eight peers and the bar had twenty pixels of headroom at
-                  1024px in French — measured, with the account control. The
-                  dialect areas are the other half of the reason: eleven pages
-                  that were reachable only by opening /dialect first. */}
-              {group === "reference" ? (
-                <NavPanel label={groupLabel(group)} current={routes.some((r) => isCurrent(r.segment))}>
-                  <div className="flex flex-col gap-5 sm:flex-row sm:gap-8">
-                    <ul className="flex shrink-0 flex-col gap-2">
+          It was ten targets in a row — five verbs, a panel, and four pages
+          about the project — and it had stopped fitting. Measured at 1024px in
+          French: the nav was 836px wide and left 16px before the language
+          control while signed OUT. A signed-in account control is another
+          124px, so that row overflowed. Adding `practice` is what spent the
+          headroom the previous note here recorded.
+
+          After: the nav is 648px, and 16px of headroom is what is left SIGNED
+          IN — the margin the old note recorded for signed out.
+
+          So the pages ABOUT the project fold together the way the reference
+          pages already had. `why` and `project` stay distinct inside the panel
+          — two headed columns, because "why it works this way" and "who is
+          doing this" really are different questions — but they cost one slot
+          between them instead of four.
+
+          What is left in the bar is the product: the chat, practice, listening,
+          speaking rounds. That is the right thing to have spent the width on.
+        */}
+        <nav aria-label={dict.nav.menu} className="hidden lg:flex lg:items-center">
+          {/* Things you DO, named in full. */}
+          <ul className="flex items-center gap-5">
+            {groups
+              .filter(({ group }) => group === "use")
+              .flatMap(({ routes }) => routes)
+              .map((route) => (
+                <li key={route.key}>
+                  <Link
+                    href={href(locale, route.segment)}
+                    /* Prefetch on INTENT, not on arrival. Next prefetches
+                       every visible Link, so six nav routes (plus settings)
+                       fired 13 requests before the page a visitor actually
+                       opened had finished — measured at 1.1–1.9s each on a
+                       real slow connection. prefetch={false} keeps the
+                       hover/touch prefetch, so anyone moving toward a link
+                       still gets it instantly; a reader who never aims at
+                       one pays nothing. */
+                    prefetch={false}
+                    aria-current={isCurrent(route.segment) ? "page" : undefined}
+                    className={`whitespace-nowrap text-sm transition-colors ${
+                      isCurrent(route.segment)
+                        ? "font-semibold text-fg-primary underline decoration-accent decoration-2 underline-offset-8"
+                        : "text-fg-secondary hover:text-fg-primary"
+                    }`}
+                  >
+                    {dict.nav[route.key]}
+                  </Link>
+                </li>
+              ))}
+          </ul>
+
+          <span aria-hidden="true" className="mx-4 h-4 w-px bg-border-subtle" />
+
+          {/* Things you look up mid-conversation. */}
+          <NavPanel
+            label={groupLabel("reference")}
+            current={groups.some(({ group, routes }) => group === "reference" && routes.some((r) => isCurrent(r.segment)))}
+          >
+            <ReferencePanel locale={locale} dict={dict} isCurrent={isCurrent} />
+          </NavPanel>
+
+          <span aria-hidden="true" className="mx-4 h-4 w-px bg-border-subtle" />
+
+          {/* Why it works this way, and who is doing it. */}
+          <NavPanel
+            label={dict.nav.groupAbout}
+            current={groups.some(
+              ({ group, routes }) => (group === "why" || group === "project") && routes.some((r) => isCurrent(r.segment)),
+            )}
+          >
+            <div className="flex flex-col gap-5 sm:flex-row sm:gap-10">
+              {groups
+                .filter(({ group }) => group === "why" || group === "project")
+                .map(({ group, routes }) => (
+                  <div key={group}>
+                    <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{groupLabel(group)}</p>
+                    <ul className="mt-2 flex flex-col gap-2">
                       {routes.map((route) => (
                         <li key={route.key}>
                           <Link
                             href={href(locale, route.segment)}
                             prefetch={false}
                             aria-current={isCurrent(route.segment) ? "page" : undefined}
-                            className={`text-base ${
+                            className={`whitespace-nowrap text-base ${
                               isCurrent(route.segment)
                                 ? "font-semibold text-fg-primary"
                                 : "text-fg-secondary hover:text-fg-primary"
@@ -110,60 +176,10 @@ export function SiteHeader({
                         </li>
                       ))}
                     </ul>
-
-                    {/* Every dialect, one tap from anywhere. This is the part
-                        that makes it a panel rather than a dropdown. */}
-                    <div className="border-t border-border-subtle pt-4 sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0">
-                      <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">
-                        {dict.dialect.areasTitle}
-                      </p>
-                      <ul className="mt-2 grid grid-cols-2 gap-x-6 gap-y-1">
-                        {DISPLAY.areas.map((area) => (
-                          <li key={area.id}>
-                            <Link
-                              href={`${href(locale, "dialect")}/${area.id}`}
-                              prefetch={false}
-                              lang={DISPLAY.tag}
-                              className="whitespace-nowrap text-sm text-fg-secondary hover:text-accent"
-                            >
-                              {area.endonym}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
                   </div>
-                </NavPanel>
-              ) : (
-              <ul className="flex items-center gap-5">
-                {routes.map((route) => (
-                  <li key={route.key}>
-                    <Link
-                      href={href(locale, route.segment)}
-                      /* Prefetch on INTENT, not on arrival. Next prefetches
-                         every visible Link, so six nav routes (plus settings)
-                         fired 13 requests before the page a visitor actually
-                         opened had finished — measured at 1.1–1.9s each on a
-                         real slow connection. prefetch={false} keeps the
-                         hover/touch prefetch, so anyone moving toward a link
-                         still gets it instantly; a reader who never aims at
-                         one pays nothing. */
-                      prefetch={false}
-                      aria-current={isCurrent(route.segment) ? "page" : undefined}
-                      className={`whitespace-nowrap text-sm transition-colors ${
-                        isCurrent(route.segment)
-                          ? "font-semibold text-fg-primary underline decoration-accent decoration-2 underline-offset-8"
-                          : "text-fg-secondary hover:text-fg-primary"
-                      }`}
-                    >
-                      {dict.nav[route.key]}
-                    </Link>
-                  </li>
                 ))}
-              </ul>
-              )}
             </div>
-          ))}
+          </NavPanel>
         </nav>
 
         <div className="flex items-center gap-2">
@@ -225,5 +241,85 @@ export function SiteHeader({
         </div>
       )}
     </header>
+  );
+}
+
+/**
+ * The reference panel, with the weight the right way up.
+ *
+ * WHAT WAS WRONG. Three pages sat in a narrow left column and eleven dialect
+ * endonyms filled a two-column grid beside them, so four fifths of the panel
+ * was the part that matters least — sub-pages of one of the three links next
+ * to them. A reader opening "look things up" met a wall of names for dialects
+ * this product does not teach yet, and the three pages that ARE the reference
+ * section read as a caption to it.
+ *
+ * WHAT IT IS NOW. The three pages lead, at reading size. The dialects follow
+ * underneath as one quiet wrapped line, which is a list you scan rather than a
+ * grid you read — and the one Heidi actually teaches is marked, because
+ * "eleven areas exist, we teach this one" is the true shape and the grid said
+ * all eleven were equal.
+ *
+ * Every dialect is still one tap from anywhere, which is why they were put
+ * here in the first place. Nothing was removed; the hierarchy was.
+ */
+function ReferencePanel({
+  locale,
+  dict,
+  isCurrent,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+  isCurrent: (segment: string) => boolean;
+}) {
+  const reference = navGroups().find((g) => g.group === "reference")?.routes ?? [];
+
+  return (
+    /*
+      Held to a fixed, modest width. `NavPanel` sizes to its content, and a
+      wrapped list of eleven endonyms will happily take 42rem — which made the
+      panel wider than it was before, defeating the point. Narrow, the same
+      names wrap to three quiet lines and the panel stops covering the
+      headline behind it.
+    */
+    <div className="flex w-[22rem] max-w-full flex-col gap-4">
+      <ul className="flex flex-col gap-2">
+        {reference.map((route) => (
+          <li key={route.key}>
+            <Link
+              href={href(locale, route.segment)}
+              prefetch={false}
+              aria-current={isCurrent(route.segment) ? "page" : undefined}
+              className={`whitespace-nowrap text-base ${
+                isCurrent(route.segment) ? "font-semibold text-fg-primary" : "text-fg-secondary hover:text-fg-primary"
+              }`}
+            >
+              {dict.nav[route.key]}
+            </Link>
+          </li>
+        ))}
+      </ul>
+
+      <div className="border-t border-border-subtle pt-3">
+        <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{dict.dialect.areasTitle}</p>
+        <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+          {DISPLAY.areas.map((area) => (
+            <li key={area.id}>
+              <Link
+                href={`${href(locale, "dialect")}/${area.id}`}
+                prefetch={false}
+                lang={DISPLAY.tag}
+                title={area.taught ? dict.dialect.taught : undefined}
+                className={`whitespace-nowrap text-[13px] ${
+                  area.taught ? "font-semibold text-dialect hover:text-accent" : "text-fg-muted hover:text-fg-primary"
+                }`}
+              >
+                {area.endonym}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }

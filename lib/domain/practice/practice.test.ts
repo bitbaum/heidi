@@ -6,6 +6,7 @@ import { bridgeRules } from "../../variety/bridge.ts";
 import { allItems, articleItems, clozeItems, formItems, pairItems, recallItems } from "./generate.ts";
 import { buildSession, summarise } from "./session.ts";
 import { MIN_FORMS_TO_ASK, SESSION_SIZE } from "./types.ts";
+import { LIMIT, NO_HISTORY, decodeHistory, remember } from "./history.ts";
 import type { SavedWord } from "../saved/types.ts";
 
 /**
@@ -310,5 +311,58 @@ describe("article and form items", () => {
         `${entry.target} has fewer than ${MIN_FORMS_TO_ASK} forms but is asked about`,
       );
     }
+  });
+});
+
+describe("what this browser has already been asked", () => {
+  test("a second session is not the first one again", () => {
+    /**
+     * The defect this pins, which was a broken promise rather than a missing
+     * feature: `session.ts` says in as many words that the same person gets a
+     * different session tomorrow, and the ordering that would deliver it was
+     * fed from a ref that died with the page. Every visit served the identical
+     * eight questions in the identical order, for ever.
+     */
+    const now = new Date("2026-09-18T09:00:00Z");
+    const first = buildSession({ pack: VARIETY, saved: [], now });
+    const second = buildSession({
+      pack: VARIETY,
+      saved: [],
+      now,
+      seen: remember(
+        NO_HISTORY,
+        first.map((i) => i.id),
+      ),
+    });
+
+    assert.ok(first.length > 0, "expected a first session at all");
+    assert.notDeepEqual(
+      second.map((i) => i.id),
+      first.map((i) => i.id),
+      "the second session repeats the first exactly",
+    );
+  });
+
+  test("an id asked twice appears once, at the end", () => {
+    // The list answers "when did we last ask this". A duplicate would make one
+    // item read as both stale and fresh depending which copy was found.
+    assert.deepEqual(remember(remember(NO_HISTORY, ["a", "b", "c"]), ["b"]), ["a", "c", "b"]);
+  });
+
+  test("it stays bounded, keeping the newest", () => {
+    const many = Array.from({ length: LIMIT * 3 }, (_, i) => `item:${i}`);
+    const history = remember(NO_HISTORY, many);
+    assert.equal(history.length, LIMIT);
+    // The newest survive: the point is to push apart what was just asked.
+    assert.equal(history[history.length - 1], many[many.length - 1]);
+  });
+
+  test("a stored history that is not a list of ids is refused, not trusted", () => {
+    // Storage is a string typed by nobody: another tab, an older build, or a
+    // person with devtools. Handing `buildSession` a number would fail deep
+    // inside the ordering, where the cause is no longer visible.
+    assert.equal(decodeHistory("not json"), null);
+    assert.equal(decodeHistory('{"seen":[]}'), null);
+    assert.deepEqual(decodeHistory('["a", 3, "", "b"]'), ["a", "b"]);
   });
 });
