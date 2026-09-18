@@ -267,6 +267,42 @@ test("route segments are the same in every language", () => {
   );
 });
 
+test("no page counts its own contents in its lead", () => {
+  /**
+   * The grammar lead said "Vier Dinge" / "Four things" / "Quatre choses" in all
+   * seven languages, and every one of them became false on the day a fifth
+   * topic was written — silently, because nothing connects the sentence to the
+   * list it describes.
+   *
+   * A count in body copy is a fact with no owner. The fix is not to remember:
+   * it is that the copy must not state one, and this is what holds it to that.
+   *
+   * The list is deliberately the counting words, not digits, because a digit
+   * in a lead would be odd anyway and a spelled number is what actually got
+   * written. `sei` is left out on purpose — it is six in Italian and also an
+   * ordinary verb form in three of these languages, and a guard that cries
+   * wolf gets deleted.
+   */
+  const COUNTS = [
+    "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "nün", "zäh",
+    "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+    "deux", "trois", "quatre", "cinq", "sept", "huit", "neuf",
+    "due", "tre", "quattro", "cinque", "sette", "otto", "nove", "dieci",
+    "dus", "trais", "quatter", "tschintg", "set", "otg", "nov", "diesch",
+    "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять",
+  ];
+
+  for (const locale of LOCALES) {
+    const lead = getDictionary(locale).grammar.lead.toLocaleLowerCase();
+    for (const count of COUNTS) {
+      assert.ok(
+        !new RegExp(`(^|[^\\p{L}])${count}([^\\p{L}]|$)`, "u").test(lead),
+        `${locale} grammar lead says "${count}" — it counts the topics, and will be wrong the next time one is added`,
+      );
+    }
+  }
+});
+
 test("the headline promises an order, not a pair of features", () => {
   // The method's whole claim is that comprehension comes first and production
   // comes later. A headline joined by a bare "and" quietly contradicts it: it

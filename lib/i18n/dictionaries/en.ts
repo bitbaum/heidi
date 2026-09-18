@@ -30,6 +30,7 @@ export const en: Dictionary = {
     groupReference: "Look up",
     groupWhy: "Why this way",
     groupProject: "Project",
+    groupAbout: "About Heidi",
     skipToContent: "Skip to content",
     menu: "Menu",
     language: "Choose language",
@@ -807,10 +808,12 @@ export const en: Dictionary = {
     },
     grammarLink: "The grammar behind this",
     wordLink: "This word in the vocabulary",
+    ruleLink: "The rule behind it",
     doneTitle: "That is the set.",
     doneAsked: "asked",
     doneRight: "first time",
     doneAgain: "coming back",
+    againTitle: "Worth another look",
     savedHint: "In the chat, keep a word with +. It comes back here when it is due.",
   },
 
@@ -838,7 +841,7 @@ export const en: Dictionary = {
     practiseLabel: "Practise this",
     practiseSay: "Give me two sentences to practise «{word}» — then test me on one.",
     title: "Grammar",
-    lead: "Four things that make Zurich German hard to follow for somebody who already reads German. Not lessons — just what you will hear, and where it catches you.",
+    lead: "What makes Zurich German hard to follow for somebody who already reads German — first the things a sentence fails on outright, then the things you will understand but would never say yourself.",
     ruleLabel: "The rule",
     watchLabel: "Where it catches you",
     topics: {
@@ -847,10 +850,20 @@ export const en: Dictionary = {
         rule: "Spoken Zurich German has no preterite at all: everything past is said with the perfect.",
         watch: "You are waiting for ging, war, sagte — and it never comes. When you hear bi, hät or händ plus a participle, that IS the past.",
       },
+      articles: {
+        title: "de, d, s — that is the whole set",
+        rule: "Three articles and no others: «de» for masculine, «d» for feminine, «s» for neuter. «der», «die» and «das» do not occur.",
+        watch: "They look like swallowed German articles but they are the full form, not a lazy contraction. And the gender does not always match the German one: «s Rüebli» is neuter where the German carrot is feminine.",
+      },
       "wo-relative": {
         title: "wo instead of der, die, das",
         rule: "Relative clauses almost always start with wo, unchanging, whatever the gender or case.",
         watch: "You read wo as where? and lose the sentence. Here it means who, which or that — never a place.",
+      },
+      "unified-plural": {
+        title: "One verb form for the whole plural",
+        rule: "We, you and they all take the same form of the verb: «mir händ», «ihr händ», «si händ».",
+        watch: "You look for the ending that marks the second person plural and it is never there. «Chömed er?» is «are you coming?» — the ending tells you nothing about who, only the pronoun does.",
       },
       "possessive-dative": {
         title: "Possession the other way round",
@@ -861,6 +874,16 @@ export const en: Dictionary = {
         title: "The -li on everything",
         rule: "The -li diminutive is highly productive and often means nothing small at all.",
         watch: "Es Bierli is not a small beer, it is a beer said kindly. Do not take -li literally.",
+      },
+      "am-progressive": {
+        title: "«am» plus the verb — in the middle of it",
+        rule: "What is happening right now is said as «bi/isch/sind am» plus the plain verb: «Ich bi am schaffe».",
+        watch: "German has no such form and reaches for «gerade» instead. You will follow the sentence without it — but never using it is what keeps you sounding like standard German with Zurich words in it.",
+      },
+      "go-cho-infinitive": {
+        title: "«go» and «cho» before the second verb",
+        rule: "Going somewhere to do something puts a «go» in front of it, coming puts a «cho»: «Ich gang go poschte».",
+        watch: "There is no such word in German, so people leave it out — and are understood and placed as foreign in the same breath. It is not a second «go», it belongs to the verb after it.",
       },
     },
   },

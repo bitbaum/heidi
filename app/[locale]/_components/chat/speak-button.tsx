@@ -33,6 +33,14 @@ export function Speak({ text, t, dialect = false }: { text: string; t: Dictionar
   if (!speech.supported) return null;
 
   const speaking = speech.state === "speaking";
+  // A failed attempt has to explain itself and keep explaining. Pressing a
+  // control and getting silence reads as a broken product, and the learner
+  // has no way to discover that their device simply has no German voice.
+  const failed = speech.state === "failed";
+  // Declined before trying, because the device has no German voice. A
+  // different sentence from "that did not work", and the same standing
+  // explanation rather than a flash.
+  const noVoice = speech.state === "no-voice";
 
   return (
     <span className="inline-flex flex-col items-start gap-0.5">
@@ -40,16 +48,21 @@ export function Speak({ text, t, dialect = false }: { text: string; t: Dictionar
         type="button"
         onClick={() => (speaking ? speech.stop() : speech.speak(text))}
         aria-live="off"
-        className="min-h-9 shrink-0 text-sm text-link underline underline-offset-4 hover:text-accent"
+        className="inline-flex min-h-11 shrink-0 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
       >
         {speaking ? t.stop : t.speak}
       </button>
-      {/* Shown once it has spoken, not before: an explanation of a sound
-          nobody has heard yet is noise on the page. */}
-      {speaking && (
-        <span className="max-w-measure text-caption leading-snug text-fg-muted">
+      {/* While speaking: what you are hearing. After a refusal or a failure:
+          why you are not. All three are the same sentence from the same
+          function the audio came from, so the page cannot describe a voice the
+          device lacks. */}
+      {(speaking || failed || noVoice) && (
+        <span
+          role={failed || noVoice ? "status" : undefined}
+          className="max-w-measure text-caption leading-snug text-fg-muted"
+        >
           {t.claim[speech.claim]}
-          {dialect && speech.claim !== "none" && ` ${t.dialectCaveat}`}
+          {speaking && dialect && speech.claim !== "none" && ` ${t.dialectCaveat}`}
         </span>
       )}
     </span>

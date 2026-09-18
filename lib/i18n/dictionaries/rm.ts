@@ -46,6 +46,7 @@ export const rm: Dictionary = {
     groupReference: "Consultar",
     groupWhy: "Pertge uschia",
     groupProject: "Project",
+    groupAbout: "Davart Heidi",
     skipToContent: "Al cuntegn",
     menu: "Menu",
     language: "Tscherner la lingua",
@@ -828,10 +829,12 @@ export const rm: Dictionary = {
     },
     grammarLink: "La grammatica davos quai",
     wordLink: "Quest pled en il vocabulari",
+    ruleLink: "La regla davos",
     doneTitle: "Quai basta per ussa.",
     doneAsked: "dumondas",
     doneRight: "la emprima giada",
     doneAgain: "vegnan puspè",
+    againTitle: "Da vesair anc ina giada",
     savedHint: "En il chat tegnis Vus in pled cun +. El returna qua cur ch'igl è ura.",
   },
 
@@ -859,7 +862,7 @@ export const rm: Dictionary = {
     practiseLabel: "Exercitar quai",
     practiseSay: "Dai mai duas frasas per exercitar «{word}» — lura ma dumandai davart ina.",
     title: "Grammatica",
-    lead: "Quatter chaussas che rendan il turitgais difficil da suandar per insatgi che legia gia tudestg. Naginas lecziuns — mo quai che Vus vegnis a udir, e nua ch'igl impedescha.",
+    lead: "Quai che renda il turitgais difficil da suandar per insatgi che legia gia tudestg — l'emprim quai vi da quai ch'ina frasa faglia dal tut, lura quai che Vus chapis ma na dischessas mai sez.",
     ruleLabel: "La regla",
     watchLabel: "Nua ch'igl impedescha",
     topics: {
@@ -868,10 +871,20 @@ export const rm: Dictionary = {
         rule: "Il turitgais discurrì n'ha nagin passà simpel: tut il passà vegn dit cun il perfect.",
         watch: "Vus spetgais «ging», «war», «sagte» — e quai na vegn mai. Sche Vus udis «bi», «hät» u «händ» plus in particip, è quai il passà.",
       },
+      articles: {
+        title: "de, d, s — dapli artitgels na dat i betg",
+        rule: "Trais artitgels e betg dapli: «de» tar il masculin, «d» tar il feminin, «s» tar il neuter. «der», «die» e «das» na cumparan betg.",
+        watch: "Els paran artitgels tudestgs mangiads, ma els èn la furma entira, betg ina contracziun pigra. Ed il gener na siegia betg adina quel tudestg: «s Rüebli» è neuter, la carotta tudestga è feminina.",
+      },
       "wo-relative": {
         title: "«wo» empè da der, die, das",
         rule: "Las relativas cumenzan bunamain adina cun «wo», nunvariabel, tge schlattaina u cas ch'i saja.",
         watch: "Vus legiais «wo» sco «nua?» e perdais la frasa. Qua vul quai dir «che», «il qual» — mai in lieu.",
+      },
+      "unified-plural": {
+        title: "Ina suletta furma verbala per tut il plural",
+        rule: "Nus, vus ed els prendan la medema furma dal verb: «mir händ», «ihr händ», «si händ».",
+        watch: "Vus tschertgais la finiziun da la segunda persuna plural ed ella n'è mai qua. «Chömed er?» vul dir «vegnis Vus?» — la finiziun na di nagut davart la persuna, mo il pronom avant al fa.",
       },
       "possessive-dative": {
         title: "La posseziun a l'invers",
@@ -882,6 +895,16 @@ export const rm: Dictionary = {
         title: "Il -li sin tut",
         rule: "La furma diminutiva sin -li è fitg productiva e na signifitga savens nagut pitschen.",
         watch: "«Es Bierli» n'è betg ina biera pitschna, mabain ina biera ditga amiaivlamain. Na prendai betg il -li a la lettra.",
+      },
+      "am-progressive": {
+        title: "«am» plus il verb — en il mument",
+        rule: "Quai che capita gist ussa vegn ditg «bi/isch/sind am» plus il verb nud: «Ich bi am schaffe».",
+        watch: "Il tudestg n'ha betg questa furma e sa gida cun «gerade». Vus chapis la frasa era senza — ma na la duvrar mai è quai che Vus fa suandar sco tudestg standard cun pleds turitgais leninnen.",
+      },
+      "go-cho-infinitive": {
+        title: "«go» e «cho» avant il segund verb",
+        rule: "Ir en insaquà per far insatge metta in «go» avant; vegnir metta in «cho»: «Ich gang go poschte».",
+        watch: "En tudestg n'exista quest pled betg, uschia al lascha ins davent — e vegn chapì e reconuschì sco ester en il medem mument. Quai n'è betg in segund «ir»: el tutga tar il verb suenter.",
       },
     },
   },

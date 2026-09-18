@@ -73,6 +73,20 @@
    */
   --text-caption: 0.75rem;
 
+  /*
+   * The navigation bar's own size, one notch under body text.
+   *
+   * A token for a single role rather than a rounding to `text-sm`, because the
+   * 13px is LOAD-BEARING: the bar was rebuilt to fit a measured 1024px French
+   * layout with sixteen pixels to spare, and a pixel per label across the row
+   * is enough to spend that. Rounding it up would silently undo the
+   * measurement the restructure was for.
+   *
+   * So it is written down here, where the next person changing the nav can see
+   * that the size is a decision and read why.
+   */
+  --text-nav: 0.8125rem;
+
   /* Tier 1 — primitives. Two of them, and the greys between. */
   --primitive-white: #ffffff;
   --primitive-black: #0d0d0d;

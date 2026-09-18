@@ -45,10 +45,25 @@ describe("overlays share one dismiss implementation", () => {
       .filter((file) => file !== HOOK && !file.endsWith(".test.ts"))
       .filter((file) => {
         const src = readFileSync(file, "utf8");
-        // `keydown` and the pointer/mouse family are the two this hook owns.
-        // Anything else a component listens for on the document is its own
-        // business — `use-dictation`, for one, has nothing to do with dismissal.
-        return /document\.addEventListener\(\s*["'](keydown|pointerdown|mousedown|click)["']/.test(src);
+
+        /**
+         * `document` AND `window`, because they are the same hole.
+         *
+         * This matched only `document.` and a global keydown handler written
+         * on `window` therefore passed it — not by argument but by spelling,
+         * which is how a guard quietly stops covering the thing it names.
+         *
+         * What is forbidden is DISMISSAL, not the keyboard. The pointer family
+         * bound globally has one purpose here — closing on a click outside —
+         * so it is always an offender. A global `keydown` is only dismissal
+         * when it is watching for Escape; `use-dictation` binds keys for
+         * recording and `practice-session` binds digits to answer a question,
+         * and neither has anything to do with closing a panel.
+         */
+        const target = String.raw`(?:document|window)\.addEventListener\(\s*["']`;
+        const bindsPointer = new RegExp(`${target}(pointerdown|mousedown|click)["']`).test(src);
+        const bindsKeys = new RegExp(`${target}keydown["']`).test(src);
+        return bindsPointer || (bindsKeys && src.includes("Escape"));
       });
 
     assert.deepEqual(

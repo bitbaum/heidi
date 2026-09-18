@@ -7,7 +7,9 @@ import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { fill } from "@/lib/i18n/fill";
 import { DISPLAY } from "@/lib/variety/display";
+import { createBrowserStore, useBrowserStore, useStoreWriter } from "@/lib/browser/store";
 import { recallItems } from "@/lib/domain/practice/generate";
+import { NO_HISTORY, decodeHistory, remember } from "@/lib/domain/practice/history";
 import { orderSession, summarise } from "@/lib/domain/practice/session";
 import type { PracticeItem } from "@/lib/domain/practice/types";
 import { wordSlug } from "@/lib/domain/practice/slug";
@@ -35,6 +37,13 @@ import { useGrade } from "./use-review";
  * something — the remaining questions would reshuffle mid-sitting. It is
  * built once per round, deliberately, and the next round is the next build.
  */
+/**
+ * Item ids only, and only the recent ones — see `history.ts`. Nothing about
+ * how the learner did, which keeps it the same kind of thing as their saved
+ * words: theirs, in their browser, and worthless to anybody else.
+ */
+const historyStore = createBrowserStore("heidi.practice.seen.v1", decodeHistory);
+
 export function PracticeSession({
   packItems,
   t,
@@ -52,16 +61,34 @@ export function PracticeSession({
   const [at, setAt] = useState(0);
   const [outcomes, setOutcomes] = useState<{ id: string; outcome: string }[]>([]);
 
-  /** What this browser has already been asked, so a second round differs. */
-  const seen = useRef<string[]>([]);
+  /**
+   * What this browser has already been asked — STORED, not held in a ref.
+   *
+   * It was a ref, and that made `session.ts`'s promise of "a different session
+   * tomorrow" false: the list died with the page, so every visit re-served the
+   * identical eight questions in the identical order. The ordering that
+   * delivers variety already existed and was being fed nothing.
+   */
+  const history = useBrowserStore(historyStore) ?? NO_HISTORY;
+  const writeHistory = useStoreWriter(historyStore);
+
+  /**
+   * Read once per round rather than subscribed-to while answering.
+   *
+   * Writing an id mid-session updates the store, which would otherwise rebuild
+   * the session under the learner's hands — the same reason the session is
+   * state and not a memo.
+   */
+  const historyAtBuild = useRef(history);
 
   const build = useCallback(() => {
+    historyAtBuild.current = historyStore.read() ?? NO_HISTORY;
     setSession(
       orderSession({
         items: [...packItems, ...recallItems(saved.words)],
         saved: saved.words,
         now: new Date(),
-        seen: seen.current,
+        seen: historyAtBuild.current,
       }),
     );
     setAt(0);
@@ -83,7 +110,10 @@ export function PracticeSession({
   const item = session[at];
 
   function record(id: string, outcome: "right" | "wrong" | "skipped") {
-    seen.current = [...seen.current.filter((s) => s !== id), id];
+    // Written as it happens rather than at the end, so a session abandoned
+    // half way still counts as asked — otherwise leaving after four questions
+    // means meeting the same four first thing next time.
+    writeHistory.write(remember(historyStore.read() ?? NO_HISTORY, [id]));
     setOutcomes((previous) => [...previous, { id, outcome }]);
     setAt((previous) => previous + 1);
   }
@@ -104,7 +134,7 @@ export function PracticeSession({
   if (!item) {
     return (
       <div className="max-w-measure">
-        <Done t={t} outcomes={outcomes} onRestart={build} />
+        <Done t={t} outcomes={outcomes} session={session} locale={locale} onRestart={build} />
       </div>
     );
   }
@@ -147,6 +177,78 @@ function Card({
   /** Whether the answer is on screen, for the self-marked kinds. */
   const [shown, setShown] = useState(false);
 
+  const choosing = item.kind === "pair" || item.kind === "article" || item.kind === "form";
+
+  /**
+   * THE WHOLE SESSION FROM THE KEYBOARD.
+   *
+   * Eight questions is about two minutes of work and roughly twenty round
+   * trips to the mouse, which is what makes a short drill feel long. A digit
+   * picks an option, Enter reveals and then moves on — so the hand never
+   * leaves the keys.
+   *
+   * The digits are PRINTED on the buttons. A shortcut nobody can see is not a
+   * feature, it is a thing the person who wrote it enjoys.
+   *
+   * Nothing is bound that a person could be typing into: this page has no text
+   * field, but the chat dock floats above it on every page and taking its
+   * digits would be the kind of bug that looks like a broken keyboard.
+   */
+  useEffect(() => {
+    function onKey(event: KeyboardEvent) {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+
+      /**
+       * `instanceof Element` first, and it is not defensive padding.
+       *
+       * A keydown's target is not always an element — it is the Window when
+       * the event is dispatched there directly, and `Window.closest` does not
+       * exist. The cast alone typechecked and then threw
+       * `target?.closest is not a function` on the first keypress, which took
+       * the whole handler down: every key after it did nothing and the page
+       * looked frozen rather than broken.
+       */
+      const target = event.target;
+      if (target instanceof Element && target.closest("input, textarea, select, [contenteditable=true]")) return;
+
+      const digit = Number.parseInt(event.key, 10);
+
+      if (choosing) {
+        if (chose === null && digit >= 1 && digit <= item.options.length) {
+          event.preventDefault();
+          setChose(digit - 1);
+          return;
+        }
+        if (chose !== null && (event.key === "Enter" || event.key === " ")) {
+          event.preventDefault();
+          onAnswer(item.id, chose === item.answer ? "right" : "wrong");
+        }
+        return;
+      }
+
+      if (!shown) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          setShown(true);
+        }
+        return;
+      }
+
+      // Revealed, and self-marked: 1 knew it, 2 ask again. Enter takes the
+      // common case so the rhythm of the objective items carries over.
+      if (event.key === "Enter" || digit === 1) {
+        event.preventDefault();
+        onRecallOrSelf(item, true, onAnswer, onRecall);
+      } else if (digit === 2) {
+        event.preventDefault();
+        onRecallOrSelf(item, false, onAnswer, onRecall);
+      }
+    }
+
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [item, chose, shown, choosing, onAnswer, onRecall]);
+
   const ask =
     item.kind === "pair"
       ? item.variety === "target"
@@ -175,10 +277,17 @@ function Card({
                   type="button"
                   disabled={chose !== null}
                   onClick={() => setChose(index)}
-                  lang={DISPLAY.tag}
                   className={optionClass(index, chose, item.answer)}
                 >
-                  {option}
+                  {/* The key that picks it. Muted, and gone once answered —
+                      at which point it is a label for something you can no
+                      longer do. */}
+                  {chose === null && (
+                    <span aria-hidden="true" className="mr-2 font-mono text-caption font-normal text-fg-muted">
+                      {index + 1}
+                    </span>
+                  )}
+                  <span lang={DISPLAY.tag}>{option}</span>
                 </button>
               </li>
             ))}
@@ -379,13 +488,26 @@ function Verdict({
 const TRACE_LINK =
   "mt-3 flex min-h-11 w-fit items-center text-sm text-link underline underline-offset-4 hover:text-accent";
 
-function Trace({ item, t, locale }: { item: PracticeItem; t: Dictionary["practice"]; locale: Locale }) {
+/** The same link in a list, where a 44px block per row would be a wall. */
+const TRACE_LINK_COMPACT = "text-sm text-link underline underline-offset-4 hover:text-accent";
+
+function Trace({
+  item,
+  t,
+  locale,
+  compact = false,
+}: {
+  item: PracticeItem;
+  t: Dictionary["practice"];
+  locale: Locale;
+  /** In the end-of-session list these sit on one line each, not stacked. */
+  compact?: boolean;
+}) {
+  const className = compact ? TRACE_LINK_COMPACT : TRACE_LINK;
+
   if (item.source.kind === "grammar") {
     return (
-      <Link
-        href={`${href(locale, "grammar")}#${item.source.topic}`}
-        className={TRACE_LINK}
-      >
+      <Link href={`${href(locale, "grammar")}#${item.source.topic}`} className={className}>
         {t.grammarLink}
       </Link>
     );
@@ -393,11 +515,26 @@ function Trace({ item, t, locale }: { item: PracticeItem; t: Dictionary["practic
 
   if (item.source.kind === "word") {
     return (
-      <Link
-        href={`${href(locale, "vocabulary")}#${wordSlug(item.source.word)}`}
-        className={TRACE_LINK}
-      >
+      <Link href={`${href(locale, "vocabulary")}#${wordSlug(item.source.word)}`} className={className}>
         {t.wordLink}
+      </Link>
+    );
+  }
+
+  /**
+   * A pair comes from a gate rule, and the gate's own rule list is published
+   * at `/method#gate`.
+   *
+   * This was the one provenance with nowhere to go, which showed at the end of
+   * a session: two of seven missed items were bare words with no way to find
+   * out why they were wrong. The rule that judged them is a page the product
+   * already publishes — not linking to it was an omission rather than a
+   * decision.
+   */
+  if (item.source.kind === "rule") {
+    return (
+      <Link href={`${href(locale, "method")}#gate`} className={className}>
+        {t.ruleLink}
       </Link>
     );
   }
@@ -416,13 +553,36 @@ function Trace({ item, t, locale }: { item: PracticeItem; t: Dictionary["practic
 function Done({
   t,
   outcomes,
+  session,
+  locale,
   onRestart,
 }: {
   t: Dictionary["practice"];
   outcomes: { id: string; outcome: string }[];
+  /** The items just asked, so the misses can be named rather than counted. */
+  session: readonly PracticeItem[];
+  locale: Locale;
   onRestart: () => void;
 }) {
   const summary = summarise(outcomes);
+
+  /**
+   * WHICH ones to come back to, not just how many.
+   *
+   * "2 kommen nochmals" is true and almost useless: the learner has just been
+   * told a number about eight things they can no longer see. Naming them costs
+   * two lines and turns the end of a session into somewhere to look, with each
+   * one still carrying the link to where its answer is explained.
+   *
+   * This is not a score creeping back in. A score ranks the person; this is a
+   * list of the specific things that went wrong, which is the opposite —
+   * §8 objects to measuring consumption and dressing it as learning, not to
+   * telling somebody what they missed.
+   */
+  const missed = outcomes
+    .filter((o) => o.outcome === "wrong")
+    .map((o) => session.find((item) => item.id === o.id))
+    .filter((item): item is PracticeItem => Boolean(item));
 
   return (
     <div className="mt-3 rounded-control border border-border-strong bg-surface-raised p-5 sm:p-6">
@@ -442,6 +602,22 @@ function Done({
         )}
       </ul>
 
+      {missed.length > 0 && (
+        <div className="mt-5 border-t border-border-subtle pt-4">
+          <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.againTitle}</p>
+          <ul className="mt-2 flex flex-col gap-2">
+            {missed.map((item) => (
+              <li key={item.id} className="flex flex-wrap items-baseline gap-x-3">
+                <span lang={DISPLAY.tag} className="font-heading text-base font-semibold text-dialect">
+                  {answerOf(item)}
+                </span>
+                <Trace item={item} t={t} locale={locale} compact />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <button
         type="button"
         onClick={onRestart}
@@ -453,6 +629,25 @@ function Done({
       <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{t.savedHint}</p>
     </div>
   );
+}
+
+/**
+ * The right answer, as one printable string, whatever kind of item it was.
+ *
+ * Used only in the end-of-session list, where the question is gone and the
+ * answer is the thing worth carrying away. Every branch returns something the
+ * variety actually says — never a paraphrase and never a label — because this
+ * line is the last dialect a learner reads before closing the page.
+ */
+function answerOf(item: PracticeItem): string {
+  switch (item.kind) {
+    case "pair":
+    case "article":
+    case "form":
+      return item.options[item.answer] ?? "";
+    default:
+      return item.answer;
+  }
 }
 
 /** The person label in the reader's language, falling back to the pack's key. */

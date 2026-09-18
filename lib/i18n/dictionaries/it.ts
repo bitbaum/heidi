@@ -30,6 +30,7 @@ export const it: Dictionary = {
     groupReference: "Consultare",
     groupWhy: "Perché così",
     groupProject: "Progetto",
+    groupAbout: "Su Heidi",
     skipToContent: "Vai al contenuto",
     menu: "Menu",
     language: "Scegliere la lingua",
@@ -812,10 +813,12 @@ export const it: Dictionary = {
     },
     grammarLink: "La grammatica dietro a questo",
     wordLink: "Questa parola nel vocabolario",
+    ruleLink: "La regola dietro",
     doneTitle: "Per adesso basta così.",
     doneAsked: "domande",
     doneRight: "al primo colpo",
     doneAgain: "da rivedere",
+    againTitle: "Da rivedere",
     savedHint: "Nella chat tenete una parola con +. Torna qui quando è il momento.",
   },
 
@@ -843,7 +846,7 @@ export const it: Dictionary = {
     practiseLabel: "Esercitati",
     practiseSay: "Mi dia due frasi per esercitarmi con «{word}» — poi mi interroghi su una.",
     title: "Grammatica",
-    lead: "Quattro cose che rendono lo zurighese difficile da seguire per chi già legge il tedesco. Niente lezioni — solo quello che sentirete, e dove ci si blocca.",
+    lead: "Che cosa rende lo zurighese difficile da seguire per chi già legge il tedesco — prima ciò su cui una frase si blocca del tutto, poi ciò che capirete senza però dirlo mai voi stessi.",
     ruleLabel: "La regola",
     watchLabel: "Dove ci si blocca",
     topics: {
@@ -852,10 +855,20 @@ export const it: Dictionary = {
         rule: "Lo zurighese parlato non ha il passato semplice: tutto il passato si dice col perfetto.",
         watch: "Aspettate «ging», «war», «sagte» — e non arriva mai. Se sentite «bi», «hät» o «händ» più un participio, quello è il passato.",
       },
+      articles: {
+        title: "de, d, s — gli articoli sono tutti qui",
+        rule: "Tre articoli e basta: «de» al maschile, «d» al femminile, «s» al neutro. «der», «die» e «das» non compaiono.",
+        watch: "Sembrano articoli tedeschi mangiati, ma sono la forma intera, non una contrazione sbrigativa. E il genere non segue sempre quello tedesco: «s Rüebli» è neutro, mentre la carota tedesca è femminile.",
+      },
       "wo-relative": {
         title: "«wo» al posto di der, die, das",
         rule: "Le relative cominciano quasi sempre con «wo», invariabile, qualunque sia il genere o il caso.",
         watch: "Leggete «wo» come «dove?» e perdete la frase. Qui vuol dire «che», «il quale» — mai un luogo.",
+      },
+      "unified-plural": {
+        title: "Una sola forma verbale per tutto il plurale",
+        rule: "Noi, voi e loro prendono la stessa forma del verbo: «mir händ», «ihr händ», «si händ».",
+        watch: "Cercate la desinenza della seconda persona plurale e non c'è mai. «Chömed er?» vuol dire «venite?» — la desinenza non dice nulla sulla persona, lo fa solo il pronome davanti.",
       },
       "possessive-dative": {
         title: "Il possesso al contrario",
@@ -866,6 +879,16 @@ export const it: Dictionary = {
         title: "Il -li su tutto",
         rule: "Il diminutivo in -li è molto produttivo e spesso non indica nulla di piccolo.",
         watch: "«Es Bierli» non è una birra piccola, è una birra detta con simpatia. Non prendete il -li alla lettera.",
+      },
+      "am-progressive": {
+        title: "«am» più il verbo — sto facendo",
+        rule: "Quello che sta succedendo ora si dice «bi/isch/sind am» più il verbo nudo: «Ich bi am schaffe».",
+        watch: "Il tedesco non ha questa forma e ripiega su «gerade». La frase si capisce anche senza — ma non usarla mai è ciò che vi fa suonare come tedesco standard con dentro parole zurighesi.",
+      },
+      "go-cho-infinitive": {
+        title: "«go» e «cho» davanti al secondo verbo",
+        rule: "Andare da qualche parte a fare qualcosa mette davanti un «go»; venire mette un «cho»: «Ich gang go poschte».",
+        watch: "In tedesco questa particella non esiste, quindi la si omette — e si viene capiti e insieme riconosciuti come forestieri. Non è un secondo «andare»: appartiene al verbo che segue.",
       },
     },
   },

@@ -48,6 +48,18 @@ type SynthLike = {
   removeEventListener?: (type: string, listener: () => void) => void;
 };
 
+/**
+ * May we even try to speak with what this device has?
+ *
+ * Exported and pure so the rule can be held by a test rather than inferred
+ * from a hook nobody can call outside React. The rule is short and the reason
+ * is the whole module: with no German voice the engine either says nothing or
+ * says it with an English mouth, and the learner cannot tell which happened.
+ */
+export function shouldAttempt(voice: VoiceLike | null): boolean {
+  return voice !== null;
+}
+
 function synth(): SynthLike | null {
   if (typeof window === "undefined") return null;
   const s = (window as unknown as { speechSynthesis?: SynthLike }).speechSynthesis;
@@ -58,16 +70,25 @@ function synth(): SynthLike | null {
 const detectSupport = () => synth() !== null;
 
 /**
- * `no-voice` is a real outcome, not an error.
+ * Two ways for speech not to happen, and they are not the same thing.
  *
- * A device with no German voice installed cannot read Zurich German, and the
- * control has to be able to say so. Before this existed the hook spoke anyway
- * with `utterance.voice = null`, and every engine answers that by substituting
- * the system default — an English voice reading German, which is the thing
- * `lib/voice/variety.ts` was written to refuse and the thing a listener
- * actually reported hearing.
+ * `no-voice` is known BEFORE trying: the engine has no German voice installed,
+ * so speaking would substitute the system default — an English voice reading
+ * Zurich German, which is the thing `lib/voice/variety.ts` exists to refuse and
+ * the thing a listener actually reported hearing. The hook declines to speak.
+ *
+ * `failed` is the engine refusing AFTER being asked. Measured on the live site:
+ * a browser with a synthesiser and zero installed voices fires `onerror` with
+ * `synthesis-failed` and never fires `onstart`, so the button flicked back to
+ * its resting label and nothing was said — precisely the dead control
+ * `use-dictation.ts` refuses to ship.
+ *
+ * Kept apart rather than collapsed into one "did not speak", because the
+ * honest sentence differs: one is "this device cannot", the other is "that did
+ * not work". Returning to `idle` for either is what made the control look
+ * broken, since idle and finished-speaking look identical to a learner.
  */
-export type SpeechState = "idle" | "speaking" | "no-voice";
+export type SpeechState = "idle" | "speaking" | "no-voice" | "failed";
 
 export type Speech = {
   /** Whether this browser can speak at all. False on the server's first pass. */
@@ -138,6 +159,14 @@ export function useSpeech(rate: number, allowAnyVoice = false): Speech {
       const body = text.trim();
       if (!s || !body) return;
 
+      // No German voice on this device means the engine will either say
+      // nothing or say it with an English mouth. Both are worse than saying
+      // so, and `claim` already carries the sentence that explains it.
+      if (!shouldAttempt(voice)) {
+        setState("failed");
+        return;
+      }
+
       // Always cancel first. A second `speak` while one is in flight QUEUES on
       // every engine rather than replacing, so pressing two lines in a row
       // reads both, one after the other, for as long as the learner keeps
@@ -181,7 +210,7 @@ export function useSpeech(rate: number, allowAnyVoice = false): Speech {
       // so it resets the state rather than leaving it stuck on "speaking".
       utterance.onerror = () => {
         speaking.current = false;
-        setState("idle");
+        setState("failed");
       };
 
       speaking.current = true;

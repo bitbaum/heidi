@@ -252,12 +252,24 @@ export function allItems(pack: VarietyPack, saved: readonly SavedWord[]): Practi
  *   the clue CONTAINS the answer   `habe` ⊃ `ha`      → refuse, it is readable
  *   the answer EXTENDS the clue    `Bierli` ⊃ `Bier`  → keep, that is the point
  *
- * So: refused only when a bridge word starts with the candidate, never the
- * other way round.
+ * So: refused whenever a bridge word CONTAINS the candidate, never when the
+ * candidate contains the bridge word.
+ *
+ * `startsWith` was the first version of "contains" and it was too narrow.
+ * German puts the giveaway in the middle as readily as at the front: the clue
+ * "Sie ist schauen gegangen" hands a learner `gange` inside `gegangen`, where
+ * no prefix test can see it. German participles take `ge-`, so this is not an
+ * edge case but the normal shape of the language this product bridges from.
+ *
+ * It over-refuses on very short words — a two-letter candidate will hide
+ * inside some unrelated German word sooner or later — and that is the right
+ * direction to fail in. Over-refusing costs one item out of a pack with
+ * plenty; under-refusing ships a question whose answer is printed underneath
+ * it.
  */
 function giveaway(word: string, bridgeWords: readonly string[]): boolean {
   const w = word.toLowerCase();
-  return bridgeWords.some((b) => b === w || b.startsWith(w));
+  return bridgeWords.some((b) => b.includes(w));
 }
 
 /**
@@ -272,8 +284,20 @@ function words(sentence: string): string[] {
 }
 
 /** Replace one word with a blank, leaving the punctuation around it. */
+/**
+ * EVERY occurrence, not the first.
+ *
+ * Without the `g` this cut one blank into «Mir händ, ihr händ, si händ.» and
+ * left the answer standing twice in the same line — an exercise that shows its
+ * own answer, which is worse than no exercise because it reads as one.
+ *
+ * Blanking all of them is also the better question where a word repeats: the
+ * unified plural is exactly the topic whose point is that one form serves
+ * three persons, and «Mir ____, ihr ____, si ____» against «Wir haben, ihr
+ * habt, sie haben» is that point in a single line.
+ */
 function blank(sentence: string, word: string): string {
-  return sentence.replace(new RegExp(`(?<![\\p{L}])${escape(word)}(?![\\p{L}])`, "u"), "____");
+  return sentence.replace(new RegExp(`(?<![\\p{L}])${escape(word)}(?![\\p{L}])`, "gu"), "____");
 }
 
 function escape(value: string): string {
