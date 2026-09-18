@@ -34,13 +34,13 @@ export function VoiceSection({ t }: { t: Dictionary["voice"] }) {
           honest line is "we do not know yet" rather than "your browser cannot
           do this". Rendering nothing until it is known avoids saying either. */}
       {speech.supported ? (
-        <p className="mt-3 max-w-measure font-mono text-[11px] leading-relaxed text-fg-muted">
+        <p className="mt-3 max-w-measure font-mono text-caption leading-relaxed text-fg-muted">
           {t.claim[speech.claim]}
         </p>
       ) : null}
 
       <div className="mt-5 flex flex-col gap-5">
-        <label className="flex max-w-measure items-center justify-between gap-4">
+        <label className="flex min-h-11 max-w-measure items-center justify-between gap-4">
           <span className="text-base text-fg-primary">{t.speakAnswers}</span>
           <input
             type="checkbox"
@@ -59,7 +59,11 @@ export function VoiceSection({ t }: { t: Dictionary["voice"] }) {
             step={0.05}
             value={settings.rate}
             onChange={(e) => set({ rate: Number(e.target.value) })}
-            className="w-full accent-[var(--color-accent)]"
+            /* `h-11`: a range input's own box is about sixteen pixels tall,
+               and every one of those pixels is a place a thumb has to land
+               precisely to start a drag. The track still draws at its natural
+               height, centred — only the area you can grab it by grows. */
+            className="h-11 w-full accent-[var(--color-accent)]"
           />
         </label>
       </div>

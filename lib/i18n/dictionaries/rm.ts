@@ -26,6 +26,7 @@ export const rm: Dictionary = {
   nav: {
     home: "Cumenzament",
     chat: "Chat",
+    organisations: "Per organisaziuns",
     speaking: "Rundas da discurs",
     practice: "Exercitar",
     listen: "Tadlar",
@@ -404,7 +405,7 @@ export const rm: Dictionary = {
     heidiTitle: "Tge che quai munta per Heidi",
     heidiBody: [
       "Il dictar na scriva betg il dialect. El scriva quai che Vus vulais dir, en la lingua che Vus avais gia — precis quai che la perscrutaziun sa far.",
-      "Heidi na discurra betg. Ina vusch che pronunziass fallà il turitgais na pudessias Vus betg controllar, e quai è il sulet sbagl che quest product na dastga betg far.",
+      "Heidi legia ad aut, ma na pretenda mai da discurrer il dialect. In sintetisader dumandà per turitgais dat al pli tudestg standard svizzer — uschè di la vusch tge ch'ella è, e tascha plitost che dar a Vus ina vusch englaisa che legia Züritüütsch.",
       "La controlla dal dialect funcziuna senza model. Ella è ina glista fixa da reglas, betg in model da lingua — perquai na po ella betg cumenzar ad inventar.",
     ],
     directionLabel: "Direcziun",
@@ -423,6 +424,7 @@ export const rm: Dictionary = {
     zeroShot: "senza training",
     fineTuned: "reexercità",
     speakingNames: {
+      swissVendors: "Purschiders svizzers cun purschida da dialect",
       commercial: "Vuschs commerzialas «de-CH»",
       eth: "ETH Turitg, Swiss Voice",
       vits: "T5 e VITS, pipeline da perscrutaziun",
@@ -437,6 +439,38 @@ export const rm: Dictionary = {
     statusResearch: "perscrutaziun",
     statusService: "servetsch",
     statusClosed: "serrà",
+    evalTitle: "Tge che Heidi mesira cura che Vus discurris",
+    evalLead:
+      "L'exercizi da discurrer Vus registrescha e rapporta quai che sa mesirar propi — ed di en tge lingua. Naginas notas sin tschient, nunenqualbop.",
+    evalNames: {
+      delivery: "Flum da discurrer",
+      fluency: "Tempo e sequenzas",
+      words: "Pleds e furmas",
+      grammar: "Grammatica",
+      pronunciation: "Nota da pronunzia",
+    },
+    evalWhat: {
+      delivery:
+        "Nua ch'i dava tun e nua betg: pausas, quant ditg ch'è stada la pli lunga, quanta part da la registraziun che Vus avais propi discurrì. Quai na dumonda nagina transcripziun ed funcziuna perquai er per in dialect che nagut sa scriver.",
+      fluency:
+        "Silbas per secunda, e quant ditg che Vus discurris avant che ferman. Fluenza en il senn da la perscrutaziun — co ch'in patratg vegn ora, betg quant bain ch'el suna.",
+      words:
+        "Tge pleds che Vus avais tschernì, controllads cun la medema glista fixa da reglas sco la controlla dal dialect. Betg l'opiniun d'in model.",
+      grammar:
+        "Concordanza, cas, furmas verbalas. Mo d'ina transcripziun en la lingua che Vus avais propi discurrì — uschiglio pertutga la correctura pleds ch'il computer ha inventà.",
+      pronunciation:
+        "Na vegn betg producida. Ina nota cunter in ideal da lingua materna è in giudicament davart ina persuna, e nagina meglierament da la renconuschientscha la fiss onesta.",
+    },
+    evalVerdicts: {
+      target: "en il dialect",
+      bridge: "en tudestg standard svizzer",
+      none: "anc betg pussaivel",
+      refused: "intenziunadamain betg offrì",
+    },
+    evalRefusedNote:
+      "Exact cun quai fa reclama mintga concurrent. Quai è la lingia che nus laschain vida cun intenziun.",
+    evalFormLimit: "naginas furmas giuditgadas sur",
+    evalSource: "en il code",
   },
 
   privacy: {
@@ -548,6 +582,9 @@ export const rm: Dictionary = {
     dataTitle: "Tge che resta sin quest apparat",
     dataBody:
       "Vossa conversaziun resta en quest navigatur — era suenter avair serrà il tab — fin che Vus smatgais Nova conversaziun. Cun conto vegn ella memorisada sin noss server. Per vegnir respundì va mintga messadi ad in purschider da models. Vossa clav ed ils pleds tegnids restan mo qua.",
+    dataEmpty: "Quest navigatur na cuntegna nagut da Vus.",
+    dataForget: "Stizzar",
+    dataExport: "Telechargiar tut",
   },
 
   auth: {
@@ -1047,6 +1084,24 @@ export const rm: Dictionary = {
     historyTitle: "Vossas registraziuns",
     historyEmpty: "Anc nagut registrà.",
     deleteTake: "Stizzar",
+    progressDays: "dis discurrids",
+    progressTakes: "registraziuns",
+    progressSpoken: "discurrì",
+    progressSeconds: "sec",
+    progressMinutes: "min",
+    progressNote: "Dumbrà, betg giuditgà. Quest dumber na sbassa mai — duas emnas da pausa na custan nagut.",
     privacy: "Il tun na bandunescha mai Voss apparat. Vegnan tegnidas mo las mesiraziuns e Voss agen text — en quest navigatur, betg tar nus.",
   },
+
+  organisations: {
+    title: "Per organisaziuns",
+    lead: "Nua ch’il dialect n’è betg Voss problem, mabain quel da Vossa glieud.",
+    momentLabel: "Il mument",
+    stakeLabel: "Tge ch’i custa",
+    offerLabel: "Tge che Heidi fa",
+    unknownLabel: "Tge che nus stuessan dumandar",
+    noCustomers: "Heidi n’ha oz nagins clients, nagins projects pilot e naginas studias da cas — e questa pagina na pretenda nagins. Quai che stat qua è ina descripziun da Voss problem, uschia sco nus al enconuschain da dador. Digei nus nua che nus sbaglian.",
+    talk: "Scrivai a nus",
+  },
+
 };

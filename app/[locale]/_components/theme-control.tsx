@@ -105,7 +105,7 @@ export function ThemeRow({
 
   return (
     <div className="flex items-center justify-between gap-3">
-      <span className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{t.label}</span>
+      <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.label}</span>
       <div role="group" aria-label={t.label} className="flex gap-1">
         {THEMES.map((value) => {
           const chosen = value === theme;

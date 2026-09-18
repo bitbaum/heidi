@@ -44,7 +44,7 @@ export function PatternsPanel({ t }: { t: Dictionary["review"] }) {
               {/* Letters, not prose — `k → ch` reads correctly in all seven
                   locales because it is in none of them. */}
               <p className="font-mono text-base font-semibold text-fg-primary">{correspondence.rule}</p>
-              <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+              <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
                 {words.length} {t.patternsCount}
               </p>
             </div>

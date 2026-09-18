@@ -94,11 +94,11 @@ export default async function DialectPage({ params }: { params: Promise<{ locale
                 >
                   {area.endonym}
                 </span>
-                <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+                <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
                   {area.cantons.join(" · ")}
                 </span>
                 {area.taught && (
-                  <span className="mt-1 font-mono text-[10px] uppercase tracking-caps text-accent">{t.taught}</span>
+                  <span className="mt-1 font-mono text-caption uppercase tracking-caps text-accent">{t.taught}</span>
                 )}
               </Link>
             </li>

@@ -111,7 +111,7 @@ export function AccountMenu({
         >
           {/* Who this is. First, because it is the question the control asks. */}
           <div className="border-b border-border-subtle px-4 py-3">
-            <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{t.signedInAs}</p>
+            <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.signedInAs}</p>
             <p className="mt-1 truncate text-sm font-medium text-fg-primary">{label}</p>
             {/* Only when it adds something. With no display name the label IS
                 the email, and printing it twice is noise. */}
@@ -182,7 +182,7 @@ function Avatar({ name, image }: { name: string; image?: string | null }) {
   return (
     <span
       aria-hidden="true"
-      className="inline-flex h-7 w-7 items-center justify-center rounded-control bg-fg-primary font-mono text-[11px] font-semibold uppercase text-surface-page"
+      className="inline-flex h-7 w-7 items-center justify-center rounded-control bg-fg-primary font-mono text-caption font-semibold uppercase text-surface-page"
     >
       {initials(name)}
     </span>

@@ -73,7 +73,7 @@ export function TopicBoard({
               <h3 className="font-heading text-lg leading-tight tracking-display text-fg-primary">{topic.title}</h3>
               <p className="mt-1 flex-1 text-sm leading-relaxed text-fg-secondary">{topic.pitch}</p>
 
-              <p className="mt-3 font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+              <p className="mt-3 font-mono text-caption uppercase tracking-caps text-fg-muted">
                 {topic.interest} {t.wouldCome}
                 {topic.roundId && ` · ${t.scheduled}`}
                 {/*
@@ -96,7 +96,7 @@ export function TopicBoard({
                   disabled={busy === topic.id}
                   className={
                     topic.mine
-                      ? "mt-3 min-h-11 self-start px-2 font-mono text-[11px] uppercase tracking-caps text-fg-muted disabled:opacity-50"
+                      ? "mt-3 min-h-11 self-start px-2 font-mono text-caption uppercase tracking-caps text-fg-muted disabled:opacity-50"
                       : "mt-3 min-h-11 self-start rounded-control border border-border-strong px-4 text-sm font-semibold text-fg-primary disabled:opacity-50"
                   }
                 >
@@ -151,7 +151,7 @@ function ProposeTopic({ t, onDone }: { t: T; onDone: () => void }) {
   );
 
   const field = "mt-1 w-full rounded-control border border-border-subtle bg-surface-page p-3 text-base text-fg-primary";
-  const label = "block font-mono text-[11px] uppercase tracking-caps text-fg-muted";
+  const label = "block font-mono text-caption uppercase tracking-caps text-fg-muted";
 
   return (
     <details className="mt-6 rounded-control border border-border-subtle bg-surface-raised p-4">

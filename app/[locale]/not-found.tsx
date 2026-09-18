@@ -15,7 +15,7 @@ export default function NotFound() {
   return (
     <Shell>
       <div className="py-20 sm:py-28">
-        <p className="font-mono text-[11px] uppercase tracking-caps text-accent">404</p>
+        <p className="font-mono text-caption uppercase tracking-caps text-accent">404</p>
         <h1 className="mt-3 font-heading text-3xl font-semibold leading-tight tracking-display text-fg-primary sm:text-5xl">
           {dict.errors.notFoundTitle}
         </h1>

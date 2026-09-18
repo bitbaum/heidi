@@ -80,7 +80,7 @@ export default async function VocabularyPage({ params }: { params: Promise<{ loc
 
       {sources.length > 0 && (
         <section aria-labelledby="sources" className="mt-14 border-t border-border-subtle pt-8">
-          <h2 id="sources" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+          <h2 id="sources" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
             {getDictionary(locale).dialect.sourcesTitle}
           </h2>
           <ul className="mt-3 flex flex-col gap-2">

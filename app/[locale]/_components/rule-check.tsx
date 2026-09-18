@@ -96,7 +96,7 @@ export function RuleCheck({ t }: { t: Dictionary["check"] }) {
         <div className="mt-8" aria-live="polite">
           {result.ok ? (
             <p className="flex items-baseline gap-3">
-              <span className="font-mono text-[11px] uppercase tracking-caps text-ok">{t.okShort}</span>
+              <span className="font-mono text-caption uppercase tracking-caps text-ok">{t.okShort}</span>
               <span className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.ok}</span>
             </p>
           ) : (
@@ -109,7 +109,7 @@ export function RuleCheck({ t }: { t: Dictionary["check"] }) {
                   <li key={`${f.index}-${i}`} className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-sm">
                     <span className="font-medium text-dialect">{f.form}</span>
                     {f.origin && (
-                      <span className="text-[11px] uppercase tracking-caps text-fg-muted">{f.origin}</span>
+                      <span className="text-caption uppercase tracking-caps text-fg-muted">{f.origin}</span>
                     )}
                     {f.suggest && (
                       <>

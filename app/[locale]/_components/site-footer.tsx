@@ -16,13 +16,13 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
           <div className="lg:col-span-1">
             <div className="font-heading text-xl font-semibold tracking-display text-fg-primary">Heidi</div>
             <p className="mt-2 max-w-[28ch] text-sm leading-relaxed text-fg-secondary">{dict.footer.tagline}</p>
-            <p className="mt-4 font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+            <p className="mt-4 font-mono text-caption uppercase tracking-caps text-fg-muted">
               {DISPLAY.endonym} · {DISPLAY.region}
             </p>
           </div>
 
           <nav aria-labelledby="footer-pages">
-            <h2 id="footer-pages" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+            <h2 id="footer-pages" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
               {dict.footer.sections}
             </h2>
             <ul className="mt-3 flex flex-col gap-2">
@@ -36,7 +36,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                   <Link
                     href={href(locale, route.segment)}
                     prefetch={false}
-                    className="text-sm text-fg-secondary hover:text-fg-primary"
+                    className="inline-flex min-h-11 items-center text-sm text-fg-secondary hover:text-fg-primary"
                   >
                     {dict.nav[route.key]}
                   </Link>
@@ -46,7 +46,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
           </nav>
 
           <nav aria-labelledby="footer-languages">
-            <h2 id="footer-languages" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+            <h2 id="footer-languages" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
               {dict.footer.languageTitle}
             </h2>
             <ul className="mt-3 flex flex-col gap-2">
@@ -59,7 +59,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                     href={href(l, "")}
                     hrefLang={l}
                     prefetch={false}
-                    className={`text-sm hover:text-fg-primary ${l === locale ? "font-medium text-fg-primary" : "text-fg-secondary"}`}
+                    className={`inline-flex min-h-11 items-center text-sm hover:text-fg-primary ${l === locale ? "font-medium text-fg-primary" : "text-fg-secondary"}`}
                   >
                     {LOCALE_NAMES[l]}
                   </Link>
@@ -69,7 +69,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
           </nav>
 
           <div>
-            <h2 className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{dict.footer.projectTitle}</h2>
+            <h2 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{dict.footer.projectTitle}</h2>
             <p className="mt-3 text-sm leading-relaxed text-fg-secondary">
               <span className="font-medium text-fg-primary">{dict.footer.openSource}</span> —{" "}
               {dict.footer.openSourceNote}
@@ -113,6 +113,13 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                 {dict.nav.privacy}
               </Link>
               <Link
+                href={href(locale, "organisations")}
+                prefetch={false}
+                className="mt-3 inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
+              >
+                {dict.nav.organisations}
+              </Link>
+              <Link
                 href={href(locale, "impressum")}
                 prefetch={false}
                 className="mt-3 inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
@@ -123,7 +130,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-2 border-t border-border-subtle pt-6 font-mono text-[11px] text-fg-muted sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-2 border-t border-border-subtle pt-6 font-mono text-caption text-fg-muted sm:flex-row sm:items-center sm:justify-between">
           <span>
             © {year} · {dict.footer.rights}
           </span>

@@ -65,7 +65,7 @@ export function CorrespondenceFigure() {
               </span>
               <Word word={c.target} fragment={pair?.[1] ?? ""} loud />
             </p>
-            <p className="mt-3 font-mono text-[11px] uppercase tracking-caps text-fg-muted">{c.rule}</p>
+            <p className="mt-3 font-mono text-caption uppercase tracking-caps text-fg-muted">{c.rule}</p>
           </li>
         );
       })}

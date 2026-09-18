@@ -147,7 +147,7 @@ export function PracticeSession({
       answering — which is the one journey this page exists to make short.
     */
     <div className="max-w-measure">
-      <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+      <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
         {fill(t.progress, { n: String(at + 1), total: String(session.length) })}
       </p>
 
@@ -258,7 +258,7 @@ function Card({
 
   return (
     <div className="mt-3 rounded-control border border-border-strong bg-surface-raised p-5 sm:p-6">
-      <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{ask}</p>
+      <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{ask}</p>
 
       <Prompt item={item} t={t} shown={shown} />
 
@@ -283,7 +283,7 @@ function Card({
                       at which point it is a label for something you can no
                       longer do. */}
                   {chose === null && (
-                    <span aria-hidden="true" className="mr-2 font-mono text-[11px] font-normal text-fg-muted">
+                    <span aria-hidden="true" className="mr-2 font-mono text-caption font-normal text-fg-muted">
                       {index + 1}
                     </span>
                   )}
@@ -604,7 +604,7 @@ function Done({
 
       {missed.length > 0 && (
         <div className="mt-5 border-t border-border-subtle pt-4">
-          <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.againTitle}</p>
+          <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.againTitle}</p>
           <ul className="mt-2 flex flex-col gap-2">
             {missed.map((item) => (
               <li key={item.id} className="flex flex-wrap items-baseline gap-x-3">

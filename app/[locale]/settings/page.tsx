@@ -6,6 +6,7 @@ import { DEFAULT_LOCALE, LOCALES, LOCALE_NAMES, isLocale, type Locale } from "@/
 import { href } from "@/lib/i18n/routes";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
 import { SignOutButton } from "../_components/account-control";
+import { DataSection } from "./data-section";
 import { ModelSection } from "./model-section";
 import { VoiceSection } from "./voice-section";
 import { ThemeControl } from "../_components/theme-control";
@@ -111,10 +112,14 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
       </Section>
 
       <Section id="data" title={t.dataTitle}>
-        <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.dataBody}</p>
+        {/* What is actually here, and how to be rid of it — rather than a
+            paragraph about it and a link somewhere else. The labels come from
+            the privacy page's own translations, so both pages name the same
+            stores the same way in all seven languages. */}
+        <DataSection t={t} labels={dict.privacy.flows} />
         <Link
           href={href(locale, "portal")}
-          className="mt-4 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
+          className="mt-6 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
         >
           {dict.nav.portal}
         </Link>

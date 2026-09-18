@@ -3,6 +3,8 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { SOURCES, citation } from "@/lib/research/sources";
 import { ASR_RESULTS, CORPORA, SPEAKING, TEXT_MODELS, techSources } from "@/lib/research/language-tech";
+import { MEASURES } from "@/lib/speech/capability";
+import { DISPLAY } from "@/lib/variety/display";
 import { Shell } from "../_components/page-shell";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -89,12 +91,12 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
                 </h3>
                 {/* The direction is the point of the whole table, so it is the
                     one thing set in the accent rather than in grey. */}
-                <p className="font-mono text-[11px] uppercase tracking-caps text-accent">
+                <p className="font-mono text-caption uppercase tracking-caps text-accent">
                   {t.directions[corpus.direction]}
                 </p>
               </div>
 
-              <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-1 font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+              <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-1 font-mono text-caption uppercase tracking-caps text-fg-muted">
                 {corpus.hours !== undefined && <Fact label={t.hours} value={String(corpus.hours)} />}
                 {corpus.speakers !== undefined && (
                   <Fact label={t.speakers} value={corpus.speakers.toLocaleString(locale)} />
@@ -125,14 +127,14 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
                   figure IS the content. */}
               <div>
                 <p className="font-heading text-2xl font-semibold tracking-display text-dialect">{result.wer}%</p>
-                <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{t.wer}</p>
+                <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.wer}</p>
               </div>
               <div>
                 <h3 className="font-heading text-base font-semibold tracking-display text-fg-primary">
                   {result.system}{" "}
                   <span className="font-mono text-sm font-normal text-fg-muted">{result.year}</span>
                 </h3>
-                <p className="mt-0.5 flex flex-wrap gap-x-3 font-mono text-[10px] uppercase tracking-caps text-fg-muted">
+                <p className="mt-0.5 flex flex-wrap gap-x-3 font-mono text-caption uppercase tracking-caps text-fg-muted">
                   <span>{result.tuned ? t.fineTuned : t.zeroShot}</span>
                   <span>{result.open ? t.weightsOpen : t.weightsClosed}</span>
                 </p>
@@ -152,7 +154,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
                   {t.speakingNames[system.id]}
                   {system.year && <span className="font-mono text-sm font-normal text-fg-muted"> {system.year}</span>}
                 </h3>
-                <p className="flex flex-wrap gap-x-3 font-mono text-[11px] uppercase tracking-caps">
+                <p className="flex flex-wrap gap-x-3 font-mono text-caption uppercase tracking-caps">
                   {/* Dialect or standard is the distinction a buyer is being
                       denied elsewhere, so it is the loud one. */}
                   <span className={system.dialect ? "text-accent" : "text-fg-muted"}>
@@ -181,7 +183,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
                 <h3 className="font-heading text-base font-semibold tracking-display text-fg-primary">
                   {model.name} <span className="font-mono text-sm font-normal text-fg-muted">{model.year}</span>
                 </h3>
-                <p className="flex flex-wrap gap-x-3 font-mono text-[11px] uppercase tracking-caps">
+                <p className="flex flex-wrap gap-x-3 font-mono text-caption uppercase tracking-caps">
                   {/* Measured, or merely announced. The whole reason this
                       column exists. */}
                   <span className={model.evaluated ? "text-accent" : "text-fg-muted"}>
@@ -194,6 +196,87 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
             </li>
           ))}
         </ul>
+      </Panel>
+
+      {/* Our own system, after the field and before the summary: the reader has
+          just seen what recognition can and cannot do, which is the only
+          context in which these verdicts mean anything. Every one of them is
+          COMPUTED from the pack — see `lib/speech/capability.ts`. No copy here
+          claims a capability; the page renders whichever verdict it is handed,
+          so it cannot drift from the engine and cannot be talked up. */}
+      <Panel id="evaluation" title={t.evalTitle} lead={t.evalLead}>
+        <ul className="mt-5 flex flex-col gap-3">
+          {MEASURES.map((measure) => {
+            const verdict = DISPLAY.speech.measures.find((m) => m.id === measure.id)?.verdict ?? "none";
+            return (
+              <li
+                key={measure.id}
+                className={`rounded-control border p-4 ${
+                  verdict === "refused" ? "border-border-strong" : "border-border-subtle"
+                }`}
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <h3 className="font-heading text-base font-semibold tracking-display text-fg-primary">
+                    {t.evalNames[measure.id]}
+                  </h3>
+                  <p className="font-mono text-caption uppercase tracking-caps">
+                    {/* The refusal is the loud one. It is the row a buyer came
+                        to find, and the only one that is a decision rather
+                        than a limit. */}
+                    <span
+                      className={
+                        verdict === "target"
+                          ? "text-accent"
+                          : verdict === "bridge"
+                            ? "text-fg-primary"
+                            : "text-fg-muted"
+                      }
+                    >
+                      {t.evalVerdicts[verdict]}
+                    </span>
+                  </p>
+                </div>
+                <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-secondary">
+                  {t.evalWhat[measure.id]}
+                </p>
+                {measure.refused ? (
+                  <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-muted">{t.evalRefusedNote}</p>
+                ) : (
+                  /* Where to go and check, rather than a request to believe. */
+                  <p className="mt-2 font-mono text-caption text-fg-muted">
+                    {t.evalSource} · {measure.module}
+                  </p>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* The numbers the verdicts were computed FROM. A verdict on its own is
+            the unfalsifiable marketing §8 exists to prevent; with the rates
+            beside it a reader can disagree with our threshold. */}
+        <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-2 font-mono text-caption uppercase tracking-caps text-fg-muted">
+          {DISPLAY.speech.wer.target !== undefined && (
+            <div className="flex gap-2">
+              <dt>{DISPLAY.endonym}</dt>
+              <dd className="text-fg-primary">
+                {DISPLAY.speech.wer.target}% {t.wer}
+              </dd>
+            </div>
+          )}
+          {DISPLAY.speech.wer.bridge !== undefined && (
+            <div className="flex gap-2">
+              <dt>{t.isStandard}</dt>
+              <dd className="text-fg-primary">
+                {DISPLAY.speech.wer.bridge}% {t.wer}
+              </dd>
+            </div>
+          )}
+          <div className="flex gap-2">
+            <dt>{t.evalFormLimit}</dt>
+            <dd className="text-fg-primary">{DISPLAY.speech.formMaxWer}%</dd>
+          </div>
+        </dl>
       </Panel>
 
       {/* LAST, and deliberately so: the reader should reach our own claims
@@ -215,7 +298,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
       </section>
 
       <section aria-labelledby="sources" className="border-t border-border-subtle py-8">
-        <h2 id="sources" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+        <h2 id="sources" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
           {dict.dialect.sourcesTitle}
         </h2>
         <ul className="mt-3 flex flex-col gap-2">

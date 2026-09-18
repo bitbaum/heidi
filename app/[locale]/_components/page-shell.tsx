@@ -10,7 +10,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
 export function PageHeader({ eyebrow, title, lead }: { eyebrow?: string; title: string; lead?: string }) {
   return (
     <header className="border-b border-border-subtle py-12 sm:py-16">
-      {eyebrow && <p className="font-mono text-[11px] uppercase tracking-caps text-accent">{eyebrow}</p>}
+      {eyebrow && <p className="font-mono text-caption uppercase tracking-caps text-accent">{eyebrow}</p>}
       <h1 className="mt-3 max-w-[20ch] font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
         {title}
       </h1>
@@ -50,7 +50,7 @@ export function NumberedList({ items }: { items: ReadonlyArray<{ title: string; 
     <ol className="mt-2 flex flex-col gap-8">
       {items.map((item, i) => (
         <li key={item.title} className="grid gap-2 sm:grid-cols-[3rem_1fr] sm:gap-6">
-          <span className="font-mono text-[11px] uppercase tracking-caps text-accent sm:pt-1.5">
+          <span className="font-mono text-caption uppercase tracking-caps text-accent sm:pt-1.5">
             {String(i + 1).padStart(2, "0")}
           </span>
           <div>

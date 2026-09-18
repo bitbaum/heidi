@@ -10,6 +10,8 @@ import { useByok } from "../use-byok";
 import { readDraft, useDraft } from "../use-draft";
 import { ModelSheet } from "../model-sheet";
 import { Composer } from "./composer";
+import { Examples } from "./examples";
+import { DISPLAY } from "@/lib/variety/display";
 import { Transcript } from "./transcript";
 import { useConversation } from "./use-conversation";
 import { conversationTransport, streamingDraftTransport, type ConversationSummary } from "./transports";
@@ -262,7 +264,7 @@ export function ChatWorkspace({
         } absolute inset-y-0 left-0 z-30 w-72 shrink-0 flex-col border-r border-border-subtle bg-surface-page p-3 lg:relative lg:flex`}
       >
         <div className="flex items-center justify-between gap-2 pb-2">
-          <h2 className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{f.yourChats}</h2>
+          <h2 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{f.yourChats}</h2>
           <button
             type="button"
             onClick={() => setMenuOpen(false)}
@@ -307,7 +309,7 @@ export function ChatWorkspace({
           <button
             type="button"
             onClick={() => setMenuOpen(true)}
-            className="min-h-9 text-sm text-link underline underline-offset-4"
+            className="inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4"
           >
             {f.menuOpen}
           </button>
@@ -335,12 +337,16 @@ export function ChatWorkspace({
                 className="flex flex-col gap-4"
               />
             ) : (
-              <Empty t={t} />
+              <Empty t={t} onPick={chat.send} />
             )}
           </div>
         </div>
 
-        <div className="border-t border-border-subtle px-4 pb-4 pt-3">
+        {/* `env(safe-area-inset-bottom)` — on a phone with a home indicator the
+            composer otherwise sits under it, and the line beneath it is
+            clipped. `max()` keeps the ordinary 1rem on every device that has
+            no inset, so this costs nothing on a laptop. */}
+        <div className="border-t border-border-subtle px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3">
           <div className="mx-auto w-full max-w-3xl">
             <Composer
               value={chat.input}
@@ -362,12 +368,12 @@ export function ChatWorkspace({
               }}
             />
             <div className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-              <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>
+              <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>
               {byok.ready && byok.config && (
                 <button
                   type="button"
                   onClick={() => setSheetOpen(true)}
-                  className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-caps text-ok hover:text-fg-primary"
+                  className="inline-flex items-center gap-1.5 font-mono text-caption uppercase tracking-caps text-ok hover:text-fg-primary"
                 >
                   <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ok" />
                   {byok.config.model}
@@ -438,12 +444,28 @@ function AdoptPrompt({
   );
 }
 
-/** An empty chat says what it is for, in the reader's language. */
-function Empty({ t }: { t: Dictionary["chat"] }) {
+/**
+ * An empty chat says what it is for — and then offers something to press.
+ *
+ * It used to be a heading and a sentence, which on a phone left roughly six
+ * hundred pixels of white between the greeting and the text box. That reads as
+ * a page which has not finished loading, and it asks the least confident
+ * visitor to do the hardest thing in the product first: compose a sentence in
+ * a language they cannot yet write.
+ *
+ * The home page already had the answer and the full-screen chat did not, so
+ * the examples moved into their own module and both surfaces render the same
+ * ones. `DISPLAY` rather than the pack itself: a component may not import the
+ * variety — see `lib/variety/display.test.ts`.
+ */
+function Empty({ t, onPick }: { t: Dictionary["chat"]; onPick: (s: string) => void }) {
   return (
-    <div className="py-10 text-center">
-      <h1 className="font-heading text-2xl font-semibold tracking-display text-fg-primary">{t.emptyTitle}</h1>
-      <p className="mx-auto mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{t.placeholder}</p>
+    <div className="py-10">
+      <div className="text-center">
+        <h1 className="font-heading text-2xl font-semibold tracking-display text-fg-primary">{t.emptyTitle}</h1>
+        <p className="mx-auto mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{t.placeholder}</p>
+      </div>
+      <Examples t={t} dialect={{ tag: DISPLAY.tag, showcase: DISPLAY.showcase?.line }} onPick={onPick} />
     </div>
   );
 }

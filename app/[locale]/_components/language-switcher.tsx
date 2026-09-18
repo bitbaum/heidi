@@ -69,11 +69,11 @@ export function LanguageSwitcher({
         aria-label={label}
         className="inline-flex min-h-11 items-center gap-1.5 rounded-control border border-border-strong px-3 text-fg-secondary transition-colors hover:text-fg-primary"
       >
-        <span aria-hidden="true" className="text-[13px]">
+        <span aria-hidden="true" className="text-sm">
           🌐
         </span>
-        <span className="font-mono text-[11px] uppercase tracking-caps">{LOCALE_SHORT[current]}</span>
-        <span aria-hidden="true" className="text-[9px] leading-none text-fg-muted">
+        <span className="font-mono text-caption uppercase tracking-caps">{LOCALE_SHORT[current]}</span>
+        <span aria-hidden="true" className="text-caption leading-none text-fg-muted">
           ▼
         </span>
       </button>
@@ -86,7 +86,7 @@ export function LanguageSwitcher({
         >
           {GROUP_ORDER.map((group) => (
             <div key={group} className="border-b border-border-subtle last:border-b-0">
-              <p className="px-3 pb-1 pt-3 font-mono text-[10px] uppercase tracking-caps text-fg-muted">
+              <p className="px-3 pb-1 pt-3 font-mono text-caption uppercase tracking-caps text-fg-muted">
                 {groupLabels[group]}
               </p>
               <ul>
@@ -106,7 +106,7 @@ export function LanguageSwitcher({
                         }`}
                       >
                         <span className="text-sm">{LOCALE_NAMES[locale]}</span>
-                        <span className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">
+                        <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
                           {LOCALE_SHORT[locale]}
                         </span>
                       </Link>

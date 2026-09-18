@@ -31,7 +31,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="mt-8 grid gap-8 sm:grid-cols-3 sm:gap-6">
           {dict.vision.points.map((p, i) => (
             <article key={p.title}>
-              <div className="mb-3 font-mono text-[11px] uppercase tracking-caps text-accent">
+              <div className="mb-3 font-mono text-caption uppercase tracking-caps text-accent">
                 {String(i + 1).padStart(2, "0")}
               </div>
               <h3 className="font-heading text-xl font-semibold leading-tight tracking-display text-fg-primary">
@@ -54,7 +54,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             [dict.check.title, DISPLAY.orthography.convention],
           ].map(([term, value]) => (
             <div key={term} className="border-b border-border-subtle pb-3">
-              <dt className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{term}</dt>
+              <dt className="font-mono text-caption uppercase tracking-caps text-fg-muted">{term}</dt>
               <dd className="mt-1 text-base text-fg-primary">{value}</dd>
             </div>
           ))}

@@ -72,12 +72,12 @@ export function ReviewPanel({ t, locale }: { t: Dictionary["review"]; locale: Lo
 
   return (
     <div>
-      <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+      <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
         {review.queue.length} {t.due}
       </p>
 
       <div className="mt-3 rounded-control border border-border-strong bg-surface-raised p-5 sm:p-6">
-        <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.prompt}</p>
+        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.prompt}</p>
 
         {/* The variety's own tag, so a screen reader does not read Zurich
             German with German phonology. */}
@@ -152,7 +152,7 @@ export function ReviewPanel({ t, locale }: { t: Dictionary["review"]; locale: Lo
 function Counts({ t, tomorrow, settled }: { t: Dictionary["review"]; tomorrow: number; settled: number }) {
   if (tomorrow === 0 && settled === 0) return null;
   return (
-    <p className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+    <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
       {tomorrow > 0 && (
         <span>
           {tomorrow} {t.tomorrow}

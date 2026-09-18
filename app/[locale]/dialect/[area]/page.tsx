@@ -68,7 +68,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
       <header className="-mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
         <Link
           href={href(locale, "dialect")}
-          className="font-mono text-[11px] uppercase tracking-caps text-link hover:text-accent"
+          className="font-mono text-caption uppercase tracking-caps text-link hover:text-accent"
         >
           ← {t.backToAll}
         </Link>
@@ -78,7 +78,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
         >
           {area.endonym}
         </h1>
-        <p className="mt-3 font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+        <p className="mt-3 font-mono text-caption uppercase tracking-caps text-fg-muted">
           {t.cantons}: {area.cantons.join(" · ")} · {area.town}
         </p>
         {area.taught && (
@@ -125,7 +125,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
 
       {sources.length > 0 && (
         <section aria-labelledby="sources" className="mt-12 border-t border-border-subtle pt-8">
-          <h2 id="sources" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+          <h2 id="sources" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
             {t.sourcesTitle}
           </h2>
           <ul className="mt-3 flex flex-col gap-2">

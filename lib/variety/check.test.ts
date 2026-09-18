@@ -144,8 +144,9 @@ test("every region the gate rejects is a named sibling, not a mystery", () => {
 });
 
 test("capabilities differ, so the same engine must build different products", () => {
-  assert.equal(ZURICH_GERMAN.capabilities.asr, false);
-  assert.equal(UKRAINIAN.capabilities.asr, true);
+  assert.equal(ZURICH_GERMAN.capabilities.recognition.available, true, "recognition exists — it just answers in the wrong variety");
+  assert.equal(ZURICH_GERMAN.capabilities.recognition.returnsSpokenVariety, false);
+  assert.equal(UKRAINIAN.capabilities.recognition.returnsSpokenVariety, true);
   assert.equal(ZURICH_GERMAN.capabilities.licensedAudio, false);
 });
 

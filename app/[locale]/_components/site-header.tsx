@@ -73,7 +73,12 @@ export function SiteHeader({
       <div className="mx-auto flex w-full max-w-shell items-center justify-between gap-4 px-5 py-3 sm:px-8">
         <Link
           href={href(locale, "")}
-          className="inline-flex items-center gap-2.5 whitespace-nowrap text-fg-primary"
+          /* `min-h-11` rather than the mark's own 30px: the link back to the
+             start page is on every page, and was the most-missed target on
+             the site — one finding per page in the responsive audit. The
+             row does not get taller; the header's padding already exceeds
+             it. Only the hit area grows. */
+          className="inline-flex min-h-11 items-center gap-2.5 whitespace-nowrap text-fg-primary"
         >
           <CowMark size={30} title="Heidi" />
           <span className="font-heading text-xl font-bold tracking-display sm:text-2xl">Heidi</span>
@@ -157,7 +162,7 @@ export function SiteHeader({
                 .filter(({ group }) => group === "why" || group === "project")
                 .map(({ group, routes }) => (
                   <div key={group}>
-                    <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{groupLabel(group)}</p>
+                    <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{groupLabel(group)}</p>
                     <ul className="mt-2 flex flex-col gap-2">
                       {routes.map((route) => (
                         <li key={route.key}>
@@ -202,7 +207,7 @@ export function SiteHeader({
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="site-menu"
-            className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-3 font-mono text-[11px] uppercase tracking-caps text-fg-primary lg:hidden"
+            className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-3 font-mono text-caption uppercase tracking-caps text-fg-primary lg:hidden"
           >
             {dict.nav.menu}
           </button>
@@ -214,7 +219,7 @@ export function SiteHeader({
           <nav aria-label={dict.nav.menu} className="mx-auto w-full max-w-shell px-5 py-4 sm:px-8">
             {groups.map(({ group, routes }) => (
               <section key={group} className="mb-4 last:mb-0">
-                <h2 className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{groupLabel(group)}</h2>
+                <h2 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{groupLabel(group)}</h2>
                 <ul className="mt-1 flex flex-col">
                   {routes.map((route) => (
                     <li key={route.key}>
@@ -301,7 +306,7 @@ function ReferencePanel({
       </ul>
 
       <div className="border-t border-border-subtle pt-3">
-        <p className="font-mono text-[10px] uppercase tracking-caps text-fg-muted">{dict.dialect.areasTitle}</p>
+        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{dict.dialect.areasTitle}</p>
         <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
           {DISPLAY.areas.map((area) => (
             <li key={area.id}>
@@ -310,7 +315,7 @@ function ReferencePanel({
                 prefetch={false}
                 lang={DISPLAY.tag}
                 title={area.taught ? dict.dialect.taught : undefined}
-                className={`whitespace-nowrap text-[13px] ${
+                className={`whitespace-nowrap text-nav ${
                   area.taught ? "font-semibold text-dialect hover:text-accent" : "text-fg-muted hover:text-fg-primary"
                 }`}
               >

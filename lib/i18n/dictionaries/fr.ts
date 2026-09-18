@@ -10,6 +10,7 @@ export const fr: Dictionary = {
   nav: {
     home: "Accueil",
     chat: "Chat",
+    organisations: "Pour les organisations",
     speaking: "Cercles de parole",
     practice: "S'exercer",
     listen: "Écouter",
@@ -388,7 +389,7 @@ export const fr: Dictionary = {
     heidiTitle: "Ce que cela signifie pour Heidi",
     heidiBody: [
       "La dictée n'écrit pas le dialecte. Elle écrit ce que vous voulez dire, dans la langue que vous avez déjà — précisément ce que la recherche sait faire.",
-      "Heidi ne parle pas. Une voix qui prononcerait mal le zurichois, vous ne pourriez pas le vérifier, et c'est la seule erreur que ce produit ne doit pas commettre.",
+      "Heidi lit à voix haute, mais ne prétend jamais parler le dialecte. Un synthétiseur à qui l'on demande du zurichois rend au mieux de l'allemand standard suisse : la voix dit donc ce qu'elle est, et se tait plutôt que de vous livrer une voix anglaise lisant du Züritüütsch.",
       "Le contrôle dialectal fonctionne sans modèle. C'est une liste de règles fixe, pas un modèle de langue — c'est pourquoi il ne peut rien inventer.",
     ],
     directionLabel: "Sens",
@@ -407,6 +408,7 @@ export const fr: Dictionary = {
     zeroShot: "sans entraînement",
     fineTuned: "réentraîné",
     speakingNames: {
+      swissVendors: "Fournisseurs suisses proposant le dialecte",
       commercial: "Voix commerciales « de-CH »",
       eth: "ETH Zurich, Swiss Voice",
       vits: "T5 et VITS, pipeline de recherche",
@@ -421,6 +423,38 @@ export const fr: Dictionary = {
     statusResearch: "recherche",
     statusService: "service",
     statusClosed: "cessé",
+    evalTitle: "Ce que Heidi mesure quand vous parlez",
+    evalLead:
+      "L'exercice d'expression vous enregistre et rapporte ce qui se mesure réellement — en précisant dans quelle langue. Aucune note sur cent, nulle part.",
+    evalNames: {
+      delivery: "Débit",
+      fluency: "Vitesse et séquences",
+      words: "Mots et formes",
+      grammar: "Grammaire",
+      pronunciation: "Note de prononciation",
+    },
+    evalWhat: {
+      delivery:
+        "Où il y avait du son et où il n'y en avait pas : pauses, durée de la plus longue, part de l'enregistrement où vous parliez vraiment. Cela ne demande aucune transcription, et fonctionne donc pour un dialecte que rien ne sait écrire.",
+      fluency:
+        "Syllabes par seconde, et combien de temps vous parlez avant de vous arrêter. La fluidité au sens de la recherche — comment une pensée sort, pas si elle sonne bien.",
+      words:
+        "Les mots que vous avez choisis, vérifiés avec la même liste de règles fixes que le contrôle dialectal. Pas l'avis d'un modèle.",
+      grammar:
+        "Accords, cas, formes verbales. Uniquement à partir d'une transcription dans la langue que vous avez réellement parlée — sinon la correction porte sur des mots inventés par la machine.",
+      pronunciation:
+        "Non produite. Une note face à un idéal natif est un jugement sur une personne, et aucune amélioration de la reconnaissance ne la rendrait honnête.",
+    },
+    evalVerdicts: {
+      target: "sur le dialecte",
+      bridge: "sur l'allemand standard suisse",
+      none: "pas encore possible",
+      refused: "délibérément non proposée",
+    },
+    evalRefusedNote:
+      "C'est précisément ce que vante chaque concurrent. C'est la ligne que nous laissons vide exprès.",
+    evalFormLimit: "aucune forme jugée au-dessus de",
+    evalSource: "dans le code",
   },
 
   privacy: {
@@ -532,6 +566,9 @@ export const fr: Dictionary = {
     dataTitle: "Ce qui est gardé sur cet appareil",
     dataBody:
       "Votre conversation reste dans ce navigateur — même après la fermeture de l’onglet — jusqu’à ce que vous appuyiez sur Nouvelle conversation. Connecté, elle est enregistrée sur notre serveur. Pour être traité, chaque message est envoyé à un fournisseur de modèle. Votre clé et vos mots gardés restent ici seulement.",
+    dataEmpty: "Ce navigateur ne contient rien qui vous appartienne.",
+    dataForget: "Supprimer",
+    dataExport: "Tout télécharger",
   },
 
   auth: {
@@ -1031,6 +1068,24 @@ export const fr: Dictionary = {
     historyTitle: "Vos enregistrements",
     historyEmpty: "Rien d’enregistré pour l’instant.",
     deleteTake: "Supprimer",
+    progressDays: "jours à parler",
+    progressTakes: "enregistrements",
+    progressSpoken: "de parole",
+    progressSeconds: "s",
+    progressMinutes: "min",
+    progressNote: "Compté, pas noté. Ce nombre ne baisse jamais — quinze jours d'absence ne coûtent rien.",
     privacy: "Le son ne quitte jamais votre appareil. Seules les mesures et votre propre texte sont conservés — dans ce navigateur, pas chez nous.",
   },
+
+  organisations: {
+    title: "Pour les organisations",
+    lead: "Là où le dialecte n’est pas votre problème mais celui de vos équipes.",
+    momentLabel: "Le moment",
+    stakeLabel: "Ce que cela coûte",
+    offerLabel: "Ce que fait Heidi",
+    unknownLabel: "Ce que nous devrions vous demander",
+    noCustomers: "Heidi n’a aujourd’hui ni clients, ni projets pilotes, ni études de cas — et cette page n’en revendique aucun. Ce qui suit est une description de votre problème, telle que nous la connaissons de l’extérieur. Dites-nous où nous nous trompons.",
+    talk: "Écrivez-nous",
+  },
+
 };

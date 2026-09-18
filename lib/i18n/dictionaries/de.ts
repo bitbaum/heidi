@@ -29,6 +29,7 @@ export const de = {
   nav: {
     home: "Start",
     chat: "Chat",
+    organisations: "Für Organisationen",
     speaking: "Sprechrunden",
     practice: "Üben",
     listen: "Hören",
@@ -422,7 +423,7 @@ export const de = {
     heidiTitle: "Was das für Heidi heisst",
     heidiBody: [
       "Das Diktieren schreibt nicht Mundart auf. Es schreibt, was Sie sagen wollen, in der Sprache, die Sie schon können — genau das, was die Forschung kann.",
-      "Heidi spricht nicht. Eine Stimme, die Zürichdeutsch falsch ausspricht, wäre für Sie nicht überprüfbar, und das ist der einzige Fehler, den dieses Produkt nicht machen darf.",
+      "Heidi liest vor, behauptet aber nie, Mundart zu sprechen. Ein Synthesizer, den man um Zürichdeutsch bittet, liefert bestenfalls Schweizer Hochdeutsch — also sagt die Stimme, was sie ist, und schweigt lieber, als Ihnen eine englische Stimme zu geben, die Züritüütsch vorliest.",
       "Die Dialektprüfung läuft ohne Modell. Sie ist eine feste Regelliste, kein Sprachmodell — deshalb kann sie nicht anfangen, sich Dinge auszudenken.",
     ],
     directionLabel: "Richtung",
@@ -441,6 +442,7 @@ export const de = {
     zeroShot: "ohne Training",
     fineTuned: "nachtrainiert",
     speakingNames: {
+      swissVendors: "Schweizer Anbieter mit Mundart-Angebot",
       commercial: "Kommerzielle «de-CH»-Stimmen",
       eth: "ETH Zürich, Swiss Voice",
       vits: "T5 und VITS, Forschungspipeline",
@@ -455,6 +457,38 @@ export const de = {
     statusResearch: "Forschung",
     statusService: "Dienst",
     statusClosed: "eingestellt",
+    evalTitle: "Was Heidi misst, wenn Sie sprechen",
+    evalLead:
+      "Die Sprechübung nimmt Sie auf und meldet, was sich tatsächlich messen lässt — und sagt dazu, in welcher Sprache gemessen wurde. Keine Note von hundert, nirgends.",
+    evalNames: {
+      delivery: "Sprechfluss",
+      fluency: "Tempo und Läufe",
+      words: "Wörter und Formen",
+      grammar: "Grammatik",
+      pronunciation: "Aussprachenote",
+    },
+    evalWhat: {
+      delivery:
+        "Wo Ton war und wo nicht: Pausen, wie lang die längste war, wie viel der Aufnahme Sie wirklich gesprochen haben. Das braucht kein Transkript und funktioniert deshalb für eine Mundart, die niemand aufschreiben kann.",
+      fluency:
+        "Silben pro Sekunde, und wie lange Sie sprechen, bevor Sie anhalten. Flüssigkeit im Sinne der Forschung — wie ein Gedanke herauskommt, nicht wie gut er klingt.",
+      words:
+        "Welche Wörter Sie gewählt haben, geprüft an derselben festen Regelliste wie die Dialektprüfung. Nicht die Meinung eines Modells.",
+      grammar:
+        "Kongruenz, Fälle, Verbformen. Immer nur aus einem Transkript in der Sprache, die Sie wirklich gesprochen haben — sonst korrigiert man Wörter, die die Maschine erfunden hat.",
+      pronunciation:
+        "Wird nicht erstellt. Eine Note gegen ein muttersprachliches Ideal ist ein Urteil über einen Menschen, und keine bessere Erkennung würde sie ehrlich machen.",
+    },
+    evalVerdicts: {
+      target: "im Dialekt",
+      bridge: "auf Schweizer Hochdeutsch",
+      none: "noch nicht möglich",
+      refused: "bewusst nicht angeboten",
+    },
+    evalRefusedNote:
+      "Genau damit wirbt jeder Mitbewerber. Es ist die Zeile, die wir absichtlich leer lassen.",
+    evalFormLimit: "keine Formen beurteilt über",
+    evalSource: "im Code",
   },
 
   /**
@@ -585,6 +619,9 @@ export const de = {
     dataTitle: "Was auf diesem Gerät liegt",
     dataBody:
       "Ihr Gespräch bleibt in diesem Browser — auch wenn Sie den Tab schliessen — bis Sie «Neues Gespräch» drücken. Angemeldet wird es stattdessen auf unserem Server gespeichert. Um beantwortet zu werden, geht jede Nachricht an einen Modellanbieter. Ein eigener Schlüssel und gemerkte Wörter liegen nur hier.",
+    dataEmpty: "In diesem Browser liegt nichts von Ihnen.",
+    dataForget: "Löschen",
+    dataExport: "Alles herunterladen",
   },
 
   auth: {
@@ -1129,8 +1166,26 @@ export const de = {
     historyTitle: "Ihre Aufnahmen",
     historyEmpty: "Noch nichts aufgenommen.",
     deleteTake: "Löschen",
+    progressDays: "Tage gesprochen",
+    progressTakes: "Aufnahmen",
+    progressSpoken: "gesprochen",
+    progressSeconds: "Sek.",
+    progressMinutes: "Min.",
+    progressNote: "Gezählt, nicht bewertet. Diese Zahl fällt nie — eine Pause von zwei Wochen kostet nichts.",
     privacy: "Der Ton verlässt Ihr Gerät nie. Gespeichert werden nur die Messwerte und Ihr eigener Text — in diesem Browser, nicht bei uns.",
   },
+
+  organisations: {
+    title: "Für Organisationen",
+    lead: "Wo Mundart nicht Ihr Problem ist, sondern das Ihrer Leute.",
+    momentLabel: "Der Moment",
+    stakeLabel: "Was es kostet",
+    offerLabel: "Was Heidi tut",
+    unknownLabel: "Was wir Sie fragen müssten",
+    noCustomers: "Heidi hat heute keine Kunden, keine Pilotprojekte und keine Fallstudien — und diese Seite behauptet auch keine. Was hier steht, ist eine Beschreibung Ihres Problems, so gut wir es von aussen kennen. Sagen Sie uns, wo wir falsch liegen.",
+    talk: "Schreiben Sie uns",
+  },
+
 };
 
 /**

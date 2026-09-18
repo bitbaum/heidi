@@ -42,7 +42,10 @@ export default async function ImpressumPage({ params }: { params: Promise<{ loca
         <Row label={t.operatorLabel}>{OPERATOR}</Row>
 
         <Row label={t.contactLabel}>
-          <a href={`mailto:${CONTACT_EMAIL}`} className="text-link underline underline-offset-4 hover:text-accent">
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
+          >
             {CONTACT_EMAIL}
           </a>
         </Row>
@@ -60,7 +63,7 @@ export default async function ImpressumPage({ params }: { params: Promise<{ loca
           <a
             href={SOURCE_URL}
             rel="noreferrer"
-            className="text-link underline underline-offset-4 hover:text-accent"
+            className="inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
           >
             {SOURCE_URL.replace("https://", "")}
           </a>
@@ -73,7 +76,7 @@ export default async function ImpressumPage({ params }: { params: Promise<{ loca
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="grid gap-1 sm:grid-cols-[12rem_1fr] sm:gap-6">
-      <dt className="font-mono text-[11px] uppercase tracking-caps text-fg-muted sm:pt-1">{label}</dt>
+      <dt className="font-mono text-caption uppercase tracking-caps text-fg-muted sm:pt-1">{label}</dt>
       <dd className="text-base leading-relaxed text-fg-primary">{children}</dd>
     </div>
   );

@@ -41,7 +41,7 @@ function Claim({ claim, detail, source }: { claim: string; detail: string; sourc
                 // The full reference, not a bare "[1]": someone deciding
                 // whether to click deserves to know the venue and the year
                 // before they leave the page.
-                className="font-mono text-[11px] leading-relaxed text-fg-muted underline decoration-border-subtle underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                className="font-mono text-caption leading-relaxed text-fg-muted underline decoration-border-subtle underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
               >
                 {s.authors} {s.year}. {s.title}. <span className="not-italic">{s.venue}</span>.
               </a>
@@ -60,7 +60,7 @@ function Graded({ title, note, tone }: { title: string; note: string; tone: stri
       <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
         {title}
       </h2>
-      <p className={`font-mono text-[11px] uppercase tracking-caps ${tone}`}>{note}</p>
+      <p className={`font-mono text-caption uppercase tracking-caps ${tone}`}>{note}</p>
     </div>
   );
 }
@@ -108,13 +108,13 @@ export default async function MethodPage({ params }: { params: Promise<{ locale:
           list is the cheapest thing that keeps it navigable, and it is how
           someone arriving from a citation finds the bucket they were sent to. */}
       <nav aria-label={t.contents} className="border-b border-border-subtle py-5">
-        <h2 className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.contents}</h2>
+        <h2 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.contents}</h2>
         <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
           {contents.map((item) => (
             <li key={item.id}>
               <a
                 href={`#${item.id}`}
-                className="text-base text-link underline decoration-border-subtle underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                className="inline-flex min-h-11 items-center text-base text-link underline decoration-border-subtle underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
               >
                 {item.label}
               </a>
@@ -139,7 +139,7 @@ export default async function MethodPage({ params }: { params: Promise<{ locale:
             <li key={rule.label} className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <span className="text-fg-primary">{rule.label}</span>
               {rule.origin && (
-                <span className="text-[11px] uppercase tracking-caps text-fg-muted">{rule.origin}</span>
+                <span className="text-caption uppercase tracking-caps text-fg-muted">{rule.origin}</span>
               )}
               {rule.suggest && <span className="text-ok">→ {rule.suggest}</span>}
             </li>
@@ -158,7 +158,7 @@ export default async function MethodPage({ params }: { params: Promise<{ locale:
         <ol className="flex flex-col gap-0">
           {t.loopSteps.map((step, i) => (
             <li key={step} className="flex gap-4 border-b border-border-subtle py-4 last:border-b-0">
-              <span className="shrink-0 font-mono text-[11px] uppercase tracking-caps text-accent">
+              <span className="shrink-0 font-mono text-caption uppercase tracking-caps text-accent">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span className="max-w-measure text-base leading-relaxed text-fg-secondary">{step}</span>

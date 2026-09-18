@@ -52,16 +52,16 @@ function Row({ source, t, areaNames }: { source: ListeningSource; t: T; areaName
         <a
           href={source.url}
           rel="noreferrer"
-          className="text-base font-medium leading-snug text-link underline underline-offset-4 hover:text-accent"
+          className="inline-flex min-h-11 items-center text-base font-medium leading-snug text-link underline underline-offset-4 hover:text-accent"
         >
           {source.name}
         </a>
-        <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{source.publisher}</span>
+        <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{source.publisher}</span>
       </div>
 
       <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
         <span
-          className={`font-mono text-[11px] uppercase tracking-caps ${
+          className={`font-mono text-caption uppercase tracking-caps ${
             source.spoken === "standard" ? "text-fg-muted" : "text-accent"
           }`}
         >
@@ -69,13 +69,13 @@ function Row({ source, t, areaNames }: { source: ListeningSource; t: T; areaName
         </span>
         {/* Beside the variety and before the mechanics: "which dialect" is the
             second question a reader has, and for a film it is often the first. */}
-        {area && <span className="font-mono text-[11px] uppercase tracking-caps text-dialect">{area}</span>}
+        {area && <span className="font-mono text-caption uppercase tracking-caps text-dialect">{area}</span>}
         {chips.map((chip) => (
-          <span key={chip} className="text-[13px] leading-snug text-fg-muted">
+          <span key={chip} className="text-sm leading-snug text-fg-muted">
             {chip}
           </span>
         ))}
-        {source.linkKind === "about" && <span className="text-[13px] leading-snug text-fg-muted">{t.about}</span>}
+        {source.linkKind === "about" && <span className="text-sm leading-snug text-fg-muted">{t.about}</span>}
       </div>
 
       {/* Heidi's own reason for the row. Only where there is something to say
@@ -145,7 +145,7 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
                   a general note nobody reads before clicking. */}
               {group.medium === "film" && (
                 <div className="mt-6 max-w-measure border-l-2 border-border-subtle pl-4">
-                  <h3 className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">{t.filmsTitle}</h3>
+                  <h3 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.filmsTitle}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-fg-secondary">{t.filmsBody}</p>
                 </div>
               )}

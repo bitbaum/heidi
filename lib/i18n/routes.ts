@@ -29,6 +29,7 @@ export type RouteKey =
   | "settings"
   | "privacy"
   | "impressum"
+  | "organisations"
   | "investors";
 
 /**
@@ -127,6 +128,17 @@ export const ROUTES: readonly Route[] = [
   // Not indexed and not in the sitemap: it is a password-gated room, and a
   // sitemap entry advertising it would contradict its own robots meta — the
   // disagreement search engines treat as a reason to distrust both signals.
+  // NO `group`, so it stays out of the header — and that is a measurement
+  // rather than a preference. Added under `project` first, it made an eleventh
+  // nav item and the French header overflowed at 1024px: the page scrolled
+  // sideways, which is the exact headroom the note above this list warns about.
+  //
+  // It is also the right answer on its own terms. A care-home director is not
+  // on the learning path, and a sales page in the row a learner reads is the
+  // nav answering a question nobody browsing asked. Indexed and in the sitemap,
+  // linked from the footer beside privacy and the Impressum — which is where
+  // an institution already looks.
+  { key: "organisations", segment: "organisations", indexed: true, priority: 0.6 },
   { key: "investors", segment: "investors", indexed: false, priority: 0.1 },
 ];
 

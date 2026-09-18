@@ -156,7 +156,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
           </nav>
 
           <section aria-labelledby="account">
-            <h2 id="account" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+            <h2 id="account" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
               {t.account}
             </h2>
             {!authEnabled ? (
@@ -196,7 +196,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
           </section>
 
           <section aria-labelledby="soon">
-            <h2 id="soon" className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+            <h2 id="soon" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
               {t.soonTitle}
             </h2>
             <ul className="mt-3 flex flex-col gap-2">

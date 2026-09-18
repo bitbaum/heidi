@@ -2,6 +2,8 @@ import { VARIETY } from "./active.ts";
 import { areasOf, isTaught, marksFor } from "./family.ts";
 import { ruleLabel, type Severity } from "./pack.ts";
 import type { Atlas } from "./pack.ts";
+import { FORM_JUDGEMENT_MAX_WER } from "../speech/evidence.ts";
+import { verdicts, type MeasureId, type Verdict } from "../speech/capability.ts";
 
 /**
  * The pack, minus everything written in English for developers.
@@ -136,6 +138,25 @@ export type DisplayVariety = {
    */
   capabilities: { asr: boolean; tts: boolean; licensedAudio: boolean };
   /**
+   * What the speaking evaluation can honestly offer for THIS variety.
+   *
+   * Ids and verdicts — enum values, not prose, so they project like everything
+   * else here. The page holds the labels for each verdict in seven languages
+   * and renders whichever one it is handed; nobody writes "we can check your
+   * grammar" in any dictionary, because the sentence would then be a claim
+   * made by a translator rather than by the engine.
+   *
+   * The error rates come along so the page can show its working: a verdict
+   * without the number behind it is exactly the unfalsifiable marketing §8
+   * exists to prevent.
+   */
+  speech: {
+    measures: readonly { id: MeasureId; verdict: Verdict }[];
+    wer: { target?: number; bridge?: number };
+    /** The rate above which no form is judged — a decision, stated. */
+    formMaxWer: number;
+  };
+  /**
    * One line of the variety itself, for the hero to show and then answer.
    * Only the line — its meaning is language, so it lives in the dictionaries.
    * Nothing here is English prose, which is the whole point of this file.
@@ -200,9 +221,22 @@ export const DISPLAY: DisplayVariety = {
   })),
   orthography: { convention: VARIETY.orthography.convention },
   capabilities: {
-    asr: VARIETY.capabilities.asr,
+    asr: VARIETY.capabilities.recognition.available,
     tts: VARIETY.capabilities.tts,
     licensedAudio: VARIETY.capabilities.licensedAudio,
+  },
+  speech: {
+    measures: verdicts({
+      recognition: VARIETY.capabilities.recognition,
+      bridgeRecognition: VARIETY.capabilities.bridgeRecognition,
+      grammarCode: VARIETY.speech.grammarCode,
+      bridgeGrammarCode: VARIETY.speech.bridgeGrammarCode,
+    }),
+    wer: {
+      target: VARIETY.capabilities.recognition.wer,
+      bridge: VARIETY.capabilities.bridgeRecognition?.wer,
+    },
+    formMaxWer: FORM_JUDGEMENT_MAX_WER,
   },
   showcase: VARIETY.showcase ? { line: VARIETY.showcase.line } : undefined,
 };

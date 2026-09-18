@@ -15,7 +15,7 @@ import { CowMark } from "../cow-mark";
 export function Mine({ body, label }: { body: string; label: string }) {
   return (
     <div className="flex flex-col items-end">
-      <span className="mb-1 font-mono text-[10px] uppercase tracking-caps text-fg-muted">{label}</span>
+      <span className="mb-1 font-mono text-caption uppercase tracking-caps text-fg-muted">{label}</span>
       <p className="max-w-[85%] whitespace-pre-wrap rounded-control bg-surface-sunk px-3 py-2 text-base leading-relaxed text-fg-primary">
         {body}
       </p>
@@ -32,7 +32,7 @@ export function Mine({ body, label }: { body: string; label: string }) {
 export function Said({ body, name }: { body: string; name: string }) {
   return (
     <div className="flex flex-col items-start">
-      <span className="mb-1 font-mono text-[10px] uppercase tracking-caps text-fg-muted">{name}</span>
+      <span className="mb-1 font-mono text-caption uppercase tracking-caps text-fg-muted">{name}</span>
       <p className="max-w-[85%] whitespace-pre-wrap rounded-control bg-surface-page px-3 py-2 text-base leading-relaxed text-fg-primary">
         {body}
       </p>
@@ -49,7 +49,7 @@ export function Said({ body, name }: { body: string; name: string }) {
 export function FromHeidi({ children }: { children: React.ReactNode }) {
   return (
     <article className="flex flex-col items-start">
-      <span className="mb-1 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-caps text-accent">
+      <span className="mb-1 flex items-center gap-1.5 font-mono text-caption uppercase tracking-caps text-accent">
         <CowMark size={14} className="text-fg-primary" />
         Heidi
       </span>

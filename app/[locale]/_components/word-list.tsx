@@ -106,7 +106,12 @@ export function WordList({
                 onClick={() => askHeidi(fill(t.askSay, { word: word.target }))}
                 aria-label={`${t.askLabel}: ${word.target}`}
                 title={t.askLabel}
-                className="inline-flex h-7 w-7 items-center justify-center rounded-control border border-transparent text-fg-muted transition-colors hover:border-border-strong hover:text-fg-primary focus-visible:border-border-strong max-sm:border-border-subtle sm:opacity-0 sm:group-focus-within:opacity-100 sm:group-hover:opacity-100"
+                /* 28px for a mouse, 44 for a thumb. The two sizes are not a
+                   compromise between devices — on a phone these buttons are
+                   always visible (no hover to reveal them) and are the only
+                   way to act on a word, so they are the target; on a desktop
+                   they appear on hover beside a pointer that can hit 28px. */
+                className="inline-flex h-7 w-7 items-center justify-center rounded-control border border-transparent text-fg-muted transition-colors hover:border-border-strong hover:text-fg-primary focus-visible:border-border-strong max-sm:h-11 max-sm:w-11 max-sm:border-border-subtle sm:opacity-0 sm:group-focus-within:opacity-100 sm:group-hover:opacity-100"
               >
                 <SpeechIcon />
               </button>
@@ -122,7 +127,7 @@ export function WordList({
                   aria-pressed={kept}
                   aria-label={`${kept ? chatT.savedWord : chatT.saveWord}: ${word.target}`}
                   title={kept ? chatT.savedWord : chatT.saveWord}
-                  className={`inline-flex h-7 w-7 items-center justify-center rounded-control border text-xs transition-colors ${
+                  className={`inline-flex h-7 w-7 items-center justify-center rounded-control border text-xs transition-colors max-sm:h-11 max-sm:w-11 ${
                     kept
                       ? "border-accent bg-accent text-on-accent"
                       : "border-border-subtle text-fg-muted hover:border-border-strong hover:text-fg-primary"
@@ -150,7 +155,7 @@ export function WordList({
             {(word.forms?.length || word.example) && (
               <div className="col-span-3 mt-1 flex flex-col gap-0.5">
                 {word.forms && word.forms.length > 0 && (
-                  <p className="text-[13px] leading-relaxed text-fg-secondary">
+                  <p className="text-sm leading-relaxed text-fg-secondary">
                     {word.forms.map((form, i) => (
                       <span key={form.label}>
                         {i > 0 && <span aria-hidden="true" className="text-fg-muted"> · </span>}
@@ -164,7 +169,7 @@ export function WordList({
                 )}
 
                 {word.example && (
-                  <p className="text-[13px] leading-relaxed text-fg-muted">
+                  <p className="text-sm leading-relaxed text-fg-muted">
                     <span lang={DISPLAY.tag} className="italic">
                       «{word.example.target}»
                     </span>{" "}
@@ -214,7 +219,7 @@ export function KeptCount({ t, portalHref }: { t: Dictionary["vocabulary"]; port
 
   return (
     <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-fg-secondary">
-      <span className="font-mono text-[11px] uppercase tracking-caps text-fg-muted">
+      <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
         {saved.count} {t.keptSome}
       </span>
       <a href={portalHref} className="text-link underline underline-offset-4 hover:text-accent">

@@ -134,7 +134,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <li key={rule.label} className="flex flex-wrap items-baseline gap-2">
                 <span className="text-accent">✕</span>
                 <span className="text-fg-primary">{rule.label}</span>
-                {rule.origin && <span className="text-[11px] uppercase tracking-caps text-fg-muted">{rule.origin}</span>}
+                {rule.origin && <span className="text-caption uppercase tracking-caps text-fg-muted">{rule.origin}</span>}
                 {rule.suggest && <span className="text-ok">→ {rule.suggest}</span>}
               </li>
             ))}
@@ -162,7 +162,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="mt-6 grid gap-10 sm:grid-cols-3 sm:gap-8">
           {dict.pillars.map((s, i) => (
             <article key={s.title}>
-              <div className="mb-3 font-mono text-[11px] uppercase tracking-caps text-accent">
+              <div className="mb-3 font-mono text-caption uppercase tracking-caps text-accent">
                 {String(i + 1).padStart(2, "0")}
               </div>
               <h3 className="font-heading text-xl font-semibold leading-tight tracking-display text-fg-primary">

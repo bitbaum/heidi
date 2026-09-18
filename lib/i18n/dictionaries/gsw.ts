@@ -33,6 +33,7 @@ export const gsw: Dictionary = {
   nav: {
     home: "Afang",
     chat: "Chat",
+    organisations: "Für Organisatione",
     speaking: "Schwätzrunde",
     practice: "Üebe",
     listen: "Ghöre",
@@ -251,6 +252,9 @@ export const gsw: Dictionary = {
     dataTitle: "Was uf dem Grät liit",
     dataBody:
       "Ihres Gspräch bliibt i dem Browser — au wenn Si de Tab zuemached — bis Si «Neus Gspräch» drücked. Aagmäldet wird s statt dem uf eusem Server gspeicheret. Zum beantwortet wärde, gaht jedi Nachricht an en Modällaabieter. En eigne Schlüssel und gmerkti Wörter liged nur da.",
+    dataEmpty: "I dem Browser liit nüt vo Ihne.",
+    dataForget: "Lösche",
+    dataExport: "Alles abelade",
   },
 
   auth: {
@@ -460,7 +464,7 @@ export const gsw: Dictionary = {
     heidiTitle: "Was das für d Heidi heisst",
     heidiBody: [
       "S Diktiere schriibt kei Mundart uf. Es schriibt, was Si wänd säge, i de Sprach wo Si scho chönd — genau das, was d Forschig cha.",
-      "D Heidi redt nöd. E Stimm, wo Züritüütsch falsch uusspricht, chönted Si nöd nachepüefe, und das isch de einzig Fähler, wo das Produkt nöd darf mache.",
+      "D Heidi liist vor, behauptet aber nie, si redi Mundart. En Synthesizer, wo mer um Züritüütsch bittet, git im beschte Fall Schwiizer Hochdütsch — drum seit d Stimm, was si isch, und schwiigt lieber, als Ihne e englischi Stimm z gä, wo Züritüütsch vorliist.",
       "D Dialektprüefig lauft ohni Modäll. Si isch e feschti Regelischte, kei Sprachmodäll — drum cha si nöd afange, sich öppis uusdänke.",
     ],
     directionLabel: "Richtig",
@@ -479,6 +483,7 @@ export const gsw: Dictionary = {
     zeroShot: "ohni Training",
     fineTuned: "nachetrainiert",
     speakingNames: {
+      swissVendors: "Schwiizer Aabieter mit Mundart-Aagebot",
       commercial: "Kommerziälli «de-CH»-Stimme",
       eth: "ETH Züri, Swiss Voice",
       vits: "T5 und VITS, Forschigspipeline",
@@ -493,6 +498,37 @@ export const gsw: Dictionary = {
     statusResearch: "Forschig",
     statusService: "Dienscht",
     statusClosed: "iigstellt",
+    evalTitle: "Was d Heidi misst, wenn Si redet",
+    evalLead:
+      "D Sprächüebig nimmt Si uf und meldet, was sich würkli mässe laat — und seit derzue, i welere Sprach gmässe worde isch. Nienert e Note vo hundert.",
+    evalNames: {
+      delivery: "Sprächfluss",
+      fluency: "Tempo und Läuf",
+      words: "Wörter und Forme",
+      grammar: "Grammatik",
+      pronunciation: "Uusspraachnote",
+    },
+    evalWhat: {
+      delivery:
+        "Wo Ton gsi isch und wo nöd: Pause, wie lang die längscht gsi isch, wie vill vo de Ufnahm Si würkli gredt hend. Das bruucht kes Transkript und funktioniert drum au für e Mundart, wo niemer cha ufschriibe.",
+      fluency:
+        "Silbe pro Sekunde, und wie lang Si redet, bevor Si aahaltet. Flüssigkeit im Sinn vo de Forschig — wie en Gedanke uusechunnt, nöd wie guet er tönt.",
+      words:
+        "Weli Wörter Si gwählt hend, prüeft a dere gliiche feschte Regellischte wie d Dialektprüefig. Nöd d Meinig vomene Modäll.",
+      grammar:
+        "Kongruänz, Fäll, Verbforme. Immer nur us eme Transkript i de Sprach, wo Si würkli gredt hend — susch korrigiert mer Wörter, wo d Maschine erfunde hät.",
+      pronunciation:
+        "Wird nöd gmacht. E Note gäg es muettersprachlichs Ideal isch es Urteil über en Mänsch, und kei bessri Erkennig würd si ehrlich mache.",
+    },
+    evalVerdicts: {
+      target: "im Dialekt",
+      bridge: "uf Schwiizer Hochdütsch",
+      none: "nonig möglich",
+      refused: "mit Absicht nöd aabote",
+    },
+    evalRefusedNote: "Genau demit wirbt jede Mitbewärber. Das isch d Zile, wo mir absichtlich leer laand.",
+    evalFormLimit: "kei Forme beurteilt über",
+    evalSource: "im Code",
   },
 
   privacy: {
@@ -1052,6 +1088,24 @@ export const gsw: Dictionary = {
     historyTitle: "Ihri Ufnaame",
     historyEmpty: "Na nüt ufgno.",
     deleteTake: "Lösche",
+    progressDays: "Täg gredt",
+    progressTakes: "Ufnahme",
+    progressSpoken: "gredt",
+    progressSeconds: "Sek.",
+    progressMinutes: "Min.",
+    progressNote: "Zellt, nöd bewertet. Die Zahl gaat nie abe — zwei Wuche Pause choschtet nüt.",
     privacy: "De Ton verlaat Ihres Grät nie. Gspeicheret wird nu was gmässe worde isch und Ihre eigen Text — i dem Browser, nöd bii öis.",
   },
+
+  organisations: {
+    title: "Für Organisatione",
+    lead: "Wo Mundart nöd Ihres Problem isch, sondern das vo Ihrne Lüt.",
+    momentLabel: "De Moment",
+    stakeLabel: "Was es choschtet",
+    offerLabel: "Was d Heidi macht",
+    unknownLabel: "Was mir Si fraage müessted",
+    noCustomers: "D Heidi hät hüt kei Kunde, kei Pilotprojekt und kei Fallstudie — und die Siite behauptet au keini. Was da staht, isch e Beschriibig vo Ihrem Problem, so guet wie mir s vo usse kenned. Säged Si is, wo mir falsch ligged.",
+    talk: "Schriibed Si is",
+  },
+
 };
