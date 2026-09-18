@@ -33,6 +33,10 @@ export function Speak({ text, t, dialect = false }: { text: string; t: Dictionar
   if (!speech.supported) return null;
 
   const speaking = speech.state === "speaking";
+  // A failed attempt has to explain itself and keep explaining. Pressing a
+  // control and getting silence reads as a broken product, and the learner
+  // has no way to discover that their device simply has no German voice.
+  const failed = speech.state === "failed";
 
   return (
     <span className="inline-flex flex-col items-start gap-0.5">
@@ -44,12 +48,13 @@ export function Speak({ text, t, dialect = false }: { text: string; t: Dictionar
       >
         {speaking ? t.stop : t.speak}
       </button>
-      {/* Shown once it has spoken, not before: an explanation of a sound
-          nobody has heard yet is noise on the page. */}
-      {speaking && (
-        <span className="max-w-measure text-[11px] leading-snug text-fg-muted">
+      {/* While speaking: what you are hearing. After a failure: why you are
+          not. Both are the same sentence from the same function the audio
+          came from, so the page cannot describe a voice the device lacks. */}
+      {(speaking || failed) && (
+        <span role={failed ? "status" : undefined} className="max-w-measure text-[11px] leading-snug text-fg-muted">
           {t.claim[speech.claim]}
-          {dialect && speech.claim !== "none" && ` ${t.dialectCaveat}`}
+          {speaking && dialect && speech.claim !== "none" && ` ${t.dialectCaveat}`}
         </span>
       )}
     </span>
