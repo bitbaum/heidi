@@ -48,6 +48,18 @@ type SynthLike = {
   removeEventListener?: (type: string, listener: () => void) => void;
 };
 
+/**
+ * May we even try to speak with what this device has?
+ *
+ * Exported and pure so the rule can be held by a test rather than inferred
+ * from a hook nobody can call outside React. The rule is short and the reason
+ * is the whole module: with no German voice the engine either says nothing or
+ * says it with an English mouth, and the learner cannot tell which happened.
+ */
+export function shouldAttempt(voice: VoiceLike | null): boolean {
+  return voice !== null;
+}
+
 function synth(): SynthLike | null {
   if (typeof window === "undefined") return null;
   const s = (window as unknown as { speechSynthesis?: SynthLike }).speechSynthesis;
@@ -57,7 +69,19 @@ function synth(): SynthLike | null {
 /** Stable identity: `useSyncExternalStore` calls this on every render. */
 const detectSupport = () => synth() !== null;
 
-export type SpeechState = "idle" | "speaking";
+export type SpeechState =
+  | "idle"
+  | "speaking"
+  /**
+   * We asked the engine to speak and it refused, or there was no voice to do
+   * it with. A THIRD state rather than a return to idle, because those two
+   * look identical to a learner and one of them means the control is broken.
+   * Measured on the live site: a browser with a synthesiser and zero installed
+   * voices fires `onerror` with `synthesis-failed` and never fires `onstart`,
+   * so the button flicked back to its resting label and nothing was said —
+   * precisely the dead control `use-dictation.ts` refuses to ship.
+   */
+  | "failed";
 
 export type Speech = {
   /** Whether this browser can speak at all. False on the server's first pass. */
@@ -123,6 +147,14 @@ export function useSpeech(rate: number): Speech {
       const body = text.trim();
       if (!s || !body) return;
 
+      // No German voice on this device means the engine will either say
+      // nothing or say it with an English mouth. Both are worse than saying
+      // so, and `claim` already carries the sentence that explains it.
+      if (!shouldAttempt(voice)) {
+        setState("failed");
+        return;
+      }
+
       // Always cancel first. A second `speak` while one is in flight QUEUES on
       // every engine rather than replacing, so pressing two lines in a row
       // reads both, one after the other, for as long as the learner keeps
@@ -148,7 +180,7 @@ export function useSpeech(rate: number): Speech {
       // so it resets the state rather than leaving it stuck on "speaking".
       utterance.onerror = () => {
         speaking.current = false;
-        setState("idle");
+        setState("failed");
       };
 
       speaking.current = true;
