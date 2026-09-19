@@ -22,6 +22,9 @@ import { useSpokenAnswers } from "./use-spoken-answers";
  * bordered panel, a group wants a minimum height, the full-screen chat wants to
  * be the scrolling element. Markup differs where it should; the routing does
  * not.
+ *
+ * NOTHING IN HERE IS OURS TO BREAK LINES IN, so the whole surface wraps
+ * anywhere — see the note on the root element.
  */
 export function Transcript({
   messages,
@@ -71,7 +74,33 @@ export function Transcript({
   useSpokenAnswers(messages);
 
   return (
-    <div className={className} aria-live="polite">
+    /**
+     * `wrap-anywhere` ONCE, here, rather than on each of the fifteen elements
+     * underneath.
+     *
+     * A transcript is made of text nobody on this side wrote: a pasted
+     * WhatsApp thread, a URL a hundred characters long, a German compound with
+     * no break opportunity in it, a model's flag list. None of it can be
+     * trusted to contain a space where the column ends, and when it does not,
+     * the text runs past the card — which on a phone makes the WHOLE DOCUMENT
+     * scroll sideways, so the reader drags the page back and forth to read one
+     * answer. Reported from a phone on the home page; reproduced at 320, 360
+     * and 390 with a long link in the answer.
+     *
+     * `overflow-wrap` INHERITS, which is the whole reason this is one line
+     * instead of fifteen: every descendant gets it, including ones added
+     * later by somebody who never read this note. And `anywhere` rather than
+     * `break-word` because only `anywhere` shrinks the min-content width — the
+     * flex rows here (a gloss, a suggestion's label beside its buttons) size
+     * themselves from it, and with `break-word` they would still push their
+     * neighbours off the edge.
+     *
+     * It also means the class does not belong on the surfaces that render
+     * this: `AnswerView` and the bubbles are used HERE and nowhere else —
+     * `transcript.test.ts` keeps it that way — so this element is the one
+     * place all four chats (home, dock, full screen, group) pass through.
+     */
+    <div className={`wrap-anywhere ${className ?? ""}`} aria-live="polite">
       {messages.map((m, i) => {
         if (m.authorId === me) return <Mine key={m.id} body={m.body} label={t.you} />;
 
