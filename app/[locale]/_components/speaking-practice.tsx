@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/locales";
+import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
 import { DISPLAY } from "@/lib/variety/display";
 import { deliveryNotes, recordingNotes, spokenNotes, type Note } from "@/lib/domain/speaking/feedback";
 import { usable, type Delivery } from "@/lib/domain/speaking/delivery";
@@ -311,6 +311,31 @@ export function SpeakingPractice({
    */
   const supported = useClientValue(recordingSupported, true);
 
+  /**
+   * Numbers in the reader's own notation.
+   *
+   * Every figure and every interpolated note rendered `4.6` in all seven
+   * languages, because a JS number stringifies with a dot and nothing asked.
+   * Three of the seven do not write it that way — French, Romansh and Russian
+   * all use a comma — so a French reader met "4.6 secondes" in a product whose
+   * whole argument is that it gets the local details right.
+   *
+   * `LOCALE_TAGS` is already the SSOT for this: it carries the Swiss variants
+   * (`de-CH`, `fr-CH`, `it-CH`) that `<html lang>` uses, and Swiss German
+   * genuinely does write `4.6` — so this is not "add commas", it is "ask the
+   * locale", and the two Swiss cases keep the dot for a reason rather than by
+   * accident.
+   *
+   * Deterministic given the tag, so the server pass and the client pass agree
+   * and there is no hydration mismatch. `technology/page.tsx` already formats
+   * this way.
+   */
+  const nf = useMemo(
+    () => new Intl.NumberFormat(LOCALE_TAGS[locale], { maximumFractionDigits: 2 }),
+    [locale],
+  );
+  const num = useCallback((n: number) => nf.format(n), [nf]);
+
   const busy = recorder.state === "asking" || recorder.state === "measuring";
 
   return (
@@ -324,9 +349,6 @@ export function SpeakingPractice({
       <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{t.practiceLead}</p>
       {about && <p className="mt-2 font-mono text-caption uppercase tracking-caps text-fg-muted">{about}</p>}
 
-      {/* WHICH VARIETY, and what choosing it costs — stated on the same
-          screen, not in a policy page. A single-entry list renders nothing:
-          a radio group with one option is a control that cannot be operated. */}
       {/* WHICH VARIETY, and what choosing it costs — stated on the same
           screen, not in a policy page. A single-entry list renders nothing:
           a radio group with one option is a control that cannot be operated.
@@ -349,7 +371,7 @@ export function SpeakingPractice({
             {varieties.map((v) => (
               <label
                 key={v.id}
-                className="min-h-11 cursor-pointer rounded-control border border-border-strong bg-surface-page px-4 text-sm font-semibold text-fg-primary transition-colors has-[:checked]:border-accent has-[:checked]:bg-accent has-[:checked]:text-on-accent has-[:disabled]:cursor-default has-[:disabled]:opacity-50 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent inline-flex items-center"
+                className="inline-flex min-h-11 cursor-pointer items-center rounded-control border border-border-strong bg-surface-page px-4 text-sm font-semibold text-fg-primary transition-colors has-[:checked]:border-accent has-[:checked]:bg-accent has-[:checked]:text-on-accent has-[:disabled]:cursor-default has-[:disabled]:opacity-50 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent"
               >
                 <input
                   type="radio"
@@ -420,7 +442,7 @@ export function SpeakingPractice({
                 <span className="h-3 w-3 rounded-full bg-accent" />
               </div>
               <p className="font-mono text-sm text-fg-muted" aria-live="polite">
-                {t.recordingNow} · {Math.floor(recorder.elapsedMs / 1000)} {t.seconds}
+                {t.recordingNow} · {num(Math.floor(recorder.elapsedMs / 1000))} {t.seconds}
               </p>
               <button
                 type="button"
@@ -438,13 +460,13 @@ export function SpeakingPractice({
           {recorder.error === "failed" && <p className="text-center text-sm text-accent">{t.failed}</p>}
         </div>
 
-        {recorder.delivery && <Measured t={t} delivery={recorder.delivery} spoken={spokenMeasures} />}
+        {recorder.delivery && <Measured t={t} num={num} delivery={recorder.delivery} spoken={spokenMeasures} />}
 
         {feedback && (feedback.recording.length > 0 || feedback.delivery.length > 0 || spokenFeedback.length > 0) && (
           <ul className="mt-5 grid gap-2">
             {[...feedback.recording, ...feedback.delivery, ...spokenFeedback].map((note, i) => (
               <li key={`${note.id}-${i}`} className="text-sm leading-relaxed text-fg-secondary">
-                {renderNote(t, note)}
+                {renderNote(t, num, note)}
               </li>
             ))}
           </ul>
@@ -491,7 +513,7 @@ export function SpeakingPractice({
               <ul className="mt-4 grid gap-2">
                 {language.map((note, i) => (
                   <li key={`${note.id}-${i}`} className="text-sm leading-relaxed text-fg-secondary">
-                    {renderNote(t, note)}
+                    {renderNote(t, num, note)}
                   </li>
                 ))}
               </ul>
@@ -543,8 +565,8 @@ export function SpeakingPractice({
         {transcribes ? t.privacyTranscribed : t.privacy}
       </p>
 
-      {ready && takes.length > 0 && <ProgressStrip t={t} takes={takes} />}
-      {ready && takes.length > 0 && <History t={t} takes={takes} forget={forget} />}
+      {ready && takes.length > 0 && <ProgressStrip t={t} num={num} takes={takes} />}
+      {ready && takes.length > 0 && <History t={t} num={num} takes={takes} forget={forget} />}
     </section>
   );
 }
@@ -565,23 +587,23 @@ type Suggestion = { better: string; why?: string; flagged?: unknown[] };
  * rather than zero: a `0.0 Silben/Sek.` under a take nobody has written out
  * yet is a measurement of nothing, printed in the same type as the real ones.
  */
-function Measured({ t, delivery, spoken }: { t: T; delivery: Delivery; spoken: Spoken | null }) {
+function Measured({ t, num, delivery, spoken }: { t: T; num: Num; delivery: Delivery; spoken: Spoken | null }) {
   if (!usable(delivery)) return null;
-  const s = (ms: number) => `${Math.round(ms / 100) / 10} ${t.seconds}`;
+  const s = (ms: number) => `${num(Math.round(ms / 100) / 10)} ${t.seconds}`;
 
   const figures: Array<{ label: string; value: string }> = [
     { label: t.recordedFor, value: s(delivery.totalMs) },
     { label: t.spokeFor, value: s(delivery.speechMs) },
-    { label: t.pauseLabel, value: String(delivery.pauseCount) },
+    { label: t.pauseLabel, value: num(delivery.pauseCount) },
     { label: t.longestLabel, value: s(delivery.longestPauseMs) },
     { label: t.runLabel, value: s(delivery.meanRunMs) },
   ];
 
   if (spoken && spoken.speechRate > 0) {
-    figures.push({ label: t.rateLabel, value: `${spoken.speechRate}` });
+    figures.push({ label: t.rateLabel, value: num(spoken.speechRate) });
   }
   if (spoken && spoken.wordCount > 0) {
-    figures.push({ label: t.wordsLabel, value: String(spoken.wordCount) });
+    figures.push({ label: t.wordsLabel, value: num(spoken.wordCount) });
   }
 
   return (
@@ -627,7 +649,7 @@ function Figure({ label, value }: { label: string; value: string }) {
  * browser and the count is computed from device-local takes: a server pass
  * would have neither, and would render a confident zero.
  */
-function ProgressStrip({ t, takes }: { t: T; takes: Take[] }) {
+function ProgressStrip({ t, num, takes }: { t: T; num: Num; takes: Take[] }) {
   const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const progress = progressFrom(takes, zone);
   const minutes = spokenMinutes(progress);
@@ -642,16 +664,16 @@ function ProgressStrip({ t, takes }: { t: T; takes: Take[] }) {
           items in a two-column grid leaves a dead cell, and these three
           numbers are short enough to sit side by side on a phone. */}
       <dl className="grid grid-cols-3 gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle">
-        <Figure label={t.progressDays} value={String(progress.daysSpoken)} />
-        <Figure label={t.progressTakes} value={String(progress.takes)} />
+        <Figure label={t.progressDays} value={num(progress.daysSpoken)} />
+        <Figure label={t.progressTakes} value={num(progress.takes)} />
         {/* Seconds below a minute: "1 min" over a first thirty-second take is
             a small lie in the one number somebody might repeat out loud. */}
         <Figure
           label={t.progressSpoken}
           value={
             minutes > 0
-              ? `${minutes} ${t.progressMinutes}`
-              : `${Math.round(progress.spokenMs / 1000)} ${t.progressSeconds}`
+              ? `${num(minutes)} ${t.progressMinutes}`
+              : `${num(Math.round(progress.spokenMs / 1000))} ${t.progressSeconds}`
           }
         />
       </dl>
@@ -660,7 +682,7 @@ function ProgressStrip({ t, takes }: { t: T; takes: Take[] }) {
   );
 }
 
-function History({ t, takes, forget }: { t: T; takes: Take[]; forget: (id: string) => void }) {
+function History({ t, num, takes, forget }: { t: T; num: Num; takes: Take[]; forget: (id: string) => void }) {
   return (
     <div className="mt-8">
       <h3 className="font-heading text-lg leading-tight text-fg-primary">{t.historyTitle}</h3>
@@ -677,8 +699,8 @@ function History({ t, takes, forget }: { t: T; takes: Take[]; forget: (id: strin
                 {take.said || take.about || t.historyUnwritten}
               </span>
               <span className="mt-0.5 block font-mono text-caption uppercase tracking-caps text-fg-muted">
-                {Math.round(take.delivery.speechMs / 1000)} {t.seconds} · {take.delivery.pauseCount}{" "}
-                {t.pauseLabel}
+                {num(Math.round(take.delivery.speechMs / 1000))} {t.seconds} ·{" "}
+                {num(take.delivery.pauseCount)} {t.pauseLabel}
               </span>
             </span>
             <button
@@ -702,7 +724,10 @@ function History({ t, takes, forget }: { t: T; takes: Take[]; forget: (id: strin
  * assert that every id has wording in all seven languages — a join nobody can
  * assert on is how a feature ends up rendering a blank line in six of them.
  */
-function renderNote(t: T, note: Note): string {
+/** Formats a number the way the reader writes it. See `nf` above. */
+type Num = (n: number) => string;
+
+function renderNote(t: T, num: Num, note: Note): string {
   if (note.id === "nothing-flagged") return t.notes.nothingFlagged;
   if (note.id === "foreign-form") {
     const origin = note.origin ?? "";
@@ -713,5 +738,5 @@ function renderNote(t: T, note: Note): string {
       .replace("{suggest}", note.suggest ?? "");
   }
   const wording = t.notes[NOTE_WORDING[note.id as PlainNoteId]];
-  return note.value === undefined ? wording : wording.replace("{n}", String(note.value));
+  return note.value === undefined ? wording : wording.replace("{n}", num(note.value));
 }
