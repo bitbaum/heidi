@@ -90,8 +90,15 @@ export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: stri
             <div className="min-w-0">
               <p className="font-heading text-xl leading-tight tracking-display text-dialect">{w.target}</p>
               <p className="mt-0.5 text-base leading-snug text-fg-secondary">{w.bridge}</p>
+              {/* CLAMPED, NOT TRUNCATED. `truncate` is one line and an
+                  ellipsis, with the rest of the sentence behind `title` — and
+                  `title` needs a pointer to hover. On the phone this list is
+                  read on, the reason the word was worth keeping was simply
+                  gone. Two lines is enough for the sentences these actually
+                  are, and `wrap-anywhere` on the list above already handles
+                  the pasted link that has nowhere to break. */}
               {w.context && (
-                <p className="mt-1.5 truncate font-mono text-caption text-fg-muted" title={w.context}>
+                <p className="mt-1.5 line-clamp-2 font-mono text-caption leading-relaxed text-fg-muted" title={w.context}>
                   {w.context}
                 </p>
               )}
@@ -104,7 +111,7 @@ export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: stri
               onClick={() => saved.forget(w.target)}
               aria-label={`${t.remove}: ${w.target}`}
               title={t.remove}
-              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-control border border-border-subtle text-fg-muted transition-colors hover:border-accent hover:text-accent"
+              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-control border border-border-subtle text-fg-muted transition-colors hover:border-accent hover:text-accent max-sm:h-11 max-sm:w-11"
             >
               <span aria-hidden="true">✕</span>
             </button>
