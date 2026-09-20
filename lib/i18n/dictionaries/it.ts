@@ -789,6 +789,7 @@ export const it: Dictionary = {
     start: "Comincia",
     restart: "Altre otto",
     progress: "Domanda {n} di {total}",
+    secondTry: "Secondo tentativo",
     skip: "Salta",
     show: "Mostra",
     knew: "La sapevo",
@@ -823,6 +824,54 @@ export const it: Dictionary = {
     doneRight: "al primo colpo",
     doneAgain: "da rivedere",
     againTitle: "Da rivedere",
+    whyTitle: "Perché gli esercizi sono fatti così",
+    whyLead:
+      "Ogni decisione qui si può verificare. Dove la ricerca dà una direzione e non un numero, il numero è indicato come nostra stima — non come un risultato.",
+    why: [
+      {
+        claim: "Essere interrogati batte rileggere.",
+        detail:
+          "Per questo nessun esercizio rivela prima la risposta. Su 222 studi, il vantaggio del test sul ripasso è g ≈ 0,50.",
+        source: ["yang-2021"],
+      },
+      {
+        claim: "Più tardi è meglio di presto — e il vantaggio cresce nel tempo.",
+        detail:
+          "Per questo una parola tenuta torna dopo 1, 3, 7, 16 e 35 giorni invece che ogni giorno. Meta-analisi in seconda lingua: g ≈ 0,76 al test immediato, g ≈ 1,15 a quello differito.",
+        source: ["kim-webb-2022"],
+      },
+      {
+        claim: "Una risposta giusta non basta; due, distanziate, sono il punto.",
+        detail:
+          "Per questo una domanda sbagliata torna nella stessa seduta — tre domande dopo, non subito. L'intervallo di tre è una nostra stima: lo studio dà la direzione, non il numero.",
+        source: ["rawson-dunlosky-2011"],
+      },
+      {
+        claim: "Scegliere senza riscontro può fissare la forma sbagliata.",
+        detail:
+          "Per questo ogni domanda a scelta mostra subito la risposta giusta e ritorna più tardi. Il riscontro rafforza il beneficio e riduce proprio quel danno.",
+        source: ["butler-roediger-2008"],
+      },
+      {
+        claim: "Produrre da sé si ricorda meglio che leggere.",
+        detail:
+          "Per questo ci sono frasi da completare e domande aperte, non solo scelte. L'effetto è solido, ma più piccolo della sua fama.",
+        source: ["bertsch-2007"],
+      },
+      {
+        claim: "Alternare aiuta — ma non sempre, e lo diciamo.",
+        detail:
+          "Per questo due domande dello stesso tipo non si susseguono. La meta-analisi è chiara: il beneficio dipende da quanto è simile il materiale, e su materiale molto simile alternare può nuocere.",
+        source: ["brunmair-richter-2019"],
+      },
+      {
+        claim: "Niente serie, niente punti, niente percentuali.",
+        detail:
+          "Una serie misura quanta Heidi avete consumato mentre sembra misurare l'apprendimento. Qui ci sono numeri su ciò che avete fatto.",
+        source: ["yang-2021"],
+      },
+    ],
+    whyMore: "Tutto il metodo",
     savedHint: "Nella chat tenete una parola con +. Torna qui quando è il momento.",
   },
 

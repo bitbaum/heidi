@@ -4,6 +4,7 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { PACK_ITEMS } from "@/lib/domain/practice/published";
+import { SOURCES, shortCitation } from "@/lib/research/sources";
 import { Shell } from "../_components/page-shell";
 import { PracticeSession } from "../_components/practice-session";
 
@@ -48,6 +49,61 @@ export default async function PracticePage({ params }: { params: Promise<{ local
       <div className="border-t border-border-subtle pt-8">
         <PracticeSession packItems={PACK_ITEMS} t={t} locale={locale} />
       </div>
+
+      {/*
+        WHY IT IS BUILT LIKE THIS, with the papers, on the page it describes.
+
+        Not on `/method`, and that is the decision worth recording. A method
+        page is read by somebody deciding whether to trust the product; this is
+        read by somebody who has just been told they got something wrong and is
+        wondering whether the thing that told them knows what it is doing. The
+        claim belongs where the doubt is.
+
+        Every row names its source and links to it, so a reader can check the
+        number rather than take it. Where the literature gives a direction and
+        not a number — how far ahead a missed item should come back — the row
+        says the number is ours. A cited estimate presented as a finding is the
+        same defect as an uncited claim, one step better disguised.
+      */}
+      <section aria-labelledby="why" className="mt-14 border-t border-border-subtle pt-10">
+        <h2
+          id="why"
+          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+        >
+          {t.whyTitle}
+        </h2>
+        <p className="mb-8 mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.whyLead}</p>
+
+        <ul className="flex flex-col gap-7">
+          {t.why.map((entry) => (
+            <li key={entry.claim}>
+              <h3 className="max-w-measure font-heading text-lg font-semibold leading-snug tracking-display text-fg-primary">
+                {entry.claim}
+              </h3>
+              <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{entry.detail}</p>
+              <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+                {entry.source.map((id) => (
+                  <a
+                    key={id}
+                    href={SOURCES[id].url}
+                    rel="noreferrer"
+                    className="font-mono text-caption text-link underline underline-offset-4 hover:text-accent"
+                  >
+                    {shortCitation(id)}
+                  </a>
+                ))}
+              </p>
+            </li>
+          ))}
+        </ul>
+
+        <Link
+          href={href(locale, "method")}
+          className="mt-8 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
+        >
+          {t.whyMore} →
+        </Link>
+      </section>
 
       {/* Where the answers are explained, for somebody who arrived here first.
           A drill links to the specific topic it came from; these two are the

@@ -100,6 +100,27 @@ headings are kept separate on purpose, and every claim below is filed under one.
 - **Spacing beats massing in L2**, and the advantage grows at delay: g ≈ 0.76
   immediate, g ≈ 1.15 delayed, over 48 experiments and 3,411 participants.
   *(Kim & Webb 2022, Language Learning.)*
+- **One correct retrieval is not the finding; more than one, spaced, is.**
+  Relearning to a criterion of repeated correct retrieval is what produces
+  durable and efficient gains, and the marginal return falls off sharply after
+  the first few. *(Rawson & Dunlosky 2011, JEP: General.)* This is why a missed
+  item comes back before the sitting ends rather than only in a fortnight —
+  and why the distance is three questions rather than immediately, which is
+  OUR number and not theirs.
+- **A multiple-choice question without feedback can teach the wrong answer.**
+  Choosing a lure exposes the learner to it; feedback both raises the benefit
+  of testing and removes that specific harm. *(Butler & Roediger 2008, Memory &
+  Cognition.)* Three of the five item kinds here are multiple choice, so this
+  is load-bearing rather than interesting.
+- **Generating beats reading, and by less than its reputation suggests.**
+  A meta-analysis puts the generation effect at a real but moderate size.
+  *(Bertsch, Pesta, Wiscott & McDaniel 2007.)* It justifies having cloze and
+  open items; it does not justify making every item productive.
+- **Interleaving is conditional, and the condition is similarity.** The
+  meta-analysis finds the benefit depends on how similar the material is, and
+  that on highly similar material blocking can win. *(Brunmair & Richter
+  2019, Psychological Bulletin.)* Heidi interleaves item KINDS, which are not
+  similar to each other, and does not claim the finding it does not have.
 - **Captions help, after the listening attempt.** Large effect on vocabulary
   (g ≈ 0.87) and on comprehension, apparently by helping segment the speech
   stream. *(Montero-Perez, Van Den Noortgate & Desmet 2013.)* The crutch risk is
@@ -966,6 +987,61 @@ doing:
 3. **The listening lab**, which is where the register and the recordings meet:
    a source a learner can already reach, a measurement of what they caught, and
    the same speaker-change effect the two loops below describe.
+
+### The exercise track, in order
+
+Practice is the half of this product that decides whether anybody comes back,
+and it is the half where guessing is least excusable: every decision below can
+be argued from the FACT list above, and where it cannot, it says so.
+
+**Built, and cited on `/practice` itself** — the page explains its own design
+with links, because the person reading it has just been told they got something
+wrong and is entitled to know whether the thing telling them knows anything.
+
+1. Asked, never shown first *(Yang 2021)*.
+2. Expanding intervals, 1/3/7/16/35 days, ending rather than growing *(Kim &
+   Webb 2022)*. No SM-2, no FSRS: eleven kept words cannot support a fitted
+   curve, and §8 forbids that kind of false precision.
+3. A missed item returns three questions later, once *(Rawson & Dunlosky 2011;
+   Butler & Roediger 2008)*. The gap of three is ours. The schedule hears the
+   FIRST answer only — a word got right a minute after being revealed has not
+   been retrieved, and grading it again would inflate the very interval the
+   spacing is for.
+4. No two item kinds in a row *(Brunmair & Richter 2019, with its moderator
+   stated rather than suppressed)*.
+5. Five item kinds, two of them objective. Anything needing a model to mark it
+   is not an exercise type, because Zurich German has no settled orthography
+   and marking a typed answer means deciding whether a near-miss counts.
+
+**Next, in order, and the ordering is the argument:**
+
+1. **Feedback that names the rule, not just the region.** A `pair` item already
+   says the other form is Bernese; the pack also holds what Zurich says instead
+   and why, and the page shows neither. This is the cheapest remaining gain in
+   the product: the data exists, the component is written, and corrective
+   feedback is the one ingredient *(Butler & Roediger 2008)* that decides
+   whether a multiple-choice drill teaches or misleads.
+2. **The productive direction, for words that have survived a few reviews.**
+   Recall asks dialect → meaning, which is recognition. What a learner needs at
+   the point of writing a message is meaning → dialect, which is harder and is
+   where *(Bertsch 2007)* applies. Gated on review step rather than offered
+   from the start: §1 argues recognition first, and that ordering stands.
+3. **Per-area contrast data**, so a dialect page can ask as well as tell. The
+   container shipped with the branches; it needs rows somebody can cite, and
+   inventing them is the one thing this product must not do.
+4. **The listening lab**, still blocked on the same thing it has always been
+   blocked on: recordings. Multi-talker training is the single best-evidenced
+   method available to us *(Lively 1993; Clopper & Pisoni 2004)* and we cannot
+   build it out of a Standard German voice reading dialect spelling — §7.2 and
+   §8 both forbid it. Verifying one commercially-cleared dialect voice unblocks
+   this and nothing else does.
+
+**Deliberately refused, and it is a standing decision rather than a backlog
+item:** streaks, points, levels, percentages, a daily goal. A streak measures
+how much Heidi somebody consumed while looking exactly like a measure of
+learning, and §8's metric is how much of an unfamiliar Zurich speaker they
+understand. If that ever costs us retention against a competitor with a flame
+icon, we lose that comparison on purpose.
 
 Two loops explain Heidi better than any feature list:
 

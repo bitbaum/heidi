@@ -867,6 +867,7 @@ export const de = {
     start: "Losgehen",
     restart: "Nochmals acht",
     progress: "Frage {n} von {total}",
+    secondTry: "Zweiter Anlauf",
     skip: "Überspringen",
     show: "Auflösen",
     knew: "Gewusst",
@@ -909,6 +910,54 @@ export const de = {
     doneRight: "auf Anhieb",
     doneAgain: "kommen nochmals",
     againTitle: "Nochmals anschauen",
+    whyTitle: "Warum die Übungen so gebaut sind",
+    whyLead:
+      "Jede Entscheidung hier lässt sich nachlesen. Wo die Forschung eine Richtung vorgibt und keine Zahl, steht die Zahl als unser Ermessen da — nicht als Befund.",
+    why: [
+      {
+        claim: "Gefragt werden schlägt nochmals anschauen.",
+        detail:
+          "Darum verrät keine Übung zuerst die Antwort. Über 222 Studien hinweg liegt der Vorteil des Abfragens gegenüber dem erneuten Lernen bei g ≈ 0,50.",
+        source: cite("yang-2021"),
+      },
+      {
+        claim: "Später ist besser als bald — und der Vorteil wächst mit der Zeit.",
+        detail:
+          "Deshalb kommt ein gemerktes Wort nach 1, 3, 7, 16 und 35 Tagen zurück statt jeden Tag. In einer Meta-Analyse zum Zweitsprachenlernen: g ≈ 0,76 im Soforttest, g ≈ 1,15 im verzögerten.",
+        source: cite("kim-webb-2022"),
+      },
+      {
+        claim: "Einmal richtig ist zu wenig; zweimal richtig, mit Abstand, ist der Punkt.",
+        detail:
+          "Deshalb kommt eine verpasste Frage noch in derselben Sitzung zurück — drei Fragen später, nicht sofort. Der Abstand von drei ist unsere Schätzung: die Studie gibt die Richtung, nicht die Zahl.",
+        source: cite("rawson-dunlosky-2011"),
+      },
+      {
+        claim: "Ankreuzen ohne Rückmeldung kann den falschen Begriff einprägen.",
+        detail:
+          "Deshalb zeigt jede Auswahlfrage sofort die richtige Antwort und fragt später nochmals. Rückmeldung verstärkt den Nutzen solcher Tests und verringert genau diesen Schaden.",
+        source: cite("butler-roediger-2008"),
+      },
+      {
+        claim: "Selber hervorbringen prägt sich besser ein als lesen.",
+        detail:
+          "Deshalb gibt es Lückensätze und offene Fragen und nicht nur Auswahl. Der Effekt ist robust, aber kleiner, als sein Ruf vermuten lässt.",
+        source: cite("bertsch-2007"),
+      },
+      {
+        claim: "Mischen hilft — aber nicht immer, und das sagen wir dazu.",
+        detail:
+          "Deshalb folgen keine zwei gleichen Fragetypen aufeinander. Die Meta-Analyse ist deutlich: der Nutzen hängt davon ab, wie ähnlich sich das Material ist, und bei sehr ähnlichem Material kann Mischen sogar schaden.",
+        source: cite("brunmair-richter-2019"),
+      },
+      {
+        claim: "Keine Serien, keine Punkte, keine Prozentzahl.",
+        detail:
+          "Eine Serie misst, wie viel Heidi Sie konsumiert haben, und sieht dabei aus wie ein Mass fürs Lernen. Was hier steht, sind Zahlen über das, was Sie getan haben.",
+        source: cite("yang-2021"),
+      },
+    ],
+    whyMore: "Die ganze Methode",
     savedHint: "Im Chat merken Sie sich Wörter mit +. Die kommen dann hier zurück, wenn es Zeit dafür ist.",
   },
 

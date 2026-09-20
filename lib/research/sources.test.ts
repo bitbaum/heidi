@@ -19,7 +19,12 @@ import { LOCALES } from "../i18n/locales.ts";
 
 test("every claim in every locale names a source that exists", () => {
   for (const locale of LOCALES) {
-    const t = getDictionary(locale).research;
+    const dict = getDictionary(locale);
+    // `/practice` explains its own design on the page it describes, with the
+    // same shape and therefore the same guarantee: a row that cites nothing
+    // would be the product asserting a method with no evidence, on the page
+    // whose entire point is that the method has some.
+    const t = { facts: [...dict.research.facts, ...dict.practice.why], hypotheses: dict.research.hypotheses };
     for (const entry of [...t.facts, ...t.hypotheses]) {
       assert.ok(entry.source.length > 0, `${locale}: "${entry.claim}" cites nothing`);
       for (const id of entry.source) {
@@ -89,6 +94,16 @@ test("the same claim cites the same source in every language", () => {
   for (const row of byLocale.slice(1)) {
     assert.deepEqual(row, byLocale[0], "a locale cites different sources than the others");
   }
+
+  // The same, for the practice page's own explanation of itself. A locale that
+  // quietly cites a different paper for the same sentence is how two readers
+  // end up being told two different things about why the product works.
+  const practiceRows = LOCALES.map((locale) =>
+    getDictionary(locale).practice.why.map((entry) => [...entry.source]),
+  );
+  for (const row of practiceRows) {
+    assert.deepEqual(row, practiceRows[0], "a locale cites different sources than the others on /practice");
+  }
 });
 
 test("no source is defined but never cited", () => {
@@ -98,6 +113,7 @@ test("no source is defined but never cited", () => {
   for (const locale of LOCALES) {
     const t = getDictionary(locale).research;
     for (const entry of [...t.facts, ...t.hypotheses]) for (const id of entry.source) used.add(id);
+    for (const entry of getDictionary(locale).practice.why) for (const id of entry.source) used.add(id);
   }
   // The research page is no longer the only thing that cites: a dialect area
   // vouches for itself the same way, and a source used only there is being

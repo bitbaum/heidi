@@ -784,6 +784,7 @@ export const en: Dictionary = {
     start: "Start",
     restart: "Another eight",
     progress: "Question {n} of {total}",
+    secondTry: "Second attempt",
     skip: "Skip",
     show: "Show me",
     knew: "Knew it",
@@ -818,6 +819,54 @@ export const en: Dictionary = {
     doneRight: "first time",
     doneAgain: "coming back",
     againTitle: "Worth another look",
+    whyTitle: "Why the exercises are built this way",
+    whyLead:
+      "Every decision here can be checked. Where the research gives a direction and not a number, the number is marked as our judgement — not as a finding.",
+    why: [
+      {
+        claim: "Being asked beats looking again.",
+        detail:
+          "So no exercise shows the answer first. Across 222 studies the advantage of quizzing over restudying is g ≈ 0.50.",
+        source: ["yang-2021"],
+      },
+      {
+        claim: "Later beats sooner — and the advantage grows with time.",
+        detail:
+          "So a kept word comes back after 1, 3, 7, 16 and 35 days rather than daily. In a second-language meta-analysis: g ≈ 0.76 on immediate tests, g ≈ 1.15 on delayed ones.",
+        source: ["kim-webb-2022"],
+      },
+      {
+        claim: "Right once is not enough; right twice, spaced, is the point.",
+        detail:
+          "So a missed question comes back before the sitting ends — three questions later, not immediately. The gap of three is our estimate: the study gives the direction, not the number.",
+        source: ["rawson-dunlosky-2011"],
+      },
+      {
+        claim: "Choosing without feedback can fix the wrong form in place.",
+        detail:
+          "So every multiple-choice question shows the right answer at once and asks again later. Feedback increases what such tests are worth and reduces exactly that harm.",
+        source: ["butler-roediger-2008"],
+      },
+      {
+        claim: "Producing it yourself sticks better than reading it.",
+        detail:
+          "So there are gapped sentences and open questions, not only choices. The effect is robust but smaller than its reputation suggests.",
+        source: ["bertsch-2007"],
+      },
+      {
+        claim: "Mixing helps — but not always, and we say so.",
+        detail:
+          "So no two questions of the same kind follow each other. The meta-analysis is clear: the benefit depends on how similar the material is, and on very similar material mixing can hurt.",
+        source: ["brunmair-richter-2019"],
+      },
+      {
+        claim: "No streaks, no points, no percentage.",
+        detail:
+          "A streak measures how much Heidi you consumed while looking like a measure of learning. What is here are counts of what you did.",
+        source: ["yang-2021"],
+      },
+    ],
+    whyMore: "The whole method",
     savedHint: "In the chat, keep a word with +. It comes back here when it is due.",
   },
 

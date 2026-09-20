@@ -166,6 +166,77 @@ function interleave(items: PracticeItem[]): PracticeItem[] {
 }
 
 /**
+ * How far ahead a missed item comes back, within the same sitting.
+ *
+ * Three, which is a compromise between two things the evidence pulls apart.
+ * Rawson & Dunlosky (2011) find the durable gain comes from retrieving a thing
+ * CORRECTLY more than once, spaced — not from being shown the answer and
+ * moving on — and the cheapest place to get the first correct retrieval is
+ * before the learner closes the page. But immediately re-asking the item you
+ * just revealed tests short-term memory and nothing else, so there has to be
+ * something in between. Three items is roughly a minute here: far enough that
+ * the answer is not still on screen, near enough that the session does not end
+ * first.
+ *
+ * It is a judgement, not a finding, and it is written down as one. The
+ * literature gives the direction and does not give the number.
+ */
+export const RELEARN_GAP = 3;
+
+/**
+ * Put a missed item back into the queue, once.
+ *
+ * WHAT THIS FIXES. A session used to reveal the answer and move on, which
+ * makes the whole sitting a test with feedback and never a second chance to
+ * produce the thing. Butler & Roediger (2008) is the sharper version of the
+ * problem for the multiple-choice items in particular: choosing a wrong option
+ * can leave the learner with the wrong option, and feedback is what turns a
+ * test that can teach errors into one that corrects them. Feedback plus a
+ * second attempt is strictly more than feedback.
+ *
+ * ONCE PER ITEM, and `asked` is what makes that true rather than nearly true.
+ *
+ * The first version guarded on "is it already in the queue", which reads
+ * correctly and is wrong: by the time a requeued item is answered again it has
+ * left the queue to become the current question, so missing it a second time
+ * put it back a second time. Found by driving a whole session wrong on
+ * purpose — eight questions became thirteen and would have kept going. An
+ * unbounded sitting punishes exactly the learner who is finding it hard, which
+ * is the opposite of the intention.
+ *
+ * So the rule is stated on what actually decides it: an item the learner has
+ * already answered once in this sitting is on its second attempt, and a second
+ * attempt is the last. The worst case is a session of twice the size, which is
+ * bounded and survivable.
+ *
+ * Pure: it takes the queue and returns the queue. The page holds the position;
+ * this decides the order.
+ */
+export function requeue({
+  remaining,
+  item,
+  asked = [],
+  gap = RELEARN_GAP,
+}: {
+  /** The items still to be asked, in order, NOT including the current one. */
+  remaining: readonly PracticeItem[];
+  /** The one just answered wrong. */
+  item: PracticeItem;
+  /** Ids already answered in this sitting, BEFORE the answer being recorded. */
+  asked?: readonly string[];
+  gap?: number;
+}): PracticeItem[] {
+  // Second attempt — it has had its extra go.
+  if (asked.includes(item.id)) return [...remaining];
+  // Belt to those braces: a duplicate already waiting is the same defect seen
+  // from the queue's side.
+  if (remaining.some((queued) => queued.id === item.id)) return [...remaining];
+
+  const at = Math.min(gap, remaining.length);
+  return [...remaining.slice(0, at), item, ...remaining.slice(at)];
+}
+
+/**
  * What to say at the end, without inventing a score.
  *
  * Counts of what happened, which are true, and nothing derived from them. No

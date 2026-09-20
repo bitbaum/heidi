@@ -10,7 +10,7 @@ import { DISPLAY } from "@/lib/variety/display";
 import { createBrowserStore, useBrowserStore, useStoreWriter } from "@/lib/browser/store";
 import { recallItems } from "@/lib/domain/practice/generate";
 import { NO_HISTORY, decodeHistory, remember } from "@/lib/domain/practice/history";
-import { orderSession, summarise } from "@/lib/domain/practice/session";
+import { orderSession, requeue, summarise } from "@/lib/domain/practice/session";
 import type { PracticeItem } from "@/lib/domain/practice/types";
 import { wordSlug } from "@/lib/domain/practice/slug";
 import { useSaved } from "./use-saved";
@@ -108,6 +108,8 @@ export function PracticeSession({
   }
 
   const item = session[at];
+  /** Answered earlier in this sitting, and requeued because it was missed. */
+  const isRepeat = Boolean(item) && outcomes.some((o) => o.id === item.id);
 
   function record(id: string, outcome: "right" | "wrong" | "skipped") {
     // Written as it happens rather than at the end, so a session abandoned
@@ -115,6 +117,37 @@ export function PracticeSession({
     // means meeting the same four first thing next time.
     writeHistory.write(remember(historyStore.read() ?? NO_HISTORY, [id]));
     setOutcomes((previous) => [...previous, { id, outcome }]);
+
+    /**
+     * A missed item comes back before the sitting ends.
+     *
+     * Revealing the answer and moving on makes the session a test with
+     * feedback and never a second chance to produce the thing — and for the
+     * multiple-choice kinds, Butler & Roediger (2008) is the sharper problem:
+     * choosing a wrong option can leave the learner holding it. Feedback plus
+     * one more attempt is strictly more than feedback. `requeue` decides where;
+     * this only decides when. A skip is not a miss, and does not come back:
+     * the learner said "not now", which is an answer.
+     */
+    if (outcome === "wrong") {
+      setSession((previous) => {
+        if (!previous) return previous;
+        const missed = previous[at];
+        if (!missed) return previous;
+        return [
+          ...previous.slice(0, at + 1),
+          ...requeue({
+            remaining: previous.slice(at + 1),
+            item: missed,
+            // What has been answered BEFORE this one: `outcomes` has not been
+            // updated yet in this pass, which is exactly the list `requeue`
+            // wants — an item already in it is on its second attempt.
+            asked: outcomes.map((o) => o.id),
+          }),
+        ];
+      });
+    }
+
     setAt((previous) => previous + 1);
   }
 
@@ -126,8 +159,21 @@ export function PracticeSession({
    * tomorrow however well it went — the spacing effect spent and not banked.
    */
   function recordRecall(id: string, prompt: string, knew: boolean) {
+    /**
+     * THE SCHEDULE HEARS THE FIRST ANSWER ONLY.
+     *
+     * A word that came back three questions later because it was missed is
+     * being relearned, and getting it right a minute after seeing the answer is
+     * not the clean retrieval the spacing schedule is built on. Grading it
+     * again would move the word forward a step on the strength of short-term
+     * memory, which is precisely the inflation `review.ts` refuses when it
+     * sends a missed word back to the start rather than back one step.
+     *
+     * So the first answer sets the schedule and the second attempt is practice.
+     */
+    const firstAnswer = !outcomes.some((o) => o.id === id);
     const word = saved.words.find((w) => w.target.trim().toLocaleLowerCase() === prompt.trim().toLocaleLowerCase());
-    if (word) grade(word, knew);
+    if (word && firstAnswer) grade(word, knew);
     record(id, knew ? "right" : "wrong");
   }
 
@@ -149,6 +195,10 @@ export function PracticeSession({
     <div className="max-w-measure">
       <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
         {fill(t.progress, { n: String(at + 1), total: String(session.length) })}
+        {/* Said, not hidden. A question the learner already answered arriving
+            again with no explanation reads as a bug; saying it is the second
+            attempt is also the honest reason the total just went up by one. */}
+        {isRepeat && <span className="text-accent"> · {t.secondTry}</span>}
       </p>
 
       {/* Keyed on the item so every answer starts a genuinely new card:

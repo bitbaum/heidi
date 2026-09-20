@@ -809,6 +809,7 @@ export const gsw: Dictionary = {
     start: "Loslege",
     restart: "Nomal achti",
     progress: "Frag {n} vo {total}",
+    secondTry: "Zwöite Aalauf",
     skip: "Überspringe",
     show: "Uflöse",
     knew: "Gwüsst",
@@ -843,6 +844,54 @@ export const gsw: Dictionary = {
     doneRight: "grad gwüsst",
     doneAgain: "chömed nomal",
     againTitle: "Nomal aaluege",
+    whyTitle: "Warum d Übige so bout sind",
+    whyLead:
+      "Jedi Entscheidig da chame nochelääse. Wo d Forschig e Richtig git und kei Zahl, stoht d Zahl als öises Ermässe da — nöd als Befund.",
+    why: [
+      {
+        claim: "Gfrogt werde schloht nomal aaluege.",
+        detail:
+          "Drum verrot kei Übig zerscht d Antwort. Über 222 Studie hinweg liit de Vorteil vom Abfroge gegenüber em nomal Lerne bi g ≈ 0,50.",
+        source: ["yang-2021"],
+      },
+      {
+        claim: "Spöter isch besser als bald — und de Vorteil wachst mit de Ziit.",
+        detail:
+          "Drum chunnt es gmerkts Wort nach 1, 3, 7, 16 und 35 Täg zrugg statt jede Tag. I ere Meta-Analyse zum Zweitsprochelerne: g ≈ 0,76 im Soforttest, g ≈ 1,15 im verzögerte.",
+        source: ["kim-webb-2022"],
+      },
+      {
+        claim: "Eimol richtig isch z wenig; zweimol richtig, mit Abstand, isch de Punkt.",
+        detail:
+          "Drum chunnt e verpassti Frog no i de gliiche Sitzig zrugg — drei Froge spöter, nöd sofort. De Abstand vo drei isch öisi Schätzig: d Studie git d Richtig, nöd d Zahl.",
+        source: ["rawson-dunlosky-2011"],
+      },
+      {
+        claim: "Aachrüzle ohni Rückmeldig cha de falsch Begriff iipräge.",
+        detail:
+          "Drum zeigt jedi Uswahlfrog sofort di richtig Antwort und frogt spöter nomal. Rückmeldig verstärkt de Nutze und verchlinerets grad de Schade.",
+        source: ["butler-roediger-2008"],
+      },
+      {
+        claim: "Sälber härebringe prägt sich besser ii als läse.",
+        detail:
+          "Drum gits Lückesätz und offni Froge und nöd nur Uswahl. De Effekt isch robust, aber chliner, als sin Ruef vermuete loht.",
+        source: ["bertsch-2007"],
+      },
+      {
+        claim: "Mische hilft — aber nöd immer, und das säged mer dezue.",
+        detail:
+          "Drum chömed kei zwe gliiche Fragetype nachenand. D Meta-Analyse isch dütlich: de Nutze hanget dervo ab, wie ähnlich sich s Material isch, und bi sehr ähnlichem cha Mische sogar schade.",
+        source: ["brunmair-richter-2019"],
+      },
+      {
+        claim: "Kei Serie, kei Pünkt, kei Prozentzahl.",
+        detail:
+          "E Serie misst, wie viel Heidi Si konsumiert händ, und gseht dobii us wie es Mass fürs Lerne. Was da stoht, sind Zahle über das, wo Si gmacht händ.",
+        source: ["yang-2021"],
+      },
+    ],
+    whyMore: "Di ganz Methode",
     savedHint: "Im Chat mörked Si sich es Wort mit +. Das chunnt denn da zrugg, wenn's so wiit isch.",
   },
 

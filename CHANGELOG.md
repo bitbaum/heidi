@@ -16,6 +16,66 @@ record of being wrong is the part worth keeping.
 
 ---
 
+## 2026-09-20
+
+**Practice got a second attempt, and the page now argues for itself.** A
+missed question used to reveal its answer and move on — a test with feedback,
+and never a second chance to produce the thing. It now comes back three
+questions later, once, labelled as the second attempt. Rawson & Dunlosky
+(2011) is the reason: the durable gain comes from retrieving something
+correctly more than once, not from having seen it; Butler & Roediger (2008) is
+the sharper case for the three multiple-choice item kinds, where choosing a
+lure can leave the learner holding it unless something corrects them. The gap
+of three questions is ours, and is written down as a judgement rather than a
+finding.
+
+The schedule hears the FIRST answer only. A word got right a minute after
+being revealed has not been retrieved, and grading it twice would advance the
+very interval the spacing exists to protect.
+
+The first version of the guard was wrong in a way reading it did not show: it
+refused to requeue an item already in the QUEUE, but a requeued item leaves
+the queue to become the current question, so a second miss put it back again.
+Found by driving a whole session wrong on purpose — eight questions became
+thirteen and would have kept going. The rule is now stated on what decides it,
+and a test pins the worst case at exactly twice the session size.
+
+**`/practice` explains its own design, with the papers.** Seven claims, each
+linking to the study behind it, on the page the design belongs to rather than
+on `/method` — the person reading has just been told they got something wrong
+and is entitled to know whether the thing telling them knows anything. The
+interleaving row states the meta-analysis's moderator instead of suppressing
+it, and the row about the three-question gap says the number is ours. Every
+citation carries the same guarantee the research page already had: a test
+refuses a row that cites nothing, and refuses a locale that cites something
+different for the same sentence.
+
+**The dialect pages gained the structure they were describing.** Three
+branches of Alemannic, each carrying the pair of forms that draws its line —
+`Kind` inside Low Alemannic, `Chind` outside — with the two areas that
+genuinely straddle a line carrying no branch at all rather than a tidier
+falsehood. The area pages also list where each dialect can be heard, from a
+register whose rows have carried an atlas id since the first commit without
+any page following the join.
+
+**Essays**, because the question people actually arrive with — why a country
+this small has this many dialects, and why the big neighbour lost its own — is
+an argument with sources rather than a form or a map. Typed blocks rather than
+Markdown, so a page cannot render a type size the design system does not have,
+and translation is explicitly not required: an essay exists in the languages
+somebody wrote it in, a reader in another is told which one they are getting,
+and the sitemap's hreflang names only real translations.
+
+**Every page is now measured for overflow rather than screenshotted.**
+`pnpm run audit:responsive` drives every route in every language at four phone
+widths in both themes, with a browser that has been used, and fails on an
+element that leaves the viewport or whose content is wider than itself. It was
+written after the third report of a page scrolling sideways on a phone, each
+of which had been fixed one page at a time. `/portal` with eleven ordinary
+kept words measured 516px wide in a 360px viewport.
+
+---
+
 ## 2026-09-17
 
 **The spoken channel.** Heidi reads an answer aloud, and says what she is

@@ -4,8 +4,8 @@ import { VARIETY } from "../../variety/active.ts";
 import { check, checkAgainst } from "../../variety/check.ts";
 import { bridgeRules } from "../../variety/bridge.ts";
 import { allItems, articleItems, clozeItems, formItems, pairItems, recallItems } from "./generate.ts";
-import { buildSession, summarise } from "./session.ts";
-import { MIN_FORMS_TO_ASK, SESSION_SIZE } from "./types.ts";
+import { RELEARN_GAP, buildSession, requeue, summarise } from "./session.ts";
+import { MIN_FORMS_TO_ASK, SESSION_SIZE, type PracticeItem } from "./types.ts";
 import { LIMIT, NO_HISTORY, decodeHistory, remember } from "./history.ts";
 import type { SavedWord } from "../saved/types.ts";
 
@@ -364,5 +364,82 @@ describe("what this browser has already been asked", () => {
     assert.equal(decodeHistory("not json"), null);
     assert.equal(decodeHistory('{"seen":[]}'), null);
     assert.deepEqual(decodeHistory('["a", 3, "", "b"]'), ["a", "b"]);
+  });
+});
+
+/**
+ * A missed item comes back before the sitting ends.
+ *
+ * THE DEFECT THIS CLOSES. The session revealed the answer and moved on, so a
+ * learner who got something wrong was shown the right answer and then never
+ * asked to produce it. That is a test with feedback, and the durable gain in
+ * Rawson & Dunlosky (2011) comes from retrieving a thing CORRECTLY, more than
+ * once — not from having seen it. For the multiple-choice kinds Butler &
+ * Roediger (2008) sharpen it further: choosing a wrong option can leave the
+ * learner holding the wrong option unless something corrects it.
+ */
+describe("relearning inside one sitting", () => {
+  const item = (id: string) => ({ id, kind: "pair" as const, marking: "objective" as const, variety: "target" as const, options: ["a", "b"] as const, answer: 0 as const, source: { kind: "rule" as const, rule: id } });
+  const ids = (list: readonly { id: string }[]) => list.map((i) => i.id);
+
+  test("it comes back after a gap, not immediately", () => {
+    const remaining = [item("b"), item("c"), item("d"), item("e")];
+    const after = requeue({ remaining, item: item("a") });
+    assert.deepEqual(ids(after), ["b", "c", "d", "a", "e"]);
+    assert.equal(RELEARN_GAP, 3, "the gap is a judgement, and changing it should be deliberate");
+  });
+
+  test("near the end it goes last rather than off the end", () => {
+    // The obvious off-by-one: splicing at index 3 of a two-item queue would
+    // append past the end in some implementations and drop the item in others.
+    const after = requeue({ remaining: [item("b")], item: item("a") });
+    assert.deepEqual(ids(after), ["b", "a"]);
+    assert.deepEqual(ids(requeue({ remaining: [], item: item("a") })), ["a"]);
+  });
+
+  /**
+   * THE BUG THIS PINS, found by answering a whole session wrong on purpose.
+   *
+   * The first guard asked "is it already in the queue", which reads correctly
+   * and is wrong: a requeued item LEAVES the queue to become the current
+   * question, so missing it again put it back again. Eight questions became
+   * thirteen and would have kept going — an unbounded sitting for exactly the
+   * learner finding it hard.
+   */
+  test("a second miss does not buy a third attempt", () => {
+    const remaining = [item("b"), item("c"), item("d")];
+    // `asked` carries that "a" has already had its go this sitting.
+    const after = requeue({ remaining, item: item("a"), asked: ["a"] });
+    assert.deepEqual(ids(after), ["b", "c", "d"]);
+  });
+
+  test("a duplicate still in the queue is refused too", () => {
+    const once = requeue({ remaining: [item("b"), item("c"), item("d")], item: item("a") });
+    const twice = requeue({ remaining: once, item: item("a") });
+    assert.deepEqual(ids(twice), ids(once));
+  });
+
+  test("a sitting cannot grow past twice its size", () => {
+    // The worst case, stated as a number: every item missed, every one given
+    // exactly one more go.
+    const start = ["a", "b", "c", "d", "e", "f", "g", "h"];
+    let queue: PracticeItem[] = start.map(item);
+    const asked: string[] = [];
+    let guard = 0;
+    while (queue.length > 0 && guard++ < 100) {
+      const [current, ...rest] = queue;
+      queue = requeue({ remaining: rest, item: current, asked });
+      asked.push(current.id);
+    }
+    assert.equal(asked.length, start.length * 2, "every item asked exactly twice, and then it ends");
+  });
+
+  test("the queue it returns is a new list, not the one it was handed", () => {
+    // The caller holds this in React state; mutating the argument would update
+    // state without a re-render and the page would show the old order.
+    const remaining = [item("b"), item("c")];
+    const after = requeue({ remaining, item: item("a") });
+    assert.deepEqual(ids(remaining), ["b", "c"]);
+    assert.notEqual(after, remaining);
   });
 });

@@ -805,6 +805,7 @@ export const rm: Dictionary = {
     start: "Cumenzar",
     restart: "Anc otg",
     progress: "Dumonda {n} da {total}",
+    secondTry: "Segunda emprova",
     skip: "Sursiglir",
     show: "Mussar",
     knew: "Al saveva",
@@ -839,6 +840,54 @@ export const rm: Dictionary = {
     doneRight: "la emprima giada",
     doneAgain: "vegnan puspè",
     againTitle: "Da vesair anc ina giada",
+    whyTitle: "Pertge ch'ils exercizis èn fatgs uschia",
+    whyLead:
+      "Mintga decisiun qua sa laschi controllar. Nua che la perscrutaziun dat ina direcziun e betg ina cifra, stat la cifra sco nossa valitaziun — betg sco resultat.",
+    why: [
+      {
+        claim: "Vegnir dumandà batta leger danovamain.",
+        detail:
+          "Perquai na mussa nagin exercizi l'emprim la resposta. Sur 222 studis: il avantatg dal test cunter il repeter è g ≈ 0,50.",
+        source: ["yang-2021"],
+      },
+      {
+        claim: "Pli tard è meglier che baud — e l'avantatg crescha cun il temp.",
+        detail:
+          "Perquai turna in pled tegnì suenter 1, 3, 7, 16 e 35 dis enstagl mintga di. Meta-analisa en la segunda lingua: g ≈ 0,76 en il test immediat, g ≈ 1,15 en quel retardà.",
+        source: ["kim-webb-2022"],
+      },
+      {
+        claim: "Ina giada endretg na basta betg; duas giadas, cun distanza, è il punct.",
+        detail:
+          "Perquai turna ina dumonda manchentada en la medema sesida — trais dumondas pli tard, betg immediatamain. La distanza da trais è nossa valitaziun: il studi dat la direcziun, betg la cifra.",
+        source: ["rawson-dunlosky-2011"],
+      },
+      {
+        claim: "Tscherner senza resposta enavos po fixar la furma faussa.",
+        detail:
+          "Perquai mussa mintga dumonda da tscherna immediatamain la resposta gista e turna pli tard. La resposta enavos rinforza il niz e diminuescha gist quel donn.",
+        source: ["butler-roediger-2008"],
+      },
+      {
+        claim: "Producir sez sa tegna meglier che leger.",
+        detail:
+          "Perquai dat i frasas cun bocas e dumondas avertas, betg mo tschernas. L'effect è solid, ma pli pitschen che sia reputaziun.",
+        source: ["bertsch-2007"],
+      },
+      {
+        claim: "Maschadar gida — ma betg adina, e quai din nus.",
+        detail:
+          "Perquai na suondan betg duas dumondas dal medem tip. La meta-analisa è cleras: il niz dependa da quant simil ch'il material è, e cun material fitg simil po maschadar era donnegiar.",
+        source: ["brunmair-richter-2019"],
+      },
+      {
+        claim: "Nagins seris, nagins puncts, nagina percentuala.",
+        detail:
+          "In seri mesira quant Heidi che Vus avais consumà e para intant da mesirar l'emprender. Qua stattan cifras davart quai che Vus avais fatg.",
+        source: ["yang-2021"],
+      },
+    ],
+    whyMore: "L'entira metoda",
     savedHint: "En il chat tegnis Vus in pled cun +. El returna qua cur ch'igl è ura.",
   },
 
