@@ -49,7 +49,17 @@ export function Speak({ text, t, dialect = false }: { text: string; t: Dictionar
   const preview = text.length > 60 ? `${text.slice(0, 60).trimEnd()}…` : text;
 
   return (
-    <span className="inline-flex flex-col items-start gap-0.5">
+    /*
+     * `min-w-0`, because the caveat below is a SENTENCE inside a control.
+     *
+     * The controls sit in a row beside the block's label, and this wrapper is
+     * one of its items. A flex item refuses to shrink below its content, so
+     * while speaking, `t.claim` — two full lines about which voice your device
+     * actually has — made this item as wide as it wanted to be and shoved the
+     * whole card off the right of the screen. Reported from a phone: the
+     * caveat ran under the edge and took the answer with it.
+     */
+    <span className="inline-flex min-w-0 flex-col items-start gap-0.5">
       <button
         type="button"
         onClick={() => (speaking ? speech.stop() : speech.speak(text))}

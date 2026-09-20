@@ -49,7 +49,7 @@ export function NumberedList({ items }: { items: ReadonlyArray<{ title: string; 
   return (
     <ol className="mt-2 flex flex-col gap-8">
       {items.map((item, i) => (
-        <li key={item.title} className="grid gap-2 sm:grid-cols-[3rem_1fr] sm:gap-6">
+        <li key={item.title} className="grid grid-cols-safe gap-2 sm:grid-cols-[3rem_1fr] sm:gap-6">
           <span className="font-mono text-caption uppercase tracking-caps text-accent sm:pt-1.5">
             {String(i + 1).padStart(2, "0")}
           </span>

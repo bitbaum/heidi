@@ -156,7 +156,7 @@ function ProposeTopic({ t, onDone }: { t: T; onDone: () => void }) {
   return (
     <details className="mt-6 rounded-control border border-border-subtle bg-surface-raised p-4">
       <summary className="cursor-pointer font-heading text-lg leading-tight text-fg-primary">{t.proposeTitle}</summary>
-      <form onSubmit={submit} className="mt-4 grid gap-4">
+      <form onSubmit={submit} className="mt-4 grid grid-cols-safe gap-4">
         <div>
           <label className={label} htmlFor="topic-title">
             {t.topicTitleLabel}

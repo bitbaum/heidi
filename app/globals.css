@@ -163,6 +163,31 @@
   --color-on-accent: var(--primitive-black);
 }
 
+/**
+ * A grid column that is allowed to be narrower than its contents.
+ *
+ * THE DEFECT THIS EXISTS FOR. A grid track defaults to `auto`, and an `auto`
+ * track's automatic minimum is MIN-CONTENT — it refuses to be narrower than
+ * the widest unbreakable thing in it. One `truncate` line (which is
+ * `white-space: nowrap`, so its min-content is the whole sentence), one long
+ * compound, one URL, and the column becomes as wide as that string. The column
+ * drags the grid, the grid drags the page, and the reader on a phone is
+ * dragging the whole document sideways to read a card.
+ *
+ * Measured, not theorised: `/portal` with eleven ordinary saved words was
+ * 516px wide in a 360px viewport, and 912px once one of the words had been
+ * kept from a link. Nothing on that page was doing anything unusual.
+ *
+ * `grid-cols-2` and friends already spell `minmax(0, 1fr)`; a bare `grid` is
+ * the one that does not, and a bare `grid` is what a one-column-on-a-phone
+ * layout is. So this is that missing spelling, named, with the reason next to
+ * it. Put it on any grid whose base layout is a single column — the `sm:` and
+ * `lg:` column utilities that come later still win where they apply.
+ */
+@utility grid-cols-safe {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 html {
   color-scheme: light dark;
   scroll-behavior: smooth;
@@ -179,6 +204,30 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+
+  /**
+   * THE BACKSTOP, AND IT IS NOT THE FIX.
+   *
+   * Every sideways-scrolling page found so far has been fixed at its cause —
+   * see `grid-cols-safe` above and `wrap-anywhere` on the transcript — and
+   * `scripts/audit/responsive.mjs` walks every page at every phone width to
+   * keep it that way. This line is what the NEXT one degrades into.
+   *
+   * Without it, one stray unbreakable string turns the entire document into a
+   * horizontal scroller: the header rule stops at the screen edge, every
+   * paragraph on the page shifts, and the reader drags the whole site left and
+   * right to read one card. With it, the same mistake clips one element and
+   * leaves the rest of the page where it belongs. Neither is correct; one is
+   * a defect in a card and the other is a defect in the site.
+   *
+   * `clip`, NOT `hidden`. `overflow: hidden` makes the body a scroll
+   * container, which silently kills `position: sticky` (the composer pins
+   * itself to the bottom of the chat that way) and forces the other axis to
+   * `auto`. `clip` does neither — it clips and nothing else. Baseline in every
+   * browser this site supports, and older than the `:has()` the chat chrome
+   * already depends on.
+   */
+  overflow-x: clip;
 }
 
 :focus-visible {

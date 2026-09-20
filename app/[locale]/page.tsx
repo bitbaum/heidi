@@ -138,7 +138,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </section>
 
       <section className="border-b border-border-subtle py-10 sm:py-12" aria-labelledby="trust">
-        <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
+        <div className="grid grid-cols-safe gap-6 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
           <div>
             <h2
               id="trust"
@@ -177,7 +177,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         >
           {t.dialectTitle}
         </h2>
-        <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
+        <div className="mt-6 grid grid-cols-safe gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
           <p className="max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.dialectBody}</p>
           {DISPLAY.family && <DialectFigure plannedLabel={t.dialectPlanned} othersLabel={t.dialectOthers} />}
         </div>

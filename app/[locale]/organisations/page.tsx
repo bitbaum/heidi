@@ -58,7 +58,7 @@ export default async function OrganisationsPage({ params }: { params: Promise<{ 
           {t.noCustomers}
         </p>
 
-        <ul className="mt-8 grid gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle">
+        <ul className="mt-8 grid grid-cols-safe gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle">
           {SECTORS.map((sector) => (
             <li key={sector.id} className="bg-surface-page p-5 sm:p-6">
               <h2 className="font-heading text-section leading-tight tracking-display text-fg-primary">

@@ -38,7 +38,18 @@ export function Copy({ text, t }: { text: string; t: Dictionary["chat"] }) {
           setDone(false);
         }
       }}
-      className="min-h-9 shrink-0 text-sm text-link underline underline-offset-4 hover:text-accent"
+      /*
+       * `min-h-11` and the centring, to match `Speak` EXACTLY.
+       *
+       * These two sit side by side on every dialect block and every
+       * suggestion, and they did not line up: Speak was a 44px control with
+       * its label centred, Copy a 36px one, so "Kopieren" rode eight pixels
+       * above "Vorlesen" — two halves of different components bolted together,
+       * which is what it looked like. The heights are the same number now
+       * because the alignment IS the two numbers being equal; `items-start` on
+       * the row cannot fix a disagreement about how tall a control is.
+       */
+      className="inline-flex min-h-11 shrink-0 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
     >
       {done ? t.copied : t.copy}
     </button>

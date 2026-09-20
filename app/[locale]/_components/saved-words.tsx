@@ -80,7 +80,11 @@ export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: stri
         </div>
       </div>
 
-      <ul className="mt-4 grid gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle sm:grid-cols-2">
+      {/* `hyphens-auto wrap-anywhere`: a kept word can be a German compound
+          longer than a phone column, and one of them is the whole reason this
+          product exists. Hyphenate where the language allows it, break
+          anywhere rather than run off the card. */}
+      <ul className="mt-4 grid grid-cols-safe gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle hyphens-auto wrap-anywhere sm:grid-cols-2">
         {saved.words.map((w) => (
           <li key={w.target} className="flex items-start justify-between gap-3 bg-surface-page px-4 py-3">
             <div className="min-w-0">

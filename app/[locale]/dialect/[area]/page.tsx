@@ -105,7 +105,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
               {area.marks.map((mark) => (
                 <li
                   key={mark.theirs}
-                  className="grid items-baseline gap-1 rounded-control border border-border-subtle p-3 sm:grid-cols-[1fr_auto_1fr] sm:gap-4"
+                  className="grid grid-cols-safe items-baseline gap-1 rounded-control border border-border-subtle p-3 sm:grid-cols-[1fr_auto_1fr] sm:gap-4"
                 >
                   <span lang={DISPLAY.tag} className="text-base font-medium leading-relaxed text-dialect">
                     {mark.theirs}
