@@ -18,6 +18,7 @@ export const it: Dictionary = {
     dialect: "Dialetti",
     essays: "Letture",
     vocabulary: "Lessico",
+    situations: "Situazioni",
     method: "Metodo",
     technology: "Tecnologia",
     contribute: "Partecipare",
@@ -827,6 +828,7 @@ export const it: Dictionary = {
     grammarLink: "La grammatica dietro a questo",
     wordLink: "Questa parola nel vocabolario",
     ruleLink: "La regola dietro",
+    situationLink: "La situazione da cui viene",
     doneTitle: "Per adesso basta così.",
     doneAsked: "domande",
     doneRight: "al primo colpo",
@@ -1207,6 +1209,52 @@ export const it: Dictionary = {
     unknownLabel: "Cosa dovremmo chiedervi",
     noCustomers: "Heidi oggi non ha clienti, né progetti pilota, né casi di studio — e questa pagina non ne rivendica. Quello che segue è una descrizione del vostro problema per come lo conosciamo da fuori. Diteci dove sbagliamo.",
     talk: "Scriveteci",
+  },
+
+  situations: {
+    title: "Dove serve davvero",
+    lead: "Non ordinato per categoria grammaticale ma per momento: quello che si dice davvero durante un turno, nell'ordine in cui arriva.",
+    note: "La direzione è la stessa di tutto il resto qui: prima capire. La maggior parte di queste frasi le sentite; le poche che direste voi sono segnalate.",
+    unreviewed: "Ogni frase è stata controllata a macchina per le forme zurighesi, ma nessun madrelingua le ha ancora rilette. Lo scriviamo perché voi non potete accorgervene.",
+    hear: "Questo lo sentite",
+    say: "Questo lo dite voi",
+    linesLabel: "frasi",
+    heardLabel: "da capire",
+    grammarLabel: "Quello che qui torna di continuo",
+    practiseLabel: "Esercitarsi ora",
+    backLabel: "Tutte le situazioni",
+    domains: {
+      care: {
+        title: "Case per anziani e case di cura",
+        lead: "Una residente con demenza perde per prime le seconde lingue. Quello che resta è lo zurighese della sua infanzia — ed è la lingua in cui si svolge il turno.",
+      },
+    },
+    scenes: {
+      handover: {
+        title: "Le consegne",
+        scene: "Tra colleghi, niente viene rallentato, nessuno passa al tedesco standard per voi. Il momento più veloce della giornata, e quello che decide tutto il turno.",
+      },
+      "morning-care": {
+        title: "Al mattino",
+        scene: "Frasi brevi, dette con entrambe le mani occupate. Qui il tedesco standard non è l'opzione neutra: cambiare lingua durante la cura significa cambiare persona.",
+      },
+      pain: {
+        title: "Quando qualcosa fa male",
+        scene: "Il dolore non parla una seconda lingua. Chi lo segnala non sta componendo una frase — e chi lo fraintende scambia il dolore per agitazione.",
+      },
+      meals: {
+        title: "I pasti",
+        scene: "La situazione che ricorre più spesso e per cui nessuno si prepara, perché sembra la più facile.",
+      },
+      "evening-unrest": {
+        title: "L'inquietudine della sera",
+        scene: "Qualcuno vuole andare a casa, in una casa che non esiste più da quarant'anni. Quello che aiuta è breve, al presente, e nella lingua in cui quella persona pensa.",
+      },
+      visitors: {
+        title: "Le visite",
+        scene: "All'improvviso l'istituto siete voi. La figlia che arriva una domenica pomeriggio giudica la casa da questo: se chi era alla porta è riuscito a seguirla.",
+      },
+    },
   },
 
 };

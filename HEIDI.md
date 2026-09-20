@@ -230,6 +230,79 @@ pronunciation feedback; Lesya could on day one.
 fleet's own rule, the shared package is created at the second consumer, not the
 first. The seam is drawn now so the extraction is mechanical then.
 
+### The third axis: situations
+
+Two axes were already separate and deliberately so — `VARIETY` is what you
+learn, one per deployment; `locale` is what Heidi speaks to you while you learn
+it, seven of them. Neither answers the question a care assistant actually
+arrives with, which is not *what is Zurich German* but *what is said to me at
+half past six in the morning, and what do I say back*.
+
+So there is a third: **domain — where you need it.**
+
+```
+lib/situations/
+  pack.ts                 the contract — what any domain must declare
+  active.ts               THE SEAM — the packs matching the taught variety
+  display.ts              the projection, same rule as the variety's
+  packs/gsw-zh-care.ts    care and nursing homes, in Zurich German
+```
+
+Unlike the variety, a domain is **not** one per deployment. One Heidi serves a
+care assistant, a relocating doctor and somebody who has just moved into a
+shared flat, and those are not three deployments. So packs are a list, filtered
+at module load by the variety they declare — a Lesya build that inherited this
+folder offers no Zurich sentences rather than offering them in the wrong
+language, which is §2's failure with the packaging changed.
+
+**Why it is not simply more vocabulary.** The word list is organised by what
+KIND of word each one is, and that is right for its own argument: function
+words and the constant verbs are what no correspondence rescues. It is the
+wrong organisation for a shift. Nobody walks into a handover needing the twelve
+commonest particles; they need to follow four sentences about who slept badly.
+A situation is a scene and the lines that occur in it, in the order the moment
+unfolds — and the unit is the sentence, because the sentence is the unit a
+learner fails at.
+
+**Three things keep it honest**, and none of them is care:
+
+1. **Every line passes the deterministic gate**, at the `foreign` threshold the
+   generation gate uses. The contract suite runs `check()` over all of them, so
+   a Bernese vowel fails the build rather than reaching somebody who could not
+   detect it. Proven by mutation, not by the suite being green.
+2. **Every line names a source** for its lexis — required on every phrase,
+   unlike a vocabulary entry where a bare pair may inherit the pack default. A
+   sentence is a bigger claim than a gloss, and this module publishes nothing
+   but sentences. The source vouches for the WORDS; the arrangement is ours,
+   because example sentences must be written for this product rather than
+   lifted from resources that are research-licensed or non-commercial.
+3. **A pack declares whether a native speaker has read it, and the page prints
+   that answer either way.** `provenance.nativeReviewed` is `false` on `care`
+   today and the scene pages say so above the lines. This is the field most
+   easily skipped and the one that matters most: §2's argument is that this
+   learner cannot audit what we sell them, and that is far more true of a
+   sentence somebody will say to a frightened person at six in the morning than
+   it is of a greeting. It flips when a named person has read every line, and
+   `by` records who — a test refuses a claimed review that names nobody.
+
+**Direction is a field, not decoration.** `hear` or `say`, per line. §1 puts
+listening first and speaking last on purpose, and a domain pack is the easiest
+place in this codebase to drift into a phrasebook, which is all `say`. A test
+holds every pack to at least a third `hear`, and each scene prints the count.
+The floor is a third rather than a half because `care` legitimately leans on
+production — the reply to somebody frightened at six in the morning is not a
+sentence you get to compose in Standard German first — and a rule that failed
+the honest pack is a rule nobody keeps.
+
+**Where it surfaces.** `/situations` and `/situations/<scene>`, under
+`reference` in the nav rather than `use`: the header test caps `use` at five
+because a sixth link there is the sideways-scrolling bar this repo already
+shipped once, and the DOING half of a situation is `/practice`, which every
+scene links into. Scene lines become practice items — `hear` lines only, same
+blanking rule as the grammar cloze, and a missed one traces back to the SCENE
+rather than to the topic, because the other nine lines are the context that
+makes it stick.
+
 ---
 
 ## 5. What is true of the repo today
@@ -1043,6 +1116,27 @@ rather than two: a Cloudflare challenge is not a dead link, and only GONE fails
 the run. Its first pass caught `youtube.com/@srf3` answering 200 under the name
 SRF Unterhaltung, and its own normaliser calling TeleZüri a mismatch because it
 decomposed the umlaut to a bare `u` where the publisher writes `ue`.
+
+**Built: where you need it, and the claim it was standing under.**
+`/situations` holds six scenes from a care shift — handover, the morning, pain,
+meals, the evening, visitors — sixty lines with their Standard German beside
+them, each marked `hear` or `say`, each linking the grammar topic it turns on.
+Twenty-seven of them became practice items, which took the pack's question
+count from forty to sixty-seven.
+
+It was built in this order for a reason that is worth recording as a fault
+rather than a feature. `sectors.ts` had been telling a Heimleitung since it
+shipped that Heidi "practises the sentences that are actually said on your
+ward" — and the product held forty-eight words, of which none was said on a
+ward. That is the §8 failure exactly, on a live public page, ours. The fix was
+not to soften the sentence. It was to build the thing and then say what it
+actually is: sixty lines WE wrote for six scenes, machine-checked for Zurich
+forms, unread by any native speaker — and to put a link on the sales page
+straight to them, so a care-home director can judge the content in two minutes
+rather than take a sentence's word for it. A sector row with proof links to it
+and a row without one does not, and that asymmetry is now the most useful thing
+on `/organisations`: it is how a reader tells which of the six we have actually
+built for.
 
 **Next**, in order: capture what the learner did not know into a learner model —
 **the existing Heidi GPT generates that evidence daily and throws all of it

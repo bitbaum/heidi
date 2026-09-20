@@ -16,6 +16,42 @@ record of being wrong is the part worth keeping.
 
 ---
 
+## 2026-09-21
+
+**Situations, and the sales claim that had nothing behind it.** `/situations`
+is a third axis beside the variety and the locale: domain — where you need
+this. The first pack is care and nursing homes, six scenes from a shift
+(handover, the morning, pain, meals, the evening, visitors) with sixty lines,
+each carrying its Standard German, a direction (`hear` or `say`) and the
+grammar topic it turns on. Twenty-seven of them became practice items and the
+pack's question count went from forty to sixty-seven.
+
+The reason it was built now is a fault rather than a plan. `/organisations` had
+been telling care homes that Heidi "practises the sentences that are actually
+said on your ward" since the page shipped, while the product held forty-eight
+words and none of them was said on a ward. That is a claim with nothing behind
+it, on a live page, which is the one thing `sectors.ts` says in its own header
+it must never do. The sentence has been replaced with what is actually there,
+and the row now links to the scenes so a reader can judge them directly — a
+sector with proof links to it, one without shows no link, and the asymmetry is
+deliberate.
+
+Three things hold the content honest. Every line passes the deterministic
+variety gate at the generation threshold, so a Bernese form fails the build
+rather than reaching a learner who could not detect it — and that gate was
+proven by mutating a line to `güet` and watching it fail, not by the suite
+being green. Every line names the source that vouches for its lexis, while the
+arrangement stays ours, because example sentences have to be written for this
+product rather than lifted from resources that are non-commercial. And a pack
+declares whether a native speaker has read it: `care` says **no**, and the
+pages print that above the lines rather than below them. It flips when a named
+person has read every line.
+
+`lib/situations/display.ts` is very nearly the identity function and exists
+anyway, for the reason `lib/variety/display.ts` exists: the pull request that
+adds an English `note` to a scene is a reasonable pull request, and this is
+what stops it rendering in Russian.
+
 ## 2026-09-20
 
 **Practice got a second attempt, and the page now argues for itself.** A

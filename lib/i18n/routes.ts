@@ -21,6 +21,7 @@ export type RouteKey =
   | "dialect"
   | "essays"
   | "vocabulary"
+  | "situations"
   | "grammar"
   | "method"
   | "technology"
@@ -106,6 +107,27 @@ export const ROUTES: readonly Route[] = [
   { key: "grammar", segment: "grammar", group: "reference", indexed: true, priority: 0.7 },
   { key: "dialect", segment: "dialect", group: "reference", indexed: true, priority: 0.7 },
   { key: "vocabulary", segment: "vocabulary", group: "reference", indexed: true, priority: 0.7 },
+  // `reference`, and the group is a decision rather than a leftover.
+  //
+  // It is a thing you DO — read the scene you are walking into before a shift
+  // — which argues for `use`. But `use` is full: the header test measures the
+  // bar at 1024px in Russian and caps that group at five, because a sixth link
+  // there is the sideways-scrolling header this repo has already shipped once.
+  // The test says what to do about it in as many words: a sixth thing to do
+  // goes in a panel.
+  //
+  // And `reference` turns out to be the honest answer anyway. The DOING part
+  // of a situation is `/practice`, which already sits under `use` and which
+  // every scene links into. What lives here is the scene itself — something
+  // you look up, the way you look up a grammar topic when an answer turned on
+  // one. It is the same material the vocabulary page holds, organised by the
+  // moment it occurs in rather than by what kind of word it is, so it belongs
+  // beside it.
+  //
+  // Indexed and above the other reference pages: "Schweizerdeutsch Pflege" is
+  // a real search by a real person with a shift tomorrow, and it currently has
+  // no good answer anywhere.
+  { key: "situations", segment: "situations", group: "reference", indexed: true, priority: 0.75 },
   // `why`, beside the method: both answer "why does it work like this", and an
   // essay about how the dialect landscape came to be is the long form of the
   // sentence the dialect page states in a paragraph. Indexed and high: "warum

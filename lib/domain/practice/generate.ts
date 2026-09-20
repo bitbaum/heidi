@@ -1,5 +1,6 @@
 import type { VarietyPack, VarietyRule } from "../../variety/pack.ts";
 import { bridgeRules } from "../../variety/bridge.ts";
+import type { SituationPack } from "../../situations/pack.ts";
 import type { SavedWord } from "../saved/types.ts";
 import {
   ARTICLES,
@@ -136,6 +137,54 @@ export function clozeItems(pack: VarietyPack): ClozeItem[] {
   return items;
 }
 
+/**
+ * A blank cut into a line from a scene.
+ *
+ * THE SAME MACHINERY AS THE GRAMMAR CLOZE, deliberately — same `giveaway`
+ * test, same "blank the last word the bridge does not hand you", same refusal
+ * to produce an item when the contrast is not there. Writing a second,
+ * subtly-different blanking rule for situations is how the two would drift
+ * until one of them started printing answers next to its own questions.
+ *
+ * WHAT IS DIFFERENT IS WHICH LINES QUALIFY: only the ones the learner HEARS.
+ * A `say` line is something they may need to produce, and asking them to
+ * produce a word from it is a reasonable exercise for a different product.
+ * This one puts comprehension first, and an item that drills production of a
+ * sentence nobody has yet learned to recognise is the order reversed.
+ *
+ * It also keeps practice honest about its coupling: situations grow the number
+ * of questions exactly as fast as somebody writes checked lines, which is the
+ * same constraint the rest of this file already lives under.
+ */
+export function situationItems(packs: readonly SituationPack[]): ClozeItem[] {
+  const items: ClozeItem[] = [];
+
+  for (const pack of packs) {
+    for (const scene of pack.situations) {
+      for (const phrase of scene.phrases) {
+        if (phrase.direction !== "hear") continue;
+
+        const bridgeWords = words(phrase.bridge).map((w) => w.toLowerCase());
+        const unique = words(phrase.target).filter((w) => !giveaway(w, bridgeWords));
+        const answer = unique[unique.length - 1];
+        if (!answer || answer.length < 2) continue;
+
+        items.push({
+          id: `cloze:${scene.id}:${answer.toLowerCase()}`,
+          kind: "cloze",
+          marking: "self",
+          prompt: blank(phrase.target, answer),
+          answer,
+          bridge: phrase.bridge,
+          source: { kind: "situation", scene: scene.id },
+        });
+      }
+    }
+  }
+
+  return items;
+}
+
 /** The learner's own words, asked dialect-first. */
 export function recallItems(saved: readonly SavedWord[]): RecallItem[] {
   return saved
@@ -223,13 +272,26 @@ export function formItems(pack: VarietyPack): FormItem[] {
   return items;
 }
 
-/** Everything that could be asked, before a session decides what to ask. */
-export function allItems(pack: VarietyPack, saved: readonly SavedWord[]): PracticeItem[] {
+/**
+ * Everything that could be asked, before a session decides what to ask.
+ *
+ * `situations` is a parameter with a default rather than something read from
+ * the active registry, for the reason the rest of this file is pure: the same
+ * inputs give the same session, and a module that reached out to a singleton
+ * for half its material would make that untestable. `published.ts` is the one
+ * place that knows which packs this deployment carries, and it passes them.
+ */
+export function allItems(
+  pack: VarietyPack,
+  saved: readonly SavedWord[],
+  situations: readonly SituationPack[] = [],
+): PracticeItem[] {
   return [
     ...pairItems(pack),
     ...articleItems(pack),
     ...formItems(pack),
     ...clozeItems(pack),
+    ...situationItems(situations),
     ...recallItems(saved),
   ];
 }

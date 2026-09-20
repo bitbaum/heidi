@@ -240,6 +240,14 @@ test("route segments are the same in every language", () => {
     // is where a word is met and kept, practice is where it comes back. Under
     // `reference` it would read as one more list to look things up in, which
     // is what `vocabulary` already is and what this is not.
+    //
+    // `situations` is new, and it is `reference` for two reasons that happen
+    // to agree. The header test caps the `use` group at five — a sixth link
+    // there is the sideways-scrolling bar this repo has already shipped once,
+    // and the test says in as many words that the next one goes in a panel.
+    // And the doing part of a situation is `/practice`, which every scene
+    // links into; what lives at this address is the scene, which is looked up.
+    // The segment stays English like every other one.
     [
       "",
       "chat",
@@ -249,6 +257,7 @@ test("route segments are the same in every language", () => {
       "grammar",
       "dialect",
       "vocabulary",
+      "situations",
       // `essays` is new: the long-form half of the same argument the method
       // page makes in short. The dialect pages are deliberately made of data,
       // so prose about how the dialect landscape came to be needs a home where
