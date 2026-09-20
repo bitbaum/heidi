@@ -327,22 +327,36 @@ export function SpeakingPractice({
       {/* WHICH VARIETY, and what choosing it costs — stated on the same
           screen, not in a policy page. A single-entry list renders nothing:
           a radio group with one option is a control that cannot be operated. */}
+      {/* WHICH VARIETY, and what choosing it costs — stated on the same
+          screen, not in a policy page. A single-entry list renders nothing:
+          a radio group with one option is a control that cannot be operated.
+
+          NATIVE RADIOS, and `nav-panel.tsx` already argued why. This was a row
+          of `<button role="radio">`, which CLAIMS the radio pattern — roving
+          tabindex, arrow keys moving within the group, "1 of 2" announced —
+          and implemented none of it. That is the failure that file names: a
+          role you assert and do not honour is worse than no role, because a
+          screen-reader user is told to expect keys that do nothing.
+
+          The browser is the maintained implementation here. `sr-only` keeps
+          each input focusable and announced while the label carries the
+          styling, so arrow keys, grouping and the disabled state all come from
+          the platform and none of it is mine to get wrong. */}
       {varieties.length > 1 && (
-        <div className="mt-5">
-          <div
-            role="radiogroup"
-            aria-label={t.varietyLabel}
-            className="flex flex-wrap gap-2"
-          >
-            {varieties.map((v) => {
-              const active = v.id === varietyId;
-              return (
-                <button
-                  key={v.id}
-                  type="button"
-                  role="radio"
-                  aria-checked={active}
-                  onClick={() => {
+        <fieldset className="mt-5 min-w-0 border-0 p-0" disabled={recorder.state === "recording" || busy}>
+          <legend className="sr-only">{t.varietyLabel}</legend>
+          <div className="flex flex-wrap gap-2">
+            {varieties.map((v) => (
+              <label
+                key={v.id}
+                className="min-h-11 cursor-pointer rounded-control border border-border-strong bg-surface-page px-4 text-sm font-semibold text-fg-primary transition-colors has-[:checked]:border-accent has-[:checked]:bg-accent has-[:checked]:text-on-accent has-[:disabled]:cursor-default has-[:disabled]:opacity-50 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent inline-flex items-center"
+              >
+                <input
+                  type="radio"
+                  name="practice-variety"
+                  value={v.id}
+                  checked={v.id === varietyId}
+                  onChange={() => {
                     if (v.id === varietyId) return;
                     setVarietyId(v.id);
                     // The take on screen belongs to the mode that made it.
@@ -351,34 +365,28 @@ export function SpeakingPractice({
                     clearTake();
                     recorder.reset();
                   }}
-                  disabled={recorder.state === "recording" || busy}
-                  className={`min-h-11 rounded-control border px-4 text-sm font-semibold transition-colors disabled:opacity-50 ${
-                    active
-                      ? "border-accent bg-accent text-on-accent"
-                      : "border-border-strong bg-surface-page text-fg-primary"
-                  }`}
-                >
-                  {/* The TARGET is labelled with its endonym, which is a real
-                      name and reads correctly in all seven languages — that is
-                      the whole argument `display.ts` makes for letting names
-                      through the projection.
+                  className="sr-only"
+                />
+                {/* The TARGET is labelled with its endonym, which is a real
+                    name and reads correctly in all seven languages — that is
+                    the whole argument `display.ts` makes for letting names
+                    through the projection.
 
-                      The BRIDGE is not. `Bridge.name` in the pack is "Swiss
-                      Standard German", written in English for whoever
-                      maintains the pack, and putting that in front of a German
-                      or Russian reader is the same leak the projection exists
-                      to stop, arriving through a field that looks like a name.
-                      A description translates; an endonym does not. So this
-                      one comes from the dictionaries. */}
-                  {v.id === "bridge" ? t.varietyBridge : v.name}
-                </button>
-              );
-            })}
+                    The BRIDGE is not. `Bridge.name` in the pack is "Swiss
+                    Standard German", written in English for whoever maintains
+                    the pack, and putting that in front of a German or Russian
+                    reader is the same leak the projection exists to stop,
+                    arriving through a field that looks like a name. A
+                    description translates; an endonym does not. So this one
+                    comes from the dictionaries. */}
+                {v.id === "bridge" ? t.varietyBridge : v.name}
+              </label>
+            ))}
           </div>
           <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-muted">
             {transcribes ? t.varietyTranscribes : t.varietyMeasuresOnly}
           </p>
-        </div>
+        </fieldset>
       )}
 
       <div className="mt-5 rounded-control border border-border-subtle bg-surface-raised p-4 sm:p-6">
