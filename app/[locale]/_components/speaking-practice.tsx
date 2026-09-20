@@ -351,9 +351,6 @@ export function SpeakingPractice({
 
       {/* WHICH VARIETY, and what choosing it costs — stated on the same
           screen, not in a policy page. A single-entry list renders nothing:
-          a radio group with one option is a control that cannot be operated. */}
-      {/* WHICH VARIETY, and what choosing it costs — stated on the same
-          screen, not in a policy page. A single-entry list renders nothing:
           a radio group with one option is a control that cannot be operated.
 
           NATIVE RADIOS, and `nav-panel.tsx` already argued why. This was a row
@@ -374,7 +371,7 @@ export function SpeakingPractice({
             {varieties.map((v) => (
               <label
                 key={v.id}
-                className="min-h-11 cursor-pointer rounded-control border border-border-strong bg-surface-page px-4 text-sm font-semibold text-fg-primary transition-colors has-[:checked]:border-accent has-[:checked]:bg-accent has-[:checked]:text-on-accent has-[:disabled]:cursor-default has-[:disabled]:opacity-50 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent inline-flex items-center"
+                className="inline-flex min-h-11 cursor-pointer items-center rounded-control border border-border-strong bg-surface-page px-4 text-sm font-semibold text-fg-primary transition-colors has-[:checked]:border-accent has-[:checked]:bg-accent has-[:checked]:text-on-accent has-[:disabled]:cursor-default has-[:disabled]:opacity-50 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent"
               >
                 <input
                   type="radio"
