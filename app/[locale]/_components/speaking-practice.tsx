@@ -514,7 +514,17 @@ export function SpeakingPractice({
           </div>
         )}
 
-        <p className="mt-6 border-t border-border-subtle pt-4 text-sm leading-relaxed text-fg-muted">{t.noScore}</p>
+        {/* AFTER a take, not before it.
+            This paragraph is the honest one — no grade, nothing about your
+            accent, here is what was actually measured — and it was rendered
+            unconditionally, which put four lines of caveat directly under the
+            record button on a card that was otherwise empty. The first thing a
+            visitor met was a careful explanation of what they were not going
+            to be told. It answers a question somebody asks when they are
+            LOOKING AT NUMBERS, so it belongs next to the numbers. */}
+        {recorder.delivery && usable(recorder.delivery) && (
+          <p className="mt-6 border-t border-border-subtle pt-4 text-sm leading-relaxed text-fg-muted">{t.noScore}</p>
+        )}
       </div>
 
       {/* The privacy line is a DESCRIPTION, so it has to describe the mode the
