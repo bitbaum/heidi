@@ -19,6 +19,7 @@ export type RouteKey =
   | "practice"
   | "listen"
   | "dialect"
+  | "essays"
   | "vocabulary"
   | "grammar"
   | "method"
@@ -105,6 +106,11 @@ export const ROUTES: readonly Route[] = [
   { key: "grammar", segment: "grammar", group: "reference", indexed: true, priority: 0.7 },
   { key: "dialect", segment: "dialect", group: "reference", indexed: true, priority: 0.7 },
   { key: "vocabulary", segment: "vocabulary", group: "reference", indexed: true, priority: 0.7 },
+  // `why`, beside the method: both answer "why does it work like this", and an
+  // essay about how the dialect landscape came to be is the long form of the
+  // sentence the dialect page states in a paragraph. Indexed and high: "warum
+  // spricht die Schweiz Dialekt" is a real search with a lot of bad answers.
+  { key: "essays", segment: "essays", group: "why", indexed: true, priority: 0.75 },
   { key: "method", segment: "method", group: "why", indexed: true, priority: 0.8 },
   // Beside the method, not inside it. `/method` argues how Heidi teaches; this
   // reports what a computer can currently do with this language at all — a

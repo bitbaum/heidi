@@ -71,7 +71,7 @@ export function DataSection({ t, labels }: { t: Dictionary["settings"]; labels: 
         <p className="mt-4 font-mono text-caption uppercase tracking-caps text-fg-muted">{t.dataEmpty}</p>
       ) : (
         <>
-          <ul className="mt-4 grid gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle">
+          <ul className="mt-4 grid grid-cols-safe gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle">
             {held.map((store) => (
               <li key={store.key} className="flex flex-wrap items-center justify-between gap-3 bg-surface-page p-3">
                 <span className="min-w-0">

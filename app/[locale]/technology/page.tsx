@@ -121,7 +121,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
           {ASR_RESULTS.map((result) => (
             <li
               key={result.system}
-              className="grid gap-2 rounded-control border border-border-subtle p-4 sm:grid-cols-[8rem_1fr] sm:gap-5"
+              className="grid grid-cols-safe gap-2 rounded-control border border-border-subtle p-4 sm:grid-cols-[8rem_1fr] sm:gap-5"
             >
               {/* The number first and large: this is the one table where the
                   figure IS the content. */}

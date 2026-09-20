@@ -70,9 +70,21 @@ export type DisplayGrammar = {
  * pack's rules rather than stored, so a page cannot show a form the gate does
  * not enforce. An empty list is the honest "Heidi cannot place this yet".
  */
+/** A branch of the family, projected. `id` keys the words in the dictionaries. */
+export type DisplayGroup = {
+  id: string;
+  diagnostic?: { inside: string; outside: string; standard: string };
+  sources: readonly string[];
+};
+
 export type DisplayArea = {
   id: string;
   endonym: string;
+  /**
+   * Which branch it belongs to, or absent where it genuinely spans two. See
+   * the note on `DialectArea.group` — absent is an answer, not a hole.
+   */
+  group?: string;
   cantons: readonly string[];
   town: string;
   place: { lon: number; lat: number };
@@ -103,6 +115,8 @@ export type DisplayVariety = {
   grammar: readonly DisplayGrammar[];
   /** Every dialect area of the family. Empty for a pack that has not mapped one. */
   areas: readonly DisplayArea[];
+  /** The branches those areas fall into. Empty where the family has none. */
+  dialectGroups: readonly DisplayGroup[];
   /**
    * The words worth knowing first. A form, its bridge equivalent and a group
    * key — all three survive the projection because none is English prose; the
@@ -252,6 +266,20 @@ export const DISPLAY: DisplayVariety = {
     marks: marksFor(VARIETY, area),
     sources: area.sources,
     taught: isTaught(VARIETY, area),
+    ...(area.group ? { group: area.group } : {}),
+  })),
+  dialectGroups: (VARIETY.family?.dialectGroups ?? []).map((g) => ({
+    id: g.id,
+    sources: g.sources,
+    ...(g.diagnostic
+      ? {
+          diagnostic: {
+            inside: g.diagnostic.inside,
+            outside: g.diagnostic.outside,
+            standard: g.diagnostic.standard,
+          },
+        }
+      : {}),
   })),
   orthography: { convention: VARIETY.orthography.convention },
   capabilities: {

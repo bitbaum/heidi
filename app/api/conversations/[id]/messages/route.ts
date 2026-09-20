@@ -3,6 +3,7 @@ import { checkBody, mayAppend, mayWrite } from "../../../../../lib/domain/conver
 import {
   appendMessage,
   asSoloMessages,
+  asSoloStored,
   conversationById,
   countMessages,
   messagesIn,
@@ -111,5 +112,22 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     console.error("[heidi/conversations]", redact(error instanceof Error ? error.message : String(error)));
   }
 
-  return Response.json({ messages: reply ? [mine, reply] : [mine] }, { status: 201 });
+  /**
+   * MAPPED, like every other way a message leaves this module.
+   *
+   * `appendMessage` returns the ROW, and a row carries the OIDC `sub` as its
+   * author. The transcript is built on the fixed `LEARNER_ID`, so an unmapped
+   * row is not the reader's own message as far as the UI is concerned: it
+   * renders left-aligned, in the shell reserved for a third person, with the
+   * raw actor UUID printed above it as that person's name. Reported from a
+   * phone — someone signed in, sent a line, and watched their own sentence
+   * come back attributed to `C9E52937-6020-4CC0-…`.
+   *
+   * It survived because the mapping was in the two places anybody looks: the
+   * page that server-renders a saved thread, and the history this route hands
+   * the model a few lines above. This was the third boundary, and the only one
+   * a reader sees live. `conversations.test.ts` pins it.
+   */
+  const sent = asSoloStored(reply ? [mine, reply] : [mine], who.actorId);
+  return Response.json({ messages: sent }, { status: 201 });
 }

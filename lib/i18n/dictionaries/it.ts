@@ -16,6 +16,7 @@ export const it: Dictionary = {
     listen: "Ascoltare",
     grammar: "Grammatica",
     dialect: "Dialetti",
+    essays: "Letture",
     vocabulary: "Lessico",
     method: "Metodo",
     technology: "Tecnologia",
@@ -572,6 +573,14 @@ export const it: Dictionary = {
   },
 
   auth: {
+    sections: {
+      review: "Ripassare",
+      recent: "Conversazioni",
+      patterns: "Regolarità",
+      words: "Parole",
+      groups: "Gruppi",
+      onward: "Avanti",
+    },
     menu: {
       portal: "Le sue parole e conversazioni",
       settings: "Lingua, modello, account",
@@ -788,6 +797,7 @@ export const it: Dictionary = {
     start: "Comincia",
     restart: "Altre otto",
     progress: "Domanda {n} di {total}",
+    secondTry: "Secondo tentativo",
     skip: "Salta",
     show: "Mostra",
     knew: "La sapevo",
@@ -822,9 +832,65 @@ export const it: Dictionary = {
     doneRight: "al primo colpo",
     doneAgain: "da rivedere",
     againTitle: "Da rivedere",
+    whyTitle: "Perché gli esercizi sono fatti così",
+    whyLead:
+      "Ogni decisione qui si può verificare. Dove la ricerca dà una direzione e non un numero, il numero è indicato come nostra stima — non come un risultato.",
+    why: [
+      {
+        claim: "Essere interrogati batte rileggere.",
+        detail:
+          "Per questo nessun esercizio rivela prima la risposta. Su 222 studi, il vantaggio del test sul ripasso è g ≈ 0,50.",
+        source: ["yang-2021"],
+      },
+      {
+        claim: "Più tardi è meglio di presto — e il vantaggio cresce nel tempo.",
+        detail:
+          "Per questo una parola tenuta torna dopo 1, 3, 7, 16 e 35 giorni invece che ogni giorno. Meta-analisi in seconda lingua: g ≈ 0,76 al test immediato, g ≈ 1,15 a quello differito.",
+        source: ["kim-webb-2022"],
+      },
+      {
+        claim: "Una risposta giusta non basta; due, distanziate, sono il punto.",
+        detail:
+          "Per questo una domanda sbagliata torna nella stessa seduta — tre domande dopo, non subito. L'intervallo di tre è una nostra stima: lo studio dà la direzione, non il numero.",
+        source: ["rawson-dunlosky-2011"],
+      },
+      {
+        claim: "Scegliere senza riscontro può fissare la forma sbagliata.",
+        detail:
+          "Per questo ogni domanda a scelta mostra subito la risposta giusta e ritorna più tardi. Il riscontro rafforza il beneficio e riduce proprio quel danno.",
+        source: ["butler-roediger-2008"],
+      },
+      {
+        claim: "Produrre da sé si ricorda meglio che leggere.",
+        detail:
+          "Per questo ci sono frasi da completare e domande aperte, non solo scelte. L'effetto è solido, ma più piccolo della sua fama.",
+        source: ["bertsch-2007"],
+      },
+      {
+        claim: "Alternare aiuta — ma non sempre, e lo diciamo.",
+        detail:
+          "Per questo due domande dello stesso tipo non si susseguono. La meta-analisi è chiara: il beneficio dipende da quanto è simile il materiale, e su materiale molto simile alternare può nuocere.",
+        source: ["brunmair-richter-2019"],
+      },
+      {
+        claim: "Niente serie, niente punti, niente percentuali.",
+        detail:
+          "Una serie misura quanta Heidi avete consumato mentre sembra misurare l'apprendimento. Qui ci sono numeri su ciò che avete fatto.",
+        source: ["yang-2021"],
+      },
+    ],
+    whyMore: "Tutto il metodo",
     savedHint: "Nella chat tenete una parola con +. Torna qui quando è il momento.",
   },
 
+  essays: {
+    title: "Letture",
+    lead: "Perché la Svizzera tedesca parla come parla. Testi più lunghi, con le fonti — per le domande che non stanno su una cartina.",
+    none: "Qui non c'è ancora nulla.",
+    backToAll: "Tutti i testi",
+    notTranslated: "Questo testo non esiste ancora in italiano. Lo state leggendo in",
+    sourcesTitle: "Fonti",
+  },
   dialect: {
     title: "Lo svizzero tedesco",
     lead: "Che cos'è, perché non lo capite pur sapendo il tedesco — e quale dialetto si parla dove.",
@@ -842,6 +908,40 @@ export const it: Dictionary = {
     marksNone: "Heidi non sa ancora riconoscere questo dialetto da forme precise. Qui non c'è nulla, invece di qualcosa di plausibile.",
     taught: "È quello che imparate qui",
     sourcesTitle: "Fonti",
+    groupsTitle: "I tre rami",
+    groupsLead:
+      "Le parlate alemanne si dividono in tre gruppi. I confini non sono cantonali: sono mutamenti fonetici fermatisi in punti diversi.",
+    groups: {
+      low: {
+        name: "Basso alemanno",
+        body: "Il nord — in Svizzera praticamente solo Basilea. Qui la k iniziale è rimasta k; ovunque altrove nella Svizzera tedesca è diventata ch. Si sente il primo giorno.",
+      },
+      high: {
+        name: "Alto alemanno",
+        body: "L'Altopiano e l'est: Zurigo, Berna, Argovia, Soletta, San Gallo. Il gruppo più esteso — quello a cui si pensa dicendo «svizzero tedesco».",
+      },
+      highest: {
+        name: "Altissimo alemanno",
+        body: "Le valli alpine: Vallese, Glarona, Uri e Untervaldo, gli insediamenti walser. Il più conservativo e il più arduo per chi viene da fuori, perché vi si conservano forme antiche scomparse da tempo sull'Altopiano.",
+      },
+    },
+    groupLabel: "Ramo",
+    groupSpansTitle: "Su entrambi i lati della linea",
+    groupSpans:
+      "Quest'area sta su entrambi i lati della linea e non appartiene a un ramo solo. Non ne indichiamo nessuno, invece di sceglierne uno che faccia ordine.",
+    diagnosticTitle: "La linea che lo traccia",
+    diagnosticInside: "In questo ramo",
+    diagnosticOutside: "Accanto",
+    diagnosticStandard: "Tedesco standard",
+    hearTitle: "Come suona",
+    hearLead: "Trasmissioni e film in cui si sente soprattutto questa parlata. Link verificati — registrazioni non ne facciamo.",
+    hearNone:
+      "Per questa parlata non c'è ancora nulla di verificato nel repertorio. Meglio niente che un link che nessuno ha ascoltato.",
+    hearAll: "Tutte le fonti d'ascolto",
+    whyManyTitle: "Perché così tante?",
+    whyManyBody:
+      "La Svizzera ha conservato i suoi dialetti mentre la Germania ha in gran parte perso i propri. Non è un caso né una questione di montagne: dipende da come si è formato lo Stato, dalla scuola e dalla radio.",
+    whyManyLink: "Tutta la storia",
     backToAll: "Tutti i dialetti",
   },
 

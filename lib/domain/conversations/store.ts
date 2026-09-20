@@ -173,11 +173,40 @@ export async function deleteConversation(id: string): Promise<void> {
 export function asSoloMessages(rows: StoredMessage[], actorId: string): ChatMessage[] {
   return rows.map((m) => ({
     id: m.id,
-    authorId: m.authorId === actorId ? LEARNER_ID : HEIDI_ID,
+    authorId: soloAuthor(m, actorId),
     body: m.body,
     createdAt: m.createdAt,
     ...(m.answer ? { answer: m.answer } : {}),
   }));
+}
+
+/**
+ * The same mapping, for a reply that also carries the row's own fields.
+ *
+ * `asSoloMessages` narrows to `ChatMessage`, which is right for the thread
+ * handed to the model — it should see two participants and nothing else. An
+ * API response is the other case: it is read by the transcript, so the author
+ * must be mapped, and it also carries `imageCount`, which is a fact about the
+ * row rather than about who is talking.
+ *
+ * Two functions, one rule: `soloAuthor` below is the rule, and it is the only
+ * place a row's author becomes a participant.
+ */
+export function asSoloStored(rows: StoredMessage[], actorId: string): StoredMessage[] {
+  return rows.map((m) => ({ ...m, authorId: soloAuthor(m, actorId) }));
+}
+
+/**
+ * Who a stored row is, in a two-party thread.
+ *
+ * Anyone who is not the reader is Heidi, because in a private conversation
+ * there is nobody else — and a row that somehow carried a third author must
+ * not be rendered as a stranger in the room with their id for a name. That is
+ * precisely what shipped: an unmapped row reached the transcript and printed
+ * the reader's own actor UUID above their own sentence.
+ */
+function soloAuthor(row: StoredMessage, actorId: string): string {
+  return row.authorId === actorId ? LEARNER_ID : HEIDI_ID;
 }
 
 function toConversation(row: typeof conversations.$inferSelect): Conversation {

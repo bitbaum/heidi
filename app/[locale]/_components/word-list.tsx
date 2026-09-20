@@ -52,7 +52,7 @@ export function WordList({
   const byok = useByok();
 
   return (
-    <ul className="mt-5 grid gap-x-8 gap-y-px sm:grid-cols-2">
+    <ul className="mt-5 grid grid-cols-safe gap-x-8 gap-y-px hyphens-auto wrap-anywhere sm:grid-cols-2">
       {words.map((word) => {
         // Before storage has been read every word would claim to be unkept, and
         // a control that flips under the reader's finger is worse than one that

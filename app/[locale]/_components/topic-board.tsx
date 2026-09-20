@@ -166,7 +166,7 @@ function ProposeTopic({ t, onDone }: { t: T; onDone: () => void }) {
         <span aria-hidden="true" className="text-fg-muted transition-transform group-open:rotate-90">
           &rsaquo;
         </span>{t.proposeTitle}</summary>
-      <form onSubmit={submit} className="mt-4 grid gap-4">
+      <form onSubmit={submit} className="mt-4 grid grid-cols-safe gap-4">
         <div>
           <label className={label} htmlFor="topic-title">
             {t.topicTitleLabel}

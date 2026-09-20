@@ -16,6 +16,7 @@ export const fr: Dictionary = {
     listen: "Écouter",
     grammar: "Grammaire",
     dialect: "Dialectes",
+    essays: "Lectures",
     vocabulary: "Vocabulaire",
     method: "Méthode",
     technology: "Technique",
@@ -572,6 +573,14 @@ export const fr: Dictionary = {
   },
 
   auth: {
+    sections: {
+      review: "Réviser",
+      recent: "Conversations",
+      patterns: "Régularités",
+      words: "Mots",
+      groups: "Groupes",
+      onward: "Continuer",
+    },
     menu: {
       portal: "Vos mots et vos conversations",
       settings: "Langue, modèle, compte",
@@ -788,6 +797,7 @@ export const fr: Dictionary = {
     start: "Commencer",
     restart: "Encore huit",
     progress: "Question {n} sur {total}",
+    secondTry: "Deuxième essai",
     skip: "Passer",
     show: "Montrer",
     knew: "Je savais",
@@ -822,9 +832,65 @@ export const fr: Dictionary = {
     doneRight: "du premier coup",
     doneAgain: "à revoir",
     againTitle: "À revoir",
+    whyTitle: "Pourquoi les exercices sont faits ainsi",
+    whyLead:
+      "Chaque décision ici peut être vérifiée. Là où la recherche donne une direction et pas un chiffre, le chiffre est présenté comme notre estimation — pas comme un résultat.",
+    why: [
+      {
+        claim: "Être interrogé vaut mieux que relire.",
+        detail:
+          "C'est pourquoi aucun exercice ne donne d'abord la réponse. Sur 222 études, l'avantage du test sur la relecture est de g ≈ 0,50.",
+        source: ["yang-2021"],
+      },
+      {
+        claim: "Plus tard vaut mieux que bientôt — et l'avantage grandit avec le temps.",
+        detail:
+          "C'est pourquoi un mot gardé revient après 1, 3, 7, 16 et 35 jours plutôt que chaque jour. Méta-analyse en langue seconde : g ≈ 0,76 au test immédiat, g ≈ 1,15 au test différé.",
+        source: ["kim-webb-2022"],
+      },
+      {
+        claim: "Une bonne réponse ne suffit pas ; deux, espacées, c'est le point.",
+        detail:
+          "C'est pourquoi une question manquée revient dans la même séance — trois questions plus loin, pas tout de suite. L'écart de trois est notre estimation : l'étude donne la direction, pas le chiffre.",
+        source: ["rawson-dunlosky-2011"],
+      },
+      {
+        claim: "Cocher sans retour peut fixer la mauvaise forme.",
+        detail:
+          "C'est pourquoi chaque question à choix montre aussitôt la bonne réponse et revient plus tard. Le retour renforce le bénéfice de ces tests et réduit précisément ce dommage.",
+        source: ["butler-roediger-2008"],
+      },
+      {
+        claim: "Produire soi-même se retient mieux que lire.",
+        detail:
+          "C'est pourquoi il y a des phrases à trous et des questions ouvertes, pas seulement des choix. L'effet est robuste, mais plus petit que sa réputation.",
+        source: ["bertsch-2007"],
+      },
+      {
+        claim: "Alterner aide — mais pas toujours, et nous le disons.",
+        detail:
+          "C'est pourquoi deux questions du même type ne se suivent pas. La méta-analyse est claire : le bénéfice dépend de la similarité du matériel, et sur du matériel très proche, alterner peut nuire.",
+        source: ["brunmair-richter-2019"],
+      },
+      {
+        claim: "Pas de séries, pas de points, pas de pourcentage.",
+        detail:
+          "Une série mesure combien de Heidi vous avez consommé tout en ayant l'air de mesurer l'apprentissage. Ce qui figure ici, ce sont des faits sur ce que vous avez fait.",
+        source: ["yang-2021"],
+      },
+    ],
+    whyMore: "Toute la méthode",
     savedHint: "Dans le chat, gardez un mot avec +. Il revient ici le moment venu.",
   },
 
+  essays: {
+    title: "Lectures",
+    lead: "Pourquoi la Suisse alémanique parle comme elle parle. Des textes plus longs, avec leurs sources — pour les questions qui ne tiennent pas sur une carte.",
+    none: "Rien ici pour l'instant.",
+    backToAll: "Tous les textes",
+    notTranslated: "Ce texte n'existe pas encore en français. Vous le lisez en",
+    sourcesTitle: "Sources",
+  },
   dialect: {
     title: "Le suisse allemand",
     lead: "Ce que c'est, pourquoi vous ne le comprenez pas alors que vous savez l'allemand — et quel dialecte se parle où.",
@@ -842,6 +908,40 @@ export const fr: Dictionary = {
     marksNone: "Heidi ne sait pas encore reconnaître ce dialecte à des formes précises. Rien ici, plutôt que quelque chose de plausible.",
     taught: "C'est ce que vous apprenez ici",
     sourcesTitle: "Sources",
+    groupsTitle: "Les trois branches",
+    groupsLead:
+      "Les parlers alémaniques se divisent en trois groupes. Les frontières ne sont pas cantonales : ce sont des changements phonétiques qui se sont arrêtés à des endroits différents.",
+    groups: {
+      low: {
+        name: "Bas-alémanique",
+        body: "Le nord — en Suisse, pratiquement Bâle seule. Ici le k initial est resté k ; partout ailleurs en Suisse alémanique il est devenu ch. Cela s'entend dès le premier jour.",
+      },
+      high: {
+        name: "Haut-alémanique",
+        body: "Le Plateau et l'est : Zurich, Berne, Argovie, Soleure, Saint-Gall. Le groupe le plus vaste — celui auquel on pense en disant « suisse allemand ».",
+      },
+      highest: {
+        name: "Alémanique supérieur",
+        body: "Les vallées alpines : Valais, Glaris, Uri et Unterwald, les colonies walser. Le plus conservateur et le plus difficile pour qui vient d'ailleurs, parce qu'on y a gardé des formes anciennes disparues depuis longtemps du Plateau.",
+      },
+    },
+    groupLabel: "Branche",
+    groupSpansTitle: "Des deux côtés de la ligne",
+    groupSpans:
+      "Cette aire se trouve des deux côtés de la ligne et n'appartient à aucune branche en propre. Nous n'en nommons donc aucune, plutôt que d'en choisir une qui ferait joli.",
+    diagnosticTitle: "La ligne qui la trace",
+    diagnosticInside: "Dans cette branche",
+    diagnosticOutside: "À côté",
+    diagnosticStandard: "Allemand standard",
+    hearTitle: "Ce que cela donne à l'oreille",
+    hearLead: "Émissions et films où l'on entend surtout ce parler. Liens vérifiés — nous n'enregistrons rien nous-mêmes.",
+    hearNone:
+      "Rien de vérifié dans le répertoire pour ce parler. Mieux vaut rien qu'un lien que personne n'a écouté.",
+    hearAll: "Toutes les sources d'écoute",
+    whyManyTitle: "Pourquoi tant de parlers ?",
+    whyManyBody:
+      "La Suisse a gardé ses dialectes là où l'Allemagne a largement perdu les siens. Ce n'est ni un hasard ni une affaire de montagnes : cela tient à la construction de l'État, à l'école et à la radio.",
+    whyManyLink: "Toute l'histoire",
     backToAll: "Tous les dialectes",
   },
 

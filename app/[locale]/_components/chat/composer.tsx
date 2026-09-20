@@ -199,7 +199,12 @@ export function Composer({
           maxLength={2000}
           // Short and visible; the full sentence is the accessible label above.
           placeholder={placeholder}
-          className="max-h-[200px] min-h-11 flex-1 resize-none bg-transparent px-2 py-2 text-base leading-relaxed text-fg-primary placeholder:text-fg-muted focus:outline-none"
+          // `min-w-0`: a flex item refuses to shrink below its min-content
+          // width, and a textarea's is its `cols` — twenty characters it has
+          // never been told it does not have. On a 320px phone that plus three
+          // 44px buttons is wider than the row, and the send button goes off
+          // the edge. The same defect the transcript had, one element down.
+          className="max-h-[200px] min-h-11 min-w-0 flex-1 resize-none bg-transparent px-2 py-2 text-base leading-relaxed text-fg-primary placeholder:text-fg-muted focus:outline-none"
         />
 
         {images && (

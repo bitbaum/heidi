@@ -10,7 +10,8 @@
     "type-check": "tsc --noEmit",
     "verify": "pnpm run type-check && pnpm run lint && pnpm run test",
     "test": "node --no-warnings --experimental-strip-types --experimental-test-module-mocks --test-concurrency=1 --test 'app/**/*.test.ts' 'lib/**/*.test.ts'",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "audit:responsive": "node scripts/audit/responsive.mjs"
   },
   "dependencies": {
     "@bitbaum/ai-kit": "^1.10.0",
@@ -32,6 +33,7 @@
     "drizzle-kit": "^0.31.10",
     "eslint": "^9.39.5",
     "eslint-config-next": "16.2.4",
+    "playwright": "^1.56.1",
     "tailwindcss": "^4",
     "typescript": "^6.0.3"
   },

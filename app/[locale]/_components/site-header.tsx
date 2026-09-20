@@ -29,12 +29,15 @@ export function SiteHeader({
   locale,
   dict,
   account,
+  accountSheet,
 }: {
   locale: Locale;
   dict: Dictionary;
   /** Rendered on the server (it reads the session) and passed in as a slot,
    *  because a client component cannot render a server component as a child. */
   account?: React.ReactNode;
+  /** The same control, for the mobile menu sheet. See `account-control.tsx`. */
+  accountSheet?: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -81,7 +84,23 @@ export function SiteHeader({
           className="inline-flex min-h-11 items-center gap-2.5 whitespace-nowrap text-fg-primary"
         >
           <CowMark size={30} title="Heidi" />
-          <span className="font-heading text-xl font-bold tracking-display sm:text-2xl">Heidi</span>
+          {/*
+            THE WORDMARK STANDS DOWN UNDER 380px, and the mark stays.
+
+            Adding the avatar to the bar bought the one control people look for
+            without being told where it is, and it cost 60px the narrowest
+            phones did not have: at 320px in Russian the row measured 342px
+            inside 320 — brand, avatar, language, «Меню». Something had to give
+            and the word "Heidi" is the cheapest of them, because the cow is
+            still there and the link still announces itself. The alternative
+            was a hamburger icon in place of the menu's word, which trades a
+            label everybody reads for a glyph some people guess at.
+
+            `xs` is a project breakpoint, not a Tailwind default — see the
+            theme. It exists because 320 and 390 genuinely want different
+            headers and `sm` at 640 is far too late to decide that.
+          */}
+          <span className="hidden font-heading text-xl font-bold tracking-display xs:inline sm:text-2xl">Heidi</span>
         </Link>
 
         {/*
@@ -218,15 +237,20 @@ export function SiteHeader({
           </NavPanel>
         </nav>
 
-        <div className="flex items-center gap-2">
+        {/* `relative` is the anchor every control in this row hangs its panel
+            from. Without it a dropdown anchors to its own button, which is
+            correct only for the last control in the row — see the note in
+            `account-menu.tsx` for what that cost. */}
+        <div className="relative flex items-center gap-2">
           {/* On a phone the bar was brand · gear · Anmelden · DE · MENÜ —
               five controls in 390px, each in its own box, none of them the
-              thing anyone came for. The account controls move into the menu
-              sheet below, leaving the bar with the two controls that must be
-              reachable in one tap: what language this is, and where else to
-              go. Rendered in both places and shown in one, because the server
-              cannot know the viewport and CSS can. */}
-          <div className="hidden lg:flex lg:items-center lg:gap-2">{account}</div>
+              thing anyone came for, so all of it moved into the sheet.
+              That was right for the signed-OUT bar and wrong for the signed-in
+              one: an avatar is 44px, it fits, and "log out" is the control
+              people look for in the corner without being told. The slot no
+              longer hides itself — `AccountControl` decides what belongs here
+              at which width, because only it knows whether there is a session. */}
+          <div className="flex items-center gap-2">{account}</div>
           <LanguageSwitcher
             current={locale}
             label={dict.nav.language}
@@ -271,8 +295,14 @@ export function SiteHeader({
               </section>
             ))}
 
-            {/* The account controls the bar no longer has room for. */}
-            <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-border-subtle pt-5">{account}</div>
+            {/* Signed out only: the sign-in button and the gear, which do not
+                fit in the bar beside everything else. Signed in this renders
+                nothing at all, so the dropdown exists once in the document. */}
+            {accountSheet && (
+              <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-border-subtle pt-5">
+                {accountSheet}
+              </div>
+            )}
           </nav>
         </div>
       )}

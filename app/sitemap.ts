@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/config/site";
-import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS } from "@/lib/i18n/locales";
+import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
 import { INDEXED_ROUTES } from "@/lib/i18n/routes";
+import { essaysFor } from "@/lib/essays/registry";
 
 /**
  * Every page in every language, with each entry naming its translations.
@@ -13,7 +14,37 @@ import { INDEXED_ROUTES } from "@/lib/i18n/routes";
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  return LOCALES.flatMap((locale) =>
+  /**
+   * Each essay, in each language it can be READ in.
+   *
+   * Derived, like everything else here — but from `essaysFor`, not from the
+   * registry crossed with every locale. An essay written in German and English
+   * is served to a Russian reader in German, which is a real page worth
+   * crawling; listing it under seven locales as though seven translations
+   * existed would be the sitemap making a claim the pages do not keep.
+   */
+  const essays = LOCALES.flatMap((locale) =>
+    essaysFor(locale).map((served) => ({
+      url: `${SITE_URL}/${locale}/essays/${served.essay.slug}`,
+      lastModified: new Date(served.essay.published),
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+      alternates: {
+        languages: Object.fromEntries(
+          // Only the languages the piece is actually in. An hreflang pointing
+          // at a fallback tells Google there is a translation there.
+          (Object.keys(served.essay.text) as Locale[]).map((l) => [
+            LOCALE_TAGS[l],
+            `${SITE_URL}/${l}/essays/${served.essay.slug}`,
+          ]),
+        ),
+      },
+    })),
+  );
+
+  return [
+    ...essays,
+    ...LOCALES.flatMap((locale) =>
     INDEXED_ROUTES.map((route) => {
       const path = route.segment ? `/${locale}/${route.segment}` : `/${locale}`;
       return {
@@ -35,5 +66,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       };
     }),
-  );
+  ),
+  ];
 }

@@ -75,7 +75,7 @@ export default async function ImpressumPage({ params }: { params: Promise<{ loca
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid gap-1 sm:grid-cols-[12rem_1fr] sm:gap-6">
+    <div className="grid grid-cols-safe gap-1 sm:grid-cols-[12rem_1fr] sm:gap-6">
       <dt className="font-mono text-caption uppercase tracking-caps text-fg-muted sm:pt-1">{label}</dt>
       <dd className="text-base leading-relaxed text-fg-primary">{children}</dd>
     </div>

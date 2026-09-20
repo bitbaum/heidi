@@ -67,6 +67,41 @@ export const SOURCES = {
    * vocabulary page existed, because the test below refuses a source nothing
    * cites — correctly.
    */
+  /**
+   * WHY SWITZERLAND SOUNDS LIKE THIS, as opposed to where a form is spoken.
+   *
+   * A third kind of claim again: not "Bern says `gäu`" and not "spacing
+   * improves retention", but an assertion about how a language situation came
+   * to be. The essays make those, so the essays cite these — and where the
+   * causal story is genuinely contested, the essay says so rather than
+   * pointing at a source that does not carry the weight.
+   */
+  "ferguson-1959": {
+    authors: "Ferguson",
+    year: 1959,
+    title: "Diglossia",
+    venue:
+      "Word 15(2), 325–340. The paper that named the pattern, built on four defining cases — one of them German-speaking Switzerland",
+    url: "https://doi.org/10.1080/00437956.1959.11659702",
+  },
+  "hls-mehrsprachigkeit": {
+    kind: "reference",
+    authors: "Lüdi",
+    year: 2008,
+    title: "Mehrsprachigkeit",
+    venue:
+      "Historisches Lexikon der Schweiz. The standing national reference work; this article describes the media diglossia between the spoken dialects and written Standard German",
+    url: "https://hls-dhs-dss.ch/de/articles/024596/",
+  },
+  "hls-landesverteidigung": {
+    kind: "reference",
+    authors: "Jorio",
+    year: 2006,
+    title: "Geistige Landesverteidigung",
+    venue:
+      "Historisches Lexikon der Schweiz. The cultural-political movement of the 1930s to 1960s, and its use of radio and film",
+    url: "https://hls-dhs-dss.ch/de/articles/017426/",
+  },
   "idiotikon": {
     kind: "reference",
     authors: "Antiquarische Gesellschaft in Zürich",
@@ -147,6 +182,49 @@ export const SOURCES = {
     title: "Orienting attention during phonetic training facilitates learning",
     venue: "Journal of the Acoustical Society of America 127(2), EL54–EL59",
     url: "https://doi.org/10.1121/1.3292286",
+  },
+  /**
+   * HOW AN EXERCISE IS SHAPED, as opposed to when it is scheduled.
+   *
+   * `yang-2021` and `kim-webb-2022` below already carry the two decisions the
+   * schedule rests on — space it, and ask rather than show. These four are
+   * about the sitting itself: what a question should do when the answer is
+   * wrong, which direction to ask a word in, and whether mixing the kinds up
+   * actually helps. Every one of them is cited on `/practice`, where the
+   * learner can check the claim rather than take it.
+   *
+   * `brunmair-richter-2019` is here as the counterweight and is deliberately
+   * not summarised as "interleaving works". It does not always; the moderator
+   * is how similar the material is. Citing a meta-analysis and then ignoring
+   * what it moderates on would be the same failure as citing nothing.
+   */
+  "rawson-dunlosky-2011": {
+    authors: "Rawson & Dunlosky",
+    year: 2011,
+    title: "Optimizing schedules of retrieval practice for durable and efficient learning: How much is enough?",
+    venue: "Journal of Experimental Psychology: General 140(3), 283–302",
+    url: "https://doi.org/10.1037/a0023956",
+  },
+  "butler-roediger-2008": {
+    authors: "Butler & Roediger",
+    year: 2008,
+    title: "Feedback enhances the positive effects and reduces the negative effects of multiple-choice testing",
+    venue: "Memory & Cognition 36(3), 604–616",
+    url: "https://doi.org/10.3758/MC.36.3.604",
+  },
+  "bertsch-2007": {
+    authors: "Bertsch, Pesta, Wiscott & McDaniel",
+    year: 2007,
+    title: "The generation effect: A meta-analytic review",
+    venue: "Memory & Cognition 35(2), 201–210",
+    url: "https://doi.org/10.3758/BF03193441",
+  },
+  "brunmair-richter-2019": {
+    authors: "Brunmair & Richter",
+    year: 2019,
+    title: "Similarity matters: A meta-analysis of interleaved learning and its moderators",
+    venue: "Psychological Bulletin 145(11), 1029–1052",
+    url: "https://doi.org/10.1037/bul0000209",
   },
   "yang-2021": {
     authors: "Yang, Luo, Vadillo, Yu & Shanks",

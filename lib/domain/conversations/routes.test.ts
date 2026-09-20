@@ -2,7 +2,7 @@ import { test, before, after, describe, mock } from "node:test";
 import assert from "node:assert/strict";
 import { sql } from "drizzle-orm";
 import { db, dbConfigured } from "../../db/index.ts";
-import { HEIDI_ID } from "../chat/types.ts";
+import { HEIDI_ID, LEARNER_ID } from "../chat/types.ts";
 
 /**
  * The route glue for private conversations.
@@ -146,6 +146,35 @@ describe("conversation routes", { skip: HAS_DB ? false : "DATABASE_URL unset" },
     assert.ok(back.messages.some((m) => m.body === "Chunnsch au?"));
   });
 
+  /**
+   * THE DEFECT THIS PINS, and it was visible on a phone for weeks.
+   *
+   * `appendMessage` hands back the ROW, and a row's author is the OIDC `sub`.
+   * The transcript is built on the fixed `LEARNER_ID`, so an unmapped row is
+   * not the reader's own message as far as the UI can tell: it renders in the
+   * shell reserved for a third person in the room, left-aligned, with the raw
+   * actor UUID printed above it as that stranger's name. Somebody signed in,
+   * sent a line, and watched their own sentence come back from
+   * `C9E52937-6020-4CC0-…`.
+   *
+   * Every other way a message leaves this module already maps — the page that
+   * renders a saved thread, and the history this route hands the model. This
+   * was the third boundary and the only live one.
+   */
+  test("the messages a send returns are the reader's own, not rows with their actor id", async () => {
+    const made = await makeConversation();
+    const res = await routes.messages.POST(send("POST", { text: "Chunnsch au?" }), at(made.id));
+    const { messages } = (await res.json()) as { messages: Array<{ authorId: string; body: string }> };
+
+    const mine = messages.find((m) => m.body === "Chunnsch au?");
+    assert.ok(mine, "the learner's own message comes back");
+    assert.equal(mine.authorId, LEARNER_ID);
+    assert.ok(
+      messages.every((m) => m.authorId === LEARNER_ID || m.authorId === HEIDI_ID),
+      `a two-party thread has two authors; got ${messages.map((m) => m.authorId).join(", ")}`,
+    );
+  });
+
   test("a message is checked before it is stored", async () => {
     const made = await makeConversation();
     assert.equal((await routes.messages.POST(send("POST", { text: "  " }), at(made.id))).status, 400);
@@ -210,7 +239,12 @@ describe("conversation routes", { skip: HAS_DB ? false : "DATABASE_URL unset" },
     assert.equal(messages.length, 3, "the blank one is dropped, the other three are kept");
     assert.deepEqual(
       messages.map((m) => m.authorId),
-      ["alice", HEIDI_ID, "alice"],
+      // The same assertion it always made — only two roles exist and the
+      // signed-in actor owns everything that is not Heidi — now spelled in the
+      // names the THREAD uses. The route hands back `LEARNER_ID` rather than
+      // the raw `sub`, because a row that reaches the transcript unmapped is
+      // rendered as a stranger in the room wearing the reader's own UUID.
+      [LEARNER_ID, HEIDI_ID, LEARNER_ID],
       "only two roles exist, and the signed-in actor owns everything that is not Heidi",
     );
     assert.equal(messages[0].id === "forged", false, "ids are the database's");

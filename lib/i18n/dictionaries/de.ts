@@ -35,6 +35,7 @@ export const de = {
     listen: "Hören",
     grammar: "Grammatik",
     dialect: "Mundarten",
+    essays: "Lesen",
     vocabulary: "Wortschatz",
     method: "Methode",
     technology: "Technik",
@@ -625,6 +626,14 @@ export const de = {
   },
 
   auth: {
+    sections: {
+      review: "Wiederholen",
+      recent: "Gespräche",
+      patterns: "Muster",
+      words: "Wörter",
+      groups: "Gruppen",
+      onward: "Weiter",
+    },
     /**
      * One line under each entry of the avatar menu, saying what is behind it.
      *
@@ -866,6 +875,7 @@ export const de = {
     start: "Losgehen",
     restart: "Nochmals acht",
     progress: "Frage {n} von {total}",
+    secondTry: "Zweiter Anlauf",
     skip: "Überspringen",
     show: "Auflösen",
     knew: "Gewusst",
@@ -908,9 +918,65 @@ export const de = {
     doneRight: "auf Anhieb",
     doneAgain: "kommen nochmals",
     againTitle: "Nochmals anschauen",
+    whyTitle: "Warum die Übungen so gebaut sind",
+    whyLead:
+      "Jede Entscheidung hier lässt sich nachlesen. Wo die Forschung eine Richtung vorgibt und keine Zahl, steht die Zahl als unser Ermessen da — nicht als Befund.",
+    why: [
+      {
+        claim: "Gefragt werden schlägt nochmals anschauen.",
+        detail:
+          "Darum verrät keine Übung zuerst die Antwort. Über 222 Studien hinweg liegt der Vorteil des Abfragens gegenüber dem erneuten Lernen bei g ≈ 0,50.",
+        source: cite("yang-2021"),
+      },
+      {
+        claim: "Später ist besser als bald — und der Vorteil wächst mit der Zeit.",
+        detail:
+          "Deshalb kommt ein gemerktes Wort nach 1, 3, 7, 16 und 35 Tagen zurück statt jeden Tag. In einer Meta-Analyse zum Zweitsprachenlernen: g ≈ 0,76 im Soforttest, g ≈ 1,15 im verzögerten.",
+        source: cite("kim-webb-2022"),
+      },
+      {
+        claim: "Einmal richtig ist zu wenig; zweimal richtig, mit Abstand, ist der Punkt.",
+        detail:
+          "Deshalb kommt eine verpasste Frage noch in derselben Sitzung zurück — drei Fragen später, nicht sofort. Der Abstand von drei ist unsere Schätzung: die Studie gibt die Richtung, nicht die Zahl.",
+        source: cite("rawson-dunlosky-2011"),
+      },
+      {
+        claim: "Ankreuzen ohne Rückmeldung kann den falschen Begriff einprägen.",
+        detail:
+          "Deshalb zeigt jede Auswahlfrage sofort die richtige Antwort und fragt später nochmals. Rückmeldung verstärkt den Nutzen solcher Tests und verringert genau diesen Schaden.",
+        source: cite("butler-roediger-2008"),
+      },
+      {
+        claim: "Selber hervorbringen prägt sich besser ein als lesen.",
+        detail:
+          "Deshalb gibt es Lückensätze und offene Fragen und nicht nur Auswahl. Der Effekt ist robust, aber kleiner, als sein Ruf vermuten lässt.",
+        source: cite("bertsch-2007"),
+      },
+      {
+        claim: "Mischen hilft — aber nicht immer, und das sagen wir dazu.",
+        detail:
+          "Deshalb folgen keine zwei gleichen Fragetypen aufeinander. Die Meta-Analyse ist deutlich: der Nutzen hängt davon ab, wie ähnlich sich das Material ist, und bei sehr ähnlichem Material kann Mischen sogar schaden.",
+        source: cite("brunmair-richter-2019"),
+      },
+      {
+        claim: "Keine Serien, keine Punkte, keine Prozentzahl.",
+        detail:
+          "Eine Serie misst, wie viel Heidi Sie konsumiert haben, und sieht dabei aus wie ein Mass fürs Lernen. Was hier steht, sind Zahlen über das, was Sie getan haben.",
+        source: cite("yang-2021"),
+      },
+    ],
+    whyMore: "Die ganze Methode",
     savedHint: "Im Chat merken Sie sich Wörter mit +. Die kommen dann hier zurück, wenn es Zeit dafür ist.",
   },
 
+  essays: {
+    title: "Lesen",
+    lead: "Warum die Deutschschweiz so spricht, wie sie spricht. Längere Texte mit Quellen — für die Fragen, die auf eine Karte nicht passen.",
+    none: "Hier steht noch nichts.",
+    backToAll: "Alle Texte",
+    notTranslated: "Dieser Text ist noch nicht auf Deutsch. Sie lesen ihn auf",
+    sourcesTitle: "Quellen",
+  },
   dialect: {
     title: "Schweizerdeutsch",
     lead: "Was es ist, warum Sie es nicht verstehen, obwohl Sie Deutsch können — und welche Mundart wo gesprochen wird.",
@@ -928,6 +994,40 @@ export const de = {
     marksNone: "Heidi kann diese Mundart noch nicht an einzelnen Formen erkennen. Hier steht nichts, statt etwas Plausiblem.",
     taught: "Das lernen Sie hier",
     sourcesTitle: "Quellen",
+    groupsTitle: "Die drei Zweige",
+    groupsLead:
+      "Die alemannischen Mundarten teilen sich in drei Gruppen. Die Grenzen sind keine Kantonsgrenzen, sondern Lautwandel, die an verschiedenen Stellen stehengeblieben sind.",
+    groups: {
+      low: {
+        name: "Niederalemannisch",
+        body: "Der Norden — in der Schweiz praktisch nur Basel. Hier ist das k am Wortanfang k geblieben; überall sonst in der Deutschschweiz ist ch daraus geworden. Das hört man am ersten Tag.",
+      },
+      high: {
+        name: "Hochalemannisch",
+        body: "Mittelland und Osten: Zürich, Bern, Aargau, Solothurn, St. Gallen. Die grösste Gruppe — und die, die man meint, wenn man «Schweizerdeutsch» sagt.",
+      },
+      highest: {
+        name: "Höchstalemannisch",
+        body: "Die Alpentäler: Wallis, Glarus, Uri und Unterwalden, die Walsersiedlungen. Am konservativsten und für Auswärtige am schwersten, weil hier alte Formen erhalten sind, die im Mittelland längst verschwunden sind.",
+      },
+    },
+    groupLabel: "Zweig",
+    groupSpansTitle: "Auf beiden Seiten der Linie",
+    groupSpans:
+      "Diese Mundartlandschaft liegt auf beiden Seiten der Linie und gehört keinem Zweig allein. Wir nennen deshalb keinen, statt einen zu wählen, der ordentlich aussieht.",
+    diagnosticTitle: "Die Linie, die ihn zieht",
+    diagnosticInside: "In diesem Zweig",
+    diagnosticOutside: "Daneben",
+    diagnosticStandard: "Hochdeutsch",
+    hearTitle: "So klingt sie",
+    hearLead: "Sendungen und Filme, in denen vor allem diese Mundart gesprochen wird. Geprüfte Links — Aufnahmen machen wir keine.",
+    hearNone:
+      "Für diese Mundart steht noch nichts Geprüftes im Verzeichnis. Lieber nichts als ein Link, den niemand angehört hat.",
+    hearAll: "Alle Hörquellen",
+    whyManyTitle: "Warum so viele?",
+    whyManyBody:
+      "Die Schweiz hat ihre Mundarten behalten, während Deutschland seine weitgehend verloren hat. Das ist kein Zufall und keine Frage der Berge — es hat mit Staatsbildung, Schule und Rundfunk zu tun.",
+    whyManyLink: "Die ganze Geschichte",
     backToAll: "Alle Mundarten",
   },
 

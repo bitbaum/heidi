@@ -7,8 +7,10 @@ import { Chat } from "./_components/chat";
 import { DialectFigure } from "./_components/dialect-figure";
 import { CorrespondenceFigure } from "./_components/correspondence-figure";
 import { Shell } from "./_components/page-shell";
-import { Dashboard } from "./_components/dashboard";
+import { ChatWorkspace } from "./_components/chat/workspace";
 import { auth, authEnabled } from "@/lib/auth";
+import { dbConfigured } from "@/lib/db";
+import { conversationsFor } from "@/lib/domain/conversations/store";
 
 /**
  * Dynamic, and EXPLICITLY so rather than by consequence.
@@ -33,10 +35,16 @@ export const dynamic = "force-dynamic";
  * The argument for the product sits underneath, for the visit where they are
  * deciding whether to trust it rather than trying to get through a Tuesday.
  *
- * SIGNED IN, THIS IS THE DASHBOARD. Somebody with an account does not need the
- * pitch for a product they already use; they need their own words back. Same
- * address, different page — which is what "Start" has to mean for it not to be
- * a lie in the navigation.
+ * SIGNED IN, THIS IS THE CHAT — the whole screen of it, sidebar and all.
+ * Somebody with an account does not need the pitch for a product they already
+ * use, and they did not open this address to read a list either: they came to
+ * say something they cannot yet say. So the default screen is the thing they
+ * came for, not a page about it.
+ *
+ * It replaced the dashboard here, which is not gone — `/portal` is still its
+ * address, and the account control is still the door to it. What changed is
+ * only which of the two the app OPENS on, and a conversation beats a summary
+ * of conversations.
  *
  * THE COST, STATED: reading the session here opts this route into dynamic
  * rendering for everyone, and it is the `priority: 1` page a search engine
@@ -53,10 +61,30 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const t = dict.home;
 
   // `auth()` rather than a cookie check: this decides what somebody SEES, and
-  // the dashboard reads their conversations. A forged cookie must get the
-  // marketing page, not somebody else's page shaped like theirs.
+  // the chat reads their conversations. A forged cookie must get the marketing
+  // page, not somebody else's page shaped like theirs.
   const session = authEnabled ? await auth() : null;
-  if (session?.actorId) return <Dashboard locale={locale} />;
+  if (session?.actorId) {
+    // Queried here rather than fetched on mount, for the same reason
+    // `/chat` does it: the page already holds the session, so the sidebar
+    // arrives with the HTML instead of after a round trip that shows an
+    // empty list first.
+    const conversations = dbConfigured() ? await conversationsFor(session.actorId) : [];
+    return (
+      <ChatWorkspace
+        // A different conversation is a different component — see the note on
+        // the same `key` in `chat/page.tsx`.
+        key="new"
+        locale={locale}
+        dict={dict}
+        signedIn
+        // Signed in there is nothing to sign in FOR: the slot is the
+        // signed-out sidebar's offer to keep a device-local thread.
+        signInSlot={null}
+        initialConversations={conversations.map((c) => ({ id: c.id, title: c.title, updatedAt: c.updatedAt }))}
+      />
+    );
+  }
 
   return (
     <Shell>
@@ -110,7 +138,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </section>
 
       <section className="border-b border-border-subtle py-10 sm:py-12" aria-labelledby="trust">
-        <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
+        <div className="grid grid-cols-safe gap-6 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
           <div>
             <h2
               id="trust"
@@ -149,7 +177,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         >
           {t.dialectTitle}
         </h2>
-        <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
+        <div className="mt-6 grid grid-cols-safe gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
           <p className="max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.dialectBody}</p>
           {DISPLAY.family && <DialectFigure plannedLabel={t.dialectPlanned} othersLabel={t.dialectOthers} />}
         </div>

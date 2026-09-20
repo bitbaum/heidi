@@ -17,15 +17,72 @@ import { AccountMenu } from "./account-menu";
  *
  * When OrangeCat is not configured the control renders nothing rather than a
  * button that dead-ends at the code exchange.
+ *
+ * WHERE IT RENDERS, AND WHY THAT IS A PROP.
+ *
+ * Signed in, the avatar menu belongs in the top-right of the bar at EVERY
+ * width. It used to appear there only from `lg` up and hide inside the mobile
+ * menu sheet below that, which is defensible on a crowded bar and was wrong
+ * anyway: "log out" is the one control people look for without being told
+ * where it is, and on a phone there was nothing in the corner at all.
+ *
+ * Signed out it stays in the sheet on a phone, and that is not inconsistency.
+ * A signed-out bar would have to carry a gear AND a full-width "sign in with
+ * OrangeCat" button beside the wordmark, the language switcher and the menu —
+ * five controls that do not fit in 320px, which is the measurement the old
+ * comment here was made from. An avatar is 44px and fits.
+ *
+ * So the caller says which slot this is, and each state answers for itself:
+ * exactly one of the two renders anything, and there is never a second copy of
+ * the dropdown in the document.
  */
-export async function AccountControl({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export async function AccountControl({
+  locale,
+  dict,
+  placement,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+  /** `bar` is the top-right corner; `sheet` is the mobile menu panel. */
+  placement: "bar" | "sheet";
+}) {
   if (!authEnabled) return null;
 
   const session = await auth();
 
   if (!session?.actorId) {
-    return (
-      <div className="flex items-center gap-2">
+    // Signed out: the sheet owns it on a phone, the bar from `lg` up. Two
+    // slots, one visible at a time, decided in CSS because the server cannot
+    // know the viewport.
+    if (placement === "bar") return <SignedOut locale={locale} dict={dict} className="hidden lg:flex" />;
+    return <SignedOut locale={locale} dict={dict} className="flex lg:hidden" />;
+  }
+
+  // Signed in: the bar, always. Nothing in the sheet, so there is no second
+  // dropdown sharing this one's ids.
+  if (placement === "sheet") return null;
+
+  return (
+    <AccountMenu
+      name={session.user?.name}
+      email={session.user?.email}
+      image={session.user?.image}
+      t={{ account: dict.auth.account, signedInAs: dict.auth.signedInAs }}
+      themeT={dict.settings.theme}
+      items={accountMenu().map((entry) => ({
+        key: entry.key,
+        href: href(locale, entry.segment),
+        label: dict.nav[entry.key],
+        description: dict.auth.menu[entry.key],
+      }))}
+      signOutSlot={<SignOutButton locale={locale} dict={dict} />}
+    />
+  );
+}
+
+function SignedOut({ locale, dict, className }: { locale: Locale; dict: Dictionary; className: string }) {
+  return (
+    <div className={`items-center gap-2 ${className}`}>
         {/* Settings is reachable WITHOUT an account: language and the model key
             are device settings, not account settings, and hiding them behind a
             sign-in would gate the two things anyone can actually change. It
@@ -53,25 +110,7 @@ export async function AccountControl({ locale, dict }: { locale: Locale; dict: D
             {dict.auth.signIn}
           </button>
         </form>
-      </div>
-    );
-  }
-
-  return (
-    <AccountMenu
-      name={session.user?.name}
-      email={session.user?.email}
-      image={session.user?.image}
-      t={{ account: dict.auth.account, signedInAs: dict.auth.signedInAs }}
-      themeT={dict.settings.theme}
-      items={accountMenu().map((entry) => ({
-        key: entry.key,
-        href: href(locale, entry.segment),
-        label: dict.nav[entry.key],
-        description: dict.auth.menu[entry.key],
-      }))}
-      signOutSlot={<SignOutButton locale={locale} dict={dict} />}
-    />
+    </div>
   );
 }
 

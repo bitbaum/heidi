@@ -71,7 +71,23 @@ export function AccountMenu({
   const label = name?.trim() || email?.trim() || t.account;
 
   return (
-    <div ref={wrap} className="relative">
+    /*
+      `static`, NOT `relative`, and that is the whole fix for a real defect.
+
+      The panel is `absolute right-0`, so it hangs from the nearest positioned
+      ancestor. While this wrapper was that ancestor the panel's right edge sat
+      on the BUTTON's right edge — fine when the avatar was the last control in
+      the bar, and broken the moment it was not: at 360px the 328px panel ran
+      from x = −78 to x = 250, with its left third off the screen and its
+      labels cut in half. Caught by opening it on a phone, not by any test —
+      the responsive audit measures a page at rest and every dropdown on it is
+      closed.
+
+      Unpositioned here, it anchors to the header's control row instead, whose
+      right edge is the page gutter. One behaviour at every width, and the
+      panel cannot leave the screen because the thing it hangs from cannot.
+    */
+    <div ref={wrap}>
       <button
         ref={button}
         type="button"

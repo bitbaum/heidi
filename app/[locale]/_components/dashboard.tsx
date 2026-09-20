@@ -4,8 +4,8 @@ import { getDictionary } from "@/lib/i18n";
 import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { Shell } from "./page-shell";
+import { DashboardNav, type DashboardSection } from "./dashboard-nav";
 import { CowMark } from "./cow-mark";
-import { SignOutButton } from "./account-control";
 import { SavedWords } from "./saved-words";
 import { GroupList } from "./group-list";
 import { ReviewPanel } from "./review-panel";
@@ -44,6 +44,29 @@ export async function Dashboard({ locale }: { locale: Locale }) {
     ? await Promise.all([groupsFor(session!.actorId!), conversationsFor(session!.actorId!)])
     : [[], []];
 
+  /**
+   * The index, built from what is actually on the page.
+   *
+   * Derived rather than listed: a hand-written nav is the thing that still
+   * names a section after somebody removes it. The counts come from the same
+   * queries the sections render, so the strip cannot claim two groups over a
+   * section showing three.
+   *
+   * `recent` is only here when signed in, because only then is there anything
+   * to resume — the same condition the section itself renders under.
+   */
+  const sections: DashboardSection[] = [
+    // SHORT LABELS, not the section headings. "Was Ihnen immer wieder
+    // begegnet" is a good heading and a terrible nav item: five words wrap to
+    // two lines in a strip whose whole job is to be scannable in one.
+    { id: "review", label: t.sections.review },
+    ...(signedIn ? [{ id: "recent", label: t.sections.recent, count: conversations.length }] : []),
+    { id: "patterns", label: t.sections.patterns },
+    { id: "words", label: t.sections.words },
+    { id: "groups", label: t.sections.groups, count: groups.length },
+    { id: "onward", label: t.sections.onward },
+  ];
+
   return (
     <Shell>
       {/* A personal space, not a document about one.
@@ -69,7 +92,24 @@ export async function Dashboard({ locale }: { locale: Locale }) {
         </div>
       </header>
 
-      <div className="grid gap-10 border-t border-border-subtle pt-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-12">
+      {/*
+        THE NAVIGATION COMES FIRST, in the DOM and on the screen.
+
+        It was five sections stacked down two thousand pixels of phone with
+        nothing to steer by — no index, no counts, no sign that anything
+        existed below the fold. The sidebar this page always needed is the same
+        component as the strip a phone gets; see `dashboard-nav.tsx`.
+
+        The sidebar moved to the LEFT and the account block out of it entirely.
+        A right-hand rail on a page whose left column is the content is a place
+        things go to be missed, and the account belongs in the header where
+        every other site on earth keeps it — which is now where it is.
+      */}
+      <div className="grid grid-cols-safe gap-x-12 gap-y-8 border-t border-border-subtle pt-6 lg:grid-cols-[14rem_minmax(0,1fr)] lg:pt-10">
+        <div className="lg:sticky lg:top-24 lg:self-start">
+          <DashboardNav label={dict.nav.menu} sections={sections} />
+        </div>
+
         {/* SOMETHING TO DO LEADS, and everything else is underneath it.
             This page used to open with a list — their saved words — and a list
             is a thing to look at. The question a personal page has to answer
@@ -81,20 +121,25 @@ export async function Dashboard({ locale }: { locale: Locale }) {
 
             It needs no account, which is why it can lead: review runs entirely
             in the browser, on the words already in it. */}
-        <main>
-          <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
+        <main className="min-w-0">
+          <section aria-labelledby="review" className="scroll-mt-28 lg:scroll-mt-24" id="review">
+          <h2
+            id="review-heading"
+            className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+          >
             {dict.review.title}
           </h2>
           <p className="mb-5 mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">
             {dict.review.lead}
           </p>
           <ReviewPanel t={dict.review} locale={locale} />
+          </section>
 
           {/* Only for someone signed in, because only then is there anything
               to resume — a signed-out conversation lives in their browser and
               is already on the page they left it on. */}
           {signedIn && (
-            <section aria-labelledby="recent" className="mt-12 border-t border-border-subtle pt-10">
+            <section aria-labelledby="recent" id="recent" className="mt-12 scroll-mt-28 border-t border-border-subtle pt-10 lg:scroll-mt-24">
               <h2
                 id="recent"
                 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
@@ -112,9 +157,11 @@ export async function Dashboard({ locale }: { locale: Locale }) {
             </section>
           )}
 
-          <PatternsPanel t={dict.review} />
+          <div id="patterns" className="scroll-mt-28 lg:scroll-mt-24">
+            <PatternsPanel t={dict.review} />
+          </div>
 
-          <section aria-labelledby="words" className="mt-12 border-t border-border-subtle pt-10">
+          <section aria-labelledby="words" id="words" className="mt-12 scroll-mt-28 border-t border-border-subtle pt-10 lg:scroll-mt-24">
             <h2
               id="words"
               className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
@@ -130,7 +177,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
           {/* Groups sit beside the words rather than in the sidebar: they are
               the other half of what this page is FOR, and a list of rooms you
               are in is not a secondary control. */}
-          <section aria-labelledby="groups" className="mt-12 border-t border-border-subtle pt-10">
+          <section aria-labelledby="groups" id="groups" className="mt-12 scroll-mt-28 border-t border-border-subtle pt-10 lg:scroll-mt-24">
             <h2
               id="groups"
               className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
@@ -141,38 +188,43 @@ export async function Dashboard({ locale }: { locale: Locale }) {
               <GroupList t={dict.groups} locale={locale} signedIn={signedIn} groups={groups} />
             </div>
           </section>
-        </main>
 
-        <aside className="flex flex-col gap-8 lg:border-l lg:border-border-subtle lg:pl-8">
-          {/* The two tools, by name. A personal page with no way into the
-              product is a dead end wearing a greeting. */}
-          <nav aria-label={dict.nav.menu} className="flex flex-col gap-2">
+          {/*
+            WHAT USED TO BE A RIGHT-HAND RAIL.
+
+            It held three things and each one has a better home. The account —
+            your name and the way out — is in the header now, at the top right,
+            where every other site on earth keeps it and where somebody looking
+            for "sign out" looks first. The roadmap is the project talking
+            about itself on a page that is supposed to be about the reader.
+            What is left is the one thing that genuinely belonged: the way back
+            into the product, which is now at the END of a personal page rather
+            than in a column beside it, because that is where you are when you
+            have finished reading your own words.
+
+            Signed OUT this page still has to offer the door, so the sign-in
+            stays — it is the whole content of the page for that visitor.
+          */}
+          <section aria-labelledby="onward" className="mt-12 border-t border-border-subtle pt-10">
+            <h2
+              id="onward"
+              className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+            >
+              {dict.chat.emptyTitle}
+            </h2>
+            <p className="mb-5 mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">
+              {dict.chat.placeholder}
+            </p>
             <Link
               href={href(locale, "")}
-              className="inline-flex min-h-11 items-center justify-center rounded-control bg-accent px-4 text-center font-medium text-on-accent hover:opacity-90"
+              className="inline-flex min-h-11 items-center justify-center rounded-control bg-accent px-6 text-center font-medium text-on-accent hover:opacity-90"
             >
               {dict.chat.emptyTitle}
             </Link>
-          </nav>
 
-          <section aria-labelledby="account">
-            <h2 id="account" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-              {t.account}
-            </h2>
-            {!authEnabled ? (
-              <p className="mt-3 text-sm leading-relaxed text-fg-secondary">{t.unavailable}</p>
-            ) : signedIn ? (
-              <div className="mt-3">
-                <p className="text-base text-fg-primary">
-                  {session?.user?.name || session?.user?.email || session?.actorId}
-                </p>
-                <div className="mt-3">
-                  <SignOutButton locale={locale} dict={dict} />
-                </div>
-              </div>
-            ) : (
-              <div className="mt-3">
-                <p className="text-sm leading-relaxed text-fg-secondary">{t.notSignedInBody}</p>
+            {authEnabled && !signedIn && (
+              <div className="mt-8 border-t border-border-subtle pt-6">
+                <p className="max-w-measure text-sm leading-relaxed text-fg-secondary">{t.notSignedInBody}</p>
                 <form
                   className="mt-4"
                   action={async () => {
@@ -182,32 +234,16 @@ export async function Dashboard({ locale }: { locale: Locale }) {
                 >
                   <button
                     type="submit"
-                    className="inline-flex min-h-11 w-full items-center justify-center rounded-control border border-border-strong px-4 font-medium text-fg-primary hover:bg-surface-raised"
+                    className="inline-flex min-h-11 items-center justify-center rounded-control border border-border-strong px-6 font-medium text-fg-primary hover:bg-surface-raised"
                   >
                     {t.signInWith}
                   </button>
                 </form>
-                {/* Was a full section of its own. It answers one question —
-                    why someone else's login — and that is a footnote to the
-                    button, not a chapter. */}
-                <p className="mt-3 text-sm leading-relaxed text-fg-muted">{t.whyBody}</p>
+                <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.whyBody}</p>
               </div>
             )}
           </section>
-
-          <section aria-labelledby="soon">
-            <h2 id="soon" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-              {t.soonTitle}
-            </h2>
-            <ul className="mt-3 flex flex-col gap-2">
-              {t.soonList.map((item) => (
-                <li key={item} className="text-sm leading-relaxed text-fg-secondary">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </section>
-        </aside>
+        </main>
       </div>
     </Shell>
   );

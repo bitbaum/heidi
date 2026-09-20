@@ -249,6 +249,13 @@ test("route segments are the same in every language", () => {
       "grammar",
       "dialect",
       "vocabulary",
+      // `essays` is new: the long-form half of the same argument the method
+      // page makes in short. The dialect pages are deliberately made of data,
+      // so prose about how the dialect landscape came to be needs a home where
+      // it can be dated and sourced rather than translated seven times as a
+      // caption. Under `why`, where a reader goes to ask why any of this is
+      // like this.
+      "essays",
       "method",
       "technology",
       "contribute",

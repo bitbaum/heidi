@@ -494,6 +494,14 @@ export type Family = {
    * wondering why Graubünden was missing from a map of Switzerland.
    */
   areas?: readonly DialectArea[];
+  /**
+   * The branches those areas fall into, where the field has established some.
+   *
+   * Absent for a family with no settled internal division — which is a fact
+   * about the family, not a gap in this file, and the page renders the areas
+   * as a flat list rather than inventing headings for them.
+   */
+  dialectGroups?: readonly DialectGroup[];
 };
 
 /**
@@ -534,9 +542,55 @@ export type Family = {
  * page for free. An area with no rules yet shows none and says so, which is
  * the honest state of "Heidi cannot tell this apart yet".
  */
+/**
+ * A branch of the dialect family, as the field established it.
+ *
+ * WHY THIS IS IN THE PACK AND NOT THE PAGE. "Swiss German is not one
+ * language" is the third fact the dialect page leads with, and until now the
+ * page proved it with a list of eleven names — which reads as eleven flavours
+ * of one thing. The structure is the interesting part and it is not ours: the
+ * Alemannic dialects divide into Low, High and Highest, the divisions are
+ * drawn by specific sound changes, and an area belongs to one because of where
+ * it falls relative to those lines. That is a claim about language, so it
+ * lives with the language data and names the atlas that vouches for it.
+ *
+ * NOTHING HERE IS PROSE. `id` keys the name and the explanation in the
+ * dictionaries, exactly as a grammar topic does, and `diagnostic` is a pair of
+ * FORMS rather than a sentence about them — `Kind` inside the Low Alemannic
+ * line, `Chind` outside it. A pair of forms is the same in seven languages and
+ * is the kind of thing this product can actually be held to.
+ *
+ * Generic on purpose: nothing here says Alemannic. A pack for another family
+ * declares its own groups, or declares none.
+ */
+export type DialectGroup = {
+  /** Stable id, keying the name and explanation in the dictionaries. */
+  id: string;
+  /**
+   * The contrast that draws the boundary, as forms rather than as a
+   * description of forms. `inside` is what you hear within the group,
+   * `outside` what you hear beyond it, and `standard` the bridge form both are
+   * versions of — so a reader can see the line rather than be told about it.
+   */
+  diagnostic?: { inside: string; outside: string; standard: string };
+  /** Ids from `lib/research/sources.ts`. A group with none fails the build. */
+  sources: readonly string[];
+};
+
 export type DialectArea = {
   /** Stable, lowercase, hyphenated. A URL segment; renaming one breaks links. */
   id: string;
+  /**
+   * Which `pack.dialectGroups` entry it belongs to.
+   *
+   * ABSENT IS A REAL ANSWER and the reason this is optional. Innerschwyzer-
+   * tütsch as drawn here spans Lucerne, which is High Alemannic, and Uri and
+   * Unterwalden, which are Highest; Bündnerdütsch covers Chur and the Walser
+   * settlements, which are likewise on two sides of the line. Assigning either
+   * one a single branch would be a tidier page and a false claim, so they
+   * carry none and the page says the area spans more than one.
+   */
+  group?: string;
   /** What speakers call it. A name, so it is not translated. */
   endonym: string;
   /**

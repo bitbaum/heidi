@@ -1,6 +1,7 @@
 import { requireActor } from "../../../../lib/domain/actor.ts";
 import { mayRead, mayWrite } from "../../../../lib/domain/conversations/rules.ts";
 import {
+  asSoloStored,
   conversationById,
   deleteConversation,
   messagesIn,
@@ -36,7 +37,11 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
   const conversation = await owned(id, who.actorId);
   if (!conversation) return Response.json({ error: "No such conversation." }, { status: 404 });
 
-  return Response.json({ conversation, messages: await messagesIn(conversation.id) });
+  // Mapped, like every other way a message leaves this module — see
+  // `asSoloStored`. Unmapped, this both mis-renders the reader's own messages
+  // and hands their OIDC `sub` back over the wire for no reason at all.
+  const messages = asSoloStored(await messagesIn(conversation.id), who.actorId);
+  return Response.json({ conversation, messages });
 }
 
 /** Rename. The only edit a conversation supports. */

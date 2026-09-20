@@ -84,9 +84,24 @@ export function AnswerView({
 
       {a.dialect && (
         <div className="mt-3 rounded-control border border-border-subtle bg-surface-raised p-3">
-          <div className="flex items-baseline justify-between gap-3">
-            <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.sendThis}</span>
-            <span className="flex shrink-0 items-start gap-3">
+          {/*
+            `flex-wrap` and no `shrink-0`, which together are the whole fix for
+            a row that used to break in two different ways.
+
+            It was `items-baseline justify-between` with a rigid control
+            cluster: the label could only get narrower, so in Russian it
+            wrapped to four lines beside two buttons, and the moment Speak
+            opened its caveat the cluster — being `shrink-0` — pushed the card
+            off the screen instead. Allowed to wrap, the controls simply take
+            their own line when the label needs the width, which is what a
+            phone wants anyway. `items-start` aligns the two 44px controls by
+            their tops, and they now agree about being 44px.
+          */}
+          <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
+            <span className="min-w-0 font-mono text-caption uppercase leading-[1.9] tracking-caps text-fg-muted">
+              {t.sendThis}
+            </span>
+            <span className="flex min-w-0 items-start gap-3">
               <Speak text={a.dialect} t={voiceT} dialect />
               <Copy text={a.dialect} t={t} />
             </span>
@@ -137,8 +152,9 @@ export function AnswerView({
           <ul className="mt-2 flex flex-col gap-2">
             {a.suggestions.map((s) => (
               <li key={`${s.label}-${s.text}`} className="rounded-control border border-border-subtle p-2">
-                <div className="flex items-baseline justify-between gap-3">
-                  <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
+                {/* The same row as the dialect block's, for the same reasons. */}
+                <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
+                  <span className="min-w-0 font-mono text-caption uppercase leading-[1.9] tracking-caps text-fg-muted">
                     {s.label}
                     {/* Which language this line actually IS. Without it the two
                         sit side by side looking like two moods of one thing,
@@ -151,7 +167,7 @@ export function AnswerView({
                       </span>
                     )}
                   </span>
-                  <span className="flex shrink-0 items-start gap-3">
+                  <span className="flex min-w-0 items-start gap-3">
                     <Speak text={s.text} t={voiceT} dialect={s.variety !== "bridge"} />
                     <Copy text={s.text} t={t} />
                   </span>

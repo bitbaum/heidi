@@ -39,6 +39,7 @@ export const gsw: Dictionary = {
     listen: "Ghöre",
     grammar: "Grammatik",
     dialect: "Mundarte",
+    essays: "Läse",
     vocabulary: "Wortschatz",
     method: "Methode",
     technology: "Technik",
@@ -258,6 +259,14 @@ export const gsw: Dictionary = {
   },
 
   auth: {
+    sections: {
+      review: "Widerhole",
+      recent: "Gspröch",
+      patterns: "Muschter",
+      words: "Wörter",
+      groups: "Gruppe",
+      onward: "Wiiter",
+    },
     menu: {
       portal: "Ihri Wörter und Gspräch",
       settings: "Sprach, Modäll, Konto",
@@ -808,6 +817,7 @@ export const gsw: Dictionary = {
     start: "Loslege",
     restart: "Nomal achti",
     progress: "Frag {n} vo {total}",
+    secondTry: "Zwöite Aalauf",
     skip: "Überspringe",
     show: "Uflöse",
     knew: "Gwüsst",
@@ -842,9 +852,65 @@ export const gsw: Dictionary = {
     doneRight: "grad gwüsst",
     doneAgain: "chömed nomal",
     againTitle: "Nomal aaluege",
+    whyTitle: "Warum d Übige so bout sind",
+    whyLead:
+      "Jedi Entscheidig da chame nochelääse. Wo d Forschig e Richtig git und kei Zahl, stoht d Zahl als öises Ermässe da — nöd als Befund.",
+    why: [
+      {
+        claim: "Gfrogt werde schloht nomal aaluege.",
+        detail:
+          "Drum verrot kei Übig zerscht d Antwort. Über 222 Studie hinweg liit de Vorteil vom Abfroge gegenüber em nomal Lerne bi g ≈ 0,50.",
+        source: ["yang-2021"],
+      },
+      {
+        claim: "Spöter isch besser als bald — und de Vorteil wachst mit de Ziit.",
+        detail:
+          "Drum chunnt es gmerkts Wort nach 1, 3, 7, 16 und 35 Täg zrugg statt jede Tag. I ere Meta-Analyse zum Zweitsprochelerne: g ≈ 0,76 im Soforttest, g ≈ 1,15 im verzögerte.",
+        source: ["kim-webb-2022"],
+      },
+      {
+        claim: "Eimol richtig isch z wenig; zweimol richtig, mit Abstand, isch de Punkt.",
+        detail:
+          "Drum chunnt e verpassti Frog no i de gliiche Sitzig zrugg — drei Froge spöter, nöd sofort. De Abstand vo drei isch öisi Schätzig: d Studie git d Richtig, nöd d Zahl.",
+        source: ["rawson-dunlosky-2011"],
+      },
+      {
+        claim: "Aachrüzle ohni Rückmeldig cha de falsch Begriff iipräge.",
+        detail:
+          "Drum zeigt jedi Uswahlfrog sofort di richtig Antwort und frogt spöter nomal. Rückmeldig verstärkt de Nutze und verchlinerets grad de Schade.",
+        source: ["butler-roediger-2008"],
+      },
+      {
+        claim: "Sälber härebringe prägt sich besser ii als läse.",
+        detail:
+          "Drum gits Lückesätz und offni Froge und nöd nur Uswahl. De Effekt isch robust, aber chliner, als sin Ruef vermuete loht.",
+        source: ["bertsch-2007"],
+      },
+      {
+        claim: "Mische hilft — aber nöd immer, und das säged mer dezue.",
+        detail:
+          "Drum chömed kei zwe gliiche Fragetype nachenand. D Meta-Analyse isch dütlich: de Nutze hanget dervo ab, wie ähnlich sich s Material isch, und bi sehr ähnlichem cha Mische sogar schade.",
+        source: ["brunmair-richter-2019"],
+      },
+      {
+        claim: "Kei Serie, kei Pünkt, kei Prozentzahl.",
+        detail:
+          "E Serie misst, wie viel Heidi Si konsumiert händ, und gseht dobii us wie es Mass fürs Lerne. Was da stoht, sind Zahle über das, wo Si gmacht händ.",
+        source: ["yang-2021"],
+      },
+    ],
+    whyMore: "Di ganz Methode",
     savedHint: "Im Chat mörked Si sich es Wort mit +. Das chunnt denn da zrugg, wenn's so wiit isch.",
   },
 
+  essays: {
+    title: "Läse",
+    lead: "Warum d Dütschschwiiz so redt, wie si redt. Längeri Täxt mit Quelle — für d Frooge, wo uf e Charte nöd passed.",
+    none: "Da stoht no nüt.",
+    backToAll: "Alli Täxt",
+    notTranslated: "De Täxt gits no nöd uf Schwiizerdütsch. Si läsed en uf",
+    sourcesTitle: "Quelle",
+  },
   dialect: {
     title: "Schwiizerdütsch",
     lead: "Was es isch, werum Si's nöd verstönd, obwohl Si Dütsch chönd — und weli Mundart wo gschwätzt wird.",
@@ -862,6 +928,40 @@ export const gsw: Dictionary = {
     marksNone: "D Heidi cha die Mundart na nöd a einzelne Forme erkenne. Da staht nüüt, statt öppis Plausibels.",
     taught: "Das lernet Si da",
     sourcesTitle: "Quelle",
+    groupsTitle: "Di drei Zwiig",
+    groupsLead:
+      "D alemannische Mundarte teiled sich i drei Gruppe. D Gränze sind kei Kantonsgränze, sondern Lutwandel, wo a verschidene Ort stoh blibe sind.",
+    groups: {
+      low: {
+        name: "Niederalemannisch",
+        body: "De Norde — i de Schwiiz praktisch nur Basel. Da isch s k am Wortaafang k blibe; suscht isch i de ganze Dütschschwiiz ch drus worde. Das ghört mer am erschte Tag.",
+      },
+      high: {
+        name: "Hochalemannisch",
+        body: "Mittelland und Oste: Züri, Bärn, Aargau, Solothurn, St. Galle. Di gröschti Gruppe — und die, wo mer meint, wenn mer «Schwiizerdütsch» seit.",
+      },
+      highest: {
+        name: "Höchstalemannisch",
+        body: "D Alpetäler: Wallis, Glarus, Uri und Unterwalde, d Walsersiedlige. Am konservativschte und für Uswärtigi am schwierigschte, wil da alti Forme erhalte sind, wo im Mittelland scho lang verschwunde sind.",
+      },
+    },
+    groupLabel: "Zwiig",
+    groupSpansTitle: "Uf beide Site vo de Linie",
+    groupSpans:
+      "Die Mundartlandschaft liit uf beide Site vo de Linie und ghört kem Zwiig ellei. Drum nänned mer kein, statt eine z wähle, wo ornlich uusgseht.",
+    diagnosticTitle: "D Linie, wo ne zieht",
+    diagnosticInside: "I dem Zwiig",
+    diagnosticOutside: "Dernäbed",
+    diagnosticStandard: "Hochdütsch",
+    hearTitle: "So tönt si",
+    hearLead: "Sändige und Film, wo vor allem die Mundart gredt wird. Prüefti Links — Ufnahme mached mer kei.",
+    hearNone:
+      "Für die Mundart stoht no nüt Prüefts im Verzeichnis. Lieber nüt als en Link, wo no niemert aaghört het.",
+    hearAll: "Alli Hörquelle",
+    whyManyTitle: "Warum so viili?",
+    whyManyBody:
+      "D Schwiiz het ihri Mundarte bhalte, während Dütschland sini grösstenteils verlore het. Das isch kein Zuefall und kei Frog vo de Bärge — es het mit Staatsbildig, Schuel und Radio z tue.",
+    whyManyLink: "Di ganz Gschicht",
     backToAll: "Alli Mundarte",
   },
 
