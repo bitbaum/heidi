@@ -67,6 +67,41 @@ export const SOURCES = {
    * vocabulary page existed, because the test below refuses a source nothing
    * cites — correctly.
    */
+  /**
+   * WHY SWITZERLAND SOUNDS LIKE THIS, as opposed to where a form is spoken.
+   *
+   * A third kind of claim again: not "Bern says `gäu`" and not "spacing
+   * improves retention", but an assertion about how a language situation came
+   * to be. The essays make those, so the essays cite these — and where the
+   * causal story is genuinely contested, the essay says so rather than
+   * pointing at a source that does not carry the weight.
+   */
+  "ferguson-1959": {
+    authors: "Ferguson",
+    year: 1959,
+    title: "Diglossia",
+    venue:
+      "Word 15(2), 325–340. The paper that named the pattern, built on four defining cases — one of them German-speaking Switzerland",
+    url: "https://doi.org/10.1080/00437956.1959.11659702",
+  },
+  "hls-mehrsprachigkeit": {
+    kind: "reference",
+    authors: "Lüdi",
+    year: 2008,
+    title: "Mehrsprachigkeit",
+    venue:
+      "Historisches Lexikon der Schweiz. The standing national reference work; this article describes the media diglossia between the spoken dialects and written Standard German",
+    url: "https://hls-dhs-dss.ch/de/articles/024596/",
+  },
+  "hls-landesverteidigung": {
+    kind: "reference",
+    authors: "Jorio",
+    year: 2006,
+    title: "Geistige Landesverteidigung",
+    venue:
+      "Historisches Lexikon der Schweiz. The cultural-political movement of the 1930s to 1960s, and its use of radio and film",
+    url: "https://hls-dhs-dss.ch/de/articles/017426/",
+  },
   "idiotikon": {
     kind: "reference",
     authors: "Antiquarische Gesellschaft in Zürich",

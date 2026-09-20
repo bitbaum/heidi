@@ -35,6 +35,7 @@ export const de = {
     listen: "Hören",
     grammar: "Grammatik",
     dialect: "Mundarten",
+    essays: "Lesen",
     vocabulary: "Wortschatz",
     method: "Methode",
     technology: "Technik",
@@ -911,6 +912,14 @@ export const de = {
     savedHint: "Im Chat merken Sie sich Wörter mit +. Die kommen dann hier zurück, wenn es Zeit dafür ist.",
   },
 
+  essays: {
+    title: "Lesen",
+    lead: "Warum die Deutschschweiz so spricht, wie sie spricht. Längere Texte mit Quellen — für die Fragen, die auf eine Karte nicht passen.",
+    none: "Hier steht noch nichts.",
+    backToAll: "Alle Texte",
+    notTranslated: "Dieser Text ist noch nicht auf Deutsch. Sie lesen ihn auf",
+    sourcesTitle: "Quellen",
+  },
   dialect: {
     title: "Schweizerdeutsch",
     lead: "Was es ist, warum Sie es nicht verstehen, obwohl Sie Deutsch können — und welche Mundart wo gesprochen wird.",

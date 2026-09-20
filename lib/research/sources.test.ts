@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { SOURCES, citation, shortCitation, type Source, type SourceId } from "./sources.ts";
 import { techSources } from "./language-tech.ts";
+import { ESSAYS } from "../essays/registry.ts";
 import { areasOf } from "../variety/family.ts";
 import { VARIETY } from "../variety/active.ts";
 import { getDictionary } from "../i18n/index.ts";
@@ -107,6 +108,12 @@ test("no source is defined but never cited", () => {
   // its data lives outside the dictionaries because a number is not
   // translatable. See `language-tech.ts`.
   for (const id of techSources()) used.add(id);
+  // An essay vouches for itself the same way — see `lib/essays/types.ts`. A
+  // source cited only by a piece of writing is being used, not orphaned.
+  for (const essay of ESSAYS) for (const id of essay.sources) used.add(id);
+  // So does a branch of the dialect family: "these areas form a group, and
+  // this pair of forms is the line" is a claim about language like any other.
+  for (const group of VARIETY.family?.dialectGroups ?? []) for (const id of group.sources) used.add(id);
 
   const orphans = Object.keys(SOURCES).filter((id) => !used.has(id));
   assert.deepEqual(orphans, [], `defined but never cited: ${orphans.join(", ")}`);
@@ -116,4 +123,36 @@ test("a reference renders as a reference", () => {
   const id = "yang-2021" satisfies SourceId;
   assert.match(citation(id), /Yang.*2021.*Psychological Bulletin/);
   assert.equal(shortCitation(id), "Yang, Luo, Vadillo, Yu & Shanks 2021");
+});
+
+/**
+ * The reverse of the orphan check, and the one that matters more.
+ *
+ * `/method` exists to refuse unsourced claims, and an essay is where the
+ * strongest claims on this site are made — how a language situation came to
+ * be, why one country kept something another gave up. A piece that argues that
+ * and names nothing is exactly the decoration-wearing-the-costume-of-evidence
+ * this whole registry was built to remove.
+ */
+test("every essay names at least one source, and every source it names exists", () => {
+  for (const essay of ESSAYS) {
+    assert.ok(essay.sources.length > 0, `essay "${essay.slug}" cites nothing`);
+    for (const id of essay.sources) {
+      assert.ok(id in SOURCES, `essay "${essay.slug}" cites unknown source "${id}"`);
+    }
+    assert.ok(
+      Object.keys(essay.text).length > 0,
+      `essay "${essay.slug}" exists in no language and would be a dead row in the index`,
+    );
+  }
+});
+
+/** A branch of the family is a claim about language, and carries its atlas. */
+test("every dialect group names a source that exists", () => {
+  for (const group of VARIETY.family?.dialectGroups ?? []) {
+    assert.ok(group.sources.length > 0, `dialect group "${group.id}" cites nothing`);
+    for (const id of group.sources) {
+      assert.ok(id in SOURCES, `dialect group "${group.id}" cites unknown source "${id}"`);
+    }
+  }
 });

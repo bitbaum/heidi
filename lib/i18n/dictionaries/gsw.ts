@@ -39,6 +39,7 @@ export const gsw: Dictionary = {
     listen: "Ghöre",
     grammar: "Grammatik",
     dialect: "Mundarte",
+    essays: "Läse",
     vocabulary: "Wortschatz",
     method: "Methode",
     technology: "Technik",
@@ -845,6 +846,14 @@ export const gsw: Dictionary = {
     savedHint: "Im Chat mörked Si sich es Wort mit +. Das chunnt denn da zrugg, wenn's so wiit isch.",
   },
 
+  essays: {
+    title: "Läse",
+    lead: "Warum d Dütschschwiiz so redt, wie si redt. Längeri Täxt mit Quelle — für d Frooge, wo uf e Charte nöd passed.",
+    none: "Da stoht no nüt.",
+    backToAll: "Alli Täxt",
+    notTranslated: "De Täxt gits no nöd uf Schwiizerdütsch. Si läsed en uf",
+    sourcesTitle: "Quelle",
+  },
   dialect: {
     title: "Schwiizerdütsch",
     lead: "Was es isch, werum Si's nöd verstönd, obwohl Si Dütsch chönd — und weli Mundart wo gschwätzt wird.",

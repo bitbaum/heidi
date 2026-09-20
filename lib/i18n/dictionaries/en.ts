@@ -16,6 +16,7 @@ export const en: Dictionary = {
     listen: "Listen",
     grammar: "Grammar",
     dialect: "Dialects",
+    essays: "Reading",
     vocabulary: "Vocabulary",
     method: "Method",
     technology: "Technology",
@@ -820,6 +821,14 @@ export const en: Dictionary = {
     savedHint: "In the chat, keep a word with +. It comes back here when it is due.",
   },
 
+  essays: {
+    title: "Reading",
+    lead: "Why German-speaking Switzerland sounds the way it does. Longer pieces, with their sources — for the questions that do not fit on a map.",
+    none: "Nothing here yet.",
+    backToAll: "All pieces",
+    notTranslated: "This piece is not in English yet. You are reading it in",
+    sourcesTitle: "Sources",
+  },
   dialect: {
     title: "Swiss German",
     lead: "What it is, why you cannot follow it even though you read German — and which dialect is spoken where.",

@@ -32,6 +32,7 @@ export const rm: Dictionary = {
     listen: "Tadlar",
     grammar: "Grammatica",
     dialect: "Idioms",
+    essays: "Lecturas",
     vocabulary: "Vocabulari",
     method: "Metoda",
     technology: "Tecnica",
@@ -841,6 +842,14 @@ export const rm: Dictionary = {
     savedHint: "En il chat tegnis Vus in pled cun +. El returna qua cur ch'igl è ura.",
   },
 
+  essays: {
+    title: "Lecturas",
+    lead: "Pertge che la Svizra tudestga discurra sco ella discurra. Texts pli lungs cun lur funtaunas — per las dumondas che na van betg sin ina charta.",
+    none: "Qua n'è anc nagut.",
+    backToAll: "Tut ils texts",
+    notTranslated: "Quest text n'exista anc betg en rumantsch. Vus al legias en",
+    sourcesTitle: "Funtaunas",
+  },
   dialect: {
     title: "Il tudestg svizzer",
     lead: "Tge ch'igl è, pertge che Vus n'al chapis betg malgrà che Vus savais tudestg — e tge idiom che vegn discurrì nua.",

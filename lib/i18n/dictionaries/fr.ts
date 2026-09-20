@@ -16,6 +16,7 @@ export const fr: Dictionary = {
     listen: "Écouter",
     grammar: "Grammaire",
     dialect: "Dialectes",
+    essays: "Lectures",
     vocabulary: "Vocabulaire",
     method: "Méthode",
     technology: "Technique",
@@ -825,6 +826,14 @@ export const fr: Dictionary = {
     savedHint: "Dans le chat, gardez un mot avec +. Il revient ici le moment venu.",
   },
 
+  essays: {
+    title: "Lectures",
+    lead: "Pourquoi la Suisse alémanique parle comme elle parle. Des textes plus longs, avec leurs sources — pour les questions qui ne tiennent pas sur une carte.",
+    none: "Rien ici pour l'instant.",
+    backToAll: "Tous les textes",
+    notTranslated: "Ce texte n'existe pas encore en français. Vous le lisez en",
+    sourcesTitle: "Sources",
+  },
   dialect: {
     title: "Le suisse allemand",
     lead: "Ce que c'est, pourquoi vous ne le comprenez pas alors que vous savez l'allemand — et quel dialecte se parle où.",

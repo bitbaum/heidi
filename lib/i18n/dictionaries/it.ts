@@ -16,6 +16,7 @@ export const it: Dictionary = {
     listen: "Ascoltare",
     grammar: "Grammatica",
     dialect: "Dialetti",
+    essays: "Letture",
     vocabulary: "Lessico",
     method: "Metodo",
     technology: "Tecnologia",
@@ -825,6 +826,14 @@ export const it: Dictionary = {
     savedHint: "Nella chat tenete una parola con +. Torna qui quando è il momento.",
   },
 
+  essays: {
+    title: "Letture",
+    lead: "Perché la Svizzera tedesca parla come parla. Testi più lunghi, con le fonti — per le domande che non stanno su una cartina.",
+    none: "Qui non c'è ancora nulla.",
+    backToAll: "Tutti i testi",
+    notTranslated: "Questo testo non esiste ancora in italiano. Lo state leggendo in",
+    sourcesTitle: "Fonti",
+  },
   dialect: {
     title: "Lo svizzero tedesco",
     lead: "Che cos'è, perché non lo capite pur sapendo il tedesco — e quale dialetto si parla dove.",

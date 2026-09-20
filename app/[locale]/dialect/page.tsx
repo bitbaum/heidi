@@ -5,6 +5,15 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { DISPLAY } from "@/lib/variety/display";
 import { Shell } from "../_components/page-shell";
+
+/**
+ * The essay this page hands its hardest question to.
+ *
+ * A constant with a test behind it rather than a string in the JSX: a slug
+ * typed inline is a 404 the day somebody renames the piece, and this is the
+ * only link on the site that points at a specific essay.
+ */
+const WHY_MANY = "warum-die-schweiz-ihre-mundarten-behalten-hat";
 import { DialectFigure } from "../_components/dialect-figure";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -81,6 +90,26 @@ export default async function DialectPage({ params }: { params: Promise<{ locale
           </section>
         ))}
       </div>
+
+      {/* The question a visitor actually arrives with, answered where they are
+          rather than left implicit in a map of eleven dots. The page states the
+          shape of the answer in two sentences and hands the argument — with its
+          sources — to the piece that can carry it. */}
+      <section aria-labelledby="why" className="mt-14 border-t border-border-subtle pt-10">
+        <h2
+          id="why"
+          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+        >
+          {t.whyManyTitle}
+        </h2>
+        <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.whyManyBody}</p>
+        <Link
+          href={`${href(locale, "essays")}/${WHY_MANY}`}
+          className="mt-4 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
+        >
+          {t.whyManyLink} →
+        </Link>
+      </section>
 
       <section aria-labelledby="areas" className="mt-14 border-t border-border-subtle pt-10">
         <h2

@@ -41,6 +41,11 @@ const THEMES = (process.env.THEMES ?? "light,dark").split(",");
 /** Every page below a locale. A route missing here is a route nobody measures. */
 const PATHS = [
   "", "/chat", "/portal", "/about", "/contribute", "/dialect", "/dialect/zueritueuetsch",
+  // Basel is the one area on the far side of the first isogloss, and the one
+  // whose branch panel shows two identical forms; Bündnerdütsch is the one
+  // that belongs to no branch. Both render a path the taught area does not.
+  "/dialect/baseldytsch", "/dialect/buendnerdueuetsch",
+  "/essays", "/essays/warum-die-schweiz-ihre-mundarten-behalten-hat",
   "/grammar", "/impressum", "/investors", "/listen", "/method", "/organisations",
   "/practice", "/privacy", "/settings", "/speaking", "/technology", "/vocabulary",
 ];
