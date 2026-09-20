@@ -842,6 +842,40 @@ export const fr: Dictionary = {
     marksNone: "Heidi ne sait pas encore reconnaître ce dialecte à des formes précises. Rien ici, plutôt que quelque chose de plausible.",
     taught: "C'est ce que vous apprenez ici",
     sourcesTitle: "Sources",
+    groupsTitle: "Les trois branches",
+    groupsLead:
+      "Les parlers alémaniques se divisent en trois groupes. Les frontières ne sont pas cantonales : ce sont des changements phonétiques qui se sont arrêtés à des endroits différents.",
+    groups: {
+      low: {
+        name: "Bas-alémanique",
+        body: "Le nord — en Suisse, pratiquement Bâle seule. Ici le k initial est resté k ; partout ailleurs en Suisse alémanique il est devenu ch. Cela s'entend dès le premier jour.",
+      },
+      high: {
+        name: "Haut-alémanique",
+        body: "Le Plateau et l'est : Zurich, Berne, Argovie, Soleure, Saint-Gall. Le groupe le plus vaste — celui auquel on pense en disant « suisse allemand ».",
+      },
+      highest: {
+        name: "Alémanique supérieur",
+        body: "Les vallées alpines : Valais, Glaris, Uri et Unterwald, les colonies walser. Le plus conservateur et le plus difficile pour qui vient d'ailleurs, parce qu'on y a gardé des formes anciennes disparues depuis longtemps du Plateau.",
+      },
+    },
+    groupLabel: "Branche",
+    groupSpansTitle: "Des deux côtés de la ligne",
+    groupSpans:
+      "Cette aire se trouve des deux côtés de la ligne et n'appartient à aucune branche en propre. Nous n'en nommons donc aucune, plutôt que d'en choisir une qui ferait joli.",
+    diagnosticTitle: "La ligne qui la trace",
+    diagnosticInside: "Dans cette branche",
+    diagnosticOutside: "À côté",
+    diagnosticStandard: "Allemand standard",
+    hearTitle: "Ce que cela donne à l'oreille",
+    hearLead: "Émissions et films où l'on entend surtout ce parler. Liens vérifiés — nous n'enregistrons rien nous-mêmes.",
+    hearNone:
+      "Rien de vérifié dans le répertoire pour ce parler. Mieux vaut rien qu'un lien que personne n'a écouté.",
+    hearAll: "Toutes les sources d'écoute",
+    whyManyTitle: "Pourquoi tant de parlers ?",
+    whyManyBody:
+      "La Suisse a gardé ses dialectes là où l'Allemagne a largement perdu les siens. Ce n'est ni un hasard ni une affaire de montagnes : cela tient à la construction de l'État, à l'école et à la radio.",
+    whyManyLink: "Toute l'histoire",
     backToAll: "Tous les dialectes",
   },
 

@@ -862,6 +862,40 @@ export const gsw: Dictionary = {
     marksNone: "D Heidi cha die Mundart na nöd a einzelne Forme erkenne. Da staht nüüt, statt öppis Plausibels.",
     taught: "Das lernet Si da",
     sourcesTitle: "Quelle",
+    groupsTitle: "Di drei Zwiig",
+    groupsLead:
+      "D alemannische Mundarte teiled sich i drei Gruppe. D Gränze sind kei Kantonsgränze, sondern Lutwandel, wo a verschidene Ort stoh blibe sind.",
+    groups: {
+      low: {
+        name: "Niederalemannisch",
+        body: "De Norde — i de Schwiiz praktisch nur Basel. Da isch s k am Wortaafang k blibe; suscht isch i de ganze Dütschschwiiz ch drus worde. Das ghört mer am erschte Tag.",
+      },
+      high: {
+        name: "Hochalemannisch",
+        body: "Mittelland und Oste: Züri, Bärn, Aargau, Solothurn, St. Galle. Di gröschti Gruppe — und die, wo mer meint, wenn mer «Schwiizerdütsch» seit.",
+      },
+      highest: {
+        name: "Höchstalemannisch",
+        body: "D Alpetäler: Wallis, Glarus, Uri und Unterwalde, d Walsersiedlige. Am konservativschte und für Uswärtigi am schwierigschte, wil da alti Forme erhalte sind, wo im Mittelland scho lang verschwunde sind.",
+      },
+    },
+    groupLabel: "Zwiig",
+    groupSpansTitle: "Uf beide Site vo de Linie",
+    groupSpans:
+      "Die Mundartlandschaft liit uf beide Site vo de Linie und ghört kem Zwiig ellei. Drum nänned mer kein, statt eine z wähle, wo ornlich uusgseht.",
+    diagnosticTitle: "D Linie, wo ne zieht",
+    diagnosticInside: "I dem Zwiig",
+    diagnosticOutside: "Dernäbed",
+    diagnosticStandard: "Hochdütsch",
+    hearTitle: "So tönt si",
+    hearLead: "Sändige und Film, wo vor allem die Mundart gredt wird. Prüefti Links — Ufnahme mached mer kei.",
+    hearNone:
+      "Für die Mundart stoht no nüt Prüefts im Verzeichnis. Lieber nüt als en Link, wo no niemert aaghört het.",
+    hearAll: "Alli Hörquelle",
+    whyManyTitle: "Warum so viili?",
+    whyManyBody:
+      "D Schwiiz het ihri Mundarte bhalte, während Dütschland sini grösstenteils verlore het. Das isch kein Zuefall und kei Frog vo de Bärge — es het mit Staatsbildig, Schuel und Radio z tue.",
+    whyManyLink: "Di ganz Gschicht",
     backToAll: "Alli Mundarte",
   },
 

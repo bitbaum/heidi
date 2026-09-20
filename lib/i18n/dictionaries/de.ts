@@ -928,6 +928,40 @@ export const de = {
     marksNone: "Heidi kann diese Mundart noch nicht an einzelnen Formen erkennen. Hier steht nichts, statt etwas Plausiblem.",
     taught: "Das lernen Sie hier",
     sourcesTitle: "Quellen",
+    groupsTitle: "Die drei Zweige",
+    groupsLead:
+      "Die alemannischen Mundarten teilen sich in drei Gruppen. Die Grenzen sind keine Kantonsgrenzen, sondern Lautwandel, die an verschiedenen Stellen stehengeblieben sind.",
+    groups: {
+      low: {
+        name: "Niederalemannisch",
+        body: "Der Norden — in der Schweiz praktisch nur Basel. Hier ist das k am Wortanfang k geblieben; überall sonst in der Deutschschweiz ist ch daraus geworden. Das hört man am ersten Tag.",
+      },
+      high: {
+        name: "Hochalemannisch",
+        body: "Mittelland und Osten: Zürich, Bern, Aargau, Solothurn, St. Gallen. Die grösste Gruppe — und die, die man meint, wenn man «Schweizerdeutsch» sagt.",
+      },
+      highest: {
+        name: "Höchstalemannisch",
+        body: "Die Alpentäler: Wallis, Glarus, Uri und Unterwalden, die Walsersiedlungen. Am konservativsten und für Auswärtige am schwersten, weil hier alte Formen erhalten sind, die im Mittelland längst verschwunden sind.",
+      },
+    },
+    groupLabel: "Zweig",
+    groupSpansTitle: "Auf beiden Seiten der Linie",
+    groupSpans:
+      "Diese Mundartlandschaft liegt auf beiden Seiten der Linie und gehört keinem Zweig allein. Wir nennen deshalb keinen, statt einen zu wählen, der ordentlich aussieht.",
+    diagnosticTitle: "Die Linie, die ihn zieht",
+    diagnosticInside: "In diesem Zweig",
+    diagnosticOutside: "Daneben",
+    diagnosticStandard: "Hochdeutsch",
+    hearTitle: "So klingt sie",
+    hearLead: "Sendungen und Filme, in denen vor allem diese Mundart gesprochen wird. Geprüfte Links — Aufnahmen machen wir keine.",
+    hearNone:
+      "Für diese Mundart steht noch nichts Geprüftes im Verzeichnis. Lieber nichts als ein Link, den niemand angehört hat.",
+    hearAll: "Alle Hörquellen",
+    whyManyTitle: "Warum so viele?",
+    whyManyBody:
+      "Die Schweiz hat ihre Mundarten behalten, während Deutschland seine weitgehend verloren hat. Das ist kein Zufall und keine Frage der Berge — es hat mit Staatsbildung, Schule und Rundfunk zu tun.",
+    whyManyLink: "Die ganze Geschichte",
     backToAll: "Alle Mundarten",
   },
 

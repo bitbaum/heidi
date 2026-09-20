@@ -53,9 +53,37 @@ export const ZURICH_GERMAN: VarietyPack = {
      * 1939–58, and its general-readership condensation. Every entry names one;
      * `family.test.ts` refuses an entry that names none.
      */
+    /**
+     * The three branches of Alemannic, which is the answer to "why are there
+     * so many?" that a list of eleven names cannot give.
+     *
+     * The lines are drawn by sound changes that stopped at different places,
+     * and each is shown as the pair of forms that crosses it rather than as a
+     * sentence about the pair. The `k`/`ch` line is the one a visitor can hear
+     * on their first day: Basel says `Kind`, and from a few kilometres south
+     * of it to the Italian border everybody says `Chind`.
+     */
+    dialectGroups: [
+      {
+        id: "low",
+        diagnostic: { inside: "Kind", outside: "Chind", standard: "Kind" },
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+      {
+        id: "high",
+        diagnostic: { inside: "schneie", outside: "schniie", standard: "schneien" },
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+      {
+        id: "highest",
+        diagnostic: { inside: "schniie", outside: "schneie", standard: "schneien" },
+        sources: ["sds-atlas", "kleiner-sprachatlas"],
+      },
+    ],
     areas: [
       {
         id: "zueritueuetsch",
+        group: "high",
         endonym: "Züritüütsch",
         cantons: ["ZH"],
         town: "Zürich",
@@ -64,6 +92,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       },
       {
         id: "baerndueuetsch",
+        group: "high",
         endonym: "Bärndütsch",
         cantons: ["BE"],
         town: "Bern",
@@ -73,6 +102,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       },
       {
         id: "baseldytsch",
+        group: "low",
         endonym: "Baseldytsch",
         cantons: ["BS", "BL"],
         town: "Basel",
@@ -90,6 +120,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       },
       {
         id: "ostschwiizertuetsch",
+        group: "high",
         endonym: "Ostschwiizertütsch",
         cantons: ["SG", "TG", "AR", "AI", "SH"],
         town: "St. Gallen",
@@ -99,6 +130,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       },
       {
         id: "aargauerdueuetsch",
+        group: "high",
         endonym: "Aargauerdütsch",
         cantons: ["AG"],
         town: "Aarau",
@@ -107,6 +139,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       },
       {
         id: "glarnertueuetsch",
+        group: "highest",
         endonym: "Glarnertüütsch",
         cantons: ["GL"],
         town: "Glarus",
@@ -115,6 +148,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       },
       {
         id: "solothurnerdueuetsch",
+        group: "high",
         endonym: "Solothurnerdütsch",
         cantons: ["SO"],
         town: "Solothurn",
@@ -123,6 +157,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       },
       {
         id: "seyslerdueuetsch",
+        group: "high",
         endonym: "Seyslertütsch",
         cantons: ["FR"],
         town: "Freiburg",
@@ -143,6 +178,7 @@ export const ZURICH_GERMAN: VarietyPack = {
         // Highest Alemannic, and the reason the SDS extends past the border:
         // the Walser carried these dialects into northern Italy.
         id: "wallisertitsch",
+        group: "highest",
         endonym: "Wallisertitsch",
         cantons: ["VS"],
         // Brig, not Sion. Sion is the cantonal capital and French-speaking;

@@ -32,11 +32,29 @@ export default async function DialectPage({ params }: { params: Promise<{ locale
   const dict = getDictionary(locale);
   const t = dict.dialect;
 
-  // Taught first, then the roadmap, then the rest — the same ordering the map
-  // draws, so the list and the picture agree.
-  const areas = [...DISPLAY.areas].sort(
-    (a, b) => Number(b.taught) - Number(a.taught) || a.town.localeCompare(b.town),
-  );
+  /**
+   * Grouped by branch, which is the page's third fact made visible.
+   *
+   * "Swiss German is not one language" was argued in a paragraph and then
+   * illustrated with eleven names in a flat grid — which reads as eleven
+   * flavours of one thing, the opposite of the claim. The branches are the
+   * structure, they are not ours (the atlas draws them), and they turn the
+   * list into something a reader can hold: three groups, one line between
+   * each, and Basel alone on the far side of the first.
+   *
+   * The order is the pack's, so the headings run north to south as the sound
+   * changes do. Areas that belong to no single branch come last under their
+   * own heading rather than being quietly filed under one of the three.
+   */
+  const byTown = (a: (typeof DISPLAY.areas)[number], b: (typeof DISPLAY.areas)[number]) =>
+    Number(b.taught) - Number(a.taught) || a.town.localeCompare(b.town);
+
+  const grouped = DISPLAY.dialectGroups.map((group) => ({
+    id: group.id,
+    words: t.groups[group.id as keyof typeof t.groups],
+    areas: DISPLAY.areas.filter((a) => a.group === group.id).sort(byTown),
+  }));
+  const ungrouped = DISPLAY.areas.filter((a) => !a.group).sort(byTown);
 
   return (
     <Shell>
@@ -77,34 +95,85 @@ export default async function DialectPage({ params }: { params: Promise<{ locale
           <DialectFigure plannedLabel={dict.home.dialectPlanned} othersLabel={dict.home.dialectOthers} />
         </div>
 
-        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {areas.map((area) => (
-            <li key={area.id}>
-              <Link
-                href={`${href(locale, "dialect")}/${area.id}`}
-                className={`flex h-full flex-col gap-1 rounded-control border p-4 transition-colors hover:border-accent ${
-                  // The one taught here is marked in the list exactly as it is
-                  // on the map, so the two say the same thing.
-                  area.taught ? "border-border-strong bg-surface-raised" : "border-border-subtle"
-                }`}
+        <p className="mb-8 max-w-measure text-base leading-relaxed text-fg-secondary">{t.groupsLead}</p>
+
+        <div className="flex flex-col gap-10">
+          {grouped.map((group) => (
+            <section key={group.id} aria-labelledby={`group-${group.id}`}>
+              <h3
+                id={`group-${group.id}`}
+                className="font-heading text-xl font-semibold leading-snug tracking-display text-fg-primary"
               >
-                <span
-                  lang={DISPLAY.tag}
-                  className="font-heading text-lg font-semibold leading-snug tracking-display text-dialect"
-                >
-                  {area.endonym}
-                </span>
-                <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-                  {area.cantons.join(" · ")}
-                </span>
-                {area.taught && (
-                  <span className="mt-1 font-mono text-caption uppercase tracking-caps text-accent">{t.taught}</span>
-                )}
-              </Link>
-            </li>
+                {group.words.name}
+              </h3>
+              <p className="mb-4 mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">
+                {group.words.body}
+              </p>
+              <AreaCards areas={group.areas} locale={locale} taughtLabel={t.taught} />
+            </section>
           ))}
-        </ul>
+
+          {ungrouped.length > 0 && (
+            <section aria-labelledby="group-spans">
+              <h3
+                id="group-spans"
+                className="font-heading text-xl font-semibold leading-snug tracking-display text-fg-primary"
+              >
+                {t.groupSpansTitle}
+              </h3>
+              <p className="mb-4 mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{t.groupSpans}</p>
+              <AreaCards areas={ungrouped} locale={locale} taughtLabel={t.taught} />
+            </section>
+          )}
+        </div>
       </section>
     </Shell>
+  );
+}
+
+/**
+ * The area cards, written once and used by every branch on the page.
+ *
+ * Four call sites now — the three branches plus the areas that straddle a
+ * line — which is the point at which the same markup copied four times starts
+ * disagreeing with itself about what a taught area looks like.
+ */
+function AreaCards({
+  areas,
+  locale,
+  taughtLabel,
+}: {
+  areas: readonly (typeof DISPLAY.areas)[number][];
+  locale: Locale;
+  taughtLabel: string;
+}) {
+  return (
+    <ul className="grid grid-cols-safe gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {areas.map((area) => (
+        <li key={area.id}>
+          <Link
+            href={`${href(locale, "dialect")}/${area.id}`}
+            className={`flex h-full flex-col gap-1 rounded-control border p-4 transition-colors hover:border-accent ${
+              // The one taught here is marked in the list exactly as it is on
+              // the map, so the two say the same thing.
+              area.taught ? "border-border-strong bg-surface-raised" : "border-border-subtle"
+            }`}
+          >
+            <span
+              lang={DISPLAY.tag}
+              className="font-heading text-lg font-semibold leading-snug tracking-display text-dialect"
+            >
+              {area.endonym}
+            </span>
+            <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
+              {area.cantons.join(" · ")}
+            </span>
+            {area.taught && (
+              <span className="mt-1 font-mono text-caption uppercase tracking-caps text-accent">{taughtLabel}</span>
+            )}
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 }

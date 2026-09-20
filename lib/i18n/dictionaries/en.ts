@@ -837,6 +837,40 @@ export const en: Dictionary = {
     marksNone: "Heidi cannot yet recognise this dialect by specific forms. Nothing here, rather than something plausible.",
     taught: "This is the one you learn here",
     sourcesTitle: "Sources",
+    groupsTitle: "The three branches",
+    groupsLead:
+      "The Alemannic dialects fall into three groups. The boundaries are not cantonal: they are sound changes that stopped in different places.",
+    groups: {
+      low: {
+        name: "Low Alemannic",
+        body: "The north — in Switzerland, essentially Basel alone. Here initial k stayed k; everywhere else in German-speaking Switzerland it became ch. You hear it on your first day.",
+      },
+      high: {
+        name: "High Alemannic",
+        body: "The Mittelland and the east: Zurich, Bern, Aargau, Solothurn, St. Gallen. The largest group — and the one people mean when they say “Swiss German”.",
+      },
+      highest: {
+        name: "Highest Alemannic",
+        body: "The alpine valleys: Valais, Glarus, Uri and Unterwalden, the Walser settlements. The most conservative and the hardest for an outsider, because old forms survive here that vanished from the Mittelland long ago.",
+      },
+    },
+    groupLabel: "Branch",
+    groupSpansTitle: "On both sides of the line",
+    groupSpans:
+      "This area sits on both sides of the line and belongs to no single branch. So we name none, rather than pick one that would look tidy.",
+    diagnosticTitle: "The line that draws it",
+    diagnosticInside: "In this branch",
+    diagnosticOutside: "Next door",
+    diagnosticStandard: "Standard German",
+    hearTitle: "What it sounds like",
+    hearLead: "Programmes and films in which this dialect is mostly what you hear. Checked links — we record nothing ourselves.",
+    hearNone:
+      "Nothing checked in the register for this dialect yet. Better nothing than a link nobody has listened to.",
+    hearAll: "Every listening source",
+    whyManyTitle: "Why so many?",
+    whyManyBody:
+      "Switzerland kept its dialects where Germany largely lost its own. That is neither an accident nor a matter of mountains: it has to do with how a state was built, with school, and with broadcasting.",
+    whyManyLink: "The whole story",
     backToAll: "All dialects",
   },
 

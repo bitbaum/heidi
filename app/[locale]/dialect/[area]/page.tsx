@@ -5,7 +5,9 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, LOCALES, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { DISPLAY } from "@/lib/variety/display";
+import { LISTENING_SOURCES } from "@/lib/listening/sources";
 import { SOURCES, citation, type SourceId } from "@/lib/research/sources";
+import { ListeningRow } from "../../_components/listening-row";
 import { Shell } from "../../_components/page-shell";
 
 /**
@@ -36,18 +38,30 @@ export async function generateMetadata({
 /**
  * One dialect area.
  *
- * NO PROSE, and that is the design rather than a gap. Eleven areas of
+ * STILL NO PER-AREA PROSE, and the reason has not changed: eleven areas of
  * translated description would be seventy-seven blocks nobody on this project
  * can check, and a machine-translated claim about where a form is spoken is
- * exactly how a reference page ends up confidently wrong in six languages at
- * once. What is here instead is data: the name speakers use, the cantons, the
- * town, the forms the checker can actually tell apart, and the atlas that
- * vouches for the area existing.
+ * how a reference page ends up confidently wrong in six languages at once.
  *
- * The marks are READ from the gate. A page cannot show a form the checker does
- * not enforce, and an area with no rules yet says so — which is the honest
- * state of "we have not written those rules", and far better than the
- * plausible-looking forms a model would supply if asked.
+ * The page got substantially longer anyway, which is the point worth
+ * recording: everything added is DATA, and data does not need translating.
+ *
+ *   the branch     which of the three divisions of Alemannic it belongs to,
+ *                  and the pair of forms that draws that line — `Kind` inside
+ *                  Low Alemannic, `Chind` outside it. Three explanations in
+ *                  the dictionaries serve all eleven areas, instead of eleven
+ *                  descriptions serving one each.
+ *   what it sounds  the listening register, filtered by `area`. Those rows
+ *   like            have carried an atlas id since the first commit and no
+ *                  page ever followed the join, so the one question this page
+ *                  could not answer — "where do I actually hear this?" — was
+ *                  already answered in the data.
+ *   the marks       READ from the gate, as before. A page cannot show a form
+ *                  the checker does not enforce, and an area with no rules yet
+ *                  says so rather than showing plausible invented ones.
+ *
+ * The ordering follows what a visitor wants in order: what is this, what does
+ * it sound like, how do I recognise it, who says so.
  */
 export default async function AreaPage({ params }: { params: Promise<{ locale: string; area: string }> }) {
   const { locale: raw, area: id } = await params;
@@ -62,6 +76,22 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
   // `display.test.ts` refuses, and rightly: the projection exists so a
   // component cannot accidentally render a field of English prose.
   const sources = area.sources.filter((s): s is SourceId => s in SOURCES);
+
+  // The branch, and the words for it. `groupWords` is looked up by id in the
+  // dictionary exactly as a grammar topic is: three explanations translated
+  // once, serving eleven areas.
+  const group = DISPLAY.dialectGroups.find((g) => g.id === area.group);
+  const groupWords = group ? t.groups[group.id as keyof typeof t.groups] : undefined;
+
+  /**
+   * Where you can hear this one, from the register that already knows.
+   *
+   * `sources.test.ts` joins every `area` id to the atlas, so this filter
+   * cannot silently match nothing because of a typo — it matches nothing only
+   * when nothing has been checked for this dialect, which the page says.
+   */
+  const heard = LISTENING_SOURCES.filter((source) => source.area === area.id);
+  const areaNames = new Map(DISPLAY.areas.map((a) => [a.id, a.endonym]));
 
   return (
     <Shell>
@@ -88,7 +118,85 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
         )}
       </header>
 
-      <section aria-labelledby="marks" className="border-t border-border-subtle pt-10">
+      {/* WHAT KIND OF DIALECT THIS IS, before what marks it out. A reader who
+          does not yet know that Alemannic has three branches cannot do
+          anything with a list of forms; knowing that Basel is the one place
+          that kept its `k` makes the whole map legible at once. */}
+      <section aria-labelledby="branch" className="border-t border-border-subtle pt-10">
+        <h2
+          id="branch"
+          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+        >
+          {t.groupsTitle}
+        </h2>
+        {group ? (
+          <>
+            <p className="mt-3 font-mono text-caption uppercase tracking-caps text-accent">
+              {t.groupLabel}: {groupWords?.name}
+            </p>
+            <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{groupWords?.body}</p>
+            {group.diagnostic && (
+              <div className="mt-6 rounded-control border border-border-subtle p-4">
+                <h3 className="font-mono text-caption uppercase tracking-caps text-fg-muted">
+                  {t.diagnosticTitle}
+                </h3>
+                <dl className="mt-3 grid grid-cols-safe gap-x-6 gap-y-3 sm:grid-cols-3">
+                  {[
+                    { label: t.diagnosticInside, form: group.diagnostic.inside, dialect: true },
+                    { label: t.diagnosticOutside, form: group.diagnostic.outside, dialect: true },
+                    { label: t.diagnosticStandard, form: group.diagnostic.standard, dialect: false },
+                  ].map((cell) => (
+                    <div key={cell.label}>
+                      <dt className="font-mono text-caption uppercase tracking-caps text-fg-muted">{cell.label}</dt>
+                      <dd
+                        {...(cell.dialect ? { lang: DISPLAY.tag } : { lang: "de" })}
+                        className={`mt-1 font-heading text-xl leading-snug tracking-display ${
+                          cell.dialect ? "text-dialect" : "text-fg-primary"
+                        }`}
+                      >
+                        {cell.form}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            )}
+          </>
+        ) : (
+          // An area on both sides of the line. Saying so is the whole reason
+          // `group` is optional — see the note on `DialectArea.group`.
+          <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.groupSpans}</p>
+        )}
+      </section>
+
+      <section aria-labelledby="hear" className="mt-12 border-t border-border-subtle pt-10">
+        <h2
+          id="hear"
+          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+        >
+          {t.hearTitle}
+        </h2>
+        {heard.length === 0 ? (
+          <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.hearNone}</p>
+        ) : (
+          <>
+            <p className="mb-4 mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.hearLead}</p>
+            <ul>
+              {heard.map((source) => (
+                <ListeningRow key={source.id} source={source} t={dict.listening} areaNames={areaNames} />
+              ))}
+            </ul>
+          </>
+        )}
+        <Link
+          href={href(locale, "listen")}
+          className="mt-4 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
+        >
+          {t.hearAll}
+        </Link>
+      </section>
+
+      <section aria-labelledby="marks" className="mt-12 border-t border-border-subtle pt-10">
         <h2
           id="marks"
           className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"

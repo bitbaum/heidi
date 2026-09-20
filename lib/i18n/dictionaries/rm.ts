@@ -858,6 +858,40 @@ export const rm: Dictionary = {
     marksNone: "Heidi na sa anc betg enconuscher quest idiom a basa da furmas concretas. Qua na stat nagut, empè da insatge plausibel.",
     taught: "Quai emprendais Vus qua",
     sourcesTitle: "Funtaunas",
+    groupsTitle: "Ils trais roms",
+    groupsLead:
+      "Ils dialects alemannics sa partan en trais gruppas. Ils cunfins n'èn betg chantunals: els èn midadas fonicas che èn restadas en lieus differents.",
+    groups: {
+      low: {
+        name: "Bass alemannic",
+        body: "Il nord — en Svizra praticamain be Basilea. Qua è il k a l'entschatta restà k; dapertut auter en la Svizra tudestga è el daventà ch. Quai audan ins il emprim di.",
+      },
+      high: {
+        name: "Aut alemannic",
+        body: "L'Altipian e l'ost: Turitg, Berna, Argovia, Soloturn, Son Gagl. La gruppa la pli gronda — quella che ins pensa cun dir «tudestg svizzer».",
+      },
+      highest: {
+        name: "Autissim alemannic",
+        body: "Las vals alpinas: Vallais, Glaruna, Uri ed Untervalden, las colonias walser. Il pli conservativ ed il pli grev per forestiers, perquai che qua èn restadas furmas veglias ch'èn spariras dapi ditg sin l'Altipian.",
+      },
+    },
+    groupLabel: "Rom",
+    groupSpansTitle: "Sin omadus mauns da la lingia",
+    groupSpans:
+      "Questa regiun sa chatta sin omadus mauns da la lingia e n'appartegna a nagin rom sulet. Nus numnain perquai nagin, empè da tscherner in che para ordinà.",
+    diagnosticTitle: "La lingia che la tira",
+    diagnosticInside: "En quest rom",
+    diagnosticOutside: "Sper",
+    diagnosticStandard: "Tudestg standard",
+    hearTitle: "Uschia sun ella",
+    hearLead: "Emissiuns e films en ils quals ins auda surtut quest idiom. Colliaziuns controlladas — registraziuns faschain nus naginas.",
+    hearNone:
+      "Per quest idiom na datti anc nagut controllà en il register. Meglier nagut ch'ina colliaziun che nagin ha tadlà.",
+    hearAll: "Tut las funtaunas d'udida",
+    whyManyTitle: "Pertge uschè blers?",
+    whyManyBody:
+      "La Svizra ha mantegnì ses dialects, entant che la Germania ha per gronda part pers ils siter. Quai n'è betg in cas ni ina dumonda da muntognas: quai dependa da la furmaziun da l'stadi, da la scola e da la radio.",
+    whyManyLink: "L'entira istorgia",
     backToAll: "Tut ils idioms",
   },
 

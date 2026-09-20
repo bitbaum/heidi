@@ -842,6 +842,40 @@ export const it: Dictionary = {
     marksNone: "Heidi non sa ancora riconoscere questo dialetto da forme precise. Qui non c'è nulla, invece di qualcosa di plausibile.",
     taught: "È quello che imparate qui",
     sourcesTitle: "Fonti",
+    groupsTitle: "I tre rami",
+    groupsLead:
+      "Le parlate alemanne si dividono in tre gruppi. I confini non sono cantonali: sono mutamenti fonetici fermatisi in punti diversi.",
+    groups: {
+      low: {
+        name: "Basso alemanno",
+        body: "Il nord — in Svizzera praticamente solo Basilea. Qui la k iniziale è rimasta k; ovunque altrove nella Svizzera tedesca è diventata ch. Si sente il primo giorno.",
+      },
+      high: {
+        name: "Alto alemanno",
+        body: "L'Altopiano e l'est: Zurigo, Berna, Argovia, Soletta, San Gallo. Il gruppo più esteso — quello a cui si pensa dicendo «svizzero tedesco».",
+      },
+      highest: {
+        name: "Altissimo alemanno",
+        body: "Le valli alpine: Vallese, Glarona, Uri e Untervaldo, gli insediamenti walser. Il più conservativo e il più arduo per chi viene da fuori, perché vi si conservano forme antiche scomparse da tempo sull'Altopiano.",
+      },
+    },
+    groupLabel: "Ramo",
+    groupSpansTitle: "Su entrambi i lati della linea",
+    groupSpans:
+      "Quest'area sta su entrambi i lati della linea e non appartiene a un ramo solo. Non ne indichiamo nessuno, invece di sceglierne uno che faccia ordine.",
+    diagnosticTitle: "La linea che lo traccia",
+    diagnosticInside: "In questo ramo",
+    diagnosticOutside: "Accanto",
+    diagnosticStandard: "Tedesco standard",
+    hearTitle: "Come suona",
+    hearLead: "Trasmissioni e film in cui si sente soprattutto questa parlata. Link verificati — registrazioni non ne facciamo.",
+    hearNone:
+      "Per questa parlata non c'è ancora nulla di verificato nel repertorio. Meglio niente che un link che nessuno ha ascoltato.",
+    hearAll: "Tutte le fonti d'ascolto",
+    whyManyTitle: "Perché così tante?",
+    whyManyBody:
+      "La Svizzera ha conservato i suoi dialetti mentre la Germania ha in gran parte perso i propri. Non è un caso né una questione di montagne: dipende da come si è formato lo Stato, dalla scuola e dalla radio.",
+    whyManyLink: "Tutta la storia",
     backToAll: "Tutti i dialetti",
   },
 
