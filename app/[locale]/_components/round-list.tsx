@@ -276,8 +276,18 @@ function OpenRound({
   const label = "block font-mono text-caption uppercase tracking-caps text-fg-muted";
 
   return (
-    <details className="mt-6 rounded-control border border-border-subtle bg-surface-raised p-4">
-      <summary className="cursor-pointer font-heading text-lg leading-tight text-fg-primary">{t.openTitle}</summary>
+    <details className="group mt-6 rounded-control border border-border-subtle bg-surface-raised p-4">
+      {/* `list-none` + the explicit `::-webkit-details-marker` reset: without
+          both, the browser draws its own triangle, hard against the first
+          letter, in whatever colour and size it likes. On the live site that
+          was a black ▼ glued to the heading — the only glyph on the page
+          drawn by the user agent rather than by us. The chevron below is ours:
+          it is `aria-hidden` because `<summary>` already announces its own
+          expanded state, and a second announcement would be a duplicate. */}
+      <summary className="flex cursor-pointer list-none items-center gap-2 font-heading text-lg leading-tight text-fg-primary [&::-webkit-details-marker]:hidden">
+        <span aria-hidden="true" className="text-fg-muted transition-transform group-open:rotate-90">
+          &rsaquo;
+        </span>{t.openTitle}</summary>
       <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-muted">{t.openHint}</p>
 
       <form onSubmit={submit} className="mt-4 grid grid-cols-safe gap-4">

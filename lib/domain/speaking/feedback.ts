@@ -38,6 +38,7 @@
 import { check, type Finding } from "../../variety/check.ts";
 import type { VarietyPack } from "../../variety/pack.ts";
 import { usable, type Delivery } from "./delivery.ts";
+import { interpretation, type Spoken } from "../../speech/spoken.ts";
 
 /**
  * Every note Heidi can make about a take.
@@ -52,9 +53,14 @@ export const NOTE_IDS = [
   "recording-too-quiet",
   "recording-clipped",
   // The delivery, described.
+  //
+  // `pause-count` and `mean-run` USED TO LIVE HERE and were removed, which is
+  // an information-hierarchy fix rather than a loss of information: both are
+  // printed as figures directly above the notes, and a sentence that says "3
+  // pauses between the stretches of speech" under a tile reading PAUSES 3 is
+  // the same fact twice in two typefaces. What survives is what a tile cannot
+  // carry — an interpretation, a comparison, or something to do next.
   "longest-pause",
-  "pause-count",
-  "mean-run",
   "no-long-pauses",
   // The delivery, compared with this learner's own last take.
   "fewer-pauses-than-before",
@@ -63,6 +69,17 @@ export const NOTE_IDS = [
   // The words.
   "foreign-form",
   "nothing-flagged",
+  // What the recording was made of, which is the denominator the screen never
+  // printed. "You spoke for 16 seconds" is two different findings depending on
+  // whether the recording was 18 seconds long or 52, and the learner is the
+  // only one who knows which — until this says so.
+  "share-of-recording",
+  // The transcript half. Available only where `evidence.ts` says the words are
+  // the learner's own; see `spokenNotes`.
+  "hunting-for-words",
+  "came-straight-through",
+  "filled-pauses",
+  "spoke-target-in-bridge",
 ] as const;
 
 export type NoteId = (typeof NOTE_IDS)[number];
@@ -93,6 +110,25 @@ const LONG_PAUSE_MS = 3_000;
  */
 const PAUSE_DELTA = 2;
 const RUN_DELTA_RATIO = 0.2;
+
+/**
+ * Below this share of the recording spent speaking, the share is worth saying.
+ *
+ * Three quarters, so an ordinary answer with ordinary thinking in it passes
+ * without comment and a recording that is mostly silence does not. A DECISION,
+ * not a finding — it decides when a sentence appears, never what it says.
+ */
+const QUIET_SHARE = 0.75;
+
+/**
+ * Filled pauses worth mentioning at all.
+ *
+ * `fluency.ts` is explicit that `äh` and `ähm` are NORMAL and that a product
+ * treating them as errors teaches somebody to talk like a document. So the
+ * count is reported, never corrected, and only once there are enough of them
+ * that a learner would recognise the habit in themselves.
+ */
+const FILLED_PAUSE_FLOOR = 3;
 
 /**
  * Two takes are only comparable if they are roughly the same size.
@@ -133,8 +169,21 @@ export function deliveryNotes(current: Delivery, previous?: Delivery): Note[] {
     notes.push({ id: "no-long-pauses" });
   }
 
-  if (current.pauseCount > 0) notes.push({ id: "pause-count", value: current.pauseCount });
-  if (current.meanRunMs > 0) notes.push({ id: "mean-run", value: seconds(current.meanRunMs) });
+  /**
+   * How much of the recording had speech in it.
+   *
+   * Reported only when a real share of the file was NOT speech, because on a
+   * tight take it is noise — and reported as a share rather than as a verdict,
+   * since the same number is a long thoughtful answer or a recorder somebody
+   * forgot to stop. Naming it lets the learner tell those apart; naming it for
+   * them would be guessing at which.
+   *
+   * This is the number whose absence made the rest unreadable: the screen
+   * printed sixteen seconds of speech with no denominator anywhere on it.
+   */
+  if (current.totalMs > 0 && current.speechMs / current.totalMs <= QUIET_SHARE) {
+    notes.push({ id: "share-of-recording", value: Math.round((current.speechMs / current.totalMs) * 100) });
+  }
 
   if (previous && usable(previous) && comparable(current, previous)) {
     const pauseDelta = previous.pauseCount - current.pauseCount;
@@ -173,6 +222,65 @@ export function languageNotes(text: string, pack: VarietyPack): Note[] {
     ...(f.suggest ? { suggest: f.suggest } : {}),
     ...(f.origin ? { origin: f.origin } : {}),
   }));
+}
+
+/**
+ * What the WORDS say about the delivery — the half that needs a transcript.
+ *
+ * ONLY EVER CALLED WITH THE LEARNER'S OWN WORDS. Either what they typed, or a
+ * transcript from a recogniser `evidence.ts` says returns the variety that was
+ * spoken. The caller owns that gate — `lib/domain/speaking/varieties.ts` is
+ * where it is decided — because this file has no pack and no recogniser and
+ * would have to be told the answer anyway.
+ *
+ * WHAT MAKES THESE ACTIONABLE, which the delivery notes above are not. "You
+ * paused four times" is a fact a learner can read and do nothing with: they
+ * know they paused. The rate PAIR is different, because the two numbers
+ * separate two problems that feel identical from inside and have opposite
+ * fixes:
+ *
+ *   articulation fast, speech slow   the words are there; retrieval is not.
+ *                                    Say the same thing again — the same
+ *                                    topic, immediately. That is the one
+ *                                    intervention this product can hand over,
+ *                                    and `speech/repetition.ts` is the ladder
+ *                                    for it.
+ *   the two together                 no hunting. Whatever is hard here is not
+ *                                    word-finding, so being told to practise
+ *                                    word-finding would waste the session.
+ *
+ * `interpretation` answers `unclear` for most first takes and that answer is
+ * rendered as nothing at all. A product that always has a verdict is a product
+ * whose verdicts mean nothing.
+ */
+export function spokenNotes(
+  delivery: Delivery,
+  spoken: Spoken,
+  /**
+   * Did the learner use TARGET forms while practising the bridge?
+   *
+   * From `dialect-marker.ts`, run on the transcript by the route. In a
+   * diglossic place this is the commonest thing to do by accident and a
+   * genuinely useful thing to be told — it is not an error, and the wording
+   * says so.
+   */
+  spoke?: "target" | "bridge" | "unclear",
+): Note[] {
+  if (!usable(delivery)) return [];
+
+  const notes: Note[] = [];
+
+  const shape = interpretation(delivery, spoken);
+  if (shape === "hunting") notes.push({ id: "hunting-for-words" });
+  else if (shape === "even") notes.push({ id: "came-straight-through" });
+
+  if (spoken.filledPauseCount >= FILLED_PAUSE_FLOOR) {
+    notes.push({ id: "filled-pauses", value: spoken.filledPauseCount });
+  }
+
+  if (spoke === "target") notes.push({ id: "spoke-target-in-bridge" });
+
+  return notes;
 }
 
 /**

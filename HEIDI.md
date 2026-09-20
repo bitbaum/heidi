@@ -248,9 +248,17 @@ recorded takes live in the visitor's own browser. There is no learner model
 yet.
 
 There is now audio, and the shape of it matters: a learner can record
-themselves, and the recording is measured **in the browser** and then dropped.
-Heidi has no audio table, no upload endpoint for takes, and no transcript of
-anybody's speech. See §9 and §10.
+themselves, and the recording is measured **in the browser** — always, in every
+mode, before anything else happens to it. On the dialect it is then dropped and
+nothing is sent anywhere, which is the default and the whole position.
+
+One mode differs and it is a choice the learner makes per take, not a setting
+that creeps: practising the BRIDGE — Swiss Standard German, the variety with a
+recogniser that returns what was said — sends the recording once to be
+transcribed. There is still no audio table and no upload endpoint that stores
+anything; the recording exists for the length of one request. The screen says
+which of the two it is in, next to the button, in the learner's language. See
+§9 and §10.
 
 - **Linguistic knowledge is data**, in the packs — not embedded in prompts. The
   model's instructions are *generated from* the pack (`lib/variety/prompt.ts`),
@@ -434,10 +442,19 @@ because being wrong in public is expensive and quiet correction is cheap.
   *Schweizerdeutsch Mundart* to prove it is not fooled by a label.
 - ❌ "Heidi hears your dialect and corrects your pronunciation." She hears TEXT
   produced by a recogniser, and §7.4 says what that recogniser does: it
-  transcribes dialect INTO Standard German. There is no audio, no confidence
-  and no phoneme alignment anywhere in the correction path, so a score would
-  have to be invented rather than measured. ✅ "Heidi cannot tell you whether
-  your accent is right. Nothing can, reliably."
+  transcribes dialect INTO Standard German. There is no confidence and no
+  phoneme alignment anywhere in the correction path, so a score would have to
+  be invented rather than measured. ✅ "Heidi cannot tell you whether your
+  accent is right. Nothing can, reliably."
+
+  **This survives the bridge transcript unchanged, and the distinction is the
+  point.** A take practised in Swiss Standard German IS sent to a recogniser,
+  so "there is no audio in the correction path" is no longer the reason — the
+  reason is the one that does not depend on plumbing. A word error rate tells
+  you how often the transcript is wrong; it tells you nothing about how the
+  speaker sounded, because the recogniser threw the sound away to produce it.
+  `capability.ts` therefore marks pronunciation `refused` rather than `none`:
+  not "not yet, at this accuracy", but never, at any accuracy, by decision.
 - ❌ Correcting the FORMS in a transcript of what somebody said. Those forms are
   the recogniser's spelling, not the speaker's — flagging `ist` or `nicht` in a
   transcript corrects the machine and bills it to the learner, who may have
@@ -849,12 +866,29 @@ So the evaluation is three things that are each true:
    the gaps fell, the longest one, whether the microphone clipped. Arithmetic
    over samples — reproducible, checkable by anyone with the same audio, and
    true whatever language was spoken, which is why it works for Lesya
-   unchanged. Nothing in it knows what a phoneme is. There is deliberately no
-   speech RATE: syllables per second needs a transcript to count syllables, so
-   the measure is absent rather than estimated. A test asserts no field of the
-   result reads as a rating, because the way that ban gets broken is not
+   unchanged. Nothing in it knows what a phoneme is. A test asserts no field of
+   the result reads as a rating, because the way that ban gets broken is not
    somebody disagreeing with it — it is a well-meaning `score` field appearing
    because a designer wanted one number for the card.
+
+   The measurement also now prints the LENGTH OF THE RECORDING beside the time
+   spent speaking, and that is a correction rather than an addition. "You spoke
+   for 16 seconds" is not one finding, it is two — a complete short answer, or
+   a microphone that stopped hearing — and the screen printed it with no
+   denominator anywhere on it, so a learner had no way to tell which they were
+   looking at. Same defect, same class as the overclaim register: a number
+   presented as more settled than it is.
+
+   And a real bug sat under it. A cough, a breath or a lip smack inside a long
+   silence is a run of sound too short to be speech; the segmentation discarded
+   it as a run while still letting it END the gap before it and START the gap
+   after, so ONE silence of 1.9 s was reported as two of 0.9 s. The count
+   inflated, the longest pause understated, and `pauseCount` was free to exceed
+   `runCount` — impossible for gaps that by definition sit between runs. Seen
+   on a real take: 16 s of speech with 14 pauses and a mean run of 1.5 s, which
+   is about eleven runs with fourteen gaps between them. Fixed by dropping the
+   blips before segmenting rather than during, and the invariant is now a test
+   rather than a property of the loop.
 2. **The learner writes down what they said**, and the honest reason is on the
    screen: nothing transcribes this dialect, and a machine transcript labelled
    "what you said" would be wrong in precisely the way they could not detect.
@@ -882,14 +916,58 @@ measurement noise, and are refused between takes of wildly different lengths.
 Both directions are reported; a product that only reports improvement is not
 measuring anything.
 
-**Stated limit:** the sentence explaining why the learner transcribes their own
-speech is gated on `capabilities.asr`, so a pack that HAS usable recognition
-does not get told a fact about a language it is not teaching. But the other
-half — actually offering a machine transcript where one would be trustworthy —
-is NOT built, because no pack with `asr: true` has a deployment to test it
-against. That is the same rule the shared-package extraction follows: build it
-at the second consumer, not the first. The seam is the capability flag, which
-is already read.
+**The stated limit has been closed, and it was closed by asking a question the
+product had already answered.** This paragraph used to say that offering a
+machine transcript where one would be trustworthy was NOT built, because no
+pack with usable recognition had a deployment to test it against — build it at
+the second consumer, not the first.
+
+That was wrong about its own pack. `packs/gsw-zh.ts` declares
+`bridgeRecognition: { available: true, returnsSpokenVariety: true, wer: 6.4 }`,
+`evidence.ts` reads that as `words`, and `capability.ts` had been computing a
+verdict of `bridge` for fluency, vocabulary and grammar the whole time. The
+second consumer was never needed: the first pack was already two varieties, and
+Zurich is diglossic, so the German a learner must actually speak at a doctor's
+desk, a Verwaltung counter or an insurer's phone line IS the one with a
+faithful recogniser. Everything except the branch that offered it existed and
+was unit-tested. `lib/speech/fluency.ts`, `syllables.ts` and `grammar.ts` had
+no importer in the app at all.
+
+So the practice screen now asks which variety this take is in, and the answer
+decides what may be said about it:
+
+- **Züritüütsch** — unchanged, and the default. The signal is measured on the
+  device, the audio never leaves it, the learner types what they said. §7 in
+  full force.
+- **Swiss Standard German** — the recording goes once to a recogniser, the
+  transcript comes back as the learner's own words, and speech rate,
+  articulation rate, filled pauses and the gate all have something to work on.
+  Then `dialect-marker.ts` checks the vendor's answer on every take, so "you
+  used dialect words while practising Standard German" is a finding rather than
+  a silence — and so a vendor that quietly starts translating is caught by the
+  product rather than by a lab.
+
+Nothing in that branch names a language. `lib/domain/speaking/varieties.ts`
+asks the pack; a pack whose TARGET recogniser becomes faithful — the Swiss
+dialect-preserving vendors in `lib/research/language-tech.ts`, the day somebody
+tests one — gains all of it by editing one object, and a pack with neither
+renders no switch and the screen is exactly what it was.
+
+**What did NOT change is the ban.** There is still no pronunciation score, in
+either mode, at any word error rate. `capability.ts` marks it `refused` rather
+than `none` precisely so that a future contributor reading the verdicts as "not
+yet" does not implement it when the WER drops. A rate is a measurement of an
+utterance; a nativeness score is a judgement about a person.
+
+**And the rate is reported as a PAIR, never as a number.** Speech rate and
+articulation rate separate two problems that feel identical from inside and
+have opposite fixes: equal articulation with a slower speech rate is somebody
+who has the words and is hunting for them, which is answered by saying the same
+thing again immediately. Neither is compared with a norm, because no norm
+exists for an adult talking about a topic they chose, on a phone, in this
+language — and inventing one for a progress bar is the false precision §8
+forbids wearing a lab coat. Where the two rates do not separate, the screen
+says nothing.
 
 **Built: the spoken channel, and the gate that had to come with it.** The
 product could read and write a language that is mostly heard. Three things
@@ -1105,11 +1183,25 @@ log line before anything is written.
 **Saved words stay on your device.** They need no account, work signed out, and
 keep Heidi from holding a record of what a particular person cannot understand.
 
-**Your voice never reaches us at all.** A recorded take is decoded and measured
-in the page that recorded it, and the audio is dropped; what is kept is a
-handful of numbers and your own write-up of what you said, in your browser,
-under `heidi.takes.v1`. There is no audio table, no upload endpoint
-for takes, and no transcript of anybody's speech anywhere in this product.
+**Your voice never reaches us at all, and where it reaches anyone it is
+because you chose that take.** A recorded take is decoded and measured in the
+page that recorded it. What is KEPT is a handful of numbers and your own
+write-up of what you said, in your browser, under `heidi.takes.v1` — there is
+no audio table and no upload endpoint that stores anything, in any mode.
+
+On the dialect the audio is then dropped and never sent. That is the default,
+and it is enforced rather than remembered: `useRecorder` hands the recording
+back only under `retainAudio`, which defaults to false and is fixed for the
+take before the microphone opens, so there is no path from "recorded without
+it" to "uploaded anyway". A test asserts both the default and the gate, because
+the sentence above is one deleted ternary away from being false and neither the
+UI nor a unit test would show it.
+
+Practising the bridge is the one mode that sends the recording, once, to be
+transcribed — and it exists because the transcript is worth something there and
+is worth nothing on the dialect (§7.4). It is a per-take choice with its
+consequence printed beside it, and the privacy line under the screen changes
+with the mode rather than describing the friendlier half of it.
 
 This is the strongest version of the call `image_count` already made, and it is
 not a flourish. A table of how somebody sounds when they are bad at a language

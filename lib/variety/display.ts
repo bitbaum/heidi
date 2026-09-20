@@ -4,6 +4,8 @@ import { ruleLabel, type Severity } from "./pack.ts";
 import type { Atlas } from "./pack.ts";
 import { FORM_JUDGEMENT_MAX_WER } from "../speech/evidence.ts";
 import { verdicts, type MeasureId, type Verdict } from "../speech/capability.ts";
+import { spokenVarieties } from "../domain/speaking/varieties.ts";
+import type { SpokenVarietyId } from "../domain/speaking/varieties.ts";
 
 /**
  * The pack, minus everything written in English for developers.
@@ -171,6 +173,38 @@ export type DisplayVariety = {
     formMaxWer: number;
   };
   /**
+   * How to count a syllable in this variety, and what it hesitates with.
+   *
+   * Letters and a boolean — no prose, so they project. They are here because
+   * `speech/spoken.ts` computes a rate in the BROWSER, from the signal this
+   * device measured and the words on screen, and it may not be handed a pack
+   * to read them from. Parameterised rather than hardcoded for the reason
+   * `SpeechProfile` gives: German writes diphthongs as adjacent vowels and
+   * Ukrainian does not, and a merged count is wrong by a third in a language
+   * nobody here reads.
+   */
+  speechRule: { vowels: string; adjacentVowelsMerge: boolean };
+  /** `äh`, `ähm` — counted, never judged. Words, not prose. */
+  fillers: readonly string[];
+  /**
+   * The varieties a learner may practise SPEAKING in, projected.
+   *
+   * Ids, names, tags and booleans — no prose, so it crosses into components
+   * like everything else here. The practice screen renders one entry or a
+   * choice between two entirely from this, which is what lets a pack turn
+   * dialect practice-with-words on by editing one `recognition` object.
+   */
+  practice: readonly {
+    id: SpokenVarietyId;
+    /** A NAME. Not in any language, so it reads correctly in all seven. */
+    name: string;
+    tag: string;
+    /** May a machine transcript be shown as what the learner said? */
+    transcribable: boolean;
+    /** Whether a grammar service covers it, WITHOUT naming the vendor code. */
+    grammar: boolean;
+  }[];
+  /**
    * One line of the variety itself, for the hero to show and then answer.
    * Only the line — its meaning is language, so it lives in the dictionaries.
    * Nothing here is English prose, which is the whole point of this file.
@@ -266,5 +300,19 @@ export const DISPLAY: DisplayVariety = {
     },
     formMaxWer: FORM_JUDGEMENT_MAX_WER,
   },
+  speechRule: {
+    vowels: VARIETY.speech.vowels,
+    adjacentVowelsMerge: VARIETY.speech.adjacentVowelsMerge,
+  },
+  fillers: VARIETY.speech.fillers,
+  practice: spokenVarieties(VARIETY).map((v) => ({
+    id: v.id,
+    name: v.name,
+    tag: v.tag,
+    transcribable: v.transcribable,
+    // The CODE is a vendor string and belongs in the route; a page only ever
+    // needs to know whether the row exists.
+    grammar: v.grammarCode !== null,
+  })),
   showcase: VARIETY.showcase ? { line: VARIETY.showcase.line } : undefined,
 };

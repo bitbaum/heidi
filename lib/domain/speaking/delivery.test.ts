@@ -157,3 +157,63 @@ test("no measurement is a rating", () => {
   assert.equal(typeof d.pauseCount, "number");
   assert.ok(d.phonationRatio >= 0 && d.phonationRatio <= 1);
 });
+
+/**
+ * THE BLIP TEST, and the invariant behind it.
+ *
+ * A breath, a lip smack or a tongue click in the middle of a long silence is
+ * a frame or two of sound. It is not a run and never counted as one — but it
+ * used to end the gap before it and start the gap after it, so ONE silence
+ * came back as two shorter ones. That is not a rounding difference: it
+ * inflates the pause count, understates the longest pause, and lets
+ * `pauseCount` exceed `runCount`, which cannot happen to gaps that by
+ * definition sit between runs.
+ *
+ * Seen on the live site: 16 s of speech reported with 14 pauses and a mean run
+ * of 1.5 s — about eleven runs, with fourteen gaps between them.
+ */
+test("a click inside a silence does not split one pause into two", () => {
+  const d = measure(
+    build([speech(3000), silence(900), speech(80), silence(900), speech(3000)]),
+    RATE,
+  );
+  assert.equal(d.pauseCount, 1, "one silence, interrupted by a click, is one pause");
+  assert.equal(d.runCount, 2, "and the click is not a run");
+  assert.ok(
+    Math.abs(d.longestPauseMs - 1880) < 250,
+    `the pause is the whole silence, ~1880ms, got ${d.longestPauseMs}`,
+  );
+});
+
+test("pauses sit between runs — there is always exactly one fewer", () => {
+  const cases: Array<Array<{ ms: number; level: number }>> = [
+    [speech(3000)],
+    [speech(2000), silence(700), speech(2000)],
+    [silence(1000), speech(1500), silence(600), speech(80), silence(600), speech(1500), silence(1000)],
+    [speech(1000), silence(400), speech(60), silence(400), speech(60), silence(400), speech(1000)],
+    [speech(2000), silence(500), speech(500), silence(500), speech(500), silence(500), speech(2000)],
+  ];
+  for (const parts of cases) {
+    const d = measure(build(parts), RATE);
+    assert.equal(
+      d.pauseCount,
+      Math.max(0, d.runCount - 1),
+      `pauseCount ${d.pauseCount} with runCount ${d.runCount} — a gap needs speech on both sides`,
+    );
+  }
+});
+
+/**
+ * The total is the denominator, and the product now prints it.
+ *
+ * "You spoke for 16 seconds" is unreadable without "out of 52" beside it: the
+ * same figure is a complete answer or a microphone that stopped listening, and
+ * only the pair tells you which. The measurement always had `totalMs`; it was
+ * the screen that did not show it.
+ */
+test("the recording length is reported alongside the speaking time", () => {
+  const d = measure(build([silence(2000), speech(4000), silence(2000)]), RATE);
+  assert.ok(Math.abs(d.totalMs - 8000) < 100, `totalMs near 8000, got ${d.totalMs}`);
+  assert.ok(Math.abs(d.speechMs - 4000) < 300, `speechMs near 4000, got ${d.speechMs}`);
+  assert.ok(d.speechMs < d.totalMs, "and it is the smaller of the two here");
+});

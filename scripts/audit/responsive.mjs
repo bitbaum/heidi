@@ -169,7 +169,16 @@ const browser = await chromium.launch(
   process.env.CHROMIUM ? { executablePath: process.env.CHROMIUM } : {},
 );
 let renders = 0;
-let bad = 0;
+/**
+ * Counted apart, because conflating them misled me once already.
+ *
+ * A long run against a dev server can hit a page that will not compile for
+ * unrelated reasons, and the summary said "40 with overflow" for forty HTTP
+ * 500s. A check that reports the wrong KIND of failure sends you looking in
+ * the wrong place, which is most of the cost of a failing check.
+ */
+let overflowing = 0;
+let unreachable = 0;
 
 for (const theme of THEMES) {
   for (const width of WIDTHS) {
@@ -212,12 +221,12 @@ for (const theme of THEMES) {
           response = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30_000 });
         } catch (error) {
           console.log(`ERR  ${locale}${path} @${width} ${theme}: ${String(error).slice(0, 90)}`);
-          bad += 1;
+          unreachable += 1;
           continue;
         }
         if (!response || response.status() >= 400) {
-          console.log(`HTTP ${response?.status()} ${locale}${path}`);
-          bad += 1;
+          console.log(`HTTP ${response?.status()} ${locale}${path} @${width} ${theme}`);
+          unreachable += 1;
           continue;
         }
         await page.waitForTimeout(350);
@@ -242,7 +251,7 @@ for (const theme of THEMES) {
         for (const { name, found } of states) {
           if (found.over.length === 0 && found.clipped.length === 0) continue;
 
-          bad += 1;
+          overflowing += 1;
           console.log(`\n### ${locale}${path} @${width} ${theme}${name}  (document ${found.doc}px)`);
           for (const o of found.over.slice(0, 6)) {
             console.log(`   OVER <${o.tag}> L${o.left} R${o.right} "${o.text}"\n        ${o.cls}`);
@@ -258,5 +267,11 @@ for (const theme of THEMES) {
 }
 
 await browser.close();
-console.log(`\n${renders} page renders measured — ${bad} with overflow`);
-process.exit(bad === 0 ? 0 : 1);
+console.log(
+  `\n${renders} page renders measured — ${overflowing} with overflow` +
+    (unreachable > 0 ? `, and ${unreachable} that did not load at all` : ""),
+);
+if (unreachable > 0) {
+  console.log("A page that does not load is not a layout finding. Check the server before reading the rest.");
+}
+process.exit(overflowing === 0 && unreachable === 0 ? 0 : 1);

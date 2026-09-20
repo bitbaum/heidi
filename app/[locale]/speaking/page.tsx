@@ -21,21 +21,28 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 /**
- * Speaking rounds.
+ * Speaking.
  *
- * THE ORDER OF THIS PAGE IS THE ORDER OF ITS OWN LEAD SENTENCE.
+ * THE ORDER OF THIS PAGE IS THE ORDER OF ITS OWN LEAD SENTENCE — and both were
+ * wrong, in the same direction, for the same reason.
  *
- * "Webinars and circles on topics you propose. And in between: practise out
- * loud." So: what is coming up, then where those come from, then the practice
- * that fills the gap between them.
+ * The lead said rounds first, so the page put rounds first, and the test
+ * "read the lead, then look at the page" passed. What that test cannot catch
+ * is a lead that describes the wrong product. On a deployment with no rounds
+ * yet, rounds-first meant a visitor met: an empty list, a nine-field form for
+ * hosting a webinar, a second empty list, a second form — and only then, four
+ * scrolls down, the one thing on this page that works alone, signed out, on a
+ * phone, today. The practice tool was the feature and it was rendered as a
+ * footnote to two things that did not exist.
  *
- * It was built the other way round — practice first, because that is the half
- * that works signed out and needs no calendar to have anything in it. That
- * reasoning is real but it loses to a simpler test: read the lead, then look
- * at the page. They disagreed, and a reader resolves that disagreement by
- * deciding the page is about something other than what it says it is about.
- * The empty states are two short lines, and the practice section is one scroll
- * below them, so the cost of being honest about the subject is small.
+ * So the lead changed and the page followed it. Practise out loud, now; the
+ * rounds are what you do with other people when there are other people. The
+ * calendar and the board keep their full weight — they are just no longer the
+ * gate in front of the part that always has something in it.
+ *
+ * "Practice first" is also what the old comment here argued FOR before it was
+ * overruled, and the reason it gave was right: it is the half that works
+ * signed out and needs no calendar to have anything in it.
  *
  * The lists are queried on the SERVER and passed down, like the groups list:
  * a signed-in visitor should not watch an empty box while a round trip fetches
@@ -72,23 +79,30 @@ export default async function SpeakingPage({ params }: { params: Promise<{ local
     <Shell>
       <PageHeader eyebrow={dict.nav.speaking} title={t.title} lead={t.lead} />
       <Section>
-        {configured ? (
-          <>
-            <RoundList
-              t={t}
-              locale={locale}
-              signedIn={Boolean(actorId)}
-              actorId={actorId}
-              rounds={rounds}
-              topics={topics.filter((topic) => !topic.roundId).map((topic) => ({ id: topic.id, title: topic.title }))}
-            />
-            <TopicBoard t={t} signedIn={Boolean(actorId)} topics={topics} />
-          </>
-        ) : (
-          <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.notConfigured}</p>
-        )}
-
         <SpeakingPractice t={t} locale={locale} />
+
+        {/* Where the other people are. Below the practice, and separated by a
+            rule rather than by a scroll, so the shift from "alone, now" to
+            "together, later" is visible rather than merely sequential. */}
+        <div className="mt-12 border-t border-border-subtle pt-10">
+          {configured ? (
+            <>
+              <RoundList
+                t={t}
+                locale={locale}
+                signedIn={Boolean(actorId)}
+                actorId={actorId}
+                rounds={rounds}
+                topics={topics
+                  .filter((topic) => !topic.roundId)
+                  .map((topic) => ({ id: topic.id, title: topic.title }))}
+              />
+              <TopicBoard t={t} signedIn={Boolean(actorId)} topics={topics} />
+            </>
+          ) : (
+            <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.notConfigured}</p>
+          )}
+        </div>
       </Section>
     </Shell>
   );

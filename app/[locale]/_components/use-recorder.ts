@@ -4,18 +4,38 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { measure, type Delivery } from "@/lib/domain/speaking/delivery";
 
 /**
- * Record a take, and measure it without the audio going anywhere.
+ * Record a take, measure it on the device, and hand the audio back ONLY if the
+ * caller asked for it before recording started.
  *
- * THE AUDIO NEVER LEAVES THIS FUNCTION. The blob is decoded with the Web Audio
- * API in the page that recorded it, `measure()` reduces it to a handful of
- * numbers, and the blob is dropped. Nothing is uploaded, nothing is written to
- * storage, and there is no code path here that could do either — which is why
- * the privacy line on the page is a description rather than a promise.
+ * THE DEFAULT IS STILL THAT THE AUDIO NEVER LEAVES THIS FUNCTION. The blob is
+ * decoded with the Web Audio API in the page that recorded it, `measure()`
+ * reduces it to a handful of numbers, and the blob is dropped. That is what
+ * `retainAudio: false` — the default, and the whole dialect half of the
+ * speaking screen — does, and the privacy line under it stays a description
+ * rather than a promise.
  *
- * Separate from `use-dictation`, which does the opposite job: dictation turns
- * speech into TEXT and may fall back to a server to do it. This measures the
- * SIGNAL and has no server half at all, because there is nothing a server
- * could add to arithmetic over samples except a copy of somebody's voice.
+ * `retainAudio: true` EXISTS BECAUSE OF THE BRIDGE, and it is a real change
+ * rather than a flag. Standard German recognition returns Standard German, so
+ * `evidence.ts` says a transcript of it is the learner's own words and
+ * `varieties.ts` offers it as a second thing to practise — which needs the
+ * recording sent to a recogniser. Three things keep that honest:
+ *
+ *  1. It is a PARAMETER of the hook, fixed for the take before the microphone
+ *     opens. There is no path from "recorded without it" to "uploaded anyway".
+ *  2. The screen says which mode it is in, in the learner's language, next to
+ *     the button — not in a policy page.
+ *  3. The blob is still dropped the moment the caller is done with it, and
+ *     `release()` still stops every track.
+ *
+ * A single flag inside this file with a default of "upload" would have been
+ * one line shorter and would have made the sentence on the dialect screen
+ * false. It is not a sentence this product may get wrong.
+ *
+ * Separate from `use-dictation`, which does a different job: dictation turns
+ * whatever somebody says into text for a field. This measures the SIGNAL —
+ * always, on the device, before anything else — and the measurement has no
+ * server half in either mode, because there is nothing a server could add to
+ * arithmetic over samples except a copy of somebody's voice.
  *
  * A live level is exposed while recording, for the one honest reason a
  * waveform exists: somebody speaking into a dead microphone needs to find out
@@ -36,10 +56,18 @@ export function recordingSupported(): boolean {
   );
 }
 
-export function useRecorder() {
+export function useRecorder({ retainAudio = false }: { retainAudio?: boolean } = {}) {
   const [state, setState] = useState<RecorderState>("idle");
   const [error, setError] = useState<RecorderError | null>(null);
   const [delivery, setDelivery] = useState<Delivery | null>(null);
+  /**
+   * The recording itself, present only under `retainAudio`.
+   *
+   * Held in state rather than a ref because the caller RENDERS off it — a
+   * bridge take shows "transcribing" the moment there is something to
+   * transcribe — and a ref would not re-render to say so.
+   */
+  const [audio, setAudio] = useState<Blob | null>(null);
   const [level, setLevel] = useState(0);
   const [elapsedMs, setElapsedMs] = useState(0);
   /**
@@ -82,14 +110,25 @@ export function useRecorder() {
   useEffect(() => release, [release]);
 
   /**
-   * Decode the blob, reduce it to numbers, drop the blob.
+   * Whether THIS take was started in a mode that keeps the audio.
+   *
+   * Read at the moment the take stops, so a learner who flips the mode switch
+   * mid-recording still gets the behaviour they chose when they pressed
+   * record. A prop read inside `onstop` would give the same answer by accident
+   * of closure; a ref makes it deliberate.
+   */
+  const retain = useRef(retainAudio);
+
+  /**
+   * Decode the blob, reduce it to numbers, and drop the blob unless the take
+   * was started in a mode that asked to keep it.
    *
    * Declared before `start`, which is the only caller, because `start` closes
    * over it in `rec.onstop` — and a `useCallback` referenced above its own
    * declaration is a temporal dead zone at module evaluation, not merely
    * untidy.
    */
-  const analyse = useCallback(async (blob: Blob) => {
+  const analyse = useCallback(async (blob: Blob, keep: boolean) => {
     setState("measuring");
     try {
       const Ctor = window.AudioContext ?? (window as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
@@ -100,12 +139,15 @@ export function useRecorder() {
       const result = measure(decoded.getChannelData(0), decoded.sampleRate);
       void context.close().catch(() => {});
       setDelivery(result);
+      // Handed over only when the take was started in a mode that asked for
+      // it. Otherwise the blob goes out of scope here and is never referenced
+      // again, which is the default and the dialect half's whole position.
+      if (keep) setAudio(blob);
       setState("done");
     } catch {
       setError("failed");
       setState("error");
     }
-    // The blob goes out of scope here and is never referenced again.
   }, []);
 
   const start = useCallback(async () => {
@@ -117,6 +159,8 @@ export function useRecorder() {
 
     setError(null);
     setDelivery(null);
+    setAudio(null);
+    retain.current = retainAudio;
     // A new id per attempt, in a user event handler where setting state is
     // ordinary. See the note on `takeId`.
     setTakeId(`${Date.now()}-${Math.random().toString(36).slice(2, 8)}`);
@@ -155,7 +199,7 @@ export function useRecorder() {
       const blob = new Blob(chunks.current, { type: rec.mimeType || "audio/webm" });
       chunks.current = [];
       release();
-      void analyse(blob);
+      void analyse(blob, retain.current);
     };
 
     // A level meter, so a dead microphone is visible in the first second
@@ -191,20 +235,24 @@ export function useRecorder() {
     setElapsedMs(0);
     rec.start();
     setState("recording");
-  }, [release, analyse]);
+  }, [release, analyse, retainAudio]);
 
   const stop = useCallback(() => {
     if (recorder.current?.state === "recording") recorder.current.stop();
   }, []);
 
+  /** Drop the recording as soon as the caller is done with it. */
+  const dropAudio = useCallback(() => setAudio(null), []);
+
   const reset = useCallback(() => {
     release();
     setDelivery(null);
+    setAudio(null);
     setError(null);
     setElapsedMs(0);
     setTakeId(null);
     setState("idle");
   }, [release]);
 
-  return { state, error, delivery, takeId, level, elapsedMs, start, stop, reset };
+  return { state, error, delivery, audio, takeId, level, elapsedMs, start, stop, reset, dropAudio };
 }
