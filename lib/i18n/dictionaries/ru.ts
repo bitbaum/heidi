@@ -581,6 +581,14 @@ export const ru: Dictionary = {
   },
 
   auth: {
+    sections: {
+      review: "Повторение",
+      recent: "Беседы",
+      patterns: "Закономерности",
+      words: "Слова",
+      groups: "Группы",
+      onward: "Дальше",
+    },
     menu: {
       portal: "Ваши слова и разговоры",
       settings: "Язык, модель, аккаунт",

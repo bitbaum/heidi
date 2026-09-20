@@ -124,3 +124,33 @@ jobs:
       # config surfaces here and nowhere earlier.
       - name: Build
         run: pnpm run build
+
+      # THE LAYOUT CHECK RUNS HERE, and it has to be here rather than in
+      # `verify`, which deliberately needs neither a server nor a browser.
+      #
+      # It earns the two minutes. Horizontal overflow is a layout fact — real
+      # glyphs, real font, real viewport — so no amount of reading the source
+      # finds it, and this repository shipped it three separate times: the
+      # chat transcript, `/portal`, and the header the day an avatar was added
+      # to it. Each was reported from a phone, by a person, after it was live.
+      # An opt-in script nobody remembers to run would have caught none of
+      # them.
+      - name: Install Chromium for the layout audit
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Start the built site
+        run: |
+          pnpm run start &
+          npx --yes wait-on -t 60000 http://127.0.0.1:3000/de
+
+      # Three languages rather than seven, and light only: the widths and the
+      # scripts are what find things (Russian is the longest, and 320px is
+      # where the header runs out), and the full matrix is a local command for
+      # when something here goes red.
+      - name: Layout audit
+        run: pnpm run audit:responsive
+        env:
+          BASE: http://127.0.0.1:3000
+          LOCALES: de,fr,ru
+          WIDTHS: 320,360,390
+          THEMES: light

@@ -36,6 +36,17 @@
   /* Tight display tracking: grotesque headlines set close, the Swiss habit. */
   --tracking-display: -0.025em;
   --tracking-caps: 0.12em;
+  /**
+   * The phone breakpoint this project actually needs.
+   *
+   * Tailwind's smallest is `sm` at 640px, which is a tablet. Every real
+   * decision here is between a 320px phone and a 390px one — whether the
+   * wordmark fits beside the account control, whether a label can be a word —
+   * and there was no breakpoint to make it at. So there is one, named for
+   * what it is rather than for a device.
+   */
+  --breakpoint-xs: 380px;
+
   --spacing-shell: 72rem;
   --spacing-measure: 66ch;
 

@@ -572,6 +572,14 @@ export const en: Dictionary = {
   },
 
   auth: {
+    sections: {
+      review: "Review",
+      recent: "Conversations",
+      patterns: "Patterns",
+      words: "Words",
+      groups: "Groups",
+      onward: "Onward",
+    },
     menu: {
       portal: "Your words and conversations",
       settings: "Language, model, account",

@@ -626,6 +626,14 @@ export const de = {
   },
 
   auth: {
+    sections: {
+      review: "Wiederholen",
+      recent: "Gespräche",
+      patterns: "Muster",
+      words: "Wörter",
+      groups: "Gruppen",
+      onward: "Weiter",
+    },
     /**
      * One line under each entry of the avatar menu, saying what is behind it.
      *

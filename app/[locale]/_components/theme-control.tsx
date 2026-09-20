@@ -104,9 +104,17 @@ export function ThemeRow({
   if (!ready) return null;
 
   return (
-    <div className="flex items-center justify-between gap-3">
+    /*
+      `flex-wrap`, because the label and three buttons do not fit on one line
+      in every language. In Russian "Оформление · Устройство Светлое Тёмное"
+      is 328px inside a 302px dropdown, and the row was cut off at the edge of
+      the panel — found by the responsive audit once it started opening
+      disclosures instead of measuring shut ones. Wrapping costs one line in
+      two languages and cannot cut anything off in any of them.
+    */
+    <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
       <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.label}</span>
-      <div role="group" aria-label={t.label} className="flex gap-1">
+      <div role="group" aria-label={t.label} className="flex flex-wrap gap-1">
         {THEMES.map((value) => {
           const chosen = value === theme;
           return (

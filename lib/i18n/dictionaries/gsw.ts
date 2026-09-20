@@ -259,6 +259,14 @@ export const gsw: Dictionary = {
   },
 
   auth: {
+    sections: {
+      review: "Widerhole",
+      recent: "Gspröch",
+      patterns: "Muschter",
+      words: "Wörter",
+      groups: "Gruppe",
+      onward: "Wiiter",
+    },
     menu: {
       portal: "Ihri Wörter und Gspräch",
       settings: "Sprach, Modäll, Konto",

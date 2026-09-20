@@ -113,7 +113,16 @@ export default async function LocaleLayout({
           {dict.nav.skipToContent}
         </a>
 
-        <SiteHeader locale={locale} dict={dict} account={<AccountControl locale={locale} dict={dict} />} />
+        <SiteHeader
+          locale={locale}
+          dict={dict}
+          // Two slots, and exactly one of them renders anything for a given
+          // session — see the note in `account-control.tsx`. Signed in the
+          // avatar is in the corner at every width; signed out the sheet keeps
+          // it on a phone, because five controls do not fit in 320px.
+          account={<AccountControl locale={locale} dict={dict} placement="bar" />}
+          accountSheet={<AccountControl locale={locale} dict={dict} placement="sheet" />}
+        />
 
         <main id="main" className="flex-1">
           {children}

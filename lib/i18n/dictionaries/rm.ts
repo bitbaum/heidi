@@ -589,6 +589,14 @@ export const rm: Dictionary = {
   },
 
   auth: {
+    sections: {
+      review: "Repeter",
+      recent: "Conversaziuns",
+      patterns: "Structuras",
+      words: "Pleds",
+      groups: "Gruppas",
+      onward: "Vinavant",
+    },
     menu: {
       portal: "Voss pleds e Vossas conversaziuns",
       settings: "Lingua, model, conto",

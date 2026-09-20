@@ -573,6 +573,14 @@ export const fr: Dictionary = {
   },
 
   auth: {
+    sections: {
+      review: "Réviser",
+      recent: "Conversations",
+      patterns: "Régularités",
+      words: "Mots",
+      groups: "Groupes",
+      onward: "Continuer",
+    },
     menu: {
       portal: "Vos mots et vos conversations",
       settings: "Langue, modèle, compte",

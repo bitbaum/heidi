@@ -19,6 +19,14 @@
  *         not scroll — text cut off and unreachable. The same defect, one level
  *         down, and invisible without measuring.
  *
+ * AND IT OPENS THINGS, because measuring a page at rest missed a real one. The
+ * account dropdown hangs `absolute right-0` off its button; the day the avatar
+ * stopped being the last control in the bar, the panel's left third went off
+ * the screen with its labels cut in half. Every check here passed, because
+ * every dropdown on the page was shut. So the header's disclosures are opened
+ * one at a time and measured open — on a couple of representative pages rather
+ * than all of them, since the header is the same header everywhere.
+ *
  * It seeds real browser state first: a dozen kept words, in several scripts,
  * with the contexts they were kept from — one of them a link, because a
  * learner keeping a word from a pasted URL is the exact case that broke
@@ -37,6 +45,15 @@ const BASE = process.env.BASE ?? "http://localhost:3000";
 const LOCALES = (process.env.LOCALES ?? "de,fr,ru").split(",");
 const WIDTHS = (process.env.WIDTHS ?? "320,360,390").split(",").map(Number);
 const THEMES = (process.env.THEMES ?? "light,dark").split(",");
+
+/**
+ * Where the header's dropdowns are opened and measured.
+ *
+ * Two pages rather than all of them: the header is the same header everywhere,
+ * and opening three disclosures on five hundred renders would turn a two
+ * minute check into a twenty minute one nobody runs.
+ */
+const PROBE = ["", "/portal"];
 
 /** Every page below a locale. A route missing here is a route nobody measures. */
 const PATHS = [
@@ -206,16 +223,33 @@ for (const theme of THEMES) {
         await page.waitForTimeout(350);
         renders += 1;
 
-        const found = await page.evaluate(findOverflow, width);
-        if (found.over.length === 0 && found.clipped.length === 0) continue;
+        const states = [{ name: "", found: await page.evaluate(findOverflow, width) }];
 
-        bad += 1;
-        console.log(`\n### ${locale}${path} @${width} ${theme}  (document ${found.doc}px)`);
-        for (const o of found.over.slice(0, 6)) {
-          console.log(`   OVER <${o.tag}> L${o.left} R${o.right} "${o.text}"\n        ${o.cls}`);
+        // Then again with each header disclosure open, one at a time.
+        if (PROBE.includes(path)) {
+          const toggles = page.locator("header button[aria-expanded]:visible");
+          for (let i = 0; i < (await toggles.count()); i += 1) {
+            const toggle = toggles.nth(i);
+            const name = (await toggle.getAttribute("aria-label")) ?? (await toggle.innerText()).trim().slice(0, 16);
+            await toggle.click({ timeout: 5_000 }).catch(() => {});
+            await page.waitForTimeout(150);
+            states.push({ name: ` [open: ${name}]`, found: await page.evaluate(findOverflow, width) });
+            await toggle.click({ timeout: 5_000 }).catch(() => {});
+            await page.waitForTimeout(100);
+          }
         }
-        for (const o of found.clipped.slice(0, 6)) {
-          console.log(`   CLIP <${o.tag}> content ${o.sw}px in ${o.cw}px "${o.text}"\n        ${o.cls}`);
+
+        for (const { name, found } of states) {
+          if (found.over.length === 0 && found.clipped.length === 0) continue;
+
+          bad += 1;
+          console.log(`\n### ${locale}${path} @${width} ${theme}${name}  (document ${found.doc}px)`);
+          for (const o of found.over.slice(0, 6)) {
+            console.log(`   OVER <${o.tag}> L${o.left} R${o.right} "${o.text}"\n        ${o.cls}`);
+          }
+          for (const o of found.clipped.slice(0, 6)) {
+            console.log(`   CLIP <${o.tag}> content ${o.sw}px in ${o.cw}px "${o.text}"\n        ${o.cls}`);
+          }
         }
       }
     }
