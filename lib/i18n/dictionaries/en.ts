@@ -964,8 +964,8 @@ export const en: Dictionary = {
     back: "Back to your space",
   },
   speaking: {
-    title: "Speaking rounds",
-    lead: "Webinars and conversation circles on topics you propose. And in between: practise out loud, on your own, and have measured what can honestly be measured.",
+    title: "Speaking",
+    lead: "Speak out loud, alone, now — and have what can be measured, measured. Below that: webinars and conversation circles on topics you propose.",
     signInFirst: "Sign in to propose a topic and join a round.",
     notConfigured: "Speaking rounds are not set up on this deployment.",
     failed: "That did not work just now. Please try again.",
@@ -1020,7 +1020,7 @@ export const en: Dictionary = {
     scheduleIt: "Turn it into a round",
 
     practiceTitle: "Practise out loud",
-    practiceLead: "Record yourself talking about the topic. The recording stays on your device.",
+    practiceLead: "Record yourself talking about something. A minute is enough.",
     record: "Record",
     stop: "Done",
     recordingNow: "Recording",
@@ -1028,11 +1028,19 @@ export const en: Dictionary = {
     micDenied: "This needs the microphone. Allow it from your browser address bar.",
     micUnsupported: "This browser cannot record. Try it on your phone, or in another browser.",
     measured: "Measured",
+    varietyLabel: "Which language are you practising?",
+    varietyBridge: "Swiss Standard German",
+    varietyMeasuresOnly: "Heidi measures the recording on your device. You type the sentence yourself — no system writes Zurich German down reliably.",
+    varietyTranscribes: "Heidi writes it down and can talk about your words. The recording goes once to a service for that, and is not kept there.",
+
+    recordedFor: "recording",
 
     spokeFor: "speaking",
     pauseLabel: "pauses",
     longestLabel: "longest pause",
     runLabel: "at a stretch",
+    rateLabel: "syll./sec.",
+    wordsLabel: "words",
     seconds: "s",
 
     saidTitle: "What did you say?",
@@ -1040,6 +1048,12 @@ export const en: Dictionary = {
     saidPlaceholder: "Write your sentence the way you said it.",
     saidCheck: "Check it",
     checking: "Checking …",
+
+    heardTitle: "This is what we heard",
+    heardWhy: "A machine wrote that, not you. Correct whatever is wrong — what gets measured is the text you stand behind.",
+    heardPlaceholder: "What the machine made of it goes here.",
+    hearing: "Listening back …",
+    heardFailed: "Listening back did not work. Type your sentence instead — the measurement above stands either way.",
 
     feedbackTitle: "What came back",
     suggestionTitle: "How it would be said here",
@@ -1055,16 +1069,19 @@ export const en: Dictionary = {
       recordingClipped: "The signal was clipping. Move back from the microphone a little — an equipment problem, not a speaking one.",
       longestPause: "Your longest silence ran {n} seconds. If you want to shorten those: say the sentence in fewer words rather than hunting for the right one.",
       noLongPauses: "No long silences — you got through without getting stuck.",
-      pauseCount: "{n} pauses between stretches of speech.",
-      meanRun: "On average you spoke for {n} seconds at a stretch.",
       fewerPausesThanBefore: "{n} fewer pauses than last time.",
       morePausesThanBefore: "{n} more pauses than last time. That may be the topic.",
       longerRunsThanBefore: "You spoke {n} seconds longer at a stretch than before.",
       nothingFlagged: "No forms from another dialect found.",
+      shareOfRecording: "{n}% of the recording had speech in it. The rest was silent — that can be thinking, or a microphone that heard too little.",
+      huntingForWords: "When you were speaking, you were speaking briskly — the time went into the pauses. That is word-hunting rather than slowness: say the same thing again straight away and the hunting drops out.",
+      cameStraightThrough: "You came through without hunting for words. Next time take a topic you have never said out loud.",
+      filledPauses: "{n} filled pauses (“uh”, “um”). Native speakers do it constantly — counted, not corrected.",
+      spokeTargetInBridge: "There were dialect words in there, although you were practising Standard German. In Zurich that happens all the time and it is not a mistake — just worth knowing if you mean to speak Standard German at a counter.",
     },
 
     historyTitle: "Your recordings",
-    historyEmpty: "Nothing recorded yet.",
+    historyUnwritten: "No text — measured only.",
     deleteTake: "Delete",
     progressDays: "days spoken",
     progressTakes: "recordings",
@@ -1073,6 +1090,7 @@ export const en: Dictionary = {
     progressMinutes: "min",
     progressNote: "Counted, not graded. This number never falls — a fortnight away costs nothing.",
     privacy: "The sound never leaves your device. What is kept is the measurements and your own text — in this browser, not with us.",
+    privacyTranscribed: "In this language the recording goes once to a service that turns it into text, and is not kept there. What stays with us is the measurements and the text — in this browser.",
   },
 
   organisations: {

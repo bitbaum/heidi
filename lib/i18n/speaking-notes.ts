@@ -23,19 +23,22 @@ export const NOTE_WORDING: Record<PlainNoteId, keyof Dictionary["speaking"]["not
   "recording-clipped": "recordingClipped",
   "longest-pause": "longestPause",
   "no-long-pauses": "noLongPauses",
-  "pause-count": "pauseCount",
-  "mean-run": "meanRun",
   "fewer-pauses-than-before": "fewerPausesThanBefore",
   "more-pauses-than-before": "morePausesThanBefore",
   "longer-runs-than-before": "longerRunsThanBefore",
+  "share-of-recording": "shareOfRecording",
+  "hunting-for-words": "huntingForWords",
+  "came-straight-through": "cameStraightThrough",
+  "filled-pauses": "filledPauses",
+  "spoke-target-in-bridge": "spokeTargetInBridge",
 };
 
 /** The ids whose wording carries a number to interpolate. */
 export const NUMERIC_NOTES: readonly PlainNoteId[] = [
   "longest-pause",
-  "pause-count",
-  "mean-run",
   "fewer-pauses-than-before",
   "more-pauses-than-before",
   "longer-runs-than-before",
+  "share-of-recording",
+  "filled-pauses",
 ];

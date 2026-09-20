@@ -149,6 +149,58 @@ function voiceThresholdDb(floorDb: number, peakDb: number): number {
 }
 
 /**
+ * Turn gaps shorter than a real pause back into speech, in place.
+ *
+ * The silence inside a `t` is tens of milliseconds and belongs to the word.
+ * A gap that runs off either END of the recording is left alone: that is the
+ * person finding the button, and joining it to the speech would put their
+ * fumbling inside their own run length.
+ */
+function bridgeShortGaps(voiced: boolean[]): void {
+  const minPauseFrames = Math.max(1, Math.round(MIN_PAUSE_MS / FRAME_MS));
+  let gapStart = -1;
+  for (let f = 0; f <= voiced.length; f++) {
+    const isVoiced = f < voiced.length ? voiced[f] : true;
+    if (!isVoiced) {
+      if (gapStart === -1) gapStart = f;
+      continue;
+    }
+    if (gapStart !== -1) {
+      if (f - gapStart < minPauseFrames && gapStart > 0 && f < voiced.length) {
+        for (let g = gapStart; g < f; g++) voiced[g] = true;
+      }
+      gapStart = -1;
+    }
+  }
+}
+
+/**
+ * Turn runs too short to be speech back into silence, in place.
+ *
+ * Run AFTER bridging, never before: a blip, a 200 ms gap and another blip is
+ * one 400 ms run of somebody starting a word, and dropping the blips first
+ * would delete it. Bridging first, then dropping, keeps that and still merges
+ * the two silences around a genuine isolated click.
+ */
+function unvoiceShortRuns(voiced: boolean[]): void {
+  const minRunFrames = Math.max(1, Math.round(MIN_RUN_MS / FRAME_MS));
+  let runStart = -1;
+  for (let f = 0; f <= voiced.length; f++) {
+    const isVoiced = f < voiced.length ? voiced[f] : false;
+    if (isVoiced) {
+      if (runStart === -1) runStart = f;
+      continue;
+    }
+    if (runStart !== -1) {
+      if (f - runStart < minRunFrames) {
+        for (let r = runStart; r < f; r++) voiced[r] = false;
+      }
+      runStart = -1;
+    }
+  }
+}
+
+/**
  * Measure one recording.
  *
  * `samples` is mono, -1..1, as `AudioBuffer.getChannelData` hands it over.
@@ -207,56 +259,52 @@ export function measure(samples: Float32Array, sampleRate: number): Delivery {
 
   // Bridge gaps shorter than a real pause, so a stop closure does not end a
   // run. Done before runs are counted, or every plosive becomes a hesitation.
-  const minPauseFrames = Math.max(1, Math.round(MIN_PAUSE_MS / FRAME_MS));
-  let gapStart = -1;
-  for (let f = 0; f <= voiced.length; f++) {
-    const isVoiced = f < voiced.length ? voiced[f] : true;
-    if (!isVoiced) {
-      if (gapStart === -1) gapStart = f;
-      continue;
-    }
-    if (gapStart !== -1) {
-      const gapFrames = f - gapStart;
-      // A gap at the very start is not a pause IN speech and is left alone.
-      if (gapFrames < minPauseFrames && gapStart > 0 && f < voiced.length) {
-        for (let g = gapStart; g < f; g++) voiced[g] = true;
-      }
-      gapStart = -1;
-    }
-  }
+  bridgeShortGaps(voiced);
+
+  // Then drop the blips — and this order is the whole correction.
+  //
+  // A cough, a lip smack or a breath inside a long silence is a voiced frame
+  // or two. It is not a run, so it was already discarded from `speechMs`. But
+  // the OLD loop discarded it only at the point of measuring runs, while still
+  // treating it as the end of the gap before it and the start of the gap
+  // after — so one silence of 1.9 s came back as TWO pauses of 0.9 s. Both
+  // symptoms at once: the count inflated, the longest pause understated, and
+  // `pauseCount` free to exceed `runCount`, which is arithmetically impossible
+  // for gaps that by definition sit between runs.
+  //
+  // Measured on a real take from the live site (2026-09-20): 16 s of speech
+  // reported with 14 pauses and a mean run of 1.5 s — more gaps than there
+  // were runs to put them between. Unsilencing the blips here means the two
+  // silences either side simply ARE one silence, which is what a person
+  // listening would say.
+  unvoiceShortRuns(voiced);
 
   // Runs of sound, and the gaps between them. Leading and trailing silence is
   // the person finding the button, not a hesitation, so only gaps with speech
   // on BOTH sides are counted.
+  //
+  // After the two passes above every surviving run is >= MIN_RUN_MS and every
+  // surviving interior gap is >= MIN_PAUSE_MS, so this is a plain alternation
+  // and `pauses.length === max(0, runs.length - 1)` holds by construction.
+  // `delivery.test.ts` asserts it rather than trusting this paragraph.
   const runs: number[] = [];
   const pauses: number[] = [];
   let runFrames = 0;
-  let pendingGap = 0;
-  let seenRun = false;
+  let gapFrames = 0;
   for (let f = 0; f < voiced.length; f++) {
     if (voiced[f]) {
-      if (runFrames === 0 && seenRun && pendingGap > 0) {
-        const gapMs = pendingGap * FRAME_MS;
-        if (gapMs >= MIN_PAUSE_MS) pauses.push(gapMs);
-      }
-      if (runFrames === 0) pendingGap = 0;
+      if (runFrames === 0 && runs.length > 0) pauses.push(gapFrames * FRAME_MS);
       runFrames++;
+      gapFrames = 0;
       continue;
     }
     if (runFrames > 0) {
-      const runMs = runFrames * FRAME_MS;
-      if (runMs >= MIN_RUN_MS) {
-        runs.push(runMs);
-        seenRun = true;
-      }
+      runs.push(runFrames * FRAME_MS);
       runFrames = 0;
     }
-    pendingGap++;
+    gapFrames++;
   }
-  if (runFrames > 0) {
-    const runMs = runFrames * FRAME_MS;
-    if (runMs >= MIN_RUN_MS) runs.push(runMs);
-  }
+  if (runFrames > 0) runs.push(runFrames * FRAME_MS);
 
   const speechMs = runs.reduce((a, b) => a + b, 0);
   const pauseMs = pauses.reduce((a, b) => a + b, 0);
