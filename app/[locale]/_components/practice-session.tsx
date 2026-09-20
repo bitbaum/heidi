@@ -563,6 +563,23 @@ function Trace({
     );
   }
 
+  /**
+   * A line from a scene goes back to the SCENE, not to the grammar topic.
+   *
+   * The sentence they just missed is one of ten in a handover, and the other
+   * nine are the context that makes it stick — sending them to
+   * `am-progressive` instead would be technically the same information and a
+   * worse answer to "why did I not get that". The topic is one click further
+   * on from the scene, where the scene itself links to it.
+   */
+  if (item.source.kind === "situation") {
+    return (
+      <Link href={`${href(locale, "situations")}/${item.source.scene}`} className={className}>
+        {t.situationLink}
+      </Link>
+    );
+  }
+
   if (item.source.kind === "word") {
     return (
       <Link href={`${href(locale, "vocabulary")}#${wordSlug(item.source.word)}`} className={className}>

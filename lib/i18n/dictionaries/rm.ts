@@ -34,6 +34,7 @@ export const rm: Dictionary = {
     dialect: "Idioms",
     essays: "Lecturas",
     vocabulary: "Vocabulari",
+    situations: "Situaziuns",
     method: "Metoda",
     technology: "Tecnica",
     contribute: "Far part",
@@ -843,6 +844,7 @@ export const rm: Dictionary = {
     grammarLink: "La grammatica davos quai",
     wordLink: "Quest pled en il vocabulari",
     ruleLink: "La regla davos",
+    situationLink: "La situaziun da la quala quai vegn",
     doneTitle: "Quai basta per ussa.",
     doneAsked: "dumondas",
     doneRight: "la emprima giada",
@@ -1223,6 +1225,52 @@ export const rm: Dictionary = {
     unknownLabel: "Tge che nus stuessan dumandar",
     noCustomers: "Heidi n’ha oz nagins clients, nagins projects pilot e naginas studias da cas — e questa pagina na pretenda nagins. Quai che stat qua è ina descripziun da Voss problem, uschia sco nus al enconuschain da dador. Digei nus nua che nus sbaglian.",
     talk: "Scrivai a nus",
+  },
+
+  situations: {
+    title: "Nua che vus ils duvrais",
+    lead: "Betg ordinà tenor categorias da pleds, mabain tenor il mument: quai che vegn ditg propi durant in servetsch, en l'urden ch'i arriva.",
+    note: "La direcziun è la medema sco dapertut qua: emprim chapir. La gronda part da questas frasas udis vus; las paucas che vus dischessas sez èn marcadas.",
+    unreviewed: "Mintga frasa qua è vegnida controllada da maschina per las furmas turitgaisas, ma nagin da lingua materna n'ha anc legì ellas. Nus al scrivain perquai che vus na pudais betg al vesair sez.",
+    hear: "Quai udis vus",
+    say: "Quai dischais vus",
+    linesLabel: "frasas",
+    heardLabel: "per chapir",
+    grammarLabel: "Quai che turna adina danovamain qua",
+    practiseLabel: "Exercitar ussa",
+    backLabel: "Tut las situaziuns",
+    domains: {
+      care: {
+        title: "Chasas d'attempads e da tgira",
+        lead: "Ina abitanta cun demenza perda l'emprim sias segundas linguas. Quai che resta è il tudestg turitgais da sia uffanza — e quai è la lingua en la quala il servetsch decurra.",
+      },
+    },
+    scenes: {
+      handover: {
+        title: "La surdada",
+        scene: "Collega a collega, nagut na vegn rallentà, nagin na mida en tudestg standard per vus. Il mument il pli spert dal di — e quel che decida davart l'entir servetsch.",
+      },
+      "morning-care": {
+        title: "La damaun",
+        scene: "Frasas curtas, ditgas cun omadus mauns occupads. Qua n'è il tudestg standard betg l'opziun neutrala: midar lingua amez la tgira para in midar da persuna.",
+      },
+      pain: {
+        title: "Cura ch'insatge fa mal",
+        scene: "Il dolur na discurra betg ina segunda lingua. Tgi ch'al annunzia na componescha betg — e tgi ch'al chapescha mal tegna il dolur per inquietezza.",
+      },
+      meals: {
+        title: "Mangiar e baiver",
+        scene: "La situaziun che turna il pli savens e per la quala nagin na sa prepara, perquai ch'ella para facila.",
+      },
+      "evening-unrest": {
+        title: "Inquietezza la saira",
+        scene: "Insatgi vul ir a chasa, en ina chasa che n'exista betg pli dapi curant onns. Quai che gida è curt, en il present e en la lingua en la quala la persuna pensa.",
+      },
+      visitors: {
+        title: "Visitas",
+        scene: "D'in mument a l'auter essas vus l'instituziun. La figlia ch'arriva ina dumengia suentermezdi giuditgescha la chasa tenor quai: ha la persuna a la porta pudì la suandar.",
+      },
+    },
   },
 
 };

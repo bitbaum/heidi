@@ -18,6 +18,7 @@ export const en: Dictionary = {
     dialect: "Dialects",
     essays: "Reading",
     vocabulary: "Vocabulary",
+    situations: "Situations",
     method: "Method",
     technology: "Technology",
     contribute: "Contribute",
@@ -822,6 +823,7 @@ export const en: Dictionary = {
     grammarLink: "The grammar behind this",
     wordLink: "This word in the vocabulary",
     ruleLink: "The rule behind it",
+    situationLink: "The situation it comes from",
     doneTitle: "That is the set.",
     doneAsked: "asked",
     doneRight: "first time",
@@ -1202,6 +1204,52 @@ export const en: Dictionary = {
     unknownLabel: "What we would have to ask you",
     noCustomers: "Heidi has no customers today, no pilots and no case studies — and this page claims none. What is here is a description of your problem as well as we know it from outside. Tell us where we have it wrong.",
     talk: "Write to us",
+  },
+
+  situations: {
+    title: "Where you need it",
+    lead: "Not sorted by part of speech but by the moment: what is actually said on a shift, in the order it arrives.",
+    note: "The direction is the same as everywhere here — understanding first. Most of these lines are said to you; the few you would say yourself are marked.",
+    unreviewed: "Every line here has been machine-checked for Zurich forms, but no native speaker has read them yet. We say so because you cannot tell by looking.",
+    hear: "You hear this",
+    say: "You say this",
+    linesLabel: "lines",
+    heardLabel: "to understand",
+    grammarLabel: "What keeps coming up here",
+    practiseLabel: "Practise now",
+    backLabel: "All situations",
+    domains: {
+      care: {
+        title: "Care and nursing homes",
+        lead: "A resident with dementia loses her second languages first. What is left is the Zurich German of her childhood — and that is the language the shift runs in.",
+      },
+    },
+    scenes: {
+      handover: {
+        title: "The handover",
+        scene: "Colleague to colleague, nothing slowed down, nobody switching to Standard German on your account. The fastest speech of the day, and the part that decides the whole shift.",
+      },
+      "morning-care": {
+        title: "The morning",
+        scene: "Short sentences said while both hands are busy. Standard German is not the neutral option here: switching language mid-care reads as a switch of person.",
+      },
+      pain: {
+        title: "When something hurts",
+        scene: "Pain does not speak a second language. Somebody reporting it is not composing — and somebody who misreads it takes pain for agitation.",
+      },
+      meals: {
+        title: "Meals",
+        scene: "The situation that comes round most often and that nobody prepares for, because it sounds like the easy one.",
+      },
+      "evening-unrest": {
+        title: "Restlessness in the evening",
+        scene: "Somebody wants to go home, to a home that has not existed for forty years. What helps is short, in the present tense, and in the language the person is thinking in.",
+      },
+      visitors: {
+        title: "Visitors",
+        scene: "Suddenly you are the institution. The daughter arriving on a Sunday afternoon judges the home by whether the person at the door could follow her.",
+      },
+    },
   },
 
 };

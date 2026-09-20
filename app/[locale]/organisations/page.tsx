@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
+import { href } from "@/lib/i18n/routes";
 import { SECTORS, sectorLocale } from "@/lib/config/sectors";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
 
@@ -77,6 +79,19 @@ export default async function OrganisationsPage({ params }: { params: Promise<{ 
                 <div>
                   <dt className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.offerLabel}</dt>
                   <dd className="mt-1 text-sm leading-relaxed text-fg-secondary">{sector.offer[lang]}</dd>
+                  {/* The proof, where there is any. A row without one shows no
+                      link, and that asymmetry is deliberate: it is how a reader
+                      tells which of these six we have actually built for. */}
+                  {sector.proof && (
+                    <dd className="mt-2 text-sm leading-relaxed">
+                      <Link
+                        href={href(locale, sector.proof.segment)}
+                        className="text-link underline underline-offset-4 hover:text-accent"
+                      >
+                        {sector.proof.label[lang]}
+                      </Link>
+                    </dd>
+                  )}
                 </div>
               </dl>
 

@@ -41,6 +41,7 @@ export const gsw: Dictionary = {
     dialect: "Mundarte",
     essays: "Läse",
     vocabulary: "Wortschatz",
+    situations: "Situatione",
     method: "Methode",
     technology: "Technik",
     contribute: "Mitmache",
@@ -847,6 +848,7 @@ export const gsw: Dictionary = {
     grammarLink: "Dezue i de Grammatik",
     wordLink: "Das Wort im Wortschatz",
     ruleLink: "D Regel dehinter",
+    situationLink: "D Situation dezue",
     doneTitle: "Für jetz gnueg.",
     doneAsked: "gfragt",
     doneRight: "grad gwüsst",
@@ -1227,6 +1229,52 @@ export const gsw: Dictionary = {
     unknownLabel: "Was mir Si fraage müessted",
     noCustomers: "D Heidi hät hüt kei Kunde, kei Pilotprojekt und kei Fallstudie — und die Siite behauptet au keini. Was da staht, isch e Beschriibig vo Ihrem Problem, so guet wie mir s vo usse kenned. Säged Si is, wo mir falsch ligged.",
     talk: "Schriibed Si is",
+  },
+
+  situations: {
+    title: "Wo Sie s bruuched",
+    lead: "Nöd nach Wortarte sortiert, sondern nach em Moment: was uf ere Schicht würkli gseit wird, i de Reiefolg, wo s chunt.",
+    note: "D Richtig isch wie überall da: zerscht verstah. Di meiste Sätz höred Sie — die weenige, wo Sie sälber säged, sind markiert.",
+    unreviewed: "Jede Satz da isch maschinell uf Züri-Forme prüeft, aber no vo kener Muettersproochlere gläse worde. Das staht da, wil Sie s eus nöd aagseend.",
+    hear: "Das höred Sie",
+    say: "Das säged Sie",
+    linesLabel: "Sätz",
+    heardLabel: "zum Verstah",
+    grammarLabel: "Was da immer wider vorchunt",
+    practiseLabel: "Jetz üebe",
+    backLabel: "Alli Situatione",
+    domains: {
+      care: {
+        title: "Alters- und Pflegeheim",
+        lead: "En Bewohnere mit Demänz verliert d Zweitsprooche zerscht. Was bliibt, isch s Züritüütsch vo ihrere Chindheit — und das isch d Sprooch, wo d Schicht drin lauft.",
+      },
+    },
+    scenes: {
+      handover: {
+        title: "D Übergab",
+        scene: "Kollegin zu Kollegin, nüüt wird langsamer gmacht, niemert wächslet Ihretwege is Hochdüütsche. De schnellscht Moment vom Tag — und dää, wo über di ganz Schicht entscheidet.",
+      },
+      "morning-care": {
+        title: "Am Morge",
+        scene: "Churzi Sätz, während beidi Händ bschäftigt sind. Da isch Hochdüütsch nöd di neutrali Variante: Wer mitten i de Pflege d Sprooch wächslet, wirkt wie en anderi Person.",
+      },
+      pain: {
+        title: "Wenn öppis weh tuet",
+        scene: "Schmerz redt kei Zweitsprooch. Wer en meldet, formuliert nöd — und wer en falsch verstaht, haltet Schmerz für Unruä.",
+      },
+      meals: {
+        title: "Ässe und Trinke",
+        scene: "D Situation, wo am hüüfigschte vorchunt und uf wo sich niemert vorbereitet, wil si eifach tönt.",
+      },
+      "evening-unrest": {
+        title: "Unruä am Aabig",
+        scene: "Öpper wott hei, i es Dihei, wo s sit vierzg Jahr nüme git. Was da hilft, isch churz, im Präsens und i de Sprooch, wo d Person drin dänkt.",
+      },
+      visitors: {
+        title: "Bsuech",
+        scene: "Uf eimal sind Sie s Huus. D Tochter am Sunntignamittag beurteilt de Betrib dernaa, öb d Person a de Tür ere hät chöne folge.",
+      },
+    },
   },
 
 };

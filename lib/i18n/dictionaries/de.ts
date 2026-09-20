@@ -37,6 +37,7 @@ export const de = {
     dialect: "Mundarten",
     essays: "Lesen",
     vocabulary: "Wortschatz",
+    situations: "Situationen",
     method: "Methode",
     technology: "Technik",
     contribute: "Mitmachen",
@@ -913,6 +914,7 @@ export const de = {
     grammarLink: "Dazu in der Grammatik",
     wordLink: "Dazu im Wortschatz",
     ruleLink: "Die Regel dahinter",
+    situationLink: "Die Situation dazu",
     doneTitle: "Fertig für jetzt.",
     doneAsked: "gefragt",
     doneRight: "auf Anhieb",
@@ -1305,6 +1307,65 @@ export const de = {
     unknownLabel: "Was wir Sie fragen müssten",
     noCustomers: "Heidi hat heute keine Kunden, keine Pilotprojekte und keine Fallstudien — und diese Seite behauptet auch keine. Was hier steht, ist eine Beschreibung Ihres Problems, so gut wir es von aussen kennen. Sagen Sie uns, wo wir falsch liegen.",
     talk: "Schreiben Sie uns",
+  },
+
+  /**
+   * Die Situationsseiten.
+   *
+   * DER MOMENT IST DIE ORDNUNG, nicht die Wortart. Der Wortschatz ist nach
+   * Wortarten sortiert und hat dafür ein gutes Argument; für eine Schicht ist
+   * es die falsche Ordnung. Niemand betritt eine Übergabe und braucht «die
+   * zwölf häufigsten Partikeln» — gebraucht werden vier Sätze darüber, wer
+   * schlecht geschlafen hat.
+   *
+   * EINE ZEILE, DIE BLEIBEN MUSS: «unreviewed». Die Sätze sind maschinell auf
+   * Zürcher Formen geprüft und von keiner Muttersprachlerin gegengelesen —
+   * und genau die Leserin, für die das zählt, kann es nicht selbst sehen.
+   */
+  situations: {
+    title: "Wo Sie es brauchen",
+    lead: "Nicht nach Wortarten geordnet, sondern nach dem Moment: was auf einer Schicht wirklich gesagt wird, in der Reihenfolge, in der es kommt.",
+    note: "Richtung wie überall hier: zuerst verstehen. Die meisten Sätze hören Sie — die wenigen, die Sie selbst sagen, sind markiert.",
+    unreviewed: "Jeder Satz hier ist maschinell auf Zürcher Formen geprüft, aber noch von keiner Muttersprachlerin gegengelesen. Das steht hier, weil Sie es uns nicht ansehen können.",
+    hear: "Das hören Sie",
+    say: "Das sagen Sie",
+    linesLabel: "Sätze",
+    heardLabel: "zum Verstehen",
+    grammarLabel: "Was hier immer wieder vorkommt",
+    practiseLabel: "Jetzt üben",
+    backLabel: "Alle Situationen",
+    domains: {
+      care: {
+        title: "Alters- und Pflegeheime",
+        lead: "Eine Bewohnerin mit Demenz verliert ihre Zweitsprachen zuerst. Was bleibt, ist das Züritüütsch ihrer Kindheit — und das ist die Sprache, in der die Schicht läuft.",
+      },
+    },
+    scenes: {
+      handover: {
+        title: "Die Übergabe",
+        scene: "Kollegin zu Kollegin, nichts wird verlangsamt, niemand wechselt Ihretwegen ins Hochdeutsche. Der schnellste Moment des Tages — und der, der über die ganze Schicht entscheidet.",
+      },
+      "morning-care": {
+        title: "Am Morgen",
+        scene: "Kurze Sätze, während beide Hände beschäftigt sind. Hier ist Hochdeutsch nicht die neutrale Variante: Wer mitten in der Pflege die Sprache wechselt, wirkt wie eine andere Person.",
+      },
+      pain: {
+        title: "Wenn etwas weh tut",
+        scene: "Schmerz spricht keine Zweitsprache. Wer ihn meldet, formuliert nicht — und wer ihn falsch versteht, hält Schmerz für Unruhe.",
+      },
+      meals: {
+        title: "Essen und Trinken",
+        scene: "Die Situation, die am häufigsten vorkommt und auf die sich niemand vorbereitet, weil sie einfach klingt.",
+      },
+      "evening-unrest": {
+        title: "Unruhe am Abend",
+        scene: "Jemand will nach Hause, in ein Zuhause, das es seit vierzig Jahren nicht mehr gibt. Was hier hilft, ist kurz, im Präsens und in der Sprache, in der die Person denkt.",
+      },
+      visitors: {
+        title: "Besuch",
+        scene: "Plötzlich sind Sie das Haus. Die Tochter am Sonntagnachmittag beurteilt den Betrieb danach, ob die Person an der Tür ihr folgen konnte.",
+      },
+    },
   },
 
 };

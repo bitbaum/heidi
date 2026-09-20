@@ -43,7 +43,17 @@ export type ItemSource =
   /** A word the learner kept themselves. */
   | { kind: "saved" }
   /** A vocabulary entry in the pack, with the source that vouches for it. */
-  | { kind: "word"; word: string };
+  | { kind: "word"; word: string }
+  /**
+   * A line from a situation pack, carrying the scene id so the page can link
+   * back to the moment it belongs to.
+   *
+   * Worth its own kind rather than reusing `grammar`: a learner who gets this
+   * wrong is better served by the SCENE than by the topic — the sentence they
+   * failed on is one of ten in a handover, and the other nine are the context
+   * that makes it stick. The topic is one click further on from there.
+   */
+  | { kind: "situation"; scene: string };
 
 /**
  * Which one is the Zurich form?

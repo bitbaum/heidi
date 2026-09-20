@@ -18,6 +18,7 @@ export const fr: Dictionary = {
     dialect: "Dialectes",
     essays: "Lectures",
     vocabulary: "Vocabulaire",
+    situations: "Situations",
     method: "Méthode",
     technology: "Technique",
     contribute: "Participer",
@@ -827,6 +828,7 @@ export const fr: Dictionary = {
     grammarLink: "La grammaire derrière",
     wordLink: "Ce mot dans le vocabulaire",
     ruleLink: "La règle derrière",
+    situationLink: "La situation d'où elle vient",
     doneTitle: "C'est tout pour l'instant.",
     doneAsked: "questions",
     doneRight: "du premier coup",
@@ -1207,6 +1209,52 @@ export const fr: Dictionary = {
     unknownLabel: "Ce que nous devrions vous demander",
     noCustomers: "Heidi n’a aujourd’hui ni clients, ni projets pilotes, ni études de cas — et cette page n’en revendique aucun. Ce qui suit est une description de votre problème, telle que nous la connaissons de l’extérieur. Dites-nous où nous nous trompons.",
     talk: "Écrivez-nous",
+  },
+
+  situations: {
+    title: "Là où vous en avez besoin",
+    lead: "Classé non par catégorie de mots, mais par moment : ce qui se dit vraiment pendant un service, dans l'ordre où cela arrive.",
+    note: "La direction reste la même que partout ici : comprendre d'abord. La plupart de ces phrases, vous les entendez ; les rares que vous diriez vous-même sont signalées.",
+    unreviewed: "Chaque phrase a été vérifiée par machine pour les formes zurichoises, mais aucune personne de langue maternelle ne les a encore relues. Nous l'écrivons parce que vous ne pouvez pas le voir vous-même.",
+    hear: "Vous entendez ceci",
+    say: "Vous dites ceci",
+    linesLabel: "phrases",
+    heardLabel: "à comprendre",
+    grammarLabel: "Ce qui revient sans cesse ici",
+    practiseLabel: "S'exercer maintenant",
+    backLabel: "Toutes les situations",
+    domains: {
+      care: {
+        title: "EMS et soins de longue durée",
+        lead: "Une résidente atteinte de démence perd d'abord ses langues secondes. Ce qui reste, c'est le zurichois de son enfance — et c'est la langue dans laquelle se déroule le service.",
+      },
+    },
+    scenes: {
+      handover: {
+        title: "La transmission",
+        scene: "Entre collègues, rien n'est ralenti, personne ne passe au bon allemand pour vous. Le moment le plus rapide de la journée, et celui qui décide de tout le service.",
+      },
+      "morning-care": {
+        title: "Le matin",
+        scene: "Des phrases courtes, dites les deux mains occupées. Le bon allemand n'est pas ici l'option neutre : changer de langue en pleins soins, c'est changer de personne.",
+      },
+      pain: {
+        title: "Quand quelque chose fait mal",
+        scene: "La douleur ne parle pas de langue seconde. Celui qui la signale ne compose pas — et celui qui la comprend mal prend la douleur pour de l'agitation.",
+      },
+      meals: {
+        title: "Les repas",
+        scene: "La situation qui revient le plus souvent et à laquelle personne ne se prépare, parce qu'elle a l'air facile.",
+      },
+      "evening-unrest": {
+        title: "L'agitation du soir",
+        scene: "Quelqu'un veut rentrer chez lui, dans une maison qui n'existe plus depuis quarante ans. Ce qui aide est court, au présent, et dans la langue où la personne pense.",
+      },
+      visitors: {
+        title: "Les visites",
+        scene: "D'un coup, c'est vous l'établissement. La fille qui arrive un dimanche après-midi juge la maison à ceci : la personne à la porte a-t-elle pu la suivre.",
+      },
+    },
   },
 
 };

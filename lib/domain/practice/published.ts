@@ -1,4 +1,5 @@
 import { VARIETY } from "../../variety/active.ts";
+import { SITUATIONS } from "../../situations/active.ts";
 import { allItems } from "./generate.ts";
 import type { PracticeItem } from "./types.ts";
 
@@ -26,5 +27,10 @@ import type { PracticeItem } from "./types.ts";
  * The learner's own words are deliberately absent. They live in the browser
  * and are turned into items there; the server has none and this is what it
  * means for it to have none.
+ *
+ * The situation packs come in here too, and this is the only place that knows
+ * about them: `generate.ts` stays pure and takes them as an argument, so a
+ * test can build a session out of two invented scenes without the deployment's
+ * own packs leaking into the assertion.
  */
-export const PACK_ITEMS: readonly PracticeItem[] = allItems(VARIETY, []);
+export const PACK_ITEMS: readonly PracticeItem[] = allItems(VARIETY, [], SITUATIONS);

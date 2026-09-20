@@ -65,6 +65,23 @@ export type Sector = {
   unknown: Copy;
   /** A verifiable fact, where one exists. Not every sector has one. */
   fact?: { text: Copy; source: string };
+  /**
+   * A page on this site where the offer above can be READ before anybody
+   * talks to us. A route segment below the locale, or absent.
+   *
+   * WHY IT EXISTS. This file's own rule is that nothing is claimed that is not
+   * true today, and the `care` row broke it for months: it said Heidi
+   * "practises the sentences that are actually said on your ward" when the
+   * product held forty-eight words, none of which was said on a ward. The
+   * claim was not corrected by softening the sentence — it was corrected by
+   * building the thing and pointing at it.
+   *
+   * So a row with proof links to it, and a row without one simply has no link.
+   * That asymmetry is the most useful thing on the page: a reader can see
+   * exactly which of the six we have built for and which are still a
+   * description of their problem.
+   */
+  proof?: { segment: string; label: Copy };
 };
 
 export const SECTORS: readonly Sector[] = [
@@ -79,13 +96,30 @@ export const SECTORS: readonly Sector[] = [
       de: "Das ist keine Komfortfrage. Wer nicht verstanden wird, wird falsch eingeschätzt: Schmerz wird zu Unruhe, ein Wunsch wird zu Widerstand.",
       en: "This is not a comfort question. Somebody who is not understood is misread: pain becomes agitation, a request becomes resistance.",
     },
+    /**
+     * REWRITTEN THE DAY THE CONTENT EXISTED, and the old sentence is worth
+     * recording: "sie übt genau die Sätze, die auf Ihrer Abteilung wirklich
+     * fallen" — practises the sentences actually said on your ward. That was
+     * false in two ways at once. There were no ward sentences in the product
+     * at all, and even now that there are sixty, they are lines we WROTE for
+     * six scenes of a shift, checked by the dialect gate, not lines anybody
+     * recorded on your corridor.
+     *
+     * What replaces it says what is there, names the number, and sends the
+     * reader to read it. A Heimleitung can judge the content herself in two
+     * minutes, which is a better argument than any sentence here could be.
+     */
     offer: {
-      de: "Heidi übersetzt und erklärt Mundart — auf dem Handy, im Gang, in Sekunden. Und sie übt genau die Sätze, die auf Ihrer Abteilung wirklich fallen.",
-      en: "Heidi translates and explains dialect — on a phone, in the corridor, in seconds. And it practises the sentences that are actually said on your ward.",
+      de: "Heidi übersetzt und erklärt Mundart — auf dem Handy, im Gang, in Sekunden. Dazu sechs Szenen aus einer Schicht — Übergabe, Morgen, Schmerz, Essen, Abend, Besuch — mit rund sechzig Sätzen, maschinell auf Zürcher Formen geprüft. Lesen Sie sie, bevor Sie mit uns reden.",
+      en: "Heidi translates and explains dialect — on a phone, in the corridor, in seconds. Plus six scenes from a shift — handover, the morning, pain, meals, the evening, visitors — around sixty lines, machine-checked for Zurich forms. Read them before you talk to us.",
+    },
+    proof: {
+      segment: "situations",
+      label: { de: "Die sechs Szenen ansehen", en: "Read the six scenes" },
     },
     unknown: {
-      de: "Wir wissen nicht, ob Ihr Personal in diesem Moment ein Handy in der Hand haben darf. Das entscheidet alles am Ablauf.",
-      en: "We do not know whether your staff may hold a phone at that moment. That decides everything about how this would work.",
+      de: "Wir wissen nicht, ob Ihr Personal in diesem Moment ein Handy in der Hand haben darf. Das entscheidet alles am Ablauf. Und keine dieser Zeilen ist bisher von einer Muttersprachlerin gegengelesen — das steht auch auf der Seite selbst.",
+      en: "We do not know whether your staff may hold a phone at that moment. That decides everything about how this would work. And no native speaker has yet read those lines — which the page itself also says.",
     },
   },
   {

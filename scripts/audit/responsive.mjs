@@ -65,6 +65,13 @@ const PATHS = [
   "/essays", "/essays/warum-die-schweiz-ihre-mundarten-behalten-hat",
   "/grammar", "/impressum", "/investors", "/listen", "/method", "/organisations",
   "/practice", "/privacy", "/settings", "/speaking", "/technology", "/vocabulary",
+  // The situations index, plus the two scenes most likely to break a phone:
+  // `handover` holds the longest line in the pack («S Zimmer, wo mir gschtern
+  // gruumt händ, isch parat.») beside a German gloss that is longer still, and
+  // `evening-unrest` is the scene whose rows carry a grammar link under both
+  // halves — the three-deep stack that has nothing to shrink if the grid track
+  // is left at `auto`.
+  "/situations", "/situations/handover", "/situations/evening-unrest",
 ];
 
 /**

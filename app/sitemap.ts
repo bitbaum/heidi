@@ -3,6 +3,7 @@ import { SITE_URL } from "@/lib/config/site";
 import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
 import { INDEXED_ROUTES } from "@/lib/i18n/routes";
 import { essaysFor } from "@/lib/essays/registry";
+import { SCENES } from "@/lib/situations/display";
 
 /**
  * Every page in every language, with each entry naming its translations.
@@ -42,8 +43,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
+  /**
+   * Each scene, in every language — because unlike an essay, every scene IS
+   * translated into all seven: the lines are the variety's own and the prose
+   * around them lives in the dictionaries, which are typed against German so
+   * a missing one is a build error rather than a fallback.
+   *
+   * Worth crawling on their own rather than only through the index: "Züritüütsch
+   * Übergabe" and "Schweizerdeutsch Pflege" are searches somebody makes the
+   * evening before a shift, and the page that answers them is the scene, not a
+   * list of six links to scenes.
+   */
+  const scenes = LOCALES.flatMap((locale) =>
+    SCENES.map((scene) => ({
+      url: `${SITE_URL}/${locale}/situations/${scene.id}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
+      alternates: {
+        languages: Object.fromEntries([
+          ...LOCALES.map((l) => [LOCALE_TAGS[l], `${SITE_URL}/${l}/situations/${scene.id}`]),
+          ["x-default", `${SITE_URL}/${DEFAULT_LOCALE}/situations/${scene.id}`],
+        ]),
+      },
+    })),
+  );
+
   return [
     ...essays,
+    ...scenes,
     ...LOCALES.flatMap((locale) =>
     INDEXED_ROUTES.map((route) => {
       const path = route.segment ? `/${locale}/${route.segment}` : `/${locale}`;
