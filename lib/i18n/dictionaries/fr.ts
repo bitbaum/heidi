@@ -472,6 +472,8 @@ export const fr: Dictionary = {
       draftConversation: "Conversation sans compte",
       savedConversation: "Conversation avec compte",
       savedWords: "Mots gardés",
+      practiceSeen: "Questions déjà posées",
+      practiceModel: "Ce que vous travaillez encore",
       ownKey: "Votre propre clé API",
       theme: "Apparence claire ou sombre",
       dictation: "Dictée",
@@ -789,6 +791,13 @@ export const fr: Dictionary = {
     articleLabel: "Article",
     formsLabel: "Formes",
     exampleLabel: "Dans une phrase",
+    filterLabel: "Filtrer les mots",
+    filterPlaceholder: "Tapez en dialecte ou en allemand …",
+    noMatches: "Aucun mot ne correspond.",
+    clearFilter: "Effacer",
+    practiseGroup: "S'exercer sur ce groupe",
+    jumpLabel: "Aller à",
+    saidInTitle: "Dit dans",
   },
 
   practice: {
@@ -813,7 +822,18 @@ export const fr: Dictionary = {
       form: "Quelle forme convient ?",
       cloze: "Quel mot manque ?",
       recall: "Qu'est-ce que cela veut dire ?",
+      match: "Qu'est-ce qui va ensemble ?",
+      gaptext: "Quels mots manquent ?",
     },
+    matchHint: "Touchez un mot, puis sa signification.",
+    gapHint: "Touchez un mot — il se place dans le trou suivant. Touchez un trou rempli pour le reprendre.",
+    check: "Vérifier",
+    focusTitle: "Ce qui vous accroche",
+    focusLead: "Cela revient souvent chez vous. Un clic n’exerce que cela.",
+    scopedTo: "Seulement : {what}",
+    scopeAll: "Tout réviser",
+    scopeEmpty:
+      "Il n'y a pas encore de questions là-dessus. Cela ne veut pas dire que le sujet est secondaire — seulement que le pack n'en a pas encore d'exemples.",
     origin: "L'autre, c'est {origin}.",
     persons: {
       ich: "je",
@@ -954,7 +974,38 @@ export const fr: Dictionary = {
     lead: "Ce qui rend le zurichois difficile à suivre pour quelqu'un qui lit déjà l'allemand — d'abord ce sur quoi une phrase échoue complètement, ensuite ce que vous comprendrez sans jamais le dire vous-même.",
     ruleLabel: "La règle",
     watchLabel: "Où ça coince",
+    bands: {
+      blocks: {
+        title: "C'est là que la phrase s'effondre",
+        lead: "Sans elles, l'écoute ne démarre même pas. Vous attendez une forme qui ne vient jamais, ou vous lisez un mot comme tout autre chose — et le reste de la phrase est perdu.",
+      },
+      marks: {
+        title: "Vous comprenez — vous ne le diriez jamais",
+        lead: "À l'écoute, celles-ci ne posent aucun problème. Ne jamais les employer soi-même, c'est ce qui fait qu'on sonne durablement comme du bon allemand avec des mots zurichois dedans.",
+      },
+    },
+    allTopics: "Tous les sujets",
+    practiseTopic: "S'exercer sur ce sujet",
+    whereTitle: "Où cela arrive vraiment",
+    whereLead: "La même structure, dans des phrases qu'on dit vraiment.",
+    prevLabel: "Précédent",
+    nextLabel: "Suivant",
     topics: {
+      "question-words": {
+        title: "Les mots interrogatifs — et le piège qu'ils cachent",
+        rule: "wänn, wo, was, wie, weer. La plupart se reconnaissent ; un seul ne se reconnaît pas.",
+        watch: "«Wänn» sonne comme l'allemand «wenn». Vous entendez une condition là où une question a été posée — et votre réponse porte alors sur ce que personne n'a demandé.",
+      },
+      "indefinite-article": {
+        title: "en, e, es — l'article indéfini",
+        rule: "«en» au masculin, «e» au féminin, «es» au neutre.",
+        watch: "«es» ressemble au pronom «es». «Bruuched Sie es Säckli ?» ne veut pas dire « en avez-vous besoin », mais « voulez-vous un sachet ».",
+      },
+      imperative: {
+        title: "Ordre et demande : la forme de politesse finit par -ed",
+        rule: "Au tutoiement, le radical nu : «Chumm». Au vouvoiement, -ed s'ajoute : «Chömed Sie».",
+        watch: "Vous comprendrez les deux. Qui dit «Chömen Sie» est compris aussi — et aussitôt reconnu comme n'étant pas d'ici.",
+      },
       "no-preterite": {
         title: "Pas de prétérit",
         rule: "Le zurichois parlé n'a pas de passé simple : tout le passé se dit au parfait.",
@@ -1213,7 +1264,7 @@ export const fr: Dictionary = {
 
   situations: {
     title: "Là où vous en avez besoin",
-    lead: "Classé non par catégorie de mots, mais par moment : ce qui se dit vraiment pendant un service, dans l'ordre où cela arrive.",
+    lead: "Classé non par catégorie de mots, mais par moment : ce qui se dit vraiment dans cette situation, dans l'ordre où cela arrive.",
     note: "La direction reste la même que partout ici : comprendre d'abord. La plupart de ces phrases, vous les entendez ; les rares que vous diriez vous-même sont signalées.",
     unreviewed: "Chaque phrase a été vérifiée par machine pour les formes zurichoises, mais aucune personne de langue maternelle ne les a encore relues. Nous l'écrivons parce que vous ne pouvez pas le voir vous-même.",
     hear: "Vous entendez ceci",
@@ -1224,12 +1275,48 @@ export const fr: Dictionary = {
     practiseLabel: "S'exercer maintenant",
     backLabel: "Toutes les situations",
     domains: {
+      everyday: {
+        title: "Le quotidien à Zurich",
+        lead: "Le magasin, le tram, la cage d'escalier, le téléphone, la table de midi. Des situations que presque tout le monde vit chaque semaine — et où la pièce passe au bon allemand dès qu'elle voit que vous peinez.",
+      },
       care: {
         title: "EMS et soins de longue durée",
         lead: "Une résidente atteinte de démence perd d'abord ses langues secondes. Ce qui reste, c'est le zurichois de son enfance — et c'est la langue dans laquelle se déroule le service.",
       },
     },
     scenes: {
+      restaurant: {
+        title: "Au restaurant",
+        scene: "Quatre questions fixes et une qui décide de l'addition. «Zäme oder separat» se demande une fois, vite, et se tromper se remarque à toute la table.",
+      },
+      "at-work": {
+        title: "Au travail",
+        scene: "La séance se tient en bon allemand ou en anglais. Le couloir, la machine à café et le moment où quelque chose se décide vraiment, non.",
+      },
+      "school-parents": {
+        title: "À l'école enfantine",
+        scene: "Dans le canton de Zurich, l'école enfantine se fait en dialecte — le corps électoral l'a décidé en 2011. Le parent qui a appris le bon allemand le découvre à la réunion de parents, devant tout le monde.",
+      },
+      shopping: {
+        title: "Au magasin",
+        scene: "Quatre questions, toujours les mêmes, à la caisse avec une file derrière vous — précisément là où faire répéter coûte le plus cher.",
+      },
+      tram: {
+        title: "Dans le tram",
+        scene: "Des annonces et des inconnus, rapides les uns comme les autres. La seule situation où ne pas comprendre coûte l'après-midi et non la phrase.",
+      },
+      neighbours: {
+        title: "Dans la cage d'escalier",
+        scene: "La buanderie, le vélo dans le couloir, les ordures. Ici, un mot sur la porte n'est pas une demande — qui le lit comme telle devient le voisin difficile sans que personne le lui dise.",
+      },
+      appointment: {
+        title: "Au téléphone",
+        scene: "Le canal le plus difficile dans toute langue seconde, et celui que personne ne travaille : pas de visage, pas de contexte, et quelqu'un qui déroule une liste.",
+      },
+      "small-talk": {
+        title: "À la table de midi",
+        scene: "La scène pour laquelle ce produit existe. La table passe au bon allemand dès qu'elle voit que vous peinez — et vous retire exactement ce qui vous aiderait.",
+      },
       handover: {
         title: "La transmission",
         scene: "Entre collègues, rien n'est ralenti, personne ne passe au bon allemand pour vous. Le moment le plus rapide de la journée, et celui qui décide de tout le service.",

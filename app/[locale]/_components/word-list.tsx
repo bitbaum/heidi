@@ -32,6 +32,7 @@ export function WordList({
   t,
   chatT,
   persons,
+  saidIn,
 }: {
   words: ReadonlyArray<{
     target: string;
@@ -45,6 +46,17 @@ export function WordList({
   chatT: Dictionary["chat"];
   /** Person labels for a paradigm, from the practice dictionary that owns them. */
   persons: Dictionary["practice"]["persons"];
+  /**
+   * The scenes each word is actually said in, keyed by the dialect form.
+   *
+   * Computed on the server by a whole-word match, because `si` lives inside
+   * `isch` and a substring join would tell a reader this word appears in nine
+   * scenes when it appears in none of them. Absent for most words and that is
+   * the normal case: the pack's function words are general, and a care shift
+   * is one domain. A word with no scenes shows nothing rather than an empty
+   * heading, which is the join declining to pad itself.
+   */
+  saidIn?: Record<string, readonly { id: string; title: string; href: string }[]>;
 }) {
   const saved = useSaved();
   // Forwarded so the example sentences are generated on the key they brought,
@@ -152,7 +164,7 @@ export function WordList({
               a two-column list is a layout that breaks on a phone for the sake
               of looking thorough.
             */}
-            {(word.forms?.length || word.example) && (
+            {(word.forms?.length || word.example || saidIn?.[word.target]?.length) && (
               <div className="col-span-3 mt-1 flex flex-col gap-0.5">
                 {word.forms && word.forms.length > 0 && (
                   <p className="text-sm leading-relaxed text-fg-secondary">
@@ -176,6 +188,32 @@ export function WordList({
                     <span lang="de">{word.example.bridge}</span>
                   </p>
                 )}
+
+                {/* Where the word is actually said, when it is.
+
+                    This is the difference between a gloss and a memory: `nöd`
+                    means `nicht` is a fact you read, and `nöd` in four
+                    sentences from a shift is a thing you can picture. The
+                    links are to scenes the reader can open, so the list stops
+                    being a terminus. */}
+                {saidIn?.[word.target]?.length ? (
+                  <p className="flex flex-wrap items-baseline gap-x-2 text-sm leading-relaxed">
+                    <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
+                      {t.saidInTitle}
+                    </span>
+                    {saidIn[word.target].map((scene, i) => (
+                      <span key={scene.id}>
+                        {i > 0 && <span aria-hidden="true" className="text-fg-muted">· </span>}
+                        <a
+                          href={scene.href}
+                          className="text-link underline underline-offset-4 hover:text-accent"
+                        >
+                          {scene.title}
+                        </a>
+                      </span>
+                    ))}
+                  </p>
+                ) : null}
               </div>
             )}
           </li>

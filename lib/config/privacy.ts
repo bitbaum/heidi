@@ -100,6 +100,37 @@ export const FLOWS: readonly Flow[] = [
     leavesDevice: false,
     recipients: [],
   },
+  /**
+   * The two practice stores, and they were missing from this page until the
+   * second one was written.
+   *
+   * `practiceSeen` has existed since the exercises did — item ids, so the same
+   * eight questions are not served twice — and it was never declared. That was
+   * an omission rather than a decision, and it is the kind this page exists to
+   * make impossible: a privacy page that lists SOME of what is on the device
+   * is worse than one that lists none, because it reads as exhaustive.
+   *
+   * `practiceModel` is the one that made it urgent. It is a record of which
+   * topics and words this person keeps getting wrong — the single most
+   * personal thing the product holds, and precisely what HEIDI.md says must
+   * never live on our side. It does not: it is in their browser, it is on this
+   * page, and settings can delete it. All three, or none of it would be
+   * defensible.
+   */
+  {
+    id: "practiceSeen",
+    place: "device",
+    where: "localStorage · heidi.practice.seen.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
+  {
+    id: "practiceModel",
+    place: "device",
+    where: "localStorage · heidi.practice.model.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
   {
     id: "ownKey",
     place: "device",

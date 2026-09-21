@@ -1185,6 +1185,107 @@ wrong and is entitled to know whether the thing telling them knows anything.
    is not an exercise type, because Zurich German has no settled orthography
    and marking a typed answer means deciding whether a near-miss counts.
 
+**Built since: the reference section became navigable, and practice became
+addressable.** Four changes that are really one change.
+
+*Scope.* `/practice?topic=…`, `?scene=…`, `?group=…`. Every reference surface
+now opens a sitting about ITSELF — the grammar topic just read, the scene just
+skimmed, the group of words on screen. It is a filter over existing items
+rather than a generator, because `ItemSource` already recorded where every
+question came from; the field built to make a wrong answer traceable turned
+out to make a pool addressable. A topic scope unions the topic's own examples
+with the real scene lines that turn on the same rule, so the situation packs
+deepen the grammar section automatically.
+
+*Grammar as pages.* `/grammar/<topic>`, indexed by BAND — `blocks` (the
+sentence does not survive) and `marks` (it survives, you do not). That division
+was in the page's lead from the first day and was carried entirely by the order
+of a list; it is now a field, two headed sections, and a card per topic showing
+its first contrast. The topic page adds what a section could not hold: practise
+this now, where it actually comes up, and previous/next within the band.
+
+*Vocabulary as something you can find a word in.* A filter over BOTH languages
+(you meet the German word in your head first), jump links, a scoped sitting per
+group, and — for the words that have one — the scenes where the word is said,
+joined whole-word because `si` lives inside `isch`.
+
+*Two new exercise kinds, both objective, neither inventing language.*
+`match` is four words and four meanings; `gaptext` is a four-line passage from
+a scene with three words lifted out and offered back. The word bank is what
+makes a passage objectively markable in a variety with no settled spelling: the
+learner chooses rather than spells, every option is a real form from the
+passage, and the key is which hole each came out of. Both shuffle by ROTATION,
+which is a derangement for free and keeps the board reproducible.
+
+*Refused, and it is a decision rather than a backlog item:* a word-order
+exercise. Reconstructing a scrambled sentence is the obvious next shape and it
+cannot be marked honestly here — this variety tolerates more than one order,
+and an item that calls a valid alternative wrong would be §6's failure in a new
+place, aimed at the one person who cannot detect it.
+
+**Built: the system knows what you keep getting wrong.** A learner model, in
+the browser, beside the kept words and for the same reason HEIDI.md gives for
+those: it keeps Heidi from holding a record of what a particular person cannot
+understand. It reads `ItemSource` and keeps a miss rate per topic, scene, word
+group and rule, and it does two things with it — reorders every sitting so the
+weak half leads, and names the two or three areas worth going back to with a
+link straight at them.
+
+Three properties make it defensible rather than a score. The rate is SHRUNK BY
+SAMPLE SIZE (`rate × asked/(asked+3)`) — the obvious smoothing let one wrong
+answer out of one outrank a topic missed nine times in twenty, and a failing
+test is how that was found. It hears the FIRST answer only, like the review
+schedule, so nobody can talk their weakest topic out of the model by being
+shown the answer and repeating it. And the ordering is BANDED rather than
+continuous, so a bad area cannot own every sitting.
+
+It shows no number anywhere: no percentage, no miss count, no level. §8's rule
+is that this product measures how much of an unfamiliar Zurich speaker you
+understand, and a miss rate rendered at a person is a score whatever it is
+called. The diagnosis points at the MATERIAL — "these keep catching you out",
+with the topic named and a session offered. Declared on `/privacy` and
+deletable from `/settings`, along with the seen-history, which had been
+undeclared since the exercises shipped.
+
+**Built: one module per exercise kind, and a registry.** `lib/domain/practice/
+kinds/` — a file per kind, each declaring its id, its marking, whether the
+SERVER can generate it, and how. Adding `match` had touched five places, three
+of them invisible until something went wrong and one of them a bug shipped in
+the same commit as the feature (the keyboard handler fell through and answered
+a matching item correctly on a single Enter). A kind is now a file and a line
+in `registry.ts`. The shared text operations — which word to blank, whether the
+clue gives it away — live in `kinds/text.ts` so the second gapped kind could
+not fork them.
+
+The registry's contract test found a real defect on its first run: cloze ids
+were `cloze:<topic>:<word>`, and two examples of one topic that blank to the
+same word produced the SAME id. Ids key the seen-history, so answering one
+marked the other asked and one of the two was never served again — invisible,
+because both items exist and both are correct.
+
+**Built: enough material that the questions stop repeating.** The complaint was
+arithmetic, not scheduling: eight questions a sitting out of sixty-seven items
+means meeting the same ones within the week, and no shuffle fixes that.
+`everyday` is the second domain — the shop, the tram, the stairwell, the
+telephone, the lunch table — and the vocabulary gained the short words no
+correspondence rescues (`grad`, `äbe`, `gäng`, `aalüte`) plus paradigms for
+`si`, `gah` and `cho`. Those three earn a table by the same standard `ha` set:
+every form already appears in a sentence the packs publish, so the table is a
+reorganisation rather than four new claims. `gsi` is in it because it carries
+every past tense in a variety with no preterite.
+
+Practice items went **67 → 195**, scenes 6 → 14, lines 60 → 140, vocabulary
+48 → 83 and grammar topics 8 → 11 — and the pool stopped being three quarters
+one kind. Article questions alone went 3 → 24, which is the cheapest exercise
+the pack can grow: gender is the error a German reader is least able to avoid,
+because it is carried by a word they never had to learn.
+
+Three of the new topics are `question-words`, `indefinite-article` and
+`imperative`, and each names something the packs had been teaching by example
+without ever saying: `wänn` heard as German `wenn` turns a question into a
+condition, the article `es` is identical to the pronoun `es`, and the polite
+imperative ends in `-ed` rather than `-en`.
+
 **Next, in order, and the ordering is the argument:**
 
 1. **Feedback that names the rule, not just the region.** A `pair` item already

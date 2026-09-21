@@ -472,6 +472,8 @@ export const it: Dictionary = {
       draftConversation: "Conversazione senza account",
       savedConversation: "Conversazione con account",
       savedWords: "Parole tenute",
+      practiceSeen: "Domande già poste",
+      practiceModel: "Su che cosa state ancora lavorando",
       ownKey: "La sua chiave API",
       theme: "Aspetto chiaro o scuro",
       dictation: "Dettatura",
@@ -789,6 +791,13 @@ export const it: Dictionary = {
     articleLabel: "Articolo",
     formsLabel: "Forme",
     exampleLabel: "In una frase",
+    filterLabel: "Filtrare le parole",
+    filterPlaceholder: "Scrivete in dialetto o in tedesco …",
+    noMatches: "Nessuna parola corrisponde.",
+    clearFilter: "Azzera",
+    practiseGroup: "Esercitarsi su questo gruppo",
+    jumpLabel: "Vai a",
+    saidInTitle: "Detto in",
   },
 
   practice: {
@@ -813,7 +822,18 @@ export const it: Dictionary = {
       form: "Quale forma va bene?",
       cloze: "Quale parola manca?",
       recall: "Che cosa vuol dire?",
+      match: "Che cosa va insieme?",
+      gaptext: "Quali parole mancano?",
     },
+    matchHint: "Toccate una parola, poi il suo significato.",
+    gapHint: "Toccate una parola — entra nel buco successivo. Toccate un buco pieno per riprenderla.",
+    check: "Verificare",
+    focusTitle: "Dove vi bloccate",
+    focusLead: "Questo vi torna sbagliato di continuo. Un tocco esercita solo quello.",
+    scopedTo: "Solo: {what}",
+    scopeAll: "Esercitarsi su tutto",
+    scopeEmpty:
+      "Su questo non ci sono ancora domande. Non vuol dire che l'argomento non conti — solo che il pack non ne ha ancora esempi.",
     origin: "L'altra è {origin}.",
     persons: {
       ich: "io",
@@ -954,7 +974,38 @@ export const it: Dictionary = {
     lead: "Che cosa rende lo zurighese difficile da seguire per chi già legge il tedesco — prima ciò su cui una frase si blocca del tutto, poi ciò che capirete senza però dirlo mai voi stessi.",
     ruleLabel: "La regola",
     watchLabel: "Dove ci si blocca",
+    bands: {
+      blocks: {
+        title: "Qui la frase non regge",
+        lead: "Senza queste l'ascolto non parte nemmeno. Aspettate una forma che non arriva mai, o leggete una parola come tutt'altro — e il resto della frase è perso.",
+      },
+      marks: {
+        title: "Le capite — ma non le direste mai",
+        lead: "All'ascolto queste non danno problemi. Non usarle mai è ciò che fa suonare qualcuno come tedesco standard con dentro parole zurighesi.",
+      },
+    },
+    allTopics: "Tutti gli argomenti",
+    practiseTopic: "Esercitarsi su questo",
+    whereTitle: "Dove capita davvero",
+    whereLead: "La stessa struttura, in frasi che si dicono davvero.",
+    prevLabel: "Precedente",
+    nextLabel: "Successivo",
     topics: {
+      "question-words": {
+        title: "Le parole interrogative — e la trappola che nascondono",
+        rule: "wänn, wo, was, wie, weer. Quasi tutte si riconoscono; una no.",
+        watch: "«Wänn» suona come il tedesco «wenn». Sentite una condizione dove è stata fatta una domanda — e la vostra risposta finisce per riguardare ciò che nessuno ha chiesto.",
+      },
+      "indefinite-article": {
+        title: "en, e, es — l'articolo indeterminativo",
+        rule: "«en» al maschile, «e» al femminile, «es» al neutro.",
+        watch: "«es» sembra il pronome «es». «Bruuched Sie es Säckli?» non vuol dire «le serve», ma «le serve un sacchetto».",
+      },
+      imperative: {
+        title: "Ordine e richiesta: la forma di cortesia finisce in -ed",
+        rule: "Con il tu, il tema nudo: «Chumm». Con il Lei si aggiunge -ed: «Chömed Sie».",
+        watch: "Capirete entrambe. Chi dice «Chömen Sie» viene capito lo stesso — e riconosciuto subito come non di qui.",
+      },
       "no-preterite": {
         title: "Niente preterito",
         rule: "Lo zurighese parlato non ha il passato semplice: tutto il passato si dice col perfetto.",
@@ -1213,7 +1264,7 @@ export const it: Dictionary = {
 
   situations: {
     title: "Dove serve davvero",
-    lead: "Non ordinato per categoria grammaticale ma per momento: quello che si dice davvero durante un turno, nell'ordine in cui arriva.",
+    lead: "Non ordinato per categoria grammaticale ma per momento: quello che si dice davvero in quella situazione, nell'ordine in cui arriva.",
     note: "La direzione è la stessa di tutto il resto qui: prima capire. La maggior parte di queste frasi le sentite; le poche che direste voi sono segnalate.",
     unreviewed: "Ogni frase è stata controllata a macchina per le forme zurighesi, ma nessun madrelingua le ha ancora rilette. Lo scriviamo perché voi non potete accorgervene.",
     hear: "Questo lo sentite",
@@ -1224,12 +1275,48 @@ export const it: Dictionary = {
     practiseLabel: "Esercitarsi ora",
     backLabel: "Tutte le situazioni",
     domains: {
+      everyday: {
+        title: "La vita quotidiana a Zurigo",
+        lead: "Il negozio, il tram, le scale, il telefono, la tavola di mezzogiorno. Situazioni in cui quasi tutti si trovano ogni settimana — e dove la stanza passa al tedesco standard appena si accorge che fate fatica.",
+      },
       care: {
         title: "Case per anziani e case di cura",
         lead: "Una residente con demenza perde per prime le seconde lingue. Quello che resta è lo zurighese della sua infanzia — ed è la lingua in cui si svolge il turno.",
       },
     },
     scenes: {
+      restaurant: {
+        title: "Al ristorante",
+        scene: "Quattro domande fisse e una che decide il conto. «Zäme oder separat» si chiede una volta sola, in fretta, e sbagliarla se ne accorge tutto il tavolo.",
+      },
+      "at-work": {
+        title: "Al lavoro",
+        scene: "La riunione si tiene in tedesco standard o in inglese. Il corridoio, la macchina del caffè e il momento in cui si decide davvero qualcosa, no.",
+      },
+      "school-parents": {
+        title: "All'asilo",
+        scene: "Nel canton Zurigo l'asilo si fa in dialetto — lo ha deciso il corpo elettorale nel 2011. Chi ha imparato il tedesco standard se ne accorge alla riunione dei genitori, davanti a tutti.",
+      },
+      shopping: {
+        title: "Al negozio",
+        scene: "Quattro domande, sempre le stesse, alla cassa con una fila dietro — cioè proprio dove chiedere di ripetere costa di più.",
+      },
+      tram: {
+        title: "Sul tram",
+        scene: "Annunci e sconosciuti, entrambi veloci. L'unica situazione in cui non capire costa il pomeriggio e non la frase.",
+      },
+      neighbours: {
+        title: "Nelle scale",
+        scene: "La lavanderia, la bici nel corridoio, i rifiuti. Qui un biglietto sulla porta non è una richiesta — chi lo legge così diventa il vicino difficile senza che nessuno glielo dica.",
+      },
+      appointment: {
+        title: "Al telefono",
+        scene: "Il canale più difficile in qualsiasi seconda lingua e quello che nessuno esercita: niente volto, niente contesto, e qualcuno che scorre una lista.",
+      },
+      "small-talk": {
+        title: "A tavola a mezzogiorno",
+        scene: "La scena per cui questo prodotto esiste. La tavola passa al tedesco standard appena si accorge che fate fatica — togliendovi esattamente ciò che vi aiuterebbe.",
+      },
       handover: {
         title: "Le consegne",
         scene: "Tra colleghi, niente viene rallentato, nessuno passa al tedesco standard per voi. Il momento più veloce della giornata, e quello che decide tutto il turno.",

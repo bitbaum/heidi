@@ -1,6 +1,6 @@
 import { VARIETY } from "../../variety/active.ts";
 import { SITUATIONS } from "../../situations/active.ts";
-import { allItems } from "./generate.ts";
+import { packItems } from "./generate.ts";
 import type { PracticeItem } from "./types.ts";
 
 /**
@@ -33,4 +33,4 @@ import type { PracticeItem } from "./types.ts";
  * test can build a session out of two invented scenes without the deployment's
  * own packs leaking into the assertion.
  */
-export const PACK_ITEMS: readonly PracticeItem[] = allItems(VARIETY, [], SITUATIONS);
+export const PACK_ITEMS: readonly PracticeItem[] = packItems(VARIETY, SITUATIONS);

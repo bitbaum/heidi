@@ -517,6 +517,8 @@ export const de = {
       draftConversation: "Gespräch ohne Konto",
       savedConversation: "Gespräch mit Konto",
       savedWords: "Gemerkte Wörter",
+      practiceSeen: "Bereits gestellte Fragen",
+      practiceModel: "Woran Sie noch arbeiten",
       ownKey: "Ihr eigener API-Schlüssel",
       theme: "Helle oder dunkle Darstellung",
       dictation: "Diktieren",
@@ -853,6 +855,22 @@ export const de = {
     articleLabel: "Artikel",
     formsLabel: "Formen",
     exampleLabel: "Im Satz",
+    /**
+     * Das Suchfeld, und warum eine Wortliste eines braucht.
+     *
+     * Achtundvierzig Wörter passen noch auf eine Seite; sobald es mehr werden,
+     * ist Scrollen die einzige Navigation — und wer ein bestimmtes Wort sucht,
+     * benutzt dann die Suchfunktion des Browsers und findet nur die eine
+     * Schreibweise, die er geraten hat. Das Feld sucht Mundart UND Deutsch,
+     * weil beide Richtungen vorkommen.
+     */
+    filterLabel: "Wörter filtern",
+    filterPlaceholder: "Mundart oder Deutsch tippen …",
+    noMatches: "Dazu passt kein Wort.",
+    clearFilter: "Zurücksetzen",
+    practiseGroup: "Diese Gruppe üben",
+    jumpLabel: "Direkt zu",
+    saidInTitle: "Gesagt in",
   },
 
   /**
@@ -891,7 +909,28 @@ export const de = {
       form: "Welche Form passt?",
       cloze: "Welches Wort fehlt?",
       recall: "Was heisst das?",
+      match: "Was gehört zusammen?",
+      gaptext: "Welche Wörter fehlen?",
     },
+    matchHint: "Tippen Sie ein Wort an, dann seine Bedeutung.",
+    gapHint:
+      "Tippen Sie ein Wort an — es rutscht in die nächste Lücke. Auf eine gefüllte Lücke tippen nimmt es zurück.",
+    check: "Prüfen",
+    /**
+     * KEINE ZAHL, und das ist die ganze Regel hier. Keine Prozente, keine
+     * Trefferquote, kein Level. Die Diagnose zeigt auf den STOFF, nie auf die
+     * Person — alles andere wäre ein Punktestand mit anderem Namen.
+     */
+    focusTitle: "Daran hängen Sie gerade",
+    focusLead: "Das kommt bei Ihnen immer wieder vor. Ein Klick übt nur das.",
+    /**
+     * Eine Übung, die eingegrenzt wurde, sagt das — sonst sieht ein kleiner
+     * Fragenpool wie ein kaputtes Produkt aus.
+     */
+    scopedTo: "Nur zu: {what}",
+    scopeAll: "Alles üben",
+    scopeEmpty:
+      "Dazu gibt es noch keine Fragen. Das heisst nicht, dass das Thema unwichtig wäre — nur, dass das Pack dafür noch keine Beispiele hat.",
     origin: "Das andere ist {origin}.",
     /**
      * Die Personen einer Verbtabelle, in der Sprache der Leserin.
@@ -1052,7 +1091,47 @@ export const de = {
     lead: "Was Zürichdeutsch für jemanden schwer verständlich macht, der Deutsch schon liest — zuerst das, woran ein Satz ganz scheitert, danach das, was Sie zwar verstehen, aber nie selbst sagen würden.",
     ruleLabel: "Die Regel",
     watchLabel: "Wo es hakt",
+    /**
+     * Die zwei Bänder — und der Grund, warum die Übersichtsseite überhaupt
+     * eine Struktur hat.
+     *
+     * Der Lead hat diese Unterscheidung von Anfang an behauptet («zuerst das,
+     * woran ein Satz ganz scheitert, danach das, was Sie zwar verstehen, aber
+     * nie selbst sagen würden»), getragen hat sie aber nur die Reihenfolge der
+     * Liste — also nichts, was jemand sehen konnte.
+     */
+    bands: {
+      blocks: {
+        title: "Daran scheitert der Satz",
+        lead: "Ohne diese fängt das Zuhören gar nicht erst an. Sie warten auf eine Form, die nie kommt, oder lesen ein Wort als etwas ganz anderes — und der Rest des Satzes ist weg.",
+      },
+      marks: {
+        title: "Verstehen ja — selbst sagen nie",
+        lead: "Diese verstehen Sie beim Hören problemlos. Wer sie nie selbst benutzt, klingt dauerhaft nach Hochdeutsch mit Zürcher Wörtern drin.",
+      },
+    },
+    allTopics: "Alle Themen",
+    practiseTopic: "Dieses Thema üben",
+    whereTitle: "Wo das wirklich vorkommt",
+    whereLead: "Dieselbe Struktur, in Sätzen, die wirklich so gesagt werden.",
+    prevLabel: "Vorheriges",
+    nextLabel: "Nächstes",
     topics: {
+      "question-words": {
+        title: "Fragewörter — und die Falle darin",
+        rule: "wänn, wo, was, wie, weer. Die meisten sind erkennbar; eines ist es nicht.",
+        watch: "«Wänn» klingt wie das deutsche «wenn». Sie hören eine Bedingung, gestellt wurde aber eine Frage — und Ihre Antwort passt dann auf etwas, was niemand gefragt hat.",
+      },
+      "indefinite-article": {
+        title: "en, e, es — der unbestimmte Artikel",
+        rule: "«en» beim männlichen, «e» beim weiblichen, «es» beim sächlichen Wort.",
+        watch: "«es» sieht aus wie das Pronomen «es». «Bruuched Sie es Säckli?» heisst nicht «brauchen Sie es», sondern «brauchen Sie ein Säckchen».",
+      },
+      imperative: {
+        title: "Befehl und Bitte: die Sie-Form endet auf -ed",
+        rule: "Beim Du steht der blosse Stamm: «Chumm». Beim Sie kommt -ed dazu: «Chömed Sie».",
+        watch: "Verstehen werden Sie beides. Wer «Chömen Sie» sagt, wird auch verstanden — und sofort als Nicht-Zürcher erkannt.",
+      },
       "no-preterite": {
         title: "Kein Präteritum",
         rule: "Gesprochenes Zürichdeutsch hat keine einfache Vergangenheit: alles Vergangene steht im Perfekt.",
@@ -1324,7 +1403,7 @@ export const de = {
    */
   situations: {
     title: "Wo Sie es brauchen",
-    lead: "Nicht nach Wortarten geordnet, sondern nach dem Moment: was auf einer Schicht wirklich gesagt wird, in der Reihenfolge, in der es kommt.",
+    lead: "Nicht nach Wortarten geordnet, sondern nach dem Moment: was in dieser Situation wirklich gesagt wird, in der Reihenfolge, in der es kommt.",
     note: "Richtung wie überall hier: zuerst verstehen. Die meisten Sätze hören Sie — die wenigen, die Sie selbst sagen, sind markiert.",
     unreviewed: "Jeder Satz hier ist maschinell auf Zürcher Formen geprüft, aber noch von keiner Muttersprachlerin gegengelesen. Das steht hier, weil Sie es uns nicht ansehen können.",
     hear: "Das hören Sie",
@@ -1335,12 +1414,48 @@ export const de = {
     practiseLabel: "Jetzt üben",
     backLabel: "Alle Situationen",
     domains: {
+      everyday: {
+        title: "Alltag in Zürich",
+        lead: "Laden, Tram, Treppenhaus, Telefon, Mittagstisch. Situationen, in denen fast alle jede Woche stehen — und in denen der Raum genau dann ins Hochdeutsche wechselt, wenn er merkt, dass Sie Mühe haben.",
+      },
       care: {
         title: "Alters- und Pflegeheime",
         lead: "Eine Bewohnerin mit Demenz verliert ihre Zweitsprachen zuerst. Was bleibt, ist das Züritüütsch ihrer Kindheit — und das ist die Sprache, in der die Schicht läuft.",
       },
     },
     scenes: {
+      restaurant: {
+        title: "Im Restaurant",
+        scene: "Vier feste Fragen und eine, die über die Rechnung entscheidet. «Zäme oder separat» wird einmal gefragt, schnell, und wer es falsch versteht, merkt es am ganzen Tisch.",
+      },
+      "at-work": {
+        title: "Bei der Arbeit",
+        scene: "Die Sitzung läuft auf Hochdeutsch oder Englisch. Der Gang, die Kaffeemaschine und der Moment, in dem wirklich etwas entschieden wird, tun das nicht.",
+      },
+      "school-parents": {
+        title: "Im Kindsgi",
+        scene: "Im Kanton Zürich ist der Kindergarten auf Mundart — das hat die Stimmbevölkerung 2011 so entschieden. Wer Hochdeutsch gelernt hat, merkt das am Elternabend, vor allen anderen.",
+      },
+      shopping: {
+        title: "Im Laden",
+        scene: "Vier Fragen, jedes Mal dieselben, an der Kasse mit einer Schlange dahinter — also genau dort, wo Nachfragen am meisten kostet.",
+      },
+      tram: {
+        title: "Im Tram",
+        scene: "Durchsagen und Fremde, beide schnell. Die eine Situation, in der Nichtverstehen nicht den Satz kostet, sondern den Nachmittag.",
+      },
+      neighbours: {
+        title: "Im Treppenhaus",
+        scene: "Waschküche, Velo im Gang, Abfuhr. Ein Zettel an der Tür ist hier keine Bitte — wer ihn als eine liest, wird zur schwierigen Nachbarin, ohne dass es ihr je jemand sagt.",
+      },
+      appointment: {
+        title: "Am Telefon",
+        scene: "Der schwierigste Kanal in jeder Fremdsprache und der, den niemand übt: kein Gesicht, kein Kontext, und jemand, der eine Liste abarbeitet.",
+      },
+      "small-talk": {
+        title: "Am Mittagstisch",
+        scene: "Die Szene, wegen der es Heidi gibt. Der Tisch wechselt ins Hochdeutsche, sobald er merkt, dass Sie kämpfen — und nimmt Ihnen damit genau das weg, was helfen würde.",
+      },
       handover: {
         title: "Die Übergabe",
         scene: "Kollegin zu Kollegin, nichts wird verlangsamt, niemand wechselt Ihretwegen ins Hochdeutsche. Der schnellste Moment des Tages — und der, der über die ganze Schicht entscheidet.",

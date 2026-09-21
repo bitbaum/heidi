@@ -402,8 +402,59 @@ export const ZURICH_GERMAN: VarietyPack = {
     // `mir` for the dative "me" and loses the subject.
     { target: "mir", bridge: "wir", group: "function" },
     { target: "ächli", bridge: "ein bisschen", group: "function" },
+    /**
+     * The second batch of short words, added because the exercises were
+     * repeating: eight questions a sitting out of a pool this size means
+     * meeting the same ones within the week, and the honest fix is more
+     * material rather than a cleverer shuffle.
+     *
+     * The rule for what belongs here has not changed and these were chosen by
+     * it: a German reader gets NOTHING from them. `gäng`, `äbe`, `sölli` and
+     * `grad` are not recoverable by any correspondence, and every one of them
+     * turns up in an ordinary sentence several times a day.
+     */
+    { target: "grad", bridge: "gerade, sofort", group: "function" },
+    { target: "gäng", bridge: "immer", group: "function" },
+    { target: "äbe", bridge: "eben, genau", group: "function" },
+    { target: "sowieso", bridge: "ohnehin", group: "function" },
+    { target: "zäme", bridge: "zusammen", group: "function" },
+    { target: "deheim", bridge: "zu Hause", group: "function" },
+    { target: "hüt", bridge: "heute", group: "function" },
+    { target: "morn", bridge: "morgen", group: "function" },
+    { target: "geschter", bridge: "gestern", group: "function" },
+    { target: "spööter", bridge: "später", group: "function" },
+    { target: "ame", bridge: "normalerweise", group: "function" },
+    { target: "sicher", bridge: "bestimmt", group: "function" },
 
-    { target: "si", bridge: "sein", group: "verbs" },
+    {
+      /**
+       * The second paradigm this pack can fill from its own pages, and the
+       * most valuable one in the language.
+       *
+       * Same standard as `ha` below: every form here already appears in a
+       * sentence this file or the care pack publishes — "Ich bi geschter hei
+       * gange", "Si isch am Znacht choche", "Mir sind scho lang am warte",
+       * "Er isch am Morge scho wach gsi". So the table is a reorganisation of
+       * claims already made, not four new assertions about the language.
+       *
+       * `gsi` earns its row above any second-person form. It is the participle
+       * that carries every past tense of `sein` in a variety with no
+       * preterite — `no-preterite` is the pack's first grammar topic and this
+       * is the word it runs on. A German reader waiting for `war` gets `isch
+       * … gsi` and has nothing to recognise: `gsi` looks like no German word
+       * at all, which is exactly why it has to be learned rather than derived.
+       */
+      target: "si",
+      bridge: "sein",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "bi", bridge: "bin" },
+        { label: "er", target: "isch", bridge: "ist" },
+        { label: "mir", target: "sind", bridge: "sind" },
+        { label: "past", target: "gsi", bridge: "gewesen" },
+      ],
+      source: "idiotikon",
+    },
     {
       /**
        * The only paradigm this pack can already fill from its own pages.
@@ -433,8 +484,41 @@ export const ZURICH_GERMAN: VarietyPack = {
       ],
       source: "idiotikon",
     },
-    { target: "gah", bridge: "gehen", group: "verbs" },
-    { target: "cho", bridge: "kommen", group: "verbs" },
+    {
+      /**
+       * Attested the same way: "Ich gang go poschte" here, "Wie gaht s ere
+       * hüt?" and "mir gönd zäme zrugg is Zimmer" in the care pack.
+       *
+       * Worth a paradigm because the stem changes in a way a German reader
+       * cannot predict from `gehen`: `gang` and `gönd` share no vowel with it,
+       * so neither is recoverable by the correspondences.
+       */
+      target: "gah",
+      bridge: "gehen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "gang", bridge: "gehe" },
+        { label: "er", target: "gaht", bridge: "geht" },
+        { label: "mir", target: "gönd", bridge: "gehen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      /**
+       * "Chunnsch au no verbi hüt Abig?" is the pack's own showcase line, "De
+       * Dokter chunt am zäh" is in the care pack, and "Chömed er hüt no?" is
+       * the `unified-plural` example two hundred lines below.
+       */
+      target: "cho",
+      bridge: "kommen",
+      group: "verbs",
+      forms: [
+        { label: "du", target: "chunnsch", bridge: "kommst" },
+        { label: "er", target: "chunt", bridge: "kommt" },
+        { label: "mir", target: "chömed", bridge: "kommen" },
+      ],
+      source: "idiotikon",
+    },
     { target: "mache", bridge: "machen", group: "verbs" },
     { target: "luege", bridge: "schauen", group: "verbs" },
     { target: "säge", bridge: "sagen", group: "verbs" },
@@ -445,6 +529,22 @@ export const ZURICH_GERMAN: VarietyPack = {
     // a German reader understands them confidently and wrongly.
     { target: "schaffe", bridge: "arbeiten", group: "verbs" },
     { target: "poschte", bridge: "einkaufen", group: "verbs" },
+    /**
+     * More verbs, by the same test as the two above: each one is a word a
+     * German reader either cannot recover at all, or — worse — recovers
+     * confidently and wrongly.
+     *
+     * `aalüte` is the sharpest of them. Nothing in `anrufen` is visible in it,
+     * and it is one of the handful of things somebody has to do in their first
+     * week: ring the doctor, ring the landlord, ring the Amt.
+     */
+    { target: "aalüte", bridge: "anrufen", group: "verbs" },
+    { target: "reklamiere", bridge: "sich beschweren", group: "verbs" },
+    { target: "abmache", bridge: "vereinbaren", group: "verbs" },
+    { target: "bruuche", bridge: "brauchen", group: "verbs" },
+    { target: "hälfe", bridge: "helfen", group: "verbs" },
+    { target: "warte", bridge: "warten", group: "verbs" },
+    { target: "verstah", bridge: "verstehen", group: "verbs" },
 
     /**
      * Three nouns, one per gender, and every string here already appears in
@@ -494,6 +594,55 @@ export const ZURICH_GERMAN: VarietyPack = {
       example: { target: "S Dach vom Huus.", bridge: "Das Dach des Hauses." },
       source: "sds-atlas",
     },
+    /**
+     * The nouns, with their articles — and the articles are the point.
+     *
+     * The list had three of them, so the article drill had three questions and
+     * a learner met the same one twice a week. Gender is the error a German
+     * reader is least able to avoid, because it is carried by a word they
+     * never had to learn, and `der Velo` survives a hundred correct readings
+     * of the noun — so this is the cheapest real exercise the pack can grow.
+     *
+     * EVERY ROW HERE DIFFERS FROM GERMAN IN THE WORD TOO, and that is a
+     * constraint rather than a coincidence: the vocabulary test refuses a row
+     * whose two halves are the same string, so `Zimmer`, `Tür`, `Bahnhof` and
+     * `Jahr` are deliberately absent. A row that teaches only the article
+     * would be a row teaching one thing, and this page is not where gender
+     * alone is taught — the `articles` topic is.
+     *
+     * `s Tram` is the sharpest of them. Germany says `die Straßenbahn`;
+     * Switzerland says `das Tram` even in Standard German, and Zurich says
+     * `s Tram`. A German speaker gets the article AND the word wrong.
+     */
+    {
+      target: "Tram",
+      bridge: "Strassenbahn",
+      group: "everyday",
+      article: "s",
+      example: { target: "S Tram fahrt hüt nöd.", bridge: "Das Tram fährt heute nicht." },
+      source: "idiotikon",
+    },
+    { target: "Billett", bridge: "Fahrkarte", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Chuchi", bridge: "Küche", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Gäld", bridge: "Geld", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Arbet", bridge: "Arbeit", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Fründ", bridge: "Freund", group: "everyday", article: "de", source: "idiotikon" },
+    { target: "Wuche", bridge: "Woche", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Morge", bridge: "Morgen", group: "everyday", article: "de", source: "idiotikon" },
+    { target: "Aabig", bridge: "Abend", group: "everyday", article: "de", source: "idiotikon" },
+    { target: "Wätter", bridge: "Wetter", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Wohnig", bridge: "Wohnung", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Stross", bridge: "Strasse", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Lade", bridge: "Laden", group: "everyday", article: "de", source: "idiotikon" },
+    { target: "Poscht", bridge: "Post", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Chind", bridge: "Kind", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Ziit", bridge: "Zeit", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Wuchenend", bridge: "Wochenende", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Ässe", bridge: "Essen", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Zmorge", bridge: "Frühstück", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Zmittag", bridge: "Mittagessen", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Znacht", bridge: "Abendessen", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Lüüt", bridge: "Leute", group: "everyday" },
     { target: "Velo", bridge: "Fahrrad", group: "everyday" },
     { target: "Znüni", bridge: "Vormittagssnack", group: "everyday" },
     { target: "Zvieri", bridge: "Nachmittagssnack", group: "everyday" },
@@ -517,6 +666,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       // The single biggest one. There is no simple past in speech at all, so
       // a German reader waiting for "ging" or "war" waits forever.
       id: "no-preterite",
+      band: "blocks",
       note: "the answer used a perfect where German would use a simple past, or somebody asked why nobody ever says ging, war or sagte",
       examples: [
         { target: "Ich bi geschter hei gange.", bridge: "Ich ging gestern nach Hause." },
@@ -541,6 +691,7 @@ export const ZURICH_GERMAN: VarietyPack = {
        * making the same mistake this product exists to correct.
        */
       id: "articles",
+      band: "marks",
       note: "the answer turned on de, d or s — or the person wrote der, die or das, or gave a noun the German gender rather than this one",
       examples: [
         { target: "De Maa, d Frau, s Huus.", bridge: "Der Mann, die Frau, das Haus." },
@@ -552,6 +703,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       // `wo` never inflects. German readers parse it as "where" and lose the
       // clause.
       id: "wo-relative",
+      band: "blocks",
       note: "a relative clause built with wo, or somebody read wo as a question about a place and lost the sentence",
       examples: [
         { target: "De Maa, wo dört staht.", bridge: "Der Mann, der dort steht." },
@@ -574,6 +726,7 @@ export const ZURICH_GERMAN: VarietyPack = {
        * there is nothing separate to carry.
        */
       id: "unified-plural",
+      band: "blocks",
       note: "a plural verb such as händ, gönd or chömed — or somebody hunting for a separate second-person-plural ending that does not exist",
       examples: [
         { target: "Mir händ, ihr händ, si händ.", bridge: "Wir haben, ihr habt, sie haben." },
@@ -584,6 +737,7 @@ export const ZURICH_GERMAN: VarietyPack = {
     {
       // Possession runs the other way round, and the genitive is simply gone.
       id: "possessive-dative",
+      band: "blocks",
       note: "possession said as em Peter sis Auto, or somebody reaching for a genitive that this variety does not have",
       examples: [
         { target: "Em Peter sis Auto.", bridge: "Peters Auto." },
@@ -592,9 +746,69 @@ export const ZURICH_GERMAN: VarietyPack = {
       ],
     },
     {
+      /**
+       * The question words, and the trap in the middle of them.
+       *
+       * `wänn` is what earns this a place in `blocks`: a German reader hears
+       * it as `wenn` and parses a CONDITION where a question was asked.
+       * "Wänn chunt d Abfuhr?" read that way is not a sentence with a missing
+       * detail, it is a sentence with the wrong shape, and the reply will
+       * answer a question nobody put.
+       *
+       * Every example is a line the packs already publish.
+       */
+      id: "question-words",
+      band: "blocks",
+      note: "a question word — wänn, wo, was, wie, weer — and especially a learner who has read «wänn» as German «wenn»",
+      examples: [
+        { target: "Wänn chunt d Abfuhr?", bridge: "Wann kommt die Abfuhr?" },
+        { target: "Wo find ich d Rüebli?", bridge: "Wo finde ich die Karotten?" },
+        { target: "Was machsch am Wuchenend?", bridge: "Was machst du am Wochenende?" },
+      ],
+    },
+    {
+      /**
+       * The indefinite article, which the pack taught by example in a dozen
+       * sentences and never named.
+       *
+       * `es` is why this is `blocks` rather than `marks`: it is identical to
+       * the pronoun `es`, so "Bruuched Sie es Säckli?" reads to a German eye
+       * as "do you need IT, little bag" — a garden path with no exit. The
+       * definite articles already have a topic; this is the other half of the
+       * same fact, and its absence was the gap.
+       */
+      id: "indefinite-article",
+      band: "blocks",
+      note: "the indefinite article — en, e, es — and a learner who has read the article «es» as the pronoun «es»",
+      examples: [
+        { target: "Bruuched Sie es Säckli?", bridge: "Brauchen Sie ein Tütchen?" },
+        { target: "Händ Sie e Charte?", bridge: "Haben Sie eine Karte?" },
+        { target: "Ich möcht en Termin abmache.", bridge: "Ich möchte einen Termin vereinbaren." },
+      ],
+    },
+    {
+      /**
+       * The imperative, which is where the polite form stops looking German.
+       *
+       * `-ed` is the whole topic: "Chömed Sie" beside "Kommen Sie". A learner
+       * who has only ever met the German ending produces `Chömen Sie`, which
+       * is understood perfectly and marks them instantly — the definition of
+       * the `marks` band.
+       */
+      id: "imperative",
+      band: "marks",
+      note: "a command or a request, and a learner who has produced a polite form ending in -en rather than -ed",
+      examples: [
+        { target: "Chömed Sie doch ine.", bridge: "Kommen Sie doch herein." },
+        { target: "Blibed Sie no ächli da.", bridge: "Bleiben Sie noch ein bisschen da." },
+        { target: "Chumm, mir lauffed.", bridge: "Komm, wir gehen zu Fuss." },
+      ],
+    },
+    {
       // Productive to a degree German is not: it attaches to almost anything
       // and often carries no smallness at all.
       id: "diminutive-li",
+      band: "marks",
       note: "a word ending in -li, especially one that means nothing small and was taken literally",
       examples: [
         { target: "Machsch es Bierli?", bridge: "Trinken wir ein Bier?" },
@@ -617,6 +831,7 @@ export const ZURICH_GERMAN: VarietyPack = {
        * skip.
        */
       id: "am-progressive",
+      band: "marks",
       note: "am plus a verb for something happening right now, or somebody asking how to say they are in the middle of doing something",
       examples: [
         { target: "Ich bi am schaffe.", bridge: "Ich arbeite gerade." },
@@ -636,10 +851,16 @@ export const ZURICH_GERMAN: VarietyPack = {
        * rather than leaving it as scenery in somebody else's example.
        */
       id: "go-cho-infinitive",
+      band: "marks",
       note: "go or cho in front of a second verb — or somebody who left it out, was understood, and read as standard German doing it",
       examples: [
         { target: "Ich gang go poschte.", bridge: "Ich gehe einkaufen." },
-        { target: "Chunsch cho hälfe?", bridge: "Kommst du helfen?" },
+        // `Chunnsch`, matching the showcase line at the top of this file. The
+        // two spellings of one word were both in the pack, which is exactly
+        // what the orthography note promises not to do: there is no standard
+        // to be wrong against here, so the house spelling has to be kept by
+        // hand or it means nothing.
+        { target: "Chunnsch cho hälfe?", bridge: "Kommst du helfen?" },
         { target: "Si isch go luege gange.", bridge: "Sie ist schauen gegangen." },
       ],
     },

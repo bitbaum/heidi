@@ -6,6 +6,7 @@ import { SOURCES } from "../research/sources.ts";
 import { getDictionary } from "../i18n/index.ts";
 import { LOCALES } from "../i18n/locales.ts";
 import { CARE } from "./packs/gsw-zh-care.ts";
+import { EVERYDAY } from "./packs/gsw-zh-everyday.ts";
 import { SITUATIONS } from "./active.ts";
 import { DOMAINS, SCENES } from "./display.ts";
 import { phrasesOf, resolvesTo, type SituationPack } from "./pack.ts";
@@ -26,7 +27,7 @@ import { phrasesOf, resolvesTo, type SituationPack } from "./pack.ts";
  */
 
 /** Written as a list so a second pack is one edit, not a new describe block. */
-const PACKS: readonly SituationPack[] = [CARE];
+const PACKS: readonly SituationPack[] = [EVERYDAY, CARE];
 
 describe("every situation pack", () => {
   for (const pack of PACKS) {

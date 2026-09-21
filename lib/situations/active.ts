@@ -1,6 +1,7 @@
 import { VARIETY } from "../variety/active.ts";
 import type { DomainId, SituationPack } from "./pack.ts";
 import { CARE } from "./packs/gsw-zh-care.ts";
+import { EVERYDAY } from "./packs/gsw-zh-everyday.ts";
 
 /**
  * The domain packs this build carries — the situations seam.
@@ -19,7 +20,15 @@ import { CARE } from "./packs/gsw-zh-care.ts";
  * The filter runs at module load rather than at each call, so the cost is paid
  * once and the answer cannot differ between two callers.
  */
-const ALL: readonly SituationPack[] = [CARE];
+/**
+ * `EVERYDAY` first, and the order is what the index page renders in.
+ *
+ * Most people who open this product are not carers. They are in a shop, on a
+ * tram, in a stairwell — and putting an occupational pack above the one that
+ * applies to everybody would make the section look like it was built for
+ * somebody else.
+ */
+const ALL: readonly SituationPack[] = [EVERYDAY, CARE];
 
 export const SITUATIONS: readonly SituationPack[] = ALL.filter((pack) => pack.variety === VARIETY.tag);
 

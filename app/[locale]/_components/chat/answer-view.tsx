@@ -268,7 +268,7 @@ function NextMoves({
             const known = locale && DISPLAY.grammar.some((topic) => topic.id === move.topic);
             if (!known) return null;
             return (
-              <Link key={moveId(move)} href={`${href(locale, "grammar")}#${move.topic}`} className={style}>
+              <Link key={moveId(move)} href={`${href(locale, "grammar")}/${move.topic}`} className={style}>
                 {wording.label}
               </Link>
             );

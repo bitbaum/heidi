@@ -554,6 +554,8 @@ export const gsw: Dictionary = {
       draftConversation: "Gspräch ohni Konto",
       savedConversation: "Gspräch mit Konto",
       savedWords: "Gmerkti Wörter",
+      practiceSeen: "Scho gstellti Frage",
+      practiceModel: "Wo Sie no dra schaffed",
       ownKey: "Ihre eigne API-Schlüssel",
       theme: "Helli oder dunkli Darstellig",
       dictation: "Diktiere",
@@ -809,6 +811,13 @@ export const gsw: Dictionary = {
     articleLabel: "Artikel",
     formsLabel: "Forme",
     exampleLabel: "Im Satz",
+    filterLabel: "Wörter filtere",
+    filterPlaceholder: "Mundart oder Düütsch tippe …",
+    noMatches: "Dezue passt kei Wort.",
+    clearFilter: "Zrugg setze",
+    practiseGroup: "Die Gruppe üebe",
+    jumpLabel: "Direkt zu",
+    saidInTitle: "Gseit i",
   },
 
   practice: {
@@ -833,7 +842,18 @@ export const gsw: Dictionary = {
       form: "Weli Form passt?",
       cloze: "Wele Wort fählt?",
       recall: "Was heisst das?",
+      match: "Was ghört zäme?",
+      gaptext: "Weli Wörter fähled?",
     },
+    matchHint: "Tippet es Wort aa, dänn si Bedütig.",
+    gapHint: "Tippet es Wort aa — es rutscht i di nächscht Lugge. Uf e gfülti Lugge tippe nimmt s zrugg.",
+    check: "Prüefe",
+    focusTitle: "Da hänged Sie grad",
+    focusLead: "Das chunt bi Ihne immer wider. Ei Klick üebt nur das.",
+    scopedTo: "Nur zu: {what}",
+    scopeAll: "Alles üebe",
+    scopeEmpty:
+      "Dezue git s no kei Frage. Das heisst nöd, s Thema seg unwichtig — nur, das Pack hät defür no kei Bispil.",
     origin: "S andere isch {origin}.",
     persons: {
       ich: "ich",
@@ -974,7 +994,38 @@ export const gsw: Dictionary = {
     lead: "Was Züritüütsch schwer verständlich macht für öpper, wo scho Dütsch liest — zerscht das, wo en Satz ganz dra scheiteret, denn das, wo Si zwar verstönd, aber nie sälber sege würded.",
     ruleLabel: "D Regle",
     watchLabel: "Wo's hakt",
+    bands: {
+      blocks: {
+        title: "Dra gaht de Satz kaputt",
+        lead: "Ohni die fangt s Zuelose gar nöd aa. Si warted uf e Form, wo nie chunt, oder läsed es Wort als öppis ganz anders — und de Rescht vom Satz isch furt.",
+      },
+      marks: {
+        title: "Verstah scho — sälber säge nie",
+        lead: "Die verstönd Si bim Lose problemlos. Wer si nie sälber bruucht, tönt daurhaft nach Hochdüütsch mit Züri-Wörter drin.",
+      },
+    },
+    allTopics: "Alli Theme",
+    practiseTopic: "Das Thema üebe",
+    whereTitle: "Wo das würkli vorchunt",
+    whereLead: "Di gliich Struktur, i Sätz, wo würkli so gseit werded.",
+    prevLabel: "Zrugg",
+    nextLabel: "Wiiter",
     topics: {
+      "question-words": {
+        title: "Fragewörter — und d Falle dinn",
+        rule: "wänn, wo, was, wie, weer. Di meiste erkennt mer; eis nöd.",
+        watch: "«Wänn» tönt wie s düütsche «wenn». Si höred e Bedingig, gfrooget worde isch aber öppis anders — und Iri Antwort passt dänn uf öppis, wo niemert gfrooget hät.",
+      },
+      "indefinite-article": {
+        title: "en, e, es — de unbestimmt Artikel",
+        rule: "«en» bim männliche, «e» bim wibliche, «es» bim sächliche Wort.",
+        watch: "«es» gseht uus wie s Pronome «es». «Bruuched Sie es Säckli?» heisst nöd «bruuched Sie s», sondern «bruuched Sie es Säckli».",
+      },
+      imperative: {
+        title: "Befähl und Bitt: d Sie-Form ändet uf -ed",
+        rule: "Bim Du staht de blossi Stamm: «Chumm». Bim Sie chunt -ed dezue: «Chömed Sie».",
+        watch: "Verstah werded Si beides. Wer «Chömen Sie» seit, wird au verstande — und sofort als Nöd-Züricher erkennt.",
+      },
       "no-preterite": {
         title: "Kei Präteritum",
         rule: "Gschwätzts Züritüütsch hät kei eifachi Vergangeheit: alles Vergangene staht im Perfekt.",
@@ -1233,7 +1284,7 @@ export const gsw: Dictionary = {
 
   situations: {
     title: "Wo Sie s bruuched",
-    lead: "Nöd nach Wortarte sortiert, sondern nach em Moment: was uf ere Schicht würkli gseit wird, i de Reiefolg, wo s chunt.",
+    lead: "Nöd nach Wortarte sortiert, sondern nach em Moment: was i dere Situation würkli gseit wird, i de Reiefolg, wo s chunt.",
     note: "D Richtig isch wie überall da: zerscht verstah. Di meiste Sätz höred Sie — die weenige, wo Sie sälber säged, sind markiert.",
     unreviewed: "Jede Satz da isch maschinell uf Züri-Forme prüeft, aber no vo kener Muettersproochlere gläse worde. Das staht da, wil Sie s eus nöd aagseend.",
     hear: "Das höred Sie",
@@ -1244,12 +1295,48 @@ export const gsw: Dictionary = {
     practiseLabel: "Jetz üebe",
     backLabel: "Alli Situatione",
     domains: {
+      everyday: {
+        title: "Alltag i Züri",
+        lead: "Lade, Tram, Treppehuus, Telifon, Mittagstisch. Situatione, wo fascht alli jedi Wuche drin stönd — und wo de Ruum grad dänn is Hochdüütsche wächslet, wänn er merkt, das Sie Müe händ.",
+      },
       care: {
         title: "Alters- und Pflegeheim",
         lead: "En Bewohnere mit Demänz verliert d Zweitsprooche zerscht. Was bliibt, isch s Züritüütsch vo ihrere Chindheit — und das isch d Sprooch, wo d Schicht drin lauft.",
       },
     },
     scenes: {
+      restaurant: {
+        title: "Im Restaurant",
+        scene: "Vier feschti Frage und eini, wo über d Rächnig entscheidet. «Zäme oder separat» wird eimal gfrooget, schnell, und wer s falsch verstaht, merkt s am ganze Tisch.",
+      },
+      "at-work": {
+        title: "Bi de Arbet",
+        scene: "D Sitzig lauft uf Hochdüütsch oder Änglisch. De Gang, d Kafimaschine und de Moment, wo würkli öppis entschide wird, tüend das nöd.",
+      },
+      "school-parents": {
+        title: "Im Kindsgi",
+        scene: "Im Kanton Züri isch de Kindsgi uf Mundart — das hät s Stimmvolk 2011 so entschide. Wer Hochdüütsch glernt hät, merkt das am Elterenaabig, vor allne andere.",
+      },
+      shopping: {
+        title: "Im Lade",
+        scene: "Vier Frage, jedes Mal di gliiche, a de Kasse mit ere Schlange dehinter — also grad det, wo Nachefrage am meischte choschtet.",
+      },
+      tram: {
+        title: "Im Tram",
+        scene: "Durchsage und Frömdi, beidi schnell. Di ei Situation, wo Nöd-Verstah nöd de Satz choschtet, sondern de Namittag.",
+      },
+      neighbours: {
+        title: "Im Treppehuus",
+        scene: "Waschchuchi, Velo im Gang, Abfuhr. En Zädel a de Tür isch da kei Bitt — wer en so liist, wird zur schwirige Nachbere, ohni das es em je öpper seit.",
+      },
+      appointment: {
+        title: "Am Telifon",
+        scene: "De schwirigscht Kanal i jedere Frömdsprooch und dää, wo niemert üebt: kei Gsicht, kei Kontext, und öpper, wo e Lischte abschaffet.",
+      },
+      "small-talk": {
+        title: "Am Mittagstisch",
+        scene: "D Szene, wägen ere s Heidi git. De Tisch wächslet is Hochdüütsche, sobald er merkt, das Sie kämpfed — und nimmt Ihne grad das wäg, wo hulfe.",
+      },
       handover: {
         title: "D Übergab",
         scene: "Kollegin zu Kollegin, nüüt wird langsamer gmacht, niemert wächslet Ihretwege is Hochdüütsche. De schnellscht Moment vom Tag — und dää, wo über di ganz Schicht entscheidet.",

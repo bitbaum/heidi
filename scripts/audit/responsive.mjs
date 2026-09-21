@@ -72,6 +72,14 @@ const PATHS = [
   // halves — the three-deep stack that has nothing to shrink if the grid track
   // is left at `auto`.
   "/situations", "/situations/handover", "/situations/evening-unrest",
+  // A grammar topic page, and the two worst cases among them: `no-preterite`
+  // has the longest example pair in the pack and now also lists the scene
+  // lines that use it, and `unified-plural` renders «Mir händ, ihr händ, si
+  // händ.» beside a German gloss half again as long.
+  "/grammar/no-preterite", "/grammar/unified-plural",
+  // The practice page in a SCOPED state, which is a different layout: it adds
+  // the scope banner above the session, and its pill wraps in three languages.
+  "/practice?topic=no-preterite",
 ];
 
 /**

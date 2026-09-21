@@ -4,9 +4,13 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { PACK_ITEMS } from "@/lib/domain/practice/published";
+import { includesSaved, itemsInScope, parseScope, type Scope } from "@/lib/domain/practice/scope";
+import { fill } from "@/lib/i18n/fill";
+import type { Dictionary } from "@/lib/i18n/dictionaries/de";
 import { SOURCES, shortCitation } from "@/lib/research/sources";
 import { Shell } from "../_components/page-shell";
 import { PracticeSession } from "../_components/practice-session";
+import { FocusPanel } from "../_components/focus-panel";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -30,11 +34,68 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
  * `/privacy` holding under a feature that would have been easier to build by
  * breaking it.
  */
-export default async function PracticePage({ params }: { params: Promise<{ locale: string }> }) {
+/**
+ * What to call a scope, in the reader's language.
+ *
+ * It reads the SAME dictionary entries the pages themselves render — the
+ * grammar topic's own title, the scene's own title, the vocabulary group's own
+ * heading — rather than a second set of names written for this banner. Two
+ * names for one thing is how a product ends up telling somebody they are
+ * practising "Verbs" on a page headed "Verben, die ständig vorkommen".
+ *
+ * An id nothing recognises falls back to the id itself. That is deliberate: a
+ * hand-edited URL should show what it asked for, so the person can see their
+ * typo, rather than a friendly label that hides it.
+ */
+function scopeName(dict: Dictionary, scope: Scope): string {
+  switch (scope.kind) {
+    case "all":
+      return "";
+    case "topic":
+      return dict.grammar.topics[scope.id as keyof typeof dict.grammar.topics]?.title ?? scope.id;
+    case "scene":
+      return dict.situations.scenes[scope.id as keyof typeof dict.situations.scenes]?.title ?? scope.id;
+    case "group":
+      return dict.vocabulary.groups[scope.id as keyof typeof dict.vocabulary.groups] ?? scope.id;
+  }
+}
+
+export default async function PracticePage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   const t = dict.practice;
+
+  /**
+   * WHAT THIS SITTING IS ABOUT, read from the URL.
+   *
+   * `/practice` is the whole pool and stays exactly as it was.
+   * `/practice?topic=am-progressive` is the same page narrowed to one thing,
+   * and it is what every reference surface now links to — the grammar topic
+   * you have just read, the scene you have just skimmed, the group of words
+   * you are looking at. The narrowing happens HERE, on the server, where the
+   * items and the URL both are; the session component is handed a pool and
+   * does not need to know what a scope is.
+   */
+  const scope = parseScope(await searchParams);
+  const items = itemsInScope(PACK_ITEMS, scope);
+  const named = scopeName(dict, scope);
+
+  /**
+   * A scope that matches nothing says so, and offers the way out.
+   *
+   * This is reachable by editing the URL and, more importantly, by following a
+   * link from a topic the pack has not written questions for yet — a grammar
+   * topic with no examples produces no cloze items, and pretending otherwise
+   * would drop somebody into a blank session with no explanation.
+   */
+  const empty = items.length === 0;
 
   return (
     <Shell>
@@ -47,7 +108,36 @@ export default async function PracticePage({ params }: { params: Promise<{ local
       </header>
 
       <div className="border-t border-border-subtle pt-8">
-        <PracticeSession packItems={PACK_ITEMS} t={t} locale={locale} />
+        {/* The subject of a scoped sitting, named, with the door back to
+            everything. A drill that has silently been narrowed is worse than
+            one that has not: the learner cannot tell whether the pool is small
+            or the product is broken. */}
+        {scope.kind !== "all" && (
+          <p className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-control border border-border-subtle bg-surface-raised px-4 py-3 text-sm text-fg-secondary">
+            <span>{fill(t.scopedTo, { what: named })}</span>
+            <Link href={href(locale, "practice")} className="text-link underline underline-offset-4 hover:text-accent">
+              {t.scopeAll}
+            </Link>
+          </p>
+        )}
+
+        {/* Only on the unscoped page: inside a scoped sitting the learner has
+            already said what they want to work on, and offering them three
+            other things is the product arguing with them. */}
+        {scope.kind === "all" && (
+          <FocusPanel t={t} grammarT={dict.grammar} situationsT={dict.situations} locale={locale} />
+        )}
+
+        {empty ? (
+          <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.scopeEmpty}</p>
+        ) : (
+          <PracticeSession
+            packItems={items}
+            t={t}
+            locale={locale}
+            includeSaved={includesSaved(scope)}
+          />
+        )}
       </div>
 
       {/*

@@ -2,6 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { declaredKeys, humanSize } from "./stores.ts";
 import { FLOWS } from "../config/privacy.ts";
+import { getDictionary } from "../i18n/index.ts";
+import { LOCALES } from "../i18n/locales.ts";
 
 /**
  * The settings page acts on the list the privacy page publishes. These assert
@@ -20,6 +22,41 @@ test("every device key the privacy page declares is one settings can delete", ()
   );
   for (const { key } of declared) {
     assert.match(key, /^heidi\./, `${key} is not one of ours`);
+  }
+});
+
+test("every flow the privacy page lists has a name in every language", () => {
+  /**
+   * THE DIRECTION NOTHING CHECKED, and it let a real gap through.
+   *
+   * The privacy page renders `t.flows[flow.id]`, so a flow with no dictionary
+   * entry renders an EMPTY CELL — a row of storage with no name, on the one
+   * page whose entire job is telling somebody what is held about them. The
+   * type checker cannot see it: the lookup is indexed by a string.
+   *
+   * It was found by adding the practice stores, which had been undeclared
+   * since the exercises shipped. `heidi.practice.seen.v1` existed for weeks
+   * and appeared on no page, which is worse than not listing anything: a
+   * privacy page that lists some of what is on the device reads as exhaustive.
+   */
+  for (const locale of LOCALES) {
+    const flows = getDictionary(locale).privacy.flows;
+    for (const flow of FLOWS) {
+      const label = flows[flow.id as keyof typeof flows];
+      assert.ok(label?.trim(), `${locale} has no name for the "${flow.id}" flow, so the page renders a blank row`);
+    }
+  }
+});
+
+test("no dictionary names a flow the privacy page does not list", () => {
+  // The other half of the join: a translated name for storage that no longer
+  // exists, in seven languages, which quietly claims we hold something we do
+  // not.
+  const known = new Set(FLOWS.map((flow) => flow.id));
+  for (const locale of LOCALES) {
+    for (const id of Object.keys(getDictionary(locale).privacy.flows)) {
+      assert.ok(known.has(id), `${locale} names the "${id}" flow, which is not in FLOWS`);
+    }
   }
 });
 

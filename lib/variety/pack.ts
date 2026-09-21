@@ -141,6 +141,31 @@ export type Correspondence = {
  * none). So: a pair of forms, a sentence of rule, and the thing that trips
  * people. Not a chapter.
  */
+/**
+ * What a topic DOES to a reader of the bridge — the two bands.
+ *
+ * The grammar page's own lead has made this distinction in prose since it
+ * shipped: "first what makes a sentence fail completely, then what you
+ * understand but would never say yourself". That is a real division and it was
+ * carried entirely by the ORDER of the list, which is to say by nothing a
+ * reader could see and nothing a test could hold.
+ *
+ * `blocks`  the sentence does not survive. A German reader waits for a
+ *           preterite that never comes, reads `wo` as "where", or loses the
+ *           subject because `mir` looks like a dative. These are the ones
+ *           worth reading before anything else, because without them the
+ *           listening does not start.
+ * `marks`   the sentence survives and the speaker does not. You follow
+ *           `am schaffe` and `go poschte` perfectly well; never producing them
+ *           is what keeps somebody sounding like Standard German with Zurich
+ *           words in it.
+ *
+ * A pack for another variety declares its own assignment. The bands are the
+ * shape, not the content — and a variety whose gap is production rather than
+ * comprehension will put most of its topics in the second one.
+ */
+export type GrammarBand = "blocks" | "marks";
+
 export type GrammarTopic = {
   /**
    * Stable, lowercase, hyphenated. It is a URL fragment and the argument of a
@@ -148,6 +173,12 @@ export type GrammarTopic = {
    * out — treat it as permanent.
    */
   id: string;
+  /**
+   * Which band this belongs to. Required: a topic that has not been decided
+   * either way is a topic nobody has thought about, and the index would have
+   * to invent a home for it.
+   */
+  band: GrammarBand;
   /**
    * The contrast, target beside bridge. Two or three: one example is an
    * anecdote and five is a drill.
