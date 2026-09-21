@@ -16,6 +16,62 @@ record of being wrong is the part worth keeping.
 
 ---
 
+## 2026-09-22
+
+**The reference section became navigable, and practice became addressable.**
+`/grammar` was one document four screens long with every topic expanded; it is
+now an index grouped into two bands — the topics a sentence does not survive,
+and the ones it survives while you do not — with a page per topic at
+`/grammar/<topic>`. Each topic page carries what a section could not: a
+practice session about that topic alone, the scene lines where it actually
+occurs, and previous/next within its band. `/vocabulary` gained a filter over
+both languages, jump links, a scoped session per group, and the scenes each
+word is said in. Every scene now practises itself.
+
+The mechanism under all three is one thing: `?topic=`, `?scene=` and `?group=`
+on `/practice`, filtering the existing pool. Nothing new is generated. It works
+because `ItemSource` already recorded where each question came from — the field
+built to make a wrong answer traceable turned out to make a pool addressable.
+
+**Two new exercise kinds.** `match` (four words, four meanings) and `gaptext`
+(a four-line passage from a scene with three words lifted out and offered
+back). The word bank is what makes a passage objectively markable in a variety
+with no settled spelling: the learner chooses rather than spells. A word-order
+exercise was considered and refused — this variety tolerates more than one
+order, and calling a valid alternative wrong would be the §6 failure in a new
+place.
+
+**The system now knows what you keep getting wrong.** A learner model in the
+browser, beside the kept words: a miss rate per topic, scene, word group and
+rule, which reorders every sitting so the weak half leads and names the two or
+three areas worth going back to. No number is ever shown — no percentage, no
+level, no streak. The diagnosis points at the material, never at the person.
+It is declared on `/privacy` and deletable from `/settings`, along with the
+seen-history, which had been undeclared since the exercises shipped.
+
+The first smoothing was wrong and a test caught it: `missed/(asked+1)` let one
+wrong answer out of one outrank a topic missed nine times out of twenty. The
+rate is now shrunk by sample size instead.
+
+**Exercise kinds became modules.** `lib/domain/practice/kinds/`, one file per
+kind plus a registry. Adding `match` had touched five places, one of which was
+a bug shipped in the same commit as the feature. The registry's contract test
+immediately found a second: two cloze items generated from one topic could
+share an id, so answering one marked the other asked and one of the two was
+never served again.
+
+**And enough material that the questions stop repeating**, which was the
+complaint and was arithmetic rather than scheduling. A second situations
+domain (`everyday`), the short words no correspondence rescues, and paradigms
+for `si`, `gah` and `cho` — each built only from forms the packs already
+publish. Practice items 67 → 136, scenes 6 → 11, vocabulary 48 → 61.
+
+Two smaller corrections found on the way: the pack spelled `Chunnsch` in its
+showcase and `Chunsch` in a grammar example, which is exactly what the
+orthography note promises not to do; and four places still linked
+`/grammar#<topic>` after topics became pages — including the chat's own grammar
+button, the product's main loop.
+
 ## 2026-09-21
 
 **Situations, and the sales claim that had nothing behind it.** `/situations`

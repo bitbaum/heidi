@@ -4,8 +4,10 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { DISPLAY } from "@/lib/variety/display";
 import { SOURCES, citation, type SourceId } from "@/lib/research/sources";
 import { href } from "@/lib/i18n/routes";
+import { scenesSayingWord } from "@/lib/situations/display";
 import { Shell } from "../_components/page-shell";
-import { KeptCount, WordList } from "../_components/word-list";
+import { KeptCount } from "../_components/word-list";
+import { VocabularyBrowser, type SceneLink } from "../_components/vocabulary-browser";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -17,19 +19,25 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 const GROUPS = ["function", "verbs", "everyday", "greetings"] as const;
 
 /**
- * The words that buy the most comprehension.
+ * The words that buy the most comprehension — now findable.
  *
- * Read top to bottom it is an argument as much as a list: the first two groups
- * are the short constant words and the handful of verbs, because those are
- * what no sound correspondence rescues and what actually stops a German
- * reader. Nouns and greetings come last, and are short, because a person does
- * not fail to follow a Zurich lunch table for want of "good evening".
+ * READ TOP TO BOTTOM IT IS STILL AN ARGUMENT: the first two groups are the
+ * short constant words and the handful of verbs, because those are what no
+ * sound correspondence rescues and what actually stops a German reader. Nouns
+ * and greetings come last, and are short, because a person does not fail to
+ * follow a Zurich lunch table for want of "good evening". That ordering is why
+ * `GROUPS` is a literal here rather than derived alphabetically.
  *
- * THE DIRECTION IS DIALECT → GERMAN and the page says so, because the same
- * pair read the other way would contradict the Swiss Standard German gate:
- * this page says *Velo* means *Fahrrad*, and that gate flags *Fahrrad* as
- * Germany's word. Both are right and they face opposite ways — understanding
- * what was said, versus writing something to send.
+ * WHAT CHANGED IS EVERYTHING AROUND IT. The list was a list: no way in except
+ * scrolling, no way out except the chat. It now has a filter over both
+ * languages, jump links to the groups, a scoped practice session per group,
+ * and — for the words that have one — the scenes where the word is actually
+ * said. See `vocabulary-browser.tsx` for why each of those is there.
+ *
+ * THE DIRECTION IS DIALECT → GERMAN and the page still says so, because the
+ * same pair read the other way would contradict the Swiss Standard German
+ * gate: this page says *Velo* means *Fahrrad*, and that gate flags *Fahrrad*
+ * as Germany's word. Both are right and they face opposite ways.
  */
 export default async function VocabularyPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -38,6 +46,27 @@ export default async function VocabularyPage({ params }: { params: Promise<{ loc
   const t = dict.vocabulary;
 
   const sources = DISPLAY.vocabularySources.filter((s): s is SourceId => s in SOURCES);
+
+  /**
+   * The word-to-scene join, resolved HERE rather than in the browser.
+   *
+   * It needs the situation packs and the seven dictionaries, and shipping
+   * either to the client to render a handful of links would send the whole
+   * corpus in order to print four titles. Most words get nothing, which is the
+   * honest result: the pack's function words are general and a care shift is
+   * one domain.
+   */
+  const saidIn: Record<string, readonly SceneLink[]> = {};
+  for (const word of DISPLAY.vocabulary) {
+    const scenes = scenesSayingWord(word.target)
+      .map((scene) => {
+        const words = dict.situations.scenes[scene.id as keyof typeof dict.situations.scenes];
+        if (!words) return null;
+        return { id: scene.id, title: words.title, href: `${href(locale, "situations")}/${scene.id}` };
+      })
+      .filter((scene): scene is SceneLink => scene !== null);
+    if (scenes.length > 0) saidIn[word.target] = scenes;
+  }
 
   return (
     <Shell>
@@ -48,40 +77,38 @@ export default async function VocabularyPage({ params }: { params: Promise<{ loc
         <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.lead}</p>
         <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{t.note}</p>
 
-        {/* What the reader is carrying, and the way back into reviewing it.
-            The list below is now something to act on rather than only read,
-            and this is the line that says so. */}
+        {/* What the reader is carrying, and the way back into reviewing it. */}
         <div className="mt-6">
           <KeptCount t={t} portalHref={href(locale, "portal")} />
         </div>
       </header>
 
-      <div className="flex flex-col gap-12 border-t border-border-subtle pt-10">
-        {GROUPS.map((group) => {
-          const words = DISPLAY.vocabulary.filter((w) => w.group === group);
-          if (words.length === 0) return null;
-
-          return (
-            <section key={group} id={group} className="scroll-mt-24">
-              <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
-                {t.groups[group]}
-              </h2>
-
-              {/* Two columns of pairs rather than a table: a table implies
-                  columns you can sort and compare down, and there is nothing
-                  to compare — each row is one fact on its own. The two
-                  controls per row are what make it a place to learn rather
-                  than a place to read; see `word-list.tsx`. */}
-              <WordList words={words} t={t} chatT={dict.chat} persons={dict.practice.persons} />
-            </section>
-          );
-        })}
+      <div className="border-t border-border-subtle pt-10">
+        <VocabularyBrowser
+          words={DISPLAY.vocabulary.map((word) => ({
+            target: word.target,
+            bridge: word.bridge,
+            group: word.group,
+            ...(word.article ? { article: word.article } : {}),
+            ...(word.forms ? { forms: word.forms } : {}),
+            ...(word.example ? { example: word.example } : {}),
+          }))}
+          groups={GROUPS.filter((group) => DISPLAY.vocabulary.some((w) => w.group === group)).map((group) => ({
+            id: group,
+            title: t.groups[group],
+          }))}
+          saidIn={saidIn}
+          t={t}
+          chatT={dict.chat}
+          persons={dict.practice.persons}
+          practiceHref={href(locale, "practice")}
+        />
       </div>
 
       {sources.length > 0 && (
         <section aria-labelledby="sources" className="mt-14 border-t border-border-subtle pt-8">
           <h2 id="sources" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-            {getDictionary(locale).dialect.sourcesTitle}
+            {dict.dialect.sourcesTitle}
           </h2>
           <ul className="mt-3 flex flex-col gap-2">
             {sources.map((id) => (

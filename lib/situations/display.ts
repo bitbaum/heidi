@@ -97,3 +97,51 @@ export function sceneById(id: string): DisplayScene | undefined {
 export function domainOf(scene: DisplayScene): DisplayDomain | undefined {
   return DOMAINS.find((d) => d.id === scene.domain);
 }
+
+/**
+ * The scenes where a grammar topic actually occurs.
+ *
+ * THE JOIN READ BACKWARDS, and it is the cheapest content this product has.
+ * Every situation line already declares the topic it turns on, so the grammar
+ * section can ask the reverse question — *where does this happen?* — without
+ * anybody writing a second list, and the answer improves on its own every time
+ * a scene is added.
+ *
+ * It is also the answer to the complaint a reference page always earns. A
+ * topic page can explain `am-progressive` perfectly and still leave a reader
+ * with no reason to believe it matters; three real lines from a shift, each
+ * linking to the moment it is said in, is a different kind of argument.
+ */
+export function scenesUsingTopic(topic: string): DisplayScene[] {
+  return SCENES.filter((scene) => scene.topics.includes(topic));
+}
+
+/**
+ * Whole-word, Unicode-aware, and deliberately not a substring test.
+ *
+ * `si` is a word of this variety and it is inside `isch`, `Sie` and half the
+ * vocabulary; a substring match would tell a reader that `si` appears in nine
+ * scenes, which is true of the letters and false of the word. Same pattern the
+ * variety gate uses, and for the same reason: `\p{L}` rather than `\w`,
+ * because most words here carry an umlaut.
+ */
+function saysWord(sentence: string, word: string): boolean {
+  const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(?<!\\p{L})${escaped}(?!\\p{L})`, "iu").test(sentence);
+}
+
+/**
+ * The scenes where a vocabulary word is actually said.
+ *
+ * What turns the word list from a list into something with somewhere to go: a
+ * reader who has just met `nöd` can see it in four sentences people say, which
+ * is the difference between a gloss and a memory. Empty is a real answer and
+ * the page shows nothing rather than a heading over an empty list — most of
+ * the pack's words are not in a care shift, and pretending otherwise would be
+ * the join lying to make a section look full.
+ */
+export function scenesSayingWord(word: string): DisplayScene[] {
+  const needle = word.trim();
+  if (!needle) return [];
+  return SCENES.filter((scene) => scene.phrases.some((phrase) => saysWord(phrase.target, needle)));
+}

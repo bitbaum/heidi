@@ -471,6 +471,8 @@ export const en: Dictionary = {
       draftConversation: "Conversation without an account",
       savedConversation: "Conversation with an account",
       savedWords: "Saved words",
+      practiceSeen: "Questions already asked",
+      practiceModel: "What you are still working on",
       ownKey: "Your own API key",
       theme: "Light or dark appearance",
       dictation: "Dictation",
@@ -784,6 +786,13 @@ export const en: Dictionary = {
     articleLabel: "Article",
     formsLabel: "Forms",
     exampleLabel: "In a sentence",
+    filterLabel: "Filter the words",
+    filterPlaceholder: "Type dialect or German …",
+    noMatches: "No word matches that.",
+    clearFilter: "Clear",
+    practiseGroup: "Practise this group",
+    jumpLabel: "Jump to",
+    saidInTitle: "Said in",
   },
 
   practice: {
@@ -808,7 +817,18 @@ export const en: Dictionary = {
       form: "Which form fits?",
       cloze: "Which word is missing?",
       recall: "What does this mean?",
+      match: "Which go together?",
+      gaptext: "Which words are missing?",
     },
+    matchHint: "Tap a word, then its meaning.",
+    gapHint: "Tap a word — it drops into the next gap. Tap a filled gap to take it back.",
+    check: "Check",
+    focusTitle: "What is catching you out",
+    focusLead: "These keep coming back wrong for you. One tap practises only those.",
+    scopedTo: "Just: {what}",
+    scopeAll: "Practise everything",
+    scopeEmpty:
+      "There are no questions for this yet. That does not mean the topic is unimportant — only that the pack has no examples for it so far.",
     origin: "The other one is {origin}.",
     persons: {
       ich: "I",
@@ -949,6 +969,22 @@ export const en: Dictionary = {
     lead: "What makes Zurich German hard to follow for somebody who already reads German — first the things a sentence fails on outright, then the things you will understand but would never say yourself.",
     ruleLabel: "The rule",
     watchLabel: "Where it catches you",
+    bands: {
+      blocks: {
+        title: "The sentence does not survive these",
+        lead: "Without them the listening does not start. You wait for a form that never comes, or read a word as something else entirely — and the rest of the sentence is gone.",
+      },
+      marks: {
+        title: "You follow these — you would never say them",
+        lead: "These give you no trouble when listening. Never using them yourself is what keeps somebody sounding like Standard German with Zurich words in it.",
+      },
+    },
+    allTopics: "All topics",
+    practiseTopic: "Practise this topic",
+    whereTitle: "Where this actually comes up",
+    whereLead: "The same structure, in sentences said on a shift.",
+    prevLabel: "Previous",
+    nextLabel: "Next",
     topics: {
       "no-preterite": {
         title: "No simple past",
@@ -1219,12 +1255,36 @@ export const en: Dictionary = {
     practiseLabel: "Practise now",
     backLabel: "All situations",
     domains: {
+      everyday: {
+        title: "Everyday Zurich",
+        lead: "The shop, the tram, the stairwell, the telephone, the lunch table. Situations almost everybody is in every week — and where the room switches to Standard German the moment it notices you are struggling.",
+      },
       care: {
         title: "Care and nursing homes",
         lead: "A resident with dementia loses her second languages first. What is left is the Zurich German of her childhood — and that is the language the shift runs in.",
       },
     },
     scenes: {
+      shopping: {
+        title: "At the shop",
+        scene: "Four questions, the same ones every time, at a till with a queue behind you — which is exactly where asking somebody to repeat themselves costs the most.",
+      },
+      tram: {
+        title: "On the tram",
+        scene: "Announcements and strangers, both of them fast. The one situation where not following costs you the afternoon rather than the sentence.",
+      },
+      neighbours: {
+        title: "In the stairwell",
+        scene: "The laundry room, the bike in the hallway, the rubbish. A note on the door is not a request here — somebody who reads it as one becomes the difficult neighbour without ever being told.",
+      },
+      appointment: {
+        title: "On the telephone",
+        scene: "The hardest channel in any second language and the one nobody practises: no face, no context, and a stranger working through a list.",
+      },
+      "small-talk": {
+        title: "At the lunch table",
+        scene: "The scene this product exists for. The table switches to Standard German the moment it notices you are struggling — withdrawing exactly the thing that would have helped.",
+      },
       handover: {
         title: "The handover",
         scene: "Colleague to colleague, nothing slowed down, nobody switching to Standard German on your account. The fastest speech of the day, and the part that decides the whole shift.",

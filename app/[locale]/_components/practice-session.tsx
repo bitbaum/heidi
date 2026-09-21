@@ -7,10 +7,12 @@ import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { fill } from "@/lib/i18n/fill";
 import { DISPLAY } from "@/lib/variety/display";
-import { createBrowserStore, useBrowserStore, useStoreWriter } from "@/lib/browser/store";
+import { useBrowserStore, useStoreWriter } from "@/lib/browser/store";
 import { recallItems } from "@/lib/domain/practice/generate";
-import { NO_HISTORY, decodeHistory, remember } from "@/lib/domain/practice/history";
+import { NO_HISTORY, remember } from "@/lib/domain/practice/history";
+import { historyStore, modelStore } from "./practice-stores";
 import { orderSession, requeue, summarise } from "@/lib/domain/practice/session";
+import { EMPTY_MODEL, decodeModel, observe } from "@/lib/domain/practice/model";
 import type { PracticeItem } from "@/lib/domain/practice/types";
 import { wordSlug } from "@/lib/domain/practice/slug";
 import { useSaved } from "./use-saved";
@@ -42,17 +44,34 @@ import { useGrade } from "./use-review";
  * how the learner did, which keeps it the same kind of thing as their saved
  * words: theirs, in their browser, and worthless to anybody else.
  */
-const historyStore = createBrowserStore("heidi.practice.seen.v1", decodeHistory);
+// Both stores live in `practice-stores.ts`, created once: two modules each
+// creating one for the same key get two subscriber lists over one piece of
+// storage, and a write through one notifies nobody watching the other.
 
 export function PracticeSession({
   packItems,
   t,
   locale,
+  includeSaved = true,
 }: {
-  /** Everything the pack can ask, generated on the server. */
+  /**
+   * What the pack can ask, generated on the server — already NARROWED to the
+   * scope, if there is one. The filtering happens up there because that is
+   * where the items and the URL both are, and because a component that took a
+   * scope would have to be told what the scope means.
+   */
   packItems: readonly PracticeItem[];
   t: Dictionary["practice"];
   locale: Locale;
+  /**
+   * Whether the learner's own kept words join this sitting.
+   *
+   * False for a scoped session. See `scope.ts`: a session opened from one
+   * grammar topic that quietly mixed in four unrelated words somebody kept
+   * last week is not a session about that topic, it is the general drill
+   * wearing the topic's name.
+   */
+  includeSaved?: boolean;
 }) {
   const saved = useSaved();
   const grade = useGrade();
@@ -81,19 +100,29 @@ export function PracticeSession({
    */
   const historyAtBuild = useRef(history);
 
+  const writeModel = useStoreWriter(modelStore);
+
   const build = useCallback(() => {
     historyAtBuild.current = historyStore.read() ?? NO_HISTORY;
+    const own = includeSaved ? recallItems(saved.words) : [];
     setSession(
       orderSession({
-        items: [...packItems, ...recallItems(saved.words)],
-        saved: saved.words,
+        // Read at build rather than subscribed to, for the same reason the
+        // history is: writing to it mid-session would rebuild the session
+        // under the learner's hands, one question at a time.
+        model: modelStore.read() ?? EMPTY_MODEL,
+        items: [...packItems, ...own],
+        // Empty in a scoped sitting, so the due-words-first rule has nothing
+        // to promote. Passing the full list while withholding the items would
+        // make `orderSession` reserve places for questions that do not exist.
+        saved: includeSaved ? saved.words : [],
         now: new Date(),
         seen: historyAtBuild.current,
       }),
     );
     setAt(0);
     setOutcomes([]);
-  }, [packItems, saved.words]);
+  }, [packItems, saved.words, includeSaved]);
 
   // Once storage has been read, and not before: a session built on an empty
   // word list would leave out every word that was actually due.
@@ -116,6 +145,22 @@ export function PracticeSession({
     // half way still counts as asked — otherwise leaving after four questions
     // means meeting the same four first thing next time.
     writeHistory.write(remember(historyStore.read() ?? NO_HISTORY, [id]));
+
+    /**
+     * And the model hears the FIRST answer only, for the same reason the
+     * review schedule does.
+     *
+     * A question requeued three later because it was missed is being relearned,
+     * and getting it right a minute after seeing the answer is not the clean
+     * retrieval either mechanism is built on. Counting the second attempt would
+     * let a learner talk their weakest topic out of the model by being shown
+     * the answer and repeating it back.
+     */
+    const answered = session?.[at];
+    if (answered && !outcomes.some((o) => o.id === id)) {
+      writeModel.write(observe(modelStore.read() ?? EMPTY_MODEL, answered, outcome));
+    }
+
     setOutcomes((previous) => [...previous, { id, outcome }]);
 
     /**
@@ -261,6 +306,16 @@ function Card({
       const target = event.target;
       if (target instanceof Element && target.closest("input, textarea, select, [contenteditable=true]")) return;
 
+      /**
+       * A grid is neither of the two shapes this handler knows.
+       *
+       * Without this guard it falls through to the self-marked branch, where
+       * Enter means "I knew it" — so a single Enter would answer a matching
+       * item nobody had touched, correctly, and move on. The grid has its own
+       * buttons and they are already reachable by Tab.
+       */
+      if (item.kind === "match" || item.kind === "gaptext") return;
+
       const digit = Number.parseInt(event.key, 10);
 
       if (choosing) {
@@ -312,7 +367,21 @@ function Card({
 
       <Prompt item={item} t={t} shown={shown} />
 
-      {item.kind === "pair" || item.kind === "article" || item.kind === "form" ? (
+      {item.kind === "match" ? (
+        <MatchGrid
+          item={item}
+          t={t}
+          locale={locale}
+          onDone={(clean) => onAnswer(item.id, clean ? "right" : "wrong")}
+        />
+      ) : item.kind === "gaptext" ? (
+        <GapText
+          item={item}
+          t={t}
+          locale={locale}
+          onDone={(clean) => onAnswer(item.id, clean ? "right" : "wrong")}
+        />
+      ) : item.kind === "pair" || item.kind === "article" || item.kind === "form" ? (
         <>
           <ul className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
             {item.options.map((option, index) => (
@@ -396,6 +465,280 @@ function Card({
 }
 
 /**
+ * Four words, four meanings, joined up — the one exercise here that is
+ * actually a pleasure to do.
+ *
+ * WHY IT IS BUILT THIS WAY. §8 refuses streaks, points and levels and that
+ * refusal is not being softened here. What makes this satisfying is structural
+ * rather than awarded: the board visibly EMPTIES as pairs are solved, each
+ * correct answer makes the remaining ones easier, and the whole thing is over
+ * in about fifteen seconds. Nobody is told they are on a roll.
+ *
+ * TWO TAPS, NOT DRAG AND DROP. Dragging is the obvious implementation and it
+ * is wrong for this product: it is unusable from a keyboard without a great
+ * deal of ARIA that would then have to be maintained, it is fiddly on the
+ * phone this is mostly read on, and it fails badly for anyone with a motor
+ * impairment. Tap a word, tap its meaning, and both are ordinary buttons.
+ *
+ * A WRONG PAIR IS NOT PUNISHED, IT IS SHOWN. The two buttons flash and clear,
+ * and the grid stays open — `Butler & Roediger (2008)` is the reason the whole
+ * session requeues missed items rather than moving on, and a grid that ejected
+ * you on the first mistake would be the version that teaches nothing. What the
+ * mistake costs is the item's outcome: one wrong pair and the grid is recorded
+ * as missed, so it comes back later in the sitting.
+ *
+ * THE LAST PAIR IS FREE AND IS NOT COUNTED. With four pairs, solving three
+ * leaves one, and marking somebody right for a walkover would make the outcome
+ * a little bit false. Only the first three decisions can go wrong, which is
+ * also why four is the size: it is the smallest grid where the free one is a
+ * quarter rather than a half.
+ */
+function MatchGrid({
+  item,
+  t,
+  locale,
+  onDone,
+}: {
+  item: Extract<PracticeItem, { kind: "match" }>;
+  t: Dictionary["practice"];
+  locale: Locale;
+  onDone: (clean: boolean) => void;
+}) {
+  /** Index into `targets` that is waiting for a meaning. */
+  const [picked, setPicked] = useState<number | null>(null);
+  /** Indices into `targets` that are solved. */
+  const [solved, setSolved] = useState<number[]>([]);
+  /** The bridge index most recently got wrong, for the flash. */
+  const [wrong, setWrong] = useState<number | null>(null);
+  const [missed, setMissed] = useState(false);
+
+  const done = solved.length === item.targets.length;
+
+  function choose(bridgeIndex: number) {
+    if (picked === null || done) return;
+
+    if (item.answer[picked] === bridgeIndex) {
+      setSolved((previous) => [...previous, picked]);
+      setPicked(null);
+      setWrong(null);
+      return;
+    }
+
+    // Recorded once. A second wrong pair does not make the item more missed
+    // than it already is, and a counter here would be a score by another name.
+    setMissed(true);
+    setWrong(bridgeIndex);
+    setPicked(null);
+  }
+
+  const solvedBridges = new Set(solved.map((targetIndex) => item.answer[targetIndex]));
+
+  return (
+    <div className="mt-5">
+      <p className="text-sm leading-relaxed text-fg-secondary">{t.matchHint}</p>
+
+      {/* `grid-cols-safe` at the base per AGENTS.md — two columns of buttons
+          whose content is somebody else's words, which is exactly the case
+          where an `auto` track takes its min-content from the longest one. */}
+      <div className="mt-4 grid grid-cols-safe gap-3 sm:grid-cols-2">
+        <ul className="flex flex-col gap-2">
+          {item.targets.map((target, index) => {
+            const isSolved = solved.includes(index);
+            return (
+              <li key={target} className="min-w-0">
+                <button
+                  type="button"
+                  disabled={isSolved || done}
+                  aria-pressed={picked === index}
+                  onClick={() => setPicked(index)}
+                  className={matchClass(isSolved, picked === index, false)}
+                >
+                  <span lang={DISPLAY.tag}>{target}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+
+        <ul className="flex flex-col gap-2">
+          {item.bridges.map((bridge, index) => {
+            const isSolved = solvedBridges.has(index);
+            return (
+              <li key={bridge} className="min-w-0">
+                <button
+                  type="button"
+                  disabled={isSolved || done || picked === null}
+                  onClick={() => choose(index)}
+                  className={matchClass(isSolved, false, wrong === index)}
+                >
+                  <span lang="de">{bridge}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      {done && (
+        <Verdict right={!missed} t={t} item={item} locale={locale} onNext={() => onDone(!missed)} />
+      )}
+    </div>
+  );
+}
+
+/**
+ * A passage with its words taken out, and the words offered back.
+ *
+ * THE FIRST EXERCISE HERE THAT ASKS FOR MORE THAN ONE SENTENCE. A handover is
+ * four lines that refer to each other, and the word filling a gap is often
+ * decidable only from the line before it — which is the actual skill this
+ * product exists for and which no single-sentence item can rehearse.
+ *
+ * TAP A WORD, IT GOES IN THE NEXT EMPTY GAP. The alternative — select a gap,
+ * then select a word — is one more decision per placement for no gain, since
+ * the gaps are filled in reading order anyway. Tapping a filled gap takes its
+ * word back, so a mistake costs one tap and not a restart.
+ *
+ * NOTHING IS MARKED UNTIL EVERY GAP IS FULL. Checking each placement as it
+ * lands would turn the passage into three separate questions and destroy the
+ * whole point: the third gap is supposed to be informed by the first two.
+ */
+function GapText({
+  item,
+  t,
+  locale,
+  onDone,
+}: {
+  item: Extract<PracticeItem, { kind: "gaptext" }>;
+  t: Dictionary["practice"];
+  locale: Locale;
+  onDone: (clean: boolean) => void;
+}) {
+  /** `filled[gap]` is the index in `bank` placed there, or null. */
+  const [filled, setFilled] = useState<(number | null)[]>(() => item.answer.map(() => null));
+  const [checked, setChecked] = useState(false);
+
+  const placed = new Set(filled.filter((v): v is number => v !== null));
+  const complete = filled.every((v) => v !== null);
+  const right = complete && filled.every((v, gap) => v === item.answer[gap]);
+
+  function place(bankIndex: number) {
+    if (checked || placed.has(bankIndex)) return;
+    const next = filled.indexOf(null);
+    if (next === -1) return;
+    setFilled((previous) => previous.map((v, i) => (i === next ? bankIndex : v)));
+  }
+
+  function clear(gap: number) {
+    if (checked) return;
+    setFilled((previous) => previous.map((v, i) => (i === gap ? null : v)));
+  }
+
+  return (
+    <div className="mt-5">
+      <p className="text-sm leading-relaxed text-fg-secondary">{t.gapHint}</p>
+
+      <ol className="mt-4 flex flex-col gap-4">
+        {item.lines.map((line, index) => {
+          const gap = line.gap;
+          const chosen = gap === undefined ? null : filled[gap];
+          const parts = line.prompt.split("____");
+
+          return (
+            <li key={`${index}-${line.prompt}`} className="min-w-0">
+              <p lang={DISPLAY.tag} className="wrap-anywhere text-base leading-relaxed text-dialect">
+                {gap === undefined ? (
+                  line.prompt
+                ) : (
+                  <>
+                    {parts[0]}
+                    <button
+                      type="button"
+                      disabled={checked || chosen === null}
+                      onClick={() => clear(gap)}
+                      className={gapClass(chosen !== null, checked, checked && chosen === item.answer[gap])}
+                    >
+                      {chosen === null ? "    " : item.bank[chosen]}
+                    </button>
+                    {parts[1] ?? ""}
+                  </>
+                )}
+              </p>
+              <p lang="de" className="wrap-anywhere text-sm leading-snug text-fg-muted">
+                {line.bridge}
+              </p>
+            </li>
+          );
+        })}
+      </ol>
+
+      {!checked && (
+        <ul className="mt-5 flex flex-wrap gap-2">
+          {item.bank.map((word, index) => (
+            <li key={word}>
+              <button
+                type="button"
+                disabled={placed.has(index)}
+                onClick={() => place(index)}
+                className={
+                  placed.has(index)
+                    ? "min-h-11 rounded-control border border-border-subtle px-4 text-base text-fg-muted line-through"
+                    : "min-h-11 rounded-control border border-border-strong px-4 text-base text-fg-primary hover:bg-surface-page"
+                }
+              >
+                <span lang={DISPLAY.tag}>{word}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {complete && !checked && (
+        <button
+          type="button"
+          onClick={() => setChecked(true)}
+          className="mt-5 min-h-11 rounded-control bg-accent px-5 font-semibold text-on-accent hover:opacity-90"
+        >
+          {t.check}
+        </button>
+      )}
+
+      {checked && <Verdict right={right} t={t} item={item} locale={locale} onNext={() => onDone(right)} />}
+    </div>
+  );
+}
+
+/** A gap's states: empty, filled, and — once checked — right or wrong. */
+function gapClass(filled: boolean, checked: boolean, correct: boolean): string {
+  const base = "mx-1 inline-flex min-h-8 items-baseline rounded-control border px-2 align-baseline";
+  if (checked) {
+    return correct
+      ? `${base} border-accent bg-accent text-on-accent`
+      : `${base} border-border-strong text-fg-muted line-through`;
+  }
+  if (filled) return `${base} border-accent bg-accent-tint text-fg-primary`;
+  return `${base} border-dashed border-border-strong`;
+}
+
+/**
+ * A tile's three states: waiting, picked, solved — plus the flash for a pair
+ * that did not go together.
+ *
+ * Solved tiles stay on screen rather than disappearing. A board that removes
+ * what you got right leaves the hardest pairs alone on an empty page, which
+ * looks like a punishment; keeping them dimmed shows the work.
+ */
+function matchClass(solved: boolean, picked: boolean, wrong: boolean): string {
+  const base =
+    "min-h-11 w-full rounded-control border px-4 text-left text-base transition-colors disabled:cursor-default";
+
+  if (solved) return `${base} border-border-subtle bg-surface-page text-fg-muted line-through`;
+  if (wrong) return `${base} border-fg-muted text-fg-muted`;
+  if (picked) return `${base} border-accent bg-accent text-on-accent`;
+  return `${base} border-border-strong text-fg-primary hover:bg-surface-page`;
+}
+
+/**
  * The question itself, which is a different shape for every kind.
  *
  * The dialect always carries `lang` — a screen reader given Zurich German
@@ -457,6 +800,11 @@ function Prompt({ item, t, shown }: { item: PracticeItem; t: Dictionary["practic
       </>
     );
   }
+
+  // A matching grid and a gapped passage ARE their own prompt — the words are
+  // the question. A line of instruction above them would be read once and then
+  // be in the way forever.
+  if (item.kind === "match" || item.kind === "gaptext") return null;
 
   return (
     <>
@@ -557,7 +905,7 @@ function Trace({
 
   if (item.source.kind === "grammar") {
     return (
-      <Link href={`${href(locale, "grammar")}#${item.source.topic}`} className={className}>
+      <Link href={`${href(locale, "grammar")}/${item.source.topic}`} className={className}>
         {t.grammarLink}
       </Link>
     );
@@ -712,6 +1060,24 @@ function answerOf(item: PracticeItem): string {
     case "article":
     case "form":
       return item.options[item.answer] ?? "";
+    /**
+     * A grid's answer is four answers, so it prints as the pairs themselves.
+     *
+     * The alternative was to print the first one, or a count, and both are the
+     * same mistake: the end-of-session list exists so a learner can carry away
+     * what they missed, and "1 of 4" is not something anybody can carry.
+     */
+    case "match":
+      return item.targets.map((target, i) => `${target} — ${item.bridges[item.answer[i]] ?? ""}`).join(" · ");
+    /**
+     * A passage prints as the words that went into it, in gap order.
+     *
+     * Not the filled-in passage: four lines in the end-of-session list would
+     * push everything else off the screen, and what the learner got wrong was
+     * a placement, not a sentence.
+     */
+    case "gaptext":
+      return item.answer.map((bankIndex) => item.bank[bankIndex] ?? "").join(" · ");
     default:
       return item.answer;
   }

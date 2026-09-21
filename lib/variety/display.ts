@@ -54,6 +54,11 @@ export type DisplayCorrespondence = {
 /** A grammar topic, forms only. Its words live in the dictionaries, by id. */
 export type DisplayGrammar = {
   id: string;
+  /**
+   * Which band it belongs to — a closed key, so it projects like every other
+   * enum here and the dictionaries hold the heading it renders under.
+   */
+  band: string;
   examples: readonly { target: string; bridge: string }[];
 };
 
@@ -245,6 +250,7 @@ export const DISPLAY: DisplayVariety = {
   })),
   grammar: (VARIETY.grammar ?? []).map((t) => ({
     id: t.id,
+    band: t.band,
     examples: t.examples.map((e) => ({ target: e.target, bridge: e.bridge })),
   })),
   vocabulary: (VARIETY.vocabulary ?? []).map((w) => ({

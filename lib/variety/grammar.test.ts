@@ -1,5 +1,7 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import { join } from "node:path";
 import { check } from "./check.ts";
 import { ZURICH_GERMAN } from "./packs/gsw-zh.ts";
 import { DISPLAY } from "./display.ts";
@@ -91,8 +93,50 @@ describe("grammar topics", () => {
   test("the display projection carries the forms and no English", () => {
     assert.equal(DISPLAY.grammar.length, topics.length);
     for (const topic of DISPLAY.grammar) {
-      assert.deepEqual(Object.keys(topic).sort(), ["examples", "id"], "nothing else survives the projection");
+      /**
+       * `band` joined `id` and `examples`, and it belongs here for the same
+       * reason they do: it is a CLOSED KEY, not prose. The grammar index
+       * groups the topics by it and the dictionaries hold the heading each
+       * band renders under — exactly the split the topic titles already make.
+       *
+       * The list stays exhaustive rather than becoming a "must not contain
+       * `note`" check. An allow-list fails when somebody adds a field; a
+       * deny-list passes until somebody adds the wrong one, which is the
+       * failure this test exists to prevent.
+       */
+      assert.deepEqual(
+        Object.keys(topic).sort(),
+        ["band", "examples", "id"],
+        "nothing else survives the projection",
+      );
     }
+  });
+
+  test("nothing links to a grammar topic as an anchor any more", () => {
+    /**
+     * A SOURCE SCAN, for the reason `header.test.ts` gives: this project has
+     * no jsdom, and what can be checked cheaply and exactly is whether the
+     * files say the wrong thing.
+     *
+     * Topics became PAGES. While they were sections of one document, a link
+     * was `/grammar#no-preterite`; now that is a page with no such anchor, so
+     * the link silently lands at the top of the index and the reader has to
+     * find the topic themselves. Nothing 404s, nothing throws, and no type is
+     * wrong — which is precisely why it survived the split in four places,
+     * including the chat's own grammar button, the product's main loop.
+     */
+    const files: string[] = [];
+    const walk = (dir: string) => {
+      for (const entry of readdirSync(dir)) {
+        const path = join(dir, entry);
+        if (statSync(path).isDirectory()) walk(path);
+        else if (entry.endsWith(".tsx") || entry.endsWith(".ts")) files.push(path);
+      }
+    };
+    walk("app");
+
+    const offenders = files.filter((file) => /href\(locale, "grammar"\)\}#/.test(readFileSync(file, "utf8")));
+    assert.deepEqual(offenders, [], `these link to a topic anchor that no longer exists:\n${offenders.join("\n")}`);
   });
 
   test("every topic tells the model when it is the right one", () => {

@@ -517,6 +517,8 @@ export const de = {
       draftConversation: "Gespräch ohne Konto",
       savedConversation: "Gespräch mit Konto",
       savedWords: "Gemerkte Wörter",
+      practiceSeen: "Bereits gestellte Fragen",
+      practiceModel: "Woran Sie noch arbeiten",
       ownKey: "Ihr eigener API-Schlüssel",
       theme: "Helle oder dunkle Darstellung",
       dictation: "Diktieren",
@@ -853,6 +855,22 @@ export const de = {
     articleLabel: "Artikel",
     formsLabel: "Formen",
     exampleLabel: "Im Satz",
+    /**
+     * Das Suchfeld, und warum eine Wortliste eines braucht.
+     *
+     * Achtundvierzig Wörter passen noch auf eine Seite; sobald es mehr werden,
+     * ist Scrollen die einzige Navigation — und wer ein bestimmtes Wort sucht,
+     * benutzt dann die Suchfunktion des Browsers und findet nur die eine
+     * Schreibweise, die er geraten hat. Das Feld sucht Mundart UND Deutsch,
+     * weil beide Richtungen vorkommen.
+     */
+    filterLabel: "Wörter filtern",
+    filterPlaceholder: "Mundart oder Deutsch tippen …",
+    noMatches: "Dazu passt kein Wort.",
+    clearFilter: "Zurücksetzen",
+    practiseGroup: "Diese Gruppe üben",
+    jumpLabel: "Direkt zu",
+    saidInTitle: "Gesagt in",
   },
 
   /**
@@ -891,7 +909,28 @@ export const de = {
       form: "Welche Form passt?",
       cloze: "Welches Wort fehlt?",
       recall: "Was heisst das?",
+      match: "Was gehört zusammen?",
+      gaptext: "Welche Wörter fehlen?",
     },
+    matchHint: "Tippen Sie ein Wort an, dann seine Bedeutung.",
+    gapHint:
+      "Tippen Sie ein Wort an — es rutscht in die nächste Lücke. Auf eine gefüllte Lücke tippen nimmt es zurück.",
+    check: "Prüfen",
+    /**
+     * KEINE ZAHL, und das ist die ganze Regel hier. Keine Prozente, keine
+     * Trefferquote, kein Level. Die Diagnose zeigt auf den STOFF, nie auf die
+     * Person — alles andere wäre ein Punktestand mit anderem Namen.
+     */
+    focusTitle: "Daran hängen Sie gerade",
+    focusLead: "Das kommt bei Ihnen immer wieder vor. Ein Klick übt nur das.",
+    /**
+     * Eine Übung, die eingegrenzt wurde, sagt das — sonst sieht ein kleiner
+     * Fragenpool wie ein kaputtes Produkt aus.
+     */
+    scopedTo: "Nur zu: {what}",
+    scopeAll: "Alles üben",
+    scopeEmpty:
+      "Dazu gibt es noch keine Fragen. Das heisst nicht, dass das Thema unwichtig wäre — nur, dass das Pack dafür noch keine Beispiele hat.",
     origin: "Das andere ist {origin}.",
     /**
      * Die Personen einer Verbtabelle, in der Sprache der Leserin.
@@ -1052,6 +1091,31 @@ export const de = {
     lead: "Was Zürichdeutsch für jemanden schwer verständlich macht, der Deutsch schon liest — zuerst das, woran ein Satz ganz scheitert, danach das, was Sie zwar verstehen, aber nie selbst sagen würden.",
     ruleLabel: "Die Regel",
     watchLabel: "Wo es hakt",
+    /**
+     * Die zwei Bänder — und der Grund, warum die Übersichtsseite überhaupt
+     * eine Struktur hat.
+     *
+     * Der Lead hat diese Unterscheidung von Anfang an behauptet («zuerst das,
+     * woran ein Satz ganz scheitert, danach das, was Sie zwar verstehen, aber
+     * nie selbst sagen würden»), getragen hat sie aber nur die Reihenfolge der
+     * Liste — also nichts, was jemand sehen konnte.
+     */
+    bands: {
+      blocks: {
+        title: "Daran scheitert der Satz",
+        lead: "Ohne diese fängt das Zuhören gar nicht erst an. Sie warten auf eine Form, die nie kommt, oder lesen ein Wort als etwas ganz anderes — und der Rest des Satzes ist weg.",
+      },
+      marks: {
+        title: "Verstehen ja — selbst sagen nie",
+        lead: "Diese verstehen Sie beim Hören problemlos. Wer sie nie selbst benutzt, klingt dauerhaft nach Hochdeutsch mit Zürcher Wörtern drin.",
+      },
+    },
+    allTopics: "Alle Themen",
+    practiseTopic: "Dieses Thema üben",
+    whereTitle: "Wo das wirklich vorkommt",
+    whereLead: "Dieselbe Struktur, in Sätzen, die auf einer Schicht fallen.",
+    prevLabel: "Vorheriges",
+    nextLabel: "Nächstes",
     topics: {
       "no-preterite": {
         title: "Kein Präteritum",
@@ -1335,12 +1399,36 @@ export const de = {
     practiseLabel: "Jetzt üben",
     backLabel: "Alle Situationen",
     domains: {
+      everyday: {
+        title: "Alltag in Zürich",
+        lead: "Laden, Tram, Treppenhaus, Telefon, Mittagstisch. Situationen, in denen fast alle jede Woche stehen — und in denen der Raum genau dann ins Hochdeutsche wechselt, wenn er merkt, dass Sie Mühe haben.",
+      },
       care: {
         title: "Alters- und Pflegeheime",
         lead: "Eine Bewohnerin mit Demenz verliert ihre Zweitsprachen zuerst. Was bleibt, ist das Züritüütsch ihrer Kindheit — und das ist die Sprache, in der die Schicht läuft.",
       },
     },
     scenes: {
+      shopping: {
+        title: "Im Laden",
+        scene: "Vier Fragen, jedes Mal dieselben, an der Kasse mit einer Schlange dahinter — also genau dort, wo Nachfragen am meisten kostet.",
+      },
+      tram: {
+        title: "Im Tram",
+        scene: "Durchsagen und Fremde, beide schnell. Die eine Situation, in der Nichtverstehen nicht den Satz kostet, sondern den Nachmittag.",
+      },
+      neighbours: {
+        title: "Im Treppenhaus",
+        scene: "Waschküche, Velo im Gang, Abfuhr. Ein Zettel an der Tür ist hier keine Bitte — wer ihn als eine liest, wird zur schwierigen Nachbarin, ohne dass es ihr je jemand sagt.",
+      },
+      appointment: {
+        title: "Am Telefon",
+        scene: "Der schwierigste Kanal in jeder Fremdsprache und der, den niemand übt: kein Gesicht, kein Kontext, und jemand, der eine Liste abarbeitet.",
+      },
+      "small-talk": {
+        title: "Am Mittagstisch",
+        scene: "Die Szene, wegen der es Heidi gibt. Der Tisch wechselt ins Hochdeutsche, sobald er merkt, dass Sie kämpfen — und nimmt Ihnen damit genau das weg, was helfen würde.",
+      },
       handover: {
         title: "Die Übergabe",
         scene: "Kollegin zu Kollegin, nichts wird verlangsamt, niemand wechselt Ihretwegen ins Hochdeutsche. Der schnellste Moment des Tages — und der, der über die ganze Schicht entscheidet.",

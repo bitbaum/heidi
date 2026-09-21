@@ -488,6 +488,8 @@ export const rm: Dictionary = {
       draftConversation: "Conversaziun senza conto",
       savedConversation: "Conversaziun cun conto",
       savedWords: "Pleds tegnids",
+      practiceSeen: "Dumondas gia ponidas",
+      practiceModel: "Tge che vus exercitais anc",
       ownKey: "Vossa atgna clav API",
       theme: "Apparientscha clera u stgira",
       dictation: "Dictar",
@@ -805,6 +807,13 @@ export const rm: Dictionary = {
     articleLabel: "Artitgel",
     formsLabel: "Formas",
     exampleLabel: "En ina frasa",
+    filterLabel: "Filtrar ils pleds",
+    filterPlaceholder: "Tippai en dialect u en tudestg …",
+    noMatches: "Nagin pled na correspunda.",
+    clearFilter: "Stizzar",
+    practiseGroup: "Exercitar quest grupp",
+    jumpLabel: "Ir a",
+    saidInTitle: "Ditg en",
   },
 
   practice: {
@@ -829,7 +838,18 @@ export const rm: Dictionary = {
       form: "Tge forma va bain?",
       cloze: "Tge pled manca?",
       recall: "Tge vul quai dir?",
+      match: "Tge va ensemen?",
+      gaptext: "Tge pleds mancan?",
     },
+    matchHint: "Tutgai in pled, lura sia significaziun.",
+    gapHint: "Tutgai in pled — el va en il proxim vid. Tutgai in vid emplenì per al reprender.",
+    check: "Controllar",
+    focusTitle: "Nua che vus restais tatgads",
+    focusLead: "Quai turna adina puspè fallà tar vus. In clic exercitescha mo quai.",
+    scopedTo: "Mo: {what}",
+    scopeAll: "Exercitar tut",
+    scopeEmpty:
+      "Per quai n'i ha anc naginas dumondas. Quai na vul betg dir che il tema saja nunimportant — mo che il pack n'ha anc nagins exempels per el.",
     origin: "L'auter è {origin}.",
     persons: {
       ich: "jau",
@@ -970,6 +990,22 @@ export const rm: Dictionary = {
     lead: "Quai che renda il turitgais difficil da suandar per insatgi che legia gia tudestg — l'emprim quai vi da quai ch'ina frasa faglia dal tut, lura quai che Vus chapis ma na dischessas mai sez.",
     ruleLabel: "La regla",
     watchLabel: "Nua ch'igl impedescha",
+    bands: {
+      blocks: {
+        title: "Qua croda la frasa",
+        lead: "Senza questas na cumenza l'ascultar gnanc. Vus spetgais ina furma che na vegn mai, u vus legiais in pled sco insatge dal tut auter — ed il rest da la frasa è ì.",
+      },
+      marks: {
+        title: "Chapir gea — dir sez mai",
+        lead: "Questas na fan nagins problems cun ascultar. Tgi che n'las dovra mai sez tuna permanentamain sco tudestg standard cun pleds turitgais dentra.",
+      },
+    },
+    allTopics: "Tut ils temas",
+    practiseTopic: "Exercitar quest tema",
+    whereTitle: "Nua che quai capita propi",
+    whereLead: "La medema structura, en frasas ditgas durant in servetsch.",
+    prevLabel: "Enavos",
+    nextLabel: "Enavant",
     topics: {
       "no-preterite": {
         title: "Nagin preterit",
@@ -1240,12 +1276,36 @@ export const rm: Dictionary = {
     practiseLabel: "Exercitar ussa",
     backLabel: "Tut las situaziuns",
     domains: {
+      everyday: {
+        title: "Il mintgadi a Turitg",
+        lead: "La butia, il tram, la stgala, il telefon, la maisa da mezdi. Situaziuns en las qualas bunamain mintgin è mintga emna — e nua ch'il local mida en tudestg standard uschespert ch'el vesa che vus avais difficultads.",
+      },
       care: {
         title: "Chasas d'attempads e da tgira",
         lead: "Ina abitanta cun demenza perda l'emprim sias segundas linguas. Quai che resta è il tudestg turitgais da sia uffanza — e quai è la lingua en la quala il servetsch decurra.",
       },
     },
     scenes: {
+      shopping: {
+        title: "En la butia",
+        scene: "Quatter dumondas, mintga giada las medemas, a la cassa cun ina colonna davos vus — precis nua che far repeter custa il pli.",
+      },
+      tram: {
+        title: "En il tram",
+        scene: "Communicaziuns ed persunas nunenconuschentas, omadus spert. L'unica situaziun nua che betg chapir custa il suentermezdi e betg la frasa.",
+      },
+      neighbours: {
+        title: "En la stgala",
+        scene: "La lavandaria, la bicicletta en il corridor, la rumenta. In bigliet a la porta n'è qua betg ina dumonda — tgi ch'al legia uschia daventa il vischin difficil senza che insatgi al di.",
+      },
+      appointment: {
+        title: "Al telefon",
+        scene: "Il canal il pli difficil en mintga segunda lingua e quel che nagin n'exercitescha: nagina fatscha, nagin context, ed insatgi che lavura ina glista.",
+      },
+      "small-talk": {
+        title: "A la maisa da mezdi",
+        scene: "La scena perquai che quest product exista. La maisa mida en tudestg standard uschespert ch'ella vesa che vus fajais fadia — ed als prenda giu precis quai che gidass.",
+      },
       handover: {
         title: "La surdada",
         scene: "Collega a collega, nagut na vegn rallentà, nagin na mida en tudestg standard per vus. Il mument il pli spert dal di — e quel che decida davart l'entir servetsch.",

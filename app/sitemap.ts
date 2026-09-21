@@ -4,6 +4,7 @@ import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS, type Locale } from "@/lib/i18n/lo
 import { INDEXED_ROUTES } from "@/lib/i18n/routes";
 import { essaysFor } from "@/lib/essays/registry";
 import { SCENES } from "@/lib/situations/display";
+import { DISPLAY } from "@/lib/variety/display";
 
 /**
  * Every page in every language, with each entry naming its translations.
@@ -69,9 +70,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
+  /**
+   * Each grammar topic, in every language.
+   *
+   * New here because topics became pages: while they were sections of one
+   * document there was one URL to crawl, and now there are eight. Left out,
+   * the pages exist and nothing points a crawler at them — which is the way a
+   * site quietly stops being findable for exactly the queries it answers best
+   * ("kein präteritum schweizerdeutsch" is a real search).
+   */
+  const topics = LOCALES.flatMap((locale) =>
+    DISPLAY.grammar.map((topic) => ({
+      url: `${SITE_URL}/${locale}/grammar/${topic.id}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+      alternates: {
+        languages: Object.fromEntries([
+          ...LOCALES.map((l) => [LOCALE_TAGS[l], `${SITE_URL}/${l}/grammar/${topic.id}`]),
+          ["x-default", `${SITE_URL}/${DEFAULT_LOCALE}/grammar/${topic.id}`],
+        ]),
+      },
+    })),
+  );
+
   return [
     ...essays,
     ...scenes,
+    ...topics,
     ...LOCALES.flatMap((locale) =>
     INDEXED_ROUTES.map((route) => {
       const path = route.segment ? `/${locale}/${route.segment}` : `/${locale}`;

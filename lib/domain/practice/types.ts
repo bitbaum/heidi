@@ -42,8 +42,16 @@ export type ItemSource =
   | { kind: "grammar"; topic: string }
   /** A word the learner kept themselves. */
   | { kind: "saved" }
-  /** A vocabulary entry in the pack, with the source that vouches for it. */
-  | { kind: "word"; word: string }
+  /**
+   * A vocabulary entry in the pack.
+   *
+   * `group` rides along so a session can be SCOPED to one part of the
+   * vocabulary page without the scope filter having to re-derive it from the
+   * pack. An item saying where it came from is the same principle the rest of
+   * `ItemSource` already keeps; this is the field that lets "practise these
+   * words" mean the words the reader is looking at.
+   */
+  | { kind: "word"; word: string; group: string }
   /**
    * A line from a situation pack, carrying the scene id so the page can link
    * back to the moment it belongs to.
@@ -53,7 +61,20 @@ export type ItemSource =
    * failed on is one of ten in a handover, and the other nine are the context
    * that makes it stick. The topic is one click further on from there.
    */
-  | { kind: "situation"; scene: string };
+  | {
+      kind: "situation";
+      scene: string;
+      /**
+       * The grammar topic the line turns on, when it has one.
+       *
+       * This is what makes "practise this topic" worth pressing. Without it, a
+       * topic session can only ask about the two or three example sentences
+       * the pack wrote to ILLUSTRATE the rule — and a learner who has just met
+       * `am-progressive` three times in one shift is better served by those
+       * three real lines than by a fourth invented demonstration.
+       */
+      topic?: string;
+    };
 
 /**
  * Which one is the Zurich form?
@@ -185,7 +206,113 @@ export type FormItem = {
   source: ItemSource;
 };
 
-export type PracticeItem = PairItem | RecallItem | ClozeItem | ArticleItem | FormItem;
+/**
+ * Four dialect words, four meanings, joined up.
+ *
+ * WHY THIS ONE WAS WORTH ADDING, when the standing rule is that anything
+ * needing a model to mark it is not an exercise type. Nothing here needs a
+ * model: each pair is a row of the pack's own vocabulary, so the answer key is
+ * data, and every distractor is a REAL word of the variety rather than a
+ * plausible-looking form somebody made up. It is the one classic exercise
+ * shape that survives this product's constraints untouched.
+ *
+ * AND IT IS THE ONE THAT IS ACTUALLY PLEASANT TO DO. §8 refuses streaks,
+ * points and levels, and that refusal stands — but "not gamified" was never
+ * the same claim as "not enjoyable", and the enjoyment has to come from the
+ * design instead. A four-by-four grid that empties as you get it right is
+ * satisfying for reasons that have nothing to do with a score: the board
+ * visibly shrinks, each correct pair makes the next one easier, and the whole
+ * thing is over in fifteen seconds.
+ *
+ * FOUR, NOT SIX OR EIGHT. Six pairs is a puzzle and eight is a chore; four is
+ * one glance. It also keeps the last pair from being free — with four, getting
+ * three right leaves one, which is a gift; the grid is therefore marked on the
+ * three real decisions and the walkover is not counted against anybody.
+ */
+export type MatchItem = {
+  id: string;
+  kind: "match";
+  marking: "objective";
+  /** The dialect side, in a fixed order. */
+  targets: readonly string[];
+  /**
+   * The meanings, in a DIFFERENT fixed order — shuffled at generation by a
+   * stable property rather than a dice roll, so a test sees the same board
+   * twice and a learner does not see the answer down the diagonal.
+   */
+  bridges: readonly string[];
+  /** `answer[i]` is the index in `bridges` that `targets[i]` belongs to. */
+  answer: readonly number[];
+  source: ItemSource;
+};
+
+/**
+ * A short passage with several words taken out, and the words offered back.
+ *
+ * WHY A PASSAGE AND NOT A SENTENCE, when `cloze` already exists. Because a
+ * sentence in isolation is the one thing a learner never meets. A handover is
+ * four sentences that refer to each other — who slept, who ate, who is
+ * waiting, who you should look in on — and the word that fills a gap is often
+ * decidable only from the line before it. This is the first exercise here that
+ * asks somebody to follow more than one sentence at a time, which is the
+ * actual skill the product exists for.
+ *
+ * WHY A WORD BANK, AND WHY THAT MAKES IT OBJECTIVE. `cloze` is self-marked
+ * because Zurich German has no settled spelling and grading a typed answer
+ * means deciding whether a near-miss counts. Handing back the exact words that
+ * were removed dissolves that problem completely: the learner chooses rather
+ * than spells, every option is a real form from the passage, and the answer
+ * key is which hole each one came out of. No model, no orthography, no
+ * judgement call — and a harder question than the same gap with the answer
+ * typed, because the distractors are all plausible and all present.
+ *
+ * THE BANK IS EXACTLY THE REMOVED WORDS. Not padded with extras: a decoy would
+ * be a word this product asserted belongs nowhere in the passage, which is a
+ * claim about the language made to make an exercise harder. With three gaps
+ * and three words, getting two right settles the third — the same walkover the
+ * matching grid has, handled the same way, by only counting the decisions that
+ * were real.
+ */
+export type GapTextItem = {
+  id: string;
+  kind: "gaptext";
+  marking: "objective";
+  /**
+   * The passage, in the order it is said. A line with `gap` has one blank in
+   * it; the number is which gap it is, counting from the top.
+   */
+  lines: readonly { prompt: string; bridge: string; gap?: number }[];
+  /** The removed words, in a stable shuffled order. */
+  bank: readonly string[];
+  /** `answer[g]` is the index in `bank` belonging to gap `g`. */
+  answer: readonly number[];
+  source: ItemSource;
+};
+
+export type PracticeItem =
+  | PairItem
+  | RecallItem
+  | ClozeItem
+  | ArticleItem
+  | FormItem
+  | MatchItem
+  | GapTextItem;
+
+/**
+ * How many lines of a scene make a passage, and how many gaps go in it.
+ *
+ * FOUR LINES because that is where a handover stops being a list and starts
+ * being an exchange, and it still fits a phone without scrolling mid-question.
+ * THREE GAPS because two is not a passage exercise and four in four lines is a
+ * sieve — the reader loses the thread they are supposed to be using.
+ */
+export const PASSAGE_LINES = 4;
+export const PASSAGE_GAPS = 3;
+
+/**
+ * How many pairs a matching grid holds. See `MatchItem` — four is one glance.
+ */
+export const MATCH_SIZE = 4;
 
 /**
  * The three articles, in the order they are always shown.

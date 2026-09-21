@@ -2,6 +2,7 @@ import type { VarietyPack } from "../../variety/pack.ts";
 import type { SavedWord } from "../saved/types.ts";
 import { due } from "../saved/review.ts";
 import { allItems } from "./generate.ts";
+import { EMPTY_MODEL, pressureOf, type LearnerModel } from "./model.ts";
 import { SESSION_SIZE, type PracticeItem } from "./types.ts";
 
 /**
@@ -71,12 +72,19 @@ export function orderSession({
   now,
   seen = [],
   size = SESSION_SIZE,
+  model = EMPTY_MODEL,
 }: {
   items: readonly PracticeItem[];
   saved: readonly SavedWord[];
   now: Date;
   seen?: readonly string[];
   size?: number;
+  /**
+   * What this learner keeps getting wrong. Empty by default, which reproduces
+   * the old behaviour exactly — a new learner has no model and gets the same
+   * recency ordering as before.
+   */
+  model?: LearnerModel;
 }): PracticeItem[] {
   const dueIds = new Set(due([...saved], now).map((word) => `recall:${word.target.trim().toLocaleLowerCase()}`));
   const everything = items;
@@ -90,7 +98,33 @@ export function orderSession({
   const seenAt = new Map(seen.map((id, i) => [id, i]));
   const freshness = (item: PracticeItem) => (seenAt.has(item.id) ? seenAt.get(item.id)! : -1);
 
+  /**
+   * Pressure first, then recency — and the order of those two is the whole of
+   * "the system should be smarter".
+   *
+   * Recency alone made a topic somebody has missed four times out of four
+   * exactly as likely to come up as one they have never got wrong. Sorting by
+   * what the learner keeps missing puts `isch gsi` in front of them until it
+   * stops being missed, which is how a form becomes a reflex rather than a
+   * thing they once read.
+   *
+   * IT IS BANDED, NOT RAW, and that matters. A continuous sort on pressure
+   * would let one bad area own every sitting: the same eight questions, in the
+   * same order, until answered correctly — which is both unpleasant and the
+   * opposite of the interleaving the session is built on. Rounding to a few
+   * bands means "clearly struggling" beats "fine", while everything inside a
+   * band is still ordered by what has been asked least recently. Variety is
+   * preserved; the weight is on the weak half.
+   *
+   * A learner with no model has every pressure at 0, so this collapses to the
+   * old recency ordering exactly — which is what makes it safe to turn on for
+   * everybody from the first answer.
+   */
+  const band = (item: PracticeItem) => Math.round(pressureOf(model, item) * 4);
+
   const rank = (a: PracticeItem, b: PracticeItem) => {
+    const pressureGap = band(b) - band(a);
+    if (pressureGap !== 0) return pressureGap;
     // Whatever has been asked least recently. Never-seen items (-1) come before
     // anything seen, oldest-seen before newest.
     const freshGap = freshness(a) - freshness(b);

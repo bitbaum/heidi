@@ -7,6 +7,8 @@ import { href } from "@/lib/i18n/routes";
 import { DISPLAY } from "@/lib/variety/display";
 import { SCENES, domainOf, sceneById } from "@/lib/situations/display";
 import { SOURCES, citation, type SourceId } from "@/lib/research/sources";
+import { PACK_ITEMS } from "@/lib/domain/practice/published";
+import { itemsInScope } from "@/lib/domain/practice/scope";
 import { PageHeader, Shell } from "../../_components/page-shell";
 
 /**
@@ -75,6 +77,15 @@ export default async function ScenePage({ params }: { params: Promise<{ locale: 
   // by construction when a second source appears.
   const sources = [...new Set(scene.phrases.map((p) => p.source))].filter((s): s is SourceId => s in SOURCES);
 
+  /**
+   * Whether a scoped sitting on this scene would have anything in it.
+   *
+   * Only `hear` lines become practice items — see `situationItems` — so a
+   * scene written mostly as replies can legitimately produce none, and a
+   * button leading to an empty session is worse than no button.
+   */
+  const askable = itemsInScope(PACK_ITEMS, { kind: "scene", id: scene.id }).length > 0;
+
   return (
     <Shell>
       <PageHeader eyebrow={domainWords?.title} title={words.title} lead={words.scene} />
@@ -117,7 +128,7 @@ export default async function ScenePage({ params }: { params: Promise<{ locale: 
                   {phrase.grammar && topic && (
                     <p className="mt-2 text-sm leading-relaxed">
                       <Link
-                        href={`${href(locale, "grammar")}#${phrase.grammar}`}
+                        href={`${href(locale, "grammar")}/${phrase.grammar}`}
                         className="text-link underline underline-offset-4 hover:text-accent"
                       >
                         {topic.title}
@@ -146,7 +157,7 @@ export default async function ScenePage({ params }: { params: Promise<{ locale: 
               return (
                 <li key={topicId}>
                   <Link
-                    href={`${href(locale, "grammar")}#${topicId}`}
+                    href={`${href(locale, "grammar")}/${topicId}`}
                     className="inline-flex rounded-control border border-border-subtle px-3 py-1.5 text-sm text-fg-secondary transition-colors hover:border-border-strong hover:text-fg-primary"
                   >
                     {topic.title}
@@ -163,12 +174,19 @@ export default async function ScenePage({ params }: { params: Promise<{ locale: 
           practice session already draws on the pack's rules, grammar examples
           and vocabulary — and now on these lines too. */}
       <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border-subtle pt-8">
-        <Link
-          href={href(locale, "practice")}
-          className="inline-flex items-center rounded-control bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition-opacity hover:opacity-90"
-        >
-          {t.practiseLabel}
-        </Link>
+        {/* Scoped to THIS scene, which is what the button always implied and
+            did not do: it used to open the general drill, where eight
+            questions from the whole pack might include one of these ten lines.
+            A reader who has just worked through a handover and presses
+            "practise" means the handover. */}
+        {askable && (
+          <Link
+            href={`${href(locale, "practice")}?scene=${encodeURIComponent(scene.id)}`}
+            className="inline-flex items-center rounded-control bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition-opacity hover:opacity-90"
+          >
+            {t.practiseLabel}
+          </Link>
+        )}
         <Link
           href={href(locale, "situations")}
           className="text-sm text-link underline underline-offset-4 hover:text-accent"
