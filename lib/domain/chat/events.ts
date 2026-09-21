@@ -41,4 +41,10 @@ export type StreamEvent =
   | { type: "answer"; answer: Answer }
   /** Heidi declined to speak. Normal in a group, never an error. */
   | { type: "silent" }
-  | { type: "error"; kind: "unconfigured" | "failed" };
+  /**
+   * `blind` is not a synonym for `failed`, and merging them costs the reader
+   * the one sentence that helps. A failed turn invites a retry; a blind one
+   * cannot be retried into working, because nothing in reach has eyes. It is
+   * decided before any request, so it is always cheap and always certain.
+   */
+  | { type: "error"; kind: "unconfigured" | "failed" | "blind" };

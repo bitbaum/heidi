@@ -177,6 +177,8 @@ export const de = {
     notConfigured: "Das Sprachmodell ist auf dieser Installation noch nicht eingerichtet.",
     unreachable: "Heidi ist nicht erreichbar. Bitte Verbindung prüfen und nochmals versuchen.",
     failed: "Heidi konnte das gerade nicht beantworten. Bitte gleich nochmals versuchen.",
+    cannotSeePicture:
+      "Heidi kann gerade keine Bilder lesen. Schicken Sie den Text, oder verbinden Sie ein eigenes Modell, das Bilder liest.",
     retry: "Nochmals",
     /**
      * The full-screen chat. Its own object so the homepage box — which shares
@@ -234,11 +236,11 @@ export const de = {
 
   model: {
     attach: "Bild anhängen",
-    attachNeedsKey: "Bilder lesen braucht Ihr eigenes Modell",
+    attachNeedsKey: "Ihr verbundenes Modell kann keine Bilder lesen",
     remove: "Entfernen",
     connectTitle: "Ihr eigenes Modell verbinden",
     connectLead:
-      "Heidi ist gratis, und die kostenlosen Modelle können keine Bilder lesen. Wenn Sie einen eigenen API-Schlüssel hinterlegen, kann Heidi Screenshots verstehen — und antwortet insgesamt besser.",
+      "Heidi liest Screenshots gratis. Mit einem eigenen API-Schlüssel werden die Antworten schärfer — besonders bei einem dicht beschriebenen Bild — und die Anfragen laufen über Ihren Anbieter statt über unseren.",
     whyTitle: "Warum nicht einfach inklusive?",
     whyBody:
       "Weil Bilderkennung pro Bild kostet. Würden wir das für alle bezahlen, müssten wir Heidi kostenpflichtig machen. So bleibt alles andere gratis, und wer mehr will, bringt seinen eigenen Schlüssel mit.",
@@ -659,7 +661,7 @@ export const de = {
     languageTitle: "Sprache der Seite",
     languageBody: "In welcher Sprache Heidi mit Ihnen spricht. Was Sie lernen, bleibt Zürichdeutsch.",
     modelTitle: "Sprachmodell",
-    modelBody: "Standardmässig benutzt Heidi kostenlose Modelle. Ein eigener Schlüssel schaltet Bilder frei und verbessert die Antworten.",
+    modelBody: "Standardmässig benutzt Heidi kostenlose Modelle, die Bilder lesen können. Ein eigener Schlüssel macht die Antworten schärfer.",
     modelNone: "Kein eigenes Modell verbunden",
     accountTitle: "Konto",
     accountBody: "Zum Speichern Ihrer Wörter und für Lerngruppen. Zum Übersetzen brauchen Sie kein Konto.",

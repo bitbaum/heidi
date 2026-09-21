@@ -144,6 +144,8 @@ export const it: Dictionary = {
     notConfigured: "Il modello linguistico non è ancora configurato su questa installazione.",
     unreachable: "Heidi non è raggiungibile. Controllate la connessione e riprovate.",
     failed: "Heidi non è riuscita a rispondere in questo momento. Riprovate tra poco.",
+    cannotSeePicture:
+      "Heidi non riesce a leggere immagini in questo momento. Mandate il testo, oppure collegate un vostro modello che legge le immagini.",
     retry: "Di nuovo",
     /**
      * The full-screen chat. Its own object so the homepage box — which shares
@@ -201,11 +203,11 @@ export const it: Dictionary = {
 
   model: {
     attach: "Allegare un'immagine",
-    attachNeedsKey: "Leggere un'immagine richiede un vostro modello",
+    attachNeedsKey: "Il modello collegato non sa leggere le immagini",
     remove: "Rimuovere",
     connectTitle: "Collegare il vostro modello",
     connectLead:
-      "Heidi è gratuita, e i modelli gratuiti non sanno leggere le immagini. Con una vostra chiave API Heidi capisce uno screenshot — e risponde meglio in generale.",
+      "Heidi legge gli screenshot gratuitamente. Con una vostra chiave API le risposte diventano più precise — soprattutto su un'immagine fitta — e le chiamate passano dal vostro fornitore invece che dal nostro.",
     whyTitle: "Perché non è semplicemente incluso?",
     whyBody:
       "Perché leggere un'immagine costa, per ogni immagine. Pagarlo per tutti vorrebbe dire far pagare Heidi. Così tutto il resto resta gratuito, e chi vuole di più porta la propria chiave.",
@@ -600,7 +602,7 @@ export const it: Dictionary = {
     languageTitle: "Lingua del sito",
     languageBody: "In che lingua Heidi vi parla. Quello che imparate resta lo zurighese.",
     modelTitle: "Modello linguistico",
-    modelBody: "Per impostazione predefinita Heidi usa modelli gratuiti. Una vostra chiave sblocca le immagini e migliora le risposte.",
+    modelBody: "Per impostazione predefinita Heidi usa modelli gratuiti, che sanno leggere le immagini. Una vostra chiave rende le risposte più precise.",
     modelNone: "Nessun modello vostro collegato",
     accountTitle: "Account",
     accountBody: "Per conservare le vostre parole e per i gruppi di studio. Tradurre non richiede un account.",

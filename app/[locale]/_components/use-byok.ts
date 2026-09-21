@@ -47,8 +47,30 @@ export function useByok() {
      * waits for this.
      */
     ready,
-    /** Whether the connected model can be shown a picture. */
-    canSee: Boolean(config && provider?.visionModel),
+    /**
+     * Whether a picture can be attached at all.
+     *
+     * NO KEY MEANS YES. That is the change, and it is the whole point: Heidi's
+     * free chain reads pictures as of ai-kit 1.11, which routes an image to a
+     * model that can see instead of handing it to the text model at the front
+     * of the chain. The button used to be an explanation-opener for everyone
+     * without a key, on the strength of a sentence — "the free models cannot
+     * read pictures" — that was never true of free models, only of a chain
+     * with no vision routing.
+     *
+     * A CONNECTED key still decides for itself, and this is the case that
+     * keeps the check alive rather than deleting it: a brought key REPLACES
+     * the free chain (see `respondInThread`), so someone connected to Groq or
+     * DeepSeek — text-only, both in the allowlist — genuinely cannot send a
+     * picture, and telling them to attach one would be a worse lie than the
+     * old one.
+     *
+     * Optimistic where we have no evidence, which matches what the chain does
+     * underneath: if the deployment turns out to have no sighted vendor keyed,
+     * the turn comes back `blind` and says so in one sentence. Refusing up
+     * front would be this file guessing at something the chain answers.
+     */
+    canSee: config ? Boolean(provider?.visionModel) : true,
     save,
     clear,
   };

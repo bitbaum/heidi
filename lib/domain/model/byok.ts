@@ -1,11 +1,28 @@
 /**
  * Bring your own key — the shared contract between the browser and the route.
  *
- * Why this exists at all: the free chain has no model that can read a picture,
- * and a screenshot of a WhatsApp thread is the single most valuable thing
- * someone can hand this product. Paying for everyone's vision calls is not on
- * the table, so the capability is offered to whoever brings a key. That keeps
- * Heidi free for everyone and honest about why some things are not.
+ * Why this exists at all: a brought key buys a better answer than the free
+ * chain can give, and some people would rather spend their own money on one.
+ *
+ * IT IS NO LONGER WHAT MAKES PICTURES POSSIBLE, and the sentence that used to
+ * stand here said otherwise: "the free chain has no model that can read a
+ * picture". That was stated as a fact about free models and it was never one.
+ * `google/gemma-4-26b-a4b-it:free` was already in the chain this app installs,
+ * and loki probed it live on 2026-08-13 reading an image correctly. What was
+ * actually true is that the chain is ordered for TEXT, so a screenshot met
+ * four Groq links that could not read it before reaching one that could — a
+ * routing gap, fixed in ai-kit 1.11 in one place for the whole fleet, rather
+ * than a property of being free.
+ *
+ * The cost of that mistake was not theoretical: every visitor who attached a
+ * screenshot got a 400 and a sentence telling them to go and get an API key
+ * for something Heidi could already do. A screenshot of a WhatsApp thread is
+ * the single most valuable thing someone can hand this product, and it was
+ * refused for months on the strength of a comment nobody re-read.
+ *
+ * What a key still buys, honestly: sharper answers on a dense screenshot, and
+ * a vendor whose budget is theirs rather than ours. What it no longer buys is
+ * permission.
  *
  * WHERE THE KEY LIVES, precisely, because a user deserves a straight answer:
  *

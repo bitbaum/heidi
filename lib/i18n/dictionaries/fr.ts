@@ -144,6 +144,8 @@ export const fr: Dictionary = {
     notConfigured: "Le modèle de langue n'est pas encore configuré sur cette installation.",
     unreachable: "Heidi est injoignable. Vérifiez votre connexion et réessayez.",
     failed: "Heidi n'a pas pu répondre à l'instant. Réessayez dans un moment.",
+    cannotSeePicture:
+      "Heidi ne peut pas lire d'image en ce moment. Envoyez le texte, ou connectez votre propre modèle capable de lire les images.",
     retry: "Réessayer",
     /**
      * The full-screen chat. Its own object so the homepage box — which shares
@@ -201,11 +203,11 @@ export const fr: Dictionary = {
 
   model: {
     attach: "Joindre une image",
-    attachNeedsKey: "Lire une image demande votre propre modèle",
+    attachNeedsKey: "Le modèle connecté ne sait pas lire les images",
     remove: "Retirer",
     connectTitle: "Connecter votre propre modèle",
     connectLead:
-      "Heidi est gratuit, et les modèles gratuits ne savent pas lire les images. Avec votre propre clé API, Heidi comprend une capture d'écran — et répond mieux en général.",
+      "Heidi lit les captures d'écran gratuitement. Avec votre propre clé API, les réponses gagnent en précision — surtout sur une image dense — et les appels passent par votre fournisseur plutôt que le nôtre.",
     whyTitle: "Pourquoi ce n'est pas simplement inclus ?",
     whyBody:
       "Parce que lire une image coûte de l'argent, par image. Le payer pour tout le monde signifierait rendre Heidi payant. Ainsi tout le reste demeure gratuit, et qui veut plus apporte sa propre clé.",
@@ -600,7 +602,7 @@ export const fr: Dictionary = {
     languageTitle: "Langue du site",
     languageBody: "La langue dans laquelle Heidi vous parle. Ce que vous apprenez reste le zurichois.",
     modelTitle: "Modèle de langue",
-    modelBody: "Par défaut Heidi utilise des modèles gratuits. Votre propre clé débloque les images et améliore les réponses.",
+    modelBody: "Par défaut Heidi utilise des modèles gratuits, qui savent lire les images. Votre propre clé rend les réponses plus précises.",
     modelNone: "Aucun modèle personnel connecté",
     accountTitle: "Compte",
     accountBody: "Pour garder vos mots et pour les groupes d'étude. Traduire ne demande aucun compte.",
