@@ -594,6 +594,55 @@ export const ZURICH_GERMAN: VarietyPack = {
       example: { target: "S Dach vom Huus.", bridge: "Das Dach des Hauses." },
       source: "sds-atlas",
     },
+    /**
+     * The nouns, with their articles — and the articles are the point.
+     *
+     * The list had three of them, so the article drill had three questions and
+     * a learner met the same one twice a week. Gender is the error a German
+     * reader is least able to avoid, because it is carried by a word they
+     * never had to learn, and `der Velo` survives a hundred correct readings
+     * of the noun — so this is the cheapest real exercise the pack can grow.
+     *
+     * EVERY ROW HERE DIFFERS FROM GERMAN IN THE WORD TOO, and that is a
+     * constraint rather than a coincidence: the vocabulary test refuses a row
+     * whose two halves are the same string, so `Zimmer`, `Tür`, `Bahnhof` and
+     * `Jahr` are deliberately absent. A row that teaches only the article
+     * would be a row teaching one thing, and this page is not where gender
+     * alone is taught — the `articles` topic is.
+     *
+     * `s Tram` is the sharpest of them. Germany says `die Straßenbahn`;
+     * Switzerland says `das Tram` even in Standard German, and Zurich says
+     * `s Tram`. A German speaker gets the article AND the word wrong.
+     */
+    {
+      target: "Tram",
+      bridge: "Strassenbahn",
+      group: "everyday",
+      article: "s",
+      example: { target: "S Tram fahrt hüt nöd.", bridge: "Das Tram fährt heute nicht." },
+      source: "idiotikon",
+    },
+    { target: "Billett", bridge: "Fahrkarte", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Chuchi", bridge: "Küche", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Gäld", bridge: "Geld", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Arbet", bridge: "Arbeit", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Fründ", bridge: "Freund", group: "everyday", article: "de", source: "idiotikon" },
+    { target: "Wuche", bridge: "Woche", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Morge", bridge: "Morgen", group: "everyday", article: "de", source: "idiotikon" },
+    { target: "Aabig", bridge: "Abend", group: "everyday", article: "de", source: "idiotikon" },
+    { target: "Wätter", bridge: "Wetter", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Wohnig", bridge: "Wohnung", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Stross", bridge: "Strasse", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Lade", bridge: "Laden", group: "everyday", article: "de", source: "idiotikon" },
+    { target: "Poscht", bridge: "Post", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Chind", bridge: "Kind", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Ziit", bridge: "Zeit", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Wuchenend", bridge: "Wochenende", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Ässe", bridge: "Essen", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Zmorge", bridge: "Frühstück", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Zmittag", bridge: "Mittagessen", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Znacht", bridge: "Abendessen", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Lüüt", bridge: "Leute", group: "everyday" },
     { target: "Velo", bridge: "Fahrrad", group: "everyday" },
     { target: "Znüni", bridge: "Vormittagssnack", group: "everyday" },
     { target: "Zvieri", bridge: "Nachmittagssnack", group: "everyday" },
@@ -694,6 +743,65 @@ export const ZURICH_GERMAN: VarietyPack = {
         { target: "Em Peter sis Auto.", bridge: "Peters Auto." },
         { target: "De Anna ihri Schwöschter.", bridge: "Annas Schwester." },
         { target: "S Dach vom Huus.", bridge: "Das Dach des Hauses." },
+      ],
+    },
+    {
+      /**
+       * The question words, and the trap in the middle of them.
+       *
+       * `wänn` is what earns this a place in `blocks`: a German reader hears
+       * it as `wenn` and parses a CONDITION where a question was asked.
+       * "Wänn chunt d Abfuhr?" read that way is not a sentence with a missing
+       * detail, it is a sentence with the wrong shape, and the reply will
+       * answer a question nobody put.
+       *
+       * Every example is a line the packs already publish.
+       */
+      id: "question-words",
+      band: "blocks",
+      note: "a question word — wänn, wo, was, wie, weer — and especially a learner who has read «wänn» as German «wenn»",
+      examples: [
+        { target: "Wänn chunt d Abfuhr?", bridge: "Wann kommt die Abfuhr?" },
+        { target: "Wo find ich d Rüebli?", bridge: "Wo finde ich die Karotten?" },
+        { target: "Was machsch am Wuchenend?", bridge: "Was machst du am Wochenende?" },
+      ],
+    },
+    {
+      /**
+       * The indefinite article, which the pack taught by example in a dozen
+       * sentences and never named.
+       *
+       * `es` is why this is `blocks` rather than `marks`: it is identical to
+       * the pronoun `es`, so "Bruuched Sie es Säckli?" reads to a German eye
+       * as "do you need IT, little bag" — a garden path with no exit. The
+       * definite articles already have a topic; this is the other half of the
+       * same fact, and its absence was the gap.
+       */
+      id: "indefinite-article",
+      band: "blocks",
+      note: "the indefinite article — en, e, es — and a learner who has read the article «es» as the pronoun «es»",
+      examples: [
+        { target: "Bruuched Sie es Säckli?", bridge: "Brauchen Sie ein Tütchen?" },
+        { target: "Händ Sie e Charte?", bridge: "Haben Sie eine Karte?" },
+        { target: "Ich möcht en Termin abmache.", bridge: "Ich möchte einen Termin vereinbaren." },
+      ],
+    },
+    {
+      /**
+       * The imperative, which is where the polite form stops looking German.
+       *
+       * `-ed` is the whole topic: "Chömed Sie" beside "Kommen Sie". A learner
+       * who has only ever met the German ending produces `Chömen Sie`, which
+       * is understood perfectly and marks them instantly — the definition of
+       * the `marks` band.
+       */
+      id: "imperative",
+      band: "marks",
+      note: "a command or a request, and a learner who has produced a polite form ending in -en rather than -ed",
+      examples: [
+        { target: "Chömed Sie doch ine.", bridge: "Kommen Sie doch herein." },
+        { target: "Blibed Sie no ächli da.", bridge: "Bleiben Sie noch ein bisschen da." },
+        { target: "Chumm, mir lauffed.", bridge: "Komm, wir gehen zu Fuss." },
       ],
     },
     {

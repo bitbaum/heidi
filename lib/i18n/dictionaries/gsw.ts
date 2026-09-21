@@ -1007,10 +1007,25 @@ export const gsw: Dictionary = {
     allTopics: "Alli Theme",
     practiseTopic: "Das Thema üebe",
     whereTitle: "Wo das würkli vorchunt",
-    whereLead: "Di gliich Struktur, i Sätz, wo uf ere Schicht falled.",
+    whereLead: "Di gliich Struktur, i Sätz, wo würkli so gseit werded.",
     prevLabel: "Zrugg",
     nextLabel: "Wiiter",
     topics: {
+      "question-words": {
+        title: "Fragewörter — und d Falle dinn",
+        rule: "wänn, wo, was, wie, weer. Di meiste erkennt mer; eis nöd.",
+        watch: "«Wänn» tönt wie s düütsche «wenn». Si höred e Bedingig, gfrooget worde isch aber öppis anders — und Iri Antwort passt dänn uf öppis, wo niemert gfrooget hät.",
+      },
+      "indefinite-article": {
+        title: "en, e, es — de unbestimmt Artikel",
+        rule: "«en» bim männliche, «e» bim wibliche, «es» bim sächliche Wort.",
+        watch: "«es» gseht uus wie s Pronome «es». «Bruuched Sie es Säckli?» heisst nöd «bruuched Sie s», sondern «bruuched Sie es Säckli».",
+      },
+      imperative: {
+        title: "Befähl und Bitt: d Sie-Form ändet uf -ed",
+        rule: "Bim Du staht de blossi Stamm: «Chumm». Bim Sie chunt -ed dezue: «Chömed Sie».",
+        watch: "Verstah werded Si beides. Wer «Chömen Sie» seit, wird au verstande — und sofort als Nöd-Züricher erkennt.",
+      },
       "no-preterite": {
         title: "Kei Präteritum",
         rule: "Gschwätzts Züritüütsch hät kei eifachi Vergangeheit: alles Vergangene staht im Perfekt.",
@@ -1269,7 +1284,7 @@ export const gsw: Dictionary = {
 
   situations: {
     title: "Wo Sie s bruuched",
-    lead: "Nöd nach Wortarte sortiert, sondern nach em Moment: was uf ere Schicht würkli gseit wird, i de Reiefolg, wo s chunt.",
+    lead: "Nöd nach Wortarte sortiert, sondern nach em Moment: was i dere Situation würkli gseit wird, i de Reiefolg, wo s chunt.",
     note: "D Richtig isch wie überall da: zerscht verstah. Di meiste Sätz höred Sie — die weenige, wo Sie sälber säged, sind markiert.",
     unreviewed: "Jede Satz da isch maschinell uf Züri-Forme prüeft, aber no vo kener Muettersproochlere gläse worde. Das staht da, wil Sie s eus nöd aagseend.",
     hear: "Das höred Sie",
@@ -1290,6 +1305,18 @@ export const gsw: Dictionary = {
       },
     },
     scenes: {
+      restaurant: {
+        title: "Im Restaurant",
+        scene: "Vier feschti Frage und eini, wo über d Rächnig entscheidet. «Zäme oder separat» wird eimal gfrooget, schnell, und wer s falsch verstaht, merkt s am ganze Tisch.",
+      },
+      "at-work": {
+        title: "Bi de Arbet",
+        scene: "D Sitzig lauft uf Hochdüütsch oder Änglisch. De Gang, d Kafimaschine und de Moment, wo würkli öppis entschide wird, tüend das nöd.",
+      },
+      "school-parents": {
+        title: "Im Kindsgi",
+        scene: "Im Kanton Züri isch de Kindsgi uf Mundart — das hät s Stimmvolk 2011 so entschide. Wer Hochdüütsch glernt hät, merkt das am Elterenaabig, vor allne andere.",
+      },
       shopping: {
         title: "Im Lade",
         scene: "Vier Frage, jedes Mal di gliiche, a de Kasse mit ere Schlange dehinter — also grad det, wo Nachefrage am meischte choschtet.",

@@ -982,10 +982,25 @@ export const en: Dictionary = {
     allTopics: "All topics",
     practiseTopic: "Practise this topic",
     whereTitle: "Where this actually comes up",
-    whereLead: "The same structure, in sentences said on a shift.",
+    whereLead: "The same structure, in sentences people actually say.",
     prevLabel: "Previous",
     nextLabel: "Next",
     topics: {
+      "question-words": {
+        title: "Question words — and the trap among them",
+        rule: "wänn, wo, was, wie, weer. Most are recognisable; one is not.",
+        watch: "«Wänn» sounds like German «wenn». You hear a condition where a question was asked — and your answer then fits something nobody asked.",
+      },
+      "indefinite-article": {
+        title: "en, e, es — the indefinite article",
+        rule: "«en» with a masculine word, «e» with a feminine one, «es» with a neuter one.",
+        watch: "«es» looks like the pronoun «es». «Bruuched Sie es Säckli?» is not «do you need it», it is «do you need a little bag».",
+      },
+      imperative: {
+        title: "Commands and requests: the polite form ends in -ed",
+        rule: "With du it is the bare stem: «Chumm». With Sie it takes -ed: «Chömed Sie».",
+        watch: "You will follow both. Somebody who says «Chömen Sie» is also understood — and placed as not from here at once.",
+      },
       "no-preterite": {
         title: "No simple past",
         rule: "Spoken Zurich German has no preterite at all: everything past is said with the perfect.",
@@ -1244,7 +1259,7 @@ export const en: Dictionary = {
 
   situations: {
     title: "Where you need it",
-    lead: "Not sorted by part of speech but by the moment: what is actually said on a shift, in the order it arrives.",
+    lead: "Not sorted by part of speech but by the moment: what is actually said in that situation, in the order it arrives.",
     note: "The direction is the same as everywhere here — understanding first. Most of these lines are said to you; the few you would say yourself are marked.",
     unreviewed: "Every line here has been machine-checked for Zurich forms, but no native speaker has read them yet. We say so because you cannot tell by looking.",
     hear: "You hear this",
@@ -1265,6 +1280,18 @@ export const en: Dictionary = {
       },
     },
     scenes: {
+      restaurant: {
+        title: "At the restaurant",
+        scene: "Four fixed questions and one that decides the bill. «Zäme oder separat» is asked once, quickly, and getting it wrong is noticed by the whole table.",
+      },
+      "at-work": {
+        title: "At work",
+        scene: "The meeting runs in Standard German or English. The corridor, the coffee machine and the moment something is actually decided do not.",
+      },
+      "school-parents": {
+        title: "At the kindergarten",
+        scene: "Kindergarten in the canton of Zurich is conducted in dialect — the electorate decided that in 2011. A parent who learned Standard German finds out at the parents' evening, in front of everybody.",
+      },
       shopping: {
         title: "At the shop",
         scene: "Four questions, the same ones every time, at a till with a queue behind you — which is exactly where asking somebody to repeat themselves costs the most.",

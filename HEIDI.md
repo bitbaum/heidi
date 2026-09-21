@@ -1274,8 +1274,17 @@ every form already appears in a sentence the packs publish, so the table is a
 reorganisation rather than four new claims. `gsi` is in it because it carries
 every past tense in a variety with no preterite.
 
-Practice items went **67 → 136**, scenes 6 → 11, lines 60 → 110, vocabulary
-48 → 61, and the pool stopped being 76% one kind.
+Practice items went **67 → 195**, scenes 6 → 14, lines 60 → 140, vocabulary
+48 → 83 and grammar topics 8 → 11 — and the pool stopped being three quarters
+one kind. Article questions alone went 3 → 24, which is the cheapest exercise
+the pack can grow: gender is the error a German reader is least able to avoid,
+because it is carried by a word they never had to learn.
+
+Three of the new topics are `question-words`, `indefinite-article` and
+`imperative`, and each names something the packs had been teaching by example
+without ever saying: `wänn` heard as German `wenn` turns a question into a
+condition, the article `es` is identical to the pronoun `es`, and the polite
+imperative ends in `-ed` rather than `-en`.
 
 **Next, in order, and the ordering is the argument:**
 

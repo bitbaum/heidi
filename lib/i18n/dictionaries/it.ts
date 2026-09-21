@@ -987,10 +987,25 @@ export const it: Dictionary = {
     allTopics: "Tutti gli argomenti",
     practiseTopic: "Esercitarsi su questo",
     whereTitle: "Dove capita davvero",
-    whereLead: "La stessa struttura, in frasi dette durante un turno.",
+    whereLead: "La stessa struttura, in frasi che si dicono davvero.",
     prevLabel: "Precedente",
     nextLabel: "Successivo",
     topics: {
+      "question-words": {
+        title: "Le parole interrogative — e la trappola che nascondono",
+        rule: "wänn, wo, was, wie, weer. Quasi tutte si riconoscono; una no.",
+        watch: "«Wänn» suona come il tedesco «wenn». Sentite una condizione dove è stata fatta una domanda — e la vostra risposta finisce per riguardare ciò che nessuno ha chiesto.",
+      },
+      "indefinite-article": {
+        title: "en, e, es — l'articolo indeterminativo",
+        rule: "«en» al maschile, «e» al femminile, «es» al neutro.",
+        watch: "«es» sembra il pronome «es». «Bruuched Sie es Säckli?» non vuol dire «le serve», ma «le serve un sacchetto».",
+      },
+      imperative: {
+        title: "Ordine e richiesta: la forma di cortesia finisce in -ed",
+        rule: "Con il tu, il tema nudo: «Chumm». Con il Lei si aggiunge -ed: «Chömed Sie».",
+        watch: "Capirete entrambe. Chi dice «Chömen Sie» viene capito lo stesso — e riconosciuto subito come non di qui.",
+      },
       "no-preterite": {
         title: "Niente preterito",
         rule: "Lo zurighese parlato non ha il passato semplice: tutto il passato si dice col perfetto.",
@@ -1249,7 +1264,7 @@ export const it: Dictionary = {
 
   situations: {
     title: "Dove serve davvero",
-    lead: "Non ordinato per categoria grammaticale ma per momento: quello che si dice davvero durante un turno, nell'ordine in cui arriva.",
+    lead: "Non ordinato per categoria grammaticale ma per momento: quello che si dice davvero in quella situazione, nell'ordine in cui arriva.",
     note: "La direzione è la stessa di tutto il resto qui: prima capire. La maggior parte di queste frasi le sentite; le poche che direste voi sono segnalate.",
     unreviewed: "Ogni frase è stata controllata a macchina per le forme zurighesi, ma nessun madrelingua le ha ancora rilette. Lo scriviamo perché voi non potete accorgervene.",
     hear: "Questo lo sentite",
@@ -1270,6 +1285,18 @@ export const it: Dictionary = {
       },
     },
     scenes: {
+      restaurant: {
+        title: "Al ristorante",
+        scene: "Quattro domande fisse e una che decide il conto. «Zäme oder separat» si chiede una volta sola, in fretta, e sbagliarla se ne accorge tutto il tavolo.",
+      },
+      "at-work": {
+        title: "Al lavoro",
+        scene: "La riunione si tiene in tedesco standard o in inglese. Il corridoio, la macchina del caffè e il momento in cui si decide davvero qualcosa, no.",
+      },
+      "school-parents": {
+        title: "All'asilo",
+        scene: "Nel canton Zurigo l'asilo si fa in dialetto — lo ha deciso il corpo elettorale nel 2011. Chi ha imparato il tedesco standard se ne accorge alla riunione dei genitori, davanti a tutti.",
+      },
       shopping: {
         title: "Al negozio",
         scene: "Quattro domande, sempre le stesse, alla cassa con una fila dietro — cioè proprio dove chiedere di ripetere costa di più.",

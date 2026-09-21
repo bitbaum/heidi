@@ -1003,10 +1003,25 @@ export const rm: Dictionary = {
     allTopics: "Tut ils temas",
     practiseTopic: "Exercitar quest tema",
     whereTitle: "Nua che quai capita propi",
-    whereLead: "La medema structura, en frasas ditgas durant in servetsch.",
+    whereLead: "La medema structura, en frasas che vegnan propi ditgas.",
     prevLabel: "Enavos",
     nextLabel: "Enavant",
     topics: {
+      "question-words": {
+        title: "Ils pleds da dumonda — e la fallitscha tranter els",
+        rule: "wänn, wo, was, wie, weer. Ils pli blers èn enconuschents; in betg.",
+        watch: "«Wänn» suna sco il tudestg «wenn». Vus udis ina cundiziun nua ch'ina dumonda è vegnida ponida — e vossa resposta pertutga lura insatge che nagin n'ha dumandà.",
+      },
+      "indefinite-article": {
+        title: "en, e, es — l'artitgel nundeterminà",
+        rule: "«en» cun in pled masculin, «e» cun in feminin, «es» cun in neutral.",
+        watch: "«es» para il pronom «es». «Bruuched Sie es Säckli?» na vul betg dir «avais Vus da basegn da quai», mabain «avais Vus da basegn d'in sachet».",
+      },
+      imperative: {
+        title: "Cumond e dumonda: la furma da curtaschia finescha cun -ed",
+        rule: "Cun il ti il tschep nud: «Chumm». Cun il Vus vegn -ed tar: «Chömed Sie».",
+        watch: "Vus chapis omadus. Tgi che di «Chömen Sie» vegn era chapì — ed identifitgà sco betg da qua.",
+      },
       "no-preterite": {
         title: "Nagin preterit",
         rule: "Il turitgais discurrì n'ha nagin passà simpel: tut il passà vegn dit cun il perfect.",
@@ -1265,7 +1280,7 @@ export const rm: Dictionary = {
 
   situations: {
     title: "Nua che vus ils duvrais",
-    lead: "Betg ordinà tenor categorias da pleds, mabain tenor il mument: quai che vegn ditg propi durant in servetsch, en l'urden ch'i arriva.",
+    lead: "Betg ordinà tenor categorias da pleds, mabain tenor il mument: quai che vegn ditg propi en quella situaziun, en l'urden ch'i arriva.",
     note: "La direcziun è la medema sco dapertut qua: emprim chapir. La gronda part da questas frasas udis vus; las paucas che vus dischessas sez èn marcadas.",
     unreviewed: "Mintga frasa qua è vegnida controllada da maschina per las furmas turitgaisas, ma nagin da lingua materna n'ha anc legì ellas. Nus al scrivain perquai che vus na pudais betg al vesair sez.",
     hear: "Quai udis vus",
@@ -1286,6 +1301,18 @@ export const rm: Dictionary = {
       },
     },
     scenes: {
+      restaurant: {
+        title: "En il restaurant",
+        scene: "Quatter dumondas fixas ed ina che decida davart il quint. «Zäme oder separat» vegn dumandà ina giada, spert, e sbagliar quai remartga l'entira maisa.",
+      },
+      "at-work": {
+        title: "Al lavur",
+        scene: "La sesida va en tudestg standard u en englais. Il corridor, la maschina da caffè ed il mument che insatge vegn propi decidì, betg.",
+      },
+      "school-parents": {
+        title: "En la scolina",
+        scene: "En il chantun Turitg va la scolina en dialect — quai han ils votants decidì il 2011. Ils geniturs ch'han emprendì il tudestg standard al chattan ora a la sairada da geniturs, davant tuts.",
+      },
       shopping: {
         title: "En la butia",
         scene: "Quatter dumondas, mintga giada las medemas, a la cassa cun ina colonna davos vus — precis nua che far repeter custa il pli.",

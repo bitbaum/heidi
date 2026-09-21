@@ -64,7 +64,8 @@ never served again.
 complaint and was arithmetic rather than scheduling. A second situations
 domain (`everyday`), the short words no correspondence rescues, and paradigms
 for `si`, `gah` and `cho` — each built only from forms the packs already
-publish. Practice items 67 → 136, scenes 6 → 11, vocabulary 48 → 61.
+publish. Practice items 67 → 195, scenes 6 → 14, lines 60 → 140, vocabulary
+48 → 83, grammar topics 8 → 11. Article questions went 3 → 24.
 
 Two smaller corrections found on the way: the pack spelled `Chunnsch` in its
 showcase and `Chunsch` in a grammar example, which is exactly what the

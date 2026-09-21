@@ -123,6 +123,78 @@ export const EVERYDAY: SituationPack = {
 
     {
       /**
+       * Eating out. Four fixed questions and one that decides the bill —
+       * «zäme oder separat» is asked once, quickly, and getting it wrong is
+       * remembered by everybody at the table.
+       */
+      id: "restaurant",
+      phrases: [
+        { target: "Händ Sie reserviert?", bridge: "Haben Sie reserviert?", direction: "hear", source: "idiotikon" },
+        { target: "Was dörf s sii?", bridge: "Was darf es sein?", direction: "hear", source: "idiotikon" },
+        { target: "De Tisch dört äne isch frei.", bridge: "Der Tisch dort drüben ist frei.", direction: "hear", grammar: "articles", source: "idiotikon" },
+        { target: "Znacht git s ab sächsi.", bridge: "Abendessen gibt es ab sechs.", direction: "hear", source: "idiotikon" },
+        { target: "Wänd Sie no en Kafi?", bridge: "Möchten Sie noch einen Kaffee?", direction: "hear", grammar: "indefinite-article", source: "idiotikon" },
+        { target: "Zäme oder separat?", bridge: "Zusammen oder getrennt?", direction: "hear", source: "idiotikon" },
+        { target: "Für mich es Mineral, bitte.", bridge: "Für mich ein Mineralwasser, bitte.", direction: "say", grammar: "indefinite-article", source: "idiotikon" },
+        { target: "Häts no öppis Vegetarischs?", bridge: "Gibt es noch etwas Vegetarisches?", direction: "say", source: "idiotikon" },
+        { target: "Ich zale mit Charte.", bridge: "Ich zahle mit Karte.", direction: "say", source: "idiotikon" },
+        { target: "Stimmt so, merci.", bridge: "Stimmt so, danke.", direction: "say", source: "idiotikon" },
+      ],
+    },
+
+    {
+      /**
+       * Work, and the half of it that is not the work.
+       *
+       * The meeting runs in Standard German or English; the corridor, the
+       * coffee machine and the moment something is actually decided do not.
+       * That gap is the `employers` row on `/organisations`, and these are the
+       * lines it is made of.
+       */
+      id: "at-work",
+      phrases: [
+        { target: "Chasch mer schnäll hälfe?", bridge: "Kannst du mir kurz helfen?", direction: "hear", source: "idiotikon" },
+        { target: "Mir händ am zäh e Sitzig.", bridge: "Wir haben um zehn eine Sitzung.", direction: "hear", grammar: "unified-plural", source: "idiotikon" },
+        { target: "Das isch bis Friitig pressant.", bridge: "Das ist bis Freitag dringend.", direction: "hear", source: "idiotikon" },
+        { target: "Häsch s Mail scho gläse?", bridge: "Hast du die Mail schon gelesen?", direction: "hear", grammar: "no-preterite", source: "idiotikon" },
+        { target: "Chumm, mir mached Pause.", bridge: "Komm, wir machen Pause.", direction: "hear", grammar: "imperative", source: "idiotikon" },
+        { target: "Wänn häsch Fiirabig?", bridge: "Wann hast du Feierabend?", direction: "hear", grammar: "question-words", source: "idiotikon" },
+        { target: "Bis morn denn.", bridge: "Bis morgen dann.", direction: "hear", source: "idiotikon" },
+        { target: "Ich bi am Namittag im Büro.", bridge: "Ich bin am Nachmittag im Büro.", direction: "say", source: "idiotikon" },
+        { target: "Ich lüt em Chef grad aa.", bridge: "Ich rufe den Chef gleich an.", direction: "say", source: "idiotikon" },
+        { target: "Ich mues no schnäll öppis fertig mache.", bridge: "Ich muss noch schnell etwas fertig machen.", direction: "say", source: "idiotikon" },
+      ],
+    },
+
+    {
+      /**
+       * The kindergarten, and the reason it is on this list rather than on a
+       * roadmap.
+       *
+       * Kindergarten in the canton of Zurich is conducted in DIALECT — the
+       * electorate decided that in 2011 — so a parent who learned Standard
+       * German cannot follow their own child's school language, and discovers
+       * it at the parents' evening in front of everybody. That is the
+       * `schools` row on `/organisations`, and it aims at the parents rather
+       * than the children for the same reason.
+       */
+      id: "school-parents",
+      phrases: [
+        { target: "De Kindsgi fangt am achti aa.", bridge: "Der Kindergarten fängt um acht an.", direction: "hear", grammar: "articles", source: "idiotikon" },
+        { target: "Mir händ am Zischtig en Elterenaabig.", bridge: "Wir haben am Dienstag einen Elternabend.", direction: "hear", grammar: "unified-plural", source: "idiotikon" },
+        { target: "Bringed Sie bitte Finkeli mit.", bridge: "Bringen Sie bitte Hausschuhe mit.", direction: "hear", grammar: "imperative", source: "idiotikon" },
+        { target: "S Chind hät hüt ächli gweint.", bridge: "Das Kind hat heute ein bisschen geweint.", direction: "hear", grammar: "no-preterite", source: "idiotikon" },
+        { target: "Im Kindsgi redet mer Mundart.", bridge: "Im Kindergarten spricht man Mundart.", direction: "hear", source: "idiotikon" },
+        { target: "Häsch d Znüni-Box debii?", bridge: "Hast du die Znüni-Box dabei?", direction: "hear", source: "idiotikon" },
+        { target: "Mir gsehnd üs am Elterenaabig.", bridge: "Wir sehen uns am Elternabend.", direction: "hear", grammar: "unified-plural", source: "idiotikon" },
+        { target: "Chan s Chind hüt früener hei?", bridge: "Kann das Kind heute früher nach Hause?", direction: "say", source: "idiotikon" },
+        { target: "Wänn isch de Uusflug?", bridge: "Wann ist der Ausflug?", direction: "say", grammar: "question-words", source: "idiotikon" },
+        { target: "Merci für d Rückmäldig.", bridge: "Danke für die Rückmeldung.", direction: "say", source: "idiotikon" },
+      ],
+    },
+
+    {
+      /**
        * The lunch table — the scene that prompted this product.
        *
        * It is last because it is hardest, and it is here because it is the one

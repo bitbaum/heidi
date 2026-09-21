@@ -1113,10 +1113,25 @@ export const de = {
     allTopics: "Alle Themen",
     practiseTopic: "Dieses Thema üben",
     whereTitle: "Wo das wirklich vorkommt",
-    whereLead: "Dieselbe Struktur, in Sätzen, die auf einer Schicht fallen.",
+    whereLead: "Dieselbe Struktur, in Sätzen, die wirklich so gesagt werden.",
     prevLabel: "Vorheriges",
     nextLabel: "Nächstes",
     topics: {
+      "question-words": {
+        title: "Fragewörter — und die Falle darin",
+        rule: "wänn, wo, was, wie, weer. Die meisten sind erkennbar; eines ist es nicht.",
+        watch: "«Wänn» klingt wie das deutsche «wenn». Sie hören eine Bedingung, gestellt wurde aber eine Frage — und Ihre Antwort passt dann auf etwas, was niemand gefragt hat.",
+      },
+      "indefinite-article": {
+        title: "en, e, es — der unbestimmte Artikel",
+        rule: "«en» beim männlichen, «e» beim weiblichen, «es» beim sächlichen Wort.",
+        watch: "«es» sieht aus wie das Pronomen «es». «Bruuched Sie es Säckli?» heisst nicht «brauchen Sie es», sondern «brauchen Sie ein Säckchen».",
+      },
+      imperative: {
+        title: "Befehl und Bitte: die Sie-Form endet auf -ed",
+        rule: "Beim Du steht der blosse Stamm: «Chumm». Beim Sie kommt -ed dazu: «Chömed Sie».",
+        watch: "Verstehen werden Sie beides. Wer «Chömen Sie» sagt, wird auch verstanden — und sofort als Nicht-Zürcher erkannt.",
+      },
       "no-preterite": {
         title: "Kein Präteritum",
         rule: "Gesprochenes Zürichdeutsch hat keine einfache Vergangenheit: alles Vergangene steht im Perfekt.",
@@ -1388,7 +1403,7 @@ export const de = {
    */
   situations: {
     title: "Wo Sie es brauchen",
-    lead: "Nicht nach Wortarten geordnet, sondern nach dem Moment: was auf einer Schicht wirklich gesagt wird, in der Reihenfolge, in der es kommt.",
+    lead: "Nicht nach Wortarten geordnet, sondern nach dem Moment: was in dieser Situation wirklich gesagt wird, in der Reihenfolge, in der es kommt.",
     note: "Richtung wie überall hier: zuerst verstehen. Die meisten Sätze hören Sie — die wenigen, die Sie selbst sagen, sind markiert.",
     unreviewed: "Jeder Satz hier ist maschinell auf Zürcher Formen geprüft, aber noch von keiner Muttersprachlerin gegengelesen. Das steht hier, weil Sie es uns nicht ansehen können.",
     hear: "Das hören Sie",
@@ -1409,6 +1424,18 @@ export const de = {
       },
     },
     scenes: {
+      restaurant: {
+        title: "Im Restaurant",
+        scene: "Vier feste Fragen und eine, die über die Rechnung entscheidet. «Zäme oder separat» wird einmal gefragt, schnell, und wer es falsch versteht, merkt es am ganzen Tisch.",
+      },
+      "at-work": {
+        title: "Bei der Arbeit",
+        scene: "Die Sitzung läuft auf Hochdeutsch oder Englisch. Der Gang, die Kaffeemaschine und der Moment, in dem wirklich etwas entschieden wird, tun das nicht.",
+      },
+      "school-parents": {
+        title: "Im Kindsgi",
+        scene: "Im Kanton Zürich ist der Kindergarten auf Mundart — das hat die Stimmbevölkerung 2011 so entschieden. Wer Hochdeutsch gelernt hat, merkt das am Elternabend, vor allen anderen.",
+      },
       shopping: {
         title: "Im Laden",
         scene: "Vier Fragen, jedes Mal dieselben, an der Kasse mit einer Schlange dahinter — also genau dort, wo Nachfragen am meisten kostet.",

@@ -987,10 +987,25 @@ export const fr: Dictionary = {
     allTopics: "Tous les sujets",
     practiseTopic: "S'exercer sur ce sujet",
     whereTitle: "Où cela arrive vraiment",
-    whereLead: "La même structure, dans des phrases dites pendant un service.",
+    whereLead: "La même structure, dans des phrases qu'on dit vraiment.",
     prevLabel: "Précédent",
     nextLabel: "Suivant",
     topics: {
+      "question-words": {
+        title: "Les mots interrogatifs — et le piège qu'ils cachent",
+        rule: "wänn, wo, was, wie, weer. La plupart se reconnaissent ; un seul ne se reconnaît pas.",
+        watch: "«Wänn» sonne comme l'allemand «wenn». Vous entendez une condition là où une question a été posée — et votre réponse porte alors sur ce que personne n'a demandé.",
+      },
+      "indefinite-article": {
+        title: "en, e, es — l'article indéfini",
+        rule: "«en» au masculin, «e» au féminin, «es» au neutre.",
+        watch: "«es» ressemble au pronom «es». «Bruuched Sie es Säckli ?» ne veut pas dire « en avez-vous besoin », mais « voulez-vous un sachet ».",
+      },
+      imperative: {
+        title: "Ordre et demande : la forme de politesse finit par -ed",
+        rule: "Au tutoiement, le radical nu : «Chumm». Au vouvoiement, -ed s'ajoute : «Chömed Sie».",
+        watch: "Vous comprendrez les deux. Qui dit «Chömen Sie» est compris aussi — et aussitôt reconnu comme n'étant pas d'ici.",
+      },
       "no-preterite": {
         title: "Pas de prétérit",
         rule: "Le zurichois parlé n'a pas de passé simple : tout le passé se dit au parfait.",
@@ -1249,7 +1264,7 @@ export const fr: Dictionary = {
 
   situations: {
     title: "Là où vous en avez besoin",
-    lead: "Classé non par catégorie de mots, mais par moment : ce qui se dit vraiment pendant un service, dans l'ordre où cela arrive.",
+    lead: "Classé non par catégorie de mots, mais par moment : ce qui se dit vraiment dans cette situation, dans l'ordre où cela arrive.",
     note: "La direction reste la même que partout ici : comprendre d'abord. La plupart de ces phrases, vous les entendez ; les rares que vous diriez vous-même sont signalées.",
     unreviewed: "Chaque phrase a été vérifiée par machine pour les formes zurichoises, mais aucune personne de langue maternelle ne les a encore relues. Nous l'écrivons parce que vous ne pouvez pas le voir vous-même.",
     hear: "Vous entendez ceci",
@@ -1270,6 +1285,18 @@ export const fr: Dictionary = {
       },
     },
     scenes: {
+      restaurant: {
+        title: "Au restaurant",
+        scene: "Quatre questions fixes et une qui décide de l'addition. «Zäme oder separat» se demande une fois, vite, et se tromper se remarque à toute la table.",
+      },
+      "at-work": {
+        title: "Au travail",
+        scene: "La séance se tient en bon allemand ou en anglais. Le couloir, la machine à café et le moment où quelque chose se décide vraiment, non.",
+      },
+      "school-parents": {
+        title: "À l'école enfantine",
+        scene: "Dans le canton de Zurich, l'école enfantine se fait en dialecte — le corps électoral l'a décidé en 2011. Le parent qui a appris le bon allemand le découvre à la réunion de parents, devant tout le monde.",
+      },
       shopping: {
         title: "Au magasin",
         scene: "Quatre questions, toujours les mêmes, à la caisse avec une file derrière vous — précisément là où faire répéter coûte le plus cher.",
