@@ -59,6 +59,11 @@ export const gsw: Dictionary = {
     groupPractise: "Üebe",
     groupAbout: "Über d Heidi",
     skipToContent: "Zum Inhalt",
+    sections: {
+      how: "Wie s funktioniert",
+      record: "Was mir säged",
+      who: "Wer dehinder staht",
+    },
     contents: "Inhalt",
     menu: "Menü",
     language: "Sprach uuswähle",
@@ -69,6 +74,8 @@ export const gsw: Dictionary = {
 
   footer: {
     tagline: "Züritüütsch verstaa, und denn mitrede.",
+    place: "Kanton Züri, Schwiiz",
+    varietyName: "Züritüütsch",
     builtOn: "Gmacht i Züri.",
     sections: "Siite",
     projectTitle: "Projekt",
@@ -560,6 +567,11 @@ export const gsw: Dictionary = {
     bindingNote: "Massgebend isch di tüütschi Fassig.",
     flowsTitle: "Was wo liit",
     flowsLead: "Jedi Ziile nennt de Speicherort, damit Si s sälber chönd nachepüefe.",
+    detail: {
+      pictures: "im Browser chlyner gmacht; gspeicheret wird nu d Aazahl",
+      speakingSuggestion: "nu de Satz, wo Sie bestätigt händ",
+      account: "nu d Kennig, kein Name und kei Adrässe",
+    },
     place: { device: "Nur uf Ihrem Grät", server: "Uf eusem Server", vendor: "Bi eme Aabieter" },
     col: { what: "Was", where: "Wo", who: "Wer s susch gseht" },
     nobody: "niemert susch",
@@ -624,6 +636,7 @@ export const gsw: Dictionary = {
     rolesTitle: "Vier Arte mitzmache",
     rolesLead:
       "Nach Ufwand gordnet, s Chlyschte zerscht — und s Chlyschte isch is am meischte wert. Bi jedere staht, was es derfür hüt scho git.",
+    rolesLanguage: "Die Beschriibige git s nu uf Dütsch und Änglisch.",
     todayLabel: "Stand hüt",
     roleCta: "Schriibed Sie is drzue",
     roleSee: "Aaluege",
@@ -1173,6 +1186,10 @@ export const gsw: Dictionary = {
     due: "fällig",
     none: "Hüt isch nüt fällig.",
     noneHint: "Chömed morn wieder — oder schlaged öppis Neus nache.",
+    noneFree: "De Plan isch iighalte. Wänn Sie jetz wiitermache wänd, da düre:",
+    nonePractise: "Churz üebe",
+    noneCards: "Charte",
+    noneAsk: "Nachricht iifüege",
     empty: "Na kei Wörter zum Wiederhole.",
     emptyHint: "Merked Ihne es Wort im Gspräch, denn fragt Si d Heidi spöter dernach.",
     tomorrow: "morn fällig",

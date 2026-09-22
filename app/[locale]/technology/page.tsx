@@ -358,6 +358,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
           {sources.map((id) => (
             <li key={id} className="text-sm leading-relaxed text-fg-secondary">
               <a
+                  lang="en"
                 href={SOURCES[id].url}
                 className="text-link underline underline-offset-4 hover:text-accent"
                 rel="noreferrer"

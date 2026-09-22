@@ -55,9 +55,51 @@ export function ReviewPanel({ t, locale }: { t: Dictionary["review"]; locale: Lo
   const current = review.queue[0];
 
   if (!current) {
+    /**
+     * NOTHING DUE IS NOT NOTHING TO DO, and this used to say otherwise.
+     *
+     * It read: «Heute nichts fällig. Kommen Sie morgen wieder — oder schlagen
+     * Sie etwas Neues nach.» Reported, fairly, as "what am I supposed to do
+     * with this info" — a dashboard whose main panel tells you to leave and
+     * come back tomorrow is a dashboard with no reason to exist.
+     *
+     * The spacing schedule is right and nothing here overrides it: a word due
+     * on Thursday is not dragged forward, because asking later beats asking
+     * more often and that is the whole argument for the schedule. What was
+     * wrong is treating the empty QUEUE as an empty PRODUCT. There are five
+     * hundred and fifty-three practice questions that need no schedule and no
+     * account, and on the day the queue is empty they are exactly what a
+     * learner should be offered.
+     *
+     * Three doors, in the order they are worth taking: a short mixed sitting,
+     * a fast run of cards, and the thing this product is actually for — paste
+     * something somebody really sent you.
+     */
     return (
-      <Empty title={t.none} hint={t.noneHint}>
-        <Counts t={t} tomorrow={review.tomorrow} settled={review.settled} />
+      <Empty title={t.none} hint={t.noneFree}>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Link
+            href={href(locale, "practice")}
+            className="inline-flex min-h-11 items-center rounded-control bg-accent px-4 text-sm font-medium text-on-accent hover:opacity-90"
+          >
+            {t.nonePractise}
+          </Link>
+          <Link
+            href={`${href(locale, "practice")}?mode=card`}
+            className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-sm font-medium text-fg-primary hover:bg-surface-page"
+          >
+            {t.noneCards}
+          </Link>
+          <Link
+            href={href(locale, "chat")}
+            className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-sm font-medium text-fg-primary hover:bg-surface-page"
+          >
+            {t.noneAsk}
+          </Link>
+        </div>
+        <div className="mt-4">
+          <Counts t={t} tomorrow={review.tomorrow} settled={review.settled} />
+        </div>
       </Empty>
     );
   }

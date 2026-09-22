@@ -7,7 +7,7 @@ import { PAPER } from "@/lib/config/paper";
 import { sectorLocale } from "@/lib/config/sectors";
 import { SOURCES, citation } from "@/lib/research/sources";
 import { Shell } from "../_components/page-shell";
-import { PageToc, TocLayout } from "../_components/page-toc";
+import { SectionNav, SectionNavLayout } from "../_components/section-nav";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -62,11 +62,11 @@ export default async function PaperPage({ params }: { params: Promise<{ locale: 
         <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{paper.standfirst}</p>
       </header>
 
-      <TocLayout
-        toc={
-          <PageToc
+      <SectionNavLayout
+        nav={
+          <SectionNav
             label={dict.nav.contents}
-            entries={paper.sections.map((section) => ({ id: section.id, label: section.short }))}
+            sections={paper.sections.map((section) => ({ id: section.id, label: section.short }))}
           />
         }
       >
@@ -137,6 +137,7 @@ export default async function PaperPage({ params }: { params: Promise<{ locale: 
             {cited.map((id) => (
               <li key={id} className="max-w-measure text-sm leading-relaxed text-fg-secondary">
                 <a
+                  lang="en"
                   href={SOURCES[id].url}
                   rel="noreferrer"
                   className="wrap-anywhere underline underline-offset-4 hover:text-accent"
@@ -149,7 +150,7 @@ export default async function PaperPage({ params }: { params: Promise<{ locale: 
         </section>
       )}
 
-      </TocLayout>
+      </SectionNavLayout>
 
       {/* Where the argument continues, for a reader who got to the end. The
           three pages this one deliberately does not repeat. */}

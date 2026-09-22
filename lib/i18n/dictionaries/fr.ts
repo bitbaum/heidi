@@ -36,6 +36,11 @@ export const fr: Dictionary = {
     groupPractise: "S'exercer",
     groupAbout: "À propos d'Heidi",
     skipToContent: "Aller au contenu",
+    sections: {
+      how: "Comment ça marche",
+      record: "Ce que nous disons",
+      who: "Qui est derrière",
+    },
     contents: "Sommaire",
     menu: "Menu",
     language: "Choisir la langue",
@@ -46,6 +51,8 @@ export const fr: Dictionary = {
 
   footer: {
     tagline: "Comprendre le zurichois, puis participer.",
+    place: "Canton de Zurich, Suisse",
+    varietyName: "Zurichois",
     builtOn: "Fait à Zurich.",
     sections: "Pages",
     projectTitle: "Projet",
@@ -476,6 +483,11 @@ export const fr: Dictionary = {
     bindingNote: "La version allemande fait foi.",
     flowsTitle: "Ce qui est conservé, et où",
     flowsLead: "Chaque ligne nomme l'emplacement, pour que vous puissiez le vérifier vous-même.",
+    detail: {
+      pictures: "réduite dans le navigateur ; seul un comptage est conservé",
+      speakingSuggestion: "seulement la phrase que vous avez confirmée",
+      account: "seulement l\u2019identifiant — ni nom ni adresse",
+    },
     place: { device: "Sur votre appareil seulement", server: "Sur notre serveur", vendor: "Chez un prestataire" },
     col: { what: "Quoi", where: "Où", who: "Qui d'autre le voit" },
     nobody: "personne d'autre",
@@ -540,6 +552,7 @@ export const fr: Dictionary = {
     rolesTitle: "Quatre façons de participer",
     rolesLead:
       "Classées par engagement, la plus petite d\u2019abord — et c\u2019est la plus petite qui nous vaut le plus. Chacune indique ce qui existe déjà pour elle aujourd\u2019hui.",
+    rolesLanguage: "Ces descriptions ne sont qu\u2019en allemand et en anglais : les personnes recherchées ici vivent en Suisse. Le reste de la page est dans votre langue.",
     todayLabel: "État actuel",
     roleCta: "Écrivez-nous à ce sujet",
     roleSee: "Voir",
@@ -1153,6 +1166,10 @@ export const fr: Dictionary = {
     due: "à réviser",
     none: "Rien à réviser aujourd'hui.",
     noneHint: "Revenez demain — ou cherchez quelque chose de nouveau.",
+    noneFree: "Le programme est à jour. Si vous voulez continuer maintenant, par ici :",
+    nonePractise: "Une courte séance",
+    noneCards: "Cartes",
+    noneAsk: "Coller un message",
     empty: "Aucun mot à réviser pour l'instant.",
     emptyHint: "Gardez un mot pendant une conversation, et Heidi vous le redemandera plus tard.",
     tomorrow: "demain",

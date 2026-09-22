@@ -106,10 +106,37 @@ export type DisplayArea = {
 
 export type DisplayVariety = {
   tag: string;
-  name: string;
+  /**
+   * The variety's own name for itself. The ONE name that survives.
+   *
+   * An endonym is language-neutral by definition: «Züritüütsch» is what it is
+   * called in Russian, in French and in Romansh, because it is what the
+   * speakers call it. That is why it renders anywhere.
+   *
+   * WHAT WAS REMOVED BESIDE IT, and it took a reader to notice. `name` was
+   * "Zurich German" and `region` was "Canton of Zürich, Switzerland" — both
+   * ENGLISH SENTENCES about a place, and both rendered in the footer of every
+   * page in every language, plus the About page. Reported as: there is a place
+   * where it says Canton of Zurich, even though we are looking at the German
+   * version.
+   *
+   * This file's own header lists three previous escapes of exactly this kind
+   * (`orthography.note`, `learner.because`, a finding's `reason`) and says the
+   * fix that ends it is that a component cannot reach the field at all. These
+   * two got through because they do not LOOK like prose — a name and a region
+   * read as data until you try to say them in another language. They are gone
+   * from the projection, and the reader-facing versions live in the
+   * dictionaries where every other sentence on the site lives.
+   *
+   * `prompt.ts` still uses the pack's English `name`, and should: it is
+   * building a prompt for a model, and the prompt is meant to be English.
+   */
   endonym: string;
-  region: string;
-  family?: { name: string; endonym: string; planned: readonly string[]; atlas?: Atlas };
+  /**
+   * The family, by its endonym only — «Schwiizerdütsch». `family.name` was
+   * "Swiss German" and went the same way as `name` above, for the same reason.
+   */
+  family?: { endonym: string; planned: readonly string[]; atlas?: Atlas };
   rules: readonly DisplayRule[];
   correspondences: readonly DisplayCorrespondence[];
   /**
@@ -226,12 +253,10 @@ export type DisplayVariety = {
  */
 export const DISPLAY: DisplayVariety = {
   tag: VARIETY.tag,
-  name: VARIETY.name,
   endonym: VARIETY.endonym,
-  region: VARIETY.region,
   family: VARIETY.family
     ? {
-        name: VARIETY.family.name,
+
         endonym: VARIETY.family.endonym,
         planned: VARIETY.family.planned,
         atlas: VARIETY.family.atlas,

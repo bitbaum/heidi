@@ -55,6 +55,11 @@ export const de = {
     groupPractise: "Üben",
     groupAbout: "Über Heidi",
     skipToContent: "Zum Inhalt springen",
+    sections: {
+      how: "Wie es funktioniert",
+      record: "Was wir sagen",
+      who: "Wer dahintersteht",
+    },
     contents: "Inhalt",
     menu: "Menü",
     language: "Sprache wählen",
@@ -65,6 +70,8 @@ export const de = {
 
   footer: {
     tagline: "Zürichdeutsch verstehen, und dann mitreden.",
+    place: "Kanton Zürich, Schweiz",
+    varietyName: "Zürichdeutsch",
     builtOn: "Gemacht in Zürich.",
     sections: "Seiten",
     projectTitle: "Projekt",
@@ -521,6 +528,11 @@ export const de = {
     bindingNote: "Massgebend ist die deutsche Fassung.",
     flowsTitle: "Was wo liegt",
     flowsLead: "Jede Zeile nennt den Speicherort, damit Sie es selbst nachprüfen können.",
+    detail: {
+      pictures: "im Browser verkleinert; gespeichert wird nur die Anzahl",
+      speakingSuggestion: "nur der Satz, den Sie bestätigt haben",
+      account: "nur die Kennung, kein Name und keine Adresse",
+    },
     place: { device: "Nur auf Ihrem Gerät", server: "Auf unserem Server", vendor: "Bei einem Anbieter" },
     col: { what: "Was", where: "Wo", who: "Wer es sonst sieht" },
     nobody: "niemand sonst",
@@ -585,6 +597,7 @@ export const de = {
     rolesTitle: "Vier Arten mitzumachen",
     rolesLead:
       "Nach Aufwand geordnet, das Kleinste zuerst — und das Kleinste ist uns am meisten wert. Bei jeder steht, was es dafür heute im Produkt schon gibt.",
+    rolesLanguage: "Diese Beschreibungen stehen nur auf Deutsch und Englisch.",
     todayLabel: "Stand heute",
     roleCta: "Schreiben Sie uns dazu",
     roleSee: "Ansehen",
@@ -1300,6 +1313,10 @@ export const de = {
     due: "fällig",
     none: "Heute nichts fällig.",
     noneHint: "Kommen Sie morgen wieder — oder schlagen Sie etwas Neues nach.",
+    noneFree: "Der Plan ist eingehalten. Wenn Sie jetzt weitermachen wollen, hier entlang:",
+    nonePractise: "Kurz üben",
+    noneCards: "Karten",
+    noneAsk: "Nachricht einfügen",
     empty: "Noch keine Wörter zum Wiederholen.",
     emptyHint: "Merken Sie sich ein Wort im Gespräch, dann fragt Heidi Sie später danach.",
     tomorrow: "morgen fällig",

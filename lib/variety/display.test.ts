@@ -107,6 +107,56 @@ test("the projection still carries what a page actually needs", () => {
   assert.ok(DISPLAY.family?.atlas, "the map still needs the atlas");
 });
 
+test("the projection carries no English name for anything", () => {
+  /**
+   * THE FOURTH ESCAPE OF THIS KIND, and the first two that did not look like
+   * prose. `name` was "Zurich German" and `region` was "Canton of Zürich,
+   * Switzerland"; `family.name` was "Swiss German". All three were ENGLISH,
+   * all three survived the projection, and all three rendered in the footer of
+   * every page in every language — reported by a reader looking at the German
+   * site and finding a canton described in English.
+   *
+   * They got through because a name and a region read as DATA until you try to
+   * say them in another language. An endonym really is data — «Züritüütsch» is
+   * what it is called in Russian too, because it is what the speakers call it.
+   * An exonym is a translation that happens to be in English.
+   *
+   * So this asserts the shape exhaustively rather than banning the two field
+   * names: an allow-list fails when somebody adds a field, and a deny-list
+   * passes until somebody adds the wrong one — which is exactly how these
+   * three survived three previous rounds of this same lesson.
+   */
+  assert.deepEqual(
+    Object.keys(DISPLAY).sort(),
+    [
+      "areas",
+      "capabilities",
+      "correspondences",
+      "dialectGroups",
+      "endonym",
+      "family",
+      "fillers",
+      "grammar",
+      "orthography",
+      "practice",
+      "rules",
+      "showcase",
+      "speech",
+      "speechRule",
+      "tag",
+      "vocabulary",
+      "vocabularySources",
+    ],
+    "a field reached the projection that has not been checked for English",
+  );
+
+  assert.deepEqual(
+    Object.keys(DISPLAY.family ?? {}).sort(),
+    ["atlas", "endonym", "planned"],
+    "the family carries its endonym, never its English name",
+  );
+});
+
 test("what survives is names, places and letters — not sentences", () => {
   // The reason the projection is safe in every locale: a place name and a
   // dialect form read the same in Russian as in German. A sentence does not.

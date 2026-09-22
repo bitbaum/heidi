@@ -61,6 +61,17 @@ export type RouteKey =
  */
 export type NavGroup = "use" | "learn" | "practise" | "about";
 
+/**
+ * The subheadings inside the `about` panel, in the order they render.
+ *
+ * `how`     — how the thing works, and whether to believe it
+ * `record`  — what we have said and what we will do
+ * `who`     — who is behind it and how to take part
+ */
+export type NavSectionKey = "how" | "record" | "who";
+
+export const NAV_SECTIONS: readonly NavSectionKey[] = ["how", "record", "who"];
+
 export const NAV_GROUPS: readonly NavGroup[] = ["use", "learn", "practise", "about"];
 
 export type Route = {
@@ -69,6 +80,26 @@ export type Route = {
   segment: string;
   /** Which heading it sits under, or absent to stay out of the menu. */
   group?: NavGroup;
+  /**
+   * A subheading WITHIN a group, for a panel that has grown past scanning.
+   *
+   * `about` reached nine entries — blog, white paper, roadmap, changelog,
+   * method, technology, contribute, about, for organisations — in a flat
+   * column, and was reported as "way too many unstructured entries". It is
+   * right: nine is past the point where a reader scans and into the point
+   * where they read, and a menu that has to be read is a menu that gets
+   * closed.
+   *
+   * A FIFTH TOP-LEVEL GROUP WAS THE OBVIOUS FIX AND IS THE WRONG ONE — the
+   * header note in `site-header.tsx` records the bar overflowing by 10px at
+   * 1024 in three languages, and another heading is how that returns. A
+   * subheading inside the panel costs no bar width at all.
+   *
+   * Absent means the route sits ungrouped at the top of its panel, which is
+   * what every other group still does. Only `about` is subdivided, because
+   * only `about` is nine.
+   */
+  section?: NavSectionKey;
   /**
    * Belongs in the sitemap. A personal space is noindex, and a sitemap that
    * advertises it contradicts the page's own robots meta — a disagreement
@@ -125,7 +156,7 @@ export const ROUTES: readonly Route[] = [
   // essay about how the dialect landscape came to be is the long form of the
   // sentence the dialect page states in a paragraph. Indexed and high: "warum
   // spricht die Schweiz Dialekt" is a real search with a lot of bad answers.
-  { key: "essays", segment: "essays", group: "about", indexed: true, priority: 0.75 },
+  { key: "essays", segment: "essays", group: "about", section: "record", indexed: true, priority: 0.75 },
   /**
    * The public record: the argument in one document, what is coming, and what
    * changed.
@@ -140,19 +171,19 @@ export const ROUTES: readonly Route[] = [
    * project whose whole argument is "check us" cannot hide the pages that
    * make checking possible.
    */
-  { key: "paper", segment: "paper", group: "about", indexed: true, priority: 0.8 },
-  { key: "roadmap", segment: "roadmap", group: "about", indexed: true, priority: 0.7 },
-  { key: "changelog", segment: "changelog", group: "about", indexed: true, priority: 0.65 },
-  { key: "method", segment: "method", group: "about", indexed: true, priority: 0.8 },
+  { key: "paper", segment: "paper", group: "about", section: "how", indexed: true, priority: 0.8 },
+  { key: "roadmap", segment: "roadmap", group: "about", section: "record", indexed: true, priority: 0.7 },
+  { key: "changelog", segment: "changelog", group: "about", section: "record", indexed: true, priority: 0.65 },
+  { key: "method", segment: "method", group: "about", section: "how", indexed: true, priority: 0.8 },
   // Beside the method, not inside it. `/method` argues how Heidi teaches; this
   // reports what a computer can currently do with this language at all — a
   // different kind of claim, and the public form of §8's refusal to say Heidi
   // transcribes dialect. Indexed, because somebody searching for "Swiss German
   // speech recognition" is looking for exactly this and will otherwise find a
   // vendor selling them Swiss Standard German.
-  { key: "technology", segment: "technology", group: "about", indexed: true, priority: 0.65 },
-  { key: "contribute", segment: "contribute", group: "about", indexed: true, priority: 0.6 },
-  { key: "about", segment: "about", group: "about", indexed: true, priority: 0.5 },
+  { key: "technology", segment: "technology", group: "about", section: "how", indexed: true, priority: 0.65 },
+  { key: "contribute", segment: "contribute", group: "about", section: "who", indexed: true, priority: 0.6 },
+  { key: "about", segment: "about", group: "about", section: "who", indexed: true, priority: 0.5 },
   // Reached from the account control, not the menu: a personal space listed in
   // the nav of a site you are not signed in to reads as a locked door.
   { key: "portal", segment: "portal", indexed: false, priority: 0.3 },
@@ -192,7 +223,7 @@ export const ROUTES: readonly Route[] = [
    * the white paper and the home page now both link to it directly — which is
    * where an institutional reader actually arrives.
    */
-  { key: "organisations", segment: "organisations", group: "about", indexed: true, priority: 0.6 },
+  { key: "organisations", segment: "organisations", group: "about", section: "who", indexed: true, priority: 0.6 },
   { key: "investors", segment: "investors", indexed: false, priority: 0.1 },
 ];
 
@@ -217,12 +248,29 @@ export const ROUTES: readonly Route[] = [
  * exists and redirects, for the bookmarks; the MENU entry was the part that
  * was misleading.
  */
-export const ACCOUNT_MENU_KEYS = ["settings"] as const;
+/**
+ * THE DASHBOARD IS FIRST, and its absence was the complaint.
+ *
+ * The avatar menu said who you were signed in as and offered Settings. The
+ * one thing it did not offer was the page the avatar implies — your own
+ * space, which is the locale root when signed in. "Dashboard should be
+ * accessible from the dropdown from my icon top right; right now it just says
+ * I am signed in as cato and settings."
+ *
+ * `portal` is the LABEL key and `""` is the segment: the dashboard moved back
+ * to the locale root when `/` and `/portal` were found rendering the same
+ * page, and `/portal` now only redirects. `redirect-links.test.ts` forbids
+ * navigating through it, which is why this carries the two separately rather
+ * than reusing the route's own segment.
+ */
+export const ACCOUNT_MENU_KEYS = ["portal", "settings"] as const;
 export type AccountMenuKey = (typeof ACCOUNT_MENU_KEYS)[number];
 
 /** The account menu, resolved to routes. Throws at build if one goes missing. */
 export function accountMenu(): { key: AccountMenuKey; segment: string }[] {
   return ACCOUNT_MENU_KEYS.map((key) => {
+    // `portal` names the dashboard but must not LINK through the redirect.
+    if (key === "portal") return { key, segment: "" };
     const route = ROUTES.find((r) => r.key === key);
     // Not a soft failure: a menu that silently drops an entry when a route is
     // renamed is how the only link to settings disappears without a test

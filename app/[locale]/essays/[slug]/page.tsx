@@ -101,6 +101,7 @@ export default async function EssayPage({
             {essay.sources.map((id) => (
               <li key={id} className="text-sm leading-relaxed text-fg-secondary">
                 <a
+                  lang="en"
                   href={SOURCES[id].url}
                   rel="noreferrer"
                   className="text-link underline underline-offset-4 hover:text-accent"

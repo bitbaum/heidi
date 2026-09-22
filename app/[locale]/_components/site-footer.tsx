@@ -67,7 +67,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
             <div className="font-heading text-xl font-semibold tracking-display text-fg-primary">Heidi</div>
             <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-secondary">{dict.footer.tagline}</p>
             <p className="mt-3 font-mono text-caption uppercase tracking-caps text-fg-muted">
-              {DISPLAY.endonym} · {DISPLAY.region}
+              {DISPLAY.endonym} · {dict.footer.place}
             </p>
           </div>
 
@@ -141,6 +141,13 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                   <Link
                     href={href(l, "")}
                     hrefLang={l}
+                    /* `lang` as well as `hrefLang`: the link TEXT is the
+                       language's own name for itself — «Français», «Русский»
+                       — so a screen reader should switch voice for it, and
+                       `audit:language` can tell a switcher entry from an
+                       English sentence that escaped into the footer. Which is
+                       where the one that escaped actually was. */
+                    lang={l}
                     prefetch={false}
                     aria-current={l === locale ? "true" : undefined}
                     className={`inline-flex min-h-11 items-center wrap-anywhere text-sm hover:text-fg-primary ${

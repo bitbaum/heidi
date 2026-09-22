@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
-import { href, navGroups, type NavGroup } from "@/lib/i18n/routes";
+import { href, navGroups, NAV_SECTIONS, type NavGroup } from "@/lib/i18n/routes";
 import { LanguageSwitcher } from "./language-switcher";
 import { CowMark } from "./cow-mark";
 import { NavPanel } from "./nav-panel";
@@ -331,23 +331,60 @@ function PanelList({
 }) {
   const routes = navGroups().find((g) => g.group === group)?.routes ?? [];
 
+  const link = (route: (typeof routes)[number]) => (
+    <li key={route.key}>
+      <Link
+        href={href(locale, route.segment)}
+        prefetch={false}
+        aria-current={isCurrent(route.segment) ? "page" : undefined}
+        className={`whitespace-nowrap text-base ${
+          isCurrent(route.segment) ? "font-semibold text-fg-primary" : "text-fg-secondary hover:text-fg-primary"
+        }`}
+      >
+        {dict.nav[route.key]}
+      </Link>
+    </li>
+  );
+
+  /**
+   * SUBDIVIDED WHERE A PANEL HAS OUTGROWN SCANNING.
+   *
+   * `about` is nine entries and was reported as "way too many unstructured
+   * entries" — which is right: nine in a flat column is past scanning and into
+   * reading, and a menu that has to be read gets closed. Three headings of
+   * three is one glance.
+   *
+   * Every other panel is a plain list, because every other panel is short.
+   * The shape follows the content rather than being imposed on all four.
+   */
+  const sectioned = routes.some((route) => route.section !== undefined);
+
+  if (!sectioned) {
+    return <ul className="flex w-[15rem] max-w-full flex-col gap-2">{routes.map(link)}</ul>;
+  }
+
   return (
-    <ul className="flex w-[15rem] max-w-full flex-col gap-2">
-      {routes.map((route) => (
-        <li key={route.key}>
-          <Link
-            href={href(locale, route.segment)}
-            prefetch={false}
-            aria-current={isCurrent(route.segment) ? "page" : undefined}
-            className={`whitespace-nowrap text-base ${
-              isCurrent(route.segment) ? "font-semibold text-fg-primary" : "text-fg-secondary hover:text-fg-primary"
-            }`}
-          >
-            {dict.nav[route.key]}
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <div className="flex w-[15rem] max-w-full flex-col gap-5">
+      {NAV_SECTIONS.map((section) => {
+        const inSection = routes.filter((route) => route.section === section);
+        if (inSection.length === 0) return null;
+        return (
+          <div key={section}>
+            <h3 className="font-mono text-caption uppercase tracking-caps text-fg-muted">
+              {dict.nav.sections[section]}
+            </h3>
+            <ul className="mt-2 flex flex-col gap-2">{inSection.map(link)}</ul>
+          </div>
+        );
+      })}
+
+      {/* A route in the group with no section still renders, below the
+          headings rather than silently missing — the failure a filtered list
+          makes invisible. */}
+      {routes.some((route) => route.section === undefined) && (
+        <ul className="flex flex-col gap-2">{routes.filter((r) => r.section === undefined).map(link)}</ul>
+      )}
+    </div>
   );
 }
 
