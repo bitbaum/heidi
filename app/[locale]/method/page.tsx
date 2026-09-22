@@ -38,6 +38,12 @@ function Claim({ claim, detail, source }: { claim: string; detail: string; sourc
                 href={s.url}
                 target="_blank"
                 rel="noreferrer"
+                /* A reference is English wherever it is printed — translating
+                   a paper title would make it unfindable — so the markup says
+                   so. A screen reader then pronounces it as English instead
+                   of as broken German, and `audit:language` stops reading a
+                   bibliography as a leak. */
+                lang="en"
                 // The full reference, not a bare "[1]": someone deciding
                 // whether to click deserves to know the venue and the year
                 // before they leave the page.

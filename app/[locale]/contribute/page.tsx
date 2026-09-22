@@ -54,7 +54,28 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
       </Section>
 
       <Section title={t.rolesTitle} id="roles">
-        <p className="mb-8 max-w-measure text-base leading-relaxed text-fg-secondary">{t.rolesLead}</p>
+        <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.rolesLead}</p>
+
+        {/*
+          SAID IN THE READER'S LANGUAGE WHEN THE ROLES ARE NOT.
+
+          The roles are German and English only, on the same reasoning as the
+          sector page: the person being recruited lives here, and Swiss
+          natives and Swiss institutions run in German. But the page CHROME is
+          translated into all seven, so a French reader met a French heading
+          over English paragraphs with nothing saying why — which reads as
+          broken rather than as a decision.
+
+          The essays page settled this pattern already: somebody told "this
+          has not been translated, here it is in German" has been levelled
+          with; somebody who simply finds the wrong language assumes the site
+          is broken.
+        */}
+        {sectorLocale(locale) !== locale && (
+          <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.rolesLanguage}</p>
+        )}
+
+        <div className="mb-8" />
 
         <ul className="flex flex-col gap-10">
           {ROLES.map((role, index) => (

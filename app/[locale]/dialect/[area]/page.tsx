@@ -341,6 +341,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
             {sources.map((sourceId) => (
               <li key={sourceId} className="text-sm leading-relaxed text-fg-secondary">
                 <a
+                  lang="en"
                   href={SOURCES[sourceId].url}
                   className="text-link underline underline-offset-4 hover:text-accent"
                   rel="noreferrer"

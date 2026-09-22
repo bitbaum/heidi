@@ -567,6 +567,11 @@ export const gsw: Dictionary = {
     bindingNote: "Massgebend isch di tüütschi Fassig.",
     flowsTitle: "Was wo liit",
     flowsLead: "Jedi Ziile nennt de Speicherort, damit Si s sälber chönd nachepüefe.",
+    detail: {
+      pictures: "im Browser chlyner gmacht; gspeicheret wird nu d Aazahl",
+      speakingSuggestion: "nu de Satz, wo Sie bestätigt händ",
+      account: "nu d Kennig, kein Name und kei Adrässe",
+    },
     place: { device: "Nur uf Ihrem Grät", server: "Uf eusem Server", vendor: "Bi eme Aabieter" },
     col: { what: "Was", where: "Wo", who: "Wer s susch gseht" },
     nobody: "niemert susch",
@@ -631,6 +636,7 @@ export const gsw: Dictionary = {
     rolesTitle: "Vier Arte mitzmache",
     rolesLead:
       "Nach Ufwand gordnet, s Chlyschte zerscht — und s Chlyschte isch is am meischte wert. Bi jedere staht, was es derfür hüt scho git.",
+    rolesLanguage: "Die Beschriibige git s nu uf Dütsch und Änglisch.",
     todayLabel: "Stand hüt",
     roleCta: "Schriibed Sie is drzue",
     roleSee: "Aaluege",

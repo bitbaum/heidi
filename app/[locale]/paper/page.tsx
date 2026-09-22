@@ -137,6 +137,7 @@ export default async function PaperPage({ params }: { params: Promise<{ locale: 
             {cited.map((id) => (
               <li key={id} className="max-w-measure text-sm leading-relaxed text-fg-secondary">
                 <a
+                  lang="en"
                   href={SOURCES[id].url}
                   rel="noreferrer"
                   className="wrap-anywhere underline underline-offset-4 hover:text-accent"

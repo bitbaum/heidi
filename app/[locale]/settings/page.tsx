@@ -88,6 +88,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
               <Link
                 href={href(l, "settings")}
                 hrefLang={l}
+                lang={l}
                 aria-current={l === locale ? "true" : undefined}
                 className={`inline-flex min-h-11 items-center border px-4 text-sm transition-colors ${
                   l === locale

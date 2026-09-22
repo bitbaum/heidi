@@ -37,6 +37,26 @@ export type Flow = {
   id: string;
   place: Place;
   /** The storage key, table or endpoint, so a reader can verify the claim. */
+  /**
+   * WHERE IT SITS — an identifier, never a sentence.
+   *
+   * `localStorage · heidi.saved.v1`, `conversations · conversation_messages`,
+   * `/api/speaking/take`. A table name and a storage key read the same in
+   * Russian as in German, which is why this field renders untranslated on all
+   * seven versions of the privacy page.
+   *
+   * It used to carry English qualifications too — "downscaled in the browser;
+   * only a count is stored", "the confirmed sentence only" — which are
+   * genuine and important privacy statements, and which printed in English to
+   * a French reader. `scripts/audit/language.mjs` found them. They live in
+   * `privacy.detail` in the dictionaries now, keyed by flow id, where every
+   * other sentence on this page already lives.
+   *
+   * NEVER EMPTY. `privacy.test.ts` refuses a flow that cannot point at
+   * something — an entry a reader cannot verify is worse than no entry,
+   * because the table reads as exhaustive. The first attempt at this change
+   * blanked the picture row and the test caught it immediately.
+   */
   where: string;
   /** True when it leaves the reader's device at all. */
   leavesDevice: boolean;
@@ -150,7 +170,7 @@ export const FLOWS: readonly Flow[] = [
   {
     id: "dictation",
     place: "vendor",
-    where: "Web Speech API, or /api/transcribe",
+    where: "Web Speech API · /api/transcribe",
     leavesDevice: true,
     // The browser path is not private either, and saying so is the point: in
     // Chrome the Web Speech API is served by Google's speech service.
@@ -159,7 +179,10 @@ export const FLOWS: readonly Flow[] = [
   {
     id: "pictures",
     place: "vendor",
-    where: "downscaled in the browser; only a count is stored",
+    // `/api/chat`: a picture rides the same request as the message it came
+    // with. The qualification — downscaled here, only a count kept — is in
+    // `privacy.detail`, translated, because it is a sentence.
+    where: "/api/chat",
     leavesDevice: true,
     recipients: [...BROUGHT_KEY_VENDORS],
   },
@@ -191,14 +214,14 @@ export const FLOWS: readonly Flow[] = [
      */
     id: "speakingSuggestion",
     place: "vendor",
-    where: "/api/speaking/take · the confirmed sentence only",
+    where: "/api/speaking/take",
     leavesDevice: true,
     recipients: [...MODEL_VENDORS],
   },
   {
     id: "account",
     place: "server",
-    where: "OrangeCat OIDC · the actor id only",
+    where: "OrangeCat OIDC",
     leavesDevice: true,
     recipients: ["OrangeCat"],
   },
@@ -212,7 +235,7 @@ export const FLOWS: readonly Flow[] = [
   {
     id: "feedback",
     place: "vendor",
-    where: "widget.js from loki.orangecat.ch",
+    where: "widget.js · loki.orangecat.ch",
     leavesDevice: true,
     recipients: ["Loki"],
   },

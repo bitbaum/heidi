@@ -483,6 +483,11 @@ export const fr: Dictionary = {
     bindingNote: "La version allemande fait foi.",
     flowsTitle: "Ce qui est conservé, et où",
     flowsLead: "Chaque ligne nomme l'emplacement, pour que vous puissiez le vérifier vous-même.",
+    detail: {
+      pictures: "réduite dans le navigateur ; seul un comptage est conservé",
+      speakingSuggestion: "seulement la phrase que vous avez confirmée",
+      account: "seulement l\u2019identifiant — ni nom ni adresse",
+    },
     place: { device: "Sur votre appareil seulement", server: "Sur notre serveur", vendor: "Chez un prestataire" },
     col: { what: "Quoi", where: "Où", who: "Qui d'autre le voit" },
     nobody: "personne d'autre",
@@ -547,6 +552,7 @@ export const fr: Dictionary = {
     rolesTitle: "Quatre façons de participer",
     rolesLead:
       "Classées par engagement, la plus petite d\u2019abord — et c\u2019est la plus petite qui nous vaut le plus. Chacune indique ce qui existe déjà pour elle aujourd\u2019hui.",
+    rolesLanguage: "Ces descriptions ne sont qu\u2019en allemand et en anglais : les personnes recherchées ici vivent en Suisse. Le reste de la page est dans votre langue.",
     todayLabel: "État actuel",
     roleCta: "Écrivez-nous à ce sujet",
     roleSee: "Voir",

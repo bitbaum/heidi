@@ -528,6 +528,11 @@ export const de = {
     bindingNote: "Massgebend ist die deutsche Fassung.",
     flowsTitle: "Was wo liegt",
     flowsLead: "Jede Zeile nennt den Speicherort, damit Sie es selbst nachprüfen können.",
+    detail: {
+      pictures: "im Browser verkleinert; gespeichert wird nur die Anzahl",
+      speakingSuggestion: "nur der Satz, den Sie bestätigt haben",
+      account: "nur die Kennung, kein Name und keine Adresse",
+    },
     place: { device: "Nur auf Ihrem Gerät", server: "Auf unserem Server", vendor: "Bei einem Anbieter" },
     col: { what: "Was", where: "Wo", who: "Wer es sonst sieht" },
     nobody: "niemand sonst",
@@ -592,6 +597,7 @@ export const de = {
     rolesTitle: "Vier Arten mitzumachen",
     rolesLead:
       "Nach Aufwand geordnet, das Kleinste zuerst — und das Kleinste ist uns am meisten wert. Bei jeder steht, was es dafür heute im Produkt schon gibt.",
+    rolesLanguage: "Diese Beschreibungen stehen nur auf Deutsch und Englisch.",
     todayLabel: "Stand heute",
     roleCta: "Schreiben Sie uns dazu",
     roleSee: "Ansehen",

@@ -45,6 +45,17 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
   const dict = getDictionary(locale);
   const t = dict.privacy;
 
+  /**
+   * The translated qualification for a flow, where it has one.
+   *
+   * Only three flows do — the rest are fully described by an identifier. A
+   * lookup rather than a field on `Flow`, for the reason the whole config
+   * exists: `privacy.ts` holds what is TRUE and cannot go stale, and a
+   * sentence is exactly the thing that goes stale in six languages at once.
+   */
+  const detail = (id: string): string | undefined =>
+    (t.detail as Record<string, string | undefined>)[id];
+
   return (
     <Shell>
       <header className="-mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
@@ -75,6 +86,12 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
                 {/* The literal key or table, so the claim can be checked in a
                     browser's dev tools rather than taken on trust. */}
                 <p className="font-mono text-caption leading-snug text-fg-muted">{flow.where}</p>
+                {/* The qualification, translated. It used to be appended to
+                    `where` in English and printed as such to every reader who
+                    is not English — found by `audit:language`. */}
+                {detail(flow.id) && (
+                  <p className="mt-0.5 text-caption leading-snug text-fg-secondary">{detail(flow.id)}</p>
+                )}
               </div>
 
               <div>
