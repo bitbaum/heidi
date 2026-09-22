@@ -801,7 +801,7 @@ export const it: Dictionary = {
   },
 
   practice: {
-    title: "Esercitarsi",
+    title: "Esercizi",
     lead: "Una serie breve di domande, pochi minuti. Costruite sulle regole che Heidi stessa applica, sulle frasi che si dicono davvero — e sulle parole che avete tenuto.",
     note: "Quello che tenete resta nel vostro browser. Le domande tratte dal vocabolario non richiedono alcun account.",
     start: "Comincia",
@@ -957,7 +957,7 @@ export const it: Dictionary = {
   },
 
   essays: {
-    title: "Letture",
+    title: "Blog",
     lead: "Perché la Svizzera tedesca parla come parla. Testi più lunghi, con le fonti — per le domande che non stanno su una cartina.",
     none: "Qui non c'è ancora nulla.",
     backToAll: "Tutti i testi",

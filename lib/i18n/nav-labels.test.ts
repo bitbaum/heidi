@@ -90,3 +90,41 @@ test("every navigable route actually has a label in every locale", () => {
     }
   }
 });
+
+/**
+ * Pages whose heading is their NAME rather than a headline.
+ *
+ * THE DISTINCTION, because it is the whole reason this is a list and not a
+ * rule over every page. Most pages here open with an editorial line — the
+ * situations page is headed "Where you need it", `/contribute` with "We are
+ * looking for Zurich voices" — and those SHOULD differ from a four-character
+ * menu label. A headline is not a second name.
+ *
+ * These two are not that. `/practice` was headed "Practise" while the menu
+ * called it "Exercises", and `/essays` was headed "Reading" while the menu
+ * called it "Blog" — in all seven languages, two plain nouns for one page,
+ * neither of them a headline. The second one had already been reported once
+ * ("lesen under über heidi? are you referring to the blog? then call it
+ * blog") and was fixed in the menu only, which is how a page ends up
+ * disagreeing with the link that got you there.
+ *
+ * Adding a page here is a decision that its heading is a name. Leaving one out
+ * is a decision that its heading is writing.
+ */
+const NAMED_PAGES = ["practice", "essays"] as const;
+
+test("a page whose heading is its name uses the name the menu uses", () => {
+  for (const locale of LOCALES) {
+    const dict = getDictionary(locale);
+
+    for (const key of NAMED_PAGES) {
+      const heading = (dict[key] as { title: string }).title;
+      const label = dict.nav[key];
+      assert.equal(
+        normalise(heading),
+        normalise(label),
+        `${locale}: the menu says "${label}" and the page says "${heading}"`,
+      );
+    }
+  }
+});

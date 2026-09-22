@@ -821,7 +821,7 @@ export const gsw: Dictionary = {
   },
 
   practice: {
-    title: "Üebe",
+    title: "Üebige",
     lead: "En churze Satz Frage, i es paar Minute. Us de Regle wo d Heidi sälber aawendet, us de Sätz wo würkli gseit werded — und us de Wörter wo Si behalte händ.",
     note: "Was Si sich gmerkt händ, bliibt i Ihrem Browser. Für d Frage us em Wortschatz bruuchts kes Konto.",
     start: "Loslege",
@@ -977,7 +977,7 @@ export const gsw: Dictionary = {
   },
 
   essays: {
-    title: "Läse",
+    title: "Blog",
     lead: "Warum d Dütschschwiiz so redt, wie si redt. Längeri Täxt mit Quelle — für d Frooge, wo uf e Charte nöd passed.",
     none: "Da stoht no nüt.",
     backToAll: "Alli Täxt",
