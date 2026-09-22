@@ -58,9 +58,22 @@ both / 307
 
 # Every page a visitor can reach by name. Both ways round, because the outage
 # this file exists for was invisible from one of them.
-for path in /de /de/chat /de/speaking /de/grammar /de/method /de/portal /de/contribute /de/about /en /fr; do
+for path in /de /de/chat /de/speaking /de/grammar /de/method /de/contribute /de/about /en /fr; do
   both "$path" 200
 done
+
+# `/portal` REDIRECTS, and asserting that is the point rather than a weakening.
+#
+# The dashboard moved back to the locale root — `/` and `/portal` were
+# rendering the identical page, which is the duplication that made "start and
+# chat show the same thing" a fair complaint one pair along. The route stays
+# for the bookmarks and for the sign-in return, and it sends a Location header.
+#
+# This file asserted 200 here and so it failed the deploy that made the change,
+# which is the check doing its job: the behaviour was intended, the assertion
+# was not updated with it. 307 rather than 308 because the page could come
+# back, and a permanent redirect is the one browsers refuse to forget.
+both /de/portal 307
 
 # The crawler files, which live outside the locale and have been broken by a
 # middleware matcher before.
