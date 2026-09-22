@@ -11,7 +11,8 @@
     "verify": "pnpm run type-check && pnpm run lint && pnpm run test",
     "test": "node --no-warnings --experimental-strip-types --experimental-test-module-mocks --test-concurrency=1 --test 'app/**/*.test.ts' 'lib/**/*.test.ts'",
     "db:generate": "drizzle-kit generate",
-    "audit:responsive": "node scripts/audit/responsive.mjs"
+    "audit:responsive": "node scripts/audit/responsive.mjs",
+    "audit:speaking": "node scripts/audit/speaking.mjs"
   },
   "dependencies": {
     "@bitbaum/ai-kit": "^1.10.0",
