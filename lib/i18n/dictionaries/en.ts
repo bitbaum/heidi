@@ -797,10 +797,10 @@ export const en: Dictionary = {
 
   practice: {
     title: "Practise",
-    lead: "Eight questions, about two minutes. Built from the rules Heidi applies herself — and from the words you kept.",
+    lead: "A short set of questions, a few minutes. Built from the rules Heidi applies herself, from the lines people actually say — and from the words you kept.",
     note: "What you keep stays in your browser. The questions from the vocabulary need no account.",
     start: "Start",
-    restart: "Another eight",
+    restart: "Again",
     progress: "Question {n} of {total}",
     secondTry: "Second attempt",
     skip: "Skip",

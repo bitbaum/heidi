@@ -802,10 +802,10 @@ export const it: Dictionary = {
 
   practice: {
     title: "Esercitarsi",
-    lead: "Otto domande, due minuti. Costruite sulle regole che Heidi stessa applica — e sulle parole che avete tenuto.",
+    lead: "Una serie breve di domande, pochi minuti. Costruite sulle regole che Heidi stessa applica, sulle frasi che si dicono davvero — e sulle parole che avete tenuto.",
     note: "Quello che tenete resta nel vostro browser. Le domande tratte dal vocabolario non richiedono alcun account.",
     start: "Comincia",
-    restart: "Altre otto",
+    restart: "Ancora",
     progress: "Domanda {n} di {total}",
     secondTry: "Secondo tentativo",
     skip: "Salta",

@@ -818,10 +818,10 @@ export const rm: Dictionary = {
 
   practice: {
     title: "Exercitar",
-    lead: "Otg dumondas, dus minutas. Or da las reglas che Heidi applitgescha sezza — ed or dals pleds che Vus avais tegnì.",
+    lead: "Ina curta seria da dumondas, paucas minutas. Or da las reglas che Heidi applitgescha sezza, or da las frasas che vegnan propi ditgas — ed or dals pleds che Vus avais tegnì.",
     note: "Quai che Vus tegnis resta en Voss navigatur. Las dumondas or dal vocabulari na dovran nagin conto.",
     start: "Cumenzar",
-    restart: "Anc otg",
+    restart: "Anc ina giada",
     progress: "Dumonda {n} da {total}",
     secondTry: "Segunda emprova",
     skip: "Sursiglir",
