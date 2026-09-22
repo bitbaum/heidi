@@ -60,11 +60,11 @@ export function SiteHeader({
   const groupLabel = (group: NavGroup) =>
     group === "use"
       ? dict.nav.groupUse
-      : group === "reference"
-        ? dict.nav.groupReference
-        : group === "why"
-          ? dict.nav.groupWhy
-          : dict.nav.groupProject;
+      : group === "learn"
+        ? dict.nav.groupLearn
+        : group === "practise"
+          ? dict.nav.groupPractise
+          : dict.nav.groupAbout;
 
   const isCurrent = (segment: string) => {
     const target = href(locale, segment);
@@ -190,50 +190,32 @@ export function SiteHeader({
 
           <span aria-hidden="true" className="mx-3 h-4 w-px bg-border-subtle" />
 
-          {/* Things you look up mid-conversation. */}
+          {/* The material. */}
           <NavPanel
-            label={groupLabel("reference")}
-            current={groups.some(({ group, routes }) => group === "reference" && routes.some((r) => isCurrent(r.segment)))}
+            label={groupLabel("learn")}
+            current={groups.some(({ group, routes }) => group === "learn" && routes.some((r) => isCurrent(r.segment)))}
           >
-            <ReferencePanel locale={locale} dict={dict} isCurrent={isCurrent} />
+            <LearnPanel locale={locale} dict={dict} isCurrent={isCurrent} />
           </NavPanel>
 
           <span aria-hidden="true" className="mx-3 h-4 w-px bg-border-subtle" />
 
-          {/* Why it works this way, and who is doing it. */}
+          {/* What you do with it — the drill, the speaking, the listening. */}
           <NavPanel
-            label={dict.nav.groupAbout}
-            current={groups.some(
-              ({ group, routes }) => (group === "why" || group === "project") && routes.some((r) => isCurrent(r.segment)),
-            )}
+            label={groupLabel("practise")}
+            current={groups.some(({ group, routes }) => group === "practise" && routes.some((r) => isCurrent(r.segment)))}
           >
-            <div className="flex flex-col gap-5 sm:flex-row sm:gap-10">
-              {groups
-                .filter(({ group }) => group === "why" || group === "project")
-                .map(({ group, routes }) => (
-                  <div key={group}>
-                    <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{groupLabel(group)}</p>
-                    <ul className="mt-2 flex flex-col gap-2">
-                      {routes.map((route) => (
-                        <li key={route.key}>
-                          <Link
-                            href={href(locale, route.segment)}
-                            prefetch={false}
-                            aria-current={isCurrent(route.segment) ? "page" : undefined}
-                            className={`whitespace-nowrap text-base ${
-                              isCurrent(route.segment)
-                                ? "font-semibold text-fg-primary"
-                                : "text-fg-secondary hover:text-fg-primary"
-                            }`}
-                          >
-                            {dict.nav[route.key]}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-            </div>
+            <PanelList group="practise" locale={locale} dict={dict} isCurrent={isCurrent} />
+          </NavPanel>
+
+          <span aria-hidden="true" className="mx-3 h-4 w-px bg-border-subtle" />
+
+          {/* Why it works this way, who is doing it, and the writing. */}
+          <NavPanel
+            label={groupLabel("about")}
+            current={groups.some(({ group, routes }) => group === "about" && routes.some((r) => isCurrent(r.segment)))}
+          >
+            <PanelList group="about" locale={locale} dict={dict} isCurrent={isCurrent} />
           </NavPanel>
         </nav>
 
@@ -329,7 +311,47 @@ export function SiteHeader({
  * Every dialect is still one tap from anywhere, which is why they were put
  * here in the first place. Nothing was removed; the hierarchy was.
  */
-function ReferencePanel({
+/**
+ * A panel that is just its group's routes.
+ *
+ * No heading inside it: the trigger the reader just pressed already says
+ * «Üben», and repeating it one line below is the menu explaining itself to
+ * somebody who is looking at the answer.
+ */
+function PanelList({
+  group,
+  locale,
+  dict,
+  isCurrent,
+}: {
+  group: NavGroup;
+  locale: Locale;
+  dict: Dictionary;
+  isCurrent: (segment: string) => boolean;
+}) {
+  const routes = navGroups().find((g) => g.group === group)?.routes ?? [];
+
+  return (
+    <ul className="flex w-[15rem] max-w-full flex-col gap-2">
+      {routes.map((route) => (
+        <li key={route.key}>
+          <Link
+            href={href(locale, route.segment)}
+            prefetch={false}
+            aria-current={isCurrent(route.segment) ? "page" : undefined}
+            className={`whitespace-nowrap text-base ${
+              isCurrent(route.segment) ? "font-semibold text-fg-primary" : "text-fg-secondary hover:text-fg-primary"
+            }`}
+          >
+            {dict.nav[route.key]}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function LearnPanel({
   locale,
   dict,
   isCurrent,
@@ -338,7 +360,7 @@ function ReferencePanel({
   dict: Dictionary;
   isCurrent: (segment: string) => boolean;
 }) {
-  const reference = navGroups().find((g) => g.group === "reference")?.routes ?? [];
+  const learn = navGroups().find((g) => g.group === "learn")?.routes ?? [];
 
   return (
     /*
@@ -350,7 +372,7 @@ function ReferencePanel({
     */
     <div className="flex w-[22rem] max-w-full flex-col gap-4">
       <ul className="flex flex-col gap-2">
-        {reference.map((route) => (
+        {learn.map((route) => (
           <li key={route.key}>
             <Link
               href={href(locale, route.segment)}

@@ -254,10 +254,13 @@ test("route segments are the same in every language", () => {
       "speaking",
       "practice",
       "listen",
+      // `situations` leads the material group now: it answers "what will
+      // actually be said to me", which is the question somebody arrives with,
+      // where grammar and the word list answer "what is this language like".
+      "situations",
       "grammar",
       "dialect",
       "vocabulary",
-      "situations",
       // `essays` is new: the long-form half of the same argument the method
       // page makes in short. The dialect pages are deliberately made of data,
       // so prose about how the dialect landscape came to be needs a home where
