@@ -11,6 +11,9 @@ importers:
       '@bitbaum/ai-kit':
         specifier: ^1.10.0
         version: 1.10.0(react@19.2.4)
+      bip-kit:
+        specifier: ^0.3.0
+        version: 0.3.0(react@19.2.4)
       drizzle-orm:
         specifier: ^0.45.2
         version: 0.45.2(@types/pg@8.23.1)(pg@8.23.0)
@@ -1351,6 +1354,22 @@ packages:
     resolution: {integrity: sha512-uh8vpY/1/YyFkunIDFH/12p7/7VdPKA1hejMVEbdkEaWnUz0Hesvx5EbiU6XxjyHZIOju+ZMbQJkRh+es3/spQ==}
     engines: {node: '>=6.0.0'}
     hasBin: true
+
+  bip-kit@0.3.0:
+    resolution: {integrity: sha512-oQvznlDGEEHqQ6Hmw7vm2Eg9NSSidYVWXgaE3nAapYk5Uh8/yQTsvvdhQMCQ3Ny2bseLiFNDp4xyw3vcAYKE3w==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      katex: '>=0.16'
+      mermaid: '>=10'
+      react: '>=18'
+      shiki: '>=1'
+    peerDependenciesMeta:
+      katex:
+        optional: true
+      mermaid:
+        optional: true
+      shiki:
+        optional: true
 
   brace-expansion@1.1.18:
     resolution: {integrity: sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==}
@@ -3747,6 +3766,10 @@ snapshots:
   balanced-match@4.0.4: {}
 
   baseline-browser-mapping@2.11.21: {}
+
+  bip-kit@0.3.0(react@19.2.4):
+    dependencies:
+      react: 19.2.4
 
   brace-expansion@1.1.18:
     dependencies:

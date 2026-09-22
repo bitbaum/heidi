@@ -17,6 +17,9 @@ export const it: Dictionary = {
     grammar: "Grammatica",
     dialect: "Dialetti",
     essays: "Blog",
+    paper: "White paper",
+    roadmap: "Tabella di marcia",
+    changelog: "Registro delle modifiche",
     vocabulary: "Lessico",
     situations: "Situazioni",
     method: "Metodo",
@@ -1300,6 +1303,24 @@ export const it: Dictionary = {
     progressNote: "Contato, non valutato. Questo numero non cala mai — due settimane di pausa non costano nulla.",
     privacy: "L’audio non lascia mai il vostro dispositivo. Restano solo le misure e il vostro testo — in questo browser, non da noi.",
     privacyTranscribed: "In questa lingua la registrazione va una volta a un servizio che la trasforma in testo, e lì non viene conservata. Da noi restano solo le misure e il testo — in questo browser.",
+  },
+
+  paper: {
+    checkLabel: "Verifichi lei stesso",
+    sourcesTitle: "Fonti",
+  },
+
+  changelog: {
+    title: "Registro delle modifiche",
+    lead: "Che cosa è cambiato, con la data — e nelle parole di chi lo usa.",
+    note: "Non è un log di Git. Il repository è pubblico e chi vuole ogni commit li trova lì. Qui c\u2019è quello che una persona avrebbe notato — errori compresi, perché un registro senza righe imbarazzanti dimostra che la promessa «pubblichiamo anche ciò che non ha funzionato» è decorativa.",
+    tags: {
+      feature: "Nuovo",
+      improvement: "Migliorato",
+      fix: "Corretto",
+      platform: "Base",
+      breaking: "Rottura",
+    },
   },
 
   organisations: {

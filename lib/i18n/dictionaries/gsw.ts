@@ -40,6 +40,9 @@ export const gsw: Dictionary = {
     grammar: "Grammatik",
     dialect: "Mundarte",
     essays: "Blog",
+    paper: "Whitepaper",
+    roadmap: "Fahrplan",
+    changelog: "Änderige",
     vocabulary: "Wortschatz",
     situations: "Situatione",
     method: "Methode",
@@ -1320,6 +1323,24 @@ export const gsw: Dictionary = {
     progressNote: "Zellt, nöd bewertet. Die Zahl gaat nie abe — zwei Wuche Pause choschtet nüt.",
     privacy: "De Ton verlaat Ihres Grät nie. Gspeicheret wird nu was gmässe worde isch und Ihre eigen Text — i dem Browser, nöd bii öis.",
     privacyTranscribed: "I dere Sprach gaat d Ufnahm eimal a en Dienscht, wo si i Text verwandlet, und wird det nöd gspeicheret. Bi öis bliibed nur d Mässwert und de Text — i dem Browser.",
+  },
+
+  paper: {
+    checkLabel: "Sälber nachepräfe",
+    sourcesTitle: "Quelle",
+  },
+
+  changelog: {
+    title: "Änderige",
+    lead: "Was sich gänderet hät, mit Datum — und wie s eine seit, wo s bruucht.",
+    note: "Kei Git-Protokoll. S Repository isch öffentlich, wer jede Commit wott, findt en dört. Da staht, was öpper gmerkt hätt — Fähler inbegriffe, wil e Änderigsliste ohni pinlichi Zeile de Beweis isch, dass s Versprächen «mir zeiged au, was nöd gange isch» nur Dekoration isch.",
+    tags: {
+      feature: "Nöi",
+      improvement: "Besser",
+      fix: "Bhobe",
+      platform: "Unterbau",
+      breaking: "Bruch",
+    },
   },
 
   organisations: {

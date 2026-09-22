@@ -76,6 +76,26 @@ export const SOURCES = {
    * causal story is genuinely contested, the essay says so rather than
    * pointing at a source that does not carry the weight.
    */
+  /**
+   * THE ECONOMICS PAPER THIS PRODUCT'S PREMISE IS, and it is not decoration.
+   *
+   * §2 of the specification says a learner cannot audit the variety they are
+   * being sold — the thing that makes them a buyer is the thing that stops
+   * them judging the purchase. That is Akerlof's asymmetric-information
+   * market, stated for a language course instead of a used car, and the white
+   * paper opens with it. Citing the original rather than paraphrasing it is
+   * the same discipline every dialect claim on this site is held to: the
+   * reader can go and check whether the analogy survives contact with the
+   * paper.
+   */
+  akerlof: {
+    authors: "Akerlof",
+    year: 1970,
+    title: "The Market for «Lemons»: Quality Uncertainty and the Market Mechanism",
+    venue:
+      "The Quarterly Journal of Economics 84(3), 488–500. Asymmetric information: when the buyer cannot judge quality before buying, the market itself degrades",
+    url: "https://doi.org/10.2307/1879431",
+  },
   "ferguson-1959": {
     authors: "Ferguson",
     year: 1959,

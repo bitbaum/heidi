@@ -17,6 +17,9 @@ export const en: Dictionary = {
     grammar: "Grammar",
     dialect: "Dialects",
     essays: "Blog",
+    paper: "White paper",
+    roadmap: "Roadmap",
+    changelog: "Changelog",
     vocabulary: "Vocabulary",
     situations: "Situations",
     method: "Method",
@@ -1295,6 +1298,24 @@ export const en: Dictionary = {
     progressNote: "Counted, not graded. This number never falls — a fortnight away costs nothing.",
     privacy: "The sound never leaves your device. What is kept is the measurements and your own text — in this browser, not with us.",
     privacyTranscribed: "In this language the recording goes once to a service that turns it into text, and is not kept there. What stays with us is the measurements and the text — in this browser.",
+  },
+
+  paper: {
+    checkLabel: "Check this yourself",
+    sourcesTitle: "Sources",
+  },
+
+  changelog: {
+    title: "Changelog",
+    lead: "What changed, dated — and in the words of somebody using it.",
+    note: "Not a git log. The repository is public and anybody who wants every commit can read them there. This is what a person would have noticed — mistakes included, because a changelog with no embarrassing rows in it is proof that «we publish the parts that did not work» is decorative.",
+    tags: {
+      feature: "New",
+      improvement: "Better",
+      fix: "Fixed",
+      platform: "Platform",
+      breaking: "Breaking",
+    },
   },
 
   organisations: {

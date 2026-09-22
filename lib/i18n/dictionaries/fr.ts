@@ -17,6 +17,9 @@ export const fr: Dictionary = {
     grammar: "Grammaire",
     dialect: "Dialectes",
     essays: "Blog",
+    paper: "Livre blanc",
+    roadmap: "Feuille de route",
+    changelog: "Journal des changements",
     vocabulary: "Vocabulaire",
     situations: "Situations",
     method: "Méthode",
@@ -1300,6 +1303,24 @@ export const fr: Dictionary = {
     progressNote: "Compté, pas noté. Ce nombre ne baisse jamais — quinze jours d'absence ne coûtent rien.",
     privacy: "Le son ne quitte jamais votre appareil. Seules les mesures et votre propre texte sont conservés — dans ce navigateur, pas chez nous.",
     privacyTranscribed: "Dans cette langue, l’enregistrement part une fois vers un service qui le transforme en texte, et n’y est pas conservé. Chez nous il ne reste que les mesures et le texte — dans ce navigateur.",
+  },
+
+  paper: {
+    checkLabel: "Vérifiez vous-même",
+    sourcesTitle: "Sources",
+  },
+
+  changelog: {
+    title: "Journal des changements",
+    lead: "Ce qui a changé, daté — et dit par quelqu\u2019un qui s\u2019en sert.",
+    note: "Pas un journal Git. Le dépôt est public et qui veut chaque commit les trouvera là. Ici figure ce qu\u2019une personne aurait remarqué — erreurs comprises, car un journal sans lignes gênantes prouve que la promesse « nous publions aussi ce qui n\u2019a pas marché » est décorative.",
+    tags: {
+      feature: "Nouveau",
+      improvement: "Amélioré",
+      fix: "Corrigé",
+      platform: "Socle",
+      breaking: "Rupture",
+    },
   },
 
   organisations: {

@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { SOURCES, citation, shortCitation, type Source, type SourceId } from "./sources.ts";
 import { techSources } from "./language-tech.ts";
+import { paperSources } from "../config/paper.ts";
 import { ESSAYS } from "../essays/registry.ts";
 import { areasOf } from "../variety/family.ts";
 import { VARIETY } from "../variety/active.ts";
@@ -127,6 +128,11 @@ test("no source is defined but never cited", () => {
   // An essay vouches for itself the same way — see `lib/essays/types.ts`. A
   // source cited only by a piece of writing is being used, not orphaned.
   for (const essay of ESSAYS) for (const id of essay.sources) used.add(id);
+  // And the white paper, which is the one surface that cites a source from
+  // outside linguistics: §2's argument that a learner cannot audit what they
+  // are sold IS Akerlof's asymmetric-information market, and the paper names
+  // the original rather than paraphrasing it. See `lib/config/paper.ts`.
+  for (const id of paperSources()) used.add(id);
   // So does a branch of the dialect family: "these areas form a group, and
   // this pair of forms is the line" is a claim about language like any other.
   for (const group of VARIETY.family?.dialectGroups ?? []) for (const id of group.sources) used.add(id);

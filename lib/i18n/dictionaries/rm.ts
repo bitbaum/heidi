@@ -33,6 +33,9 @@ export const rm: Dictionary = {
     grammar: "Grammatica",
     dialect: "Idioms",
     essays: "Blog",
+    paper: "White paper",
+    roadmap: "Plan da viadi",
+    changelog: "Register da midadas",
     vocabulary: "Vocabulari",
     situations: "Situaziuns",
     method: "Metoda",
@@ -1316,6 +1319,24 @@ export const rm: Dictionary = {
     progressNote: "Dumbrà, betg giuditgà. Quest dumber na sbassa mai — duas emnas da pausa na custan nagut.",
     privacy: "Il tun na bandunescha mai Voss apparat. Vegnan tegnidas mo las mesiraziuns e Voss agen text — en quest navigatur, betg tar nus.",
     privacyTranscribed: "En questa lingua va la registraziun ina giada tar in servetsch che la mida en text, e là na vegn ella betg tegnida. Tar nus restan mo las mesiras ed il text — en quest navigatur.",
+  },
+
+  paper: {
+    checkLabel: "Controllai Vus svess",
+    sourcesTitle: "Funtaunas",
+  },
+
+  changelog: {
+    title: "Register da midadas",
+    lead: "Tge ch\u2019è sa midà, cun data — ed en ils pleds da tgi che l\u2019dovra.",
+    note: "Betg in log da Git. Il repositori è public e tgi che vul mintga commit al chatta là. Qua stat quai ch\u2019ina persuna avess remartgà — errurs inclus, perquai ch\u2019in register senza lingias malempernaivlas cumprova che la empermischun «nus publitgain era quai che n\u2019ha betg funcziunà» è mo decoraziun.",
+    tags: {
+      feature: "Nov",
+      improvement: "Meglier",
+      fix: "Curregì",
+      platform: "Fundament",
+      breaking: "Rut",
+    },
   },
 
   organisations: {

@@ -36,6 +36,9 @@ export const de = {
     grammar: "Grammatik",
     dialect: "Mundarten",
     essays: "Blog",
+    paper: "Whitepaper",
+    roadmap: "Fahrplan",
+    changelog: "Änderungen",
     vocabulary: "Wortschatz",
     situations: "Situationen",
     method: "Methode",
@@ -1447,6 +1450,34 @@ export const de = {
     progressNote: "Gezählt, nicht bewertet. Diese Zahl fällt nie — eine Pause von zwei Wochen kostet nichts.",
     privacy: "Der Ton verlässt Ihr Gerät nie. Gespeichert werden nur die Messwerte und Ihr eigener Text — in diesem Browser, nicht bei uns.",
     privacyTranscribed: "In dieser Sprache geht die Aufnahme einmal an einen Dienst, der sie in Text verwandelt, und wird dort nicht gespeichert. Bei uns bleiben nur die Messwerte und der Text — in diesem Browser.",
+  },
+
+  /**
+   * Das Whitepaper und die Änderungsliste.
+   *
+   * Nur das Gerüst steht hier in sieben Sprachen — die Argumentation selbst
+   * liegt in `lib/config/paper.ts` und `lib/config/changelog.ts` auf Deutsch
+   * und Englisch. Dieselbe Entscheidung wie bei den Branchen und beim
+   * Investorenraum, aus demselben Grund: sieben maschinengeprüfte
+   * Übersetzungen eines Textes, den hier niemand gegenlesen kann, wären sechs
+   * Haftungsrisiken.
+   */
+  paper: {
+    checkLabel: "Selbst nachprüfen",
+    sourcesTitle: "Quellen",
+  },
+
+  changelog: {
+    title: "Änderungen",
+    lead: "Was sich geändert hat, mit Datum — und in den Worten von jemandem, der es benutzt.",
+    note: "Kein Git-Protokoll. Das Repository ist öffentlich, wer jeden Commit will, findet ihn dort. Hier steht, was jemand gemerkt hätte — Fehler eingeschlossen, denn eine Änderungsliste ohne peinliche Zeilen ist der Beweis, dass das Versprechen «wir zeigen auch, was nicht ging» geschmückt ist.",
+    tags: {
+      feature: "Neu",
+      improvement: "Besser",
+      fix: "Behoben",
+      platform: "Unterbau",
+      breaking: "Bruch",
+    },
   },
 
   organisations: {
