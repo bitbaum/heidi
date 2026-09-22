@@ -796,7 +796,7 @@ export const en: Dictionary = {
   },
 
   practice: {
-    title: "Practise",
+    title: "Exercises",
     lead: "A short set of questions, a few minutes. Built from the rules Heidi applies herself, from the lines people actually say — and from the words you kept.",
     note: "What you keep stays in your browser. The questions from the vocabulary need no account.",
     start: "Start",
@@ -952,7 +952,7 @@ export const en: Dictionary = {
   },
 
   essays: {
-    title: "Reading",
+    title: "Blog",
     lead: "Why German-speaking Switzerland sounds the way it does. Longer pieces, with their sources — for the questions that do not fit on a map.",
     none: "Nothing here yet.",
     backToAll: "All pieces",

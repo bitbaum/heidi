@@ -801,7 +801,7 @@ export const fr: Dictionary = {
   },
 
   practice: {
-    title: "S'exercer",
+    title: "Exercices",
     lead: "Une courte série de questions, quelques minutes. Tirées des règles qu'Heidi applique elle-même, des phrases qu'on dit vraiment — et des mots que vous avez gardés.",
     note: "Ce que vous gardez reste dans votre navigateur. Les questions tirées du vocabulaire ne demandent aucun compte.",
     start: "Commencer",
@@ -957,7 +957,7 @@ export const fr: Dictionary = {
   },
 
   essays: {
-    title: "Lectures",
+    title: "Blog",
     lead: "Pourquoi la Suisse alémanique parle comme elle parle. Des textes plus longs, avec leurs sources — pour les questions qui ne tiennent pas sur une carte.",
     none: "Rien ici pour l'instant.",
     backToAll: "Tous les textes",

@@ -888,7 +888,7 @@ export const de = {
    * auf Anhieb, kommt nochmals. Keine Prozente, keine Serie, kein Level.
    */
   practice: {
-    title: "Üben",
+    title: "Übungen",
     lead: "Ein kurzer Satz Fragen, in ein paar Minuten. Aus den Regeln, die Heidi selbst anwendet, aus den Sätzen, die wirklich gesagt werden — und aus den Wörtern, die Sie behalten haben.",
     note: "Was Sie gemerkt haben, bleibt in Ihrem Browser. Für die Fragen aus dem Wortschatz brauchen Sie kein Konto.",
     start: "Losgehen",
@@ -1083,7 +1083,7 @@ export const de = {
   },
 
   essays: {
-    title: "Lesen",
+    title: "Blog",
     lead: "Warum die Deutschschweiz so spricht, wie sie spricht. Längere Texte mit Quellen — für die Fragen, die auf eine Karte nicht passen.",
     none: "Hier steht noch nichts.",
     backToAll: "Alle Texte",

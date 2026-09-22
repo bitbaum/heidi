@@ -817,7 +817,7 @@ export const rm: Dictionary = {
   },
 
   practice: {
-    title: "Exercitar",
+    title: "Exercizis",
     lead: "Ina curta seria da dumondas, paucas minutas. Or da las reglas che Heidi applitgescha sezza, or da las frasas che vegnan propi ditgas — ed or dals pleds che Vus avais tegnì.",
     note: "Quai che Vus tegnis resta en Voss navigatur. Las dumondas or dal vocabulari na dovran nagin conto.",
     start: "Cumenzar",
@@ -973,7 +973,7 @@ export const rm: Dictionary = {
   },
 
   essays: {
-    title: "Lecturas",
+    title: "Blog",
     lead: "Pertge che la Svizra tudestga discurra sco ella discurra. Texts pli lungs cun lur funtaunas — per las dumondas che na van betg sin ina charta.",
     none: "Qua n'è anc nagut.",
     backToAll: "Tut ils texts",
