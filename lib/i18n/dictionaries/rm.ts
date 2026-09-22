@@ -553,6 +553,13 @@ export const rm: Dictionary = {
       "Differentas etads, geners, quartiers e spertadads da discurrer.",
       "Ventg minutas da Voss temp, tar Vus u tar nus.",
     ],
+    rolesTitle: "Quatter modas da far part",
+    rolesLead:
+      "Ordinadas tenor engaschament, la pli pitschna l\u2019emprima — e quella è quella che vala il pli per nus. Mintgina di tge ch\u2019i dat gia oz en il product.",
+    todayLabel: "Sco ch\u2019i stat",
+    roleCta: "Scrivai a nus davart quai",
+    roleSee: "Guardar",
+    learnerTitle: "E sche Vus emprendais",
     consentTitle: "Tge che capita cun la registraziun",
     consentBody:
       "Il control resta tar Vus. Nus Vus din ordavant per tge che la registraziun vegn duvrada, Vus la pudais retrair, ed il consentiment per il product n'è betg quel per la perscrutaziun. Nus supponain che Vus na vulais betg il segund, uschè ditg che Vus nal dis betg explicitamain.",

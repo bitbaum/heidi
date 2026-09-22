@@ -537,6 +537,13 @@ export const fr: Dictionary = {
       "Des âges, des genres, des quartiers et des débits différents.",
       "Vingt minutes de votre temps, chez vous ou chez nous.",
     ],
+    rolesTitle: "Quatre façons de participer",
+    rolesLead:
+      "Classées par engagement, la plus petite d\u2019abord — et c\u2019est la plus petite qui nous vaut le plus. Chacune indique ce qui existe déjà pour elle aujourd\u2019hui.",
+    todayLabel: "État actuel",
+    roleCta: "Écrivez-nous à ce sujet",
+    roleSee: "Voir",
+    learnerTitle: "Et si vous apprenez",
     consentTitle: "Ce qu'il advient de l'enregistrement",
     consentBody:
       "Vous gardez la main. Nous vous disons à l'avance à quoi servira l'enregistrement, vous pouvez le retirer, et le consentement pour le produit n'est pas celui pour la recherche. Nous supposons que vous ne voulez pas du second tant que vous ne le dites pas explicitement.",

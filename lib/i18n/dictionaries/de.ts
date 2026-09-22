@@ -582,6 +582,13 @@ export const de = {
       "Verschiedene Altersgruppen, Geschlechter, Quartiere, Sprechtempi.",
       "Zwanzig Minuten Ihrer Zeit, bei Ihnen oder bei uns.",
     ],
+    rolesTitle: "Vier Arten mitzumachen",
+    rolesLead:
+      "Nach Aufwand geordnet, das Kleinste zuerst — und das Kleinste ist uns am meisten wert. Bei jeder steht, was es dafür heute im Produkt schon gibt.",
+    todayLabel: "Stand heute",
+    roleCta: "Schreiben Sie uns dazu",
+    roleSee: "Ansehen",
+    learnerTitle: "Und wenn Sie lernen",
     consentTitle: "Was mit der Aufnahme passiert",
     consentBody:
       "Sie behalten die Kontrolle. Wir sagen Ihnen vorher, wofür die Aufnahme verwendet wird, Sie können sie zurückziehen, und die Einwilligung für das Produkt ist nicht dieselbe wie eine Einwilligung für Forschung. Wir gehen davon aus, dass Sie Letzteres nicht wollen, solange Sie es nicht ausdrücklich sagen.",

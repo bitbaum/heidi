@@ -621,6 +621,13 @@ export const gsw: Dictionary = {
       "Verschideni Altersgruppe, Gschlächter, Quartier, Redetempi.",
       "Zwänzg Minute vo Ihrer Ziit, bi Ihne oder bi öis.",
     ],
+    rolesTitle: "Vier Arte mitzmache",
+    rolesLead:
+      "Nach Ufwand gordnet, s Chlyschte zerscht — und s Chlyschte isch is am meischte wert. Bi jedere staht, was es derfür hüt scho git.",
+    todayLabel: "Stand hüt",
+    roleCta: "Schriibed Sie is drzue",
+    roleSee: "Aaluege",
+    learnerTitle: "Und wänn Sie lerned",
     consentTitle: "Was mit de Ufnahm passiert",
     consentBody:
       "Si behaltet d Kontrolle. Mir säged Ihne vorher, wofür d Ufnahm bruucht wird, Si chönd si zrugzieh, und d Iiwilligung fürs Produkt isch nöd diselb wie eini für d Forschig. Mir gönd dervo us, dass Si s Letschte nöd wänd, solang Si s nöd uusdrücklich säged.",
