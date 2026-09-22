@@ -55,6 +55,7 @@ export const de = {
     groupPractise: "Üben",
     groupAbout: "Über Heidi",
     skipToContent: "Zum Inhalt springen",
+    contents: "Inhalt",
     menu: "Menü",
     language: "Sprache wählen",
     langNational: "Landessprachen",
@@ -1296,6 +1297,8 @@ export const de = {
     patternsTitle: "Was Ihnen immer wieder begegnet",
     patternsLead: "Diese Regelmässigkeiten stecken in den Wörtern, die Sie behalten haben. Keine Note — nur das, was in Ihrer eigenen Liste steht.",
     patternsCount: "Ihrer Wörter",
+    patternsEmpty:
+      "Noch nichts zu zeigen. Sobald Sie ein paar Wörter behalten haben, steht hier, welche Lautentsprechungen darin immer wieder vorkommen — zum Beispiel, dass aus einem deutschen k ein ch wird. Gelesen aus Ihrer eigenen Liste; gemessen wird nichts über Sie.",
     recentTitle: "Weitermachen",
     recentEmpty: "Noch keine Gespräche.",
   },

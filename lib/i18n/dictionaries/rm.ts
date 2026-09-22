@@ -52,6 +52,7 @@ export const rm: Dictionary = {
     groupPractise: "Exercitar",
     groupAbout: "Davart Heidi",
     skipToContent: "Al cuntegn",
+    contents: "Cuntegn",
     menu: "Menu",
     language: "Tscherner la lingua",
     langNational: "Linguas naziunalas",
@@ -1165,6 +1166,8 @@ export const rm: Dictionary = {
     patternsTitle: "Quai che As ferma adina puspè",
     patternsLead: "Questas regularitads èn en ils pleds che Vus avais mantegnì. Nagina nota — mo quai ch'è en Vossa atgna glista.",
     patternsCount: "da Voss pleds",
+    patternsEmpty:
+      "Anc nagut da mussar. Uschespert che Vus avais tegnì in pèr pleds, cumparan qua las correspundenzas da tun che returnan en els — per exempel ch\u2019in k tudestg daventa ch. Legì da Vossa atgna glista; nagut na vegn mesirà davart Vus.",
     recentTitle: "Cuntinuar",
     recentEmpty: "Anc naginas conversaziuns.",
   },

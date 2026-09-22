@@ -176,7 +176,23 @@ export const ROUTES: readonly Route[] = [
   // nav answering a question nobody browsing asked. Indexed and in the sitemap,
   // linked from the footer beside privacy and the Impressum — which is where
   // an institution already looks.
-  { key: "organisations", segment: "organisations", indexed: true, priority: 0.6 },
+  /**
+   * IN THE MENU, under `about`, after being reachable only from the footer.
+   *
+   * Reported as "a lot of the pages are not accessible from anywhere, e.g. for
+   * organisations" — and it was true: this page had no `group`, so it appeared
+   * in no menu on any screen. A school, a clinic or an employer had to find it
+   * by scrolling to the bottom of something else.
+   *
+   * `about` rather than a fifth group or a standalone link, and the reason is
+   * measured rather than aesthetic: the header note in `site-header.tsx`
+   * records the bar overflowing by 10px at 1024 in three languages, and a
+   * sixth top-level item is how that happens again. A dropdown entry costs no
+   * width at all, reaches the mobile menu and the footer column for free, and
+   * the white paper and the home page now both link to it directly — which is
+   * where an institutional reader actually arrives.
+   */
+  { key: "organisations", segment: "organisations", group: "about", indexed: true, priority: 0.6 },
   { key: "investors", segment: "investors", indexed: false, priority: 0.1 },
 ];
 

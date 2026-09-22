@@ -59,6 +59,7 @@ export const gsw: Dictionary = {
     groupPractise: "Üebe",
     groupAbout: "Über d Heidi",
     skipToContent: "Zum Inhalt",
+    contents: "Inhalt",
     menu: "Menü",
     language: "Sprach uuswähle",
     langNational: "Landessprache",
@@ -1169,6 +1170,8 @@ export const gsw: Dictionary = {
     patternsTitle: "Was Ihne immer wieder begegnet",
     patternsLead: "Die Regelmässigkeite stecked i de Wörter, wo Si bhalte händ. Kei Note — nur das, wo i Ihrer eigene Liste staht.",
     patternsCount: "vo Ihrne Wörter",
+    patternsEmpty:
+      "No nüt z zeige. Sobald Sie es paar Wörter bhalte händ, staht da, weli Lutentsprechige immer wieder vorchömed — zum Bischpil, dass us eme tütsche k es ch wird. Uselääse us Ihrer eigene Liste; über Sie wird nüt gmässe.",
     recentTitle: "Wiitermache",
     recentEmpty: "Na kei Gspräch.",
   },

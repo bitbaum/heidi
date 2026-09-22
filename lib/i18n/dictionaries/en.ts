@@ -36,6 +36,7 @@ export const en: Dictionary = {
     groupPractise: "Practise",
     groupAbout: "About Heidi",
     skipToContent: "Skip to content",
+    contents: "Contents",
     menu: "Menu",
     language: "Choose language",
     langNational: "National languages",
@@ -1144,6 +1145,8 @@ export const en: Dictionary = {
     patternsTitle: "What keeps catching you",
     patternsLead: "These regularities are in the words you kept. Not a score — just what is in your own list.",
     patternsCount: "of your words",
+    patternsEmpty:
+      "Nothing to show yet. Once you have kept a few words, this is where the sound correspondences that keep turning up in them appear — that a German k becomes ch, for instance. Read off your own list; nothing is measured about you.",
     recentTitle: "Pick up where you left off",
     recentEmpty: "No conversations yet.",
   },

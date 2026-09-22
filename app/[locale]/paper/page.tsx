@@ -7,6 +7,7 @@ import { PAPER } from "@/lib/config/paper";
 import { sectorLocale } from "@/lib/config/sectors";
 import { SOURCES, citation } from "@/lib/research/sources";
 import { Shell } from "../_components/page-shell";
+import { PageToc, TocLayout } from "../_components/page-toc";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -25,10 +26,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
  * like this", and that is where the actual argument lives — the gate, the
  * variety as data, the four guards, the overclaim register.
  *
- * WHY THE TABLE OF CONTENTS IS AT THE TOP AND NOT IN A SIDEBAR. A sidebar is a
- * desktop affordation that becomes a wall on a phone, and this is a long
- * document read by somebody deciding whether to keep reading. Six links,
- * once, then the argument.
+ * THE CONTENTS RAIL STAYS ON SCREEN. It was a flat list at the top, which is
+ * a list you scroll past once and then cannot reach again from four screens
+ * down — reported as exactly that, about this page and two others. `PageToc`
+ * is sticky on a wide screen, marks the section being read, and folds into a
+ * `<details>` on a phone, where a sticky column two words wide would be worse
+ * than nothing.
  *
  * EVERY SECTION ENDS IN A DOOR. That is the one structural rule here, enforced
  * by the shape of `PaperSection` rather than by memory: `check` is where a
@@ -59,24 +62,14 @@ export default async function PaperPage({ params }: { params: Promise<{ locale: 
         <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{paper.standfirst}</p>
       </header>
 
-      <nav aria-label={paper.title} className="border-b border-border-subtle py-6">
-        <ol className="flex flex-col gap-1">
-          {paper.sections.map((section, index) => (
-            <li key={section.id} className="min-w-0">
-              <a
-                href={`#${section.id}`}
-                className="inline-flex min-h-11 items-center gap-3 wrap-anywhere text-base text-link underline underline-offset-4 hover:text-accent"
-              >
-                <span aria-hidden="true" className="font-mono text-caption text-fg-muted">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                {section.title}
-              </a>
-            </li>
-          ))}
-        </ol>
-      </nav>
-
+      <TocLayout
+        toc={
+          <PageToc
+            label={dict.nav.contents}
+            entries={paper.sections.map((section) => ({ id: section.id, label: section.short }))}
+          />
+        }
+      >
       {paper.sections.map((section, index) => (
         <section key={section.id} id={section.id} className="border-b border-border-subtle py-10 sm:py-12">
           <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
@@ -155,6 +148,8 @@ export default async function PaperPage({ params }: { params: Promise<{ locale: 
           </ul>
         </section>
       )}
+
+      </TocLayout>
 
       {/* Where the argument continues, for a reader who got to the end. The
           three pages this one deliberately does not repeat. */}

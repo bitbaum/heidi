@@ -36,6 +36,7 @@ export const fr: Dictionary = {
     groupPractise: "S'exercer",
     groupAbout: "À propos d'Heidi",
     skipToContent: "Aller au contenu",
+    contents: "Sommaire",
     menu: "Menu",
     language: "Choisir la langue",
     langNational: "Langues nationales",
@@ -1149,6 +1150,8 @@ export const fr: Dictionary = {
     patternsTitle: "Ce qui vous arrête le plus souvent",
     patternsLead: "Ces régularités se trouvent dans les mots que vous avez gardés. Pas une note — seulement ce qui est dans votre propre liste.",
     patternsCount: "de vos mots",
+    patternsEmpty:
+      "Rien à montrer pour l\u2019instant. Dès que vous aurez gardé quelques mots, vous verrez ici les correspondances de sons qui y reviennent — par exemple qu\u2019un k allemand devient ch. Lu dans votre propre liste ; rien n\u2019est mesuré à votre sujet.",
     recentTitle: "Reprendre",
     recentEmpty: "Aucune conversation pour l'instant.",
   },

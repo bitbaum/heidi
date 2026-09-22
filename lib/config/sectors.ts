@@ -191,22 +191,38 @@ export const SECTORS: readonly Sector[] = [
   },
   {
     id: "relocation",
-    name: { de: "Relocation-Firmen", en: "Relocation firms" },
+    /**
+     * NOT A REMOVAL COMPANY, and the old name said otherwise.
+     *
+     * «Relocation-Firmen» was read as Zügelfirmen — the people who carry the
+     * boxes. The reader meant here is the opposite end of that trade: the
+     * agencies and in-house mobility teams who move a consultant neurologist
+     * from Heidelberg to a Zurich hospital and handle the permit, the school
+     * place, the residence registration and the first six weeks.
+     *
+     * The name now says which profession arrives, because that is the detail
+     * that makes the right reader recognise themselves in one line — and
+     * because a page that has to be explained has already lost them.
+     */
+    name: {
+      de: "Relocation-Dienste für Fachkräfte",
+      en: "Relocation services for professionals",
+    },
     moment: {
-      de: "Sie übergeben Schlüssel, Versicherung und Steuererklärung. Was als Erstes bricht, ist das Gespräch mit der Hauswartin.",
-      en: "You hand over the keys, the insurance and the tax form. The first thing that breaks is the conversation with the caretaker.",
+      de: "Sie holen eine Oberärztin aus Heidelberg an ein Zürcher Spital: Bewilligung, Anmeldung, Schulplatz, Versicherung. Alles läuft. Was als Erstes bricht, ist die Visite auf der Abteilung — und das Gespräch mit der Hauswartin am Abend.",
+      en: "You bring a consultant from Heidelberg to a Zurich hospital: permit, registration, a school place, insurance. All of it runs. The first thing that breaks is the ward round — and the conversation with the caretaker that evening.",
     },
     stake: {
-      de: "Sie haben den Kunden im Moment der höchsten Aufmerksamkeit — und genau dann endet Ihr Leistungskatalog, wo das eigentliche Problem beginnt.",
-      en: "You have the client at the moment of highest attention — and that is exactly where your service catalogue ends and the real problem starts.",
+      de: "Ihr Leistungskatalog endet genau dort, wo das eigentliche Problem beginnt — und Sie haben den Menschen im Moment der höchsten Aufmerksamkeit. Wer nach acht Wochen wieder geht, geht selten wegen der Wohnung.",
+      en: "Your service catalogue ends exactly where the real problem starts — and you have the person at the moment of highest attention. Somebody who leaves after eight weeks rarely leaves over the flat.",
     },
     offer: {
-      de: "Etwas, das Sie am ersten Tag mitgeben können und das in Woche drei noch benutzt wird.",
-      en: "Something you can hand over on day one that is still being used in week three.",
+      de: "Etwas, das Sie am ersten Tag mitgeben können und das in Woche drei noch benutzt wird. Kein Kurstermin, den eine Assistenzärztin im Schichtbetrieb ohnehin absagt — sondern eine echte Nachricht, erklärt, auf dem Handy, in Sekunden.",
+      en: "Something you can hand over on day one that is still in use in week three. Not a course slot a junior doctor on shifts will cancel anyway — a real message, explained, on a phone, in seconds.",
     },
     unknown: {
-      de: "Was Sie heute stattdessen mitgeben. Wenn es funktioniert, ist diese Seite falsch.",
-      en: "What you hand over instead today. If it works, this page is wrong.",
+      de: "Was Sie heute stattdessen mitgeben, und ob Sprache bei Ihnen überhaupt im Mandat steht oder beim Arbeitgeber liegt. Wenn das heute funktioniert, ist diese Seite falsch.",
+      en: "What you hand over instead today — and whether language is in your mandate at all or sits with the employer. If that works today, this page is wrong.",
     },
   },
   {
