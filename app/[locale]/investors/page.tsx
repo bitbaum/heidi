@@ -5,7 +5,7 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { CONTACT_EMAIL } from "@/lib/config/site";
-import { METRICS, SECTIONS } from "@/lib/config/investors";
+import { METRICS, METRICS_READ_ON, SECTIONS } from "@/lib/config/investors";
 import { INVESTOR_COOKIE, investorPasswordConfigured, isInvestorPassword } from "@/lib/config/investor-gate";
 import { Shell } from "../_components/page-shell";
 
@@ -110,6 +110,13 @@ export default async function InvestorsPage({ params }: { params: Promise<{ loca
             </li>
           ))}
         </ul>
+        {/* WHEN THEY WERE COUNTED. Without this line a reader has no way to
+            tell a current number from one read five days ago — and on a page
+            whose argument is that every claim has a URL, an undated figure is
+            not merely old, it is unverifiable. */}
+        <p className="mt-6 font-mono text-caption uppercase tracking-caps text-fg-muted">
+          Counted {METRICS_READ_ON}
+        </p>
       </section>
 
       {SECTIONS.map((section) => (
