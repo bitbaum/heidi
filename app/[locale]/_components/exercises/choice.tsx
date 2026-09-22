@@ -6,12 +6,13 @@ import type { PracticeItem } from "@/lib/domain/practice/types";
 import type { ExerciseViewProps } from "./view";
 import { PROMPT_TEXT, Verdict, ignoreKey, optionClass, person } from "./chrome";
 
-type ChoiceItem = Extract<PracticeItem, { kind: "pair" | "article" | "form" }>;
+type ChoiceItem = Extract<PracticeItem, { kind: "pair" | "article" | "form" | "pick" }>;
 
 /**
- * The three kinds with options: which is Zurich, which article, which form.
+ * The four kinds with options: which is Zurich, which article, which form,
+ * which word is missing.
  *
- * ONE VIEW FOR THREE KINDS, and it is the right grouping for the same reason
+ * ONE VIEW FOR FOUR KINDS, and it is the right grouping for the same reason
  * `kinds/vocabulary.ts` groups three generators: these differ in what the
  * QUESTION says and agree completely on what ANSWERING looks like. A row of
  * buttons, digits printed on them, press to mark, read the verdict, move on.
@@ -107,6 +108,29 @@ export function ChoiceView({ item, t, locale, onAnswer }: ExerciseViewProps) {
 function ChoicePrompt({ item, t }: { item: ChoiceItem; t: ExerciseViewProps["t"] }) {
   // The options ARE the question for a pair — nothing to print above them.
   if (item.kind === "pair") return null;
+
+  /**
+   * A `pick` prints the sentence and then the German, and the ORDER matters.
+   *
+   * The German is not a hint bolted on: it is what makes exactly one option
+   * correct, because several of them will produce a perfectly good Zurich
+   * sentence. Printing it second keeps the dialect line as the question and
+   * the translation as the condition on the answer — the other way round, the
+   * exercise becomes "translate this", which is a different skill and one this
+   * product does not claim to mark.
+   */
+  if (item.kind === "pick") {
+    return (
+      <>
+        <p lang={DISPLAY.tag} className={`${PROMPT_TEXT} wrap-anywhere`}>
+          {item.prompt}
+        </p>
+        <p lang="de" className="mt-2 max-w-measure wrap-anywhere text-base leading-relaxed text-fg-secondary">
+          {item.bridge}
+        </p>
+      </>
+    );
+  }
 
   if (item.kind === "article") {
     return (

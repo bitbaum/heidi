@@ -16,7 +16,7 @@ export const it: Dictionary = {
     listen: "Ascoltare",
     grammar: "Grammatica",
     dialect: "Dialetti",
-    essays: "Letture",
+    essays: "Blog",
     vocabulary: "Lessico",
     situations: "Situazioni",
     method: "Metodo",
@@ -29,10 +29,9 @@ export const it: Dictionary = {
     impressum: "Note legali",
     investors: "Investitori",
     groupUse: "Usare",
-    groupReference: "Consultare",
-    groupWhy: "Perché così",
-    groupProject: "Progetto",
-    groupAbout: "Su Heidi",
+    groupLearn: "Imparare",
+    groupPractise: "Esercitarsi",
+            groupAbout: "Su Heidi",
     skipToContent: "Vai al contenuto",
     menu: "Menu",
     language: "Scegliere la lingua",
@@ -577,6 +576,7 @@ export const it: Dictionary = {
 
   auth: {
     sections: {
+      focus: "Dove vi bloccate",
       review: "Ripassare",
       recent: "Conversazioni",
       patterns: "Regolarità",
@@ -802,10 +802,10 @@ export const it: Dictionary = {
 
   practice: {
     title: "Esercitarsi",
-    lead: "Otto domande, due minuti. Costruite sulle regole che Heidi stessa applica — e sulle parole che avete tenuto.",
+    lead: "Una serie breve di domande, pochi minuti. Costruite sulle regole che Heidi stessa applica, sulle frasi che si dicono davvero — e sulle parole che avete tenuto.",
     note: "Quello che tenete resta nel vostro browser. Le domande tratte dal vocabolario non richiedono alcun account.",
     start: "Comincia",
-    restart: "Altre otto",
+    restart: "Ancora",
     progress: "Domanda {n} di {total}",
     secondTry: "Secondo tentativo",
     skip: "Salta",
@@ -824,10 +824,14 @@ export const it: Dictionary = {
       recall: "Che cosa vuol dire?",
       match: "Che cosa va insieme?",
       gaptext: "Quali parole mancano?",
+      pick: "Quale parola va qui?",
     },
     matchHint: "Toccate una parola, poi il suo significato.",
     gapHint: "Toccate una parola — entra nel buco successivo. Toccate un buco pieno per riprenderla.",
     check: "Verificare",
+    typeLabel: "Scrivetelo voi — facoltativo",
+    typePlaceholder: "Scrivete la vostra risposta …",
+    youWrote: "Avete scritto",
     focusTitle: "Dove vi bloccate",
     focusLead: "Questo vi torna sbagliato di continuo. Un tocco esercita solo quello.",
     scopedTo: "Solo: {what}",
@@ -968,7 +972,7 @@ export const it: Dictionary = {
   },
 
   grammar: {
-    practiseLabel: "Esercitati",
+    practiseLabel: "Altri esempi",
     practiseSay: "Mi dia due frasi per esercitarmi con «{word}» — poi mi interroghi su una.",
     title: "Grammatica",
     lead: "Che cosa rende lo zurighese difficile da seguire per chi già legge il tedesco — prima ciò su cui una frase si blocca del tutto, poi ciò che capirete senza però dirlo mai voi stessi.",

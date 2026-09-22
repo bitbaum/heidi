@@ -16,7 +16,7 @@ export const en: Dictionary = {
     listen: "Listen",
     grammar: "Grammar",
     dialect: "Dialects",
-    essays: "Reading",
+    essays: "Blog",
     vocabulary: "Vocabulary",
     situations: "Situations",
     method: "Method",
@@ -29,10 +29,9 @@ export const en: Dictionary = {
     impressum: "Legal notice",
     investors: "Investors",
     groupUse: "Use it",
-    groupReference: "Look up",
-    groupWhy: "Why this way",
-    groupProject: "Project",
-    groupAbout: "About Heidi",
+    groupLearn: "Learn",
+    groupPractise: "Practise",
+            groupAbout: "About Heidi",
     skipToContent: "Skip to content",
     menu: "Menu",
     language: "Choose language",
@@ -576,6 +575,7 @@ export const en: Dictionary = {
 
   auth: {
     sections: {
+      focus: "What catches you out",
       review: "Review",
       recent: "Conversations",
       patterns: "Patterns",
@@ -797,10 +797,10 @@ export const en: Dictionary = {
 
   practice: {
     title: "Practise",
-    lead: "Eight questions, about two minutes. Built from the rules Heidi applies herself — and from the words you kept.",
+    lead: "A short set of questions, a few minutes. Built from the rules Heidi applies herself, from the lines people actually say — and from the words you kept.",
     note: "What you keep stays in your browser. The questions from the vocabulary need no account.",
     start: "Start",
-    restart: "Another eight",
+    restart: "Again",
     progress: "Question {n} of {total}",
     secondTry: "Second attempt",
     skip: "Skip",
@@ -819,10 +819,14 @@ export const en: Dictionary = {
       recall: "What does this mean?",
       match: "Which go together?",
       gaptext: "Which words are missing?",
+      pick: "Which word belongs here?",
     },
     matchHint: "Tap a word, then its meaning.",
     gapHint: "Tap a word — it drops into the next gap. Tap a filled gap to take it back.",
     check: "Check",
+    typeLabel: "Write it yourself — optional",
+    typePlaceholder: "Type your answer …",
+    youWrote: "You wrote",
     focusTitle: "What is catching you out",
     focusLead: "These keep coming back wrong for you. One tap practises only those.",
     scopedTo: "Just: {what}",
@@ -963,7 +967,7 @@ export const en: Dictionary = {
   },
 
   grammar: {
-    practiseLabel: "Practise this",
+    practiseLabel: "More examples",
     practiseSay: "Give me two sentences to practise «{word}» — then test me on one.",
     title: "Grammar",
     lead: "What makes Zurich German hard to follow for somebody who already reads German — first the things a sentence fails on outright, then the things you will understand but would never say yourself.",

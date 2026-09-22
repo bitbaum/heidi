@@ -16,7 +16,7 @@ export const fr: Dictionary = {
     listen: "Écouter",
     grammar: "Grammaire",
     dialect: "Dialectes",
-    essays: "Lectures",
+    essays: "Blog",
     vocabulary: "Vocabulaire",
     situations: "Situations",
     method: "Méthode",
@@ -29,10 +29,9 @@ export const fr: Dictionary = {
     impressum: "Mentions légales",
     investors: "Investisseurs",
     groupUse: "Utiliser",
-    groupReference: "Références",
-    groupWhy: "Pourquoi ainsi",
-    groupProject: "Projet",
-    groupAbout: "À propos d'Heidi",
+    groupLearn: "Apprendre",
+    groupPractise: "S'exercer",
+            groupAbout: "À propos d'Heidi",
     skipToContent: "Aller au contenu",
     menu: "Menu",
     language: "Choisir la langue",
@@ -577,6 +576,7 @@ export const fr: Dictionary = {
 
   auth: {
     sections: {
+      focus: "Ce qui vous accroche",
       review: "Réviser",
       recent: "Conversations",
       patterns: "Régularités",
@@ -802,10 +802,10 @@ export const fr: Dictionary = {
 
   practice: {
     title: "S'exercer",
-    lead: "Huit questions, deux minutes. Tirées des règles qu'Heidi applique elle-même — et des mots que vous avez gardés.",
+    lead: "Une courte série de questions, quelques minutes. Tirées des règles qu'Heidi applique elle-même, des phrases qu'on dit vraiment — et des mots que vous avez gardés.",
     note: "Ce que vous gardez reste dans votre navigateur. Les questions tirées du vocabulaire ne demandent aucun compte.",
     start: "Commencer",
-    restart: "Encore huit",
+    restart: "Encore",
     progress: "Question {n} sur {total}",
     secondTry: "Deuxième essai",
     skip: "Passer",
@@ -824,10 +824,14 @@ export const fr: Dictionary = {
       recall: "Qu'est-ce que cela veut dire ?",
       match: "Qu'est-ce qui va ensemble ?",
       gaptext: "Quels mots manquent ?",
+      pick: "Quel mot va ici ?",
     },
     matchHint: "Touchez un mot, puis sa signification.",
     gapHint: "Touchez un mot — il se place dans le trou suivant. Touchez un trou rempli pour le reprendre.",
     check: "Vérifier",
+    typeLabel: "Écrivez-le vous-même — facultatif",
+    typePlaceholder: "Tapez votre réponse …",
+    youWrote: "Vous avez écrit",
     focusTitle: "Ce qui vous accroche",
     focusLead: "Cela revient souvent chez vous. Un clic n’exerce que cela.",
     scopedTo: "Seulement : {what}",
@@ -968,7 +972,7 @@ export const fr: Dictionary = {
   },
 
   grammar: {
-    practiseLabel: "S'exercer",
+    practiseLabel: "Plus d'exemples",
     practiseSay: "Donnez-moi deux phrases pour m'exercer à « {word} » — puis interrogez-moi sur l'une d'elles.",
     title: "Grammaire",
     lead: "Ce qui rend le zurichois difficile à suivre pour quelqu'un qui lit déjà l'allemand — d'abord ce sur quoi une phrase échoue complètement, ensuite ce que vous comprendrez sans jamais le dire vous-même.",

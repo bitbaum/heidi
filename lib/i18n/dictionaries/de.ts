@@ -35,7 +35,7 @@ export const de = {
     listen: "Hören",
     grammar: "Grammatik",
     dialect: "Mundarten",
-    essays: "Lesen",
+    essays: "Blog",
     vocabulary: "Wortschatz",
     situations: "Situationen",
     method: "Methode",
@@ -48,10 +48,9 @@ export const de = {
     impressum: "Impressum",
     investors: "Investoren",
     groupUse: "Benutzen",
-    groupReference: "Nachschlagen",
-    groupWhy: "Warum so",
-    groupProject: "Projekt",
-    groupAbout: "Über Heidi",
+    groupLearn: "Lernen",
+    groupPractise: "Üben",
+            groupAbout: "Über Heidi",
     skipToContent: "Zum Inhalt springen",
     menu: "Menü",
     language: "Sprache wählen",
@@ -630,6 +629,7 @@ export const de = {
 
   auth: {
     sections: {
+      focus: "Woran Sie hängen",
       review: "Wiederholen",
       recent: "Gespräche",
       patterns: "Muster",
@@ -889,10 +889,10 @@ export const de = {
    */
   practice: {
     title: "Üben",
-    lead: "Acht Fragen, in zwei Minuten. Aus den Regeln, die Heidi selbst anwendet — und aus den Wörtern, die Sie behalten haben.",
+    lead: "Ein kurzer Satz Fragen, in ein paar Minuten. Aus den Regeln, die Heidi selbst anwendet, aus den Sätzen, die wirklich gesagt werden — und aus den Wörtern, die Sie behalten haben.",
     note: "Was Sie gemerkt haben, bleibt in Ihrem Browser. Für die Fragen aus dem Wortschatz brauchen Sie kein Konto.",
     start: "Losgehen",
-    restart: "Nochmals acht",
+    restart: "Nochmals",
     progress: "Frage {n} von {total}",
     secondTry: "Zweiter Anlauf",
     skip: "Überspringen",
@@ -911,11 +911,15 @@ export const de = {
       recall: "Was heisst das?",
       match: "Was gehört zusammen?",
       gaptext: "Welche Wörter fehlen?",
+      pick: "Welches Wort passt hier?",
     },
     matchHint: "Tippen Sie ein Wort an, dann seine Bedeutung.",
     gapHint:
       "Tippen Sie ein Wort an — es rutscht in die nächste Lücke. Auf eine gefüllte Lücke tippen nimmt es zurück.",
     check: "Prüfen",
+    typeLabel: "Selbst schreiben — freiwillig",
+    typePlaceholder: "Tippen Sie Ihre Antwort …",
+    youWrote: "Sie haben geschrieben",
     /**
      * KEINE ZAHL, und das ist die ganze Regel hier. Keine Prozente, keine
      * Trefferquote, kein Level. Die Diagnose zeigt auf den STOFF, nie auf die
@@ -1079,7 +1083,7 @@ export const de = {
      * `practiseSay` is sent verbatim and must contain `{word}` — here the
      * topic's own title — for the same reason as `vocabulary.askSay`.
      */
-    practiseLabel: "Damit üben",
+    practiseLabel: "Mehr Beispiele",
     practiseSay: "Geben Sie mir zwei Sätze zum Üben von «{word}» — und fragen Sie mich danach einen ab.",
     title: "Grammatik",
     /**

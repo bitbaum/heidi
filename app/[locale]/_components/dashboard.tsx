@@ -9,6 +9,7 @@ import { CowMark } from "./cow-mark";
 import { SavedWords } from "./saved-words";
 import { GroupList } from "./group-list";
 import { ReviewPanel } from "./review-panel";
+import { FocusPanel } from "./focus-panel";
 import { PatternsPanel } from "./patterns-panel";
 import { RecentConversations } from "./recent-conversations";
 import { dbConfigured } from "@/lib/db";
@@ -59,6 +60,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
     // SHORT LABELS, not the section headings. "Was Ihnen immer wieder
     // begegnet" is a good heading and a terrible nav item: five words wrap to
     // two lines in a strip whose whole job is to be scannable in one.
+    { id: "focus", label: t.sections.focus },
     { id: "review", label: t.sections.review },
     ...(signedIn ? [{ id: "recent", label: t.sections.recent, count: conversations.length }] : []),
     { id: "patterns", label: t.sections.patterns },
@@ -122,6 +124,30 @@ export async function Dashboard({ locale }: { locale: Locale }) {
             It needs no account, which is why it can lead: review runs entirely
             in the browser, on the words already in it. */}
         <main className="min-w-0">
+          {/*
+            WHAT TO WORK ON LEADS, above even the words that are due.
+
+            The page already answered "what is owed" — a review schedule is a
+            deadline, and deadlines are easy to render. What it never answered
+            is "what am I actually bad at", which is the question somebody
+            opens their own page to ask, and which this product only learned to
+            answer when the learner model shipped.
+
+            It renders NOTHING until it has something to say: `weakest` refuses
+            to name an area on fewer than two answers, so a first visit shows
+            no panel rather than a placeholder promising one later. That is why
+            it can lead without pushing the rest of the page down for a learner
+            who has not practised yet.
+
+            No number appears in it. §8's rule is that the product measures how
+            much of an unfamiliar Zurich speaker you understand — the diagnosis
+            names the material and offers a session on it, and never scores the
+            person.
+          */}
+          <section aria-labelledby="focus" className="scroll-mt-28 lg:scroll-mt-24" id="focus">
+            <FocusPanel t={dict.practice} grammarT={dict.grammar} situationsT={dict.situations} locale={locale} />
+          </section>
+
           <section aria-labelledby="review" className="scroll-mt-28 lg:scroll-mt-24" id="review">
           <h2
             id="review-heading"

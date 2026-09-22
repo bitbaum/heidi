@@ -1286,6 +1286,43 @@ without ever saying: `wänn` heard as German `wenn` turns a question into a
 condition, the article `es` is identical to the pronoun `es`, and the polite
 imperative ends in `-ed` rather than `-en`.
 
+**Built: the two kinds the material was asking for, and typing that is not
+marked.**
+
+*Coverage was the problem, not variety.* Measured: the pack's twenty-six
+function words produced SIX questions between them, because they carry no
+article and no paradigm, so the only generator that could see them was the
+matching grid. They are the words `/vocabulary` argues buy the most
+comprehension, and they were the least practised thing in the product.
+
+`pick` is a real pack sentence with one word cut out and four real words
+offered. What makes it objective is the bridge printed underneath: several
+options will produce a perfectly good Zurich sentence — that is what function
+words are like — and exactly one of them makes the sentence mean the German.
+The learner can check the verdict against the evidence rather than take it.
+
+Its distractors are filtered by a rule worth stating: a candidate's own gloss
+must not appear in the bridge. Without it the generator eventually offers
+`nüme` ("nicht mehr") against a German line containing "nicht mehr" and marks a
+defensible answer wrong, which is the single thing an objective item may never
+do. A test asserts both halves — the answer's gloss present, every distractor's
+absent.
+
+Function-word questions went **6 → 32**, and the pool to 221.
+
+*And the reveal button stopped being the only control.* A learner could press
+it and read the answer without attempting one — the retrieval this page exists
+for, skipped in a keystroke. There is now an optional field to write the answer
+in first.
+
+Nothing compares what they wrote to what the pack says. §6 is why: a machine
+that judges typed dialect eventually tells somebody their spelling is wrong
+when it is not, in a variety where they cannot argue back. What typing adds is
+the COMMITMENT — the answer is out of your head and on the screen before the
+real one appears — and the two are then shown one above the other with no
+verdict between them. That is the same information and none of the false
+authority.
+
 **Next, in order, and the ordering is the argument:**
 
 1. **Feedback that names the rule, not just the region.** A `pair` item already

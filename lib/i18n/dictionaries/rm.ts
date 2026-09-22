@@ -32,7 +32,7 @@ export const rm: Dictionary = {
     listen: "Tadlar",
     grammar: "Grammatica",
     dialect: "Idioms",
-    essays: "Lecturas",
+    essays: "Blog",
     vocabulary: "Vocabulari",
     situations: "Situaziuns",
     method: "Metoda",
@@ -45,10 +45,9 @@ export const rm: Dictionary = {
     impressum: "Infurmaziuns legalas",
     investors: "Investiders",
     groupUse: "Duvrar",
-    groupReference: "Consultar",
-    groupWhy: "Pertge uschia",
-    groupProject: "Project",
-    groupAbout: "Davart Heidi",
+    groupLearn: "Emprender",
+    groupPractise: "Exercitar",
+            groupAbout: "Davart Heidi",
     skipToContent: "Al cuntegn",
     menu: "Menu",
     language: "Tscherner la lingua",
@@ -593,6 +592,7 @@ export const rm: Dictionary = {
 
   auth: {
     sections: {
+      focus: "Nua che vus restais tatgads",
       review: "Repeter",
       recent: "Conversaziuns",
       patterns: "Structuras",
@@ -818,10 +818,10 @@ export const rm: Dictionary = {
 
   practice: {
     title: "Exercitar",
-    lead: "Otg dumondas, dus minutas. Or da las reglas che Heidi applitgescha sezza — ed or dals pleds che Vus avais tegnì.",
+    lead: "Ina curta seria da dumondas, paucas minutas. Or da las reglas che Heidi applitgescha sezza, or da las frasas che vegnan propi ditgas — ed or dals pleds che Vus avais tegnì.",
     note: "Quai che Vus tegnis resta en Voss navigatur. Las dumondas or dal vocabulari na dovran nagin conto.",
     start: "Cumenzar",
-    restart: "Anc otg",
+    restart: "Anc ina giada",
     progress: "Dumonda {n} da {total}",
     secondTry: "Segunda emprova",
     skip: "Sursiglir",
@@ -840,10 +840,14 @@ export const rm: Dictionary = {
       recall: "Tge vul quai dir?",
       match: "Tge va ensemen?",
       gaptext: "Tge pleds mancan?",
+      pick: "Tge pled va qua?",
     },
     matchHint: "Tutgai in pled, lura sia significaziun.",
     gapHint: "Tutgai in pled — el va en il proxim vid. Tutgai in vid emplenì per al reprender.",
     check: "Controllar",
+    typeLabel: "Scrivai sez — facultativ",
+    typePlaceholder: "Tippai Vossa resposta …",
+    youWrote: "Vus avais scrit",
     focusTitle: "Nua che vus restais tatgads",
     focusLead: "Quai turna adina puspè fallà tar vus. In clic exercitescha mo quai.",
     scopedTo: "Mo: {what}",
@@ -984,7 +988,7 @@ export const rm: Dictionary = {
   },
 
   grammar: {
-    practiseLabel: "Exercitar quai",
+    practiseLabel: "Dapli exempels",
     practiseSay: "Dai mai duas frasas per exercitar «{word}» — lura ma dumandai davart ina.",
     title: "Grammatica",
     lead: "Quai che renda il turitgais difficil da suandar per insatgi che legia gia tudestg — l'emprim quai vi da quai ch'ina frasa faglia dal tut, lura quai che Vus chapis ma na dischessas mai sez.",

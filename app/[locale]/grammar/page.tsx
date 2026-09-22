@@ -5,7 +5,23 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { DISPLAY } from "@/lib/variety/display";
 import { href } from "@/lib/i18n/routes";
 import { GRAMMAR_BANDS } from "@/lib/variety/bands";
+import { PACK_ITEMS } from "@/lib/domain/practice/published";
+import { itemsInScope } from "@/lib/domain/practice/scope";
 import { Shell } from "../_components/page-shell";
+
+/**
+ * Which topics a scoped sitting would actually have questions for.
+ *
+ * Computed once at module load rather than per render: the answer depends only
+ * on the packs, so it is the same for every request and every locale. A topic
+ * with no items shows no practise link — a button that opens an empty session
+ * is worse than no button.
+ */
+const PRACTISABLE = new Set(
+  DISPLAY.grammar
+    .filter((topic) => itemsInScope(PACK_ITEMS, { kind: "topic", id: topic.id }).length > 0)
+    .map((topic) => topic.id),
+);
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -78,29 +94,57 @@ export default async function GrammarPage({ params }: { params: Promise<{ locale
                   const topicWords = t.topics[topic.id as keyof typeof t.topics];
                   const first = topic.examples[0];
 
-                  return (
-                    <li key={topic.id} className="min-w-0">
-                      <Link
-                        href={`${href(locale, "grammar")}/${topic.id}`}
-                        className="group flex h-full flex-col rounded-control border border-border-subtle p-5 transition-colors hover:border-border-strong focus-visible:border-border-strong"
-                      >
-                        <h3 className="font-heading text-xl font-semibold leading-snug tracking-display text-fg-primary group-hover:text-accent">
-                          {topicWords.title}
-                        </h3>
-                        <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-secondary">{topicWords.rule}</p>
+                  const askable = PRACTISABLE.has(topic.id);
 
-                        {first && (
-                          <p className="mt-4 border-t border-border-subtle pt-3 text-sm leading-snug">
-                            <span lang={DISPLAY.tag} className="font-medium text-dialect">
-                              {first.target}
-                            </span>
-                            <br />
-                            <span lang="de" className="text-fg-muted">
-                              {first.bridge}
-                            </span>
-                          </p>
-                        )}
-                      </Link>
+                  return (
+                    /*
+                      A CARD, NOT A LINK, and the difference is the practise
+                      button. The whole card used to be one `<Link>`, which is
+                      the simplest thing that works right up to the moment the
+                      card needs a SECOND destination — and nesting an anchor
+                      inside an anchor is invalid, unreachable by keyboard, and
+                      read as one control by a screen reader.
+                    */
+                    <li
+                      key={topic.id}
+                      className="group flex min-w-0 flex-col rounded-control border border-border-subtle p-5 transition-colors hover:border-border-strong"
+                    >
+                      <h3 className="font-heading text-xl font-semibold leading-snug tracking-display text-fg-primary">
+                        <Link
+                          href={`${href(locale, "grammar")}/${topic.id}`}
+                          className="hover:text-accent focus-visible:text-accent"
+                        >
+                          {topicWords.title}
+                        </Link>
+                      </h3>
+                      <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-secondary">{topicWords.rule}</p>
+
+                      {first && (
+                        <p className="mt-4 border-t border-border-subtle pt-3 text-sm leading-snug">
+                          <span lang={DISPLAY.tag} className="font-medium text-dialect">
+                            {first.target}
+                          </span>
+                          <br />
+                          <span lang="de" className="text-fg-muted">
+                            {first.bridge}
+                          </span>
+                        </p>
+                      )}
+
+                      {/* The second destination, and the reason this stopped
+                          being one big link: practising a topic took two
+                          clicks and a page load, when it is the thing most
+                          people came to the index to do. */}
+                      {askable && (
+                        <p className="mt-4">
+                          <Link
+                            href={`${href(locale, "practice")}?topic=${encodeURIComponent(topic.id)}`}
+                            className="inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
+                          >
+                            {t.practiseTopic}
+                          </Link>
+                        </p>
+                      )}
                     </li>
                   );
                 })}

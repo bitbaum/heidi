@@ -18,6 +18,35 @@ record of being wrong is the part worth keeping.
 
 ## 2026-09-22
 
+**Two new exercise kinds, and typing that is deliberately not marked.**
+
+`pick` — a real pack sentence with one word cut out and four real words
+offered. It exists because of a measurement rather than a hunch: the
+twenty-six function words produced six questions between them, since they
+carry no article and no paradigm and only the matching grid could see them.
+They are the words the vocabulary page argues buy the most comprehension.
+Function-word questions went 6 → 32; the pool went 195 → 221.
+
+What makes it markable is the German printed underneath: several options
+produce a grammatical sentence, and exactly one makes it mean that. The
+distractors are filtered so no candidate's own gloss appears in the bridge —
+without that rule the generator offers `nüme` against a line containing "nicht
+mehr" and marks a defensible answer wrong.
+
+**Typing, in the two self-marked kinds.** The reveal button used to be the only
+control, so the retrieval could be skipped entirely. There is now an optional
+field to write the answer in first, and nothing compares it to the pack's —
+the two are shown one above the other with no verdict. Grading typed dialect
+would mean judging spelling in a variety that has none.
+
+A bug found by the new tests rather than by looking: `pick` located its word
+case-insensitively and then asked `blank()` to remove it, which matched
+case-sensitively — so `mir` was found in «Mir händ …», reported present, and
+left standing in an item that claimed to have a gap. Blanking now folds case,
+which is also right on its own terms: a word at the start of a sentence is the
+same word.
+
+
 **The reference section became navigable, and practice became addressable.**
 `/grammar` was one document four screens long with every topic expanded; it is
 now an index grouped into two bands — the topics a sentence does not survive,

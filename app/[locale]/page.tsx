@@ -7,10 +7,8 @@ import { Chat } from "./_components/chat";
 import { DialectFigure } from "./_components/dialect-figure";
 import { CorrespondenceFigure } from "./_components/correspondence-figure";
 import { Shell } from "./_components/page-shell";
-import { ChatWorkspace } from "./_components/chat/workspace";
+import { Dashboard } from "./_components/dashboard";
 import { auth, authEnabled } from "@/lib/auth";
-import { dbConfigured } from "@/lib/db";
-import { conversationsFor } from "@/lib/domain/conversations/store";
 
 /**
  * Dynamic, and EXPLICITLY so rather than by consequence.
@@ -35,16 +33,24 @@ export const dynamic = "force-dynamic";
  * The argument for the product sits underneath, for the visit where they are
  * deciding whether to trust it rather than trying to get through a Tuesday.
  *
- * SIGNED IN, THIS IS THE CHAT — the whole screen of it, sidebar and all.
- * Somebody with an account does not need the pitch for a product they already
- * use, and they did not open this address to read a list either: they came to
- * say something they cannot yet say. So the default screen is the thing they
- * came for, not a page about it.
+ * SIGNED IN, THIS IS THE DASHBOARD — and it was the chat for a while, which
+ * was a mistake reported by a reader in four words: "start and chat show the
+ * same thing."
  *
- * It replaced the dashboard here, which is not gone — `/portal` is still its
- * address, and the account control is still the door to it. What changed is
- * only which of the two the app OPENS on, and a conversation beats a summary
- * of conversations.
+ * They did. The bar named both, and pressing either rendered the identical
+ * `ChatWorkspace`. Two doors onto one room is worse than one door, because a
+ * reader reasonably concludes one of them must do something else and goes
+ * looking for the difference.
+ *
+ * The argument for chat-at-root was that "a conversation beats a summary of
+ * conversations", and it is a good argument that answered the wrong question.
+ * The chat is not hard to reach — it is the second item on the bar, always
+ * visible, never inside a panel. What the root should do is the thing no other
+ * page does: say where this learner is and what is worth doing next. That is
+ * the dashboard, which already existed and was one redirect away.
+ *
+ * `/portal` now redirects here rather than rendering the same dashboard at a
+ * second address, because the duplicate pair was the whole complaint.
  *
  * THE COST, STATED: reading the session here opts this route into dynamic
  * rendering for everyone, and it is the `priority: 1` page a search engine
@@ -63,28 +69,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   // `auth()` rather than a cookie check: this decides what somebody SEES, and
   // the chat reads their conversations. A forged cookie must get the marketing
   // page, not somebody else's page shaped like theirs.
+  // `auth()` rather than a cookie check: this decides what somebody SEES, and
+  // the dashboard reads their words and their conversations. A forged cookie
+  // must get the public page, not somebody else's page shaped like theirs.
   const session = authEnabled ? await auth() : null;
-  if (session?.actorId) {
-    // Queried here rather than fetched on mount, for the same reason
-    // `/chat` does it: the page already holds the session, so the sidebar
-    // arrives with the HTML instead of after a round trip that shows an
-    // empty list first.
-    const conversations = dbConfigured() ? await conversationsFor(session.actorId) : [];
-    return (
-      <ChatWorkspace
-        // A different conversation is a different component — see the note on
-        // the same `key` in `chat/page.tsx`.
-        key="new"
-        locale={locale}
-        dict={dict}
-        signedIn
-        // Signed in there is nothing to sign in FOR: the slot is the
-        // signed-out sidebar's offer to keep a device-local thread.
-        signInSlot={null}
-        initialConversations={conversations.map((c) => ({ id: c.id, title: c.title, updatedAt: c.updatedAt }))}
-      />
-    );
-  }
+  if (session?.actorId) return <Dashboard locale={locale} />;
 
   return (
     <Shell>

@@ -39,7 +39,7 @@ export const gsw: Dictionary = {
     listen: "Ghöre",
     grammar: "Grammatik",
     dialect: "Mundarte",
-    essays: "Läse",
+    essays: "Blog",
     vocabulary: "Wortschatz",
     situations: "Situatione",
     method: "Methode",
@@ -52,10 +52,9 @@ export const gsw: Dictionary = {
     impressum: "Impressum",
     investors: "Investore",
     groupUse: "Bruuche",
-    groupReference: "Nachschlage",
-    groupWhy: "Werum so",
-    groupProject: "Projekt",
-    groupAbout: "Über d Heidi",
+    groupLearn: "Lerne",
+    groupPractise: "Üebe",
+        groupAbout: "Über d Heidi",
     skipToContent: "Zum Inhalt",
     menu: "Menü",
     language: "Sprach uuswähle",
@@ -261,6 +260,7 @@ export const gsw: Dictionary = {
 
   auth: {
     sections: {
+      focus: "Wo Sie hanged",
       review: "Widerhole",
       recent: "Gspröch",
       patterns: "Muschter",
@@ -822,10 +822,10 @@ export const gsw: Dictionary = {
 
   practice: {
     title: "Üebe",
-    lead: "Acht Frage, i zwee Minute. Us de Regle wo d Heidi sälber aawendet — und us de Wörter wo Si behalte händ.",
+    lead: "En churze Satz Frage, i es paar Minute. Us de Regle wo d Heidi sälber aawendet, us de Sätz wo würkli gseit werded — und us de Wörter wo Si behalte händ.",
     note: "Was Si sich gmerkt händ, bliibt i Ihrem Browser. Für d Frage us em Wortschatz bruuchts kes Konto.",
     start: "Loslege",
-    restart: "Nomal achti",
+    restart: "Nomal",
     progress: "Frag {n} vo {total}",
     secondTry: "Zwöite Aalauf",
     skip: "Überspringe",
@@ -844,10 +844,14 @@ export const gsw: Dictionary = {
       recall: "Was heisst das?",
       match: "Was ghört zäme?",
       gaptext: "Weli Wörter fähled?",
+      pick: "Welles Wort ghört da ane?",
     },
     matchHint: "Tippet es Wort aa, dänn si Bedütig.",
     gapHint: "Tippet es Wort aa — es rutscht i di nächscht Lugge. Uf e gfülti Lugge tippe nimmt s zrugg.",
     check: "Prüefe",
+    typeLabel: "Sälber schriibe — friiwillig",
+    typePlaceholder: "Tippet Iri Antwort …",
+    youWrote: "Si händ gschriebe",
     focusTitle: "Da hänged Sie grad",
     focusLead: "Das chunt bi Ihne immer wider. Ei Klick üebt nur das.",
     scopedTo: "Nur zu: {what}",
@@ -988,7 +992,7 @@ export const gsw: Dictionary = {
   },
 
   grammar: {
-    practiseLabel: "Demit üebe",
+    practiseLabel: "Meh Bispil",
     practiseSay: "Gäbed mer zwei Sätz zum Üebe vo «{word}» — und fraged mi dänn eine ab.",
     title: "Grammatik",
     lead: "Was Züritüütsch schwer verständlich macht für öpper, wo scho Dütsch liest — zerscht das, wo en Satz ganz dra scheiteret, denn das, wo Si zwar verstönd, aber nie sälber sege würded.",

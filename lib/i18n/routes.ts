@@ -35,26 +35,30 @@ export type RouteKey =
   | "investors";
 
 /**
- * What a page is FOR, which is the thing a flat list of five links cannot say.
+ * `use`       the two things always on the bar: your start, and the chat.
+ * `learn`     the material — situations, grammar, words, dialects.
+ * `practise`  the things you DO with it — exercises, speaking, listening.
+ * `about`     why it works this way, who is doing it, and the writing.
  *
- * The nav was Methode · Forschung · Dialekt-Check · Mitmachen · Über uns —
- * five peers, no shape, and a reader had to already know the product to tell
- * a tool from an essay. Grouping is the cheapest possible fix and it is honest:
- * these really are three different kinds of page.
+ * WHAT THIS REPLACED, and why the old cut was wrong. It was `use` (start,
+ * chat, speaking, practice, listen), `reference` (grammar, dialects, words,
+ * situations), `why` and `project`.
  *
- * `use`       things you do — the chat
- * `reference`  things you look up mid-conversation — grammar, dialects, words
- * `why`        why it works this way — the method, the evidence
- * `project`    who is doing this and how to join in
+ * Two faults, both reported by a reader rather than found here. «Nachschlagen»
+ * — "look up" — was the label on what had quietly become the entire teaching
+ * material: eleven grammar topics, eighty-three words, fourteen scenes. It
+ * described the section as a dictionary at the point where it stopped being
+ * one. And `practice` sat under `use`, one panel away from the material it
+ * practises, so the loop the product is built on was split across two menus.
  *
- * `reference` split off from `use` when the reference section grew: measured
- * at 1024px in French, with the account control, the flat nav had twenty
- * pixels of headroom. Eight peers in a row is also the shapeless list this
- * grouping was introduced to fix, arrived at again from the other direction.
+ * The new cut is the honest one: **what there is to learn**, **what you do
+ * with it**, and **the two doors that are always open**. `why` and `project`
+ * merged because the header already drew them as one panel — the split existed
+ * only in this file.
  */
-export type NavGroup = "use" | "reference" | "why" | "project";
+export type NavGroup = "use" | "learn" | "practise" | "about";
 
-export const NAV_GROUPS: readonly NavGroup[] = ["use", "reference", "why", "project"];
+export const NAV_GROUPS: readonly NavGroup[] = ["use", "learn", "practise", "about"];
 
 export type Route = {
   key: RouteKey;
@@ -73,76 +77,62 @@ export type Route = {
 };
 
 export const ROUTES: readonly Route[] = [
-  // The chat IS the home page, so it is named in the menu under `use` rather
-  // than left as a wordmark nobody realises is a link.
+  // Named in the bar rather than left as a wordmark nobody realises is a link.
+  // Signed in this is the dashboard, NOT the chat — see the note on the page.
   { key: "home", segment: "", group: "use", indexed: true, priority: 1 },
-  // The same conversation as the home page, with room to be one. Indexed,
-  // because a person searching for "Swiss German chat" is looking for exactly
-  // this — but an individual thread at /chat/<id> is not a route at all and
-  // carries its own noindex.
+  // ALWAYS ON THE BAR, never inside a panel. The chat is how most people use
+  // this product, and a door you have to open a menu to find is a door most
+  // people do not open. Indexed, because "Swiss German chat" is a real search
+  // — but an individual thread at /chat/<id> is not a route and carries its
+  // own noindex.
   { key: "chat", segment: "chat", group: "use", indexed: true, priority: 0.9 },
-  // Speaking rounds sit under `use` beside the chat, because they are the
-  // other thing you DO here rather than something you look up. Indexed: a
-  // scheduled conversation group is a public thing, and somebody searching for
-  // one in Zurich is looking for exactly this page.
-  { key: "speaking", segment: "speaking", group: "use", indexed: true, priority: 0.85 },
-  // `use`, beside the chat, because it is the other half of the same loop: the
-  // chat is where a word is met and kept, this is where it comes back. Under
-  // `reference` it would read as another list to look things up in, which is
-  // exactly what the vocabulary page already is and exactly what this is not.
+  // Speaking, listening and the exercises are one group, because they are the
+  // same act on different channels. Indexed: a scheduled conversation group is
+  // a public thing, and somebody searching for one in Zurich wants this page.
+  { key: "speaking", segment: "speaking", group: "practise", indexed: true, priority: 0.85 },
+  // The centre of `practise`, and it sits one menu away from `learn` on
+  // purpose: the material and the drill are two halves of one loop, and every
+  // page in `learn` now links into this one scoped to itself.
   //
   // Indexed, and not shy about it: "Schweizerdeutsch üben" is a real search
   // with a bad answer everywhere else — a quiz that scores you out of ten on a
   // language whose spelling is not settled. The page is useful signed out,
   // because the pack's own items need no account.
-  { key: "practice", segment: "practice", group: "use", indexed: true, priority: 0.85 },
-  // Under `use` rather than `reference`: this is somewhere you GO and then
-  // spend twenty minutes listening, not something you look up mid-sentence.
-  // Indexed and high, because "Swiss German podcasts" is a real search with a
-  // real answer, and the answer nobody else gives is which of them are dialect.
-  { key: "listen", segment: "listen", group: "use", indexed: true, priority: 0.85 },
-  // `reference`, not `why`: you reach for these mid-conversation when an answer
-  // turned on something you did not know. An essay about how the product works
-  // is a different kind of page and sits under `why`.
-  { key: "grammar", segment: "grammar", group: "reference", indexed: true, priority: 0.7 },
-  { key: "dialect", segment: "dialect", group: "reference", indexed: true, priority: 0.7 },
-  { key: "vocabulary", segment: "vocabulary", group: "reference", indexed: true, priority: 0.7 },
-  // `reference`, and the group is a decision rather than a leftover.
+  { key: "practice", segment: "practice", group: "practise", indexed: true, priority: 0.85 },
+  // Somewhere you GO and spend twenty minutes, not something you look up
+  // mid-sentence. Indexed and high, because "Swiss German podcasts" is a real
+  // search whose unanswered half is which programmes are actually dialect.
+  { key: "listen", segment: "listen", group: "practise", indexed: true, priority: 0.85 },
+  // FIRST in `learn`, above grammar and the word list, because it is the one
+  // that answers "what will actually be said to me" rather than "what is this
+  // language like". The scene is the material; the DOING is `/practice`, which
+  // every scene links into, scoped to itself.
   //
-  // It is a thing you DO — read the scene you are walking into before a shift
-  // — which argues for `use`. But `use` is full: the header test measures the
-  // bar at 1024px in Russian and caps that group at five, because a sixth link
-  // there is the sideways-scrolling header this repo has already shipped once.
-  // The test says what to do about it in as many words: a sixth thing to do
-  // goes in a panel.
-  //
-  // And `reference` turns out to be the honest answer anyway. The DOING part
-  // of a situation is `/practice`, which already sits under `use` and which
-  // every scene links into. What lives here is the scene itself — something
-  // you look up, the way you look up a grammar topic when an answer turned on
-  // one. It is the same material the vocabulary page holds, organised by the
-  // moment it occurs in rather than by what kind of word it is, so it belongs
-  // beside it.
-  //
-  // Indexed and above the other reference pages: "Schweizerdeutsch Pflege" is
+  // Indexed and above the rest of the group: "Schweizerdeutsch Pflege" is
   // a real search by a real person with a shift tomorrow, and it currently has
   // no good answer anywhere.
-  { key: "situations", segment: "situations", group: "reference", indexed: true, priority: 0.75 },
+  { key: "situations", segment: "situations", group: "learn", indexed: true, priority: 0.75 },
+  // `learn` is the material itself. You reach for these mid-conversation when
+  // an answer turned on something you did not know, AND you read them straight
+  // through — which is why "look up" was the wrong word for the whole group.
+  { key: "grammar", segment: "grammar", group: "learn", indexed: true, priority: 0.7 },
+  { key: "dialect", segment: "dialect", group: "learn", indexed: true, priority: 0.7 },
+  { key: "vocabulary", segment: "vocabulary", group: "learn", indexed: true, priority: 0.7 },
   // `why`, beside the method: both answer "why does it work like this", and an
   // essay about how the dialect landscape came to be is the long form of the
   // sentence the dialect page states in a paragraph. Indexed and high: "warum
   // spricht die Schweiz Dialekt" is a real search with a lot of bad answers.
-  { key: "essays", segment: "essays", group: "why", indexed: true, priority: 0.75 },
-  { key: "method", segment: "method", group: "why", indexed: true, priority: 0.8 },
+  { key: "essays", segment: "essays", group: "about", indexed: true, priority: 0.75 },
+  { key: "method", segment: "method", group: "about", indexed: true, priority: 0.8 },
   // Beside the method, not inside it. `/method` argues how Heidi teaches; this
   // reports what a computer can currently do with this language at all — a
   // different kind of claim, and the public form of §8's refusal to say Heidi
   // transcribes dialect. Indexed, because somebody searching for "Swiss German
   // speech recognition" is looking for exactly this and will otherwise find a
   // vendor selling them Swiss Standard German.
-  { key: "technology", segment: "technology", group: "why", indexed: true, priority: 0.65 },
-  { key: "contribute", segment: "contribute", group: "project", indexed: true, priority: 0.6 },
-  { key: "about", segment: "about", group: "project", indexed: true, priority: 0.5 },
+  { key: "technology", segment: "technology", group: "about", indexed: true, priority: 0.65 },
+  { key: "contribute", segment: "contribute", group: "about", indexed: true, priority: 0.6 },
+  { key: "about", segment: "about", group: "about", indexed: true, priority: 0.5 },
   // Reached from the account control, not the menu: a personal space listed in
   // the nav of a site you are not signed in to reads as a locked door.
   { key: "portal", segment: "portal", indexed: false, priority: 0.3 },
@@ -183,7 +173,15 @@ export const ROUTES: readonly Route[] = [
  * `navGroups()` — a personal space listed in the nav of a site you are not
  * signed in to reads as a locked door. The account control is the door.
  */
-export const ACCOUNT_MENU_KEYS = ["portal", "settings"] as const;
+/**
+ * `portal` left this list when the dashboard moved back to the locale root.
+ *
+ * It pointed at a second address for the page the wordmark already opens, so
+ * the menu offered "my space" to somebody standing in it. The route still
+ * exists and redirects, for the bookmarks; the MENU entry was the part that
+ * was misleading.
+ */
+export const ACCOUNT_MENU_KEYS = ["settings"] as const;
 export type AccountMenuKey = (typeof ACCOUNT_MENU_KEYS)[number];
 
 /** The account menu, resolved to routes. Throws at build if one goes missing. */
