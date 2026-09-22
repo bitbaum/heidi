@@ -252,6 +252,53 @@ export function sectorLocale(locale: string): SectorLocale {
  * is a phrase that would write itself into a B2B page and every one would be
  * false today.
  */
+/**
+ * What actually happens if somebody writes, in the order it happens.
+ *
+ * THE PAGE'S REAL DEFECT WAS NOT LENGTH. It described six problems well and
+ * then offered one mail link at the bottom of all six — which asks a reader to
+ * commit to an unknown process at an unknown price by composing an email from
+ * nothing. "Not helpful or actionable" was the verdict, and the second half
+ * was the sharper one.
+ *
+ * Somebody deciding whether to start a conversation is really asking three
+ * things: what do I have to do, what does it cost me, and what do I get. A
+ * product with no customers can still answer all three honestly. So these say
+ * exactly what the next three steps are, including that the first two are free
+ * and that nobody signs anything.
+ *
+ * IN `Copy`, GERMAN AND ENGLISH ONLY, for the same reason as the sectors: the
+ * reader is a Swiss institution, and seven machine-checked translations of an
+ * unreviewed commitment would be six liabilities. See `sectorLocale`.
+ *
+ * NOTHING HERE IS A CLAIM ABOUT THE PAST. Every line describes what we would
+ * do, which is the only tense available to a product in this position, and
+ * `FORBIDDEN_CLAIMS` applies to every word of it.
+ */
+export const HOW_IT_STARTS: readonly { step: Copy; detail: Copy }[] = [
+  {
+    step: { de: "Sie schreiben, wir antworten mit Fragen", en: "You write, we answer with questions" },
+    detail: {
+      de: "Kein Verkaufsgespräch. Wir wollen wissen, wo genau dieser Moment passiert, wer dabei ein Handy in der Hand haben darf und was heute stattdessen getan wird.",
+      en: "Not a sales call. We want to know where exactly that moment happens, who is allowed to hold a phone during it, and what is done instead today.",
+    },
+  },
+  {
+    step: { de: "Ihre Leute probieren es, kostenlos", en: "Your people try it, at no cost" },
+    detail: {
+      de: "Heidi ist offen zugänglich. Geben Sie den Link fünf Mitarbeitenden und lassen Sie sie eine Woche damit arbeiten, bevor irgendjemand über Geld redet.",
+      en: "Heidi is openly available. Give the link to five of your staff and let them work with it for a week before anybody talks about money.",
+    },
+  },
+  {
+    step: { de: "Wir bauen Ihre Szenen — oder sagen ab", en: "We build your scenes — or say no" },
+    detail: {
+      de: "Wenn es taugt, schreiben wir die Sätze für Ihren Betrieb und lassen sie von einer Zürcher Muttersprachlerin gegenlesen. Wenn nicht, sagen wir das. Preise stehen hier keine, weil wir noch nie einen verlangt haben — eine erfundene Zahl wäre schlechter als gar keine.",
+      en: "If it holds up, we write the lines for your setting and have a Zurich native speaker read them. If it does not, we say so. There are no prices here because we have never charged one — an invented number would be worse than none.",
+    },
+  },
+];
+
 export const FORBIDDEN_CLAIMS: readonly string[] = [
   "our customers",
   "unsere Kunden",
