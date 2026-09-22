@@ -59,6 +59,7 @@ export const gsw: Dictionary = {
     groupPractise: "Üebe",
     groupAbout: "Über d Heidi",
     skipToContent: "Zum Inhalt",
+    contents: "Inhalt",
     menu: "Menü",
     language: "Sprach uuswähle",
     langNational: "Landessprache",
@@ -264,6 +265,7 @@ export const gsw: Dictionary = {
   auth: {
     sections: {
       focus: "Wo Sie hanged",
+      mastered: "Chönne",
       review: "Widerhole",
       recent: "Gspröch",
       patterns: "Muschter",
@@ -619,6 +621,13 @@ export const gsw: Dictionary = {
       "Verschideni Altersgruppe, Gschlächter, Quartier, Redetempi.",
       "Zwänzg Minute vo Ihrer Ziit, bi Ihne oder bi öis.",
     ],
+    rolesTitle: "Vier Arte mitzmache",
+    rolesLead:
+      "Nach Ufwand gordnet, s Chlyschte zerscht — und s Chlyschte isch is am meischte wert. Bi jedere staht, was es derfür hüt scho git.",
+    todayLabel: "Stand hüt",
+    roleCta: "Schriibed Sie is drzue",
+    roleSee: "Aaluege",
+    learnerTitle: "Und wänn Sie lerned",
     consentTitle: "Was mit de Ufnahm passiert",
     consentBody:
       "Si behaltet d Kontrolle. Mir säged Ihne vorher, wofür d Ufnahm bruucht wird, Si chönd si zrugzieh, und d Iiwilligung fürs Produkt isch nöd diselb wie eini für d Forschig. Mir gönd dervo us, dass Si s Letschte nöd wänd, solang Si s nöd uusdrücklich säged.",
@@ -1047,6 +1056,13 @@ export const gsw: Dictionary = {
       "D Schwiiz het ihri Mundarte bhalte, während Dütschland sini grösstenteils verlore het. Das isch kein Zuefall und kei Frog vo de Bärge — es het mit Staatsbildig, Schuel und Radio z tue.",
     whyManyLink: "Di ganz Gschicht",
     backToAll: "Alli Mundarte",
+    aroundTitle: "Wo das da staht",
+    aroundLead:
+      "Usgrächnet us em Zwyg, de Kantön und em Bezugsort — kei nöie Uussage über d Mundart sälber.",
+    nearestTitle: "Am nöchschte",
+    siblingsTitle: "Gliiche Zwyg",
+    kmAway: "{km} km",
+    marksInstead: "Fanged Sie stattdesse bi {area} aa, {km} km wyt — dört kennt d Heidi Forme",
   },
 
   grammar: {
@@ -1169,6 +1185,20 @@ export const gsw: Dictionary = {
     patternsTitle: "Was Ihne immer wieder begegnet",
     patternsLead: "Die Regelmässigkeite stecked i de Wörter, wo Si bhalte händ. Kei Note — nur das, wo i Ihrer eigene Liste staht.",
     patternsCount: "vo Ihrne Wörter",
+    patternsEmpty:
+      "No nüt z zeige. Sobald Sie es paar Wörter bhalte händ, staht da, weli Lutentsprechige immer wieder vorchömed — zum Bischpil, dass us eme tütsche k es ch wird. Uselääse us Ihrer eigene Liste; über Sie wird nüt gmässe.",
+    masteredTitle: "Was Sie jetz chönd",
+    masteredCount: "{n} Sache sitzed",
+    masteredLead:
+      "Zellt wird nöd, wie oft Sie da gsi sind, sondern was Sie inzwüsche richtig mached — mindeschtens viermal gfragt und fascht immer troffe.",
+    masteredEmpty:
+      "No nüt. Sobald öppis viermal gfragt worde isch und Sie s fascht immer richtig ghaa händ, staht s da. Zellt wird, was Sie chönd, nöd wie oft Sie da gsi sind.",
+    masteredTopics: "Grammatik",
+    masteredWords: "Wörter",
+    masteredGroups: "Wortgruppe",
+    masteredScenes: "Situatione",
+    masteredNote:
+      "Das seit öppis über das Pack, nöd über Schwiizerdütsch überhaupt. Das da sitzt — drus folgt nöd, dass es Gspröch z Züri sitzt.",
     recentTitle: "Wiitermache",
     recentEmpty: "Na kei Gspräch.",
   },

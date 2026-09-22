@@ -52,6 +52,7 @@ export const rm: Dictionary = {
     groupPractise: "Exercitar",
     groupAbout: "Davart Heidi",
     skipToContent: "Al cuntegn",
+    contents: "Cuntegn",
     menu: "Menu",
     language: "Tscherner la lingua",
     langNational: "Linguas naziunalas",
@@ -552,6 +553,13 @@ export const rm: Dictionary = {
       "Differentas etads, geners, quartiers e spertadads da discurrer.",
       "Ventg minutas da Voss temp, tar Vus u tar nus.",
     ],
+    rolesTitle: "Quatter modas da far part",
+    rolesLead:
+      "Ordinadas tenor engaschament, la pli pitschna l\u2019emprima — e quella è quella che vala il pli per nus. Mintgina di tge ch\u2019i dat gia oz en il product.",
+    todayLabel: "Sco ch\u2019i stat",
+    roleCta: "Scrivai a nus davart quai",
+    roleSee: "Guardar",
+    learnerTitle: "E sche Vus emprendais",
     consentTitle: "Tge che capita cun la registraziun",
     consentBody:
       "Il control resta tar Vus. Nus Vus din ordavant per tge che la registraziun vegn duvrada, Vus la pudais retrair, ed il consentiment per il product n'è betg quel per la perscrutaziun. Nus supponain che Vus na vulais betg il segund, uschè ditg che Vus nal dis betg explicitamain.",
@@ -604,6 +612,7 @@ export const rm: Dictionary = {
   auth: {
     sections: {
       focus: "Nua che vus restais tatgads",
+      mastered: "Quai che tegna",
       review: "Repeter",
       recent: "Conversaziuns",
       patterns: "Structuras",
@@ -1043,6 +1052,13 @@ export const rm: Dictionary = {
       "La Svizra ha mantegnì ses dialects, entant che la Germania ha per gronda part pers ils siter. Quai n'è betg in cas ni ina dumonda da muntognas: quai dependa da la furmaziun da l'stadi, da la scola e da la radio.",
     whyManyLink: "L'entira istorgia",
     backToAll: "Tut ils idioms",
+    aroundTitle: "Nua che quai stat",
+    aroundLead:
+      "Quintà ora dal ram, dals chantuns e da la citad da referenza — naginas novas apposiziuns davart il dialect sez.",
+    nearestTitle: "Ils pli datiers",
+    siblingsTitle: "Medem ram",
+    kmAway: "{km} km",
+    marksInstead: "Cumenzai plitost cun {area}, {km} km davent — là enconuscha Heidi formas",
   },
 
   grammar: {
@@ -1165,6 +1181,20 @@ export const rm: Dictionary = {
     patternsTitle: "Quai che As ferma adina puspè",
     patternsLead: "Questas regularitads èn en ils pleds che Vus avais mantegnì. Nagina nota — mo quai ch'è en Vossa atgna glista.",
     patternsCount: "da Voss pleds",
+    patternsEmpty:
+      "Anc nagut da mussar. Uschespert che Vus avais tegnì in pèr pleds, cumparan qua las correspundenzas da tun che returnan en els — per exempel ch\u2019in k tudestg daventa ch. Legì da Vossa atgna glista; nagut na vegn mesirà davart Vus.",
+    masteredTitle: "Tge che Vus savais uss",
+    masteredCount: "{n} chaussas tegnan",
+    masteredLead:
+      "I na vegn betg quintà quant savens che Vus essas stà qua, mabain tge che Vus fais uss endrizza — dumandà almain quatter giadas e quasi adina gudagnà.",
+    masteredEmpty:
+      "Anc nagut. Uschespert ch\u2019insatge Vus vegn dumandà quatter giadas e Vus l\u2019avais quasi adina gì, cumpara quai qua. I vegn quintà tge che Vus savais, betg quant savens che Vus essas vegnì.",
+    masteredTopics: "Grammatica",
+    masteredWords: "Pleds",
+    masteredGroups: "Gruppas da pleds",
+    masteredScenes: "Situaziuns",
+    masteredNote:
+      "Quai di insatge davart quest pack, betg davart il tudestg svizzer en general. Quai tegna — da quai na resulta betg ch\u2019ina conversaziun a Turitg tegnia.",
     recentTitle: "Cuntinuar",
     recentEmpty: "Anc naginas conversaziuns.",
   },

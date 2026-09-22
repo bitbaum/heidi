@@ -55,6 +55,7 @@ export const de = {
     groupPractise: "Üben",
     groupAbout: "Über Heidi",
     skipToContent: "Zum Inhalt springen",
+    contents: "Inhalt",
     menu: "Menü",
     language: "Sprache wählen",
     langNational: "Landessprachen",
@@ -581,6 +582,13 @@ export const de = {
       "Verschiedene Altersgruppen, Geschlechter, Quartiere, Sprechtempi.",
       "Zwanzig Minuten Ihrer Zeit, bei Ihnen oder bei uns.",
     ],
+    rolesTitle: "Vier Arten mitzumachen",
+    rolesLead:
+      "Nach Aufwand geordnet, das Kleinste zuerst — und das Kleinste ist uns am meisten wert. Bei jeder steht, was es dafür heute im Produkt schon gibt.",
+    todayLabel: "Stand heute",
+    roleCta: "Schreiben Sie uns dazu",
+    roleSee: "Ansehen",
+    learnerTitle: "Und wenn Sie lernen",
     consentTitle: "Was mit der Aufnahme passiert",
     consentBody:
       "Sie behalten die Kontrolle. Wir sagen Ihnen vorher, wofür die Aufnahme verwendet wird, Sie können sie zurückziehen, und die Einwilligung für das Produkt ist nicht dieselbe wie eine Einwilligung für Forschung. Wir gehen davon aus, dass Sie Letzteres nicht wollen, solange Sie es nicht ausdrücklich sagen.",
@@ -641,6 +649,7 @@ export const de = {
   auth: {
     sections: {
       focus: "Woran Sie hängen",
+      mastered: "Können",
       review: "Wiederholen",
       recent: "Gespräche",
       patterns: "Muster",
@@ -1153,6 +1162,13 @@ export const de = {
       "Die Schweiz hat ihre Mundarten behalten, während Deutschland seine weitgehend verloren hat. Das ist kein Zufall und keine Frage der Berge — es hat mit Staatsbildung, Schule und Rundfunk zu tun.",
     whyManyLink: "Die ganze Geschichte",
     backToAll: "Alle Mundarten",
+    aroundTitle: "Wo das hier steht",
+    aroundLead:
+      "Berechnet aus dem Zweig, den Kantonen und dem Bezugsort — keine neuen Aussagen über die Mundart selbst.",
+    nearestTitle: "Am nächsten",
+    siblingsTitle: "Gleicher Zweig",
+    kmAway: "{km} km",
+    marksInstead: "Fangen Sie stattdessen bei {area} an, {km} km entfernt — dort kennt Heidi Formen",
   },
 
   grammar: {
@@ -1296,6 +1312,20 @@ export const de = {
     patternsTitle: "Was Ihnen immer wieder begegnet",
     patternsLead: "Diese Regelmässigkeiten stecken in den Wörtern, die Sie behalten haben. Keine Note — nur das, was in Ihrer eigenen Liste steht.",
     patternsCount: "Ihrer Wörter",
+    patternsEmpty:
+      "Noch nichts zu zeigen. Sobald Sie ein paar Wörter behalten haben, steht hier, welche Lautentsprechungen darin immer wieder vorkommen — zum Beispiel, dass aus einem deutschen k ein ch wird. Gelesen aus Ihrer eigenen Liste; gemessen wird nichts über Sie.",
+    masteredTitle: "Was Sie jetzt können",
+    masteredCount: "{n} Dinge sitzen",
+    masteredLead:
+      "Nicht gezählt wird, wie oft Sie hier waren, sondern was Sie inzwischen richtig machen — mindestens viermal gefragt und fast immer getroffen.",
+    masteredEmpty:
+      "Noch nichts. Sobald Sie etwas viermal gefragt bekommen und fast immer richtig haben, steht es hier. Es zählt, was Sie können, nicht wie oft Sie da waren.",
+    masteredTopics: "Grammatik",
+    masteredWords: "Wörter",
+    masteredGroups: "Wortgruppen",
+    masteredScenes: "Situationen",
+    masteredNote:
+      "Das sagt etwas über dieses Pack, nicht über Schweizerdeutsch insgesamt. Was hier steht, sitzt — daraus folgt nicht, dass ein Gespräch in Zürich klappt.",
     recentTitle: "Weitermachen",
     recentEmpty: "Noch keine Gespräche.",
   },

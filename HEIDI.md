@@ -155,8 +155,39 @@ headings are kept separate on purpose, and every claim below is filed under one.
 - **Listening before texting before speaking** for Zurich German. Justified by
   the sociolinguistics, not only the evidence: understanding dialect and
   replying in Standard German is a complete, respected way to take part.
-- **Measured, not gamified.** The reported number is comprehension of an
-  unfamiliar Zurich speaker, before and after. No streaks, no gems.
+- **Measured, not gamified — and the line is sharper than it was.** Revised
+  2026-09-22, after a fair challenge: *why are we so hateful towards streaks,
+  percentages, gamification, addictiveness?*
+
+  The honest answer is that the original rule was two rules wearing one coat,
+  and only one of them survives scrutiny. Two questions decide everything here,
+  and they are independent:
+
+  **What is counted?** *Consumption* — days opened, minutes spent, lessons
+  finished — or *capability*: forms you now get right that you got wrong
+  before. A streak counting days is a measurement of us, printed in the place a
+  learner reads as a measurement of them. That objection is real and it stands.
+
+  **How is it framed?** *Gain* — here is what you can do now — or *loss*:
+  don't break your streak, your progress will reset, you have not practised
+  today. Loss framing is what makes a product feel compulsory, and a compulsory
+  language app is one somebody quits with a bad feeling about the language.
+
+  What we refuse is the **dishonest quadrant**: consumption counted, loss
+  framed. Not measurement, and not motivation. A learner being shown, in plain
+  numbers, that they now recognise forty-one words they missed in September is
+  being told something true about themselves, and withholding it is not
+  integrity — it is just a worse product. Competence and relatedness are
+  motivating on their own (Ryan & Deci 2000); nothing about that requires a
+  flame icon.
+
+  So: **counts of capability, framed as gain, never loss.** No streak of days.
+  No percentage "fluency", because there is no denominator. No pronunciation
+  score, for the separate reason in §8 — that one is about what can be measured
+  at all, not about how it would be framed.
+
+  The reported headline number is unchanged: comprehension of an unfamiliar
+  Zurich speaker, before and after.
 - **The test speaker is always one the learner has not heard.** Forced by the
   generalisation research; without it we would be measuring memory.
 - **Real recorded Zurich speakers.** Note the reason has changed — see §7.

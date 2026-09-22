@@ -20,9 +20,22 @@ import { useReview } from "./use-review";
 export function PatternsPanel({ t }: { t: Dictionary["review"] }) {
   const { ready, patterns } = useReview();
 
-  // Nothing to say yet is the common case early on, and a panel explaining
-  // that it has nothing to say is worse than no panel.
-  if (!ready || patterns.length === 0) return null;
+  /**
+   * WHILE STORAGE IS BEING READ, nothing — that is a frame, not a state.
+   *
+   * But an EMPTY result now renders an explanation rather than disappearing,
+   * and the comment that used to sit here ("a panel explaining that it has
+   * nothing to say is worse than no panel") was right until the dashboard
+   * started advertising this section in its jump strip. Once a reader can
+   * click «Patterns» and land on nothing, the argument inverts: they asked
+   * what patterns even were, which is exactly the question a section that
+   * renders nothing cannot answer.
+   *
+   * The empty state says what will appear and what produces it. The `Review`
+   * section next door has said "nothing due today, come back tomorrow" from
+   * the start; this is the same courtesy, arriving late.
+   */
+  if (!ready) return null;
 
   return (
     <section aria-labelledby="patterns" className="mt-12 border-t border-border-subtle pt-10">
@@ -33,6 +46,12 @@ export function PatternsPanel({ t }: { t: Dictionary["review"] }) {
         {t.patternsTitle}
       </h2>
       <p className="mb-5 mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.patternsLead}</p>
+
+      {patterns.length === 0 && (
+        <p className="max-w-measure rounded-control border border-border-subtle bg-surface-raised p-4 text-base leading-relaxed text-fg-secondary">
+          {t.patternsEmpty}
+        </p>
+      )}
 
       <ul className="flex flex-col gap-3">
         {patterns.map(({ correspondence, words }) => (

@@ -6,6 +6,9 @@ import { DEFAULT_LOCALE, LOCALES, isLocale, type Locale } from "@/lib/i18n/local
 import { href } from "@/lib/i18n/routes";
 import { DISPLAY } from "@/lib/variety/display";
 import { LISTENING_SOURCES } from "@/lib/listening/sources";
+import { branchSiblings, nearestRecognised, neighboursOf } from "@/lib/variety/neighbours";
+import { fill } from "@/lib/i18n/fill";
+import { LOCALE_TAGS } from "@/lib/i18n/locales";
 import { SOURCES, citation, type SourceId } from "@/lib/research/sources";
 import { ListeningRow } from "../../_components/listening-row";
 import { Shell } from "../../_components/page-shell";
@@ -76,6 +79,22 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
   // `display.test.ts` refuses, and rightly: the projection exists so a
   // component cannot accidentally render a field of English prose.
   const sources = area.sources.filter((s): s is SourceId => s in SOURCES);
+
+  /**
+   * Derived, not asserted. See `lib/variety/neighbours.ts` — nothing here is a
+   * new claim about any dialect, only arithmetic over the pack's own data.
+   */
+  const neighbours = neighboursOf(area, DISPLAY.areas);
+  const siblings = branchSiblings(area, DISPLAY.areas);
+  const nearest = area.marks.length === 0 ? nearestRecognised(area, DISPLAY.areas) : undefined;
+
+  /**
+   * Distances in the reader's own numerals.
+   *
+   * The site already has a test about this: a JS number stringifies with a
+   * dot, and nothing asked it which script the reader uses.
+   */
+  const num = (value: number) => new Intl.NumberFormat(LOCALE_TAGS[locale]).format(value);
 
   // The branch, and the words for it. `groupWords` is looked up by id in the
   // dictionary exactly as a grammar topic is: three explanations translated
@@ -205,7 +224,23 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
         </h2>
 
         {area.marks.length === 0 ? (
-          <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.marksNone}</p>
+          <>
+            <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.marksNone}</p>
+            {/* A DEAD END BECOMES A DIRECTION. "No forms for this dialect yet"
+                is honest and it is where a reader leaves the site. The nearest
+                area Heidi CAN recognise forms from is a real next step, and it
+                is derived rather than asserted — see `neighbours.ts`. */}
+            {nearest && (
+              <p className="mt-4 max-w-measure text-base leading-relaxed text-fg-secondary">
+                <Link
+                  href={`${href(locale, "dialect")}/${nearest.area.id}`}
+                  className="text-link underline underline-offset-4 hover:text-accent"
+                >
+                  {fill(t.marksInstead, { area: nearest.area.endonym, km: num(nearest.km) })} →
+                </Link>
+              </p>
+            )}
+          </>
         ) : (
           <>
             <p className="mb-5 mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.marksLead}</p>
@@ -229,6 +264,72 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
             </ul>
           </>
         )}
+      </section>
+
+      {/*
+        WHERE THIS SITS AMONG THE OTHERS — computed, not claimed.
+
+        The pages were reported as too thin, and the honest reason for the
+        thinnest of them is that we have no verified Walliser forms. The
+        temptation that creates is to write plausible dialect facts and cite
+        the atlas generally, which is the one thing this product must not do.
+
+        So every number and every name below is derived from data the pack
+        already vouches for: the branch, the cantons, the reference town. More
+        page, no new assertions. `neighbours.ts` makes the case at length.
+      */}
+      <section aria-labelledby="around" className="mt-12 border-t border-border-subtle pt-10">
+        <h2
+          id="around"
+          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+        >
+          {t.aroundTitle}
+        </h2>
+        <p className="mb-6 mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.aroundLead}</p>
+
+        <div className="grid grid-cols-safe gap-x-10 gap-y-8 sm:grid-cols-2">
+          <div className="min-w-0">
+            <h3 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.nearestTitle}</h3>
+            <ul className="mt-3 flex flex-col gap-1">
+              {neighbours.map((neighbour) => (
+                <li key={neighbour.area.id}>
+                  <Link
+                    href={`${href(locale, "dialect")}/${neighbour.area.id}`}
+                    className="inline-flex min-h-11 items-center gap-2 wrap-anywhere text-sm text-link underline underline-offset-4 hover:text-accent"
+                  >
+                    {neighbour.area.endonym}
+                    <span className="font-mono text-caption text-fg-muted no-underline">
+                      {fill(t.kmAway, { km: num(neighbour.km) })}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* NEAR AND RELATED ARE DIFFERENT ANSWERS, and the page keeps them
+              apart on purpose: Wallisertitsch is a long way from Glarus and
+              shares its branch, Aargau is close to Zurich and shares its
+              branch. Collapsing the two columns would be telling a learner
+              that geography is dialectology. */}
+          {siblings.length > 0 && (
+            <div className="min-w-0">
+              <h3 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.siblingsTitle}</h3>
+              <ul className="mt-3 flex flex-col gap-1">
+                {siblings.map((sibling) => (
+                  <li key={sibling.id}>
+                    <Link
+                      href={`${href(locale, "dialect")}/${sibling.id}`}
+                      className="inline-flex min-h-11 items-center wrap-anywhere text-sm text-link underline underline-offset-4 hover:text-accent"
+                    >
+                      {sibling.endonym}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </section>
 
       {sources.length > 0 && (

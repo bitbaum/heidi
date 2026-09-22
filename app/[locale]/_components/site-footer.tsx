@@ -168,7 +168,16 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
         */}
         <div className="mt-12 flex flex-col gap-4 border-t border-border-subtle pt-6 sm:flex-row sm:items-center sm:justify-between">
           <nav aria-label={dict.footer.projectTitle} className="flex flex-wrap items-center gap-x-6 gap-y-1">
-            {(["settings", "privacy", "impressum"] as const).map((key) => (
+            {/*
+              `investors` is here because it was reachable from NOWHERE — not
+              a menu, not a footer, not a link on any page. A password-gated,
+              noindex room nobody can find is not discreet, it is lost.
+
+              Last in the row, small, next to the legal pages: that is where a
+              reader looks for it and where it stops competing with anything a
+              learner came for. The gate still does the gating.
+            */}
+            {(["settings", "privacy", "impressum", "investors"] as const).map((key) => (
               <Link
                 key={key}
                 href={href(locale, key)}

@@ -36,6 +36,7 @@ export const en: Dictionary = {
     groupPractise: "Practise",
     groupAbout: "About Heidi",
     skipToContent: "Skip to content",
+    contents: "Contents",
     menu: "Menu",
     language: "Choose language",
     langNational: "National languages",
@@ -535,6 +536,13 @@ export const en: Dictionary = {
       "Different ages, genders, neighbourhoods and speaking speeds.",
       "Twenty minutes of your time, at your place or ours.",
     ],
+    rolesTitle: "Four ways to take part",
+    rolesLead:
+      "Ordered by commitment, smallest first — and the smallest is worth the most to us. Each one says what already exists in the product for it today.",
+    todayLabel: "As it stands",
+    roleCta: "Write to us about this",
+    roleSee: "Take a look",
+    learnerTitle: "And if you are learning",
     consentTitle: "What happens to the recording",
     consentBody:
       "You stay in control. We tell you in advance what the recording will be used for, you can withdraw it, and consent for the product is not the same as consent for research. We assume you do not want the second unless you say so explicitly.",
@@ -587,6 +595,7 @@ export const en: Dictionary = {
   auth: {
     sections: {
       focus: "What catches you out",
+      mastered: "What you can do",
       review: "Review",
       recent: "Conversations",
       patterns: "Patterns",
@@ -1022,6 +1031,13 @@ export const en: Dictionary = {
       "Switzerland kept its dialects where Germany largely lost its own. That is neither an accident nor a matter of mountains: it has to do with how a state was built, with school, and with broadcasting.",
     whyManyLink: "The whole story",
     backToAll: "All dialects",
+    aroundTitle: "Where this one sits",
+    aroundLead:
+      "Computed from the branch, the cantons and the reference town — no new claims about the dialect itself.",
+    nearestTitle: "Closest",
+    siblingsTitle: "Same branch",
+    kmAway: "{km} km",
+    marksInstead: "Start with {area} instead, {km} km away — Heidi knows forms from there",
   },
 
   grammar: {
@@ -1144,6 +1160,20 @@ export const en: Dictionary = {
     patternsTitle: "What keeps catching you",
     patternsLead: "These regularities are in the words you kept. Not a score — just what is in your own list.",
     patternsCount: "of your words",
+    patternsEmpty:
+      "Nothing to show yet. Once you have kept a few words, this is where the sound correspondences that keep turning up in them appear — that a German k becomes ch, for instance. Read off your own list; nothing is measured about you.",
+    masteredTitle: "What you can do now",
+    masteredCount: "{n} things hold",
+    masteredLead:
+      "Not a count of how often you have been here — a count of what you now get right. Asked at least four times, and almost always answered.",
+    masteredEmpty:
+      "Nothing yet. Once something has been asked four times and you have almost always had it, it appears here. It counts what you can do, not how often you turned up.",
+    masteredTopics: "Grammar",
+    masteredWords: "Words",
+    masteredGroups: "Word groups",
+    masteredScenes: "Situations",
+    masteredNote:
+      "This says something about this pack, not about Swiss German as a whole. These hold — it does not follow that a conversation in Zurich will.",
     recentTitle: "Pick up where you left off",
     recentEmpty: "No conversations yet.",
   },

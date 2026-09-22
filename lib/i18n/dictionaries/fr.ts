@@ -36,6 +36,7 @@ export const fr: Dictionary = {
     groupPractise: "S'exercer",
     groupAbout: "À propos d'Heidi",
     skipToContent: "Aller au contenu",
+    contents: "Sommaire",
     menu: "Menu",
     language: "Choisir la langue",
     langNational: "Langues nationales",
@@ -536,6 +537,13 @@ export const fr: Dictionary = {
       "Des âges, des genres, des quartiers et des débits différents.",
       "Vingt minutes de votre temps, chez vous ou chez nous.",
     ],
+    rolesTitle: "Quatre façons de participer",
+    rolesLead:
+      "Classées par engagement, la plus petite d\u2019abord — et c\u2019est la plus petite qui nous vaut le plus. Chacune indique ce qui existe déjà pour elle aujourd\u2019hui.",
+    todayLabel: "État actuel",
+    roleCta: "Écrivez-nous à ce sujet",
+    roleSee: "Voir",
+    learnerTitle: "Et si vous apprenez",
     consentTitle: "Ce qu'il advient de l'enregistrement",
     consentBody:
       "Vous gardez la main. Nous vous disons à l'avance à quoi servira l'enregistrement, vous pouvez le retirer, et le consentement pour le produit n'est pas celui pour la recherche. Nous supposons que vous ne voulez pas du second tant que vous ne le dites pas explicitement.",
@@ -588,6 +596,7 @@ export const fr: Dictionary = {
   auth: {
     sections: {
       focus: "Ce qui vous accroche",
+      mastered: "Acquis",
       review: "Réviser",
       recent: "Conversations",
       patterns: "Régularités",
@@ -1027,6 +1036,13 @@ export const fr: Dictionary = {
       "La Suisse a gardé ses dialectes là où l'Allemagne a largement perdu les siens. Ce n'est ni un hasard ni une affaire de montagnes : cela tient à la construction de l'État, à l'école et à la radio.",
     whyManyLink: "Toute l'histoire",
     backToAll: "Tous les dialectes",
+    aroundTitle: "Où cela se situe",
+    aroundLead:
+      "Calculé à partir de la branche, des cantons et de la ville de référence — aucune nouvelle affirmation sur le dialecte lui-même.",
+    nearestTitle: "Les plus proches",
+    siblingsTitle: "Même branche",
+    kmAway: "{km} km",
+    marksInstead: "Commencez plutôt par {area}, à {km} km — Heidi y connaît des formes",
   },
 
   grammar: {
@@ -1149,6 +1165,20 @@ export const fr: Dictionary = {
     patternsTitle: "Ce qui vous arrête le plus souvent",
     patternsLead: "Ces régularités se trouvent dans les mots que vous avez gardés. Pas une note — seulement ce qui est dans votre propre liste.",
     patternsCount: "de vos mots",
+    patternsEmpty:
+      "Rien à montrer pour l\u2019instant. Dès que vous aurez gardé quelques mots, vous verrez ici les correspondances de sons qui y reviennent — par exemple qu\u2019un k allemand devient ch. Lu dans votre propre liste ; rien n\u2019est mesuré à votre sujet.",
+    masteredTitle: "Ce que vous savez faire",
+    masteredCount: "{n} choses tiennent",
+    masteredLead:
+      "On ne compte pas vos passages ici, mais ce que vous réussissez désormais — posé au moins quatre fois, et presque toujours juste.",
+    masteredEmpty:
+      "Rien encore. Dès qu\u2019une chose vous aura été demandée quatre fois et que vous l\u2019aurez presque toujours eue, elle apparaîtra ici. On compte ce que vous savez, pas votre assiduité.",
+    masteredTopics: "Grammaire",
+    masteredWords: "Mots",
+    masteredGroups: "Groupes de mots",
+    masteredScenes: "Situations",
+    masteredNote:
+      "Cela dit quelque chose de ce pack, pas du suisse allemand en général. Ces points tiennent — il n\u2019en découle pas qu\u2019une conversation à Zurich tiendra.",
     recentTitle: "Reprendre",
     recentEmpty: "Aucune conversation pour l'instant.",
   },

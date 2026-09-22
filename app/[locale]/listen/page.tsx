@@ -6,6 +6,7 @@ import { dayCursor } from "@/lib/listening/today";
 import { DISPLAY } from "@/lib/variety/display";
 import { ListeningRow } from "../_components/listening-row";
 import { Shell } from "../_components/page-shell";
+import { PageToc, TocLayout } from "../_components/page-toc";
 
 /**
  * Rebuilt hourly, so "three for today" is a promise the page keeps.
@@ -38,7 +39,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function ListenPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
-  const t = getDictionary(locale).listening;
+  const dictionary = getDictionary(locale);
+  const t = dictionary.listening;
   const groups = byMedium();
 
   /**
@@ -75,11 +77,32 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
         <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.lead}</p>
       </header>
 
+      {/*
+        A CONTENTS RAIL, because this page is a catalogue.
+
+        Reported as "long page hard to navigate", and it is: the warning, what
+        to watch today, and then one section per medium, each a list of links.
+        A reader four screens into the podcasts had no way to see that films
+        existed below or to get back to the top. The rail is built from the
+        same groups the page renders, so a new medium appears in both.
+      */}
+      <TocLayout
+        toc={
+          <PageToc
+            label={dictionary.nav.contents}
+            entries={[
+              { id: "diglossia", label: t.diglossiaTitle },
+              ...(today.length > 0 ? [{ id: "today", label: t.todayTitle }] : []),
+              ...groups.map((group) => ({ id: group.medium, label: t.medium[group.medium] })),
+            ]}
+          />
+        }
+      >
       <div className="border-t border-border-subtle pt-10">
         {/* The diglossia warning sits ABOVE the list, because a reader who
             scrolls straight to the links and picks the name they recognise
             picks the Tagesschau. */}
-        <section className="max-w-measure">
+        <section id="diglossia" className="max-w-measure scroll-mt-24">
           <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
             {t.diglossiaTitle}
           </h2>
@@ -90,7 +113,7 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
         {/* After the warning and before the catalogue: the trap first, then
             what to do about it today, then everything there is. */}
         {today.length > 0 && (
-          <section aria-labelledby="today" className="mt-10 border-t border-border-subtle pt-8">
+          <section aria-labelledby="today" id="today" className="mt-10 scroll-mt-24 border-t border-border-subtle pt-8">
             <h2
               id="today"
               className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
@@ -129,6 +152,7 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
           ))}
         </div>
       </div>
+      </TocLayout>
     </Shell>
   );
 }
