@@ -480,6 +480,14 @@ export const gsw: Dictionary = {
       "D Heidi liist vor, behauptet aber nie, si redi Mundart. En Synthesizer, wo mer um Züritüütsch bittet, git im beschte Fall Schwiizer Hochdütsch — drum seit d Stimm, was si isch, und schwiigt lieber, als Ihne e englischi Stimm z gä, wo Züritüütsch vorliist.",
       "D Dialektprüefig lauft ohni Modäll. Si isch e feschti Regelischte, kei Sprachmodäll — drum cha si nöd afange, sich öppis uusdänke.",
     ],
+    engineTitle: "Welles Modäll Ihne antwortet",
+    engineLead:
+      "Uselääse us de Chetti, wo d Aafrog würklich nimmt — nöd us eme Satz, wo öpper eimal ufgschriebe hät. Drum cha da kei Modäll stah, wos scho lang nüme git.",
+    engineNotes: [
+      "D Reiefolg isch kei Rangliste. D Chetti isch nach Chnappheit gordnet: Wer am wenigste Kapazität hät, wird zletscht belaschtet. De erscht Iitrag isch dä mit Platz, nöd dä bescht.",
+      "Keis vo dene Modäll isch d Instanz für Züritüütsch. Das isch s Pack. Jedi erzügti Zeile lauft dur e regelbasierti Prüefig, bevor sie öpper gseht — und die Prüefig isch sälber kei Modäll.",
+      "Ohni Schlüssel oder ohni Kontingänt antwortet d Route mit 503 und seit das. Sie tuet nöd so, als hät sie e Antwort.",
+    ],
     directionLabel: "Richtig",
     directions: {
       "speech-to-standard": "Mundart ghört → Hochdütsch gschriebe",

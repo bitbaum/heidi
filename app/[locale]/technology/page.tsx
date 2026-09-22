@@ -5,6 +5,7 @@ import { SOURCES, citation } from "@/lib/research/sources";
 import { ASR_RESULTS, CORPORA, SPEAKING, TEXT_MODELS, techSources } from "@/lib/research/language-tech";
 import { MEASURES } from "@/lib/speech/capability";
 import { DISPLAY } from "@/lib/variety/display";
+import { engineChain } from "@/lib/research/engine";
 import { Shell } from "../_components/page-shell";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -292,6 +293,58 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
           {t.heidiBody.map((line) => (
             <li key={line} className="border-l-2 border-accent pl-4">
               <p className="max-w-measure text-base leading-relaxed text-fg-primary">{line}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/*
+        WHICH MODEL ANSWERS YOU, read from the chain rather than written down.
+
+        The page above is about what the FIELD can do. A reader who has just
+        been told that machines cannot write this dialect down reasonably asks
+        what is answering them — and a product that asks to be checked and then
+        will not say what is behind the curtain has answered the easy half.
+
+        The list comes from `@bitbaum/ai-kit`'s own chain at render time, so it
+        cannot name a model that was retired months ago. Env names are dropped
+        by the projection and a test enforces that.
+      */}
+      <section aria-labelledby="engine" className="border-t border-border-subtle py-10 sm:py-12">
+        <h2
+          id="engine"
+          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+        >
+          {t.engineTitle}
+        </h2>
+        <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{t.engineLead}</p>
+
+        <ol className="mt-6 flex flex-col gap-5">
+          {engineChain().map((link, index) => (
+            <li key={link.provider} className="min-w-0 border-l-2 border-border-subtle pl-4">
+              <p className="flex flex-wrap items-baseline gap-x-3">
+                <span aria-hidden="true" className="font-mono text-caption text-fg-muted">
+                  {index + 1}
+                </span>
+                <span className="font-heading text-lg font-semibold tracking-display text-fg-primary">
+                  {link.provider}
+                </span>
+                <span className="font-mono text-caption text-fg-muted">{link.host}</span>
+              </p>
+              <p className="mt-1 max-w-measure wrap-anywhere font-mono text-caption text-fg-secondary">
+                {link.models.join(" · ")}
+              </p>
+            </li>
+          ))}
+        </ol>
+
+        {/* The two sentences that stop this list from being read as a ranking
+            or as a capability claim. Both are mistakes a reader would make
+            unprompted, and both would be ours for having invited them. */}
+        <ul className="mt-6 flex flex-col gap-4">
+          {t.engineNotes.map((note) => (
+            <li key={note} className="border-l-2 border-accent pl-4">
+              <p className="max-w-measure text-base leading-relaxed text-fg-primary">{note}</p>
             </li>
           ))}
         </ul>

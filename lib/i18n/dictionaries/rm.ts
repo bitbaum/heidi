@@ -412,6 +412,14 @@ export const rm: Dictionary = {
       "Heidi legia ad aut, ma na pretenda mai da discurrer il dialect. In sintetisader dumandà per turitgais dat al pli tudestg standard svizzer — uschè di la vusch tge ch'ella è, e tascha plitost che dar a Vus ina vusch englaisa che legia Züritüütsch.",
       "La controlla dal dialect funcziuna senza model. Ella è ina glista fixa da reglas, betg in model da lingua — perquai na po ella betg cumenzar ad inventar.",
     ],
+    engineTitle: "Tge model che Vus respunda",
+    engineLead:
+      "Legì da la chadaina che prenda propi la dumonda, betg d\u2019ina frasa scritta ina giada. Perquai na po qua betg star in model ch\u2019è gia ditg ora d\u2019adiever.",
+    engineNotes: [
+      "L\u2019urden n\u2019è nagina classificaziun. La chadaina è ordinada tenor sparsadad: tgi che ha la pli pitschna capacitad vegn duvrà sco davos. Il emprim è quel che ha plaz oz, betg il meglier.",
+      "Nagin da quests models è l\u2019autoritad per il turitgais. Quai è il pack. Mintga lingia generada passa ina controlla a reglas avant che insatgi la vesa — e quella controlla n\u2019è sezza nagin model.",
+      "Senza clav u senza contingent responda la via 503 e di quai. Ella na fa betg sco sch\u2019ella avess ina resposta.",
+    ],
     directionLabel: "Direcziun",
     directions: {
       "speech-to-standard": "dialect udì → standard scrit",

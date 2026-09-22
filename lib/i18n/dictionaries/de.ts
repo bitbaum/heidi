@@ -430,6 +430,14 @@ export const de = {
       "Heidi liest vor, behauptet aber nie, Mundart zu sprechen. Ein Synthesizer, den man um Zürichdeutsch bittet, liefert bestenfalls Schweizer Hochdeutsch — also sagt die Stimme, was sie ist, und schweigt lieber, als Ihnen eine englische Stimme zu geben, die Züritüütsch vorliest.",
       "Die Dialektprüfung läuft ohne Modell. Sie ist eine feste Regelliste, kein Sprachmodell — deshalb kann sie nicht anfangen, sich Dinge auszudenken.",
     ],
+    engineTitle: "Welches Modell Ihnen antwortet",
+    engineLead:
+      "Gelesen aus der Kette, die die Anfrage tatsächlich nimmt — nicht aus einem Satz, den jemand einmal aufgeschrieben hat. Darum kann hier kein Modell stehen, das es längst nicht mehr gibt.",
+    engineNotes: [
+      "Die Reihenfolge ist keine Rangliste. Die Kette ist nach Knappheit geordnet: Wer am wenigsten Kapazität hat, wird zuletzt belastet. Der erste Eintrag ist der mit Platz, nicht der beste.",
+      "Keines dieser Modelle ist die Instanz für Zürichdeutsch. Das ist das Pack. Jede erzeugte Zeile läuft durch eine regelbasierte Prüfung, bevor sie jemand sieht — und diese Prüfung ist selbst kein Modell.",
+      "Ohne Schlüssel oder ohne Kontingent antwortet die Route mit 503 und sagt das. Sie tut nicht so, als hätte sie eine Antwort.",
+    ],
     directionLabel: "Richtung",
     directions: {
       "speech-to-standard": "Mundart gehört → Hochdeutsch geschrieben",

@@ -396,6 +396,14 @@ export const it: Dictionary = {
       "Heidi legge ad alta voce, ma non pretende mai di parlare il dialetto. Un sintetizzatore a cui si chiede lo zurighese restituisce al massimo tedesco standard svizzero: la voce dice quindi che cosa è, e tace piuttosto che darle una voce inglese che legge il Züritüütsch.",
       "Il controllo del dialetto funziona senza modello. È un elenco fisso di regole, non un modello linguistico — per questo non può mettersi a inventare.",
     ],
+    engineTitle: "Quale modello le risponde",
+    engineLead:
+      "Letto dalla catena che prende davvero la richiesta, non da una frase scritta una volta. Per questo qui non può comparire un modello ritirato da mesi.",
+    engineNotes: [
+      "L\u2019ordine non è una classifica. La catena è ordinata per scarsità: chi ha meno capacità viene usato per ultimo. Il primo è quello che oggi ha spazio, non il migliore.",
+      "Nessuno di questi modelli è l\u2019autorità sullo zurighese. Lo è il pack. Ogni riga generata passa un controllo a regole prima di essere mostrata — e quel controllo non è un modello.",
+      "Senza chiave o senza quota la rotta risponde 503 e lo dice. Non finge di avere una risposta.",
+    ],
     directionLabel: "Direzione",
     directions: {
       "speech-to-standard": "dialetto ascoltato → standard scritto",

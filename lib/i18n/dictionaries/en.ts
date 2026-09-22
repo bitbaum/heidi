@@ -396,6 +396,14 @@ export const en: Dictionary = {
       "Heidi reads aloud, but never claims to be speaking dialect. A synthesiser asked for Zurich German returns Swiss Standard German at best — so the voice says which it is, and stays silent rather than hand you an English voice reading Züritüütsch.",
       "The dialect check runs without a model. It is a fixed list of rules, not a language model, which is why it cannot start inventing things.",
     ],
+    engineTitle: "Which model answers you",
+    engineLead:
+      "Read from the chain that actually takes the request, not from a sentence somebody wrote down once. Which is why nothing here can be a model that was retired months ago.",
+    engineNotes: [
+      "The order is not a ranking. The chain is ordered by scarcity: whoever has the least capacity is drained last. The first entry is the one with room today, not the best one.",
+      "None of these models is the authority on Zurich German. The pack is. Every generated line passes a rule-based check before anybody sees it — and that check is not itself a model.",
+      "With no key or no quota the route answers 503 and says so. It does not pretend to have an answer.",
+    ],
     directionLabel: "Direction",
     directions: {
       "speech-to-standard": "dialect heard → standard written",

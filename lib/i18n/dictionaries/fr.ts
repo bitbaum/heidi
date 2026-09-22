@@ -396,6 +396,14 @@ export const fr: Dictionary = {
       "Heidi lit à voix haute, mais ne prétend jamais parler le dialecte. Un synthétiseur à qui l'on demande du zurichois rend au mieux de l'allemand standard suisse : la voix dit donc ce qu'elle est, et se tait plutôt que de vous livrer une voix anglaise lisant du Züritüütsch.",
       "Le contrôle dialectal fonctionne sans modèle. C'est une liste de règles fixe, pas un modèle de langue — c'est pourquoi il ne peut rien inventer.",
     ],
+    engineTitle: "Quel modèle vous répond",
+    engineLead:
+      "Lu depuis la chaîne qui prend réellement la requête, et non depuis une phrase écrite une fois pour toutes. C\u2019est pourquoi aucun modèle retiré depuis des mois ne peut figurer ici.",
+    engineNotes: [
+      "L\u2019ordre n\u2019est pas un classement. La chaîne est ordonnée par rareté : celui qui a le moins de capacité est sollicité en dernier. Le premier est celui qui a de la place, pas le meilleur.",
+      "Aucun de ces modèles ne fait autorité sur le zurichois. C\u2019est le pack qui l\u2019est. Chaque ligne produite passe un contrôle à base de règles avant d\u2019être montrée — et ce contrôle n\u2019est pas un modèle.",
+      "Sans clé ou sans quota, la route répond 503 et le dit. Elle ne fait pas semblant d\u2019avoir une réponse.",
+    ],
     directionLabel: "Sens",
     directions: {
       "speech-to-standard": "dialecte entendu → standard écrit",
