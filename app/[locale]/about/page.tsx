@@ -49,8 +49,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <Section title={t.stateTitle}>
         <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
           {[
-            [DISPLAY.name, DISPLAY.endonym],
-            [dict.nav.language, DISPLAY.region],
+            /* The endonym renders anywhere — it is what the speakers call
+               it, in every language. The reader-facing NAME and PLACE come
+               from the dictionary, because "Zurich German" and "Canton of
+               Zürich, Switzerland" are English sentences and used to be
+               printed as such to a German reader. See `display.ts`. */
+            [dict.footer.varietyName, DISPLAY.endonym],
+            [dict.nav.language, dict.footer.place],
             [dict.check.title, DISPLAY.orthography.convention],
           ].map(([term, value]) => (
             <div key={term} className="border-b border-border-subtle pb-3">

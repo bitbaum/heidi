@@ -59,6 +59,11 @@ export const gsw: Dictionary = {
     groupPractise: "Üebe",
     groupAbout: "Über d Heidi",
     skipToContent: "Zum Inhalt",
+    sections: {
+      how: "Wie s funktioniert",
+      record: "Was mir säged",
+      who: "Wer dehinder staht",
+    },
     contents: "Inhalt",
     menu: "Menü",
     language: "Sprach uuswähle",
@@ -69,6 +74,8 @@ export const gsw: Dictionary = {
 
   footer: {
     tagline: "Züritüütsch verstaa, und denn mitrede.",
+    place: "Kanton Züri, Schwiiz",
+    varietyName: "Züritüütsch",
     builtOn: "Gmacht i Züri.",
     sections: "Siite",
     projectTitle: "Projekt",
@@ -1173,6 +1180,10 @@ export const gsw: Dictionary = {
     due: "fällig",
     none: "Hüt isch nüt fällig.",
     noneHint: "Chömed morn wieder — oder schlaged öppis Neus nache.",
+    noneFree: "De Plan isch iighalte. Wänn Sie jetz wiitermache wänd, da düre:",
+    nonePractise: "Churz üebe",
+    noneCards: "Charte",
+    noneAsk: "Nachricht iifüege",
     empty: "Na kei Wörter zum Wiederhole.",
     emptyHint: "Merked Ihne es Wort im Gspräch, denn fragt Si d Heidi spöter dernach.",
     tomorrow: "morn fällig",

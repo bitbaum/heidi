@@ -6,7 +6,7 @@ import { dayCursor } from "@/lib/listening/today";
 import { DISPLAY } from "@/lib/variety/display";
 import { ListeningRow } from "../_components/listening-row";
 import { Shell } from "../_components/page-shell";
-import { PageToc, TocLayout } from "../_components/page-toc";
+import { SectionNav, SectionNavLayout } from "../_components/section-nav";
 
 /**
  * Rebuilt hourly, so "three for today" is a promise the page keeps.
@@ -86,11 +86,11 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
         existed below or to get back to the top. The rail is built from the
         same groups the page renders, so a new medium appears in both.
       */}
-      <TocLayout
-        toc={
-          <PageToc
+      <SectionNavLayout
+        nav={
+          <SectionNav
             label={dictionary.nav.contents}
-            entries={[
+            sections={[
               { id: "diglossia", label: t.diglossiaTitle },
               ...(today.length > 0 ? [{ id: "today", label: t.todayTitle }] : []),
               ...groups.map((group) => ({ id: group.medium, label: t.medium[group.medium] })),
@@ -152,7 +152,7 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
           ))}
         </div>
       </div>
-      </TocLayout>
+      </SectionNavLayout>
     </Shell>
   );
 }

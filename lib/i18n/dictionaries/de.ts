@@ -55,6 +55,11 @@ export const de = {
     groupPractise: "Üben",
     groupAbout: "Über Heidi",
     skipToContent: "Zum Inhalt springen",
+    sections: {
+      how: "Wie es funktioniert",
+      record: "Was wir sagen",
+      who: "Wer dahintersteht",
+    },
     contents: "Inhalt",
     menu: "Menü",
     language: "Sprache wählen",
@@ -65,6 +70,8 @@ export const de = {
 
   footer: {
     tagline: "Zürichdeutsch verstehen, und dann mitreden.",
+    place: "Kanton Zürich, Schweiz",
+    varietyName: "Zürichdeutsch",
     builtOn: "Gemacht in Zürich.",
     sections: "Seiten",
     projectTitle: "Projekt",
@@ -1300,6 +1307,10 @@ export const de = {
     due: "fällig",
     none: "Heute nichts fällig.",
     noneHint: "Kommen Sie morgen wieder — oder schlagen Sie etwas Neues nach.",
+    noneFree: "Der Plan ist eingehalten. Wenn Sie jetzt weitermachen wollen, hier entlang:",
+    nonePractise: "Kurz üben",
+    noneCards: "Karten",
+    noneAsk: "Nachricht einfügen",
     empty: "Noch keine Wörter zum Wiederholen.",
     emptyHint: "Merken Sie sich ein Wort im Gespräch, dann fragt Heidi Sie später danach.",
     tomorrow: "morgen fällig",

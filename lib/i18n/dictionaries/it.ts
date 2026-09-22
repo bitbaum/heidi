@@ -36,6 +36,11 @@ export const it: Dictionary = {
     groupPractise: "Esercitarsi",
     groupAbout: "Su Heidi",
     skipToContent: "Vai al contenuto",
+    sections: {
+      how: "Come funziona",
+      record: "Che cosa diciamo",
+      who: "Chi c\u2019è dietro",
+    },
     contents: "Indice",
     menu: "Menu",
     language: "Scegliere la lingua",
@@ -46,6 +51,8 @@ export const it: Dictionary = {
 
   footer: {
     tagline: "Capire lo zurighese, e poi partecipare.",
+    place: "Canton Zurigo, Svizzera",
+    varietyName: "Zurighese",
     builtOn: "Fatto a Zurigo.",
     sections: "Pagine",
     projectTitle: "Progetto",
@@ -1153,6 +1160,10 @@ export const it: Dictionary = {
     due: "da ripassare",
     none: "Oggi non c'è niente da ripassare.",
     noneHint: "Tornate domani — oppure cercate qualcosa di nuovo.",
+    noneFree: "Il programma è in pari. Se vuole continuare adesso, da questa parte:",
+    nonePractise: "Una seduta breve",
+    noneCards: "Carte",
+    noneAsk: "Incollare un messaggio",
     empty: "Ancora nessuna parola da ripassare.",
     emptyHint: "Tenete una parola durante una conversazione e Heidi ve la richiederà più tardi.",
     tomorrow: "domani",

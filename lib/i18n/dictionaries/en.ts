@@ -36,6 +36,11 @@ export const en: Dictionary = {
     groupPractise: "Practise",
     groupAbout: "About Heidi",
     skipToContent: "Skip to content",
+    sections: {
+      how: "How it works",
+      record: "What we say",
+      who: "Who is behind it",
+    },
     contents: "Contents",
     menu: "Menu",
     language: "Choose language",
@@ -46,6 +51,8 @@ export const en: Dictionary = {
 
   footer: {
     tagline: "Understand Zurich German, then take part.",
+    place: "Canton of Zürich, Switzerland",
+    varietyName: "Zurich German",
     builtOn: "Made in Zürich.",
     sections: "Pages",
     projectTitle: "Project",
@@ -1148,6 +1155,10 @@ export const en: Dictionary = {
     due: "due",
     none: "Nothing due today.",
     noneHint: "Come back tomorrow — or go and look something up.",
+    noneFree: "The schedule is up to date. If you want to keep going now, this way:",
+    nonePractise: "A short sitting",
+    noneCards: "Cards",
+    noneAsk: "Paste a message",
     empty: "No words to review yet.",
     emptyHint: "Keep a word during a conversation and Heidi will ask you about it later.",
     tomorrow: "due tomorrow",

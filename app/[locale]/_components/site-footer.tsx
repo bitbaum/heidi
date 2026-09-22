@@ -67,7 +67,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
             <div className="font-heading text-xl font-semibold tracking-display text-fg-primary">Heidi</div>
             <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-secondary">{dict.footer.tagline}</p>
             <p className="mt-3 font-mono text-caption uppercase tracking-caps text-fg-muted">
-              {DISPLAY.endonym} · {DISPLAY.region}
+              {DISPLAY.endonym} · {dict.footer.place}
             </p>
           </div>
 

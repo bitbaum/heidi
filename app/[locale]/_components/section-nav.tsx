@@ -3,9 +3,32 @@
 import { useEffect, useState } from "react";
 
 /**
- * A way around your own page.
+ * A way around a long page. THE ONE OF THESE THERE IS.
  *
- * WHAT WAS WRONG. The personal space was five sections stacked down roughly
+ * IT WAS TWO, and that is the reason this file is not called `dashboard-nav`
+ * any more. This component existed, doing exactly this job, and a second one
+ * (`page-toc`) was written for the white paper a few days later without
+ * checking — so the site had two vertical section rails that behaved
+ * differently on the same viewport. Reported, correctly and not for the first
+ * time: "we shouldn't be reinventing the fucking wheel."
+ *
+ * The older one won on merits rather than seniority: it marks the current
+ * section, carries counts, and wraps instead of scrolling sideways. The newer
+ * one contributed only the two-column frame, which is `SectionNavLayout`
+ * below. Everything now uses this — the personal space, the white paper, the
+ * listening catalogue — so the three cannot disagree about what a section rail
+ * does.
+ *
+ * NO FLEET PACKAGE OWNS THIS SHAPE, which was checked before merging rather
+ * than assumed: the register's nine packages are AI, mail, rate limiting,
+ * forms, lists, threads, tokens, sites and `bip-kit`. `bip-kit` has a
+ * `TocEntry`, but it is a MARKDOWN HEADING — it carries a `level` of 2, 3 or
+ * 4 — and the sections here are arbitrary page regions, some of them counted.
+ * Forcing `level: 2` onto "Groups · 1" would be bending a contract to look
+ * compliant. If a third product wants this, it is the extraction candidate.
+ *
+ * WHAT WAS WRONG ORIGINALLY. The personal space was five sections stacked down
+ * roughly
  * two thousand pixels of phone with nothing to steer by: no index, no counts,
  * no indication that anything existed below the fold. A reader who wanted
  * their groups scrolled past everything else to find out whether they had any.
@@ -29,7 +52,7 @@ import { useEffect, useState } from "react";
  * exists; "Groups · 1" tells you whether it is worth the tap, which is the
  * question a personal page is being asked.
  */
-export type DashboardSection = {
+export type NavSection = {
   /** The `id` of the section it scrolls to. */
   id: string;
   label: string;
@@ -37,7 +60,7 @@ export type DashboardSection = {
   count?: number;
 };
 
-export function DashboardNav({ sections, label }: { sections: readonly DashboardSection[]; label: string }) {
+export function SectionNav({ sections, label }: { sections: readonly NavSection[]; label: string }) {
   const current = useCurrentSection(sections.map((s) => s.id));
 
   return (
@@ -134,4 +157,26 @@ function useCurrentSection(ids: readonly string[]): string | null {
   }, [key]);
 
   return current;
+}
+
+/**
+ * The two-column frame a sticky rail needs. The one thing the duplicate had
+ * that this did not.
+ *
+ * The rail is a fixed 13rem so the prose column keeps a stable measure — a
+ * fractional rail reflows the body text at every breakpoint, and the measure
+ * is the one thing on a long reading page that must not move.
+ *
+ * `min-w-0` on the content column because everything in it is text nobody on
+ * this side wrote, in seven languages. See AGENTS.md: a grid track defaults to
+ * a min-content minimum, and one long unbroken word in Romansh widens the
+ * whole page.
+ */
+export function SectionNavLayout({ nav, children }: { nav: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <div className="grid-cols-safe grid gap-x-12 lg:grid-cols-[13rem_minmax(0,1fr)]">
+      <div className="lg:sticky lg:top-24 lg:self-start">{nav}</div>
+      <div className="min-w-0">{children}</div>
+    </div>
+  );
 }

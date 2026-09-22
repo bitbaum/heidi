@@ -44,6 +44,11 @@ export const ru: Dictionary = {
     groupPractise: "Тренировать",
     groupAbout: "О Хайди",
     skipToContent: "К содержанию",
+    sections: {
+      how: "Как это работает",
+      record: "Что мы говорим",
+      who: "Кто за этим стоит",
+    },
     contents: "Содержание",
     menu: "Меню",
     language: "Выбрать язык",
@@ -54,6 +59,8 @@ export const ru: Dictionary = {
 
   footer: {
     tagline: "Понять швейцарский немецкий — и начать участвовать.",
+    place: "Кантон Цюрих, Швейцария",
+    varietyName: "Цюрихский немецкий",
     builtOn: "Сделано в Цюрихе.",
     sections: "Страницы",
     projectTitle: "Проект",
@@ -1162,6 +1169,10 @@ export const ru: Dictionary = {
     due: "на повторение",
     none: "Сегодня повторять нечего.",
     noneHint: "Возвращайтесь завтра — или посмотрите что-нибудь новое.",
+    noneFree: "График соблюдён. Если хотите продолжить сейчас — вот сюда:",
+    nonePractise: "Короткое занятие",
+    noneCards: "Карточки",
+    noneAsk: "Вставить сообщение",
     empty: "Пока нечего повторять.",
     emptyHint: "Сохраните слово в разговоре, и Хайди спросит вас о нём позже.",
     tomorrow: "завтра",

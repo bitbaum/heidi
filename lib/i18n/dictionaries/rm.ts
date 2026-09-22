@@ -52,6 +52,11 @@ export const rm: Dictionary = {
     groupPractise: "Exercitar",
     groupAbout: "Davart Heidi",
     skipToContent: "Al cuntegn",
+    sections: {
+      how: "Co quai funcziunescha",
+      record: "Tge che nus din",
+      who: "Tgi che stat davos",
+    },
     contents: "Cuntegn",
     menu: "Menu",
     language: "Tscherner la lingua",
@@ -62,6 +67,8 @@ export const rm: Dictionary = {
 
   footer: {
     tagline: "Chapir il tudestg da Turitg, e lura far part.",
+    place: "Chantun Turitg, Svizra",
+    varietyName: "Turitgais",
     builtOn: "Fatg a Turitg.",
     sections: "Paginas",
     projectTitle: "Project",
@@ -1169,6 +1176,10 @@ export const rm: Dictionary = {
     due: "da repeter",
     none: "Oz n'è nagut da repeter.",
     noneHint: "Vegni puspè damaun — u tschertgai insatge nov.",
+    noneFree: "Il plan è actual. Sche Vus vulais cuntinuar ussa, qua tras:",
+    nonePractise: "Ina curta sesida",
+    noneCards: "Cartas",
+    noneAsk: "Encollar in messadi",
     empty: "Anc nagins pleds da repeter.",
     emptyHint: "Mantegnai in pled durant ina conversaziun, lura As dumonda Heidi pli tard.",
     tomorrow: "damaun",

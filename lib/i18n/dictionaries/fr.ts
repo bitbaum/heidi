@@ -36,6 +36,11 @@ export const fr: Dictionary = {
     groupPractise: "S'exercer",
     groupAbout: "À propos d'Heidi",
     skipToContent: "Aller au contenu",
+    sections: {
+      how: "Comment ça marche",
+      record: "Ce que nous disons",
+      who: "Qui est derrière",
+    },
     contents: "Sommaire",
     menu: "Menu",
     language: "Choisir la langue",
@@ -46,6 +51,8 @@ export const fr: Dictionary = {
 
   footer: {
     tagline: "Comprendre le zurichois, puis participer.",
+    place: "Canton de Zurich, Suisse",
+    varietyName: "Zurichois",
     builtOn: "Fait à Zurich.",
     sections: "Pages",
     projectTitle: "Projet",
@@ -1153,6 +1160,10 @@ export const fr: Dictionary = {
     due: "à réviser",
     none: "Rien à réviser aujourd'hui.",
     noneHint: "Revenez demain — ou cherchez quelque chose de nouveau.",
+    noneFree: "Le programme est à jour. Si vous voulez continuer maintenant, par ici :",
+    nonePractise: "Une courte séance",
+    noneCards: "Cartes",
+    noneAsk: "Coller un message",
     empty: "Aucun mot à réviser pour l'instant.",
     emptyHint: "Gardez un mot pendant une conversation, et Heidi vous le redemandera plus tard.",
     tomorrow: "demain",

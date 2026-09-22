@@ -4,7 +4,7 @@ import { getDictionary } from "@/lib/i18n";
 import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { Shell } from "./page-shell";
-import { DashboardNav, type DashboardSection } from "./dashboard-nav";
+import { SectionNav, SectionNavLayout, type NavSection } from "./section-nav";
 import { CowMark } from "./cow-mark";
 import { SavedWords } from "./saved-words";
 import { GroupList } from "./group-list";
@@ -57,7 +57,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
    * `recent` is only here when signed in, because only then is there anything
    * to resume — the same condition the section itself renders under.
    */
-  const sections: DashboardSection[] = [
+  const sections: NavSection[] = [
     // SHORT LABELS, not the section headings. "Was Ihnen immer wieder
     // begegnet" is a good heading and a terrible nav item: five words wrap to
     // two lines in a strip whose whole job is to be scannable in one.
@@ -113,10 +113,12 @@ export async function Dashboard({ locale }: { locale: Locale }) {
         things go to be missed, and the account belongs in the header where
         every other site on earth keeps it — which is now where it is.
       */}
-      <div className="grid grid-cols-safe gap-x-12 gap-y-8 border-t border-border-subtle pt-6 lg:grid-cols-[14rem_minmax(0,1fr)] lg:pt-10">
-        <div className="lg:sticky lg:top-24 lg:self-start">
-          <DashboardNav label={dict.nav.menu} sections={sections} />
-        </div>
+      {/* THE SAME FRAME AS EVERY OTHER RAIL ON THE SITE. This page used to
+          carry its own two-column grid at 14rem while the paper carried
+          another at 13rem — a difference nobody chose and nobody could see a
+          reason for. `SectionNavLayout` is the one frame now. */}
+      <div className="border-t border-border-subtle pt-6 lg:pt-10">
+      <SectionNavLayout nav={<SectionNav label={dict.nav.menu} sections={sections} />}>
 
         {/* SOMETHING TO DO LEADS, and everything else is underneath it.
             This page used to open with a list — their saved words — and a list
@@ -285,6 +287,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
             )}
           </section>
         </main>
+      </SectionNavLayout>
       </div>
     </Shell>
   );
