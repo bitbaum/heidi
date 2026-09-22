@@ -206,9 +206,60 @@ export function SpeakingPractice({
   const sentFor = useRef<string | null>(null);
   const audio = recorder.audio;
   const dropAudio = recorder.dropAudio;
+  const delivery = recorder.delivery;
+
+  /**
+   * A take this page has already decided it cannot read.
+   *
+   * Derived rather than stored: `usable()` is a pure function of the delivery,
+   * and the delivery is on screen — so this is the same fact the measurements
+   * are drawn from, not a second record of it that can fall out of step. It
+   * reads as "no transcript arrived", which is exactly what happened and is
+   * already the wording for that case.
+   */
+  const unreadable = Boolean(transcribes && delivery && !usable(delivery));
 
   useEffect(() => {
     if (!audio || !takeId || !transcribes) return;
+
+    /**
+     * A RECORDING WE ALREADY KNOW IS UNUSABLE IS NOT SENT.
+     *
+     * Measured, not reasoned about: `scripts/audit/speaking.mjs` drives this
+     * page with Chrome's synthetic microphone, which emits a tone. The tone
+     * came back from the transcriber as «Bis zum nächsten Mal.» — four words
+     * nobody said, printed under "this is what we heard", counted into the
+     * word total, and stored on the take.
+     *
+     * That is what a Whisper-family model does with audio containing no
+     * speech: it does not return nothing, it returns something plausible. On a
+     * phone in a corridor — the care setting this product is built for — a
+     * take that caught nothing but room noise is not a rare case.
+     *
+     * The guard needs no new judgement, because the page already makes it.
+     * `usable()` asks "is there enough here to say anything at all", and
+     * `spokenNotes`, `deliveryNotes` and `recordingNotes` all return nothing
+     * when the answer is no. The transcript was the one thing that ignored it
+     * — so the product would suppress its own honest measurements of a
+     * two-second false start and then print an invented sentence about it.
+     *
+     * NOT SENDING beats sending and hiding: no audio leaves the device for a
+     * recording we have already decided we cannot read, which is a model call
+     * saved and a smaller privacy claim to defend.
+     *
+     * AND IT IS DERIVED, NOT SET. `unreadable` below is computed in render
+     * from the delivery, so this effect only does effect work — marking the
+     * take as handled and releasing the blob. Setting state here instead
+     * would be a cascading render, and the lint rule that says so was right:
+     * "is this recording readable" is a fact about the delivery, available at
+     * render, not an event to record.
+     */
+    if (delivery && !usable(delivery)) {
+      sentFor.current = takeId;
+      dropAudio();
+      return;
+    }
+
     if (sentFor.current === takeId) return;
     sentFor.current = takeId;
 
@@ -246,7 +297,7 @@ export function SpeakingPractice({
         dropAudio();
       }
     })();
-  }, [audio, takeId, transcribes, varietyId, saveSaid, dropAudio]);
+  }, [audio, takeId, transcribes, varietyId, saveSaid, dropAudio, delivery]);
 
   const ask = useCallback(async () => {
     const text = said.trim();
@@ -498,7 +549,7 @@ export function SpeakingPractice({
             )}
 
             {hearing && <p className="mt-3 font-mono text-sm text-fg-muted">{t.hearing}</p>}
-            {heardFailed && <p className="mt-3 text-sm text-fg-muted">{t.heardFailed}</p>}
+            {(heardFailed || unreadable) && <p className="mt-3 text-sm text-fg-muted">{t.heardFailed}</p>}
 
             <textarea
               id="said"

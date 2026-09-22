@@ -22,6 +22,32 @@ So before changing anything that affects layout, know these four:
    That is correct only while its button is the last control in the row. Put
    the anchor on the row.
 
+# The microphone is the same mistake, one floor down
+
+"I don't think that the speaking part works, at least with regards to the
+dialect" was answered with a question — what did you see? — when everything
+needed to find out was already here. Chrome takes a fake microphone, the page
+is three clicks, and the network tab says whether audio was sent.
+
+A microphone fact needs a real `getUserMedia`, a real `MediaRecorder` and a
+real upload, and reading the source finds none of them. The unit tests around
+`useRecorder` all pass whether or not a single byte of audio ever leaves the
+page.
+
+```bash
+pnpm run dev                                        # in another terminal
+pnpm run audit:speaking                             # both varieties, both lengths
+BASE=https://heidi.orangecat.ch pnpm run audit:speaking
+AUDIO=~/zuerich.wav pnpm run audit:speaking         # for transcript QUALITY
+```
+
+It makes its own audio (ffmpeg, pink noise under a tremolo) because Chrome's
+synthetic tone sits below this product's own `too-quiet` floor — measure with
+that and every take reads as unusable, and the harness blames the page for its
+own microphone. It found one real defect on its first run: a 1.5-second take,
+which the product itself calls too short to say anything about, was sent to the
+transcriber and came back as «Bis zum nächsten Mal.» — four words nobody said.
+
 And run the check, which is the only thing here that actually finds them:
 
 ```bash
