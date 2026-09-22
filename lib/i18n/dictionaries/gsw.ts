@@ -1048,6 +1048,13 @@ export const gsw: Dictionary = {
       "D Schwiiz het ihri Mundarte bhalte, während Dütschland sini grösstenteils verlore het. Das isch kein Zuefall und kei Frog vo de Bärge — es het mit Staatsbildig, Schuel und Radio z tue.",
     whyManyLink: "Di ganz Gschicht",
     backToAll: "Alli Mundarte",
+    aroundTitle: "Wo das da staht",
+    aroundLead:
+      "Usgrächnet us em Zwyg, de Kantön und em Bezugsort — kei nöie Uussage über d Mundart sälber.",
+    nearestTitle: "Am nöchschte",
+    siblingsTitle: "Gliiche Zwyg",
+    kmAway: "{km} km",
+    marksInstead: "Fanged Sie stattdesse bi {area} aa, {km} km wyt — dört kennt d Heidi Forme",
   },
 
   grammar: {

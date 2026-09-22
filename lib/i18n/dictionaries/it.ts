@@ -1028,6 +1028,13 @@ export const it: Dictionary = {
       "La Svizzera ha conservato i suoi dialetti mentre la Germania ha in gran parte perso i propri. Non è un caso né una questione di montagne: dipende da come si è formato lo Stato, dalla scuola e dalla radio.",
     whyManyLink: "Tutta la storia",
     backToAll: "Tutti i dialetti",
+    aroundTitle: "Dove si colloca",
+    aroundLead:
+      "Calcolato dalla branca, dai cantoni e dalla città di riferimento — nessuna nuova affermazione sul dialetto stesso.",
+    nearestTitle: "I più vicini",
+    siblingsTitle: "Stessa branca",
+    kmAway: "{km} km",
+    marksInstead: "Cominci piuttosto da {area}, a {km} km — lì Heidi conosce delle forme",
   },
 
   grammar: {

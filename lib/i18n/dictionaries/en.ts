@@ -1023,6 +1023,13 @@ export const en: Dictionary = {
       "Switzerland kept its dialects where Germany largely lost its own. That is neither an accident nor a matter of mountains: it has to do with how a state was built, with school, and with broadcasting.",
     whyManyLink: "The whole story",
     backToAll: "All dialects",
+    aroundTitle: "Where this one sits",
+    aroundLead:
+      "Computed from the branch, the cantons and the reference town — no new claims about the dialect itself.",
+    nearestTitle: "Closest",
+    siblingsTitle: "Same branch",
+    kmAway: "{km} km",
+    marksInstead: "Start with {area} instead, {km} km away — Heidi knows forms from there",
   },
 
   grammar: {

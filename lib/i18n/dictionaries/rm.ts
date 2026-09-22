@@ -1044,6 +1044,13 @@ export const rm: Dictionary = {
       "La Svizra ha mantegnì ses dialects, entant che la Germania ha per gronda part pers ils siter. Quai n'è betg in cas ni ina dumonda da muntognas: quai dependa da la furmaziun da l'stadi, da la scola e da la radio.",
     whyManyLink: "L'entira istorgia",
     backToAll: "Tut ils idioms",
+    aroundTitle: "Nua che quai stat",
+    aroundLead:
+      "Quintà ora dal ram, dals chantuns e da la citad da referenza — naginas novas apposiziuns davart il dialect sez.",
+    nearestTitle: "Ils pli datiers",
+    siblingsTitle: "Medem ram",
+    kmAway: "{km} km",
+    marksInstead: "Cumenzai plitost cun {area}, {km} km davent — là enconuscha Heidi formas",
   },
 
   grammar: {

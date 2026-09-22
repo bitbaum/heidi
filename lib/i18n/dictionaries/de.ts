@@ -1154,6 +1154,13 @@ export const de = {
       "Die Schweiz hat ihre Mundarten behalten, während Deutschland seine weitgehend verloren hat. Das ist kein Zufall und keine Frage der Berge — es hat mit Staatsbildung, Schule und Rundfunk zu tun.",
     whyManyLink: "Die ganze Geschichte",
     backToAll: "Alle Mundarten",
+    aroundTitle: "Wo das hier steht",
+    aroundLead:
+      "Berechnet aus dem Zweig, den Kantonen und dem Bezugsort — keine neuen Aussagen über die Mundart selbst.",
+    nearestTitle: "Am nächsten",
+    siblingsTitle: "Gleicher Zweig",
+    kmAway: "{km} km",
+    marksInstead: "Fangen Sie stattdessen bei {area} an, {km} km entfernt — dort kennt Heidi Formen",
   },
 
   grammar: {

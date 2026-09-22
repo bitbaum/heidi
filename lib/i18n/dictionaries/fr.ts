@@ -1028,6 +1028,13 @@ export const fr: Dictionary = {
       "La Suisse a gardé ses dialectes là où l'Allemagne a largement perdu les siens. Ce n'est ni un hasard ni une affaire de montagnes : cela tient à la construction de l'État, à l'école et à la radio.",
     whyManyLink: "Toute l'histoire",
     backToAll: "Tous les dialectes",
+    aroundTitle: "Où cela se situe",
+    aroundLead:
+      "Calculé à partir de la branche, des cantons et de la ville de référence — aucune nouvelle affirmation sur le dialecte lui-même.",
+    nearestTitle: "Les plus proches",
+    siblingsTitle: "Même branche",
+    kmAway: "{km} km",
+    marksInstead: "Commencez plutôt par {area}, à {km} km — Heidi y connaît des formes",
   },
 
   grammar: {
