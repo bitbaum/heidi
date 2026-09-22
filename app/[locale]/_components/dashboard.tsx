@@ -11,6 +11,7 @@ import { GroupList } from "./group-list";
 import { ReviewPanel } from "./review-panel";
 import { FocusPanel } from "./focus-panel";
 import { PatternsPanel } from "./patterns-panel";
+import { MasteredPanel } from "./mastered-panel";
 import { RecentConversations } from "./recent-conversations";
 import { dbConfigured } from "@/lib/db";
 import { groupsFor } from "@/lib/domain/groups/store";
@@ -63,6 +64,11 @@ export async function Dashboard({ locale }: { locale: Locale }) {
     { id: "focus", label: t.sections.focus },
     { id: "review", label: t.sections.review },
     ...(signedIn ? [{ id: "recent", label: t.sections.recent, count: conversations.length }] : []),
+    /* Before `patterns`, because "what you can do" is the answer to the
+       question somebody opens this page with, and "what keeps catching you"
+       is the answer to the one they ask second. The old order had the
+       diagnosis first and no counterpart to it at all. */
+    { id: "mastered", label: t.sections.mastered },
     { id: "patterns", label: t.sections.patterns },
     { id: "words", label: t.sections.words },
     { id: "groups", label: t.sections.groups, count: groups.length },
@@ -182,6 +188,15 @@ export async function Dashboard({ locale }: { locale: Locale }) {
               </div>
             </section>
           )}
+
+          <div id="mastered" className="scroll-mt-28 lg:scroll-mt-24">
+            <MasteredPanel
+              t={dict.review}
+              grammarT={dict.grammar}
+              vocabularyT={dict.vocabulary}
+              locale={locale}
+            />
+          </div>
 
           <div id="patterns" className="scroll-mt-28 lg:scroll-mt-24">
             <PatternsPanel t={dict.review} />

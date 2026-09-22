@@ -265,6 +265,7 @@ export const gsw: Dictionary = {
   auth: {
     sections: {
       focus: "Wo Sie hanged",
+      mastered: "Chönne",
       review: "Widerhole",
       recent: "Gspröch",
       patterns: "Muschter",
@@ -1179,6 +1180,18 @@ export const gsw: Dictionary = {
     patternsCount: "vo Ihrne Wörter",
     patternsEmpty:
       "No nüt z zeige. Sobald Sie es paar Wörter bhalte händ, staht da, weli Lutentsprechige immer wieder vorchömed — zum Bischpil, dass us eme tütsche k es ch wird. Uselääse us Ihrer eigene Liste; über Sie wird nüt gmässe.",
+    masteredTitle: "Was Sie jetz chönd",
+    masteredCount: "{n} Sache sitzed",
+    masteredLead:
+      "Zellt wird nöd, wie oft Sie da gsi sind, sondern was Sie inzwüsche richtig mached — mindeschtens viermal gfragt und fascht immer troffe.",
+    masteredEmpty:
+      "No nüt. Sobald öppis viermal gfragt worde isch und Sie s fascht immer richtig ghaa händ, staht s da. Zellt wird, was Sie chönd, nöd wie oft Sie da gsi sind.",
+    masteredTopics: "Grammatik",
+    masteredWords: "Wörter",
+    masteredGroups: "Wortgruppe",
+    masteredScenes: "Situatione",
+    masteredNote:
+      "Das seit öppis über das Pack, nöd über Schwiizerdütsch überhaupt. Das da sitzt — drus folgt nöd, dass es Gspröch z Züri sitzt.",
     recentTitle: "Wiitermache",
     recentEmpty: "Na kei Gspräch.",
   },

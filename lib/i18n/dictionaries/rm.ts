@@ -605,6 +605,7 @@ export const rm: Dictionary = {
   auth: {
     sections: {
       focus: "Nua che vus restais tatgads",
+      mastered: "Quai che tegna",
       review: "Repeter",
       recent: "Conversaziuns",
       patterns: "Structuras",
@@ -1175,6 +1176,18 @@ export const rm: Dictionary = {
     patternsCount: "da Voss pleds",
     patternsEmpty:
       "Anc nagut da mussar. Uschespert che Vus avais tegnì in pèr pleds, cumparan qua las correspundenzas da tun che returnan en els — per exempel ch\u2019in k tudestg daventa ch. Legì da Vossa atgna glista; nagut na vegn mesirà davart Vus.",
+    masteredTitle: "Tge che Vus savais uss",
+    masteredCount: "{n} chaussas tegnan",
+    masteredLead:
+      "I na vegn betg quintà quant savens che Vus essas stà qua, mabain tge che Vus fais uss endrizza — dumandà almain quatter giadas e quasi adina gudagnà.",
+    masteredEmpty:
+      "Anc nagut. Uschespert ch\u2019insatge Vus vegn dumandà quatter giadas e Vus l\u2019avais quasi adina gì, cumpara quai qua. I vegn quintà tge che Vus savais, betg quant savens che Vus essas vegnì.",
+    masteredTopics: "Grammatica",
+    masteredWords: "Pleds",
+    masteredGroups: "Gruppas da pleds",
+    masteredScenes: "Situaziuns",
+    masteredNote:
+      "Quai di insatge davart quest pack, betg davart il tudestg svizzer en general. Quai tegna — da quai na resulta betg ch\u2019ina conversaziun a Turitg tegnia.",
     recentTitle: "Cuntinuar",
     recentEmpty: "Anc naginas conversaziuns.",
   },

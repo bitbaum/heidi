@@ -588,6 +588,7 @@ export const en: Dictionary = {
   auth: {
     sections: {
       focus: "What catches you out",
+      mastered: "What you can do",
       review: "Review",
       recent: "Conversations",
       patterns: "Patterns",
@@ -1154,6 +1155,18 @@ export const en: Dictionary = {
     patternsCount: "of your words",
     patternsEmpty:
       "Nothing to show yet. Once you have kept a few words, this is where the sound correspondences that keep turning up in them appear — that a German k becomes ch, for instance. Read off your own list; nothing is measured about you.",
+    masteredTitle: "What you can do now",
+    masteredCount: "{n} things hold",
+    masteredLead:
+      "Not a count of how often you have been here — a count of what you now get right. Asked at least four times, and almost always answered.",
+    masteredEmpty:
+      "Nothing yet. Once something has been asked four times and you have almost always had it, it appears here. It counts what you can do, not how often you turned up.",
+    masteredTopics: "Grammar",
+    masteredWords: "Words",
+    masteredGroups: "Word groups",
+    masteredScenes: "Situations",
+    masteredNote:
+      "This says something about this pack, not about Swiss German as a whole. These hold — it does not follow that a conversation in Zurich will.",
     recentTitle: "Pick up where you left off",
     recentEmpty: "No conversations yet.",
   },

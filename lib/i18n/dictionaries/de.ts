@@ -642,6 +642,7 @@ export const de = {
   auth: {
     sections: {
       focus: "Woran Sie hängen",
+      mastered: "Können",
       review: "Wiederholen",
       recent: "Gespräche",
       patterns: "Muster",
@@ -1306,6 +1307,18 @@ export const de = {
     patternsCount: "Ihrer Wörter",
     patternsEmpty:
       "Noch nichts zu zeigen. Sobald Sie ein paar Wörter behalten haben, steht hier, welche Lautentsprechungen darin immer wieder vorkommen — zum Beispiel, dass aus einem deutschen k ein ch wird. Gelesen aus Ihrer eigenen Liste; gemessen wird nichts über Sie.",
+    masteredTitle: "Was Sie jetzt können",
+    masteredCount: "{n} Dinge sitzen",
+    masteredLead:
+      "Nicht gezählt wird, wie oft Sie hier waren, sondern was Sie inzwischen richtig machen — mindestens viermal gefragt und fast immer getroffen.",
+    masteredEmpty:
+      "Noch nichts. Sobald Sie etwas viermal gefragt bekommen und fast immer richtig haben, steht es hier. Es zählt, was Sie können, nicht wie oft Sie da waren.",
+    masteredTopics: "Grammatik",
+    masteredWords: "Wörter",
+    masteredGroups: "Wortgruppen",
+    masteredScenes: "Situationen",
+    masteredNote:
+      "Das sagt etwas über dieses Pack, nicht über Schweizerdeutsch insgesamt. Was hier steht, sitzt — daraus folgt nicht, dass ein Gespräch in Zürich klappt.",
     recentTitle: "Weitermachen",
     recentEmpty: "Noch keine Gespräche.",
   },

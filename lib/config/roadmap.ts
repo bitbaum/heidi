@@ -112,12 +112,15 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         summary: "Stehende Entscheidungen aus §8, kein Rückstand. Sie kommen nicht später.",
         items: [
           {
-            title: "Serien, Punkte, Level, Prozente, Tagesziel",
-            line: "Eine Serie misst, wie viel Heidi jemand konsumiert hat, und sieht dabei aus wie ein Mass für Gelerntes.",
+            title: "Tagesserien und Verlust-Formulierungen",
+            line: "Nicht «keine Zahlen» — sondern keine Zahl, die Konsum misst, und kein Satz, der mit Verlust droht.",
             details: [
-              "Das Mass dieses Produkts ist, wie viel von einer unbekannten Zürcher Sprecherin jemand versteht.",
-              "Sollte uns das je Nutzerbindung gegen ein Produkt mit einem Flammen-Symbol kosten, verlieren wir diesen Vergleich absichtlich.",
+              "Am 22.09.2026 geschärft, nach einer berechtigten Nachfrage: Warum eigentlich diese Feindseligkeit gegenüber Serien, Prozenten, Spielmechanik?",
+              "Zwei Fragen entscheiden das, und sie sind unabhängig. WAS wird gezählt — Konsum (geöffnete Tage) oder Können (Formen, die Sie jetzt treffen)? WIE wird es formuliert — Gewinn («das können Sie jetzt») oder Verlust («Ihre Serie reisst»)?",
+              "Abgelehnt ist der unehrliche Quadrant: Konsum gezählt, Verlust formuliert. Nicht das Messen, und nicht das Motivieren.",
+              "Was stattdessen gebaut wurde: «Was Sie jetzt können» im persönlichen Bereich. Zählt Dinge, die mindestens viermal gefragt und fast immer getroffen wurden — und kann vor der Leserin niemals sinken.",
             ],
+            essay: { label: "Im persönlichen Bereich ansehen", href: "" },
           },
           {
             title: "Eine Note für die Aussprache",
@@ -210,12 +213,15 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         summary: "Standing decisions from §8, not a backlog. They are not coming later.",
         items: [
           {
-            title: "Streaks, points, levels, percentages, a daily goal",
-            line: "A streak measures how much Heidi somebody consumed while looking exactly like a measure of learning.",
+            title: "Day streaks and loss framing",
+            line: "Not «no numbers» — no number that measures consumption, and no sentence that threatens a loss.",
             details: [
-              "This product's metric is how much of an unfamiliar Zurich speaker somebody understands.",
-              "If that ever costs us retention against a product with a flame icon, we lose that comparison on purpose.",
+              "Sharpened on 22 September 2026 after a fair challenge: why are we so hateful towards streaks, percentages, gamification?",
+              "Two independent questions decide it. WHAT is counted — consumption (days opened) or capability (forms you now get right)? HOW is it framed — gain («here is what you can do») or loss («don\u2019t break your streak»)?",
+              "What is refused is the dishonest quadrant: consumption counted, loss framed. Not measurement, and not motivation.",
+              "What was built instead: «What you can do now», in your own space. It counts things asked at least four times and almost always answered — and it can never go down in front of the reader.",
             ],
+            essay: { label: "See it in your own space", href: "" },
           },
           {
             title: "A score for pronunciation",

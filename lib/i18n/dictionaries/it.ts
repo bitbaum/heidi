@@ -589,6 +589,7 @@ export const it: Dictionary = {
   auth: {
     sections: {
       focus: "Dove vi bloccate",
+      mastered: "Acquisito",
       review: "Ripassare",
       recent: "Conversazioni",
       patterns: "Regolarità",
@@ -1159,6 +1160,18 @@ export const it: Dictionary = {
     patternsCount: "delle vostre parole",
     patternsEmpty:
       "Ancora niente da mostrare. Appena avrà tenuto qualche parola, qui compariranno le corrispondenze di suono che vi ritornano — per esempio che una k tedesca diventa ch. Letto dalla sua lista; su di lei non si misura nulla.",
+    masteredTitle: "Che cosa sa fare adesso",
+    masteredCount: "{n} cose tengono",
+    masteredLead:
+      "Non si conta quante volte è passato di qui, ma che cosa ora le riesce — chiesto almeno quattro volte e quasi sempre azzeccato.",
+    masteredEmpty:
+      "Ancora niente. Appena qualcosa le sarà stato chiesto quattro volte e l\u2019avrà quasi sempre azzeccato, comparirà qui. Si conta quello che sa, non quanto è venuto.",
+    masteredTopics: "Grammatica",
+    masteredWords: "Parole",
+    masteredGroups: "Gruppi di parole",
+    masteredScenes: "Situazioni",
+    masteredNote:
+      "Questo dice qualcosa di questo pack, non dello svizzero tedesco in generale. Queste cose tengono — non ne segue che una conversazione a Zurigo terrà.",
     recentTitle: "Riprendere",
     recentEmpty: "Ancora nessuna conversazione.",
   },
