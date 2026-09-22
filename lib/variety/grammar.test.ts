@@ -18,6 +18,23 @@ import { LOCALES } from "../i18n/locales.ts";
 describe("grammar topics", () => {
   const topics = ZURICH_GERMAN.grammar ?? [];
 
+  /**
+   * `explains` names a topic that has to exist, and this is the only thing
+   * that can say so.
+   *
+   * It is a join like every other one in this file, and it fails the same
+   * silent way: rename `articles` and the twenty-four article questions stop
+   * carrying an explanation, with no error anywhere and no visible difference
+   * except a missing sentence nobody remembers should be there.
+   */
+  test("every topic named by `explains` is a topic that exists", () => {
+    const ids = new Set(topics.map((topic) => topic.id));
+    for (const [what, id] of Object.entries(ZURICH_GERMAN.explains ?? {})) {
+      if (!id) continue;
+      assert.ok(ids.has(id), `explains.${what} points at "${id}", which is not a topic in this pack`);
+    }
+  });
+
   test("the pack has topics at all", () => {
     assert.ok(topics.length >= 4, "the page exists to hold these; an empty one is a promise unkept");
   });

@@ -383,6 +383,31 @@ export const ZURICH_GERMAN: VarietyPack = {
    * The one thing still outstanding is the one §9 already names: none of it
    * has been reviewed by a native Zurich speaker.
    */
+  /**
+   * The pronouns a Zurich paradigm is printed with, so a conjugation question
+   * can ask «mir ___» rather than «wir ___».
+   *
+   * `er` covers all three of the third person because the VERB does not
+   * distinguish them — one row, one form, and the gloss underneath says
+   * er / sie / es. `plural` and `past` are absent because they are categories
+   * rather than persons: there is no word to put in front of them.
+   */
+  /**
+   * `articles` is the topic that answers "which article", and there is no one
+   * topic that answers "which form" — `unified-plural` covers `mir/ihr/si`
+   * and would be a wrong explanation over `ich bi`. An absent entry shows no
+   * explanation, which is better than a confident irrelevant one.
+   */
+  explains: { article: "articles" },
+
+  subjects: {
+    ich: "ich",
+    du: "du",
+    er: "er",
+    mir: "mir",
+    ihr: "ihr",
+    si: "si",
+  },
   vocabulary: [
     // The short words. Individually tiny, collectively most of why a sentence
     // is unfollowable.

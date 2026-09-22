@@ -47,6 +47,8 @@ function sentenceFor(word: SavedWord): string | undefined {
 
 export const RECALL: ExerciseKind = {
   id: "recall",
+  answering: "card",
+  decisions: "one",
   marking: "self",
   fromPack: false,
   generate: (material: Material) => recallItems(material.saved),

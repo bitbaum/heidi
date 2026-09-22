@@ -79,6 +79,8 @@ function fromRules(rules: readonly VarietyRule[], variety: "target" | "bridge"):
 
 export const PAIR: ExerciseKind = {
   id: "pair",
+  answering: "tap",
+  decisions: "one",
   marking: "objective",
   fromPack: true,
   generate: (material: Material) => pairItems(material.pack),

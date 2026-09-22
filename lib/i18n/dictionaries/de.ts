@@ -31,7 +31,7 @@ export const de = {
     chat: "Chat",
     organisations: "Für Organisationen",
     speaking: "Sprechen",
-    practice: "Üben",
+    practice: "Übungen",
     listen: "Hören",
     grammar: "Grammatik",
     dialect: "Mundarten",
@@ -50,7 +50,7 @@ export const de = {
     groupUse: "Benutzen",
     groupLearn: "Lernen",
     groupPractise: "Üben",
-            groupAbout: "Über Heidi",
+    groupAbout: "Über Heidi",
     skipToContent: "Zum Inhalt springen",
     menu: "Menü",
     language: "Sprache wählen",
@@ -912,6 +912,8 @@ export const de = {
       match: "Was gehört zusammen?",
       gaptext: "Welche Wörter fehlen?",
       pick: "Welches Wort passt hier?",
+      translate: "Wie sagt man das auf Züritüütsch?",
+      card: "Wissen Sie das noch?",
     },
     matchHint: "Tippen Sie ein Wort an, dann seine Bedeutung.",
     gapHint:
@@ -920,6 +922,72 @@ export const de = {
     typeLabel: "Selbst schreiben — freiwillig",
     typePlaceholder: "Tippen Sie Ihre Antwort …",
     youWrote: "Sie haben geschrieben",
+    /**
+     * Schreiben und Karten — die beiden Übungsarten, die es vorher nicht gab.
+     *
+     * `spellingNote` steht bewusst AN der Aufgabe und nicht in einer Fussnote:
+     * wer seine Antwort neben der aus dem Pack sieht und einen Buchstaben
+     * Unterschied findet, muss genau dort lesen, dass wir das nicht als Fehler
+     * werten. §6 — diese Mundart hat keine festgelegte Rechtschreibung.
+     */
+    translateLabel: "Auf Züritüütsch schreiben",
+    packSays: "Im Pack steht",
+    spellingNote:
+      "Züritüütsch hat keine festgelegte Rechtschreibung. Anders geschrieben heisst nicht falsch geschrieben — vergleichen Sie selbst und entscheiden Sie.",
+    cardRecognise: "Mundart → Bedeutung",
+    cardProduce: "Bedeutung → Mundart",
+    cardTurn: "Umdrehen",
+
+    /**
+     * Die zwei Entscheidungen vor dem Üben — und es sind wirklich zwei: was
+     * tun die Hände, und wann erfahre ich es. Beide stehen in der URL, damit
+     * ein Link «Schreiben, Test» weitergeben kann.
+     */
+    modeTitle: "Wie üben?",
+    modeMixed: "Gemischt",
+    modeMixedNote: "Alles durcheinander — der normale Weg.",
+    modeTap: "Antippen",
+    modeTapNote: "Nur auswählen. Keine Tastatur, eine Hand reicht.",
+    modeWrite: "Schreiben",
+    modeWriteNote: "Ganze Sätze selbst tippen. Sie vergleichen selbst.",
+    modeCard: "Karten",
+    modeCardNote: "Wort vorn, Bedeutung hinten. Am schnellsten.",
+
+    flowTitle: "Üben oder prüfen?",
+    flowPractice: "Üben",
+    flowPracticeNote: "Antwort und Erklärung sofort nach jeder Frage.",
+    flowTest: "Test",
+    flowTestNote: "Erst alle Fragen, dann alle Antworten mit Erklärung.",
+
+    /**
+     * Der Test. Währenddessen sagt die Seite NICHTS — das ist der Sinn: eine
+     * Rückmeldung nach jeder Frage verändert, was die nächste misst.
+     *
+     * Am Schluss eine Anzahl, keine Prozente, kein Level, keine Note. §8
+     * verbietet den Punktestand, nicht das Zählen; und die Anzahl steht neben
+     * der Liste der Fragen, weil die Liste das ist, woraus man etwas lernt.
+     */
+    testLead:
+      "{total} Fragen am Stück. Heidi sagt unterwegs nichts dazu — Antworten und Erklärungen kommen am Schluss, alle auf einmal.",
+    testOnlyObjective:
+      "Im Test kommen nur Fragen vor, die sich eindeutig prüfen lassen. Geschriebenes und Karten bewerten Sie selbst — das kann man üben, aber nicht messen.",
+    testStart: "Test starten",
+    testProgress: "{n} von {total}",
+    testAnswer: "Antwort merken",
+    testTimerOff: "Ohne Zeit",
+    testTimerSet: "{n} Min.",
+    testTimerAdd: "+{n} Min.",
+    testTimerLabel: "Zeit nehmen?",
+    testTimerLeft: "Noch {time}",
+    testTimeUp: "Die Zeit ist um. Alles, was Sie beantwortet haben, steht unten.",
+    testDone: "Fertig",
+    testResultsTitle: "Ihre Antworten",
+    testResultsCount: "{right} von {asked} auf Anhieb richtig",
+    testResultsLead: "Jede Frage nochmals, mit dem, was Sie gewählt haben, und dem Weg dorthin, wo es erklärt wird.",
+    testYourAnswer: "Ihre Antwort",
+    testCorrectAnswer: "Richtig wäre",
+    testUnanswered: "Nicht beantwortet",
+    testAgain: "Neuer Test",
     /**
      * KEINE ZAHL, und das ist die ganze Regel hier. Keine Prozente, keine
      * Trefferquote, kein Level. Die Diagnose zeigt auf den STOFF, nie auf die
@@ -1388,6 +1456,10 @@ export const de = {
     stakeLabel: "Was es kostet",
     offerLabel: "Was Heidi tut",
     unknownLabel: "Was wir Sie fragen müssten",
+    chooseSector: "Ihr Bereich",
+    allSectors: "Alle Bereiche",
+    readMore: "Weiterlesen",
+    startTitle: "Wie es anfängt, wenn Sie schreiben",
     noCustomers: "Heidi hat heute keine Kunden, keine Pilotprojekte und keine Fallstudien — und diese Seite behauptet auch keine. Was hier steht, ist eine Beschreibung Ihres Problems, so gut wir es von aussen kennen. Sagen Sie uns, wo wir falsch liegen.",
     talk: "Schreiben Sie uns",
   },

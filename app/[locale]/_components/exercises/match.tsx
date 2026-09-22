@@ -31,7 +31,7 @@ import { Verdict } from "./chrome";
  * leaves one, and marking somebody right for a walkover would make the outcome
  * a little bit false.
  */
-export function MatchView({ item, t, locale, onAnswer }: ExerciseViewProps) {
+export function MatchView({ item, t, grammarT, locale, onAnswer }: ExerciseViewProps) {
   const match = item as Extract<PracticeItem, { kind: "match" }>;
 
   /** Index into `targets` that is waiting for a meaning. */
@@ -123,7 +123,7 @@ export function MatchView({ item, t, locale, onAnswer }: ExerciseViewProps) {
       </div>
 
       {done && (
-        <Verdict right={!missed} t={t} item={item} locale={locale} onNext={() => onAnswer(missed ? "wrong" : "right")} />
+        <Verdict right={!missed} t={t} grammarT={grammarT} item={item} locale={locale} onNext={() => onAnswer(missed ? "wrong" : "right")} />
       )}
     </div>
   );

@@ -679,6 +679,53 @@ export type VarietyPack = {
    */
   vocabulary?: readonly VocabularyEntry[];
   /**
+   * The subject pronoun this variety puts in front of each person's verb form.
+   *
+   * WHY THIS IS DATA AND NOT A LABEL. A conjugation drill used to print the
+   * person in the READER's language — «мы ___», «we ___», «wir ___» — and ask
+   * which Zurich form belongs to it. That is the product translating the thing
+   * it is teaching. A learner who answers it correctly has still never seen
+   * `mir chömed`, which is the only string any of this was for, and a Russian
+   * reader was being shown a Russian pronoun on a page whose entire claim is
+   * that you learn the variety by meeting it.
+   *
+   * So the prompt is built from HERE, in the taught variety, and the reader's
+   * pronoun moves underneath it as a gloss — the same shape every other
+   * exercise already uses: the dialect leads, the bridge supports.
+   *
+   * PARTIAL ON PURPOSE. `plural` and `past` are grammatical categories rather
+   * than persons and have no subject to print; they keep the dictionary label,
+   * because "past tense" is a fact about the reader's understanding and not a
+   * word of the variety. A pack that has not written these prints labels the
+   * old way and loses nothing but the improvement.
+   */
+  subjects?: Partial<Record<FormLabel, string>>;
+  /**
+   * Which grammar topic explains a question generated from the word list.
+   *
+   * THE GAP THIS CLOSES. A practice item says where it came from, and a
+   * vocabulary item came from a WORD — so when somebody got `d Huus` wrong,
+   * the panel could offer the word list and nothing else. But "which article"
+   * is not a fact about `Huus`; it is a fact about this variety having three
+   * articles that do not line up with the German ones, and there is a page
+   * that says so. Twenty-four of the pack's questions are article questions,
+   * and every one of them was being explained by a link to a glossary.
+   *
+   * IN THE PACK BECAUSE IT IS A FACT ABOUT THE VARIETY. `articles` is the
+   * Zurich topic id; another variety's article question is explained by
+   * another topic, or by none. A map in the generator would be a Swiss fact
+   * living in `lib/domain`, which is the leak AGENTS.md is about.
+   *
+   * Checked against `grammar` by a test, so a renamed topic is a build
+   * failure rather than a silently missing explanation.
+   */
+  explains?: {
+    /** The topic behind "which article does this noun take". */
+    article?: string;
+    /** The topic behind "which form goes with this person". */
+    form?: string;
+  };
+  /**
    * Who vouches for the vocabulary. Ids from `lib/research/sources.ts`.
    *
    * Separate from a dialect area's sources because it is a different KIND of

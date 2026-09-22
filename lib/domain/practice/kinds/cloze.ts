@@ -96,6 +96,8 @@ export function situationItems(packs: readonly SituationPack[]): ClozeItem[] {
 
 export const CLOZE: ExerciseKind = {
   id: "cloze",
+  answering: "card",
+  decisions: "one",
   marking: "self",
   fromPack: true,
   generate: (material: Material) => [...clozeItems(material.pack), ...situationItems(material.situations)],

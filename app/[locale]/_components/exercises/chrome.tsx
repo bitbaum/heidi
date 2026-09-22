@@ -29,12 +29,14 @@ import type { PracticeItem } from "@/lib/domain/practice/types";
 export function Verdict({
   right,
   t,
+  grammarT,
   item,
   locale,
   onNext,
 }: {
   right: boolean;
   t: Dictionary["practice"];
+  grammarT: Dictionary["grammar"];
   item: PracticeItem;
   locale: Locale;
   onNext: () => void;
@@ -49,6 +51,7 @@ export function Verdict({
         <p className="mt-1 text-sm leading-relaxed text-fg-secondary">{fill(t.origin, { origin: item.origin })}</p>
       )}
 
+      <Explain item={item} grammarT={grammarT} />
       <Trace item={item} t={t} locale={locale} />
 
       <button
@@ -59,6 +62,67 @@ export function Verdict({
         {t.next}
       </button>
     </div>
+  );
+}
+
+/**
+ * Which grammar topic explains this item, if any.
+ *
+ * TWO PLACES A TOPIC CAN COME FROM, and they are not the same relationship.
+ * The item's SOURCE is where it came from — a grammar topic's own example, or
+ * a scene line that names the structure it turns on. `explains` is a property
+ * of the KIND, set from the pack: an article question came from a noun, but
+ * what explains it is the page about the article system, and twenty-four
+ * questions were being sent to a glossary because those two were conflated.
+ *
+ * Source first, because it is the more specific claim: a cloze cut from
+ * `am-progressive` is about `am-progressive`, whatever kind it is.
+ *
+ * Exported so the end of a test can print the same line for twenty items at
+ * once without a second copy of this precedence.
+ */
+export function explainingTopic(item: PracticeItem): string | undefined {
+  const source = item.source;
+  if (source.kind === "grammar") return source.topic;
+  if (source.kind === "situation") return source.topic;
+  if (item.kind === "article") return item.explains;
+  return undefined;
+}
+
+/**
+ * The one sentence that says WHY, at the moment being wrong is interesting.
+ *
+ * A link to the topic was the whole of the explanation, and a link is a
+ * promise to explain rather than an explanation. Somebody who has just chosen
+ * `d Huus` is told "not quite", offered a page, and left to decide whether
+ * they care enough to leave the drill — which most people, mid-sitting, do
+ * not. So the topic's own rule line comes to them.
+ *
+ * IT IS THE TOPIC'S OWN WORDS. Not a second explanation written for this
+ * panel: the grammar page and the drill then cannot drift, and a topic whose
+ * wording is improved improves in both places at once.
+ *
+ * A SITUATION LINE EXPLAINS ITSELF THROUGH ITS TOPIC, when it names one. That
+ * is the field that already makes "practise this topic" work, reused: the
+ * scene says which structure the sentence turns on, and the structure knows
+ * how to describe itself.
+ *
+ * Nothing at all when the item's source names no topic — a kept word or a bare
+ * gate rule has no rule line, and an empty labelled box is the interface
+ * reporting on something that did not happen.
+ */
+function Explain({ item, grammarT }: { item: PracticeItem; grammarT: Dictionary["grammar"] }) {
+  const id = explainingTopic(item);
+  if (!id) return null;
+
+  const topic = grammarT.topics[id as keyof typeof grammarT.topics];
+  if (!topic) return null;
+
+  return (
+    <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-secondary">
+      <span className="text-fg-muted">{topic.title} — </span>
+      {topic.rule}
+    </p>
   );
 }
 

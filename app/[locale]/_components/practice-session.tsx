@@ -7,9 +7,10 @@ import { fill } from "@/lib/i18n/fill";
 import { DISPLAY } from "@/lib/variety/display";
 import { useBrowserStore, useStoreWriter } from "@/lib/browser/store";
 import { recallItems } from "@/lib/domain/practice/generate";
+import { inMode, sessionSize, type Mode } from "@/lib/domain/practice/mode";
+import { QuestionCard } from "./exercises/question-card";
 import { NO_HISTORY, remember } from "@/lib/domain/practice/history";
 import { historyStore, modelStore } from "./practice-stores";
-import { VIEWS } from "./exercises/registry";
 import { Trace, answerOf } from "./exercises/chrome";
 import { orderSession, requeue, summarise } from "@/lib/domain/practice/session";
 import { EMPTY_MODEL, observe } from "@/lib/domain/practice/model";
@@ -50,7 +51,9 @@ import { useGrade } from "./use-review";
 export function PracticeSession({
   packItems,
   t,
+  grammarT,
   locale,
+  mode,
   includeSaved = true,
 }: {
   /**
@@ -61,7 +64,21 @@ export function PracticeSession({
    */
   packItems: readonly PracticeItem[];
   t: Dictionary["practice"];
+  /** The grammar section's own words, so a verdict can explain rather than link. */
+  grammarT: Dictionary["grammar"];
   locale: Locale;
+  /**
+   * Which answering style this sitting is for.
+   *
+   * IT REACHES HERE BECAUSE OF THE ONE POOL THE SERVER CANNOT FILTER. The
+   * page narrows `packItems` by mode before sending them, but a learner's own
+   * kept words never go through the server at all — they are turned into
+   * items on this side, from storage. Without this, choosing "tapping" would
+   * still deal out reveal-and-self-mark cards from the learner's own words,
+   * which is precisely the "I asked for no typing and got a text box"
+   * complaint in its other form.
+   */
+  mode: Mode;
   /**
    * Whether the learner's own kept words join this sitting.
    *
@@ -103,7 +120,7 @@ export function PracticeSession({
 
   const build = useCallback(() => {
     historyAtBuild.current = historyStore.read() ?? NO_HISTORY;
-    const own = includeSaved ? recallItems(saved.words) : [];
+    const own = includeSaved ? recallItems(saved.words).filter((item) => inMode(item, mode)) : [];
     setSession(
       orderSession({
         // Read at build rather than subscribed to, for the same reason the
@@ -117,11 +134,13 @@ export function PracticeSession({
         saved: includeSaved ? saved.words : [],
         now: new Date(),
         seen: historyAtBuild.current,
+        // A card run is longer because a card is faster. See `sessionSize`.
+        size: sessionSize(mode),
       }),
     );
     setAt(0);
     setOutcomes([]);
-  }, [packItems, saved.words, includeSaved]);
+  }, [packItems, saved.words, includeSaved, mode]);
 
   // Once storage has been read, and not before: a session built on an empty
   // word list would leave out every word that was actually due.
@@ -248,60 +267,15 @@ export function PracticeSession({
       {/* Keyed on the item so every answer starts a genuinely new card:
           without it, React keeps the previous question's revealed state and
           the next one arrives already answered. */}
-      <Card key={item.id} item={item} t={t} locale={locale} onAnswer={record} onRecall={recordRecall} />
-    </div>
-  );
-}
-
-/**
- * One question, with everything that is the same for all of them.
- *
- * NINE LINES, BECAUSE THE KINDS MOVED OUT. This held three `item.kind ===`
- * chains — one to pick the prompt, one to pick the controls, one inside a
- * keyboard handler — and each new kind had to be threaded through all three.
- * The third was the dangerous one: a kind nobody had added a branch for fell
- * through to the self-marked path, where Enter means "I knew it".
- *
- * What is left here is genuinely shared: the question number, and the note
- * that this one is a second attempt. Everything else is a view's own.
- */
-function Card({
-  item,
-  t,
-  locale,
-  onAnswer,
-  onRecall,
-}: {
-  item: PracticeItem;
-  t: Dictionary["practice"];
-  locale: Locale;
-  onAnswer: (id: string, outcome: "right" | "wrong" | "skipped") => void;
-  onRecall: (id: string, prompt: string, knew: boolean) => void;
-}) {
-  const View = VIEWS[item.kind];
-
-  const ask =
-    item.kind === "pair"
-      ? item.variety === "target"
-        ? t.ask.pairTarget
-        : t.ask.pairBridge
-      : t.ask[item.kind];
-
-  return (
-    <div className="mt-3 rounded-control border border-border-strong bg-surface-raised p-5 sm:p-6">
-      <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{ask}</p>
-
-      {/* Keyed by id so a view's state cannot outlive its question: without
-          it, React reuses the instance when two consecutive items share a
-          kind, and the second arrives with the first one's answer already
-          revealed. */}
-      <View
+      <QuestionCard
         key={item.id}
         item={item}
         t={t}
+        grammarT={grammarT}
         locale={locale}
-        onAnswer={(outcome) => onAnswer(item.id, outcome)}
-        onRecall={(prompt, knew) => onRecall(item.id, prompt, knew)}
+        reveal="now"
+        onAnswer={record}
+        onRecall={recordRecall}
       />
     </div>
   );
