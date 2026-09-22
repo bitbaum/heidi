@@ -35,7 +35,7 @@ export const de = {
     listen: "Hören",
     grammar: "Grammatik",
     dialect: "Mundarten",
-    essays: "Lesen",
+    essays: "Blog",
     vocabulary: "Wortschatz",
     situations: "Situationen",
     method: "Methode",
@@ -48,10 +48,9 @@ export const de = {
     impressum: "Impressum",
     investors: "Investoren",
     groupUse: "Benutzen",
-    groupReference: "Nachschlagen",
-    groupWhy: "Warum so",
-    groupProject: "Projekt",
-    groupAbout: "Über Heidi",
+    groupLearn: "Lernen",
+    groupPractise: "Üben",
+            groupAbout: "Über Heidi",
     skipToContent: "Zum Inhalt springen",
     menu: "Menü",
     language: "Sprache wählen",
@@ -1079,7 +1078,7 @@ export const de = {
      * `practiseSay` is sent verbatim and must contain `{word}` — here the
      * topic's own title — for the same reason as `vocabulary.askSay`.
      */
-    practiseLabel: "Damit üben",
+    practiseLabel: "Mehr Beispiele",
     practiseSay: "Geben Sie mir zwei Sätze zum Üben von «{word}» — und fragen Sie mich danach einen ab.",
     title: "Grammatik",
     /**
