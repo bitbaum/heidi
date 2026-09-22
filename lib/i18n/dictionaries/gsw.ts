@@ -822,10 +822,10 @@ export const gsw: Dictionary = {
 
   practice: {
     title: "Üebe",
-    lead: "Acht Frage, i zwee Minute. Us de Regle wo d Heidi sälber aawendet — und us de Wörter wo Si behalte händ.",
+    lead: "En churze Satz Frage, i es paar Minute. Us de Regle wo d Heidi sälber aawendet, us de Sätz wo würkli gseit werded — und us de Wörter wo Si behalte händ.",
     note: "Was Si sich gmerkt händ, bliibt i Ihrem Browser. Für d Frage us em Wortschatz bruuchts kes Konto.",
     start: "Loslege",
-    restart: "Nomal achti",
+    restart: "Nomal",
     progress: "Frag {n} vo {total}",
     secondTry: "Zwöite Aalauf",
     skip: "Überspringe",

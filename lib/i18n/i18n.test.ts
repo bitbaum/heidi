@@ -298,23 +298,56 @@ test("no page counts its own contents in its lead", () => {
    * written. `sei` is left out on purpose — it is six in Italian and also an
    * ordinary verb form in three of these languages, and a guard that cries
    * wolf gets deleted.
+   *
+   * `set` is out for the same reason, and it took a false positive to notice:
+   * it is seven in Romansh AND an everyday English noun, so "a short set of
+   * questions" tripped a check that exists to catch "eight questions". The
+   * cost is that a Romansh lead could say `set` unseen; the alternative is a
+   * guard whose failures are usually wrong, which is the one that gets
+   * switched off.
    */
   const COUNTS = [
     "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "nün", "zäh",
     "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
     "deux", "trois", "quatre", "cinq", "sept", "huit", "neuf",
     "due", "tre", "quattro", "cinque", "sette", "otto", "nove", "dieci",
-    "dus", "trais", "quatter", "tschintg", "set", "otg", "nov", "diesch",
+    "dus", "trais", "quatter", "tschintg", "otg", "nov", "diesch",
     "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять",
   ];
 
+  /**
+   * THE PRACTICE LEAD IS HERE TOO, AND IT WAS WRONG IN A WORSE WAY.
+   *
+   * It promised "eight questions" — in seven languages, with "another eight"
+   * on the button under it. That was never stale copy waiting for content to
+   * grow past it; it was false ON ARRIVAL for any scoped sitting, because a
+   * session is `min(SESSION_SIZE, whatever the scope holds)`. `?topic=
+   * question-words` is four questions and `?group=greetings` is ONE, under a
+   * page that had just said eight.
+   *
+   * Reported from the live site, which is the third time a number in body copy
+   * has been wrong and the second time it was found by a person rather than by
+   * this suite. The lesson is the same as the grammar lead's and the guard is
+   * now the same guard: copy does not state a count it does not own.
+   */
+  const LEADS = (locale: (typeof LOCALES)[number]) => {
+    const dict = getDictionary(locale);
+    return [
+      { where: "grammar lead", text: dict.grammar.lead },
+      { where: "practice lead", text: dict.practice.lead },
+      { where: "practice restart button", text: dict.practice.restart },
+    ];
+  };
+
   for (const locale of LOCALES) {
-    const lead = getDictionary(locale).grammar.lead.toLocaleLowerCase();
-    for (const count of COUNTS) {
-      assert.ok(
-        !new RegExp(`(^|[^\\p{L}])${count}([^\\p{L}]|$)`, "u").test(lead),
-        `${locale} grammar lead says "${count}" — it counts the topics, and will be wrong the next time one is added`,
-      );
+    for (const { where, text } of LEADS(locale)) {
+      const lowered = text.toLocaleLowerCase();
+      for (const count of COUNTS) {
+        assert.ok(
+          !new RegExp(`(^|[^\\p{L}])${count}([^\\p{L}]|$)`, "u").test(lowered),
+          `${locale} ${where} says "${count}" — it states a count nothing maintains, and a scoped session may not match it`,
+        );
+      }
     }
   }
 });

@@ -889,10 +889,10 @@ export const de = {
    */
   practice: {
     title: "Üben",
-    lead: "Acht Fragen, in zwei Minuten. Aus den Regeln, die Heidi selbst anwendet — und aus den Wörtern, die Sie behalten haben.",
+    lead: "Ein kurzer Satz Fragen, in ein paar Minuten. Aus den Regeln, die Heidi selbst anwendet, aus den Sätzen, die wirklich gesagt werden — und aus den Wörtern, die Sie behalten haben.",
     note: "Was Sie gemerkt haben, bleibt in Ihrem Browser. Für die Fragen aus dem Wortschatz brauchen Sie kein Konto.",
     start: "Losgehen",
-    restart: "Nochmals acht",
+    restart: "Nochmals",
     progress: "Frage {n} von {total}",
     secondTry: "Zweiter Anlauf",
     skip: "Überspringen",

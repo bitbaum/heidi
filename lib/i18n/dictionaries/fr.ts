@@ -802,10 +802,10 @@ export const fr: Dictionary = {
 
   practice: {
     title: "S'exercer",
-    lead: "Huit questions, deux minutes. Tirées des règles qu'Heidi applique elle-même — et des mots que vous avez gardés.",
+    lead: "Une courte série de questions, quelques minutes. Tirées des règles qu'Heidi applique elle-même, des phrases qu'on dit vraiment — et des mots que vous avez gardés.",
     note: "Ce que vous gardez reste dans votre navigateur. Les questions tirées du vocabulaire ne demandent aucun compte.",
     start: "Commencer",
-    restart: "Encore huit",
+    restart: "Encore",
     progress: "Question {n} sur {total}",
     secondTry: "Deuxième essai",
     skip: "Passer",
