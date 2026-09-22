@@ -1,4 +1,4 @@
-import type { PracticeItem } from "./types.ts";
+import { SESSION_SIZE, type PracticeItem } from "./types.ts";
 import { KINDS } from "./kinds/registry.ts";
 import type { Answering } from "./kinds/kind.ts";
 
@@ -160,4 +160,28 @@ export function parseFlow(params: Record<string, string | string[] | undefined>)
   const raw = params.flow;
   const value = (Array.isArray(raw) ? raw[0] : raw)?.trim();
   return isFlow(value) ? value : DEFAULT_FLOW;
+}
+
+/**
+ * How many items a sitting holds, which depends on what the sitting IS.
+ *
+ * `SESSION_SIZE` is eight, and the reasoning behind it still holds: a sitting
+ * you can finish at a tram stop is one you open again tomorrow, and there is
+ * no setting for it because a setting would be the product asking the learner
+ * to design their own practice.
+ *
+ * BUT EIGHT CARDS IS TWENTY SECONDS. A card is a word, turned over — it is by
+ * some distance the fastest thing here, which is the entire reason anybody
+ * reaches for cards. Ending a card run after eight is the same mistake as
+ * putting a text field in a tapping drill: the length was chosen for a
+ * different exercise and then applied to this one. Twenty cards is about two
+ * minutes, which is the same SITTING measured properly.
+ *
+ * Still not a setting. The number follows from the mode the learner already
+ * chose, which is the choice they actually wanted to make.
+ */
+export const CARD_SESSION_SIZE = 20;
+
+export function sessionSize(mode: Mode): number {
+  return mode === "card" ? CARD_SESSION_SIZE : SESSION_SIZE;
 }

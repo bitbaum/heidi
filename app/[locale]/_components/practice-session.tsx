@@ -7,7 +7,7 @@ import { fill } from "@/lib/i18n/fill";
 import { DISPLAY } from "@/lib/variety/display";
 import { useBrowserStore, useStoreWriter } from "@/lib/browser/store";
 import { recallItems } from "@/lib/domain/practice/generate";
-import { inMode, type Mode } from "@/lib/domain/practice/mode";
+import { inMode, sessionSize, type Mode } from "@/lib/domain/practice/mode";
 import { QuestionCard } from "./exercises/question-card";
 import { NO_HISTORY, remember } from "@/lib/domain/practice/history";
 import { historyStore, modelStore } from "./practice-stores";
@@ -134,6 +134,8 @@ export function PracticeSession({
         saved: includeSaved ? saved.words : [],
         now: new Date(),
         seen: historyAtBuild.current,
+        // A card run is longer because a card is faster. See `sessionSize`.
+        size: sessionSize(mode),
       }),
     );
     setAt(0);

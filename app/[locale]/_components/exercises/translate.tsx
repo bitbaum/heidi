@@ -68,7 +68,12 @@ export function TranslateView({ item, t, locale, onAnswer }: ExerciseViewProps) 
 
   return (
     <>
-      <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.translateLabel}</p>
+      {/* NO SECOND LABEL HERE. The question card already prints "how do you
+          say that in Zurich German?" above this, and a line under it reading
+          "write it in Zurich German" is the same instruction twice — the
+          duplicate-label problem that was reported on the buttons, in its
+          other form. `translateLabel` is still used, as the field's
+          accessible name, where it is the only label there is. */}
       <p lang="de" className={`${PROMPT_TEXT} wrap-anywhere`}>
         {translate.prompt}
       </p>
@@ -123,7 +128,7 @@ export function TranslateView({ item, t, locale, onAnswer }: ExerciseViewProps) 
       ) : (
         <div className="mt-5">
           <label htmlFor={fieldId} className="sr-only">
-            {t.typeLabel}
+            {t.translateLabel}
           </label>
           {/*
             A TEXTAREA, NOT AN INPUT, and the reason is the sentences. Several

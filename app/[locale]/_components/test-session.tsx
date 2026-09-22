@@ -8,7 +8,7 @@ import { DISPLAY } from "@/lib/variety/display";
 import type { PracticeItem } from "@/lib/domain/practice/types";
 import { TEST_SIZE, TEST_MINUTES, TEST_EXTEND_MINUTES } from "@/lib/domain/practice/mode";
 import { QuestionCard } from "./exercises/question-card";
-import { answerOf, Trace } from "./exercises/chrome";
+import { answerOf, explainingTopic, Trace } from "./exercises/chrome";
 
 /**
  * A run of questions that says nothing until it is over.
@@ -324,7 +324,7 @@ function Results({
 
       <ul className="mt-8 flex flex-col gap-6">
         {ordered.map(({ item, outcome, chose }) => {
-          const topicId = item.source.kind === "grammar" || item.source.kind === "situation" ? item.source.topic : undefined;
+          const topicId = explainingTopic(item);
           const topic = topicId ? grammarT.topics[topicId as keyof typeof grammarT.topics] : undefined;
 
           return (

@@ -172,6 +172,17 @@ export type ArticleItem = {
   /** The noun, bare. */
   noun: string;
   bridge: string;
+  /**
+   * The grammar topic that explains this question, from `pack.explains`.
+   *
+   * SEPARATE FROM `source`, which stays `word` — because the two answer
+   * different questions and conflating them would break the scope filter.
+   * `source` is "where did this item come from", and it is what `?group=`
+   * matches on; this is "where is this kind of question explained". A noun's
+   * article came from the noun; the reason it is `s` and not `das` is a page
+   * about the article system.
+   */
+  explains?: string;
   /** Always all three, same order every time. */
   options: readonly [string, string, string];
   /** Index into `options`. */

@@ -392,6 +392,14 @@ export const ZURICH_GERMAN: VarietyPack = {
    * er / sie / es. `plural` and `past` are absent because they are categories
    * rather than persons: there is no word to put in front of them.
    */
+  /**
+   * `articles` is the topic that answers "which article", and there is no one
+   * topic that answers "which form" — `unified-plural` covers `mir/ihr/si`
+   * and would be a wrong explanation over `ich bi`. An absent entry shows no
+   * explanation, which is better than a confident irrelevant one.
+   */
+  explains: { article: "articles" },
+
   subjects: {
     ich: "ich",
     du: "du",

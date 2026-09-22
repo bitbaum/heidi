@@ -66,6 +66,30 @@ export function Verdict({
 }
 
 /**
+ * Which grammar topic explains this item, if any.
+ *
+ * TWO PLACES A TOPIC CAN COME FROM, and they are not the same relationship.
+ * The item's SOURCE is where it came from — a grammar topic's own example, or
+ * a scene line that names the structure it turns on. `explains` is a property
+ * of the KIND, set from the pack: an article question came from a noun, but
+ * what explains it is the page about the article system, and twenty-four
+ * questions were being sent to a glossary because those two were conflated.
+ *
+ * Source first, because it is the more specific claim: a cloze cut from
+ * `am-progressive` is about `am-progressive`, whatever kind it is.
+ *
+ * Exported so the end of a test can print the same line for twenty items at
+ * once without a second copy of this precedence.
+ */
+export function explainingTopic(item: PracticeItem): string | undefined {
+  const source = item.source;
+  if (source.kind === "grammar") return source.topic;
+  if (source.kind === "situation") return source.topic;
+  if (item.kind === "article") return item.explains;
+  return undefined;
+}
+
+/**
  * The one sentence that says WHY, at the moment being wrong is interesting.
  *
  * A link to the topic was the whole of the explanation, and a link is a
@@ -88,8 +112,7 @@ export function Verdict({
  * reporting on something that did not happen.
  */
 function Explain({ item, grammarT }: { item: PracticeItem; grammarT: Dictionary["grammar"] }) {
-  const source = item.source;
-  const id = source.kind === "grammar" ? source.topic : source.kind === "situation" ? source.topic : undefined;
+  const id = explainingTopic(item);
   if (!id) return null;
 
   const topic = grammarT.topics[id as keyof typeof grammarT.topics];

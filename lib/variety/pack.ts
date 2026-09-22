@@ -701,6 +701,31 @@ export type VarietyPack = {
    */
   subjects?: Partial<Record<FormLabel, string>>;
   /**
+   * Which grammar topic explains a question generated from the word list.
+   *
+   * THE GAP THIS CLOSES. A practice item says where it came from, and a
+   * vocabulary item came from a WORD — so when somebody got `d Huus` wrong,
+   * the panel could offer the word list and nothing else. But "which article"
+   * is not a fact about `Huus`; it is a fact about this variety having three
+   * articles that do not line up with the German ones, and there is a page
+   * that says so. Twenty-four of the pack's questions are article questions,
+   * and every one of them was being explained by a link to a glossary.
+   *
+   * IN THE PACK BECAUSE IT IS A FACT ABOUT THE VARIETY. `articles` is the
+   * Zurich topic id; another variety's article question is explained by
+   * another topic, or by none. A map in the generator would be a Swiss fact
+   * living in `lib/domain`, which is the leak AGENTS.md is about.
+   *
+   * Checked against `grammar` by a test, so a renamed topic is a build
+   * failure rather than a silently missing explanation.
+   */
+  explains?: {
+    /** The topic behind "which article does this noun take". */
+    article?: string;
+    /** The topic behind "which form goes with this person". */
+    form?: string;
+  };
+  /**
    * Who vouches for the vocabulary. Ids from `lib/research/sources.ts`.
    *
    * Separate from a dialect area's sources because it is a different KIND of

@@ -42,6 +42,7 @@ export function articleItems(pack: VarietyPack): ArticleItem[] {
       marking: "objective",
       noun: entry.target,
       bridge: entry.bridge,
+      ...(pack.explains?.article ? { explains: pack.explains.article } : {}),
       options: ARTICLES,
       answer: answer as 0 | 1 | 2,
       source: { kind: "word", word: entry.target, group: entry.group },

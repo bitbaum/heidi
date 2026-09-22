@@ -181,12 +181,35 @@ export default async function PracticePage({
         same defect as an uncited claim, one step better disguised.
       */}
       <section aria-labelledby="why" className="mt-14 border-t border-border-subtle pt-10">
-        <h2
-          id="why"
-          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
-        >
-          {t.whyTitle}
-        </h2>
+        {/*
+          FOLDED SHUT, and that is a fix rather than a demotion.
+
+          This section is four research claims with citations, and it made the
+          practice page 4,800 pixels tall on a phone — so the questions, which
+          are the reason anybody opened it, sat in the first fifth of a page
+          that then scrolled for another four screens of prose. "Hard to
+          navigate long pages like this" was the report, and it was right.
+
+          `<details>` rather than a toggle with state: it opens without
+          JavaScript, it is in the tab order and announced as expandable for
+          free, and the browser's own find-in-page opens it to show a match.
+          Nothing is hidden from a reader who wants it, and nothing is in the
+          way of a reader who does not. The claims still live on the page they
+          describe — see the note below — they are simply folded.
+        */}
+        <details className="group">
+          <summary className="flex cursor-pointer list-none items-baseline justify-between gap-4">
+            <h2
+              id="why"
+              className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+            >
+              {t.whyTitle}
+            </h2>
+            <span aria-hidden="true" className="font-mono text-caption text-fg-muted transition-transform group-open:rotate-90">
+              →
+            </span>
+          </summary>
+
         <p className="mb-8 mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.whyLead}</p>
 
         <ul className="flex flex-col gap-7">
@@ -218,6 +241,7 @@ export default async function PracticePage({
         >
           {t.whyMore} →
         </Link>
+        </details>
       </section>
 
       {/* Where the answers are explained, for somebody who arrived here first.
