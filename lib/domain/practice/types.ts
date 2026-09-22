@@ -289,6 +289,41 @@ export type GapTextItem = {
   source: ItemSource;
 };
 
+/**
+ * A real sentence with one word taken out, and four real words offered.
+ *
+ * THE KIND THE MATERIAL WAS ASKING FOR. Measured before it existed: the pack's
+ * twenty-six function words produced SIX questions between them, because they
+ * carry no article and no paradigm, so the only thing that could touch them
+ * was a matching grid. They are the words the vocabulary page argues buy the
+ * most comprehension, and they were the least practised thing in the product.
+ *
+ * WHY IT IS OBJECTIVE, WHICH IS THE WHOLE DESIGN. Several of the options will
+ * make a grammatical sentence — «Ich mag hüt au ufstah» is perfectly good
+ * Zurich German. What makes exactly ONE of them correct is the bridge sentence
+ * printed underneath: the question is not "which word fits" but "which word
+ * makes this mean THAT". A learner can check the answer against the German
+ * themselves, which is the property that lets this be marked at all.
+ *
+ * THE DISTRACTORS ARE CHOSEN, NOT SAMPLED. Every one is a real word of the
+ * variety — nothing is invented — and each is filtered so its own gloss does
+ * NOT appear in the bridge sentence. Without that rule the generator will
+ * eventually offer `nüme` («nicht mehr») against a German line containing
+ * "nicht mehr", and mark a defensible answer wrong. See `pick.ts`.
+ */
+export type PickItem = {
+  id: string;
+  kind: "pick";
+  marking: "objective";
+  /** The sentence, with the word already cut out of it. */
+  prompt: string;
+  /** The German. This is what makes exactly one option right. */
+  bridge: string;
+  options: readonly string[];
+  answer: number;
+  source: ItemSource;
+};
+
 export type PracticeItem =
   | PairItem
   | RecallItem
@@ -296,7 +331,20 @@ export type PracticeItem =
   | ArticleItem
   | FormItem
   | MatchItem
-  | GapTextItem;
+  | GapTextItem
+  | PickItem;
+
+/**
+ * How many words a `pick` offers, and how many sentences one word may claim.
+ *
+ * FOUR options: three is a coin toss with a spare and five is a reading
+ * exercise. TWO sentences per word, because `nöd` occurs in dozens of pack
+ * lines and without a cap it would own the whole exercise pool — the same
+ * balance problem the session's round-robin exists to prevent, one level
+ * further up.
+ */
+export const PICK_OPTIONS = 4;
+export const PICK_PER_WORD = 2;
 
 /**
  * How many lines of a scene make a passage, and how many gaps go in it.

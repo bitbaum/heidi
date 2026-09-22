@@ -23,13 +23,14 @@ import { GapTextView } from "./gaptext";
  * keypress answered a matching grid correctly. A missing key here renders
  * nothing and turns a test red instead.
  *
- * Several kinds share a view on purpose. `pair`, `article` and `form` differ
+ * Several kinds share a view on purpose. `pair`, `pick`, `article` and `form` differ
  * in what the question SAYS and agree on what answering looks like; `cloze`
  * and `recall` are both reveal-then-self-mark. One view per kind would be
  * files that can only ever be edited together.
  */
 export const VIEWS: Record<PracticeItem["kind"], ExerciseView> = {
   pair: ChoiceView,
+  pick: ChoiceView,
   article: ChoiceView,
   form: ChoiceView,
   cloze: RevealView,

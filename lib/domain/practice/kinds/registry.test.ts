@@ -4,7 +4,7 @@ import { KINDS, KIND_BY_ID, PACK_KINDS, generateAll } from "./registry.ts";
 import { ZURICH_GERMAN } from "../../../variety/packs/gsw-zh.ts";
 import { CARE } from "../../../situations/packs/gsw-zh-care.ts";
 import { check } from "../../../variety/check.ts";
-import { PASSAGE_GAPS } from "../types.ts";
+import { PASSAGE_GAPS, PICK_OPTIONS, PICK_PER_WORD } from "../types.ts";
 
 const MATERIAL = { pack: ZURICH_GERMAN, situations: [CARE], saved: [] };
 
@@ -69,6 +69,97 @@ describe("the exercise registry", () => {
         const result = check(text.replaceAll("____", " "), ZURICH_GERMAN, "foreign");
         assert.ok(result.ok, `${item.id}: "${text}" — ${result.findings.map((f) => f.form).join(", ")}`);
       }
+    }
+  });
+});
+
+describe("the missing-word pick", () => {
+  const picks = KIND_BY_ID.get("pick")!.generate(MATERIAL);
+
+  test("reaches the words that nothing else could ask about", () => {
+    /**
+     * THE MEASUREMENT THIS KIND WAS BUILT FROM, pinned so it cannot quietly
+     * regress. The twenty-six function words produced six questions between
+     * them before this existed — they carry no article and no paradigm, so
+     * only the matching grid could see them, and a grid asks four at a time.
+     */
+    const words = new Set(
+      picks.flatMap((item) => (item.source.kind === "word" ? [item.source.word] : [])),
+    );
+    assert.ok(words.size >= 10, `only ${words.size} function words are askable this way`);
+  });
+
+  test("the answer is one of the options, and it is the word that was cut", () => {
+    for (const item of picks) {
+      if (item.kind !== "pick") continue;
+      assert.ok(item.prompt.includes("____"), `${item.id} has no gap in it`);
+      assert.equal(item.options.length, PICK_OPTIONS);
+      const answer = item.options[item.answer];
+      assert.ok(answer, `${item.id} points at no option`);
+      assert.equal(
+        item.source.kind === "word" ? item.source.word : "",
+        answer,
+        `${item.id} says it came from a word it does not ask for`,
+      );
+    }
+  });
+
+  test("no option appears twice", () => {
+    // A duplicated option is two correct answers, one of which is marked wrong.
+    for (const item of picks) {
+      if (item.kind !== "pick") continue;
+      const lowered = item.options.map((o) => o.toLowerCase());
+      assert.deepEqual([...new Set(lowered)], lowered, `${item.id} offers the same word twice`);
+    }
+  });
+
+  test("the answer's meaning is visible in the German, and no distractor's is", () => {
+    /**
+     * THE RULE THAT MAKES THIS MARKABLE AT ALL, and the one worth a test
+     * rather than a comment.
+     *
+     * Several options will make a grammatical sentence — that is what function
+     * words are like. What makes exactly one correct is the German printed
+     * underneath, so two things have to hold: the answer's gloss must be
+     * present in it (or the learner has nothing to decide on), and no
+     * distractor's gloss may be (or a defensible answer is marked wrong).
+     *
+     * `nüme` glosses "nicht mehr". Offered against a German line containing
+     * "nicht mehr", it is correct and would be scored as a miss — which is the
+     * single thing an objective item may never do.
+     */
+    const glossOf = new Map(
+      (ZURICH_GERMAN.vocabulary ?? []).map((entry) => [entry.target.trim(), entry.bridge.trim().toLowerCase()]),
+    );
+
+    for (const item of picks) {
+      if (item.kind !== "pick") continue;
+      const bridge = item.bridge.toLowerCase();
+
+      for (const [index, option] of item.options.entries()) {
+        const gloss = glossOf.get(option);
+        if (!gloss) continue;
+        if (index === item.answer) {
+          assert.ok(bridge.includes(gloss), `${item.id}: the answer «${option}» (${gloss}) is not in "${item.bridge}"`);
+        } else {
+          assert.ok(
+            !bridge.includes(gloss),
+            `${item.id}: the distractor «${option}» means "${gloss}", which IS in "${item.bridge}" — it is defensible and would be marked wrong`,
+          );
+        }
+      }
+    }
+  });
+
+  test("no word floods the pool", () => {
+    // `nöd` occurs in dozens of pack lines; uncapped it would own the exercise.
+    const perWord = new Map<string, number>();
+    for (const item of picks) {
+      if (item.source.kind !== "word") continue;
+      perWord.set(item.source.word, (perWord.get(item.source.word) ?? 0) + 1);
+    }
+    for (const [word, count] of perWord) {
+      assert.ok(count <= PICK_PER_WORD, `${word} claims ${count} questions`);
     }
   });
 });

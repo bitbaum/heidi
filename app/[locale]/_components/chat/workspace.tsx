@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LEARNER_ID, type ChatMessage } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/locales";
+import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { useByok } from "../use-byok";
 import { readDraft, useDraft } from "../use-draft";
@@ -233,7 +233,22 @@ export function ChatWorkspace({
   }, [draft, locale, router]);
 
   const started = messages.length > 0;
-  const offerAdoption = signedIn && draft.ready && Boolean(draft.draft?.messages.length);
+  /**
+   * What the learner actually wrote before signing in — the FIRST turn of
+   * theirs, which is what makes the offer recognisable.
+   *
+   * REPORTED AS "odd", and it was. The prompt said "you wrote something before
+   * you signed in" and then named nothing: no line from it, no date. A draft
+   * survives in the browser indefinitely, so the thing being offered could be
+   * from ten minutes ago or from a fortnight ago, and there was no way to tell
+   * which — or whether it was a real question or one stray keystroke.
+   *
+   * It also fired on a draft containing no turn of the learner's at all. An
+   * assistant message alone is not "a conversation you wrote", and offering to
+   * keep one is the product describing something that did not happen.
+   */
+  const written = draft.draft?.messages.find((message) => message.authorId === "me" && message.body.trim());
+  const offerAdoption = signedIn && draft.ready && Boolean(written);
 
   return (
     // `data-chrome="chat"` is the hook globals.css keys on to drop the footer,
@@ -315,7 +330,16 @@ export function ChatWorkspace({
           </button>
         </div>
 
-        {offerAdoption && <AdoptPrompt t={f} onKeep={adopt} onDiscard={draft.forget} />}
+        {offerAdoption && (
+          <AdoptPrompt
+            t={f}
+            wrote={written?.body ?? ""}
+            when={draft.draft?.updatedAt ?? ""}
+            locale={locale}
+            onKeep={adopt}
+            onDiscard={draft.forget}
+          />
+        )}
 
         {/* min-h-0 is load-bearing: a flex child defaults to min-height:auto
             and refuses to shrink below its content, so without it the PAGE
@@ -413,19 +437,45 @@ export function ChatWorkspace({
  */
 function AdoptPrompt({
   t,
+  wrote,
+  when,
+  locale,
   onKeep,
   onDiscard,
 }: {
   t: Dictionary["chat"]["full"];
+  /** The learner's own first line, so the offer names what it is about. */
+  wrote: string;
+  /** When the draft was last written, ISO. Empty for one stored before the field. */
+  when: string;
+  locale: Locale;
   onKeep: () => void;
   onDiscard: () => void;
 }) {
+  /**
+   * The date in the reader's own locale — and nothing at all when the stored
+   * draft predates the field or holds something unparseable. Rendering
+   * "Invalid Date" at somebody is the usual way this goes wrong.
+   */
+  const day = (() => {
+    if (!when) return "";
+    const at = new Date(when);
+    return Number.isNaN(at.getTime()) ? "" : at.toLocaleDateString(LOCALE_TAGS[locale]);
+  })();
+
   return (
     <div className="border-b border-border-subtle bg-surface-raised px-4 py-3">
       <div className="mx-auto flex w-full max-w-3xl flex-wrap items-center justify-between gap-x-6 gap-y-2">
-        <div>
+        <div className="min-w-0">
           <p className="text-sm font-medium text-fg-primary">{t.adoptTitle}</p>
           <p className="max-w-measure text-sm leading-relaxed text-fg-secondary">{t.adoptBody}</p>
+          {/* The line itself. Clamped to two lines rather than the whole
+              thread: enough to recognise, never enough to take over the top of
+              the screen. */}
+          <p className="mt-2 line-clamp-2 max-w-measure wrap-anywhere text-sm italic leading-snug text-fg-muted">
+            «{wrote.trim()}»
+            {day && <span className="not-italic"> · {day}</span>}
+          </p>
         </div>
         <div className="flex shrink-0 gap-3">
           <button

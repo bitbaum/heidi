@@ -4,6 +4,7 @@ import { PAIR } from "./pair.ts";
 import { ARTICLE, FORM, MATCH } from "./vocabulary.ts";
 import { CLOZE } from "./cloze.ts";
 import { GAPTEXT } from "./gaptext.ts";
+import { PICK } from "./pick.ts";
 import { RECALL } from "./recall.ts";
 
 /**
@@ -21,7 +22,7 @@ import { RECALL } from "./recall.ts";
  * shown them it can judge anything, and the two markings feel different enough
  * that leading with the provable one sets the right expectation.
  */
-export const KINDS: readonly ExerciseKind[] = [PAIR, ARTICLE, FORM, MATCH, GAPTEXT, CLOZE, RECALL];
+export const KINDS: readonly ExerciseKind[] = [PAIR, PICK, ARTICLE, FORM, MATCH, GAPTEXT, CLOZE, RECALL];
 
 /** By id, for the places that hold an item and need its rules. */
 export const KIND_BY_ID = new Map(KINDS.map((kind) => [kind.id, kind]));
