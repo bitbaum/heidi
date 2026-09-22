@@ -173,7 +173,7 @@ export default async function GroupPage({
 
       <Section>
         <Link
-          href={href(locale, "portal")}
+          href={href(locale, "")}
           className="inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
         >
           {t.back}

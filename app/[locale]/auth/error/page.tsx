@@ -30,7 +30,7 @@ export default async function AuthErrorPage({ params }: { params: Promise<{ loca
         <p className="mt-4 max-w-measure text-lg leading-relaxed text-fg-secondary">{dict.auth.errorBody}</p>
         <div className="mt-8 flex flex-wrap gap-4">
           <Link
-            href={href(locale, "portal")}
+            href={href(locale, "")}
             className="inline-flex min-h-11 items-center rounded-control bg-accent px-6 font-medium text-on-accent hover:opacity-90"
           >
             {dict.auth.tryAgain}

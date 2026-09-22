@@ -79,7 +79,7 @@ export default async function VocabularyPage({ params }: { params: Promise<{ loc
 
         {/* What the reader is carrying, and the way back into reviewing it. */}
         <div className="mt-6">
-          <KeptCount t={t} portalHref={href(locale, "portal")} />
+          <KeptCount t={t} portalHref={href(locale, "")} />
         </div>
       </header>
 
