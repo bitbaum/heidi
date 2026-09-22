@@ -14,6 +14,9 @@ import type { Locale } from "./locales.ts";
  */
 export type RouteKey =
   | "home"
+  | "roadmap"
+  | "changelog"
+  | "paper"
   | "chat"
   | "speaking"
   | "practice"
@@ -123,6 +126,23 @@ export const ROUTES: readonly Route[] = [
   // sentence the dialect page states in a paragraph. Indexed and high: "warum
   // spricht die Schweiz Dialekt" is a real search with a lot of bad answers.
   { key: "essays", segment: "essays", group: "about", indexed: true, priority: 0.75 },
+  /**
+   * The public record: the argument in one document, what is coming, and what
+   * changed.
+   *
+   * IN `about` RATHER THAN A GROUP OF THEIR OWN. All three answer the same
+   * question the method and technology pages answer — "should I believe this"
+   * — and a fifth menu heading holding three pages would be a menu that
+   * reflects our filing cabinet rather than anybody's question.
+   *
+   * INDEXED, unlike `/investors`. These are the pages a journalist, a
+   * researcher, a school or a procurement officer looks for by name, and a
+   * project whose whole argument is "check us" cannot hide the pages that
+   * make checking possible.
+   */
+  { key: "paper", segment: "paper", group: "about", indexed: true, priority: 0.8 },
+  { key: "roadmap", segment: "roadmap", group: "about", indexed: true, priority: 0.7 },
+  { key: "changelog", segment: "changelog", group: "about", indexed: true, priority: 0.65 },
   { key: "method", segment: "method", group: "about", indexed: true, priority: 0.8 },
   // Beside the method, not inside it. `/method` argues how Heidi teaches; this
   // reports what a computer can currently do with this language at all — a

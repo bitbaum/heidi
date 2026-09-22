@@ -17,6 +17,9 @@ export const it: Dictionary = {
     grammar: "Grammatica",
     dialect: "Dialetti",
     essays: "Blog",
+    paper: "White paper",
+    roadmap: "Tabella di marcia",
+    changelog: "Registro delle modifiche",
     vocabulary: "Lessico",
     situations: "Situazioni",
     method: "Metodo",
@@ -392,6 +395,14 @@ export const it: Dictionary = {
       "La dettatura non scrive il dialetto. Scrive ciò che lei vuole dire, nella lingua che già possiede — esattamente ciò che la ricerca sa fare.",
       "Heidi legge ad alta voce, ma non pretende mai di parlare il dialetto. Un sintetizzatore a cui si chiede lo zurighese restituisce al massimo tedesco standard svizzero: la voce dice quindi che cosa è, e tace piuttosto che darle una voce inglese che legge il Züritüütsch.",
       "Il controllo del dialetto funziona senza modello. È un elenco fisso di regole, non un modello linguistico — per questo non può mettersi a inventare.",
+    ],
+    engineTitle: "Quale modello le risponde",
+    engineLead:
+      "Letto dalla catena che prende davvero la richiesta, non da una frase scritta una volta. Per questo qui non può comparire un modello ritirato da mesi.",
+    engineNotes: [
+      "L\u2019ordine non è una classifica. La catena è ordinata per scarsità: chi ha meno capacità viene usato per ultimo. Il primo è quello che oggi ha spazio, non il migliore.",
+      "Nessuno di questi modelli è l\u2019autorità sullo zurighese. Lo è il pack. Ogni riga generata passa un controllo a regole prima di essere mostrata — e quel controllo non è un modello.",
+      "Senza chiave o senza quota la rotta risponde 503 e lo dice. Non finge di avere una risposta.",
     ],
     directionLabel: "Direzione",
     directions: {
@@ -1300,6 +1311,24 @@ export const it: Dictionary = {
     progressNote: "Contato, non valutato. Questo numero non cala mai — due settimane di pausa non costano nulla.",
     privacy: "L’audio non lascia mai il vostro dispositivo. Restano solo le misure e il vostro testo — in questo browser, non da noi.",
     privacyTranscribed: "In questa lingua la registrazione va una volta a un servizio che la trasforma in testo, e lì non viene conservata. Da noi restano solo le misure e il testo — in questo browser.",
+  },
+
+  paper: {
+    checkLabel: "Verifichi lei stesso",
+    sourcesTitle: "Fonti",
+  },
+
+  changelog: {
+    title: "Registro delle modifiche",
+    lead: "Che cosa è cambiato, con la data — e nelle parole di chi lo usa.",
+    note: "Non è un log di Git. Il repository è pubblico e chi vuole ogni commit li trova lì. Qui c\u2019è quello che una persona avrebbe notato — errori compresi, perché un registro senza righe imbarazzanti dimostra che la promessa «pubblichiamo anche ciò che non ha funzionato» è decorativa.",
+    tags: {
+      feature: "Nuovo",
+      improvement: "Migliorato",
+      fix: "Corretto",
+      platform: "Base",
+      breaking: "Rottura",
+    },
   },
 
   organisations: {

@@ -30,23 +30,47 @@ export type Metric = {
 };
 
 /**
- * Counts read from the repository on 2026-09-17, not estimated.
+ * WHEN THESE WERE COUNTED — and it belongs on the page, not in this comment.
  *
- * Deliberately unimpressive where the truth is unimpressive: one contributor,
- * no revenue, no users. A data room whose first section quietly omits those is
- * the one an investor stops believing at the second meeting.
+ * It used to live only here. So a reader saw "65 merged pull requests" with
+ * nothing saying when, and five days later the true figure was 92. An undated
+ * number on a page whose entire argument is "every claim has a URL" is the
+ * worst kind of wrong: quietly stale, in a document asking to be trusted
+ * specifically about numbers.
+ *
+ * Dated, a stale figure is merely old. Undated, it is false.
+ */
+export const METRICS_READ_ON = "22 September 2026";
+
+/**
+ * Counts read from the repository, not estimated.
+ *
+ * Deliberately unimpressive where the truth is unimpressive: no revenue, no
+ * users, no outside capital. A data room whose first section quietly omits
+ * those is the one an investor stops believing at the second meeting.
  */
 export const METRICS: readonly Metric[] = [
   { label: "Live at", value: "heidi.orangecat.ch", verify: "Open it." },
   { label: "First commit", value: "10 September 2026", verify: "git log" },
-  { label: "Merged pull requests", value: "65", verify: "github.com/bitbaum/heidi/pulls" },
-  { label: "Automated tests", value: "400+ across 45 files", verify: "pnpm verify" },
+  { label: "Merged pull requests", value: "92", verify: "github.com/bitbaum/heidi/pulls" },
+  { label: "Automated tests", value: "814 across 91 files", verify: "pnpm verify" },
   { label: "Interface languages", value: "7", verify: "The language switcher." },
   { label: "Dialect areas mapped", value: "11", verify: "/dialect" },
+  { label: "Practice questions generated", value: "553", verify: "/practice" },
   { label: "Paying customers", value: "none", verify: "Stated plainly." },
   { label: "Revenue", value: "none", verify: "Stated plainly." },
   { label: "Outside capital raised", value: "none", verify: "Stated plainly." },
 ];
+
+/**
+ * The advertised test-file count, as a number the build can check.
+ *
+ * Parsing it back out of the string above would be a regex over prose. Said
+ * once here and rendered into that string, it is the same fact in the place
+ * a test can reach — see `investors.test.ts`, which fails when the claim
+ * starts OVERSTATING what is in the repository.
+ */
+export const ADVERTISED_TEST_FILES = 91;
 
 export type Section = {
   id: string;
@@ -124,6 +148,10 @@ export const SECTIONS: readonly Section[] = [
       "The second and third variety packs, chosen where the need is integration rather than tourism.",
       "Only then: compute. A GPU is the cheapest item on this list and the last one that becomes the constraint.",
     ],
+    // The public roadmap is the same ordering, argued in public and with the
+    // standing refusals beside it. A private list that differs from the public
+    // one is the thing an investor is right to check for.
+    links: [{ label: "The same order, in public — and what will never be built", href: "/de/roadmap" }],
   },
   {
     id: "verify",
@@ -132,6 +160,10 @@ export const SECTIONS: readonly Section[] = [
       "Open the site and paste a real Swiss German message into it. Read the source. Run the test suite. Every number on this page has a command or a URL beside it.",
       "If something here turns out to be overstated, that is a defect and we would like to hear about it — the project keeps a written register of claims it must not make, for exactly this reason.",
     ],
-    links: [{ label: "Source", href: "https://github.com/bitbaum/heidi" }],
+    links: [
+      { label: "Source", href: "https://github.com/bitbaum/heidi" },
+      { label: "How it is built, and how to check it", href: "/de/paper" },
+      { label: "What changed, including what was broken", href: "/de/changelog" },
+    ],
   },
 ];

@@ -17,6 +17,9 @@ export const fr: Dictionary = {
     grammar: "Grammaire",
     dialect: "Dialectes",
     essays: "Blog",
+    paper: "Livre blanc",
+    roadmap: "Feuille de route",
+    changelog: "Journal des changements",
     vocabulary: "Vocabulaire",
     situations: "Situations",
     method: "Méthode",
@@ -392,6 +395,14 @@ export const fr: Dictionary = {
       "La dictée n'écrit pas le dialecte. Elle écrit ce que vous voulez dire, dans la langue que vous avez déjà — précisément ce que la recherche sait faire.",
       "Heidi lit à voix haute, mais ne prétend jamais parler le dialecte. Un synthétiseur à qui l'on demande du zurichois rend au mieux de l'allemand standard suisse : la voix dit donc ce qu'elle est, et se tait plutôt que de vous livrer une voix anglaise lisant du Züritüütsch.",
       "Le contrôle dialectal fonctionne sans modèle. C'est une liste de règles fixe, pas un modèle de langue — c'est pourquoi il ne peut rien inventer.",
+    ],
+    engineTitle: "Quel modèle vous répond",
+    engineLead:
+      "Lu depuis la chaîne qui prend réellement la requête, et non depuis une phrase écrite une fois pour toutes. C\u2019est pourquoi aucun modèle retiré depuis des mois ne peut figurer ici.",
+    engineNotes: [
+      "L\u2019ordre n\u2019est pas un classement. La chaîne est ordonnée par rareté : celui qui a le moins de capacité est sollicité en dernier. Le premier est celui qui a de la place, pas le meilleur.",
+      "Aucun de ces modèles ne fait autorité sur le zurichois. C\u2019est le pack qui l\u2019est. Chaque ligne produite passe un contrôle à base de règles avant d\u2019être montrée — et ce contrôle n\u2019est pas un modèle.",
+      "Sans clé ou sans quota, la route répond 503 et le dit. Elle ne fait pas semblant d\u2019avoir une réponse.",
     ],
     directionLabel: "Sens",
     directions: {
@@ -1300,6 +1311,24 @@ export const fr: Dictionary = {
     progressNote: "Compté, pas noté. Ce nombre ne baisse jamais — quinze jours d'absence ne coûtent rien.",
     privacy: "Le son ne quitte jamais votre appareil. Seules les mesures et votre propre texte sont conservés — dans ce navigateur, pas chez nous.",
     privacyTranscribed: "Dans cette langue, l’enregistrement part une fois vers un service qui le transforme en texte, et n’y est pas conservé. Chez nous il ne reste que les mesures et le texte — dans ce navigateur.",
+  },
+
+  paper: {
+    checkLabel: "Vérifiez vous-même",
+    sourcesTitle: "Sources",
+  },
+
+  changelog: {
+    title: "Journal des changements",
+    lead: "Ce qui a changé, daté — et dit par quelqu\u2019un qui s\u2019en sert.",
+    note: "Pas un journal Git. Le dépôt est public et qui veut chaque commit les trouvera là. Ici figure ce qu\u2019une personne aurait remarqué — erreurs comprises, car un journal sans lignes gênantes prouve que la promesse « nous publions aussi ce qui n\u2019a pas marché » est décorative.",
+    tags: {
+      feature: "Nouveau",
+      improvement: "Amélioré",
+      fix: "Corrigé",
+      platform: "Socle",
+      breaking: "Rupture",
+    },
   },
 
   organisations: {

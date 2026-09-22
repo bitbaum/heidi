@@ -17,6 +17,9 @@ export const en: Dictionary = {
     grammar: "Grammar",
     dialect: "Dialects",
     essays: "Blog",
+    paper: "White paper",
+    roadmap: "Roadmap",
+    changelog: "Changelog",
     vocabulary: "Vocabulary",
     situations: "Situations",
     method: "Method",
@@ -392,6 +395,14 @@ export const en: Dictionary = {
       "Dictation does not write dialect down. It writes what you want to say, in the language you already have — which is exactly what the research can do.",
       "Heidi reads aloud, but never claims to be speaking dialect. A synthesiser asked for Zurich German returns Swiss Standard German at best — so the voice says which it is, and stays silent rather than hand you an English voice reading Züritüütsch.",
       "The dialect check runs without a model. It is a fixed list of rules, not a language model, which is why it cannot start inventing things.",
+    ],
+    engineTitle: "Which model answers you",
+    engineLead:
+      "Read from the chain that actually takes the request, not from a sentence somebody wrote down once. Which is why nothing here can be a model that was retired months ago.",
+    engineNotes: [
+      "The order is not a ranking. The chain is ordered by scarcity: whoever has the least capacity is drained last. The first entry is the one with room today, not the best one.",
+      "None of these models is the authority on Zurich German. The pack is. Every generated line passes a rule-based check before anybody sees it — and that check is not itself a model.",
+      "With no key or no quota the route answers 503 and says so. It does not pretend to have an answer.",
     ],
     directionLabel: "Direction",
     directions: {
@@ -1295,6 +1306,24 @@ export const en: Dictionary = {
     progressNote: "Counted, not graded. This number never falls — a fortnight away costs nothing.",
     privacy: "The sound never leaves your device. What is kept is the measurements and your own text — in this browser, not with us.",
     privacyTranscribed: "In this language the recording goes once to a service that turns it into text, and is not kept there. What stays with us is the measurements and the text — in this browser.",
+  },
+
+  paper: {
+    checkLabel: "Check this yourself",
+    sourcesTitle: "Sources",
+  },
+
+  changelog: {
+    title: "Changelog",
+    lead: "What changed, dated — and in the words of somebody using it.",
+    note: "Not a git log. The repository is public and anybody who wants every commit can read them there. This is what a person would have noticed — mistakes included, because a changelog with no embarrassing rows in it is proof that «we publish the parts that did not work» is decorative.",
+    tags: {
+      feature: "New",
+      improvement: "Better",
+      fix: "Fixed",
+      platform: "Platform",
+      breaking: "Breaking",
+    },
   },
 
   organisations: {

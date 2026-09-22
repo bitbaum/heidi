@@ -268,6 +268,22 @@ test("route segments are the same in every language", () => {
       // caption. Under `why`, where a reader goes to ask why any of this is
       // like this.
       "essays",
+      /**
+       * The public record, added together because they are one decision.
+       *
+       * `paper` is the argument for why the SOFTWARE is shaped like this —
+       * the gate, the variety as data, the overclaim register — which is the
+       * one question `/method`, `/technology` and `/about` between them do
+       * not answer. `roadmap` carries the standing refusals next to the
+       * plans, because a roadmap listing only what we want to build is a wish
+       * list. `changelog` is the record, including the rows that are
+       * embarrassing, since `/about` promises we publish those.
+       *
+       * Segments stay English like every other one.
+       */
+      "paper",
+      "roadmap",
+      "changelog",
       "method",
       "technology",
       "contribute",

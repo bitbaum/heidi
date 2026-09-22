@@ -36,6 +36,9 @@ export const de = {
     grammar: "Grammatik",
     dialect: "Mundarten",
     essays: "Blog",
+    paper: "Whitepaper",
+    roadmap: "Fahrplan",
+    changelog: "Änderungen",
     vocabulary: "Wortschatz",
     situations: "Situationen",
     method: "Methode",
@@ -426,6 +429,14 @@ export const de = {
       "Das Diktieren schreibt nicht Mundart auf. Es schreibt, was Sie sagen wollen, in der Sprache, die Sie schon können — genau das, was die Forschung kann.",
       "Heidi liest vor, behauptet aber nie, Mundart zu sprechen. Ein Synthesizer, den man um Zürichdeutsch bittet, liefert bestenfalls Schweizer Hochdeutsch — also sagt die Stimme, was sie ist, und schweigt lieber, als Ihnen eine englische Stimme zu geben, die Züritüütsch vorliest.",
       "Die Dialektprüfung läuft ohne Modell. Sie ist eine feste Regelliste, kein Sprachmodell — deshalb kann sie nicht anfangen, sich Dinge auszudenken.",
+    ],
+    engineTitle: "Welches Modell Ihnen antwortet",
+    engineLead:
+      "Gelesen aus der Kette, die die Anfrage tatsächlich nimmt — nicht aus einem Satz, den jemand einmal aufgeschrieben hat. Darum kann hier kein Modell stehen, das es längst nicht mehr gibt.",
+    engineNotes: [
+      "Die Reihenfolge ist keine Rangliste. Die Kette ist nach Knappheit geordnet: Wer am wenigsten Kapazität hat, wird zuletzt belastet. Der erste Eintrag ist der mit Platz, nicht der beste.",
+      "Keines dieser Modelle ist die Instanz für Zürichdeutsch. Das ist das Pack. Jede erzeugte Zeile läuft durch eine regelbasierte Prüfung, bevor sie jemand sieht — und diese Prüfung ist selbst kein Modell.",
+      "Ohne Schlüssel oder ohne Kontingent antwortet die Route mit 503 und sagt das. Sie tut nicht so, als hätte sie eine Antwort.",
     ],
     directionLabel: "Richtung",
     directions: {
@@ -1447,6 +1458,34 @@ export const de = {
     progressNote: "Gezählt, nicht bewertet. Diese Zahl fällt nie — eine Pause von zwei Wochen kostet nichts.",
     privacy: "Der Ton verlässt Ihr Gerät nie. Gespeichert werden nur die Messwerte und Ihr eigener Text — in diesem Browser, nicht bei uns.",
     privacyTranscribed: "In dieser Sprache geht die Aufnahme einmal an einen Dienst, der sie in Text verwandelt, und wird dort nicht gespeichert. Bei uns bleiben nur die Messwerte und der Text — in diesem Browser.",
+  },
+
+  /**
+   * Das Whitepaper und die Änderungsliste.
+   *
+   * Nur das Gerüst steht hier in sieben Sprachen — die Argumentation selbst
+   * liegt in `lib/config/paper.ts` und `lib/config/changelog.ts` auf Deutsch
+   * und Englisch. Dieselbe Entscheidung wie bei den Branchen und beim
+   * Investorenraum, aus demselben Grund: sieben maschinengeprüfte
+   * Übersetzungen eines Textes, den hier niemand gegenlesen kann, wären sechs
+   * Haftungsrisiken.
+   */
+  paper: {
+    checkLabel: "Selbst nachprüfen",
+    sourcesTitle: "Quellen",
+  },
+
+  changelog: {
+    title: "Änderungen",
+    lead: "Was sich geändert hat, mit Datum — und in den Worten von jemandem, der es benutzt.",
+    note: "Kein Git-Protokoll. Das Repository ist öffentlich, wer jeden Commit will, findet ihn dort. Hier steht, was jemand gemerkt hätte — Fehler eingeschlossen, denn eine Änderungsliste ohne peinliche Zeilen ist der Beweis, dass das Versprechen «wir zeigen auch, was nicht ging» geschmückt ist.",
+    tags: {
+      feature: "Neu",
+      improvement: "Besser",
+      fix: "Behoben",
+      platform: "Unterbau",
+      breaking: "Bruch",
+    },
   },
 
   organisations: {
