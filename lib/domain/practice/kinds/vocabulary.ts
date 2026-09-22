@@ -82,6 +82,7 @@ export function formItems(pack: VarietyPack): FormItem[] {
         word: entry.target,
         bridge: entry.bridge,
         label: form.label,
+        subject: pack.subjects?.[form.label],
         options,
         answer: index,
         source: { kind: "word", word: entry.target, group: entry.group },
@@ -155,6 +156,8 @@ export function matchItems(pack: VarietyPack): MatchItem[] {
 
 export const ARTICLE: ExerciseKind = {
   id: "article",
+  answering: "tap",
+  decisions: "one",
   marking: "objective",
   fromPack: true,
   generate: (material: Material) => articleItems(material.pack),
@@ -162,6 +165,8 @@ export const ARTICLE: ExerciseKind = {
 
 export const FORM: ExerciseKind = {
   id: "form",
+  answering: "tap",
+  decisions: "one",
   marking: "objective",
   fromPack: true,
   generate: (material: Material) => formItems(material.pack),
@@ -169,6 +174,8 @@ export const FORM: ExerciseKind = {
 
 export const MATCH: ExerciseKind = {
   id: "match",
+  answering: "tap",
+  decisions: "several",
   marking: "objective",
   fromPack: true,
   generate: (material: Material) => matchItems(material.pack),

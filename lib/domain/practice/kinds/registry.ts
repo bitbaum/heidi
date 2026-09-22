@@ -6,6 +6,8 @@ import { CLOZE } from "./cloze.ts";
 import { GAPTEXT } from "./gaptext.ts";
 import { PICK } from "./pick.ts";
 import { RECALL } from "./recall.ts";
+import { TRANSLATE } from "./translate.ts";
+import { CARD } from "./card.ts";
 
 /**
  * Every exercise kind there is. The single source of truth.
@@ -22,7 +24,18 @@ import { RECALL } from "./recall.ts";
  * shown them it can judge anything, and the two markings feel different enough
  * that leading with the provable one sets the right expectation.
  */
-export const KINDS: readonly ExerciseKind[] = [PAIR, PICK, ARTICLE, FORM, MATCH, GAPTEXT, CLOZE, RECALL];
+export const KINDS: readonly ExerciseKind[] = [
+  PAIR,
+  PICK,
+  ARTICLE,
+  FORM,
+  MATCH,
+  GAPTEXT,
+  CLOZE,
+  CARD,
+  TRANSLATE,
+  RECALL,
+];
 
 /** By id, for the places that hold an item and need its rules. */
 export const KIND_BY_ID = new Map(KINDS.map((kind) => [kind.id, kind]));

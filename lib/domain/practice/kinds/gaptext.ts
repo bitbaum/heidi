@@ -91,6 +91,8 @@ export function gapTextItems(packs: readonly SituationPack[]): GapTextItem[] {
 
 export const GAPTEXT: ExerciseKind = {
   id: "gaptext",
+  answering: "tap",
+  decisions: "several",
   marking: "objective",
   fromPack: true,
   generate: (material: Material) => gapTextItems(material.situations),

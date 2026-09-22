@@ -6,6 +6,8 @@ import { ChoiceView } from "./choice";
 import { RevealView } from "./reveal";
 import { MatchView } from "./match";
 import { GapTextView } from "./gaptext";
+import { CardView } from "./card";
+import { TranslateView } from "./translate";
 
 /**
  * Which component renders which kind — the rendering half of the registry.
@@ -37,4 +39,16 @@ export const VIEWS: Record<PracticeItem["kind"], ExerciseView> = {
   recall: RevealView,
   match: MatchView,
   gaptext: GapTextView,
+  /**
+   * These two get their OWN views rather than joining the reveal, and the
+   * reason is the thing that made typing annoying in the first place.
+   *
+   * A card is a surface you turn over at speed; a translation is a field you
+   * write a sentence into. Sharing `RevealView` would have meant one component
+   * holding a text box that is mandatory for one kind, absent for another, and
+   * optional for the two it already had — which is exactly the shape that put
+   * a keyboard in front of somebody who had sat down to tap.
+   */
+  card: CardView,
+  translate: TranslateView,
 };

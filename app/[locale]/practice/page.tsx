@@ -5,12 +5,15 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { PACK_ITEMS } from "@/lib/domain/practice/published";
 import { includesSaved, itemsInScope, parseScope, type Scope } from "@/lib/domain/practice/scope";
+import { itemsFor, parseFlow, parseMode } from "@/lib/domain/practice/mode";
 import { fill } from "@/lib/i18n/fill";
 import type { Dictionary } from "@/lib/i18n/dictionaries/de";
 import { SOURCES, shortCitation } from "@/lib/research/sources";
 import { Shell } from "../_components/page-shell";
 import { PracticeSession } from "../_components/practice-session";
 import { FocusPanel } from "../_components/focus-panel";
+import { PracticeChooser } from "../_components/practice-chooser";
+import { TestSession } from "../_components/test-session";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -83,8 +86,21 @@ export default async function PracticePage({
    * items and the URL both are; the session component is handed a pool and
    * does not need to know what a scope is.
    */
-  const scope = parseScope(await searchParams);
-  const items = itemsInScope(PACK_ITEMS, scope);
+  const query = await searchParams;
+  const scope = parseScope(query);
+
+  /**
+   * AND WHAT KIND OF SITTING IT IS, read from the same URL.
+   *
+   * Two axes, independent of the scope and of each other: what the hands do
+   * (`mode`) and when the learner finds out (`flow`). Both narrow the pool
+   * here, on the server, for the same reason the scope does — the items and
+   * the URL are both in this function, and the session component is handed a
+   * pool rather than a set of rules about one.
+   */
+  const mode = parseMode(query);
+  const flow = parseFlow(query);
+  const items = itemsFor(itemsInScope(PACK_ITEMS, scope), mode, flow);
   const named = scopeName(dict, scope);
 
   /**
@@ -121,20 +137,29 @@ export default async function PracticePage({
           </p>
         )}
 
+        {/* What kind of sitting this is. Above the questions rather than
+            behind a settings link, because it is the first decision and it
+            changes every question that follows. */}
+        <PracticeChooser mode={mode} flow={flow} scope={scope} t={t} locale={locale} />
+
         {/* Only on the unscoped page: inside a scoped sitting the learner has
             already said what they want to work on, and offering them three
             other things is the product arguing with them. */}
-        {scope.kind === "all" && (
+        {scope.kind === "all" && flow === "practice" && (
           <FocusPanel t={t} grammarT={dict.grammar} situationsT={dict.situations} locale={locale} />
         )}
 
         {empty ? (
           <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.scopeEmpty}</p>
+        ) : flow === "test" ? (
+          <TestSession items={items} t={t} grammarT={dict.grammar} locale={locale} />
         ) : (
           <PracticeSession
             packItems={items}
             t={t}
+            grammarT={dict.grammar}
             locale={locale}
+            mode={mode}
             includeSaved={includesSaved(scope)}
           />
         )}

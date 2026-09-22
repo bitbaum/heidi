@@ -679,6 +679,28 @@ export type VarietyPack = {
    */
   vocabulary?: readonly VocabularyEntry[];
   /**
+   * The subject pronoun this variety puts in front of each person's verb form.
+   *
+   * WHY THIS IS DATA AND NOT A LABEL. A conjugation drill used to print the
+   * person in the READER's language — «мы ___», «we ___», «wir ___» — and ask
+   * which Zurich form belongs to it. That is the product translating the thing
+   * it is teaching. A learner who answers it correctly has still never seen
+   * `mir chömed`, which is the only string any of this was for, and a Russian
+   * reader was being shown a Russian pronoun on a page whose entire claim is
+   * that you learn the variety by meeting it.
+   *
+   * So the prompt is built from HERE, in the taught variety, and the reader's
+   * pronoun moves underneath it as a gloss — the same shape every other
+   * exercise already uses: the dialect leads, the bridge supports.
+   *
+   * PARTIAL ON PURPOSE. `plural` and `past` are grammatical categories rather
+   * than persons and have no subject to print; they keep the dictionary label,
+   * because "past tense" is a fact about the reader's understanding and not a
+   * word of the variety. A pack that has not written these prints labels the
+   * old way and loses nothing but the improvement.
+   */
+  subjects?: Partial<Record<FormLabel, string>>;
+  /**
    * Who vouches for the vocabulary. Ids from `lib/research/sources.ts`.
    *
    * Separate from a dialect area's sources because it is a different KIND of

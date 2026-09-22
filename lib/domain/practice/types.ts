@@ -200,6 +200,16 @@ export type FormItem = {
   bridge: string;
   /** Which person is wanted — a closed key the dictionary renders. */
   label: string;
+  /**
+   * The subject pronoun of the taught variety, when the label names a person.
+   *
+   * Carried ON THE ITEM rather than looked up in the view, because the view
+   * has no business holding a table of a language's pronouns — that is pack
+   * data, and a second copy of it in the browser is a copy that drifts. Absent
+   * for `plural` and `past`, which are categories with no pronoun; the view
+   * falls back to the reader-language label for those, which is correct.
+   */
+  subject?: string;
   /** The verb's own forms, in pack order. */
   options: readonly string[];
   answer: number;
@@ -324,6 +334,68 @@ export type PickItem = {
   source: ItemSource;
 };
 
+/**
+ * Say the whole sentence in Zurich German, in writing.
+ *
+ * THE ONE KIND THAT ASKS FOR PRODUCTION, and it is deliberately alone in its
+ * mode. Typing was previously an optional field bolted onto two other kinds,
+ * which meant a text box turned up every third question whatever the learner
+ * had sat down to do. It is now a thing you choose.
+ *
+ * SELF-MARKED, AND THAT IS NOT A CLIMBDOWN. §6: the variety has no settled
+ * orthography, so an automatic comparison would eventually mark a defensible
+ * spelling wrong, at somebody who cannot tell that it did. What the learner
+ * sees is what they wrote and what the pack says, one above the other, and
+ * they decide. The retrieval — the part that actually teaches — already
+ * happened before either string was on the screen.
+ */
+export type TranslateItem = {
+  id: string;
+  kind: "translate";
+  marking: "self";
+  /** The bridge sentence. This is the question. */
+  prompt: string;
+  /** What the pack says, revealed after the attempt. Never auto-compared. */
+  answer: string;
+  source: ItemSource;
+};
+
+/**
+ * A word on one side, what it means on the other.
+ *
+ * WHY A CARD, WHEN `recall` ALREADY REVEALS THINGS. Because `recall` asks
+ * about the learner's OWN kept words, of which a new account has none — so the
+ * single most ordinary way anybody has ever learned vocabulary was, in this
+ * product, available only to people who had already used it for a week. The
+ * pack has eighty-three words with glosses, articles and example sentences
+ * sitting behind a page you read rather than answer.
+ *
+ * TWO DIRECTIONS, AND THE ORDER IS §1's. `recognise` shows the dialect and
+ * asks what it means — the direction a message actually arrives in, and the
+ * one this product exists for. `produce` shows the meaning and asks for the
+ * word. Both are generated; the session draws recognition first because that
+ * is the order the method argues, and a learner who only ever wants the easy
+ * direction can pick the mode and keep going.
+ *
+ * THE BACK CARRIES THE SENTENCE, when the entry has one. A word met only ever
+ * as a gloss is learned as a gloss; the example is what makes it a word.
+ */
+export type CardItem = {
+  id: string;
+  kind: "card";
+  marking: "self";
+  /** What is on the front — dialect or bridge, depending on the direction. */
+  prompt: string;
+  /** What is on the back. */
+  answer: string;
+  direction: "recognise" | "produce";
+  /** The article, for a noun that has one. Part of the word, so part of it. */
+  article?: string;
+  /** One sentence the word lives in, both sides. Shown on the back. */
+  example?: { target: string; bridge: string };
+  source: ItemSource;
+};
+
 export type PracticeItem =
   | PairItem
   | RecallItem
@@ -332,7 +404,9 @@ export type PracticeItem =
   | FormItem
   | MatchItem
   | GapTextItem
-  | PickItem;
+  | PickItem
+  | TranslateItem
+  | CardItem;
 
 /**
  * How many words a `pick` offers, and how many sentences one word may claim.

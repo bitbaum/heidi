@@ -27,6 +27,32 @@ export type Material = {
 };
 
 /**
+ * The three ways an answer can be given. See `ExerciseKind.answering`.
+ *
+ * A closed union rather than a string, because `mode.ts` turns each member
+ * into a button the learner can press and a value that appears in a URL.
+ */
+export type Answering = "tap" | "write" | "card";
+
+/**
+ * How many decisions one item asks for.
+ *
+ * `one` — a single choice settles it. `several` — a grid of four pairs, a
+ * passage with three gaps: the item is finished in pieces and marked on the
+ * balance of them.
+ *
+ * It exists because a test run needs both properties and they are different
+ * ones. A test asks only what can be marked outright (`marking`) AND only what
+ * can be answered in one move (`decisions`), because a run of twenty is meant
+ * to move quickly and a matching grid is thirty seconds of dragging attention
+ * around a board. Naming the field after the test — `testable` — would have
+ * tied a description of the KIND to the one feature that reads it today, and
+ * the next feature that wants "quick items" would have added a second flag
+ * meaning the same thing.
+ */
+export type Decisions = "one" | "several";
+
+/**
  * One kind of question, as a module.
  *
  * WHY A REGISTRY RATHER THAN A SWITCH. Adding `match` touched five places: the
@@ -50,6 +76,26 @@ export type Material = {
 export type ExerciseKind = {
   /** Matches `PracticeItem["kind"]`, and is the key on both registries. */
   id: PracticeItem["kind"];
+  /**
+   * What the learner does with their hands to answer this kind.
+   *
+   * WHY THE KIND DECLARES IT. A practice mode is "no typing" or "typing only" or
+   * "cards", and the obvious way to build that is a list of kind ids per mode in
+   * the module that defines modes. That list is a second classification of every
+   * kind, kept in a different file from the kind, and it goes stale the first
+   * time somebody adds a kind without reading it — the exact failure the
+   * registry exists to end. So the kind says it once, here, and `mode.ts`
+   * derives every mode from the registry.
+   *
+   * `tap`   — choose from options already on the screen. One hand, no keyboard,
+   *           and every one of these is objectively markable.
+   * `write` — produce the answer and type it. Self-marked, always: §6.
+   * `card`  — turn it over and say whether you had it. Self-marked, and the
+   *           fastest of the three, because nothing has to be read but the word.
+   */
+  answering: Answering;
+  /** One choice, or a board finished in pieces. See `Decisions`. */
+  decisions: Decisions;
   /**
    * `objective` — the item has a right answer this product can prove, because
    *   a rule or a field in the pack defines it. No model is asked.

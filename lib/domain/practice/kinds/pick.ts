@@ -139,6 +139,8 @@ export function pickItems(pack: VarietyPack, situations: readonly SituationPack[
 
 export const PICK: ExerciseKind = {
   id: "pick",
+  answering: "tap",
+  decisions: "one",
   marking: "objective",
   fromPack: true,
   generate: (material: Material) => pickItems(material.pack, material.situations),
