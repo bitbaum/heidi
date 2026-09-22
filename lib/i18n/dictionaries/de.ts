@@ -910,11 +910,15 @@ export const de = {
       recall: "Was heisst das?",
       match: "Was gehört zusammen?",
       gaptext: "Welche Wörter fehlen?",
+      pick: "Welches Wort passt hier?",
     },
     matchHint: "Tippen Sie ein Wort an, dann seine Bedeutung.",
     gapHint:
       "Tippen Sie ein Wort an — es rutscht in die nächste Lücke. Auf eine gefüllte Lücke tippen nimmt es zurück.",
     check: "Prüfen",
+    typeLabel: "Selbst schreiben — freiwillig",
+    typePlaceholder: "Tippen Sie Ihre Antwort …",
+    youWrote: "Sie haben geschrieben",
     /**
      * KEINE ZAHL, und das ist die ganze Regel hier. Keine Prozente, keine
      * Trefferquote, kein Level. Die Diagnose zeigt auf den STOFF, nie auf die

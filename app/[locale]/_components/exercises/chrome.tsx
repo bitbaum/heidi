@@ -173,6 +173,7 @@ export function answerOf(item: PracticeItem): string {
     case "pair":
     case "article":
     case "form":
+    case "pick":
       return item.options[item.answer] ?? "";
     /**
      * A grid's answer is four answers, so it prints as the pairs themselves.

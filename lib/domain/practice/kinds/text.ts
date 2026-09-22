@@ -81,9 +81,19 @@ export function blankable(target: string, bridge: string): string | undefined {
  * unified plural is exactly the topic whose point is that one form serves
  * three persons, and «Mir ____, ihr ____, si ____» against «Wir haben, ihr
  * habt, sie haben» is that point in a single line.
+ *
+ * CASE-INSENSITIVE, and that was a bug before it was a decision. `pick` finds
+ * its word with a case-insensitive search and then asked this to remove it —
+ * so `mir` was located in «Mir händ …», reported as present, and left standing
+ * while the item claimed to have a gap in it. A test caught it; nothing a
+ * reader could see would have.
+ *
+ * Folding case is also right on its own terms. A word at the start of a
+ * sentence is the same word, and an exercise that blanks it everywhere EXCEPT
+ * where it happens to be capitalised is showing its own answer.
  */
 export function blank(sentence: string, word: string): string {
-  return sentence.replace(new RegExp(`(?<![\\p{L}])${escape(word)}(?![\\p{L}])`, "gu"), "____");
+  return sentence.replace(new RegExp(`(?<![\\p{L}])${escape(word)}(?![\\p{L}])`, "giu"), "____");
 }
 
 export function escape(value: string): string {
