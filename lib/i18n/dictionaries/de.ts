@@ -629,6 +629,7 @@ export const de = {
 
   auth: {
     sections: {
+      focus: "Woran Sie hängen",
       review: "Wiederholen",
       recent: "Gespräche",
       patterns: "Muster",

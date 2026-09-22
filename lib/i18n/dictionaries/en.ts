@@ -575,6 +575,7 @@ export const en: Dictionary = {
 
   auth: {
     sections: {
+      focus: "What catches you out",
       review: "Review",
       recent: "Conversations",
       patterns: "Patterns",

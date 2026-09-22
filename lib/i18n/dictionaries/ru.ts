@@ -584,6 +584,7 @@ export const ru: Dictionary = {
 
   auth: {
     sections: {
+      focus: "Где спотыкаетесь",
       review: "Повторение",
       recent: "Беседы",
       patterns: "Закономерности",

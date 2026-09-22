@@ -260,6 +260,7 @@ export const gsw: Dictionary = {
 
   auth: {
     sections: {
+      focus: "Wo Sie hanged",
       review: "Widerhole",
       recent: "Gspröch",
       patterns: "Muschter",

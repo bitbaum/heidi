@@ -592,6 +592,7 @@ export const rm: Dictionary = {
 
   auth: {
     sections: {
+      focus: "Nua che vus restais tatgads",
       review: "Repeter",
       recent: "Conversaziuns",
       patterns: "Structuras",
