@@ -8,14 +8,18 @@ name: Deploy
 # which is what makes handover a transfer rather than a migration.
 on:
   workflow_dispatch: {}
-  push:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
     branches: [main]
 
 jobs:
   deploy:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event != 'pull_request')
     uses: bitbaum/loki/.github/workflows/selfhost-deploy.yml@main
     with:
       app: heidi
+      git-ref: ${{ github.event.workflow_run.head_sha }}
     secrets:
       HETZNER_SSH_PRIVATE_KEY: ${{ secrets.HETZNER_SSH_PRIVATE_KEY }}
 
@@ -29,4 +33,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - run: bash scripts/smoke.sh
