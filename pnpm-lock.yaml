@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@bitbaum/ai-kit':
-        specifier: ^1.10.0
-        version: 1.10.0(react@19.2.4)
+        specifier: ^1.11.0
+        version: 1.11.0(react@19.2.4)
       bip-kit:
-        specifier: ^0.3.0
-        version: 0.3.0(react@19.2.4)
+        specifier: ^0.3.1
+        version: 0.3.1(react@19.2.4)
       drizzle-orm:
         specifier: ^0.45.2
         version: 0.45.2(@types/pg@8.23.1)(pg@8.23.0)
@@ -160,8 +160,8 @@ packages:
     resolution: {integrity: sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==}
     engines: {node: '>=6.9.0'}
 
-  '@bitbaum/ai-kit@1.10.0':
-    resolution: {integrity: sha512-XlqyyLEYDmXqIwDjJ+WMM/MhnK5TRnIpcHgTybVfXTmfHzOEg3FBgzPXOR7CbHi0ppCHmF4qTRd8L+uwyG0TpQ==}
+  '@bitbaum/ai-kit@1.11.0':
+    resolution: {integrity: sha512-WNprP0kydOfxyFz4itnkbc1Khu2R7CP+z4809usXKFukc+xEiooKT1qKnf0RWu0ti4CIFikz3BluoNlF1Di83w==}
     engines: {node: '>=20'}
     peerDependencies:
       react: '>=18'
@@ -1355,8 +1355,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  bip-kit@0.3.0:
-    resolution: {integrity: sha512-oQvznlDGEEHqQ6Hmw7vm2Eg9NSSidYVWXgaE3nAapYk5Uh8/yQTsvvdhQMCQ3Ny2bseLiFNDp4xyw3vcAYKE3w==}
+  bip-kit@0.3.1:
+    resolution: {integrity: sha512-OnkaJiDCRz0UeMifgI8NHnHoaBWyvpYOgdDIfOcxMiIWDWliVyHU+jg5aYX6zccIH15G5uze1vaGJV1XdRDDJg==}
     engines: {node: '>=20'}
     peerDependencies:
       katex: '>=0.16'
@@ -2890,7 +2890,7 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@bitbaum/ai-kit@1.10.0(react@19.2.4)':
+  '@bitbaum/ai-kit@1.11.0(react@19.2.4)':
     dependencies:
       ai-forms: 0.1.2(react@19.2.4)
     optionalDependencies:
@@ -3767,7 +3767,7 @@ snapshots:
 
   baseline-browser-mapping@2.11.21: {}
 
-  bip-kit@0.3.0(react@19.2.4):
+  bip-kit@0.3.1(react@19.2.4):
     dependencies:
       react: 19.2.4
 
