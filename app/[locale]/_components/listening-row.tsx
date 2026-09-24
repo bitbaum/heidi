@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/lib/i18n";
 import type { ListeningSource } from "@/lib/listening/sources";
+import { DISPLAY } from "@/lib/variety/display";
 
 type T = Dictionary["listening"];
 
@@ -71,7 +72,11 @@ export function ListeningRow({ source, t, areaNames }: { source: ListeningSource
         </span>
         {/* Beside the variety and before the mechanics: "which dialect" is the
             second question a reader has, and for a film it is often the first. */}
-        {area && <span className="font-mono text-caption uppercase tracking-caps text-dialect">{area}</span>}
+        {area && (
+          <span lang={DISPLAY.tag} className="font-mono text-caption uppercase tracking-caps text-dialect">
+            {area}
+          </span>
+        )}
         {chips.map((chip) => (
           <span key={chip} className="text-sm leading-snug text-fg-muted">
             {chip}

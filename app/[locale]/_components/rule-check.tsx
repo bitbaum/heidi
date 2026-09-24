@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { CheckResult } from "@/lib/variety/check";
 import type { Dictionary } from "@/lib/i18n";
 import { HighlightedText } from "./highlighted-text";
+import { DISPLAY } from "@/lib/variety/display";
 
 /**
  * Run the rule list yourself.
@@ -107,7 +108,7 @@ export function RuleCheck({ t }: { t: Dictionary["check"] }) {
               <ul className="mt-5 flex flex-col gap-2">
                 {result.findings.map((f, i) => (
                   <li key={`${f.index}-${i}`} className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-sm">
-                    <span className="font-medium text-dialect">{f.form}</span>
+                    <span lang={DISPLAY.tag} className="font-medium text-dialect">{f.form}</span>
                     {f.origin && (
                       <span className="text-caption uppercase tracking-caps text-fg-muted">{f.origin}</span>
                     )}

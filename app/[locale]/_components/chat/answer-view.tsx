@@ -194,6 +194,11 @@ export function AnswerView({
                     German with Zurich phonology is exactly the confusion this
                     whole field exists to remove. */}
                 <p
+                  /* The comment above is the whole rule, and this element did
+                     not implement it: it set the COLOUR conditionally and the
+                     language never, so a dialect line was coloured as dialect
+                     and still read aloud as the page's language. */
+                  {...(s.variety === "bridge" ? { lang: "de" } : { lang: DISPLAY.tag })}
                   className={`mt-0.5 text-base leading-relaxed ${
                     s.variety === "bridge" ? "text-fg-primary" : "text-dialect"
                   }`}
