@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
-import { DEFAULT_LOCALE, LOCALE_TAGS, isLocale, type Locale } from "@/lib/i18n/locales";
+import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { CHANGELOG } from "@/lib/config/changelog";
 import { sectorLocale } from "@/lib/config/sectors";

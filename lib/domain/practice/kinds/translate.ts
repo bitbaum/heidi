@@ -82,6 +82,7 @@ export function translateItems(pack: VarietyPack, packs: readonly SituationPack[
             source: {
               kind: "situation",
               scene: scene.id,
+              line: index,
               ...(phrase.grammar ? { topic: phrase.grammar } : {}),
             },
           },
@@ -148,6 +149,7 @@ export function translateItems(pack: VarietyPack, packs: readonly SituationPack[
             source: {
               kind: "situation",
               scene: scene.id,
+              line: index,
               ...(phrase.grammar ? { topic: phrase.grammar } : {}),
             },
           },

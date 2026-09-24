@@ -84,6 +84,7 @@ export function situationItems(packs: readonly SituationPack[]): ClozeItem[] {
           source: {
             kind: "situation",
             scene: scene.id,
+            line: index,
             ...(phrase.grammar ? { topic: phrase.grammar } : {}),
           },
         });

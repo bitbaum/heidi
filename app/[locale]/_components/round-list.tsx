@@ -76,7 +76,7 @@ export function RoundList({
         setBusy(null);
       }
     },
-    [busy, router, t.failed],
+    [busy, router, t],
   );
 
   return (
@@ -270,7 +270,7 @@ function OpenRound({
         setBusy(false);
       }
     },
-    [busy, title, when, format, cadence, durationMinutes, meetingUrl, topicId, setBusy, onDone, t.failed],
+    [busy, title, when, format, cadence, durationMinutes, meetingUrl, topicId, setBusy, onDone, t],
   );
 
   return (

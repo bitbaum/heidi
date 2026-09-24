@@ -45,9 +45,31 @@ export type LearnerModel = {
   scenes: Record<string, Trace>;
   groups: Record<string, Trace>;
   words: Record<string, Trace>;
+  /**
+   * ONE LINE OF ONE SCENE, keyed `sceneId:index` — the axis that lets a
+   * situation be something a learner can finish.
+   *
+   * `scenes` above answers "how have you done in the handover", which is a
+   * real question and the wrong one for "can you follow a handover". Twelve
+   * right answers about one sentence and one right answer about each of
+   * twelve sentences are the same number on that axis and are not the same
+   * learner. Only the second has met the situation.
+   *
+   * So coverage is counted here, one line at a time, and `situation-strength.ts`
+   * turns it into the claim. It is the fifth axis and the first that is not
+   * about a NAMED thing in the packs — `areasOf`'s comment says a fifth axis
+   * would need a fifth kind of provenance, and this one has it: `ItemSource`
+   * now carries the line.
+   */
+  lines: Record<string, Trace>;
 };
 
-export const EMPTY_MODEL: LearnerModel = { topics: {}, scenes: {}, groups: {}, words: {} };
+/** The key a line's evidence is stored under. One spelling, used everywhere. */
+export function lineKey(scene: string, line: number): string {
+  return `${scene}:${line}`;
+}
+
+export const EMPTY_MODEL: LearnerModel = { topics: {}, scenes: {}, groups: {}, words: {}, lines: {} };
 
 /** Which areas an item belongs to. One item can touch two — a scene and a topic. */
 export function areasOf(item: PracticeItem): { axis: keyof LearnerModel; id: string }[] {
@@ -55,13 +77,14 @@ export function areasOf(item: PracticeItem): { axis: keyof LearnerModel; id: str
   switch (source.kind) {
     case "grammar":
       return [{ axis: "topics", id: source.topic }];
-    case "situation":
-      return source.topic
-        ? [
-            { axis: "scenes", id: source.scene },
-            { axis: "topics", id: source.topic },
-          ]
-        : [{ axis: "scenes", id: source.scene }];
+    case "situation": {
+      const areas: { axis: keyof LearnerModel; id: string }[] = [{ axis: "scenes", id: source.scene }];
+      // A `gaptext` passage spans several lines and carries no single one; it
+      // still counts toward the scene. See `ItemSource`.
+      if (source.line !== undefined) areas.push({ axis: "lines", id: lineKey(source.scene, source.line) });
+      if (source.topic) areas.push({ axis: "topics", id: source.topic });
+      return areas;
+    }
     case "word":
       return [
         { axis: "words", id: source.word },
@@ -92,6 +115,7 @@ export function observe(model: LearnerModel, item: PracticeItem, outcome: "right
     scenes: { ...model.scenes },
     groups: { ...model.groups },
     words: { ...model.words },
+    lines: { ...model.lines },
   };
 
   for (const { axis, id } of areasOf(item)) {
@@ -171,10 +195,41 @@ export function weakest(
     .map(([id, trace]) => ({ id, trace }));
 }
 
-/** Parse whatever is in storage, tolerating anything. */
-export function decodeModel(raw: unknown): LearnerModel {
-  if (!raw || typeof raw !== "object") return EMPTY_MODEL;
-  const source = raw as Partial<Record<keyof LearnerModel, unknown>>;
+/**
+ * Parse whatever is in storage, tolerating anything.
+ *
+ * IT TOOK `unknown` AND WAS HANDED A STRING, so it returned `EMPTY_MODEL`
+ * EVERY TIME and the learner model never once survived a reload.
+ *
+ * `Decode<T>` is `(raw: string) => T | null` — `createBrowserStore` passes
+ * `localStorage.getItem(key)` straight in, unparsed, which is what
+ * `decodeHistory` next door has always done correctly. This function declared
+ * `unknown`, and a function accepting `unknown` structurally satisfies one
+ * accepting `string`, so the mismatch type-checked perfectly. Then
+ * `typeof "{...}" !== "object"` was true of every value ever stored.
+ *
+ * WHAT IT COST, which is the reason this comment is long. Everything built on
+ * the model read an empty one on every page load: the focus panel, whose whole
+ * job is "what you keep getting wrong", had nothing to be wrong about; the
+ * mastered panel, which exists to say what you can do now that you could not
+ * before, could never say anything. The dashboard was reported as useless —
+ * "Heute nichts fällig. Kommen Sie morgen wieder" — and it was, structurally,
+ * because the record it reads from was thrown away between every render.
+ *
+ * NOTHING FAILED. History used a different decoder and persisted correctly, so
+ * sessions genuinely varied day to day and the one observable symptom of a
+ * dead model looked like the feature working. The parameter type is now
+ * `string`, which is what makes this un-writable a second time.
+ */
+export function decodeModel(raw: string): LearnerModel {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    return EMPTY_MODEL;
+  }
+  if (!parsed || typeof parsed !== "object") return EMPTY_MODEL;
+  const source = parsed as Partial<Record<keyof LearnerModel, unknown>>;
   const axis = (value: unknown): Record<string, Trace> => {
     if (!value || typeof value !== "object") return {};
     const out: Record<string, Trace> = {};
@@ -193,5 +248,9 @@ export function decodeModel(raw: unknown): LearnerModel {
     scenes: axis(source.scenes),
     groups: axis(source.groups),
     words: axis(source.words),
+    // Absent from anything stored before this axis existed, which `axis()`
+    // reads as `{}` — an existing learner starts with no line coverage and
+    // their scene totals untouched, rather than the store failing to decode.
+    lines: axis(source.lines),
   };
 }

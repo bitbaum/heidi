@@ -92,12 +92,50 @@ describe("the learner model", () => {
     );
   });
 
+  test("what was written comes back — the round trip the store actually does", () => {
+    /**
+     * THE TEST THAT WAS MISSING, AND THE ONE THAT WAS WRONG.
+     *
+     * The previous version of this case passed decodeModel OBJECTS. It never
+     * touched the contract the store uses: `createBrowserStore` writes
+     * `JSON.stringify(value)` and hands `localStorage.getItem(key)` — a STRING
+     * — straight to the decoder. Fed a string, the old decoder's
+     * `typeof raw !== "object"` was true of every value ever stored, so it
+     * returned EMPTY_MODEL on every read and the learner model never survived
+     * a reload. The test passed throughout, because it was asking a question
+     * nothing in the product asks.
+     *
+     * So this one goes through `JSON.stringify` exactly as the store does.
+     */
+    let model = EMPTY_MODEL;
+    model = observe(model, topicItem("wo-relative", "a"), "wrong");
+    model = observe(model, topicItem("wo-relative", "b"), "right");
+
+    const back = decodeModel(JSON.stringify(model));
+    assert.deepEqual(back.topics["wo-relative"], { asked: 2, missed: 1 }, "the model did not survive storage");
+    assert.deepEqual(back, model, "something was dropped in the round trip");
+  });
+
   test("decoding survives anything that is in storage", () => {
-    assert.deepEqual(decodeModel(null), EMPTY_MODEL);
+    assert.deepEqual(decodeModel(""), EMPTY_MODEL);
     assert.deepEqual(decodeModel("nonsense"), EMPTY_MODEL);
-    assert.deepEqual(decodeModel({ topics: { a: { asked: "x", missed: 1 } } }), EMPTY_MODEL);
-    assert.deepEqual(decodeModel({ topics: { a: { asked: -3, missed: 1 } } }), EMPTY_MODEL);
-    assert.deepEqual(decodeModel({ topics: { a: { asked: 4.7, missed: 2 } } }).topics.a, { asked: 4, missed: 2 });
+    assert.deepEqual(decodeModel("null"), EMPTY_MODEL);
+    assert.deepEqual(decodeModel("[1,2,3]"), EMPTY_MODEL);
+    assert.deepEqual(decodeModel(JSON.stringify({ topics: { a: { asked: "x", missed: 1 } } })), EMPTY_MODEL);
+    assert.deepEqual(decodeModel(JSON.stringify({ topics: { a: { asked: -3, missed: 1 } } })), EMPTY_MODEL);
+    assert.deepEqual(decodeModel(JSON.stringify({ topics: { a: { asked: 4.7, missed: 2 } } })).topics.a, {
+      asked: 4,
+      missed: 2,
+    });
+  });
+
+  test("a model stored before the `lines` axis existed still decodes", () => {
+    // An existing learner must not have their topic history thrown away by
+    // the arrival of a fifth axis.
+    const old = JSON.stringify({ topics: { a: { asked: 3, missed: 1 } }, scenes: {}, groups: {}, words: {} });
+    const back = decodeModel(old);
+    assert.deepEqual(back.topics.a, { asked: 3, missed: 1 });
+    assert.deepEqual(back.lines, {});
   });
 });
 
