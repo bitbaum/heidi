@@ -75,7 +75,7 @@ export function WordList({
           <li
             key={word.target}
             id={wordSlug(word.target)}
-            className="group grid scroll-mt-24 grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_auto] items-baseline gap-x-3 border-b border-border-subtle py-2.5"
+            className="group grid scroll-mt-anchor grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_auto] items-baseline gap-x-3 border-b border-border-subtle py-2.5"
           >
             <span
               lang={DISPLAY.tag}

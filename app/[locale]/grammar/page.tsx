@@ -79,7 +79,7 @@ export default async function GrammarPage({ params }: { params: Promise<{ locale
           const words = t.bands[band];
 
           return (
-            <section key={band} id={band} className="scroll-mt-24">
+            <section key={band} id={band} className="scroll-mt-anchor">
               <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
                 {words.title}
               </h2>

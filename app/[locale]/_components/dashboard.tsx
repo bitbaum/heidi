@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { auth, authEnabled, signIn } from "@/lib/auth";
 import { getDictionary } from "@/lib/i18n";
-import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
+import { type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { Shell } from "./page-shell";
 import { SectionNav, SectionNavLayout, type NavSection } from "./section-nav";
@@ -152,11 +152,11 @@ export async function Dashboard({ locale }: { locale: Locale }) {
             names the material and offers a session on it, and never scores the
             person.
           */}
-          <section aria-labelledby="focus" className="scroll-mt-28 lg:scroll-mt-24" id="focus">
+          <section aria-labelledby="focus" className="scroll-mt-anchor lg:scroll-mt-anchor" id="focus">
             <FocusPanel t={dict.practice} grammarT={dict.grammar} situationsT={dict.situations} locale={locale} />
           </section>
 
-          <section aria-labelledby="review" className="scroll-mt-28 lg:scroll-mt-24" id="review">
+          <section aria-labelledby="review" className="scroll-mt-anchor lg:scroll-mt-anchor" id="review">
           <h2
             id="review-heading"
             className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
@@ -173,7 +173,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
               to resume — a signed-out conversation lives in their browser and
               is already on the page they left it on. */}
           {signedIn && (
-            <section aria-labelledby="recent" id="recent" className="mt-12 scroll-mt-28 border-t border-border-subtle pt-10 lg:scroll-mt-24">
+            <section aria-labelledby="recent" id="recent" className="mt-12 scroll-mt-anchor border-t border-border-subtle pt-10 lg:scroll-mt-anchor">
               <h2
                 id="recent"
                 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
@@ -191,7 +191,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
             </section>
           )}
 
-          <div id="mastered" className="scroll-mt-28 lg:scroll-mt-24">
+          <div id="mastered" className="scroll-mt-anchor lg:scroll-mt-anchor">
             <MasteredPanel
               t={dict.review}
               grammarT={dict.grammar}
@@ -200,11 +200,11 @@ export async function Dashboard({ locale }: { locale: Locale }) {
             />
           </div>
 
-          <div id="patterns" className="scroll-mt-28 lg:scroll-mt-24">
+          <div id="patterns" className="scroll-mt-anchor lg:scroll-mt-anchor">
             <PatternsPanel t={dict.review} />
           </div>
 
-          <section aria-labelledby="words" id="words" className="mt-12 scroll-mt-28 border-t border-border-subtle pt-10 lg:scroll-mt-24">
+          <section aria-labelledby="words" id="words" className="mt-12 scroll-mt-anchor border-t border-border-subtle pt-10 lg:scroll-mt-anchor">
             <h2
               id="words"
               className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
@@ -214,13 +214,13 @@ export async function Dashboard({ locale }: { locale: Locale }) {
             <p className="mb-5 mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">
               {dict.saved.lead}
             </p>
-            <SavedWords t={dict.saved} locale={LOCALE_TAGS[locale]} />
+            <SavedWords t={dict.saved} locale={locale} />
           </section>
 
           {/* Groups sit beside the words rather than in the sidebar: they are
               the other half of what this page is FOR, and a list of rooms you
               are in is not a secondary control. */}
-          <section aria-labelledby="groups" id="groups" className="mt-12 scroll-mt-28 border-t border-border-subtle pt-10 lg:scroll-mt-24">
+          <section aria-labelledby="groups" id="groups" className="mt-12 scroll-mt-anchor border-t border-border-subtle pt-10 lg:scroll-mt-anchor">
             <h2
               id="groups"
               className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"

@@ -67,7 +67,7 @@ export function Section({
     <section
       id={id}
       aria-labelledby={headingId}
-      className={`scroll-mt-20 py-10 sm:py-14 ${
+      className={`scroll-mt-anchor py-10 sm:py-14 ${
         border === "top" ? "border-t border-border-subtle" : "border-b border-border-subtle"
       }`}
     >

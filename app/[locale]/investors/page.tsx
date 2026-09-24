@@ -134,7 +134,7 @@ export default async function InvestorsPage({ params }: { params: Promise<{ loca
       </section>
 
       {SECTIONS.map((section) => (
-        <section key={section.id} id={section.id} className="scroll-mt-20 border-t border-border-subtle py-10 sm:py-12">
+        <section key={section.id} id={section.id} className="scroll-mt-anchor border-t border-border-subtle py-10 sm:py-12">
           <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
             {section.title}
           </h2>

@@ -4,8 +4,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LEARNER_ID, type ChatMessage } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
-import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
+import { type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
+import { formatDate } from "@/lib/i18n/dates";
 import { useByok } from "../use-byok";
 import { readDraft, useDraft } from "../use-draft";
 import { ModelSheet } from "../model-sheet";
@@ -457,11 +458,7 @@ function AdoptPrompt({
    * draft predates the field or holds something unparseable. Rendering
    * "Invalid Date" at somebody is the usual way this goes wrong.
    */
-  const day = (() => {
-    if (!when) return "";
-    const at = new Date(when);
-    return Number.isNaN(at.getTime()) ? "" : at.toLocaleDateString(LOCALE_TAGS[locale]);
-  })();
+  const day = when ? formatDate(when, locale, "numeric") : "";
 
   return (
     <div className="border-b border-border-subtle bg-surface-raised px-4 py-3">

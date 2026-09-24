@@ -56,7 +56,7 @@ export default async function SituationsPage({ params }: { params: Promise<{ loc
           if (!words) return null;
 
           return (
-            <section key={domain.id} id={domain.id} className="scroll-mt-24">
+            <section key={domain.id} id={domain.id} className="scroll-mt-anchor">
               <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
                 {words.title}
               </h2>

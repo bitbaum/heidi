@@ -1,5 +1,6 @@
 import { SITUATIONS } from "./active.ts";
 import { topicsOf, type Direction, type DomainId } from "./pack.ts";
+import { saysWord } from "../text/words.ts";
 
 /**
  * Everything a page may see of the situation packs.
@@ -114,20 +115,6 @@ export function domainOf(scene: DisplayScene): DisplayDomain | undefined {
  */
 export function scenesUsingTopic(topic: string): DisplayScene[] {
   return SCENES.filter((scene) => scene.topics.includes(topic));
-}
-
-/**
- * Whole-word, Unicode-aware, and deliberately not a substring test.
- *
- * `si` is a word of this variety and it is inside `isch`, `Sie` and half the
- * vocabulary; a substring match would tell a reader that `si` appears in nine
- * scenes, which is true of the letters and false of the word. Same pattern the
- * variety gate uses, and for the same reason: `\p{L}` rather than `\w`,
- * because most words here carry an umlaut.
- */
-function saysWord(sentence: string, word: string): boolean {
-  const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  return new RegExp(`(?<!\\p{L})${escaped}(?!\\p{L})`, "iu").test(sentence);
 }
 
 /**

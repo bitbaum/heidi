@@ -153,7 +153,7 @@ export function VocabularyBrowser({
             if (inGroup.length === 0) return null;
 
             return (
-              <section key={group.id} id={group.id} className="scroll-mt-24">
+              <section key={group.id} id={group.id} className="scroll-mt-anchor">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
                   <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
                     {group.title}

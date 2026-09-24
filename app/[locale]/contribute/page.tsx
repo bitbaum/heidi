@@ -83,7 +83,7 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
             reading a stated decision as a leak. */}
         <ul lang={lang} className="flex flex-col gap-10">
           {ROLES.map((role, index) => (
-            <li key={role.id} id={role.id} className="min-w-0 scroll-mt-24">
+            <li key={role.id} id={role.id} className="min-w-0 scroll-mt-anchor">
               <div className="flex flex-wrap items-baseline gap-x-3">
                 <span aria-hidden="true" className="font-mono text-caption text-fg-muted">
                   {String(index + 1).padStart(2, "0")}

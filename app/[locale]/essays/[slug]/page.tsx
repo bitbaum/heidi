@@ -8,7 +8,7 @@ import { ESSAYS, essayBySlug } from "@/lib/essays/registry";
 import { EssayBody } from "../../_components/essay-body";
 import { Shell } from "../../_components/page-shell";
 import { OtherLanguage } from "../../_components/other-language";
-import { formatDate } from "../page";
+import { formatDate } from "@/lib/i18n/dates";
 import { SourceList } from "../../_components/source-list";
 
 /** Every essay in every language at build time; both lists are short. */

@@ -11,6 +11,8 @@
  * Everything here is pure and has no idea what a practice item is.
  */
 
+import { replaceWord } from "../../../text/words.ts";
+
 /**
  * Words, Unicode-aware, with punctuation dropped.
  *
@@ -93,9 +95,5 @@ export function blankable(target: string, bridge: string): string | undefined {
  * where it happens to be capitalised is showing its own answer.
  */
 export function blank(sentence: string, word: string): string {
-  return sentence.replace(new RegExp(`(?<![\\p{L}])${escape(word)}(?![\\p{L}])`, "giu"), "____");
-}
-
-export function escape(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return replaceWord(sentence, word, "____");
 }
