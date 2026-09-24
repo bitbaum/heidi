@@ -4,6 +4,8 @@ import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Dictionary } from "@/lib/i18n";
 import { INTEREST_TO_SCHEDULE, MAX_PITCH_LENGTH, MAX_TITLE_LENGTH, type Topic } from "@/lib/domain/speaking/types";
+import { DisclosureForm, FIELD, LABEL } from "./disclosure-form";
+import { apiErrorMessage } from "./api-error";
 
 type T = Dictionary["speaking"];
 
@@ -134,8 +136,7 @@ function ProposeTopic({ t, onDone }: { t: T; onDone: () => void }) {
           body: JSON.stringify({ title, pitch }),
         });
         if (!res.ok) {
-          const data = (await res.json().catch(() => ({}))) as { error?: string };
-          setError(data.error ?? t.failed);
+          setError(apiErrorMessage(res.status, t));
           return;
         }
         setTitle("");
@@ -150,25 +151,10 @@ function ProposeTopic({ t, onDone }: { t: T; onDone: () => void }) {
     [busy, title, pitch, onDone, t.failed],
   );
 
-  const field = "mt-1 w-full rounded-control border border-border-subtle bg-surface-page p-3 text-base text-fg-primary";
-  const label = "block font-mono text-caption uppercase tracking-caps text-fg-muted";
-
   return (
-    <details className="group mt-6 rounded-control border border-border-subtle bg-surface-raised p-4">
-      {/* `list-none` + the explicit `::-webkit-details-marker` reset: without
-          both, the browser draws its own triangle, hard against the first
-          letter, in whatever colour and size it likes. On the live site that
-          was a black ▼ glued to the heading — the only glyph on the page
-          drawn by the user agent rather than by us. The chevron below is ours:
-          it is `aria-hidden` because `<summary>` already announces its own
-          expanded state, and a second announcement would be a duplicate. */}
-      <summary className="flex cursor-pointer list-none items-center gap-2 font-heading text-lg leading-tight text-fg-primary [&::-webkit-details-marker]:hidden">
-        <span aria-hidden="true" className="text-fg-muted transition-transform group-open:rotate-90">
-          &rsaquo;
-        </span>{t.proposeTitle}</summary>
-      <form onSubmit={submit} className="mt-4 grid grid-cols-safe gap-4">
+    <DisclosureForm title={t.proposeTitle} onSubmit={submit}>
         <div>
-          <label className={label} htmlFor="topic-title">
+          <label className={LABEL} htmlFor="topic-title">
             {t.topicTitleLabel}
           </label>
           <input
@@ -178,11 +164,11 @@ function ProposeTopic({ t, onDone }: { t: T; onDone: () => void }) {
             placeholder={t.topicTitlePlaceholder}
             required
             maxLength={MAX_TITLE_LENGTH}
-            className={field}
+            className={FIELD}
           />
         </div>
         <div>
-          <label className={label} htmlFor="topic-pitch">
+          <label className={LABEL} htmlFor="topic-pitch">
             {t.pitchLabel}
           </label>
           <input
@@ -192,7 +178,7 @@ function ProposeTopic({ t, onDone }: { t: T; onDone: () => void }) {
             placeholder={t.pitchPlaceholder}
             required
             maxLength={MAX_PITCH_LENGTH}
-            className={field}
+            className={FIELD}
           />
         </div>
         {error && <p className="text-sm text-accent">{error}</p>}
@@ -203,7 +189,6 @@ function ProposeTopic({ t, onDone }: { t: T; onDone: () => void }) {
         >
           {busy ? t.proposing : t.propose}
         </button>
-      </form>
-    </details>
+    </DisclosureForm>
   );
 }

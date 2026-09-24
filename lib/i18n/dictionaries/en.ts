@@ -1239,6 +1239,7 @@ export const en: Dictionary = {
     title: "Speaking",
     lead: "Speak out loud, alone, now — and have what can be measured, measured. Below that: webinars and conversation circles on topics you propose.",
     signInFirst: "Sign in to propose a topic and join a round.",
+    roundFull: "This round is full.",
     notConfigured: "Speaking rounds are not set up on this deployment.",
     failed: "That did not work just now. Please try again.",
 

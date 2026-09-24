@@ -6,6 +6,8 @@ import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { DURATIONS, type Cadence, type Round, type RoundFormat } from "@/lib/domain/speaking/types";
 import { DEFAULT_TIME_ZONE } from "@/lib/domain/speaking/schedule";
+import { DisclosureForm, FIELD, LABEL } from "./disclosure-form";
+import { apiErrorMessage } from "./api-error";
 
 type T = Dictionary["speaking"];
 
@@ -63,8 +65,7 @@ export function RoundList({
           body: JSON.stringify(next === "cancel" ? { cancel: true } : {}),
         });
         if (!res.ok) {
-          const data = (await res.json().catch(() => ({}))) as { error?: string };
-          setError(data.error ?? t.failed);
+          setError(apiErrorMessage(res.status, t));
           return;
         }
         router.refresh();
@@ -254,8 +255,7 @@ function OpenRound({
           }),
         });
         if (!res.ok) {
-          const data = (await res.json().catch(() => ({}))) as { error?: string };
-          setError(data.error ?? t.failed);
+          setError(apiErrorMessage(res.status, t));
           return;
         }
         setTitle("");
@@ -272,27 +272,10 @@ function OpenRound({
     [busy, title, when, format, cadence, durationMinutes, meetingUrl, topicId, setBusy, onDone, t.failed],
   );
 
-  const field = "mt-1 w-full rounded-control border border-border-subtle bg-surface-page p-3 text-base text-fg-primary";
-  const label = "block font-mono text-caption uppercase tracking-caps text-fg-muted";
-
   return (
-    <details className="group mt-6 rounded-control border border-border-subtle bg-surface-raised p-4">
-      {/* `list-none` + the explicit `::-webkit-details-marker` reset: without
-          both, the browser draws its own triangle, hard against the first
-          letter, in whatever colour and size it likes. On the live site that
-          was a black ▼ glued to the heading — the only glyph on the page
-          drawn by the user agent rather than by us. The chevron below is ours:
-          it is `aria-hidden` because `<summary>` already announces its own
-          expanded state, and a second announcement would be a duplicate. */}
-      <summary className="flex cursor-pointer list-none items-center gap-2 font-heading text-lg leading-tight text-fg-primary [&::-webkit-details-marker]:hidden">
-        <span aria-hidden="true" className="text-fg-muted transition-transform group-open:rotate-90">
-          &rsaquo;
-        </span>{t.openTitle}</summary>
-      <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-muted">{t.openHint}</p>
-
-      <form onSubmit={submit} className="mt-4 grid grid-cols-safe gap-4">
+    <DisclosureForm title={t.openTitle} hint={t.openHint} onSubmit={submit}>
         <div>
-          <label className={label} htmlFor="round-title">
+          <label className={LABEL} htmlFor="round-title">
             {t.roundTitleLabel}
           </label>
           <input
@@ -301,16 +284,16 @@ function OpenRound({
             onChange={(e) => setTitle(e.target.value)}
             required
             maxLength={80}
-            className={field}
+            className={FIELD}
           />
         </div>
 
         {topics.length > 0 && (
           <div>
-            <label className={label} htmlFor="round-topic">
+            <label className={LABEL} htmlFor="round-topic">
               {t.boardTitle}
             </label>
-            <select id="round-topic" value={topicId} onChange={(e) => setTopicId(e.target.value)} className={field}>
+            <select id="round-topic" value={topicId} onChange={(e) => setTopicId(e.target.value)} className={FIELD}>
               <option value="">—</option>
               {topics.map((topic) => (
                 <option key={topic.id} value={topic.id}>
@@ -324,7 +307,7 @@ function OpenRound({
         {/* One column on a phone, two from `sm`. */}
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className={label} htmlFor="round-when">
+            <label className={LABEL} htmlFor="round-when">
               {t.whenLabel}
             </label>
             <input
@@ -333,18 +316,18 @@ function OpenRound({
               value={when}
               onChange={(e) => setWhen(e.target.value)}
               required
-              className={field}
+              className={FIELD}
             />
           </div>
           <div>
-            <label className={label} htmlFor="round-duration">
+            <label className={LABEL} htmlFor="round-duration">
               {t.durationLabel}
             </label>
             <select
               id="round-duration"
               value={durationMinutes}
               onChange={(e) => setDuration(Number(e.target.value))}
-              className={field}
+              className={FIELD}
             >
               {DURATIONS.map((d) => (
                 <option key={d} value={d}>
@@ -354,14 +337,14 @@ function OpenRound({
             </select>
           </div>
           <div>
-            <label className={label} htmlFor="round-format">
+            <label className={LABEL} htmlFor="round-format">
               {t.formatLabel}
             </label>
             <select
               id="round-format"
               value={format}
               onChange={(e) => setFormat(e.target.value as RoundFormat)}
-              className={field}
+              className={FIELD}
             >
               <option value="circle">{t.circle}</option>
               <option value="webinar">{t.webinar}</option>
@@ -369,14 +352,14 @@ function OpenRound({
             <p className="mt-1 text-sm text-fg-muted">{format === "circle" ? t.circleHint : t.webinarHint}</p>
           </div>
           <div>
-            <label className={label} htmlFor="round-cadence">
+            <label className={LABEL} htmlFor="round-cadence">
               {t.cadenceLabel}
             </label>
             <select
               id="round-cadence"
               value={cadence}
               onChange={(e) => setCadence(e.target.value as Cadence)}
-              className={field}
+              className={FIELD}
             >
               <option value="once">{t.once}</option>
               <option value="weekly">{t.weekly}</option>
@@ -386,7 +369,7 @@ function OpenRound({
         </div>
 
         <div>
-          <label className={label} htmlFor="round-link">
+          <label className={LABEL} htmlFor="round-link">
             {t.linkLabel}
           </label>
           <input
@@ -396,7 +379,7 @@ function OpenRound({
             value={meetingUrl}
             onChange={(e) => setMeetingUrl(e.target.value)}
             placeholder="https://"
-            className={field}
+            className={FIELD}
           />
           <p className="mt-1 max-w-measure text-sm leading-relaxed text-fg-muted">{t.linkHint}</p>
         </div>
@@ -410,7 +393,6 @@ function OpenRound({
         >
           {busy ? t.opening : t.open}
         </button>
-      </form>
-    </details>
+    </DisclosureForm>
   );
 }

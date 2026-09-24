@@ -1264,6 +1264,7 @@ export const gsw: Dictionary = {
     title: "Schwätze",
     lead: "Redet luut, elei, jetzt — und lönd mässe, was sich mässe laat. Wiiter unde: Webinare und Gsprächsrunde zu Theme, wo Sie sälber vorschlönd.",
     signInFirst: "Mälded Si sich a, zum es Thema vorschlaa und debii sii.",
+    roundFull: "Die Rundi isch scho voll.",
     notConfigured: "Schwätzrunde sind uf dere Installation na nöd iigrichtet.",
     failed: "Das hät grad nöd klappet. Bitte nomal probiere.",
 

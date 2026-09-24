@@ -1260,6 +1260,7 @@ export const rm: Dictionary = {
     title: "Discurrer",
     lead: "Discurrì ad aut vusch, sulet, uss — e laschai mesirar quai che sa laschar mesirar. Pli sut: webinars e rundas da discurs davart temas che Vus proponis.",
     signInFirst: "S’annunziai per proponer in tema ed esser dabot.",
+    roundFull: "Questa runda è plaina.",
     notConfigured: "Las rundas da discurs n’èn betg installadas sin questa installaziun.",
     failed: "Quai n’ha betg funcziunà. Empruvai anc ina giada.",
 

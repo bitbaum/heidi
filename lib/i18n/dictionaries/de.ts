@@ -1397,6 +1397,7 @@ export const de = {
     title: "Sprechen",
     lead: "Sprechen Sie laut, allein, jetzt — und lassen Sie messen, was sich messen lässt. Weiter unten: Webinare und Gesprächsrunden zu Themen, die Sie selbst vorschlagen.",
     signInFirst: "Melden Sie sich an, um Themen vorzuschlagen und mitzumachen.",
+    roundFull: "Diese Runde ist voll.",
     notConfigured: "Sprechrunden sind auf dieser Installation noch nicht eingerichtet.",
     failed: "Das hat gerade nicht geklappt. Bitte nochmals versuchen.",
 

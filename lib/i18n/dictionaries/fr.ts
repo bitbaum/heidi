@@ -1244,6 +1244,7 @@ export const fr: Dictionary = {
     title: "Parler",
     lead: "Parlez à voix haute, seul, maintenant — et laissez mesurer ce qui peut l’être. Plus bas : des webinaires et des cercles de conversation sur des sujets que vous proposez.",
     signInFirst: "Connectez-vous pour proposer un sujet et participer.",
+    roundFull: "Cette session est complète.",
     notConfigured: "Les cercles de parole ne sont pas configurés sur cette installation.",
     failed: "Cela n’a pas fonctionné. Veuillez réessayer.",
 
