@@ -26,6 +26,18 @@ export const de = {
       "Verstehen, was um Sie herum wirklich gesprochen wird. Heidi übersetzt echte Nachrichten, erklärt die Wörter, die Sie noch nicht kennen, und prüft jede Antwort auf echte Dialektformen. Wir fangen mit Zürichdeutsch an.",
   },
 
+  /**
+   * Gesagt, wenn der Text nicht in der Sprache der Leserin ist.
+   *
+   * EINE Stelle für alle Seiten, auf denen das vorkommt. Vorher stand es in
+   * drei Fassungen an drei Orten — und auf vier Seiten gar nicht.
+   */
+  language: {
+    notYet: "Diesen Text gibt es noch nicht auf Deutsch. Sie lesen ihn auf",
+    byDesign:
+      "Dieser Text steht nur auf Deutsch und Englisch: Er richtet sich an Menschen, die hier leben. Sie lesen ihn auf",
+  },
+
   nav: {
     home: "Start",
     chat: "Chat",
@@ -597,7 +609,6 @@ export const de = {
     rolesTitle: "Vier Arten mitzumachen",
     rolesLead:
       "Nach Aufwand geordnet, das Kleinste zuerst — und das Kleinste ist uns am meisten wert. Bei jeder steht, was es dafür heute im Produkt schon gibt.",
-    rolesLanguage: "Diese Beschreibungen stehen nur auf Deutsch und Englisch.",
     todayLabel: "Stand heute",
     roleCta: "Schreiben Sie uns dazu",
     roleSee: "Ansehen",

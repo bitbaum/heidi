@@ -5,6 +5,7 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { HOW_IT_STARTS, SECTORS, sectorLocale, type Sector, type SectorLocale } from "@/lib/config/sectors";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
+import { OtherLanguage } from "../_components/other-language";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -96,6 +97,13 @@ export default async function OrganisationsPage({
     <Shell>
       <PageHeader eyebrow={dict.nav.organisations} title={t.title} lead={t.lead} />
 
+      {/* The sector argument is German and English, for the reason
+          `sectors.ts` gives at length. A French reader gets told that
+          rather than left to wonder. */}
+      <div className="pt-8">
+        <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
+      </div>
+
       <Section>
         {/* First, not last. A reader who finds out on the way down that there
             are no customers has been managed; a reader told at the top is
@@ -114,7 +122,10 @@ export default async function OrganisationsPage({
         */}
         <nav aria-label={t.chooseSector} className="mt-8">
           <h2 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.chooseSector}</h2>
-          <ul className="grid-cols-safe mt-3 flex flex-wrap gap-2">
+          {/* Sector names are German and English, like the rest of this
+              argument — declared, so a screen reader switches voice and
+              `audit:language` reads a decision rather than a leak. */}
+          <ul lang={lang} className="grid-cols-safe mt-3 flex flex-wrap gap-2">
             {SECTORS.map((sector) => {
               const current = sector.id === chosen?.id;
               return (
@@ -157,7 +168,10 @@ export default async function OrganisationsPage({
             field this page is built on. Not `offer`: what we do is only
             interesting to a reader who has already seen themselves.
           */
-          <ul className="grid-cols-safe mt-10 grid gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle sm:grid-cols-2">
+          <ul
+            lang={lang}
+            className="grid-cols-safe mt-10 grid gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle sm:grid-cols-2"
+          >
             {SECTORS.map((sector) => (
               <li key={sector.id} className="bg-surface-page p-5 sm:p-6">
                 <h2 className="font-heading text-section leading-tight tracking-display text-fg-primary">
@@ -189,7 +203,7 @@ export default async function OrganisationsPage({
           >
             {t.startTitle}
           </h2>
-          <ol className="mt-6 flex flex-col gap-6">
+          <ol lang={lang} className="mt-6 flex flex-col gap-6">
             {HOW_IT_STARTS.map((entry, index) => (
               <li key={entry.step[lang]} className="flex gap-4">
                 <span
@@ -236,7 +250,7 @@ function SectorFull({
   locale: Locale;
 }) {
   return (
-    <article className="rounded-control border border-border-subtle bg-surface-page p-5 sm:p-6">
+    <article lang={lang} className="rounded-control border border-border-subtle bg-surface-page p-5 sm:p-6">
       <h2 className="font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
         {sector.name[lang]}
       </h2>

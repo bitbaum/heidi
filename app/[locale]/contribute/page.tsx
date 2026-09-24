@@ -7,6 +7,7 @@ import { CONTACT_EMAIL } from "@/lib/config/site";
 import { LEARNER_NOTE, ROLES, roleMailto } from "@/lib/config/roles";
 import { sectorLocale } from "@/lib/config/sectors";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
+import { OtherLanguage } from "../_components/other-language";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -72,12 +73,15 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
           is broken.
         */}
         {sectorLocale(locale) !== locale && (
-          <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.rolesLanguage}</p>
+          <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
         )}
 
         <div className="mb-8" />
 
-        <ul className="flex flex-col gap-10">
+        {/* The roles are German and English; the markup says so, which is
+            what a screen reader needs and what keeps `audit:language` from
+            reading a stated decision as a leak. */}
+        <ul lang={lang} className="flex flex-col gap-10">
           {ROLES.map((role, index) => (
             <li key={role.id} id={role.id} className="min-w-0 scroll-mt-24">
               <div className="flex flex-wrap items-baseline gap-x-3">
@@ -126,7 +130,9 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
           promise of "find a partner" would be the marketplace this page
           refuses to pretend to be. */}
       <Section title={t.learnerTitle}>
-        <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{LEARNER_NOTE[lang]}</p>
+        <p lang={lang} className="max-w-measure text-base leading-relaxed text-fg-secondary">
+          {LEARNER_NOTE[lang]}
+        </p>
         <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
           <Link
             href={href(locale, "speaking")}

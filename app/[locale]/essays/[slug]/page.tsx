@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary } from "@/lib/i18n";
-import { DEFAULT_LOCALE, LOCALES, LOCALE_NAMES, LOCALE_TAGS, isLocale, type Locale } from "@/lib/i18n/locales";
+import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { ESSAYS, essayBySlug } from "@/lib/essays/registry";
 import { SOURCES, citation } from "@/lib/research/sources";
 import { EssayBody } from "../../_components/essay-body";
 import { Shell } from "../../_components/page-shell";
+import { OtherLanguage } from "../../_components/other-language";
 import { formatDate } from "../page";
 
 /** Every essay in every language at build time; both lists are short. */
@@ -76,14 +77,19 @@ export default async function EssayPage({
 
         A reader who clicked a title on their own language's page and got two
         thousand words of German with no word about it concludes the site is
-        broken. Saying which language this is, and that it is not theirs yet, is
-        both the honest line and the one that keeps them reading.
+        broken. Saying which language this is, and that it is not theirs yet,
+        is both the honest line and the one that keeps them reading.
+
+        THIS PAGE INVENTED THE PATTERN AND NOW USES THE SHARED ONE. It was
+        right first and stayed alone: four later pages shipped without any
+        notice at all and a fifth wrote a third variant. Moving this one onto
+        the common component is the half of the fix that stops it drifting
+        back apart — `untranslated` here, because an essay genuinely may be
+        translated later, where a sector argument will not be.
       */}
-      {got !== asked && (
-        <p className="mt-8 rounded-control border border-border-subtle bg-surface-raised p-4 text-base leading-relaxed text-fg-secondary">
-          {t.notTranslated} <span className="text-fg-primary">{LOCALE_NAMES[got]}</span>
-        </p>
-      )}
+      <div className="mt-8">
+        <OtherLanguage asked={asked} got={got} reason="untranslated" t={dict.language} />
+      </div>
 
       {/* `lang` on the article, because this really is the language of the
           text — and when it is a fallback it is not the language of the page

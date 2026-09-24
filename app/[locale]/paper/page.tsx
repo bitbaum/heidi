@@ -7,12 +7,14 @@ import { PAPER } from "@/lib/config/paper";
 import { sectorLocale } from "@/lib/config/sectors";
 import { SOURCES, citation } from "@/lib/research/sources";
 import { Shell } from "../_components/page-shell";
+import { OtherLanguage } from "../_components/other-language";
 import { SectionNav, SectionNavLayout } from "../_components/section-nav";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
-  const paper = PAPER[sectorLocale(locale)];
+  const lang = sectorLocale(locale);
+  const paper = PAPER[lang];
   return { title: paper.title, description: paper.lead };
 }
 
@@ -43,7 +45,8 @@ export default async function PaperPage({ params }: { params: Promise<{ locale: 
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
-  const paper = PAPER[sectorLocale(locale)];
+  const lang = sectorLocale(locale);
+  const paper = PAPER[lang];
 
   /** Cited once at the foot, in the order the sections use them. */
   const cited = [...new Set(paper.sections.flatMap((section) => section.sources ?? []))];
@@ -52,14 +55,28 @@ export default async function PaperPage({ params }: { params: Promise<{ locale: 
     <Shell>
       <header className="border-b border-border-subtle py-12 sm:py-16">
         <p className="font-mono text-caption uppercase tracking-caps text-accent">{dict.nav.paper}</p>
-        <h1 className="mt-3 max-w-[24ch] font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
+        <h1
+          lang={lang}
+          className="mt-3 max-w-[24ch] font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary"
+        >
           {paper.title}
         </h1>
-        <p className="mt-5 max-w-measure text-lead leading-relaxed text-fg-secondary">{paper.lead}</p>
+        <p lang={lang} className="mt-5 max-w-measure text-lead leading-relaxed text-fg-secondary">
+          {paper.lead}
+        </p>
         {/* What this document is and is not, before the argument rather than
             after it. A reader who finds out on page four that this is a
             working note has been managed. */}
-        <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{paper.standfirst}</p>
+        <p lang={lang} className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">
+          {paper.standfirst}
+        </p>
+
+        {/* Romansh chrome around an English argument, with nothing saying
+            why, was the reported defect. One component says it on every
+            surface with this shape. */}
+        <div className="mt-6">
+          <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
+        </div>
       </header>
 
       <SectionNavLayout
@@ -71,7 +88,12 @@ export default async function PaperPage({ params }: { params: Promise<{ locale: 
         }
       >
       {paper.sections.map((section, index) => (
-        <section key={section.id} id={section.id} className="border-b border-border-subtle py-10 sm:py-12">
+        <section
+          key={section.id}
+          id={section.id}
+          lang={lang}
+          className="border-b border-border-subtle py-10 sm:py-12"
+        >
           <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
             {String(index + 1).padStart(2, "0")}
           </p>

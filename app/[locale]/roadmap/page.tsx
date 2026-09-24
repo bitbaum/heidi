@@ -6,11 +6,13 @@ import { href } from "@/lib/i18n/routes";
 import { ROADMAP } from "@/lib/config/roadmap";
 import { sectorLocale } from "@/lib/config/sectors";
 import { Shell } from "../_components/page-shell";
+import { OtherLanguage } from "../_components/other-language";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
-  const doc = ROADMAP[sectorLocale(locale)];
+  const lang = sectorLocale(locale);
+  const doc = ROADMAP[lang];
   return { title: doc.title, description: doc.lede };
 }
 
@@ -35,20 +37,29 @@ export default async function RoadmapPage({ params }: { params: Promise<{ locale
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
-  const doc = ROADMAP[sectorLocale(locale)];
+  const lang = sectorLocale(locale);
+  const doc = ROADMAP[lang];
 
   return (
     <Shell>
       <header className="border-b border-border-subtle py-12 sm:py-16">
         <p className="font-mono text-caption uppercase tracking-caps text-accent">{doc.eyebrow}</p>
-        <h1 className="mt-3 max-w-[20ch] font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
+        <h1
+          lang={lang}
+          className="mt-3 max-w-[20ch] font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary"
+        >
           {doc.title}
         </h1>
-        <p className="mt-5 max-w-measure text-lead leading-relaxed text-fg-secondary">{doc.lede}</p>
+        <p lang={lang} className="mt-5 max-w-measure text-lead leading-relaxed text-fg-secondary">
+          {doc.lede}
+        </p>
+        <div className="mt-6">
+          <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
+        </div>
       </header>
 
       {doc.buckets.map((bucket) => (
-        <section key={bucket.title} className="border-b border-border-subtle py-10">
+        <section key={bucket.title} lang={lang} className="border-b border-border-subtle py-10">
           <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
             {bucket.title}
           </h2>

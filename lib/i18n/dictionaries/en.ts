@@ -7,6 +7,12 @@ export const en: Dictionary = {
       "Understand what is actually spoken around you. Heidi decodes real messages, explains the words you do not know yet, and checks every reply against real dialect forms. Starting with Zurich German.",
   },
 
+  language: {
+    notYet: "This text does not exist in English yet. You are reading it in",
+    byDesign:
+      "This text is in German and English only: it addresses people who live here. You are reading it in",
+  },
+
   nav: {
     home: "Start",
     chat: "Chat",
@@ -551,7 +557,6 @@ export const en: Dictionary = {
     rolesTitle: "Four ways to take part",
     rolesLead:
       "Ordered by commitment, smallest first — and the smallest is worth the most to us. Each one says what already exists in the product for it today.",
-    rolesLanguage: "These descriptions are in German and English only.",
     todayLabel: "As it stands",
     roleCta: "Write to us about this",
     roleSee: "Take a look",
