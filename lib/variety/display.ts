@@ -167,6 +167,14 @@ export type DisplayVariety = {
     article?: string;
     forms?: readonly { label: string; target: string; bridge: string }[];
     example?: { target: string; bridge: string };
+    /**
+     * The meaning a bridge reader would wrongly assume.
+     *
+     * Projects for the same reason `bridge` does: it is the BRIDGE language's
+     * own words, not English prose written for maintainers. A page renders it
+     * with `lang="de"` beside the bridge, which is what it is.
+     */
+    mistakenFor?: string;
     /** An id into `lib/research/sources.ts`, so a page can cite per word. */
     source?: string;
   }[];
@@ -283,6 +291,7 @@ export const DISPLAY: DisplayVariety = {
     bridge: w.bridge,
     group: w.group,
     ...(w.article ? { article: w.article } : {}),
+    ...(w.mistakenFor ? { mistakenFor: w.mistakenFor } : {}),
     ...(w.forms?.length ? { forms: w.forms.map((f) => ({ label: f.label, target: f.target, bridge: f.bridge })) } : {}),
     ...(w.example ? { example: { target: w.example.target, bridge: w.example.bridge } } : {}),
     ...(w.source ? { source: w.source } : {}),

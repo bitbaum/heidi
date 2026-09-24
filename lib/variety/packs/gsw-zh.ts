@@ -563,6 +563,68 @@ export const ZURICH_GERMAN: VarietyPack = {
      * and it is one of the handful of things somebody has to do in their first
      * week: ring the doctor, ring the landlord, ring the Amt.
      */
+
+    /**
+     * THE WORDS A GERMAN READER IS SURE THEY ALREADY KNOW.
+     *
+     * Every other row in this list works by looking different. These work by
+     * looking the same, which is why they are the ones that actually cost
+     * something: a reader meets `Peperoni`, recognises it, and never finds out
+     * they were wrong until the plate arrives.
+     *
+     * Split in two by whether `mistakenFor` is present. With it, the word is a
+     * TRAP — it exists in German and means something else. Without it, the
+     * word is simply absent from German, which is a safer gap: `Trottoir` is
+     * unknown rather than misunderstood, and unknown announces itself.
+     *
+     * The French layer is here because it is the part of Swiss usage that no
+     * amount of German prepares anybody for, and because it is not dialect in
+     * the narrow sense — `Billett` and `Perron` are written in newspapers and
+     * said on platforms. A learner who can follow a Zurich sentence and still
+     * does not know `Perron` has not been helped.
+     */
+    {
+      target: "Eschtrich",
+      bridge: "Dachboden",
+      group: "helvetisms",
+      mistakenFor: "Fussbodenbelag",
+      source: "idiotikon",
+    },
+    {
+      target: "Peperoni",
+      bridge: "Paprika (das Gemüse)",
+      group: "helvetisms",
+      mistakenFor: "eine scharfe Schote",
+      source: "idiotikon",
+    },
+    {
+      target: "Finke",
+      bridge: "Hausschuhe",
+      group: "helvetisms",
+      mistakenFor: "Finken, die Vögel",
+      source: "idiotikon",
+    },
+    {
+      target: "schmöcke",
+      bridge: "riechen",
+      group: "helvetisms",
+      mistakenFor: "schmecken, mit der Zunge",
+      source: "idiotikon",
+    },
+    {
+      target: "zügle",
+      bridge: "umziehen",
+      group: "helvetisms",
+      mistakenFor: "zügeln, im Zaum halten",
+      source: "idiotikon",
+    },
+    { target: "Perron", bridge: "Bahnsteig", group: "helvetisms" },
+    { target: "Glace", bridge: "Speiseeis", group: "helvetisms" },
+    { target: "Coiffeur", bridge: "Friseur", group: "helvetisms" },
+    { target: "Güsel", bridge: "Abfall", group: "helvetisms" },
+    { target: "Spital", bridge: "Krankenhaus", group: "helvetisms" },
+    { target: "Nastuech", bridge: "Taschentuch", group: "helvetisms" },
+    { target: "parkiere", bridge: "parken", group: "helvetisms" },
     { target: "aalüte", bridge: "anrufen", group: "verbs" },
     { target: "reklamiere", bridge: "sich beschweren", group: "verbs" },
     { target: "abmache", bridge: "vereinbaren", group: "verbs" },
@@ -647,7 +709,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       example: { target: "S Tram fahrt hüt nöd.", bridge: "Das Tram fährt heute nicht." },
       source: "idiotikon",
     },
-    { target: "Billett", bridge: "Fahrkarte", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Billett", bridge: "Fahrkarte", group: "helvetisms", article: "s", source: "idiotikon" },
     { target: "Chuchi", bridge: "Küche", group: "everyday", article: "d", source: "idiotikon" },
     { target: "Gäld", bridge: "Geld", group: "everyday", article: "s", source: "idiotikon" },
     { target: "Arbet", bridge: "Arbeit", group: "everyday", article: "d", source: "idiotikon" },
@@ -668,13 +730,13 @@ export const ZURICH_GERMAN: VarietyPack = {
     { target: "Zmittag", bridge: "Mittagessen", group: "everyday", article: "s", source: "idiotikon" },
     { target: "Znacht", bridge: "Abendessen", group: "everyday", article: "s", source: "idiotikon" },
     { target: "Lüüt", bridge: "Leute", group: "everyday" },
-    { target: "Velo", bridge: "Fahrrad", group: "everyday" },
+    { target: "Velo", bridge: "Fahrrad", group: "helvetisms" },
     { target: "Znüni", bridge: "Vormittagssnack", group: "everyday" },
     { target: "Zvieri", bridge: "Nachmittagssnack", group: "everyday" },
     { target: "Güetzi", bridge: "Keks", group: "everyday" },
     { target: "Rüebli", bridge: "Karotte", group: "everyday" },
-    { target: "Poulet", bridge: "Hähnchen", group: "everyday" },
-    { target: "Trottoir", bridge: "Bürgersteig", group: "everyday" },
+    { target: "Poulet", bridge: "Hähnchen", group: "helvetisms" },
+    { target: "Trottoir", bridge: "Bürgersteig", group: "helvetisms" },
 
     { target: "Grüezi", bridge: "Guten Tag", group: "greetings" },
     { target: "Hoi", bridge: "Hallo", group: "greetings" },
@@ -887,6 +949,37 @@ export const ZURICH_GERMAN: VarietyPack = {
         // hand or it means nothing.
         { target: "Chunnsch cho hälfe?", bridge: "Kommst du helfen?" },
         { target: "Si isch go luege gange.", bridge: "Sie ist schauen gegangen." },
+      ],
+    },
+    {
+      /**
+       * The small words that carry the stance.
+       *
+       * `gäll`, `halt`, `eba`, `dänk` — none of them changes who did what, and
+       * a learner who strips them all out still gets every fact in the
+       * sentence. What they lose is the SPEAKER'S POSITION: whether they are
+       * being asked to agree, told that nothing can be done, or answered with
+       * "that is exactly my point".
+       *
+       * DELIBERATELY IN `marks` RATHER THAN `blocks`, and the honest reason is
+       * that German has most of them. `halt` and `eben` are the same word
+       * doing the same work, and `gell` is alive across southern Germany — a
+       * reader from Stuttgart meets nothing new here and one from Hamburg
+       * meets a little. What is genuinely Zurich is the FREQUENCY and `dänk`,
+       * which has no German counterpart at all. Filing this under `blocks`
+       * would overclaim, and §8 is about exactly that.
+       *
+       * The pack already lets these through as scenery — `gäll` stands
+       * unexplained in the Bern rule at the top of this file. This is the
+       * topic that names them.
+       */
+      id: "modal-particles",
+      band: "marks",
+      note: "gäll, halt, eba or dänk — or somebody asking why a sentence has a small extra word in it that no dictionary explains",
+      examples: [
+        { target: "Das isch halt so.", bridge: "Das ist eben so, da kann man nichts machen." },
+        { target: "Du chunnsch au, gäll?", bridge: "Du kommst auch, oder?" },
+        { target: "Eba, gnau das han ich gmeint.", bridge: "Genau, das habe ich gemeint." },
       ],
     },
   ],

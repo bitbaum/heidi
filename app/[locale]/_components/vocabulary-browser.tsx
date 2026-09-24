@@ -9,6 +9,8 @@ export type BrowserWord = {
   target: string;
   bridge: string;
   group: string;
+  /** The meaning a German reader would wrongly assume. See `VocabularyEntry`. */
+  mistakenFor?: string;
   article?: string;
   forms?: ReadonlyArray<{ label: string; target: string; bridge: string }>;
   example?: { target: string; bridge: string };
