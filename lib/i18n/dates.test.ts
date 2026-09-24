@@ -1,6 +1,8 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import { formatDate } from "./dates.ts";
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import { join } from "node:path";
 import { LOCALES, LOCALE_TAGS } from "./locales.ts";
 
 describe("dates in the reader's language", () => {
@@ -57,5 +59,78 @@ describe("dates in the reader's language", () => {
     const short = formatDate("2026-09-24T00:00:00Z", "de", "short");
     assert.notEqual(long, short);
     assert.ok(long.length > short.length, `${long} should be longer than ${short}`);
+  });
+
+  test("a date-only string does not slip a day in a western timezone", () => {
+    /**
+     * `new Date("2026-09-22")` is midnight UTC, so anywhere behind UTC it
+     * formats as the 21st. Essays carry `published: "2026-09-20"` and
+     * changelog entries `date: "2026-09-22"` — both date-only, both shown to
+     * a reader. The changelog page had found this and anchored at noon by
+     * hand; this module shipped without the guard until that copy was folded
+     * in.
+     *
+     * Asserting on the DAY NUMBER rather than re-deriving the anchor, so the
+     * test fails if the fix is removed rather than moving with it.
+     */
+    const before = process.env.TZ;
+    try {
+      process.env.TZ = "America/New_York";
+      assert.match(formatDate("2026-09-22", "de", "long"), /22\./);
+      assert.match(formatDate("2026-09-20", "en", "short"), /20/);
+    } finally {
+      process.env.TZ = before;
+    }
+  });
+
+  test("a full timestamp is left exactly where it is", () => {
+    // It names an instant; moving it would invent a different one.
+    const out = formatDate("2026-09-22T23:30:00Z", "de", "numeric");
+    assert.ok(out.length > 0);
+  });
+
+  test("nothing builds its own formatter from a locale variable", () => {
+    /**
+     * Everything that turns a `Locale` into an `Intl` argument goes through
+     * this file, or the bare-code bug comes back one call site at a time —
+     * it already had, in `round-list.tsx`, after three others were fixed.
+     *
+     * A STRING LITERAL is allowed: `lib/domain/speaking` builds `en-CA`
+     * formatters to derive machine date keys, which is not reader-facing
+     * formatting and must not follow the reader's locale.
+     */
+    const roots = ["app", "lib"];
+    const offences: string[] = [];
+    const walk = (dir: string): string[] => {
+      const out: string[] = [];
+      for (const entry of readdirSync(dir)) {
+        if (entry === "node_modules" || entry === ".next") continue;
+        const path = join(dir, entry);
+        if (statSync(path).isDirectory()) out.push(...walk(path));
+        else if (/\.(ts|tsx)$/.test(entry)) out.push(path);
+      }
+      return out;
+    };
+
+    for (const root of roots) {
+      for (const path of walk(root)) {
+        if (path.endsWith(join("lib", "i18n", "dates.ts"))) continue;
+        if (path.endsWith(".test.ts")) continue;
+        for (const [i, line] of readFileSync(path, "utf8").split("\n").entries()) {
+          const code = line.split("//")[0];
+          const m = /new Intl\.DateTimeFormat\(\s*([^,)\s]+)/.exec(code);
+          if (!m) continue;
+          if (/^["'`]/.test(m[1])) continue; // a literal tag, deliberately fixed
+          offences.push(`${path}:${i + 1}  ${line.trim().slice(0, 80)}`);
+        }
+      }
+    }
+
+    assert.deepEqual(
+      offences,
+      [],
+      `these build their own date formatter:\n\n  ${offences.join("\n  ")}\n\n` +
+        `Use \`formatDate\` or \`intlDate\` so the Swiss tag is applied in one place.`,
+    );
   });
 });

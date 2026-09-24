@@ -47,6 +47,47 @@ const OPTIONS: Record<DateStyle, Intl.DateTimeFormatOptions> = {
 };
 
 /**
+ * A date-only string is anchored at NOON UTC, not midnight.
+ *
+ * THE BUG THIS EXISTS TO STOP, which the changelog page had already found and
+ * this module then shipped without. `new Date("2026-09-22")` is midnight UTC.
+ * Formatted in any zone behind UTC it is the 21st:
+ *
+ *     TZ=America/New_York  "2026-09-22" -> 21. September 2026
+ *     with the noon anchor              -> 22. September 2026
+ *
+ * Essays carry `published: "2026-09-20"` and changelog entries carry
+ * `date: "2026-09-22"` — both date-only, both rendered to a reader. Noon is
+ * twelve hours from either edge, so no real timezone can push it across a day
+ * boundary.
+ *
+ * A full timestamp is left exactly as given: it names an instant, and moving
+ * it would be inventing a different one.
+ */
+const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
+
+function parse(iso: string): Date | undefined {
+  const date = new Date(DATE_ONLY.test(iso) ? `${iso}T12:00:00Z` : iso);
+  return Number.isNaN(date.getTime()) ? undefined : date;
+}
+
+/**
+ * An `Intl` formatter for this reader, for callers whose options are their own.
+ *
+ * `round-list.tsx` needs a weekday, a time and a timezone name — a set no
+ * shared `style` should try to cover — and it was building its own formatter
+ * with the BARE locale, which is the mistake this module was written to end.
+ * It now takes its options here and the tag is not its problem.
+ *
+ * Everything that turns a `Locale` into an `Intl` argument goes through this
+ * file; `dates.test.ts` fails the build on a formatter built anywhere else
+ * from anything but a literal.
+ */
+export function intlDate(locale: Locale, options: Intl.DateTimeFormatOptions): Intl.DateTimeFormat {
+  return new Intl.DateTimeFormat(LOCALE_TAGS[locale], options);
+}
+
+/**
  * Format an ISO date for `locale`, or return "" if it will not parse.
  *
  * EMPTY, NOT "Invalid Date". `workspace.tsx` had already learned this and
@@ -55,10 +96,10 @@ const OPTIONS: Record<DateStyle, Intl.DateTimeFormatOptions> = {
  * wants a placeholder can test for "" and choose its own.
  */
 export function formatDate(iso: string, locale: Locale, style: DateStyle = "long"): string {
-  const date = new Date(iso);
-  if (Number.isNaN(date.getTime())) return "";
+  const date = parse(iso);
+  if (!date) return "";
   try {
-    return new Intl.DateTimeFormat(LOCALE_TAGS[locale], OPTIONS[style]).format(date);
+    return intlDate(locale, OPTIONS[style]).format(date);
   } catch {
     // An environment without the locale data. The ISO prefix is wrong for
     // nobody and unreadable to no one, which is the right failure here.
