@@ -1244,6 +1244,7 @@ export const it: Dictionary = {
     title: "Parlare",
     lead: "Parli ad alta voce, da solo, adesso — e lasci misurare ciò che si può misurare. Più sotto: webinar e cerchi di conversazione su temi che propone lei.",
     signInFirst: "Accedete per proporre un tema e partecipare.",
+    roundFull: "Questo incontro è al completo.",
     notConfigured: "I gruppi di parola non sono configurati su questa installazione.",
     failed: "Non ha funzionato. Riprovate.",
 
