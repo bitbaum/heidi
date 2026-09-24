@@ -188,7 +188,13 @@ export default async function GrammarTopicPage({
         </section>
       )}
 
-      <nav className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-border-subtle pt-6">
+      {/* Labelled, like the other fourteen navs on the site. An unnamed
+          second navigation landmark is one a screen-reader user has to enter
+          to identify. */}
+      <nav
+        aria-label={dict.nav.grammar}
+        className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-border-subtle pt-6"
+      >
         <Link
           href={href(locale, "grammar")}
           className="text-sm text-link underline underline-offset-4 hover:text-accent"

@@ -4,6 +4,7 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { NumberedList, PageHeader, Section, Shell } from "../_components/page-shell";
+import { SectionNav, SectionNavLayout } from "../_components/section-nav";
 import { RuleCheck } from "../_components/rule-check";
 import { DISPLAY } from "@/lib/variety/display";
 import { SOURCES, type SourceId } from "@/lib/research/sources";
@@ -110,24 +111,15 @@ export default async function MethodPage({ params }: { params: Promise<{ locale:
     <Shell>
       <PageHeader eyebrow={dict.nav.method} title={t.title} lead={t.lead} />
 
-      {/* The page is long because it carries the whole argument. A contents
-          list is the cheapest thing that keeps it navigable, and it is how
-          someone arriving from a citation finds the bucket they were sent to. */}
-      <nav aria-label={t.contents} className="border-b border-border-subtle py-5">
-        <h2 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.contents}</h2>
-        <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
-          {contents.map((item) => (
-            <li key={item.id}>
-              <a
-                href={`#${item.id}`}
-                className="inline-flex min-h-11 items-center text-base text-link underline decoration-border-subtle underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      {/*
+        THE THIRD ONE. `section-nav.tsx` says "it was two" and was wrong: this
+        page had its own rail as well, and it was the worst of the three — no
+        current-section marking, not sticky, and a link treatment that appears
+        nowhere else on the site.
+        It needed no data change. `contents` above is already `NavSection`
+        ({id, label}) and every target is already a `<Section id=…>`.
+      */}
+      <SectionNavLayout nav={<SectionNav label={t.contents} sections={contents} />}>
 
       <Section id="approach">
         <NumberedList items={t.sections} />
@@ -232,6 +224,7 @@ export default async function MethodPage({ params }: { params: Promise<{ locale:
           {dict.nav.home}
         </Link>
       </Section>
+      </SectionNavLayout>
     </Shell>
   );
 }

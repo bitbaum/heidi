@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { DISPLAY } from "@/lib/variety/display";
-import { SOURCES, citation, type SourceId } from "@/lib/research/sources";
+import { SOURCES, type SourceId } from "@/lib/research/sources";
 import { href } from "@/lib/i18n/routes";
 import { scenesSayingWord } from "@/lib/situations/display";
 import { Shell } from "../_components/page-shell";
 import { KeptCount } from "../_components/word-list";
 import { VocabularyBrowser, type SceneLink } from "../_components/vocabulary-browser";
+import { SourceList } from "../_components/source-list";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -104,28 +105,7 @@ export default async function VocabularyPage({ params }: { params: Promise<{ loc
           practiceHref={href(locale, "practice")}
         />
       </div>
-
-      {sources.length > 0 && (
-        <section aria-labelledby="sources" className="mt-14 border-t border-border-subtle pt-8">
-          <h2 id="sources" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-            {dict.dialect.sourcesTitle}
-          </h2>
-          <ul className="mt-3 flex flex-col gap-2">
-            {sources.map((id) => (
-              <li key={id} className="text-sm leading-relaxed text-fg-secondary">
-                <a
-                  lang="en"
-                  href={SOURCES[id].url}
-                  className="text-link underline underline-offset-4 hover:text-accent"
-                  rel="noreferrer"
-                >
-                  {citation(id)}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-    </Shell>
+      <SourceList title={dict.dialect.sourcesTitle} ids={sources} className="mt-14 border-t border-border-subtle pt-8" />
+</Shell>
   );
 }

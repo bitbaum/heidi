@@ -1,9 +1,11 @@
 "use client";
 
+import { downloadJson, fileSlug } from "@/lib/browser/download";
 import { useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import { useSaved } from "./use-saved";
 import { CowMark } from "./cow-mark";
+import { DISPLAY } from "@/lib/variety/display";
 
 /**
  * The words a learner kept, on the page that promised them.
@@ -88,8 +90,14 @@ export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: stri
         {saved.words.map((w) => (
           <li key={w.target} className="flex items-start justify-between gap-3 bg-surface-page px-4 py-3">
             <div className="min-w-0">
-              <p className="font-heading text-xl leading-tight tracking-display text-dialect">{w.target}</p>
-              <p className="mt-0.5 text-base leading-snug text-fg-secondary">{w.bridge}</p>
+              {/* The near-identical `word-list.tsx` marks both sides; this
+                  file rendered the same pair with neither. */}
+              <p lang={DISPLAY.tag} className="font-heading text-xl leading-tight tracking-display text-dialect">
+                {w.target}
+              </p>
+              <p lang="de" className="mt-0.5 text-base leading-snug text-fg-secondary">
+                {w.bridge}
+              </p>
               {/* CLAMPED, NOT TRUNCATED. `truncate` is one line and an
                   ellipsis, with the rest of the sentence behind `title` — and
                   `title` needs a pointer to hover. On the phone this list is
@@ -141,11 +149,8 @@ function formatDate(iso: string, locale: string): string {
  * is what makes the first half honest.
  */
 function download(words: ReadonlyArray<{ target: string; bridge: string }>, title: string) {
-  const body = JSON.stringify(words, null, 2);
-  const url = URL.createObjectURL(new Blob([body], { type: "application/json" }));
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${title.toLowerCase().replace(/\s+/g, "-")}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
+  // `downloadJson` holds the object URL for a tick before releasing it. This
+  // function used to revoke it synchronously — the exact Safari race the
+  // settings page had already learned about and written a comment about.
+  downloadJson(`${fileSlug(title)}.json`, words);
 }

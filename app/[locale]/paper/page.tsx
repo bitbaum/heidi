@@ -5,7 +5,8 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { PAPER } from "@/lib/config/paper";
 import { sectorLocale } from "@/lib/config/sectors";
-import { SOURCES, citation } from "@/lib/research/sources";
+import { SOURCES } from "@/lib/research/sources";
+import { SourceList } from "../_components/source-list";
 import { Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
 import { SectionNav, SectionNavLayout } from "../_components/section-nav";
@@ -147,30 +148,9 @@ export default async function PaperPage({ params }: { params: Promise<{ locale: 
         </section>
       ))}
 
-      {cited.length > 0 && (
-        <section aria-labelledby="paper-sources" className="py-10">
-          <h2
-            id="paper-sources"
-            className="font-mono text-caption uppercase tracking-caps text-fg-muted"
-          >
-            {dict.paper.sourcesTitle}
-          </h2>
-          <ul className="mt-3 flex flex-col gap-2">
-            {cited.map((id) => (
-              <li key={id} className="max-w-measure text-sm leading-relaxed text-fg-secondary">
-                <a
-                  lang="en"
-                  href={SOURCES[id].url}
-                  rel="noreferrer"
-                  className="wrap-anywhere underline underline-offset-4 hover:text-accent"
-                >
-                  {citation(id)}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      {/* The references. `SourceList` renders these on all six pages that
+          carry them — this page's copy had already lost `text-link`. */}
+      <SourceList title={dict.paper.sourcesTitle} ids={cited} className="py-10" />
 
       </SectionNavLayout>
 

@@ -4,6 +4,7 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { HOW_IT_STARTS, SECTORS, sectorLocale, type Sector, type SectorLocale } from "@/lib/config/sectors";
+import { CONTACT_EMAIL } from "@/lib/config/site";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
 
@@ -322,7 +323,7 @@ function SectorFull({
  * the subject, which is the whole point of it.
  */
 function MailLink({ t, subject }: { t: ReturnType<typeof getDictionary>["organisations"]; subject?: string }) {
-  const to = "cato@orangecat.ch";
+  const to = CONTACT_EMAIL;
   const href = subject ? `mailto:${to}?subject=${encodeURIComponent(`Heidi — ${subject}`)}` : `mailto:${to}`;
 
   return (

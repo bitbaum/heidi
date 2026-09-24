@@ -106,7 +106,14 @@ export function AnswerView({
               <Copy text={a.dialect} t={t} />
             </span>
           </div>
-          <p className="mt-1 text-lg leading-relaxed text-dialect">{a.dialect}</p>
+          {/* `lang` on the dialect line. This is the most-read surface in
+              the product and it declared nothing: the line was distinguished
+              from the explanation above it ONLY by colour, so a screen
+              reader had no way to know it had changed language — and read
+              Zurich German with the phonology of the interface locale. */}
+          <p lang={DISPLAY.tag} className="mt-1 text-lg leading-relaxed text-dialect">
+            {a.dialect}
+          </p>
           {/* A flagged line is MARKED, never dropped. The learner cannot audit
               this work, so drift has to stay visible rather than be tidied. */}
           {a.dialectClean === false && (
@@ -132,9 +139,19 @@ export function AnswerView({
             {a.glosses.map((g) => (
               <li key={g.form} className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
                 <KeepWord gloss={g} t={t} context={context} />
-                <span className="font-mono text-sm font-medium text-dialect">{g.form}</span>
-                {g.standard && <span className="font-mono text-xs text-fg-muted">{g.standard}</span>}
-                <span className="text-sm text-fg-secondary">{g.english}</span>
+                {/* Three languages on one row — dialect, German, English —
+                    and none of them used to say so. */}
+                <span lang={DISPLAY.tag} className="font-mono text-sm font-medium text-dialect">
+                  {g.form}
+                </span>
+                {g.standard && (
+                  <span lang="de" className="font-mono text-xs text-fg-muted">
+                    {g.standard}
+                  </span>
+                )}
+                <span lang="en" className="text-sm text-fg-secondary">
+                  {g.english}
+                </span>
                 {g.rule && (
                   <span className="rounded-control bg-surface-sunk px-1.5 font-mono text-caption text-fg-muted">
                     {g.rule}

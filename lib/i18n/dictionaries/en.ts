@@ -504,6 +504,7 @@ export const en: Dictionary = {
       practiceModel: "What you are still working on",
       ownKey: "Your own API key",
       theme: "Light or dark appearance",
+      dictationVerdict: "Whether dictation works in this browser",
       dictation: "Dictation",
       pictures: "Pictures",
       speakingTakes: "Speaking recordings",
@@ -913,6 +914,8 @@ export const en: Dictionary = {
     testUnanswered: "Not answered",
     testAgain: "Another test",
     focusTitle: "What is catching you out",
+    focusEmpty:
+      "Nothing yet. Once you have answered a few questions, this is where what keeps catching you out appears — and one tap practises exactly that.",
     focusLead: "These keep coming back wrong for you. One tap practises only those.",
     scopedTo: "Just: {what}",
     scopeAll: "Practise everything",

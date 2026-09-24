@@ -2,13 +2,28 @@
 export const SITE_URL = "https://heidi.orangecat.ch";
 
 /**
- * Where people who want to lend their voice write to.
+ * Where people write to — and it has to be an address that RECEIVES.
  *
- * The fleet convention is `<app>@fleetcrown.orangecat.ch` — the shared verified
- * sender domain. Written here rather than in each locale's dictionary: an
- * address is not a translation, and five copies of it would drift.
+ * THIS WAS `heidi@fleetcrown.orangecat.ch` AND IT WAS A BLACK HOLE.
+ * `fleetcrown.orangecat.ch` is the fleet's verified SENDER domain: it has no
+ * MX record at all, so nothing addressed to it is ever delivered. Check it
+ * yourself — `dig MX fleetcrown.orangecat.ch` returns nothing, while
+ * `dig MX orangecat.ch` returns Infomaniak.
+ *
+ * That address was published on the legal notice, the privacy page, the
+ * contribute page and the data room. Every privacy request, every legal
+ * enquiry and every offer to record a voice bounced silently, for months, on
+ * the four pages where being reachable is the entire point.
+ *
+ * The apex is the only domain here that accepts mail, so the address is on
+ * the apex. `site.test.ts` holds it there.
+ *
+ * Written here rather than in each locale's dictionary: an address is not a
+ * translation, and five copies of it would drift — which is separately what
+ * happened, `organisations` and `roles` having each written a different one
+ * out by hand.
  */
-export const CONTACT_EMAIL = "heidi@fleetcrown.orangecat.ch";
+export const CONTACT_EMAIL = "cato@orangecat.ch";
 
 /**
  * Who operates the site, for the legal notice.

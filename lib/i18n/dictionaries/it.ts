@@ -505,6 +505,7 @@ export const it: Dictionary = {
       practiceModel: "Su che cosa state ancora lavorando",
       ownKey: "La sua chiave API",
       theme: "Aspetto chiaro o scuro",
+      dictationVerdict: "Se la dettatura funziona in questo browser",
       dictation: "Dettatura",
       pictures: "Immagini",
       speakingTakes: "Registrazioni parlate",
@@ -918,6 +919,8 @@ export const it: Dictionary = {
     testUnanswered: "Senza risposta",
     testAgain: "Un’altra prova",
     focusTitle: "Dove vi bloccate",
+    focusEmpty:
+      "Ancora niente. Appena avrà risposto a qualche domanda, qui comparirà ciò che continua a coglierla in fallo — e un clic esercita proprio quello.",
     focusLead: "Questo vi torna sbagliato di continuo. Un tocco esercita solo quello.",
     scopedTo: "Solo: {what}",
     scopeAll: "Esercitarsi su tutto",

@@ -55,7 +55,35 @@ export function FocusPanel({
   });
 
   const areas = [...topics, ...scenes];
-  if (areas.length === 0) return null;
+
+  /**
+   * NOTHING YET STILL RENDERS, because the dashboard advertises this section.
+   *
+   * It returned null when there was nothing to show — and it is the FIRST
+   * entry in the jump strip, so on a new account the first thing in the index
+   * scrolled to nothing at all. That is precisely the defect reported against
+   * the patterns panel ("so what is patterns in that content table?"); this
+   * one was left because nobody had named it yet.
+   *
+   * The empty state says what will appear and what produces it, which also
+   * answers the question the heading raises on day one: nothing is catching
+   * you out because nothing has been asked of you yet.
+   */
+  if (areas.length === 0) {
+    return (
+      <section aria-labelledby="focus">
+        <h2
+          id="focus"
+          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+        >
+          {t.focusTitle}
+        </h2>
+        <p className="mt-3 max-w-measure rounded-control border border-border-subtle bg-surface-raised p-4 text-base leading-relaxed text-fg-secondary">
+          {t.focusEmpty}
+        </p>
+      </section>
+    );
+  }
 
   return (
     <section

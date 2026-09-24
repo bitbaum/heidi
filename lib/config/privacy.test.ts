@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { BROUGHT_KEY_VENDORS, FLOWS, MODEL_VENDORS, NOT_DONE } from "./privacy.ts";
 import { BYOK_PROVIDERS } from "../domain/model/providers.ts";
+import { STORAGE_KEY_PATTERN } from "../browser/stores.ts";
 
 /**
  * A privacy page is only worth having if it is true, and it is the page most
@@ -76,7 +77,7 @@ describe("the claims that must stay true", () => {
       .join("\n");
 
     for (const flow of FLOWS) {
-      const key = flow.where.match(/heidi\.[a-z.0-9]+/)?.[0];
+      const key = flow.where.match(STORAGE_KEY_PATTERN)?.[0];
       if (!key) continue;
       assert.ok(code.includes(`"${key}"`), `the page names ${key}, which no longer appears in the code`);
     }

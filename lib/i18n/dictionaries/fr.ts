@@ -505,6 +505,7 @@ export const fr: Dictionary = {
       practiceModel: "Ce que vous travaillez encore",
       ownKey: "Votre propre clé API",
       theme: "Apparence claire ou sombre",
+      dictationVerdict: "Si la dictée fonctionne dans ce navigateur",
       dictation: "Dictée",
       pictures: "Images",
       speakingTakes: "Enregistrements de parole",
@@ -918,6 +919,8 @@ export const fr: Dictionary = {
     testUnanswered: "Sans réponse",
     testAgain: "Un autre test",
     focusTitle: "Ce qui vous accroche",
+    focusEmpty:
+      "Rien encore. Dès que vous aurez répondu à quelques questions, vous verrez ici ce qui vous piège régulièrement — et un clic s\u2019y attaque.",
     focusLead: "Cela revient souvent chez vous. Un clic n’exerce que cela.",
     scopedTo: "Seulement : {what}",
     scopeAll: "Tout réviser",

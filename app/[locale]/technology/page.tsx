@@ -6,7 +6,8 @@ import { ASR_RESULTS, CORPORA, SPEAKING, TEXT_MODELS, techSources } from "@/lib/
 import { MEASURES } from "@/lib/speech/capability";
 import { DISPLAY } from "@/lib/variety/display";
 import { engineChain } from "@/lib/research/engine";
-import { Shell } from "../_components/page-shell";
+import { Section, Shell } from "../_components/page-shell";
+import { SourceList } from "../_components/source-list";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -82,7 +83,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
         </div>
       </section>
 
-      <Panel id="corpora" title={t.corporaTitle} lead={t.corporaLead}>
+      <Section border="top" id="corpora" title={t.corporaTitle} lead={t.corporaLead}>
         <ul className="mt-5 flex flex-col gap-3">
           {CORPORA.map((corpus) => (
             <li key={corpus.id} className="rounded-control border border-border-subtle p-4">
@@ -115,9 +116,9 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
             </li>
           ))}
         </ul>
-      </Panel>
+      </Section>
 
-      <Panel id="asr" title={t.asrTitle} lead={t.asrLead}>
+      <Section border="top" id="asr" title={t.asrTitle} lead={t.asrLead}>
         <ul className="mt-5 flex flex-col gap-3">
           {ASR_RESULTS.map((result) => (
             <li
@@ -144,9 +145,9 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
             </li>
           ))}
         </ul>
-      </Panel>
+      </Section>
 
-      <Panel id="speaking" title={t.speakingTitle} lead={t.speakingLead}>
+      <Section border="top" id="speaking" title={t.speakingTitle} lead={t.speakingLead}>
         <ul className="mt-5 flex flex-col gap-3">
           {SPEAKING.map((system) => (
             <li key={system.id} className="rounded-control border border-border-subtle p-4">
@@ -174,9 +175,9 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
             </li>
           ))}
         </ul>
-      </Panel>
+      </Section>
 
-      <Panel id="models" title={t.modelsTitle} lead={t.modelsLead}>
+      <Section border="top" id="models" title={t.modelsTitle} lead={t.modelsLead}>
         <ul className="mt-5 flex flex-col gap-3">
           {TEXT_MODELS.map((model) => (
             <li key={model.name} className="rounded-control border border-border-subtle p-4">
@@ -197,7 +198,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
             </li>
           ))}
         </ul>
-      </Panel>
+      </Section>
 
       {/* Our own system, after the field and before the summary: the reader has
           just seen what recognition can and cannot do, which is the only
@@ -205,7 +206,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
           COMPUTED from the pack — see `lib/speech/capability.ts`. No copy here
           claims a capability; the page renders whichever verdict it is handed,
           so it cannot drift from the engine and cannot be talked up. */}
-      <Panel id="evaluation" title={t.evalTitle} lead={t.evalLead}>
+      <Section border="top" id="evaluation" title={t.evalTitle} lead={t.evalLead}>
         <ul className="mt-5 flex flex-col gap-3">
           {MEASURES.map((measure) => {
             const verdict = DISPLAY.speech.measures.find((m) => m.id === measure.id)?.verdict ?? "none";
@@ -278,7 +279,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
             <dd className="text-fg-primary">{DISPLAY.speech.formMaxWer}%</dd>
           </div>
         </dl>
-      </Panel>
+      </Section>
 
       {/* LAST, and deliberately so: the reader should reach our own claims
           having already seen what the field can do, so they can check them. */}
@@ -349,49 +350,8 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
           ))}
         </ul>
       </section>
-
-      <section aria-labelledby="sources" className="border-t border-border-subtle py-8">
-        <h2 id="sources" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-          {dict.dialect.sourcesTitle}
-        </h2>
-        <ul className="mt-3 flex flex-col gap-2">
-          {sources.map((id) => (
-            <li key={id} className="text-sm leading-relaxed text-fg-secondary">
-              <a
-                  lang="en"
-                href={SOURCES[id].url}
-                className="text-link underline underline-offset-4 hover:text-accent"
-                rel="noreferrer"
-              >
-                {citation(id)}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </Shell>
-  );
-}
-
-function Panel({
-  id,
-  title,
-  lead,
-  children,
-}: {
-  id: string;
-  title: string;
-  lead: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section aria-labelledby={id} className="scroll-mt-20 border-t border-border-subtle py-10 sm:py-14">
-      <h2 id={id} className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
-        {title}
-      </h2>
-      <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{lead}</p>
-      {children}
-    </section>
+      <SourceList title={dict.dialect.sourcesTitle} ids={sources} className="border-t border-border-subtle py-8" />
+</Shell>
   );
 }
 

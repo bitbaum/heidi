@@ -521,6 +521,7 @@ export const rm: Dictionary = {
       practiceModel: "Tge che vus exercitais anc",
       ownKey: "Vossa atgna clav API",
       theme: "Apparientscha clera u stgira",
+      dictationVerdict: "Sche la dictaziun funcziunescha en quest browser",
       dictation: "Dictar",
       pictures: "Maletgs",
       speakingTakes: "Registraziuns da discurs",
@@ -934,6 +935,8 @@ export const rm: Dictionary = {
     testUnanswered: "Betg respundì",
     testAgain: "In auter test",
     focusTitle: "Nua che vus restais tatgads",
+    focusEmpty:
+      "Anc nagut. Uschespert che Vus avais respundì in pèr dumondas, cumpara qua quai che Vus tschiffa adina puspè — ed in clic exercitescha gist quai.",
     focusLead: "Quai turna adina puspè fallà tar vus. In clic exercitescha mo quai.",
     scopedTo: "Mo: {what}",
     scopeAll: "Exercitar tut",

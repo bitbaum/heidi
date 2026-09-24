@@ -167,6 +167,27 @@ export const FLOWS: readonly Flow[] = [
     leavesDevice: false,
     recipients: [],
   },
+  /**
+   * THE ONE THAT WAS MISSING, found by an audit rather than by this file.
+   *
+   * `use-dictation.ts` remembers, per browser, that the speech recogniser
+   * accepted `start()` and then never fired an event — so the next dictation
+   * does not wait four seconds to rediscover it. It is one timestamp with a
+   * thirty-day life, which is why nobody thought of it as data.
+   *
+   * It was stored under a colon-separated key, so `lib/browser/stores.ts`
+   * could not see it, which meant this page under-reported what the browser
+   * holds AND the settings page's delete-everything button walked past it.
+   * A privacy page that lists SOME of what is on the device is worse than one
+   * that lists none, because it reads as exhaustive.
+   */
+  {
+    id: "dictationVerdict",
+    place: "device",
+    where: "localStorage · heidi.dictation.recogniser-dead.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
   {
     id: "dictation",
     place: "vendor",

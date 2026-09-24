@@ -19,23 +19,68 @@ export function PageHeader({ eyebrow, title, lead }: { eyebrow?: string; title: 
   );
 }
 
+/**
+ * A section of a page: a rule, a heading, and the room underneath it.
+ *
+ * WHAT WAS MISSING, AND WHAT IT COST. This took only `title`, `id` and
+ * children, and an audit found roughly twenty-two sections across the site
+ * hand-rolled with the same three classes — plus a local clone in
+ * `technology/page.tsx` called `Panel`, and one in `privacy/page.tsx` called
+ * `Section`, which shadowed this import and made the page look compliant to
+ * anybody grepping.
+ *
+ * Every one of those hand-rolls traces to a missing prop rather than to a
+ * designer wanting something different:
+ *
+ *   `lead`    — a sentence under the heading. Wanted by privacy, technology,
+ *               organisations and investors; each wrote the same
+ *               `mt-3 max-w-measure text-base …` paragraph.
+ *   a NAME    — this rendered a bare `<h2>` with no id, so `aria-labelledby`
+ *               was impossible and every page that wanted a named landmark
+ *               had to build the section itself. That single omission is the
+ *               largest cause of divergence in the audit.
+ *   `border`  — `border-b` was hard-coded, and fifteen hand-rolled sections
+ *               wanted `border-t`. Both are correct in a stack; a page that
+ *               needed the other one had no way to ask.
+ *
+ * The heading now carries `id="<id>-heading"` and the section points at it, so
+ * a screen reader announces "Privacy, section" instead of "section".
+ */
 export function Section({
   title,
+  lead,
   children,
   id,
+  border = "bottom",
 }: {
   title?: string;
+  /** One sentence under the heading. */
+  lead?: string;
   children: React.ReactNode;
   id?: string;
+  /** Which side carries the rule. Both are used on this site. */
+  border?: "top" | "bottom";
 }) {
+  const headingId = id && title ? `${id}-heading` : undefined;
+
   return (
-    <section id={id} className="scroll-mt-20 border-b border-border-subtle py-10 sm:py-14">
+    <section
+      id={id}
+      aria-labelledby={headingId}
+      className={`scroll-mt-20 py-10 sm:py-14 ${
+        border === "top" ? "border-t border-border-subtle" : "border-b border-border-subtle"
+      }`}
+    >
       {title && (
-        <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
+        <h2
+          id={headingId}
+          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+        >
           {title}
         </h2>
       )}
-      <div className={title ? "mt-5" : undefined}>{children}</div>
+      {lead && <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{lead}</p>}
+      <div className={title || lead ? "mt-5" : undefined}>{children}</div>
     </section>
   );
 }

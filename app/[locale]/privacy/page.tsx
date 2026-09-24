@@ -10,7 +10,7 @@ import {
   NOT_DONE,
   type Flow,
 } from "@/lib/config/privacy";
-import { Shell } from "../_components/page-shell";
+import { Section, Shell } from "../_components/page-shell";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -66,7 +66,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
         <p className="mt-3 font-mono text-caption uppercase tracking-caps text-fg-muted">{t.bindingNote}</p>
       </header>
 
-      <Section title={t.flowsTitle} lead={t.flowsLead}>
+      <Section border="top" title={t.flowsTitle} lead={t.flowsLead}>
         <ul className="mt-5 flex flex-col gap-2">
           {FLOWS.map((flow) => (
             <li
@@ -109,7 +109,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
         </ul>
       </Section>
 
-      <Section title={t.vendorsTitle}>
+      <Section border="top" title={t.vendorsTitle}>
         <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.vendorsNote}</p>
         <ul className="mt-4 flex flex-wrap gap-2">
           {MODEL_VENDORS.map((vendor) => (
@@ -126,14 +126,14 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
         </p>
       </Section>
 
-      <Section title={t.hostingTitle}>
+      <Section border="top" title={t.hostingTitle}>
         <p className="max-w-measure text-base leading-relaxed text-fg-secondary">
           {HOSTING.provider} · {HOSTING.city} · {HOSTING.country}
         </p>
         <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-muted">{t.hostingNote}</p>
       </Section>
 
-      <Section title={t.notDoneTitle}>
+      <Section border="top" title={t.notDoneTitle}>
         <ul className="flex flex-col gap-1.5">
           {NOT_DONE.map((item) => (
             <li key={item} className="flex items-baseline gap-2 text-base leading-relaxed text-fg-primary">
@@ -147,7 +147,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
         <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{t.notDoneNote}</p>
       </Section>
 
-      <Section title={t.rightsTitle}>
+      <Section border="top" title={t.rightsTitle}>
         <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.rightsBody}</p>
         <p className="mt-4">
           <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.contactTitle}</span>{" "}
@@ -168,14 +168,4 @@ function recipients(flow: Flow, nobody: string): string {
   return flow.recipients.length > 0 ? flow.recipients.join(" · ") : nobody;
 }
 
-function Section({ title, lead, children }: { title: string; lead?: string; children: React.ReactNode }) {
-  return (
-    <section className="border-t border-border-subtle py-10 sm:py-12">
-      <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
-        {title}
-      </h2>
-      {lead && <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{lead}</p>}
-      <div className={lead ? undefined : "mt-4"}>{children}</div>
-    </section>
-  );
-}
+

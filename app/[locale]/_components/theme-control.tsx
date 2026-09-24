@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect } from "react";
 import { createBrowserStore, useBrowserStore, useStorageReady } from "@/lib/browser/store";
-import { DEFAULT_THEME, THEMES, applyTheme, decodeTheme, type Theme } from "@/lib/browser/theme";
+import { DEFAULT_THEME, THEMES, THEME_KEY, applyTheme, decodeTheme, type Theme } from "@/lib/browser/theme";
 
 /**
  * Choosing light or dark, or letting the device decide.
@@ -12,7 +12,10 @@ import { DEFAULT_THEME, THEMES, applyTheme, decodeTheme, type Theme } from "@/li
  * blocks storage lives in one place and not here. See `lib/browser/store.ts`.
  */
 const store = createBrowserStore<Theme>(
-  "heidi.theme.v1",
+  // THEME_KEY, not the string: `theme.ts` declares it precisely so the key
+  // and the inline boot script cannot drift, and this file already imports
+  // four other symbols from that module.
+  THEME_KEY,
   // The store hands back the raw string; `decodeTheme` is the same validator
   // the rest of the code uses, so a hand-edited value cannot mean one thing
   // here and another in the no-flash script.

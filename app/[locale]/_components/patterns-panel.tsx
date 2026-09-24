@@ -77,7 +77,9 @@ export function PatternsPanel({ t }: { t: Dictionary["review"] }) {
                   <span aria-hidden="true" className="px-1.5 text-fg-muted">
                     ·
                   </span>
-                  {w.bridge}
+                  {/* The target was marked and the bridge was not — a
+                      bare German text node beside a declared dialect one. */}
+                  <span lang="de">{w.bridge}</span>
                 </li>
               ))}
             </ul>

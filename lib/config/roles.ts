@@ -1,4 +1,5 @@
 import type { SectorLocale } from "./sectors.ts";
+import { CONTACT_EMAIL } from "./site.ts";
 
 /**
  * The ways a person can be part of Heidi other than by learning from it.
@@ -167,5 +168,5 @@ export const LEARNER_NOTE: Copy = {
 
 export function roleMailto(role: Role, lang: SectorLocale): string {
   const subject = `Heidi — ${role.name[lang]}`;
-  return `mailto:cato@orangecat.ch?subject=${encodeURIComponent(subject)}`;
+  return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}`;
 }

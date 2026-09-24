@@ -6,10 +6,11 @@ import { DEFAULT_LOCALE, LOCALES, isLocale, type Locale } from "@/lib/i18n/local
 import { href } from "@/lib/i18n/routes";
 import { DISPLAY } from "@/lib/variety/display";
 import { SCENES, domainOf, sceneById } from "@/lib/situations/display";
-import { SOURCES, citation, type SourceId } from "@/lib/research/sources";
+import { SOURCES, type SourceId } from "@/lib/research/sources";
 import { PACK_ITEMS } from "@/lib/domain/practice/published";
 import { itemsInScope } from "@/lib/domain/practice/scope";
 import { PageHeader, Shell } from "../../_components/page-shell";
+import { SourceList } from "../../_components/source-list";
 
 /**
  * Every scene, in every language, at build time. There are six of them and
@@ -194,28 +195,7 @@ export default async function ScenePage({ params }: { params: Promise<{ locale: 
           {t.backLabel}
         </Link>
       </div>
-
-      {sources.length > 0 && (
-        <section aria-labelledby="sources" className="mt-14 border-t border-border-subtle pt-8">
-          <h2 id="sources" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-            {dict.dialect.sourcesTitle}
-          </h2>
-          <ul className="mt-3 flex flex-col gap-2">
-            {sources.map((sourceId) => (
-              <li key={sourceId} className="text-sm leading-relaxed text-fg-secondary">
-                <a
-                  lang="en"
-                  href={SOURCES[sourceId].url}
-                  className="text-link underline underline-offset-4 hover:text-accent"
-                  rel="noreferrer"
-                >
-                  {citation(sourceId)}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-    </Shell>
+      <SourceList title={dict.dialect.sourcesTitle} ids={sources} className="mt-14 border-t border-border-subtle pt-8" />
+</Shell>
   );
 }

@@ -589,6 +589,7 @@ export const gsw: Dictionary = {
       practiceModel: "Wo Sie no dra schaffed",
       ownKey: "Ihre eigne API-Schlüssel",
       theme: "Helli oder dunkli Darstellig",
+      dictationVerdict: "Öb s Diktat i dem Browser gaht",
       dictation: "Diktiere",
       pictures: "Bilder",
       speakingTakes: "Schwätz-Ufnaame",
@@ -938,6 +939,8 @@ export const gsw: Dictionary = {
     testUnanswered: "Nöd beantwortet",
     testAgain: "Nöie Test",
     focusTitle: "Da hänged Sie grad",
+    focusEmpty:
+      "No nüt. Sobald Sie es paar Fräge beantwortet händ, staht da, was Sie immer wieder verwütscht — und ei Klick üebt genau das.",
     focusLead: "Das chunt bi Ihne immer wider. Ei Klick üebt nur das.",
     scopedTo: "Nur zu: {what}",
     scopeAll: "Alles üebe",
