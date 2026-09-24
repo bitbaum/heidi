@@ -6,6 +6,7 @@ import { href } from "@/lib/i18n/routes";
 import { CHANGELOG } from "@/lib/config/changelog";
 import { sectorLocale } from "@/lib/config/sectors";
 import { PageHeader, Shell } from "../_components/page-shell";
+import { formatDate } from "@/lib/i18n/dates";
 import { OtherLanguage } from "../_components/other-language";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -48,10 +49,9 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
    * and reads as foreign to most people, and the site already takes this
    * seriously enough to have a test about numerals elsewhere.
    */
-  const asDate = (iso: string) =>
-    new Intl.DateTimeFormat(LOCALE_TAGS[locale], { year: "numeric", month: "long", day: "numeric" }).format(
-      new Date(`${iso}T12:00:00Z`),
-    );
+  // The noon anchor this used to apply by hand now lives in `formatDate`,
+  // where every date-only string on the site gets it — see `dates.ts`.
+  const asDate = (iso: string) => formatDate(iso, locale, "long");
 
   return (
     <Shell>

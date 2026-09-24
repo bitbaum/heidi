@@ -8,6 +8,7 @@ import { DURATIONS, type Cadence, type Round, type RoundFormat } from "@/lib/dom
 import { DEFAULT_TIME_ZONE } from "@/lib/domain/speaking/schedule";
 import { DisclosureForm, FIELD, LABEL } from "./disclosure-form";
 import { apiErrorMessage } from "./api-error";
+import { intlDate } from "@/lib/i18n/dates";
 
 type T = Dictionary["speaking"];
 
@@ -191,7 +192,7 @@ export function RoundList({
 function When({ locale, round }: { locale: Locale; round: Round }) {
   const label = useMemo(() => {
     try {
-      return new Intl.DateTimeFormat(locale, {
+      return intlDate(locale, {
         weekday: "short",
         day: "numeric",
         month: "short",
