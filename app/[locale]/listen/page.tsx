@@ -102,7 +102,7 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
         {/* The diglossia warning sits ABOVE the list, because a reader who
             scrolls straight to the links and picks the name they recognise
             picks the Tagesschau. */}
-        <section id="diglossia" className="max-w-measure scroll-mt-24">
+        <section id="diglossia" className="max-w-measure scroll-mt-anchor">
           <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
             {t.diglossiaTitle}
           </h2>
@@ -113,7 +113,7 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
         {/* After the warning and before the catalogue: the trap first, then
             what to do about it today, then everything there is. */}
         {today.length > 0 && (
-          <section aria-labelledby="today" id="today" className="mt-10 scroll-mt-24 border-t border-border-subtle pt-8">
+          <section aria-labelledby="today" id="today" className="mt-10 scroll-mt-anchor border-t border-border-subtle pt-8">
             <h2
               id="today"
               className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
@@ -131,7 +131,7 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
 
         <div className="mt-12 flex flex-col gap-12">
           {groups.map((group) => (
-            <section key={group.medium} id={group.medium} className="scroll-mt-24">
+            <section key={group.medium} id={group.medium} className="scroll-mt-anchor">
               <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
                 {t.medium[group.medium]}
               </h2>

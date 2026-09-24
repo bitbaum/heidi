@@ -1,6 +1,8 @@
 "use client";
 
 import { downloadJson, fileSlug } from "@/lib/browser/download";
+import { formatDate } from "@/lib/i18n/dates";
+import type { Locale } from "@/lib/i18n/locales";
 import { useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import { useSaved } from "./use-saved";
@@ -20,7 +22,7 @@ import { DISPLAY } from "@/lib/variety/display";
  * to, so it works signed out, and it says so rather than letting someone
  * assume their words are following them to a second device.
  */
-export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: string }) {
+export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: Locale }) {
   const saved = useSaved();
   const [confirming, setConfirming] = useState(false);
 
@@ -111,7 +113,7 @@ export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: stri
                 </p>
               )}
               <p className="mt-1 font-mono text-caption uppercase tracking-caps text-fg-muted">
-                {t.savedOn} {formatDate(w.savedAt, locale)}
+                {t.savedOn} {formatDate(w.savedAt, locale, "short")}
               </p>
             </div>
             <button
@@ -128,17 +130,6 @@ export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: stri
       </ul>
     </div>
   );
-}
-
-/** The reader's own date format — never a hardcoded one. */
-function formatDate(iso: string, locale: string): string {
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "";
-  try {
-    return new Intl.DateTimeFormat(locale, { day: "numeric", month: "short", year: "numeric" }).format(d);
-  } catch {
-    return d.toISOString().slice(0, 10);
-  }
 }
 
 /**

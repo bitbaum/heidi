@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, LOCALES, LOCALE_NAMES, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
+import { formatDate } from "@/lib/i18n/dates";
 import { essaysFor } from "@/lib/essays/registry";
 import { PageHeader, Shell } from "../_components/page-shell";
 
@@ -69,15 +70,4 @@ export default async function EssaysPage({ params }: { params: Promise<{ locale:
       )}
     </Shell>
   );
-}
-
-/** The reader's own date format, never a hardcoded one. */
-export function formatDate(iso: string, locale: Locale): string {
-  const date = new Date(iso);
-  if (Number.isNaN(date.getTime())) return "";
-  try {
-    return new Intl.DateTimeFormat(locale, { day: "numeric", month: "long", year: "numeric" }).format(date);
-  } catch {
-    return iso.slice(0, 10);
-  }
 }

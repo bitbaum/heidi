@@ -145,7 +145,7 @@ function findOverflow(viewport) {
     const box = el.getBoundingClientRect();
     const visible = box.width > 0 || box.height > 0;
 
-    if (visible && (box.right > viewport + 1 || box.left < -1)) {
+    if (visible && (box.right > viewport + 1 || box.left < -1) && !insideScroller(el)) {
       // Only the outermost offender: a child sticking out of a parent that is
       // itself sticking out is one defect reported twice.
       const parent = el.parentElement?.getBoundingClientRect();
@@ -162,6 +162,37 @@ function findOverflow(viewport) {
   }
   return { over, clipped, doc: document.documentElement.scrollWidth };
 
+  /**
+   * Is this element simply further along inside something that scrolls?
+   *
+   * THE SAME EXEMPTION THE `clipped` CHECK ALREADY MAKES, which this one was
+   * missing. Two lines below, content wider than its box is reported only
+   * when `overflow-x` is `visible` or `clip`, because "a real scroller is a
+   * deliberate choice" — but the horizontal check above had no such rule, so
+   * the third item of any sideways-scrolling row was reported as overflow for
+   * being where a scrolled item is supposed to be.
+   *
+   * It matters because the two checks disagreeing is worse than either being
+   * wrong: the on-this-page rail became a one-row scroller on phones, the
+   * document did NOT overflow (375px in a 375px viewport, measured), and the
+   * audit still printed four findings. A check that cries wolf on a correct
+   * page is a check people start passing `|| true` to.
+   *
+   * The scrolling ancestor must itself be inside the viewport. If the
+   * scroller is the thing hanging off the screen, that is a real defect and
+   * it is still reported — on the scroller, where it belongs.
+   */
+  function insideScroller(el) {
+    for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+      const ox = getComputedStyle(p).overflowX;
+      if (ox === "auto" || ox === "scroll") {
+        const r = p.getBoundingClientRect();
+        if (r.right <= viewport + 1 && r.left >= -1) return true;
+      }
+    }
+    return false;
+  }
+
   function describe(el, box) {
     return {
       tag: el.tagName.toLowerCase(),
@@ -176,6 +207,38 @@ function findOverflow(viewport) {
 }
 
 /**
+ * Does the header's CONTENT still fit the height the token promises?
+ *
+ * `--header-height` (globals.css) is what the on-this-page rail pins below
+ * and what every anchored heading scrolls clear of. The header is now given
+ * that height outright, so asking "is the header the token height" answers
+ * itself — it is, by construction, even when the token is wrong. A check
+ * that cannot fail is worse than no check, because a clean run then means
+ * nothing.
+ *
+ * The falsifiable question is the other one: does what the header CONTAINS
+ * still fit inside it? Add a taller control — a second line of nav, a bigger
+ * avatar — and the content outgrows the fixed box and is quietly clipped,
+ * while every consumer of the token keeps clearing the old height. That is
+ * the failure this catches, and nothing in the type checker or the unit
+ * tests can see it: it is real glyphs in a real font at a real width.
+ */
+function measureHeader() {
+  const header = document.querySelector("header");
+  if (!header) return null;
+  const box = header.getBoundingClientRect().height;
+  // The tallest thing actually laid out inside the bar.
+  let content = 0;
+  for (const el of header.querySelectorAll("*")) {
+    const cs = getComputedStyle(el);
+    if (cs.position === "absolute" || cs.position === "fixed" || cs.display === "none") continue;
+    const r = el.getBoundingClientRect();
+    if (r.height > 0) content = Math.max(content, r.bottom - header.getBoundingClientRect().top);
+  }
+  return { box, content, declared: getComputedStyle(document.documentElement).getPropertyValue("--header-height").trim() };
+}
+
+/**
  * `pnpm exec playwright install chromium` provides one; an environment that
  * already ships a browser (a CI image, a sandbox) points at it instead rather
  * than downloading a second copy.
@@ -184,6 +247,7 @@ const browser = await chromium.launch(
   process.env.CHROMIUM ? { executablePath: process.env.CHROMIUM } : {},
 );
 let renders = 0;
+let headerDrift = 0;
 /**
  * Counted apart, because conflating them misled me once already.
  *
@@ -249,6 +313,16 @@ for (const theme of THEMES) {
 
         const states = [{ name: "", found: await page.evaluate(findOverflow, width) }];
 
+        const head = await page.evaluate(measureHeader);
+        if (head && head.content > head.box + 1) {
+          headerDrift += 1;
+          console.log(
+            `\nHEAD ${locale}${path} @${width} ${theme}: the header contains ${Math.round(head.content)}px ` +
+              `of content in a ${Math.round(head.box)}px bar (--header-height: ${head.declared}).\n` +
+              `     It is being clipped, and the rail and every anchored heading still clear the old height.`,
+          );
+        }
+
         // Then again with each header disclosure open, one at a time.
         if (PROBE.includes(path)) {
           const toggles = page.locator("header button[aria-expanded]:visible");
@@ -284,9 +358,10 @@ for (const theme of THEMES) {
 await browser.close();
 console.log(
   `\n${renders} page renders measured — ${overflowing} with overflow` +
+    (headerDrift > 0 ? `, ${headerDrift} where the header is not its token height` : "") +
     (unreachable > 0 ? `, and ${unreachable} that did not load at all` : ""),
 );
 if (unreachable > 0) {
   console.log("A page that does not load is not a layout finding. Check the server before reading the rest.");
 }
-process.exit(overflowing === 0 && unreachable === 0 ? 0 : 1);
+process.exit(overflowing === 0 && unreachable === 0 && headerDrift === 0 ? 0 : 1);

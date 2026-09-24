@@ -75,24 +75,42 @@ export function SectionNav({ sections, label }: { sections: readonly NavSection[
         exceptions that would have to be maintained.
       */
       className="
-        sticky top-0 z-20 border-b border-border-subtle bg-surface-page/95 py-1.5 backdrop-blur
+        sticky top-[var(--header-height)] z-20 border-b border-border-subtle bg-surface-page/95 py-1.5 backdrop-blur
         lg:static lg:border-b-0 lg:bg-transparent lg:py-0 lg:backdrop-blur-none
       "
     >
-      <ul className="flex flex-wrap gap-1 lg:flex-col lg:gap-0.5">
+      {/*
+        ONE ROW ON A PHONE, SCROLLED SIDEWAYS — not four rows that wrap.
+
+        This page has seven sections, and wrapped they stood 153px tall: a
+        fifth of an 800px phone screen, permanently, to show a table of
+        contents nobody asked to keep looking at. A single row that scrolls is
+        the shape every documentation site converged on for the same reason.
+
+        `overflow-x-auto` here is a SCROLLER, not the overflow defect the
+        responsive audit hunts. The audit draws that line explicitly — it
+        reports content wider than its box only when `overflow-x` computes to
+        `visible` or `clip`, because "a real scroller is a deliberate choice"
+        — so `auto` is the declaration that says this one is meant. Nothing
+        extends past the viewport either way; `min-w-0` is what lets the row
+        shrink and scroll rather than push the grid wider.
+      */}
+      <ul className="flex min-w-0 gap-1 overflow-x-auto lg:flex-col lg:gap-0.5 lg:overflow-visible">
         {sections.map((section) => {
           const active = current === section.id;
           return (
-            <li key={section.id}>
+            <li key={section.id} className="shrink-0 lg:shrink">
               <a
                 href={`#${section.id}`}
                 aria-current={active ? "true" : undefined}
-                /* `min-h-11` is the tap target and is not negotiable; the
-                   horizontal padding is what keeps six of them on two lines at
-                   320px. Border rather than fill for the resting state, so the
-                   strip reads as a row of controls instead of a paragraph of
-                   links — the thing it looked like before. */
-                className={`inline-flex min-h-11 items-center gap-1.5 rounded-control border px-2.5 text-sm transition-colors lg:w-full lg:px-3 ${
+                /* `min-h-11` is the tap target and is not negotiable. On a
+                   phone the row scrolls sideways rather than wrapping, so the
+                   label must not break: `whitespace-nowrap` is what makes a
+                   scroller out of what would otherwise be a squeezed column
+                   of one-word-per-line links. Border rather than fill for the
+                   resting state, so the strip reads as a row of controls
+                   instead of a paragraph of links. */
+                className={`inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap rounded-control border px-2.5 text-sm transition-colors lg:w-full lg:whitespace-normal lg:px-3 ${
                   active
                     ? "border-border-strong bg-surface-sunk font-medium text-fg-primary"
                     : "border-border-subtle text-fg-secondary hover:border-border-strong hover:text-fg-primary"
@@ -175,7 +193,21 @@ function useCurrentSection(ids: readonly string[]): string | null {
 export function SectionNavLayout({ nav, children }: { nav: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className="grid-cols-safe grid gap-x-12 lg:grid-cols-[13rem_minmax(0,1fr)]">
-      <div className="lg:sticky lg:top-24 lg:self-start">{nav}</div>
+      {/*
+        `contents` BELOW lg, AND THAT IS THE WHOLE FIX. A sticky element can
+        only travel inside its containing block, and this wrapper was exactly
+        as tall as the nav — so on a phone the rail did not stick, it scrolled
+        away like any other block, and the sticky styling on `SectionNav` was
+        decoration for a state that never occurred. `display: contents` takes
+        the wrapper out of layout so the nav becomes the grid item itself and
+        inherits the grid's full height to travel in.
+
+        From lg it is a real box again: a column that scrolls with the page
+        until it reaches the header, then holds.
+      */}
+      <div className="contents lg:block lg:sticky lg:top-[calc(var(--header-height)+1.5rem)] lg:self-start">
+        {nav}
+      </div>
       <div className="min-w-0">{children}</div>
     </div>
   );

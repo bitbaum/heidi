@@ -72,7 +72,14 @@ export function SiteHeader({
   };
 
   return (
-    <header ref={bar} className="sticky top-0 z-30 border-b border-border-strong bg-surface-page">
+    <header
+      ref={bar}
+      /* The height is `--header-height` (globals.css) rather than whatever the
+         tallest child happens to make it, because three other things have to
+         clear this bar and were each guessing. Content is 44px + py-3, so the
+         token is the height it already had — now by construction. */
+      className="sticky top-0 z-30 h-[var(--header-height)] border-b border-border-strong bg-surface-page"
+    >
       <div className="mx-auto flex w-full max-w-shell items-center justify-between gap-4 px-5 py-3 sm:px-8">
         <Link
           href={href(locale, "")}

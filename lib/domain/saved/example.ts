@@ -1,6 +1,7 @@
 import { check } from "../../variety/check.ts";
 import type { VarietyPack } from "../../variety/pack.ts";
 import { identity } from "./collection.ts";
+import { saysWord } from "../../text/words.ts";
 
 /**
  * Meeting a kept word somewhere new.
@@ -48,8 +49,7 @@ export function demonstrates(sentence: string, target: string): boolean {
   const word = identity({ target }).trim();
   if (!word) return false;
 
-  const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  return new RegExp(`(?<!\\p{L})${escaped}(?!\\p{L})`, "iu").test(sentence);
+  return saysWord(sentence, word);
 }
 
 export type ExampleResult = {

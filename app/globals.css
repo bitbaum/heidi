@@ -51,6 +51,27 @@
   --spacing-measure: 66ch;
 
   /*
+   * The height of the sticky site header — a DECISION, not a measurement.
+   *
+   * It used to be neither: the header had no height, so 69px emerged from
+   * `min-h-11` on the home link plus `py-3` plus the bottom border, and three
+   * other places guessed at it. Section headings carried `scroll-mt-20`,
+   * `scroll-mt-24` AND `scroll-mt-28` (2, 15 and 7 uses) — three different
+   * answers to "how far below the top does an anchor land", all of them
+   * clearing 69px by luck rather than by construction.
+   *
+   * Worse, the on-this-page rail pinned itself at `top: 0`, which is where the
+   * header already is. It never showed, because `SectionNavLayout` gave it a
+   * wrapper exactly its own height and a sticky element with no room to travel
+   * simply scrolls away — so the rail's whole mobile treatment (the blur, the
+   * z-index, the border) was styling for a state that could not happen.
+   *
+   * Written here, everything that needs to clear the header reads the same
+   * value, and `header.test.ts` fails if the rendered header stops matching.
+   */
+  --header-height: 4.3125rem; /* 69px */
+
+  /*
    * The type scale, fluid.
    *
    * It was `text-[2.75rem] sm:text-7xl lg:text-8xl` written out at each
@@ -197,6 +218,31 @@
  */
 @utility grid-cols-safe {
   grid-template-columns: minmax(0, 1fr);
+}
+
+/*
+ * How far below the top an anchored heading comes to rest.
+ *
+ * ONE ANSWER, REPLACING THREE. `scroll-mt-20`, `scroll-mt-24` and
+ * `scroll-mt-28` were all in use — 2, 15 and 7 headings — and every one of
+ * them cleared the 69px header by accident rather than by intent, so a reader
+ * following two table-of-contents links on two pages got two different gaps.
+ *
+ * On a phone the on-this-page rail is sticky UNDER the header, so a heading
+ * has both to clear: the header plus one row of controls (`min-h-11` plus the
+ * strip's own `py-1.5`). From `lg` the rail moves into the margin and stops
+ * being in the way, so only the header counts.
+ *
+ * `--header-height` is the shared value; nothing here restates it.
+ */
+@utility scroll-mt-anchor {
+  scroll-margin-top: calc(var(--header-height) + 3.5rem + 0.5rem);
+
+  /* Nested INSIDE the utility: `@utility` cannot itself be nested in an
+     `@media`, and Tailwind rejects the file outright if it is. */
+  @media (width >= 64rem) {
+    scroll-margin-top: calc(var(--header-height) + 0.75rem);
+  }
 }
 
 html {

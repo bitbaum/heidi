@@ -13,6 +13,7 @@
  */
 
 import { SEVERITY_RANK, type Severity, type VarietyPack, type VarietyRule } from "./pack.ts";
+import { wordPattern } from "../text/words.ts";
 
 export type Finding = {
   /** The offending form as it appears in the text. */
@@ -47,18 +48,8 @@ export type CheckResult = {
  */
 export type Threshold = Severity;
 
-/** Unicode-aware whole-word match: not preceded or followed by a letter. */
-function wordPattern(form: string): RegExp {
-  return new RegExp(`(?<!\\p{L})${escape(form)}(?!\\p{L})`, "giu");
-}
-
-/** Packs carry literal forms, not patterns; a stray `.` must not match anything. */
-function escape(form: string): string {
-  return form.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
 function patternOf(rule: VarietyRule): RegExp {
-  if (typeof rule.match === "string") return wordPattern(rule.match);
+  if (typeof rule.match === "string") return wordPattern(rule.match, "g");
   // A pack-supplied RegExp must be global to enumerate every occurrence, and
   // sticky would anchor it — normalise rather than trust the pack author.
   const flags = rule.match.flags.replace(/[gy]/g, "");

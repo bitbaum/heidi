@@ -2,6 +2,7 @@ import type { SituationPack } from "../../../situations/pack.ts";
 import type { VarietyPack, VocabularyEntry } from "../../../variety/pack.ts";
 import { PICK_OPTIONS, PICK_PER_WORD, type PickItem } from "../types.ts";
 import { blank } from "./text.ts";
+import { saysWord } from "../../../text/words.ts";
 import type { ExerciseKind, Material } from "./kind.ts";
 
 /**
@@ -46,12 +47,6 @@ function corpus(pack: VarietyPack, situations: readonly SituationPack[]): { targ
   return out;
 }
 
-/** Unicode-aware whole-word test — `si` must not match inside `isch`. */
-function says(sentence: string, word: string): boolean {
-  const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  return new RegExp(`(?<!\\p{L})${escaped}(?!\\p{L})`, "iu").test(sentence);
-}
-
 /**
  * Whether a word can be offered as a wrong answer against this German line.
  *
@@ -93,7 +88,7 @@ export function pickItems(pack: VarietyPack, situations: readonly SituationPack[
 
     for (const sentence of sentences) {
       if (made >= PICK_PER_WORD) break;
-      if (!says(sentence.target, word)) continue;
+      if (!saysWord(sentence.target, word)) continue;
 
       /**
        * The gloss must be visible in the German, or the blank is unanswerable.
@@ -106,7 +101,7 @@ export function pickItems(pack: VarietyPack, situations: readonly SituationPack[
 
       const distractors = pool
         .filter((other) => other.target !== entry.target)
-        .filter((other) => !says(sentence.target, other.target))
+        .filter((other) => !saysWord(sentence.target, other.target))
         .filter((other) => safeDistractor(other, sentence.bridge))
         .slice(0, PICK_OPTIONS - 1)
         .map((other) => other.target.trim());
