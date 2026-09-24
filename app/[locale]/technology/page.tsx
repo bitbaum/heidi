@@ -6,7 +6,7 @@ import { ASR_RESULTS, CORPORA, SPEAKING, TEXT_MODELS, techSources } from "@/lib/
 import { MEASURES } from "@/lib/speech/capability";
 import { DISPLAY } from "@/lib/variety/display";
 import { engineChain } from "@/lib/research/engine";
-import { Section, Shell } from "../_components/page-shell";
+import { BandHeader, Section, Shell } from "../_components/page-shell";
 import { SourceList } from "../_components/source-list";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -57,12 +57,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
 
   return (
     <Shell>
-      <header className="-mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
-        <h1 className="font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
-          {t.title}
-        </h1>
-        <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.lead}</p>
-      </header>
+      <BandHeader title={t.title} lead={t.lead} />
 
       {/* WHY IT IS HARD leads, because every number below is only legible once
           you know that the spoken and the written language are different

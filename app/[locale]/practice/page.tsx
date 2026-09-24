@@ -9,7 +9,7 @@ import { itemsFor, parseFlow, parseMode } from "@/lib/domain/practice/mode";
 import { fill } from "@/lib/i18n/fill";
 import type { Dictionary } from "@/lib/i18n/dictionaries/de";
 import { SOURCES, shortCitation } from "@/lib/research/sources";
-import { Shell } from "../_components/page-shell";
+import { BandHeader, Shell } from "../_components/page-shell";
 import { PracticeSession } from "../_components/practice-session";
 import { FocusPanel } from "../_components/focus-panel";
 import { PracticeChooser } from "../_components/practice-chooser";
@@ -115,13 +115,7 @@ export default async function PracticePage({
 
   return (
     <Shell>
-      <header className="-mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
-        <h1 className="font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
-          {t.title}
-        </h1>
-        <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.lead}</p>
-        <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{t.note}</p>
-      </header>
+      <BandHeader title={t.title} lead={t.lead} note={t.note} />
 
       <div className="border-t border-border-subtle pt-8">
         {/* The subject of a scoped sitting, named, with the door back to

@@ -10,7 +10,7 @@ import {
   NOT_DONE,
   type Flow,
 } from "@/lib/config/privacy";
-import { Section, Shell } from "../_components/page-shell";
+import { BandHeader, Section, Shell } from "../_components/page-shell";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -58,13 +58,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
 
   return (
     <Shell>
-      <header className="-mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
-        <h1 className="font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
-          {t.title}
-        </h1>
-        <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.lead}</p>
-        <p className="mt-3 font-mono text-caption uppercase tracking-caps text-fg-muted">{t.bindingNote}</p>
-      </header>
+      <BandHeader title={t.title} lead={t.lead} caption={t.bindingNote} />
 
       <Section border="top" title={t.flowsTitle} lead={t.flowsLead}>
         <ul className="mt-5 flex flex-col gap-2">

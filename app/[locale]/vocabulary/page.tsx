@@ -5,7 +5,7 @@ import { DISPLAY } from "@/lib/variety/display";
 import { SOURCES, type SourceId } from "@/lib/research/sources";
 import { href } from "@/lib/i18n/routes";
 import { scenesSayingWord } from "@/lib/situations/display";
-import { Shell } from "../_components/page-shell";
+import { BandHeader, Shell } from "../_components/page-shell";
 import { KeptCount } from "../_components/word-list";
 import { VocabularyBrowser, type SceneLink } from "../_components/vocabulary-browser";
 import { SourceList } from "../_components/source-list";
@@ -71,18 +71,10 @@ export default async function VocabularyPage({ params }: { params: Promise<{ loc
 
   return (
     <Shell>
-      <header className="-mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
-        <h1 className="font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
-          {t.title}
-        </h1>
-        <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.lead}</p>
-        <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{t.note}</p>
-
+      <BandHeader title={t.title} lead={t.lead} note={t.note}>
         {/* What the reader is carrying, and the way back into reviewing it. */}
-        <div className="mt-6">
-          <KeptCount t={t} portalHref={href(locale, "")} />
-        </div>
-      </header>
+        <KeptCount t={t} portalHref={href(locale, "")} />
+      </BandHeader>
 
       <div className="border-t border-border-subtle pt-10">
         <VocabularyBrowser

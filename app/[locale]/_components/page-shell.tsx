@@ -81,6 +81,67 @@ export function PageHeader({
 }
 
 /**
+ * The full-bleed band at the top of a page that is a place rather than a document.
+ *
+ * ELEVEN HEADERS CARRIED THIS STRING; TEN OF THEM IDENTICALLY.
+ *
+ *     -mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12
+ *
+ * The eleventh, the essay page, said `sm:py-14` — and that one turned out NOT
+ * to be drift: an essay header also has a back-link, a narrower measure, a
+ * tighter leading and a dateline, because it is an article byline rather than
+ * a place-name. It is deliberately left alone. `investors` and
+ * `dialect/[area]` are left alone for the same reason, each having one thing
+ * this does not: an eyebrow above the title, and an endonym that must carry
+ * `lang`.
+ *
+ * So this covers the eight that were the same header written eight times, and
+ * the markup below is byte-for-byte what they each rendered — no page moves a
+ * pixel from this change. That is the point: a refactor whose diff is visible
+ * to a reader is not a refactor.
+ *
+ * WHY THE NEGATIVE MARGINS ARE ALLOWED HERE and forbidden in `SectionNav`.
+ * That rule is about a STICKY element: one wider than its container, pinned
+ * to the viewport, is indistinguishable to the responsive audit from the
+ * overflow defect this site has shipped twice. This band is static, bleeds to
+ * the shell's own gutter and no further, and the audit measures it at exactly
+ * the viewport width. Different element, different risk.
+ *
+ * TWO KINDS OF SMALL PRINT, because the pages genuinely use two. `note` is
+ * prose that keeps reading; `caption` is a mono uppercase line, which the
+ * privacy page uses to say the German text is the binding one. A page that
+ * needs both can have both.
+ */
+export function BandHeader({
+  title,
+  lead,
+  note,
+  caption,
+  children,
+}: {
+  title: string;
+  lead?: string;
+  /** A smaller paragraph under the lead. */
+  note?: string;
+  /** A mono, uppercase line — a status about the page rather than more of it. */
+  caption?: string;
+  /** Room under the small print — the same `mt-6` slot `PageHeader` gives. */
+  children?: React.ReactNode;
+}) {
+  return (
+    <header className="-mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
+      <h1 className="font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
+        {title}
+      </h1>
+      {lead && <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{lead}</p>}
+      {note && <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{note}</p>}
+      {caption && <p className="mt-3 font-mono text-caption uppercase tracking-caps text-fg-muted">{caption}</p>}
+      {children && <div className="mt-6">{children}</div>}
+    </header>
+  );
+}
+
+/**
  * A section of a page: a rule, a heading, and the room underneath it.
  *
  * WHAT WAS MISSING, AND WHAT IT COST. This took only `title`, `id` and

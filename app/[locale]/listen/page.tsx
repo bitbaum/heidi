@@ -5,7 +5,7 @@ import { byMedium, flow } from "@/lib/listening/flow";
 import { dayCursor } from "@/lib/listening/today";
 import { DISPLAY } from "@/lib/variety/display";
 import { ListeningRow } from "../_components/listening-row";
-import { Shell } from "../_components/page-shell";
+import { BandHeader, Shell } from "../_components/page-shell";
 import { SectionNav, SectionNavLayout } from "../_components/section-nav";
 
 /**
@@ -70,12 +70,7 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
 
   return (
     <Shell>
-      <header className="-mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
-        <h1 className="font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
-          {t.title}
-        </h1>
-        <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.lead}</p>
-      </header>
+      <BandHeader title={t.title} lead={t.lead} />
 
       {/*
         A CONTENTS RAIL, because this page is a catalogue.
