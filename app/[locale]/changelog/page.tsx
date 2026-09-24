@@ -5,7 +5,7 @@ import { DEFAULT_LOCALE, LOCALE_TAGS, isLocale, type Locale } from "@/lib/i18n/l
 import { href } from "@/lib/i18n/routes";
 import { CHANGELOG } from "@/lib/config/changelog";
 import { sectorLocale } from "@/lib/config/sectors";
-import { Shell } from "../_components/page-shell";
+import { PageHeader, Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -55,17 +55,9 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
 
   return (
     <Shell>
-      <header className="border-b border-border-subtle py-12 sm:py-16">
-        <p className="font-mono text-caption uppercase tracking-caps text-accent">{dict.nav.changelog}</p>
-        <h1 className="mt-3 max-w-[20ch] font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
-          {t.title}
-        </h1>
-        <p className="mt-5 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.lead}</p>
-        <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{t.note}</p>
-        <div className="mt-6">
-          <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
-        </div>
-      </header>
+      <PageHeader eyebrow={dict.nav.changelog} title={t.title} lead={t.lead} note={t.note} lang={lang}>
+        <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
+      </PageHeader>
 
       <ol className="flex flex-col">
         {entries.map((entry) => (

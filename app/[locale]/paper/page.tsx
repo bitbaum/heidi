@@ -7,7 +7,7 @@ import { PAPER } from "@/lib/config/paper";
 import { sectorLocale } from "@/lib/config/sectors";
 import { SOURCES } from "@/lib/research/sources";
 import { SourceList } from "../_components/source-list";
-import { Shell } from "../_components/page-shell";
+import { PageHeader, Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
 import { SectionNav, SectionNavLayout } from "../_components/section-nav";
 
@@ -54,31 +54,22 @@ export default async function PaperPage({ params }: { params: Promise<{ locale: 
 
   return (
     <Shell>
-      <header className="border-b border-border-subtle py-12 sm:py-16">
-        <p className="font-mono text-caption uppercase tracking-caps text-accent">{dict.nav.paper}</p>
-        <h1
-          lang={lang}
-          className="mt-3 max-w-[24ch] font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary"
-        >
-          {paper.title}
-        </h1>
-        <p lang={lang} className="mt-5 max-w-measure text-lead leading-relaxed text-fg-secondary">
-          {paper.lead}
-        </p>
-        {/* What this document is and is not, before the argument rather than
-            after it. A reader who finds out on page four that this is a
-            working note has been managed. */}
-        <p lang={lang} className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">
-          {paper.standfirst}
-        </p>
-
+      {/* `note` is the standfirst: what this document is and is not, before
+          the argument rather than after it. A reader who finds out on page
+          four that this is a working note has been managed. */}
+      <PageHeader
+        eyebrow={dict.nav.paper}
+        title={paper.title}
+        lead={paper.lead}
+        note={paper.standfirst}
+        lang={lang}
+        measure="24ch"
+      >
         {/* Romansh chrome around an English argument, with nothing saying
             why, was the reported defect. One component says it on every
             surface with this shape. */}
-        <div className="mt-6">
-          <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
-        </div>
-      </header>
+        <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
+      </PageHeader>
 
       <SectionNavLayout
         nav={
