@@ -9,6 +9,8 @@ import { SCENES, domainOf, sceneById } from "@/lib/situations/display";
 import { SOURCES, type SourceId } from "@/lib/research/sources";
 import { PACK_ITEMS } from "@/lib/domain/practice/published";
 import { itemsInScope } from "@/lib/domain/practice/scope";
+import { askableLines as askableLinesOf } from "@/lib/domain/practice/situation-strength";
+import { SituationStrength } from "../../_components/situation-strength";
 import { PageHeader, Shell } from "../../_components/page-shell";
 import { SourceList } from "../../_components/source-list";
 
@@ -87,6 +89,16 @@ export default async function ScenePage({ params }: { params: Promise<{ locale: 
    */
   const askable = itemsInScope(PACK_ITEMS, { kind: "scene", id: scene.id }).length > 0;
 
+  /**
+   * WHICH lines can be asked, for the strength panel's denominator.
+   *
+   * Read off the generated items rather than off `phrases.length`, so the
+   * figure a learner is measured against is exactly the set of questions this
+   * build can put to them. Counting lines that never become a question would
+   * put a ceiling under 100% on every scene and silently call it their fault.
+   */
+  const askableLines = [...(askableLinesOf(PACK_ITEMS).get(scene.id) ?? [])].sort((a, b) => a - b);
+
   return (
     <Shell>
       <PageHeader eyebrow={domainWords?.title} title={words.title} lead={words.scene} />
@@ -142,6 +154,14 @@ export default async function ScenePage({ params }: { params: Promise<{ locale: 
           );
         })}
       </ul>
+
+      <SituationStrength
+        scene={scene.id}
+        askable={askableLines}
+        lines={scene.phrases.map((p) => p.target)}
+        t={t}
+        locale={locale}
+      />
 
       {scene.topics.length > 0 && (
         <section aria-labelledby="topics" className="mt-12">

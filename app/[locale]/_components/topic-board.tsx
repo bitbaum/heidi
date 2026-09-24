@@ -56,7 +56,7 @@ export function TopicBoard({
         setBusy(null);
       }
     },
-    [busy, router, t.failed],
+    [busy, router, t],
   );
 
   return (
@@ -148,7 +148,7 @@ function ProposeTopic({ t, onDone }: { t: T; onDone: () => void }) {
         setBusy(false);
       }
     },
-    [busy, title, pitch, onDone, t.failed],
+    [busy, title, pitch, onDone, t],
   );
 
   return (

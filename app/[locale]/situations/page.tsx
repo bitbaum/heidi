@@ -5,6 +5,9 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { DOMAINS } from "@/lib/situations/display";
 import { PageHeader, Shell } from "../_components/page-shell";
+import { PACK_ITEMS } from "@/lib/domain/practice/published";
+import { askableLines } from "@/lib/domain/practice/situation-strength";
+import { SituationBoard } from "../_components/situation-board";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -45,10 +48,29 @@ export default async function SituationsPage({ params }: { params: Promise<{ loc
   const dict = getDictionary(locale);
   const t = dict.situations;
 
+  /**
+   * Every scene, with the lines this build can ask about it.
+   *
+   * Computed here and handed down, so the board — which has to run in the
+   * browser, because the evidence is in the browser — does not pull the whole
+   * item set into the client bundle to count it.
+   */
+  const scenes = DOMAINS.flatMap((domain) =>
+    domain.scenes.map((scene) => ({
+      id: scene.id,
+      title: t.scenes[scene.id as keyof typeof t.scenes]?.title ?? scene.id,
+    })),
+  );
+  const askableByScene = Object.fromEntries(
+    [...askableLines(PACK_ITEMS)].map(([scene, lines]) => [scene, [...lines].sort((a, b) => a - b)]),
+  );
+
   return (
     <Shell>
       <PageHeader title={t.title} lead={t.lead} />
       <p className="mt-6 max-w-measure text-sm leading-relaxed text-fg-muted">{t.note}</p>
+
+      <SituationBoard scenes={scenes} askable={askableByScene} t={t} locale={locale} />
 
       <div className="mt-12 flex flex-col gap-16">
         {DOMAINS.map((domain) => {

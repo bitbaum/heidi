@@ -65,6 +65,27 @@ export type ItemSource =
       kind: "situation";
       scene: string;
       /**
+       * WHICH line of the scene, as its index in `phrases`.
+       *
+       * What makes "I can follow this situation" a checkable claim rather than
+       * a feeling. Without it the model knows only that twelve questions about
+       * the handover were answered — which is equally true of twelve askings
+       * of the same sentence and of one asking each of twelve. The first is
+       * not understanding a situation and the second is, and a page that
+       * cannot tell them apart has to keep quiet about both.
+       *
+       * OPTIONAL, because one item kind honestly has no single line: a
+       * `gaptext` passage spans several at once. Those count toward the
+       * scene and not toward per-line coverage, which is the truthful
+       * accounting — the learner did meet those lines, but not one at a time
+       * in a way that says anything about each.
+       *
+       * The index, not the sentence. `phrases` is ordered and the order is
+       * content, so the index is the line's identity; keying on the text would
+       * silently reset a learner's progress the day somebody fixed a typo.
+       */
+      line?: number;
+      /**
        * The grammar topic the line turns on, when it has one.
        *
        * This is what makes "practise this topic" worth pressing. Without it, a
