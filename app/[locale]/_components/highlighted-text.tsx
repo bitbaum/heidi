@@ -1,4 +1,5 @@
 import type { Finding } from "@/lib/variety/check";
+import { DISPLAY } from "@/lib/variety/display";
 
 /** Renders `text` with each finding's span wrapped in a highlighted <mark>. */
 export function HighlightedText({ text, findings }: { text: string; findings: Finding[] }) {
@@ -12,7 +13,7 @@ export function HighlightedText({ text, findings }: { text: string; findings: Fi
 
     if (start > cursor) parts.push(text.slice(cursor, start));
     parts.push(
-      <mark key={i} className="rounded-sm bg-accent-tint px-0.5 font-medium text-dialect">
+      <mark key={i} lang={DISPLAY.tag} className="rounded-sm bg-accent-tint px-0.5 font-medium text-dialect">
         {text.slice(start, end)}
       </mark>,
     );

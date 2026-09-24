@@ -82,7 +82,13 @@ export function RevealView({ item, t, locale, onAnswer, onRecall }: ExerciseView
           <p lang="de" className="mt-2 max-w-measure wrap-anywhere text-base leading-relaxed text-fg-secondary">
             {reveal.bridge}
           </p>
-          {shown && <p className={`${PROMPT_TEXT} text-accent`}>{reveal.answer}</p>}
+          {/* The ANSWER is in the dialect exactly as the prompt above it is, and
+              was the one line here that did not say so. */}
+          {shown && (
+            <p lang={DISPLAY.tag} className={`${PROMPT_TEXT} text-accent`}>
+              {reveal.answer}
+            </p>
+          )}
         </>
       ) : (
         <>
