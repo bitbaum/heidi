@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 /** The order they are worth learning in, not alphabetical. */
-const GROUPS = ["function", "verbs", "everyday", "greetings"] as const;
+const GROUPS = ["function", "verbs", "helvetisms", "everyday", "greetings"] as const;
 
 /**
  * The words that buy the most comprehension — now findable.
@@ -28,6 +28,14 @@ const GROUPS = ["function", "verbs", "everyday", "greetings"] as const;
  * and greetings come last, and are short, because a person does not fail to
  * follow a Zurich lunch table for want of "good evening". That ordering is why
  * `GROUPS` is a literal here rather than derived alphabetically.
+ *
+ * HELVETISMS SIT THIRD, BY THE SAME ARGUMENT. They are nouns, which would put
+ * them at the bottom — but the rule above is not about part of speech, it is
+ * about what a correspondence can rescue, and nothing gets a reader from
+ * `Bürgersteig` to `Trottoir`. Worse, half of them are words the reader is
+ * CERTAIN of and wrong about, which no amount of scrolling surfaces. So they
+ * go above the ordinary nouns and below the words that stop somebody mid
+ * sentence.
  *
  * WHAT CHANGED IS EVERYTHING AROUND IT. The list was a list: no way in except
  * scrolling, no way out except the chat. It now has a filter over both
@@ -83,6 +91,7 @@ export default async function VocabularyPage({ params }: { params: Promise<{ loc
             bridge: word.bridge,
             group: word.group,
             ...(word.article ? { article: word.article } : {}),
+            ...(word.mistakenFor ? { mistakenFor: word.mistakenFor } : {}),
             ...(word.forms ? { forms: word.forms } : {}),
             ...(word.example ? { example: word.example } : {}),
           }))}

@@ -38,6 +38,8 @@ export function WordList({
     target: string;
     bridge: string;
     article?: string;
+    /** The meaning a German reader would wrongly assume. See `VocabularyEntry`. */
+    mistakenFor?: string;
     forms?: ReadonlyArray<{ label: string; target: string; bridge: string }>;
     example?: { target: string; bridge: string };
   }>;
@@ -100,6 +102,19 @@ export function WordList({
             </span>
             <span lang="de" className="text-base leading-snug text-fg-secondary">
               {word.bridge}
+              {/*
+                THE TRAP, ON THE SAME LINE AS THE MEANING.
+                A false friend is only dangerous while the reader is certain,
+                so the correction has to arrive in the same glance as the word
+                — a note further down the row is read by somebody who has
+                already decided they knew this one. `lang="de"` because it is
+                the German meaning being ruled out, not a Zurich form.
+              */}
+              {word.mistakenFor && (
+                <span className="ml-2 text-sm text-accent">
+                  {fill(t.mistakenForLabel, { assumed: word.mistakenFor })}
+                </span>
+              )}
             </span>
 
             <span className="flex shrink-0 items-center gap-1">

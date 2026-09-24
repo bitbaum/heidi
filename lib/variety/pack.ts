@@ -218,7 +218,7 @@ export type GrammarTopic = {
  * right, because they face opposite ways: understanding what somebody said,
  * versus writing something to send. Comprehension first is the whole product.
  */
-export type VocabularyGroup = "function" | "verbs" | "everyday" | "greetings";
+export type VocabularyGroup = "function" | "verbs" | "everyday" | "greetings" | "helvetisms";
 
 /**
  * The article a learner would actually SAY, as a closed set.
@@ -290,12 +290,38 @@ export type VocabularyEntry = {
    */
   example?: { target: string; bridge: string };
   /**
+   * The meaning a bridge reader will ASSUME, and be wrong about.
+   *
+   * THE ONE KIND OF WORD THE LIST COULD NOT EXPRESS. Every other row here
+   * works because the two halves look different: `aalüte` is visibly not
+   * `anrufen`, so a reader knows they have met something new. The dangerous
+   * words are the opposite — `Peperoni`, `Eschtrich`, `schmöcke` — where a
+   * German reader recognises the word, is certain they know it, and is wrong.
+   * Nothing warns them, because there is nothing to notice.
+   *
+   * That is §2's problem in a single word. A learner cannot audit a word they
+   * are sure of; the error is invisible from the inside and stays invisible
+   * until it costs something — ordering `Peperoni` and getting a bell pepper
+   * is funny, reading `Eschtrich` in a tenancy agreement is not.
+   *
+   * So the row carries three things rather than two: the Zurich word, what it
+   * MEANS (`bridge`), and what a reader would have taken it to mean. It is in
+   * the bridge language, like `bridge` itself, and it is required to name a
+   * source for the same reason everything else here is — it is a claim about
+   * two languages at once.
+   *
+   * Absent on most entries, including most of this group. `Trottoir` is not a
+   * false friend: a German reader simply does not know it, which is a
+   * different and much safer kind of gap.
+   */
+  mistakenFor?: string;
+  /**
    * Who vouches for the detail above.
    *
-   * Required by a test for any entry carrying an `article`, `forms` or an
-   * `example`: those are claims about the language, and this repo does not
-   * publish a claim about the language that names nobody. A bare
-   * target/bridge pair inherits the pack's `vocabularySources` as before.
+   * Required by a test for any entry carrying an `article`, `forms`, an
+   * `example` or a `mistakenFor`: those are claims about the language, and
+   * this repo does not publish a claim about the language that names nobody. A
+   * bare target/bridge pair inherits the pack's `vocabularySources` as before.
    */
   source?: string;
 };

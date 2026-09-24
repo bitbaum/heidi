@@ -17,13 +17,35 @@ describe("the vocabulary", () => {
   test("there is a list, and it is not a phrasebook", () => {
     assert.ok(words.length >= 30, "too short to be the words that buy comprehension");
 
-    // The test of the selection, not the size. Content words are mostly
-    // cognate and the correspondences carry them; the short constant words are
-    // what no correspondence rescues, so they must dominate.
-    const carrying = words.filter((w) => w.group === "function" || w.group === "verbs");
+    /**
+     * The test of the SELECTION, not the size. Content words are mostly
+     * cognate and the correspondences carry them; the short constant words are
+     * what no correspondence rescues, so they must dominate.
+     *
+     * HELVETISMS ARE OUT OF THE DENOMINATOR, and the rule's own reasoning is
+     * why. It rests on content words being cognate — and `Trottoir` is not
+     * reachable from `Bürgersteig` by any sound rule, `Peperoni` means
+     * something else in the language the reader already has. They are
+     * unrescued by correspondence in exactly the way function words are; they
+     * merely happen to be nouns. Counting them as phrasebook padding would
+     * apply the rule where its premise is false.
+     *
+     * So they get their own cap instead, and the guard keeps its teeth in both
+     * directions: the carrying words must still dominate everything a
+     * correspondence could have carried, AND this group may not quietly become
+     * the page.
+     */
+    const helvetisms = words.filter((w) => w.group === "helvetisms");
+    const carried = words.filter((w) => w.group !== "helvetisms");
+    const carrying = carried.filter((w) => w.group === "function" || w.group === "verbs");
+
     assert.ok(
-      carrying.length > words.length / 2,
+      carrying.length > carried.length / 2,
       "a vocabulary page that is mostly nouns and greetings is a phrasebook",
+    );
+    assert.ok(
+      helvetisms.length <= words.length / 4,
+      "the false friends have taken over the page; they are a section, not the list",
     );
   });
 
@@ -103,7 +125,7 @@ describe("the vocabulary", () => {
      * was added, which is how a guard quietly becomes a formality. A named
      * allowlist still fails on a field nobody thought about.
      */
-    const ALLOWED = ["article", "bridge", "example", "forms", "group", "source", "target"];
+    const ALLOWED = ["article", "bridge", "example", "forms", "group", "mistakenFor", "source", "target"];
     assert.equal(DISPLAY.vocabulary.length, words.length);
 
     for (const word of DISPLAY.vocabulary) {
