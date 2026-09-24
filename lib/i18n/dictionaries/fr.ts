@@ -7,6 +7,12 @@ export const fr: Dictionary = {
       "Comprendre ce qui se dit vraiment autour de vous. Heidi déchiffre les vrais messages, explique les mots que vous ne connaissez pas encore et vérifie chaque réponse selon de vraies formes dialectales. En commençant par le zurichois.",
   },
 
+  language: {
+    notYet: "Ce texte n\u2019existe pas encore en français. Vous le lisez en",
+    byDesign:
+      "Ce texte n\u2019existe qu\u2019en allemand et en anglais : il s\u2019adresse à des personnes qui vivent ici. Vous le lisez en",
+  },
+
   nav: {
     home: "Accueil",
     chat: "Chat",
@@ -552,7 +558,6 @@ export const fr: Dictionary = {
     rolesTitle: "Quatre façons de participer",
     rolesLead:
       "Classées par engagement, la plus petite d\u2019abord — et c\u2019est la plus petite qui nous vaut le plus. Chacune indique ce qui existe déjà pour elle aujourd\u2019hui.",
-    rolesLanguage: "Ces descriptions ne sont qu\u2019en allemand et en anglais : les personnes recherchées ici vivent en Suisse. Le reste de la page est dans votre langue.",
     todayLabel: "État actuel",
     roleCta: "Écrivez-nous à ce sujet",
     roleSee: "Voir",

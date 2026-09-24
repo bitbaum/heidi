@@ -30,6 +30,12 @@ export const gsw: Dictionary = {
       "Verstaa, was um Si ume würklich gredt wird. Heidi übersetzt echti Nachrichte, erklärt d Wörter wo Si na nöd kenned, und prüeft jedi Antwort uf echti Dialektforme. Mir foönd a mit Züritüütsch.",
   },
 
+  language: {
+    notYet: "Dä Text git s no nöd uf Schwiizerdütsch. Sie läsed en uf",
+    byDesign:
+      "Dä Text git s nu uf Dütsch und Änglisch: Er richtet sich a Lüt, wo da läbed. Sie läsed en uf",
+  },
+
   nav: {
     home: "Afang",
     chat: "Chat",
@@ -636,7 +642,6 @@ export const gsw: Dictionary = {
     rolesTitle: "Vier Arte mitzmache",
     rolesLead:
       "Nach Ufwand gordnet, s Chlyschte zerscht — und s Chlyschte isch is am meischte wert. Bi jedere staht, was es derfür hüt scho git.",
-    rolesLanguage: "Die Beschriibige git s nu uf Dütsch und Änglisch.",
     todayLabel: "Stand hüt",
     roleCta: "Schriibed Sie is drzue",
     roleSee: "Aaluege",

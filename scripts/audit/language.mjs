@@ -20,23 +20,10 @@
  * "Chat", "Podcast" and "Whitepaper" quite legitimately, and none of them is
  * "which".
  *
- * WHAT IT DELIBERATELY SKIPS. Four things, each for a stated reason rather
- * than because it was inconvenient:
- *
- *   /investors   English on purpose, and gated. One document for one kind of
- *                conversation; `investors.ts` argues it at length.
- *   /paper       German and English only by design, like the sectors and the
- *   /roadmap     roadmap — writing ABOUT the project rather than interface
- *   /changelog   copy, where seven machine-checked translations of an
- *   /organisations  unreviewed argument would be six liabilities.
- *   /contribute  recruits people who LIVE here — natives to read our lines,
- *                voices to record, partners to talk. Same reasoning, and the
- *                page now says so in the reader's own language rather than
- *                leaving them to guess, which is what the essays page does
- *                for an untranslated piece.
- *
- * Those pages render English to a French reader BY DECISION. Everything else
- * renders the reader's language or it is a bug.
+ * WHAT IT SKIPS: anything that declares its own language with `lang`. A
+ * bibliography, a dialect form, and a white paper that is German and
+ * English on purpose all say so in the markup — which a screen reader needs
+ * anyway — so the check needs no list of exceptions to be routed around.
  *
  *   pnpm run dev                                   # in another terminal
  *   pnpm run audit:language                        # German, every page
@@ -75,7 +62,27 @@ const ENGLISH = [
 ];
 
 /** Pages whose English is a decision. See the header. */
-const BY_DESIGN = new Set(["paper", "roadmap", "changelog", "organisations", "investors", "contribute"]);
+/**
+ * THE SKIP LIST IS EMPTY, AND THAT IS THE POINT.
+ *
+ * It held six pages whose content is German and English by design — the white
+ * paper, the roadmap, the changelog, the sector page, the register, the data
+ * room. Skipping them meant the check could not see the pages most likely to
+ * show a reader the wrong language, which is how `/rm/paper` shipped as
+ * Romansh chrome around an English argument with no `lang` on the English and
+ * nothing saying why.
+ *
+ * Those pages now MARK their content — `lang` on the heading, the lede and
+ * every section — because that is what the attribute is for and what a screen
+ * reader needs. The rule below then handles them without an exception: text
+ * that has declared its language is not a leak, and text that has not is one,
+ * whatever page it is on.
+ *
+ * An exception list is a place for the next mistake to hide. This one is kept
+ * as an empty set rather than deleted so that adding a name is a deliberate
+ * act with a reason beside it, rather than a new idea somebody has to have.
+ */
+const BY_DESIGN = new Set([]);
 
 async function main() {
   const browser = await chromium.launch();

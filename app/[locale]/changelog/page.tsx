@@ -6,6 +6,7 @@ import { href } from "@/lib/i18n/routes";
 import { CHANGELOG } from "@/lib/config/changelog";
 import { sectorLocale } from "@/lib/config/sectors";
 import { Shell } from "../_components/page-shell";
+import { OtherLanguage } from "../_components/other-language";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -37,7 +38,8 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   const t = dict.changelog;
-  const entries = CHANGELOG[sectorLocale(locale)];
+  const lang = sectorLocale(locale);
+  const entries = CHANGELOG[lang];
 
   /**
    * The date as this reader writes dates.
@@ -60,11 +62,18 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
         </h1>
         <p className="mt-5 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.lead}</p>
         <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{t.note}</p>
+        <div className="mt-6">
+          <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
+        </div>
       </header>
 
       <ol className="flex flex-col">
         {entries.map((entry) => (
-          <li key={`${entry.date}-${entry.title}`} className="border-b border-border-subtle py-9">
+          <li
+            key={`${entry.date}-${entry.title}`}
+            lang={lang}
+            className="border-b border-border-subtle py-9"
+          >
             <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
               <time dateTime={entry.date} className="font-mono text-caption uppercase tracking-caps text-fg-muted">
                 {asDate(entry.date)}

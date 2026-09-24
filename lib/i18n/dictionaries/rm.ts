@@ -23,6 +23,12 @@ export const rm: Dictionary = {
       "Chapir quai che vegn discurrì propi enturn Vus. Heidi decifrescha messadis reals, declera ils pleds che Vus na enconuschais anc betg e controllescha mintga resposta tenor furmas dialectalas veras. Nus cumenzain cun il tudestg da Turitg.",
   },
 
+  language: {
+    notYet: "Quest text n\u2019exista anc betg per rumantsch. Vus al legiais en",
+    byDesign:
+      "Quest text exista mo per tudestg ed englais: el sa drizza a persunas che vivan qua. Vus al legiais en",
+  },
+
   nav: {
     home: "Cumenzament",
     chat: "Chat",
@@ -568,7 +574,6 @@ export const rm: Dictionary = {
     rolesTitle: "Quatter modas da far part",
     rolesLead:
       "Ordinadas tenor engaschament, la pli pitschna l\u2019emprima — e quella è quella che vala il pli per nus. Mintgina di tge ch\u2019i dat gia oz en il product.",
-    rolesLanguage: "Questas descripziuns èn mo per tudestg ed englais: las persunas tschertgadas qua vivan en Svizra. Il rest da la pagina è en Vossa lingua.",
     todayLabel: "Sco ch\u2019i stat",
     roleCta: "Scrivai a nus davart quai",
     roleSee: "Guardar",
