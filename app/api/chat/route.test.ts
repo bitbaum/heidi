@@ -17,6 +17,12 @@ import { POST } from "./route.ts";
  *
  * No model is called in any of these: the checks reject first, and this
  * deployment has no key configured anyway — which is itself one of the cases.
+ *
+ * One guard was REMOVED here rather than weakened, and the distinction
+ * matters: refusing a picture because no key was brought was not a guard, it
+ * was a wrong belief about free models. What replaced it is a stricter pair —
+ * a malformed picture is still refused, and a valid one is allowed through to
+ * a chain that decides for itself whether it can be read.
  */
 
 function request(body: unknown) {
@@ -46,9 +52,39 @@ describe("the guards hold in both response shapes", () => {
       assert.equal(res.status, 400);
     });
 
-    test(`${name}: a picture with no brought key is refused`, async () => {
-      // Only a brought key can see, so accepting the upload and then silently
-      // ignoring it would charge the reader's attention for nothing.
+    test(`${name}: a MALFORMED picture is still refused`, async () => {
+      // The validation guard, which must survive the change below. A data URL
+      // of a type no vendor accepts is rejected here rather than forwarded and
+      // paid for.
+      const res = await POST(
+        request({
+          input: "Was heisst das?",
+          locale: "de",
+          images: ["data:text/html;base64,PGh0bWw+"],
+          ...extra,
+        }),
+      );
+      assert.equal(res.status, 400);
+    });
+
+    test(`${name}: a VALID picture is no longer refused for lacking a key`, async () => {
+      /**
+       * This test used to assert the opposite, and the sentence above it read
+       * "only a brought key can see". That was never true of free models —
+       * `google/gemma-4-26b-a4b-it:free` was already in the chain this app
+       * installs — only of a chain with no vision routing, which ai-kit 1.11
+       * fixed for the whole fleet.
+       *
+       * So a picture is VALIDATED here and no longer REFUSED here. Whether one
+       * can be read is the chain's question and it answers for itself: a
+       * deployment with a sighted vendor keyed reads it, and one without says
+       * `blind` in its own words rather than this route guessing from the
+       * presence of a key.
+       *
+       * Asserted as "not 400", not as a specific success: this deployment has
+       * no key at all, so the turn lands on the unconfigured path pinned
+       * below. The point is only that the PICTURE is not what stopped it.
+       */
       const res = await POST(
         request({
           input: "Was heisst das?",
@@ -57,7 +93,7 @@ describe("the guards hold in both response shapes", () => {
           ...extra,
         }),
       );
-      assert.equal(res.status, 400);
+      assert.notEqual(res.status, 400);
     });
   }
 
