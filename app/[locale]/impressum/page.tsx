@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { CONTACT_EMAIL, OPERATOR, POSTAL_ADDRESS, SOURCE_URL } from "@/lib/config/site";
-import { Shell } from "../_components/page-shell";
+import { BandHeader, Shell } from "../_components/page-shell";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -32,11 +32,7 @@ export default async function ImpressumPage({ params }: { params: Promise<{ loca
 
   return (
     <Shell>
-      <header className="-mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
-        <h1 className="font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
-          {t.title}
-        </h1>
-      </header>
+      <BandHeader title={t.title} />
 
       <dl className="flex flex-col gap-6 border-t border-border-subtle py-10">
         <Row label={t.operatorLabel}>{OPERATOR}</Row>

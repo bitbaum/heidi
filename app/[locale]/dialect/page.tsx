@@ -4,7 +4,7 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { DISPLAY } from "@/lib/variety/display";
-import { Shell } from "../_components/page-shell";
+import { BandHeader, Shell } from "../_components/page-shell";
 
 /**
  * The essay this page hands its hardest question to.
@@ -67,12 +67,7 @@ export default async function DialectPage({ params }: { params: Promise<{ locale
 
   return (
     <Shell>
-      <header className="-mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
-        <h1 className="font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
-          {t.title}
-        </h1>
-        <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.lead}</p>
-      </header>
+      <BandHeader title={t.title} lead={t.lead} />
 
       {/* Three columns only once there is room for three measures. At `sm` they
           were four words wide and read as a poem. */}
