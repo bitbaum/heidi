@@ -5,7 +5,7 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { ROADMAP } from "@/lib/config/roadmap";
 import { sectorLocale } from "@/lib/config/sectors";
-import { Shell } from "../_components/page-shell";
+import { PageHeader, Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -42,21 +42,9 @@ export default async function RoadmapPage({ params }: { params: Promise<{ locale
 
   return (
     <Shell>
-      <header className="border-b border-border-subtle py-12 sm:py-16">
-        <p className="font-mono text-caption uppercase tracking-caps text-accent">{doc.eyebrow}</p>
-        <h1
-          lang={lang}
-          className="mt-3 max-w-[20ch] font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary"
-        >
-          {doc.title}
-        </h1>
-        <p lang={lang} className="mt-5 max-w-measure text-lead leading-relaxed text-fg-secondary">
-          {doc.lede}
-        </p>
-        <div className="mt-6">
-          <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
-        </div>
-      </header>
+      <PageHeader eyebrow={doc.eyebrow} title={doc.title} lead={doc.lede} lang={lang}>
+        <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
+      </PageHeader>
 
       {doc.buckets.map((bucket) => (
         <section key={bucket.title} lang={lang} className="border-b border-border-subtle py-10">
