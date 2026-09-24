@@ -167,6 +167,8 @@ export const gsw: Dictionary = {
     notConfigured: "S Sprachmodell isch uf dere Installation na nöd iigrichtet.",
     unreachable: "Heidi isch nöd erreichbar. Bitte d Verbindig prüefe und nomal probiere.",
     failed: "Heidi het das grad nöd chönne beantworte. Bitte glii nomal probiere.",
+    cannotSeePicture:
+      "Heidi cha grad kei Bilder läse. Schickid de Text, oder verbindid es eigens Modell, wo Bilder liist.",
     retry: "Nomal",
     /**
      * The full-screen chat. Its own object so the homepage box — which shares
@@ -224,11 +226,11 @@ export const gsw: Dictionary = {
 
   model: {
     attach: "Bild aahänke",
-    attachNeedsKey: "Bilder läse bruucht Ihres eigene Modell",
+    attachNeedsKey: "Ihres verbundene Modell cha kei Bilder läse",
     remove: "Ewägnäh",
     connectTitle: "Ihres eigene Modell verbinde",
     connectLead:
-      "Heidi isch gratis, und di gratis Modell chönd kei Bilder läse. Wänn Si en eigene API-Schlüssel hinterlegged, cha Heidi Screenshots verstaa — und antwortet im Ganze besser.",
+      "Heidi liist Screenshots gratis. Mit eme eigene API-Schlüssel wärded d Antworte schärfer — bsunders bi eme Bild mit vil Text — und d Aafrage laufed über Ihre Aabieter statt über eusere.",
     whyTitle: "Werum nöd eifach debii?",
     whyBody:
       "Wil Bilder läse pro Bild chostet. Wänn mir das für alli würded zahle, müesstet mir Heidi chostepflichtig mache. So bliibt alles andere gratis, und wer meh wott, bringt sin eigene Schlüssel mit.",
@@ -263,7 +265,7 @@ export const gsw: Dictionary = {
     languageBody: "I welere Sprach Heidi mit Ihne redt. Was Si lerned, bliibt Züritüütsch.",
     modelTitle: "Sprachmodell",
     modelBody:
-      "Standardmässig bruucht Heidi gratis Modell. En eigene Schlüssel schaltet Bilder frei und verbesseret d Antworte.",
+      "Standardmässig bruucht Heidi gratis Modell, wo Bilder chönd läse. En eigene Schlüssel macht d Antworte schärfer.",
     modelNone: "Kei eigens Modell verbunde",
     accountTitle: "Konto",
     accountBody: "Zum Spichere vo Ihrne Wörter und für Lerngruppe. Zum Übersetze bruuched Si kei Konto.",

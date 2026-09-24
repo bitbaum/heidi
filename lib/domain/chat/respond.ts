@@ -1,4 +1,11 @@
-import { complete, completeStream, freeChain, usableChain, type HealthTracker } from "@bitbaum/ai-kit";
+import {
+  NoVisionLinkError,
+  complete,
+  completeStream,
+  freeChain,
+  usableChain,
+  type HealthTracker,
+} from "@bitbaum/ai-kit";
 import type { Thread } from "threadkit";
 import { VARIETY } from "../../variety/active.ts";
 import { systemPrompt } from "../../variety/prompt.ts";
@@ -73,7 +80,18 @@ export function pastedContext(messages: ChatMessage[]): string {
 export type RespondResult =
   | { status: "answered"; answer: Answer }
   | { status: "silent"; reason: string }
-  | { status: "unconfigured" };
+  | { status: "unconfigured" }
+  /**
+   * A picture arrived and nothing reachable can read one.
+   *
+   * Its own outcome rather than a failed turn, because the two need opposite
+   * sentences. "Heidi could not answer just now, try again" invites a retry
+   * that cannot work: no model in reach has eyes, and none will grow them in a
+   * minute. The honest answer names the one thing that does help — their own
+   * key — and that is only sayable if this is distinguishable from a vendor
+   * blip. ai-kit decides it BEFORE any request, so this costs nothing.
+   */
+  | { status: "blind" };
 
 export async function respondInThread(args: {
   thread: Thread;
@@ -102,8 +120,15 @@ export async function respondInThread(args: {
   const byokLinks = own.ok ? byokChain(own.config) : null;
 
   // A brought key REPLACES the free chain rather than extending it: falling
-  // through to our free models after their paid model failed would answer a
-  // picture with something that cannot see.
+  // through to ours after their paid model failed would spend our budget
+  // answering a turn they are paying for, and would silently downgrade the
+  // answer they chose.
+  //
+  // It used to say the fallback would "answer a picture with something that
+  // cannot see". That reason is gone as of ai-kit 1.11 — `complete()` routes
+  // on vision now and will not hand a picture to a blind link, ours or
+  // theirs. The rule survives on the budget argument alone, which was always
+  // the stronger half.
   const chain = byokLinks ? byokLinks.chain : usableChain(freeChain("HEIDI"), process.env);
   const env = byokLinks ? { ...process.env, ...byokLinks.env } : process.env;
   if (chain.length === 0) return { status: "unconfigured" };
@@ -115,64 +140,79 @@ export async function respondInThread(args: {
   // to guarantee the reply offer the model may have forgotten.
   const pasted = pastedContext(args.messages);
 
-  const turn = await heidiTurn(args.thread, args.messages, {
-    // The pasted-message note is appended HERE rather than by each caller, so
-    // every surface that can hold a conversation gets it without having to
-    // remember. That is the whole reason this function exists.
-    systemPrompt: [systemPrompt(VARIETY, EXPLANATION_LANGUAGE[args.locale]), pasted].filter(Boolean).join("\n\n"),
-    model: chain[0]?.model ?? "unknown",
-    complete: async ({ system, prompt, maxTokens, temperature }) => {
-      const call = {
-        chain,
-        env,
-        health: args.health,
-        temperature,
-        maxTokens,
-        timeoutMs: TIMEOUT_MS,
-        signal: args.signal,
-        messages: [
-          { role: "system" as const, content: system },
-          // ai-kit's `ChatMessage.content` accepts content parts since 1.x, so
-          // this is now typed all the way through. It used to be an
-          // `as unknown as` cast with a note asking for exactly that widening.
-          pictures.length > 0
-            ? { role: "user" as const, content: visionMessage(prompt, pictures) }
-            : { role: "user" as const, content: prompt },
-        ],
-      };
+  /**
+   * `heidiTurn` wraps the model call, so the vision refusal surfaces from in
+   * there rather than from a line we can guard directly. Catching it around
+   * the whole turn is correct anyway: ai-kit throws it BEFORE any request, so
+   * nothing has been spent and nothing partial has been shown.
+   *
+   * Narrow on purpose. Every other failure stays a failure — a chain that
+   * genuinely died must not be reported to a learner as "bring your own key".
+   */
+  let turn;
+  try {
+    turn = await heidiTurn(args.thread, args.messages, {
+      // The pasted-message note is appended HERE rather than by each caller, so
+      // every surface that can hold a conversation gets it without having to
+      // remember. That is the whole reason this function exists.
+      systemPrompt: [systemPrompt(VARIETY, EXPLANATION_LANGUAGE[args.locale]), pasted].filter(Boolean).join("\n\n"),
+      model: chain[0]?.model ?? "unknown",
+      complete: async ({ system, prompt, maxTokens, temperature }) => {
+        const call = {
+          chain,
+          env,
+          health: args.health,
+          temperature,
+          maxTokens,
+          timeoutMs: TIMEOUT_MS,
+          signal: args.signal,
+          messages: [
+            { role: "system" as const, content: system },
+            // ai-kit's `ChatMessage.content` accepts content parts since 1.x, so
+            // this is now typed all the way through. It used to be an
+            // `as unknown as` cast with a note asking for exactly that widening.
+            pictures.length > 0
+              ? { role: "user" as const, content: visionMessage(prompt, pictures) }
+              : { role: "user" as const, content: prompt },
+          ],
+        };
 
-      if (!args.onText) {
-        const { text: raw } = await complete(call);
-        return raw;
-      }
-
-      /**
-       * The same chain, watched as it produces.
-       *
-       * `end` carries the assembled turn, so the accumulator is a fallback
-       * rather than the source of truth — a vendor that stops mid-array still
-       * reaches `parseAnswer`, which repairs truncated JSON and is the only
-       * thing allowed to decide what an answer is.
-       *
-       * ai-kit stops falling back once a link has produced its first token,
-       * because replaying from another vendor would make the reader watch the
-       * answer restart. A break after that is `StreamInterrupted`, which
-       * reaches the caller as an ordinary failed turn — the partial is
-       * discarded rather than kept, since half an explanation with no gated
-       * dialect under it is not an answer.
-       */
-      let raw = "";
-      for await (const delta of completeStream(call)) {
-        if (delta.type === "text") {
-          raw += delta.text;
-          args.onText(partialField(raw));
-        } else if (delta.type === "end") {
-          raw = delta.text;
+        if (!args.onText) {
+          const { text: raw } = await complete(call);
+          return raw;
         }
-      }
-      return raw;
-    },
-  });
+
+        /**
+         * The same chain, watched as it produces.
+         *
+         * `end` carries the assembled turn, so the accumulator is a fallback
+         * rather than the source of truth — a vendor that stops mid-array still
+         * reaches `parseAnswer`, which repairs truncated JSON and is the only
+         * thing allowed to decide what an answer is.
+         *
+         * ai-kit stops falling back once a link has produced its first token,
+         * because replaying from another vendor would make the reader watch the
+         * answer restart. A break after that is `StreamInterrupted`, which
+         * reaches the caller as an ordinary failed turn — the partial is
+         * discarded rather than kept, since half an explanation with no gated
+         * dialect under it is not an answer.
+         */
+        let raw = "";
+        for await (const delta of completeStream(call)) {
+          if (delta.type === "text") {
+            raw += delta.text;
+            args.onText(partialField(raw));
+          } else if (delta.type === "end") {
+            raw = delta.text;
+          }
+        }
+        return raw;
+      },
+    });
+  } catch (error) {
+    if (error instanceof NoVisionLinkError) return { status: "blind" };
+    throw error;
+  }
 
   // Silence is a normal outcome in a group — threadkit's rule is that the
   // assistant waits to be addressed once there are three or more people. It

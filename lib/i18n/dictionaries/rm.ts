@@ -160,6 +160,8 @@ export const rm: Dictionary = {
     notConfigured: "Il model da lingua n'è anc betg configurà sin questa installaziun.",
     unreachable: "Heidi n'è betg cuntanschibla. Controllai la connexiun ed empruvai danovamain.",
     failed: "Heidi n'ha betg pudì respunder en quest mument. Empruvai danovamain en in mument.",
+    cannotSeePicture:
+      "Heidi na po betg leger maletgs en quest mument. Trametti il text, u collià in agen model che legia maletgs.",
     retry: "Danovamain",
     /**
      * The full-screen chat. Its own object so the homepage box — which shares
@@ -217,11 +219,11 @@ export const rm: Dictionary = {
 
   model: {
     attach: "Agiuntar ina maletg",
-    attachNeedsKey: "Leger ina maletg dumonda Voss agen model",
+    attachNeedsKey: "Il model collià na sa betg leger maletgs",
     remove: "Allontanar",
     connectTitle: "Colliar Voss agen model",
     connectLead:
-      "Heidi è gratuita, ed ils models gratuits na san betg leger maletgs. Cun ina atgna clav API chapescha Heidi ina fotografia dal visur — e responda en general meglier.",
+      "Heidi legia gratuitamain fotografias dal visur. Cun ina atgna clav API vegnan las respostas pli precisas — surtut tar in maletg cun bler text — e las dumondas van tras Voss purschider e betg tras il nos.",
     whyTitle: "Pertge n'è quai betg simplamain include?",
     whyBody:
       "Perquai che leger ina maletg custa, per mintga maletg. Pajar quai per tuts vuless dir far pajar Heidi. Uschia resta tut il rest gratuit, e tgi che vul dapli porta sia atgna clav.",
@@ -616,7 +618,7 @@ export const rm: Dictionary = {
     languageTitle: "Lingua da la pagina",
     languageBody: "En tge lingua che Heidi discurra cun Vus. Quai che Vus emprendais resta il tudestg da Turitg.",
     modelTitle: "Model da lingua",
-    modelBody: "Da standard dovra Heidi models gratuits. Ina atgna clav avra maletgs e meglierescha las respostas.",
+    modelBody: "Da standard dovra Heidi models gratuits che san leger maletgs. Ina atgna clav renda las respostas pli precisas.",
     modelNone: "Nagin agen model collià",
     accountTitle: "Conto",
     accountBody: "Per tegnair Voss pleds e per gruppas da studi. Per translatar na dovrais Vus nagin conto.",

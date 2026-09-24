@@ -5,7 +5,7 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "../../../lib/i18n/locales
 import { soloThread } from "../../../lib/domain/chat/thread.ts";
 import { respondInThread } from "../../../lib/domain/chat/respond.ts";
 import { HEIDI_ID, LEARNER_ID, type ChatMessage } from "../../../lib/domain/chat/types.ts";
-import { readByok, redact } from "../../../lib/domain/model/byok.ts";
+import { redact } from "../../../lib/domain/model/byok.ts";
 import { MAX_IMAGES, readImage } from "../../../lib/domain/chat/image.ts";
 import { callerKey, chat as chatLimit, tooMany } from "../../../lib/domain/limits.ts";
 
@@ -77,19 +77,29 @@ export async function POST(request: Request) {
 
   const reader: Locale = typeof locale === "string" && isLocale(locale) ? locale : DEFAULT_LOCALE;
 
-  // Whether a key was brought decides one thing HERE — whether a picture can
-  // be read at all. Which chain that key produces is `respondInThread`'s
-  // business, not this route's.
-  const own = readByok(byok);
-
+  /**
+   * Pictures are VALIDATED here and routed downstream. They are no longer
+   * REFUSED here.
+   *
+   * This route used to answer 400 "Reading a picture needs your own model" for
+   * any attachment without a brought key, and `byok.ts` stated as fact that
+   * "the free chain has no model that can read a picture". Neither was true of
+   * free models — `google/gemma-4-26b-a4b-it:free` was already in the chain
+   * this app installs, and loki probed it live on 2026-08-13 reading an image
+   * correctly. It was true of a CHAIN with no vision routing, which is a
+   * different thing and was fixable in one place.
+   *
+   * ai-kit 1.11 routes on it, so whether a picture can be read is decided by
+   * the chain rather than asserted by this route. If nothing reachable can
+   * see, `respondInThread` says `blind` and the reader is told the one thing
+   * that helps. Guessing that here, from the presence of a key, would be a
+   * second opinion about a question the chain can answer for itself.
+   */
   const pictures: string[] = [];
   for (const candidate of Array.isArray(images) ? images.slice(0, MAX_IMAGES) : []) {
     const checked = readImage(candidate);
     if (!checked.ok) return bad(`That image could not be used: ${checked.reason}`, 400);
     pictures.push(checked.dataUrl);
-  }
-  if (pictures.length > 0 && !own.ok) {
-    return bad("Reading a picture needs your own model.", 400);
   }
 
   const now = new Date();
@@ -135,6 +145,7 @@ export async function POST(request: Request) {
         });
 
         if (result.status === "unconfigured") emit({ type: "error", kind: "unconfigured" });
+        else if (result.status === "blind") emit({ type: "error", kind: "blind" });
         else if (result.status === "silent") emit({ type: "silent" });
         else emit({ type: "answer", answer: result.answer });
       },
@@ -160,6 +171,15 @@ export async function POST(request: Request) {
       // half of Heidi — the dialect check — still works without a key; this
       // half cannot.
       return bad("Heidi's language model is not configured on this deployment yet.", 503, true);
+    }
+
+    if (result.status === "blind") {
+      // 415 Unsupported Media Type, and the status is the whole signal: the
+      // client keys its sentence on the STATUS and never on a flag in the body
+      // (see `errorFor` in transports.ts, and the incident that taught it).
+      // 503 would say "Heidi is unconfigured", which is false — everything
+      // except reading pictures works.
+      return bad("No model within reach can read a picture right now.", 415, true);
     }
 
     if (result.status === "silent") {

@@ -41,7 +41,7 @@ export type SendResult =
   | { status: "ok"; messages: ChatMessage[] }
   /** Heidi declined to speak. Normal in a group; not an error anywhere. */
   | { status: "silent" }
-  | { status: "error"; kind: "unconfigured" | "failed" | "unreachable" };
+  | { status: "error"; kind: "unconfigured" | "failed" | "unreachable" | "blind" };
 
 export type Transport = (args: SendArgs) => Promise<SendResult>;
 
@@ -96,6 +96,10 @@ async function readJson(res: Response): Promise<unknown> {
  * unconfigured when a vendor had merely blipped. Very different sentences.
  */
 function errorFor(status: number): SendResult {
+  // 415 is the picture case — nothing within reach can read one. Its own
+  // sentence, because "try again in a moment" is advice that cannot work: no
+  // model in reach has eyes and none will grow them in a minute.
+  if (status === 415) return { status: "error", kind: "blind" };
   return { status: "error", kind: status === 503 ? "unconfigured" : "failed" };
 }
 
@@ -313,7 +317,12 @@ export function conversationTransport({
 
       if (!res.ok) return errorFor(res.status);
 
-      const data = (await readJson(res)) as { messages?: unknown } | null;
+      const data = (await readJson(res)) as { messages?: unknown; blind?: boolean } | null;
+      // The reader's own message WAS stored (201), so this is not an error
+      // status — but no answer is coming, and the picture is why. Read from
+      // the body rather than the status here precisely because the status is
+      // about the stored message, which succeeded.
+      if (data?.blind) return { status: "error", kind: "blind" };
       return { status: "ok", messages: fromApi(data?.messages) };
     } catch {
       return { status: "error", kind: "unreachable" };

@@ -124,14 +124,23 @@ export function useConversation({
       if (result.status === "silent") return;
 
       const message =
-        result.kind === "unconfigured" ? t.notConfigured : result.kind === "unreachable" ? t.unreachable : t.failed;
+        result.kind === "unconfigured"
+          ? t.notConfigured
+          : result.kind === "unreachable"
+            ? t.unreachable
+            : // Its own sentence. `t.failed` says "try again in a moment",
+              // which is advice that cannot work here — nothing in reach has
+              // eyes, and a minute will not change that.
+              result.kind === "blind"
+              ? t.cannotSeePicture
+              : t.failed;
 
       setMessages((prev) => [
         ...prev,
         { id: localId("err"), authorId: HEIDI_ID, body: "", createdAt: new Date().toISOString(), error: message },
       ]);
     },
-    [attached, busy, byok, locale, me, messages, t.failed, t.notConfigured, t.unreachable, transport],
+    [attached, busy, byok, locale, me, messages, t.cannotSeePicture, t.failed, t.notConfigured, t.unreachable, transport],
   );
 
   const send = useCallback((text: string) => void run(text), [run]);

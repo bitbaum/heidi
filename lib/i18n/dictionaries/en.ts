@@ -144,6 +144,8 @@ export const en: Dictionary = {
     notConfigured: "The language model is not configured on this deployment yet.",
     unreachable: "Could not reach Heidi. Check your connection and try again.",
     failed: "Heidi could not answer that just now. Try again in a moment.",
+    cannotSeePicture:
+      "Heidi cannot read pictures right now. Send the text instead, or connect a model of your own that reads images.",
     retry: "Again",
     /**
      * The full-screen chat. Its own object so the homepage box — which shares
@@ -201,11 +203,11 @@ export const en: Dictionary = {
 
   model: {
     attach: "Attach a picture",
-    attachNeedsKey: "Reading pictures needs your own model",
+    attachNeedsKey: "Your connected model cannot read pictures",
     remove: "Remove",
     connectTitle: "Connect your own model",
     connectLead:
-      "Heidi is free, and the free models cannot read pictures. Add your own API key and Heidi can understand a screenshot — and answers better across the board.",
+      "Heidi reads screenshots for free. Add your own API key and the answers get sharper — especially on a dense picture — and the calls run on your vendor rather than ours.",
     whyTitle: "Why is that not just included?",
     whyBody:
       "Because reading a picture costs money per picture. Paying that for everyone would mean charging for Heidi. This way everything else stays free, and whoever wants more brings their own key.",
@@ -599,7 +601,7 @@ export const en: Dictionary = {
     languageTitle: "Site language",
     languageBody: "Which language Heidi speaks to you in. What you are learning stays Zurich German.",
     modelTitle: "Language model",
-    modelBody: "By default Heidi uses free models. Your own key unlocks pictures and improves the answers.",
+    modelBody: "By default Heidi uses free models, which can read pictures. Your own key makes the answers sharper.",
     modelNone: "No model of your own connected",
     accountTitle: "Account",
     accountBody: "For saving your words and for study groups. Translating needs no account.",

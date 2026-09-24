@@ -88,6 +88,15 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
 
   const stored = await messagesIn(conversation.id);
   let reply = null;
+  /**
+   * A picture arrived and nothing reachable can read one.
+   *
+   * Reported rather than swallowed. Every other non-answer here (unconfigured,
+   * silent) legitimately leaves the turn without a reply and the reader tries
+   * again — but a blind turn cannot be retried into working, and saying
+   * nothing would leave someone re-sending the same screenshot.
+   */
+  let blind = false;
   try {
     const turn = await respondInThread({
       thread: soloThread(new Date(conversation.createdAt)),
@@ -97,6 +106,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       pictures,
       signal: request.signal,
     });
+
+    if (turn.status === "blind") blind = true;
 
     if (turn.status === "answered") {
       reply = await appendMessage({
@@ -129,5 +140,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
    * a reader sees live. `conversations.test.ts` pins it.
    */
   const sent = asSoloStored(reply ? [mine, reply] : [mine], who.actorId);
-  return Response.json({ messages: sent }, { status: 201 });
+  // 201 either way: the reader's OWN message was stored, which is what this
+  // status is about. `blind` rides alongside so the client can say the one
+  // useful sentence instead of leaving the turn unanswered in silence.
+  return Response.json({ messages: sent, ...(blind ? { blind: true } : {}) }, { status: 201 });
 }
