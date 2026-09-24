@@ -170,7 +170,21 @@ const detectSupport = () => Boolean(recogniser()) || canRecord();
  * a browser can gain the capability (a Chromium replaced by a Chrome, a
  * Firefox that implements it) and a permanent verdict would hide that.
  */
-const DEAD_RECOGNISER_KEY = "heidi:dictation:recogniser-dead-at";
+/**
+ * DOTS, NOT COLONS — and it is not cosmetic.
+ *
+ * This was `heidi:dictation:recogniser-dead-at`, which broke two contracts at
+ * once. `lib/browser/stores.ts` finds everything on the device by matching
+ * `/heidi\.[a-z.0-9]+/` against the keys `lib/config/privacy.ts` declares, so
+ * a colon-separated key is invisible to it: the privacy page under-reported
+ * what this browser holds, and the settings page's "remove everything" button
+ * swept past it while telling the reader it was gone.
+ *
+ * Renaming orphans the old key in browsers that already hold one. That is a
+ * single timestamp with a thirty-day meaning and nothing reads it any more;
+ * the alternative — keeping a name that two contracts cannot see — is worse.
+ */
+const DEAD_RECOGNISER_KEY = "heidi.dictation.recogniser-dead.v1";
 const DEAD_RECOGNISER_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 
 /** Pure: is a remembered verdict still worth trusting? */

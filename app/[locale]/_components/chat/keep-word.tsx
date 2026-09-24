@@ -52,7 +52,11 @@ export function KeepWord({
       aria-pressed={kept}
       aria-label={`${kept ? t.savedWord : t.saveWord}: ${gloss.form}`}
       title={kept ? t.savedWord : t.saveWord}
-      className={`inline-flex h-6 w-6 shrink-0 translate-y-0.5 items-center justify-center rounded-control border text-xs transition-colors ${
+      /* `max-sm:h-11 max-sm:w-11` — the pattern `word-list.tsx` already
+         proves: small and unobtrusive beside a pointer, a full 44px target
+         on touch. At 24px this was the smallest control in the product,
+         on the chat surface, for one of its two core actions. */
+      className={`inline-flex h-6 w-6 shrink-0 translate-y-0.5 items-center justify-center rounded-control border text-xs transition-colors max-sm:h-11 max-sm:w-11 ${
         kept
           ? "border-accent bg-accent text-on-accent"
           : "border-border-subtle text-fg-muted hover:border-border-strong hover:text-fg-primary"

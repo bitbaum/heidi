@@ -83,7 +83,21 @@ export default async function InvestorsPage({ params }: { params: Promise<{ loca
   }
 
   return (
+    /*
+      `lang="en"` ON THE WHOLE ROOM, because the whole room is English.
+      This page's own header explains that it is one document for one kind of
+      conversation and is deliberately not translated — and then said so in
+      markup nowhere, so at `/rm/investors` whole paragraphs of English sat
+      inside `<html lang="rm-CH">` and a screen reader pronounced them with
+      Romansh phonemes. Every comparable page (`roadmap`, `changelog`,
+      `contribute`, `organisations`) already marks its de/en content.
+
+      It is also the one page `audit:language` cannot see — `indexed: false`
+      keeps it out of `INDEXED_ROUTES` — so nothing but a person was ever
+      going to catch this.
+    */
     <Shell>
+      <div lang="en">
       <header className="-mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
         <p className="font-mono text-caption uppercase tracking-caps text-accent">Heidi</p>
         <h1 className="mt-3 max-w-[22ch] font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
@@ -162,6 +176,7 @@ export default async function InvestorsPage({ params }: { params: Promise<{ loca
           </a>
         </p>
       </section>
+      </div>
     </Shell>
   );
 }

@@ -42,11 +42,26 @@ export type DeviceStore = {
  * device store that leaves — and it is certainly something somebody opening
  * this page wants to be able to delete.
  */
+/**
+ * How a storage key is recognised inside a `where` string.
+ *
+ * EXPORTED, because `privacy.test.ts` needs the same pattern to check that a
+ * declared key still exists in the code — and had its own copy, which is the
+ * duplication this whole module is about. Two regexes for one convention drift
+ * silently: adding `heidi.dictation.recogniser-dead.v1` matched one and not
+ * the other, because only one of them allowed a hyphen.
+ *
+ * Hyphens are allowed. `v1` suffixes are allowed. Colons are NOT — a key that
+ * uses them is invisible here, which is exactly how the dictation verdict
+ * escaped both the privacy page and the delete-everything button.
+ */
+export const STORAGE_KEY_PATTERN = /heidi\.[a-z0-9.-]+/;
+
 export function declaredKeys(): Array<{ id: string; key: string }> {
   const out: Array<{ id: string; key: string }> = [];
   for (const flow of FLOWS) {
     if (flow.place !== "device") continue;
-    const key = flow.where.match(/heidi\.[a-z.0-9]+/)?.[0];
+    const key = flow.where.match(STORAGE_KEY_PATTERN)?.[0];
     if (key) out.push({ id: flow.id, key });
   }
   return out;

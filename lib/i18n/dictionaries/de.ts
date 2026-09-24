@@ -556,6 +556,7 @@ export const de = {
       practiceModel: "Woran Sie noch arbeiten",
       ownKey: "Ihr eigener API-Schlüssel",
       theme: "Helle oder dunkle Darstellung",
+      dictationVerdict: "Ob das Diktat in diesem Browser geht",
       dictation: "Diktieren",
       pictures: "Bilder",
       speakingTakes: "Sprechaufnahmen",
@@ -1038,6 +1039,8 @@ export const de = {
      * Person — alles andere wäre ein Punktestand mit anderem Namen.
      */
     focusTitle: "Daran hängen Sie gerade",
+    focusEmpty:
+      "Noch nichts. Sobald Sie ein paar Fragen beantwortet haben, steht hier, was Sie immer wieder erwischt — und ein Klick übt genau das.",
     focusLead: "Das kommt bei Ihnen immer wieder vor. Ein Klick übt nur das.",
     /**
      * Eine Übung, die eingegrenzt wurde, sagt das — sonst sieht ein kleiner

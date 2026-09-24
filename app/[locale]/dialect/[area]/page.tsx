@@ -9,9 +9,10 @@ import { LISTENING_SOURCES } from "@/lib/listening/sources";
 import { branchSiblings, nearestRecognised, neighboursOf } from "@/lib/variety/neighbours";
 import { fill } from "@/lib/i18n/fill";
 import { LOCALE_TAGS } from "@/lib/i18n/locales";
-import { SOURCES, citation, type SourceId } from "@/lib/research/sources";
+import { SOURCES, type SourceId } from "@/lib/research/sources";
 import { ListeningRow } from "../../_components/listening-row";
 import { Shell } from "../../_components/page-shell";
+import { SourceList } from "../../_components/source-list";
 
 /**
  * Every area, in every language, at build time. There are eleven of them and
@@ -331,28 +332,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
           )}
         </div>
       </section>
-
-      {sources.length > 0 && (
-        <section aria-labelledby="sources" className="mt-12 border-t border-border-subtle pt-8">
-          <h2 id="sources" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-            {t.sourcesTitle}
-          </h2>
-          <ul className="mt-3 flex flex-col gap-2">
-            {sources.map((sourceId) => (
-              <li key={sourceId} className="text-sm leading-relaxed text-fg-secondary">
-                <a
-                  lang="en"
-                  href={SOURCES[sourceId].url}
-                  className="text-link underline underline-offset-4 hover:text-accent"
-                  rel="noreferrer"
-                >
-                  {citation(sourceId)}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-    </Shell>
+      <SourceList title={t.sourcesTitle} ids={sources} className="mt-12 border-t border-border-subtle pt-8" />
+</Shell>
   );
 }

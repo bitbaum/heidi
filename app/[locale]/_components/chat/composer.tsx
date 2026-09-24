@@ -141,7 +141,7 @@ export function Composer({
                 type="button"
                 onClick={() => images.onRemove(i)}
                 aria-label={modelT.remove}
-                className="absolute -right-1.5 -top-1.5 inline-flex h-6 w-6 items-center justify-center rounded-full border border-border-strong bg-surface-raised text-xs text-fg-secondary hover:text-accent"
+                className="absolute -right-1.5 -top-1.5 inline-flex h-6 w-6 max-sm:h-11 max-sm:w-11 items-center justify-center rounded-full border border-border-strong bg-surface-raised text-xs text-fg-secondary hover:text-accent"
               >
                 ✕
               </button>

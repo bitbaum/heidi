@@ -5,11 +5,11 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { ESSAYS, essayBySlug } from "@/lib/essays/registry";
-import { SOURCES, citation } from "@/lib/research/sources";
 import { EssayBody } from "../../_components/essay-body";
 import { Shell } from "../../_components/page-shell";
 import { OtherLanguage } from "../../_components/other-language";
 import { formatDate } from "../page";
+import { SourceList } from "../../_components/source-list";
 
 /** Every essay in every language at build time; both lists are short. */
 export function generateStaticParams() {
@@ -97,28 +97,11 @@ export default async function EssayPage({
       <article lang={LOCALE_TAGS[got]} className="border-t border-border-subtle py-10">
         <EssayBody blocks={text.blocks} />
       </article>
-
-      {essay.sources.length > 0 && (
-        <section aria-labelledby="sources" className="mb-14 border-t border-border-subtle pt-8">
-          <h2 id="sources" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-            {t.sourcesTitle}
-          </h2>
-          <ul className="mt-3 flex flex-col gap-2">
-            {essay.sources.map((id) => (
-              <li key={id} className="text-sm leading-relaxed text-fg-secondary">
-                <a
-                  lang="en"
-                  href={SOURCES[id].url}
-                  rel="noreferrer"
-                  className="text-link underline underline-offset-4 hover:text-accent"
-                >
-                  {citation(id)}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      <SourceList
+        title={t.sourcesTitle}
+        ids={essay.sources}
+        className="mb-14 border-t border-border-subtle pt-8"
+      />
     </Shell>
   );
 }

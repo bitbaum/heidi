@@ -1,5 +1,6 @@
 "use client";
 
+import { downloadJson, fileDate } from "@/lib/browser/download";
 import { useCallback, useSyncExternalStore } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import { useStorageReady } from "@/lib/browser/store";
@@ -46,15 +47,7 @@ export function DataSection({ t, labels }: { t: Dictionary["settings"]; labels: 
   const drop = useCallback((key: string) => forget(key), []);
 
   const download = useCallback(() => {
-    const blob = new Blob([JSON.stringify(exportAll(), null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `heidi-${new Date().toISOString().slice(0, 10)}.json`;
-    a.click();
-    // Revoked on the next tick rather than immediately: Safari has not always
-    // finished reading the blob by the time `click()` returns.
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    downloadJson(`heidi-${fileDate()}.json`, exportAll());
   }, []);
 
   const held = stores.filter((s) => s.bytes > 0);
