@@ -83,7 +83,7 @@ check /sitemap.xml 200 "anonymous" ""
 # Health carries the schema verdict; a deploy that cannot use its own tables
 # reports 200 with `state != ok`, so read the body rather than the status.
 health=$(curl -s --max-time 20 "$BASE/api/health")
-if printf '%s' "$health" | grep -q '"state":"ok"'; then
+if grep -q '"state":"ok"' <<<"$health"; then
   echo "  ok    /api/health                  schema      $(printf '%s' "$health" | tr -d '\n')"
 else
   echo "  FAIL  /api/health                  schema      $health"
