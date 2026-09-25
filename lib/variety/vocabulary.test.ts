@@ -98,6 +98,20 @@ describe("the vocabulary", () => {
     }
   });
 
+  test("slang never ships without saying how it lands", () => {
+    /**
+     * The meaning of `huere` is the easy half. That it is an insult to a
+     * stranger and warmth among friends is the half a learner cannot audit,
+     * and the word itself does not tell them. So a `slang` entry without a
+     * register is refused — and a register on a neutral word is refused too,
+     * because a label on everything is a label on nothing.
+     */
+    for (const w of words) {
+      if (w.group === "slang") assert.ok(w.register, `${w.target} is slang with no register`);
+      else assert.equal(w.register, undefined, `${w.target} carries a register outside the slang group`);
+    }
+  });
+
   test("every group used has a label in every language", () => {
     // A group with no label renders as a heading-shaped hole, in six languages,
     // because German is the one the author checked.
@@ -125,7 +139,7 @@ describe("the vocabulary", () => {
      * was added, which is how a guard quietly becomes a formality. A named
      * allowlist still fails on a field nobody thought about.
      */
-    const ALLOWED = ["article", "bridge", "example", "forms", "group", "mistakenFor", "source", "target"];
+    const ALLOWED = ["article", "bridge", "example", "forms", "group", "mistakenFor", "register", "source", "target"];
     assert.equal(DISPLAY.vocabulary.length, words.length);
 
     for (const word of DISPLAY.vocabulary) {
