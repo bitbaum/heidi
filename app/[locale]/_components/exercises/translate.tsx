@@ -5,6 +5,9 @@ import { DISPLAY } from "@/lib/variety/display";
 import type { TranslateItem } from "@/lib/domain/practice/types";
 import type { ExerciseViewProps } from "./view";
 import { PROMPT_TEXT, Trace, ignoreKey } from "./chrome";
+import { Explanation } from "./explanation";
+import { fill } from "@/lib/i18n/fill";
+import { missingWords } from "@/lib/domain/practice/compare";
 
 /**
  * Write it in Zurich German.
@@ -26,7 +29,7 @@ import { PROMPT_TEXT, Trace, ignoreKey } from "./chrome";
  * other, in the same size, and the learner decides. The comparison is easy and
  * it is theirs; a machine placed between them would add only false authority.
  */
-export function TranslateView({ item, t, locale, onAnswer }: ExerciseViewProps) {
+export function TranslateView({ item, t, grammarT, situationsT, vocabularyT, locale, onAnswer }: ExerciseViewProps) {
   const translate = item as TranslateItem;
   const [shown, setShown] = useState(false);
   const [wrote, setWrote] = useState("");
@@ -63,8 +66,10 @@ export function TranslateView({ item, t, locale, onAnswer }: ExerciseViewProps) 
     }
 
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+  return () => window.removeEventListener("keydown", onKey);
   });
+
+  const missing = shownMissing(wrote, translate.answer);
 
   return (
     <>
@@ -74,7 +79,10 @@ export function TranslateView({ item, t, locale, onAnswer }: ExerciseViewProps) 
           duplicate-label problem that was reported on the buttons, in its
           other form. `translateLabel` is still used, as the field's
           accessible name, where it is the only label there is. */}
-      <p lang="de" className={`${PROMPT_TEXT} wrap-anywhere`}>
+      {/* German, the sentence translated FROM — so it takes the page's ink.
+          It was painted in the dialect's while `PROMPT_TEXT` carried a colour;
+          now each view states its own beside the `lang` that says why. */}
+      <p lang="de" className={`${PROMPT_TEXT} wrap-anywhere text-fg-primary`}>
         {translate.prompt}
       </p>
 
@@ -103,6 +111,18 @@ export function TranslateView({ item, t, locale, onAnswer }: ExerciseViewProps) 
               A learner comparing two strings that differ by one letter needs
               to know, right there, that this product is not claiming theirs is
               wrong. */}
+          {/* Words of the pack's line that were not in the answer AT ALL —
+              respellings are folded away first, so this can never become the
+              spelling judgement the note below promises not to make. It says
+              what is missing and draws no conclusion. */}
+          {missing.length > 0 && (
+            <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-primary">
+              {fill(t.explain.alsoInPack, { words: "" })}
+              <span lang={DISPLAY.tag} className="font-medium text-dialect">
+                {missing.join(", ")}
+              </span>
+            </p>
+          )}
           <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.spellingNote}</p>
 
           <div className="mt-5 border-t border-border-subtle pt-4">
@@ -123,6 +143,7 @@ export function TranslateView({ item, t, locale, onAnswer }: ExerciseViewProps) 
               </button>
             </div>
             <Trace item={item} t={t} locale={locale} />
+            <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} />
           </div>
         </div>
       ) : (
@@ -181,4 +202,9 @@ export function TranslateView({ item, t, locale, onAnswer }: ExerciseViewProps) 
       )}
     </>
   );
+}
+
+/** Only once something was typed; an empty answer is "not attempted", not "missing everything". */
+function shownMissing(wrote: string, answer: string): string[] {
+  return wrote.trim() ? missingWords(wrote, answer) : [];
 }

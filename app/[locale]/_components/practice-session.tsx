@@ -52,6 +52,8 @@ export function PracticeSession({
   packItems,
   t,
   grammarT,
+  situationsT,
+  vocabularyT,
   locale,
   mode,
   includeSaved = true,
@@ -66,6 +68,8 @@ export function PracticeSession({
   t: Dictionary["practice"];
   /** The grammar section's own words, so a verdict can explain rather than link. */
   grammarT: Dictionary["grammar"];
+  situationsT: Dictionary["situations"];
+  vocabularyT: Dictionary["vocabulary"];
   locale: Locale;
   /**
    * Which answering style this sitting is for.
@@ -271,7 +275,7 @@ export function PracticeSession({
         key={item.id}
         item={item}
         t={t}
-        grammarT={grammarT}
+        grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT}
         locale={locale}
         reveal="now"
         onAnswer={record}

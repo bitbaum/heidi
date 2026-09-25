@@ -24,7 +24,7 @@ type ChoiceItem = Extract<PracticeItem, { kind: "pair" | "article" | "form" | "p
  * gets through eight questions without anybody learning from the six they
  * missed.
  */
-export function ChoiceView({ item, t, grammarT, locale, reveal, onAnswer }: ExerciseViewProps) {
+export function ChoiceView({ item, t, grammarT, situationsT, vocabularyT, locale, reveal, onAnswer }: ExerciseViewProps) {
   const choice = item as ChoiceItem;
   const [chose, setChose] = useState<number | null>(null);
 
@@ -112,7 +112,7 @@ export function ChoiceView({ item, t, grammarT, locale, reveal, onAnswer }: Exer
         <Verdict
           right={chose === choice.answer}
           t={t}
-          grammarT={grammarT}
+          grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT}
           item={item}
           locale={locale}
           onNext={() => onAnswer(chose === choice.answer ? "right" : "wrong")}
@@ -140,7 +140,7 @@ function ChoicePrompt({ item, t }: { item: ChoiceItem; t: ExerciseViewProps["t"]
   if (item.kind === "pick") {
     return (
       <>
-        <p lang={DISPLAY.tag} className={`${PROMPT_TEXT} wrap-anywhere`}>
+        <p lang={DISPLAY.tag} className={`${PROMPT_TEXT} wrap-anywhere text-dialect`}>
           {item.prompt}
         </p>
         <p lang="de" className="mt-2 max-w-measure wrap-anywhere text-base leading-relaxed text-fg-secondary">
@@ -153,7 +153,7 @@ function ChoicePrompt({ item, t }: { item: ChoiceItem; t: ExerciseViewProps["t"]
   if (item.kind === "article") {
     return (
       <>
-        <p lang={DISPLAY.tag} className={PROMPT_TEXT}>
+        <p lang={DISPLAY.tag} className={`${PROMPT_TEXT} text-dialect`}>
           <span aria-hidden="true" className="text-fg-muted">
             ___{" "}
           </span>

@@ -9,6 +9,7 @@ import type { PracticeItem } from "@/lib/domain/practice/types";
 import { TEST_SIZE, TEST_MINUTES, TEST_EXTEND_MINUTES } from "@/lib/domain/practice/mode";
 import { QuestionCard } from "./exercises/question-card";
 import { answerOf, explainingTopic, Trace } from "./exercises/chrome";
+import { Explanation } from "./exercises/explanation";
 
 /**
  * A run of questions that says nothing until it is over.
@@ -41,11 +42,15 @@ export function TestSession({
   items,
   t,
   grammarT,
+  situationsT,
+  vocabularyT,
   locale,
 }: {
   items: readonly PracticeItem[];
   t: Dictionary["practice"];
   grammarT: Dictionary["grammar"];
+  situationsT: Dictionary["situations"];
+  vocabularyT: Dictionary["vocabulary"];
   locale: Locale;
 }) {
   const [run, setRun] = useState<readonly PracticeItem[] | null>(null);
@@ -154,7 +159,7 @@ export function TestSession({
       <Results
         given={given}
         t={t}
-        grammarT={grammarT}
+        grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT}
         locale={locale}
         outOfTime={outOfTime}
         onAgain={() => setRun(null)}
@@ -207,7 +212,7 @@ export function TestSession({
         key={item.id}
         item={item}
         t={t}
-        grammarT={grammarT}
+        grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT}
         locale={locale}
         reveal="later"
         onAnswer={record}
@@ -291,6 +296,8 @@ function Results({
   given,
   t,
   grammarT,
+  situationsT,
+  vocabularyT,
   locale,
   outOfTime,
   onAgain,
@@ -298,6 +305,8 @@ function Results({
   given: readonly Given[];
   t: Dictionary["practice"];
   grammarT: Dictionary["grammar"];
+  situationsT: Dictionary["situations"];
+  vocabularyT: Dictionary["vocabulary"];
   locale: Locale;
   outOfTime: boolean;
   onAgain: () => void;
@@ -363,6 +372,18 @@ function Results({
               )}
 
               <Trace item={item} t={t} locale={locale} compact />
+              {/* The full explanation, folded: this list can be twenty rows,
+                  and the rule line above is the summary. The page promises
+                  "alle Antworten mit Erklärung"; a link was not that. */}
+              <Explanation
+                item={item}
+                locale={locale}
+                t={t}
+                grammarT={grammarT}
+                situationsT={situationsT}
+                vocabularyT={vocabularyT}
+                compact
+              />
             </li>
           );
         })}

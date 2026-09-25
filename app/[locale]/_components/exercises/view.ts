@@ -43,6 +43,8 @@ export type ExerciseViewProps<T extends PracticeItem = PracticeItem> = {
    * of names invented for a banner.
    */
   grammarT: Dictionary["grammar"];
+  situationsT: Dictionary["situations"];
+  vocabularyT: Dictionary["vocabulary"];
   locale: Locale;
   /**
    * WHEN THE LEARNER FINDS OUT — and it is the view's business because the

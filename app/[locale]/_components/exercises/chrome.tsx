@@ -7,6 +7,7 @@ import { href } from "@/lib/i18n/routes";
 import { fill } from "@/lib/i18n/fill";
 import { wordSlug } from "@/lib/domain/practice/slug";
 import type { PracticeItem } from "@/lib/domain/practice/types";
+import { Explanation } from "./explanation";
 
 /**
  * The parts every exercise view shares: the verdict, the link back to where
@@ -30,6 +31,8 @@ export function Verdict({
   right,
   t,
   grammarT,
+  situationsT,
+  vocabularyT,
   item,
   locale,
   onNext,
@@ -37,6 +40,8 @@ export function Verdict({
   right: boolean;
   t: Dictionary["practice"];
   grammarT: Dictionary["grammar"];
+  situationsT: Dictionary["situations"];
+  vocabularyT: Dictionary["vocabulary"];
   item: PracticeItem;
   locale: Locale;
   onNext: () => void;
@@ -51,7 +56,7 @@ export function Verdict({
         <p className="mt-1 text-sm leading-relaxed text-fg-secondary">{fill(t.origin, { origin: item.origin })}</p>
       )}
 
-      <Explain item={item} grammarT={grammarT} />
+      <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} />
       <Trace item={item} t={t} locale={locale} />
 
       <button
@@ -66,65 +71,12 @@ export function Verdict({
 }
 
 /**
- * Which grammar topic explains this item, if any.
- *
- * TWO PLACES A TOPIC CAN COME FROM, and they are not the same relationship.
- * The item's SOURCE is where it came from — a grammar topic's own example, or
- * a scene line that names the structure it turns on. `explains` is a property
- * of the KIND, set from the pack: an article question came from a noun, but
- * what explains it is the page about the article system, and twenty-four
- * questions were being sent to a glossary because those two were conflated.
- *
- * Source first, because it is the more specific claim: a cloze cut from
- * `am-progressive` is about `am-progressive`, whatever kind it is.
- *
- * Exported so the end of a test can print the same line for twenty items at
- * once without a second copy of this precedence.
+ * Which grammar topic explains this item — now `topicOf` in
+ * `lib/domain/practice/explanation.ts`, which every explanation reads. Kept as
+ * a name here only because the test review imports it; the precedence lives
+ * in one place and is pinned by `explanation.test.ts`.
  */
-export function explainingTopic(item: PracticeItem): string | undefined {
-  const source = item.source;
-  if (source.kind === "grammar") return source.topic;
-  if (source.kind === "situation") return source.topic;
-  if (item.kind === "article") return item.explains;
-  return undefined;
-}
-
-/**
- * The one sentence that says WHY, at the moment being wrong is interesting.
- *
- * A link to the topic was the whole of the explanation, and a link is a
- * promise to explain rather than an explanation. Somebody who has just chosen
- * `d Huus` is told "not quite", offered a page, and left to decide whether
- * they care enough to leave the drill — which most people, mid-sitting, do
- * not. So the topic's own rule line comes to them.
- *
- * IT IS THE TOPIC'S OWN WORDS. Not a second explanation written for this
- * panel: the grammar page and the drill then cannot drift, and a topic whose
- * wording is improved improves in both places at once.
- *
- * A SITUATION LINE EXPLAINS ITSELF THROUGH ITS TOPIC, when it names one. That
- * is the field that already makes "practise this topic" work, reused: the
- * scene says which structure the sentence turns on, and the structure knows
- * how to describe itself.
- *
- * Nothing at all when the item's source names no topic — a kept word or a bare
- * gate rule has no rule line, and an empty labelled box is the interface
- * reporting on something that did not happen.
- */
-function Explain({ item, grammarT }: { item: PracticeItem; grammarT: Dictionary["grammar"] }) {
-  const id = explainingTopic(item);
-  if (!id) return null;
-
-  const topic = grammarT.topics[id as keyof typeof grammarT.topics];
-  if (!topic) return null;
-
-  return (
-    <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-secondary">
-      <span className="text-fg-muted">{topic.title} — </span>
-      {topic.rule}
-    </p>
-  );
-}
+export { topicOf as explainingTopic } from "@/lib/domain/practice/explanation";
 
 /**
  * `flex w-fit`, not `inline-flex`.
@@ -277,8 +229,16 @@ export function optionClass(index: number, chose: number | null, answer: number)
 }
 
 /** The dialect prompt, set large. One definition, so the four views agree. */
-export const PROMPT_TEXT =
-  "mt-2 font-heading text-2xl font-semibold leading-snug tracking-display text-dialect sm:text-3xl";
+/**
+ * The prompt's size and weight — and deliberately NOT its colour.
+ *
+ * It used to carry `text-dialect`, which painted a translate item's GERMAN
+ * prompt in the dialect ink. Adding a second colour at the call site does not
+ * override it reliably: two colour utilities on one element resolve by the
+ * order Tailwind emits them, not the order they are written. So each caller
+ * states its colour, next to the `lang` that says what the text is.
+ */
+export const PROMPT_TEXT = "mt-2 font-heading text-2xl font-semibold leading-snug tracking-display sm:text-3xl";
 
 /**
  * A keydown this page should ignore.
