@@ -59,6 +59,15 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         title: "Als Nächstes",
         summary: "Entschieden und geplant.",
         items: [
+          {
+            id: "solon-voice",
+            title: "Mitreden über Solon",
+            line: "Wer eine Stimme im Fahrplan will, bekommt sie in Solon: mit dem OrangeCat-Konto, das auch Heidi nutzt, und einem Sitz in Heidis Organisation dort.",
+            details: [
+              "Abstimmen über Punkte des Fahrplans und neue Vorschläge — nachvollziehbar protokolliert, auf Wunsch mit eigener Bitcoin-Signatur.",
+              "Hinweise zu jeder Seite gehen weiterhin über das Rückmelde-Fenster.",
+            ],
+          },
         ],
       },
       {
@@ -115,6 +124,15 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         title: "Next",
         summary: "Decided and planned.",
         items: [
+          {
+            id: "solon-voice",
+            title: "Have a say through Solon",
+            line: "A voice in the roadmap comes through Solon: with the same OrangeCat account Heidi uses, and a seat in Heidi’s organisation there.",
+            details: [
+              "Votes on roadmap items and new proposals — on an auditable record, signed with your own Bitcoin key if you want.",
+              "Pointing at anything on any page still goes through the feedback widget.",
+            ],
+          },
         ],
       },
       {

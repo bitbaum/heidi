@@ -1,7 +1,4 @@
 @import "tailwindcss";
-/* bip-kit's components (roadmap and changelog feedback). Its colours are
-   remapped to Heidi's tokens below, so this adds rules, never a palette. */
-@import "bip-kit/styles.css";
 
 /**
  * Heidi — design tokens. The only place a colour, font or radius is defined.
@@ -440,28 +437,4 @@ body:has([data-chrome="chat"]) [data-dock="heidi"] {
  */
 body:has([data-dock="heidi"] [role="dialog"]) #loki-feedback-host {
   display: none;
-}
-
-/**
- * bip-kit's tokens, pointed at Heidi's — the package's theming contract, so
- * its feedback controls look like Heidi and flip with Heidi's dark mode.
- *
- * `:root:root:root` on purpose: bip-kit sets its own dark values under
- * `:root:not([data-theme="light"])` and `[data-theme="dark"]`, and this must
- * outrank both, or dark mode would get bip-kit's grey instead of Heidi's.
- */
-:root:root:root {
-  --bp-bg: var(--color-surface-page);
-  --bp-surface: var(--color-surface-raised);
-  --bp-fg: var(--color-fg-primary);
-  --bp-fg-muted: var(--color-fg-muted);
-  --bp-fg-faint: var(--color-fg-muted);
-  --bp-border: var(--color-border-subtle);
-  --bp-accent: var(--color-action);
-  --bp-accent-contrast: var(--color-on-action);
-  --bp-danger: var(--color-danger);
-  --bp-radius: var(--radius-control);
-  --bp-radius-sm: var(--radius-control);
-  --bp-font-sans: var(--font-sans);
-  --bp-font-mono: var(--font-mono);
 }
