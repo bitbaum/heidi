@@ -146,12 +146,12 @@ export default async function PracticePage({
         {empty ? (
           <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.scopeEmpty}</p>
         ) : flow === "test" ? (
-          <TestSession items={items} t={t} grammarT={dict.grammar} situationsT={dict.situations} vocabularyT={dict.vocabulary} locale={locale} />
+          <TestSession items={items} t={t} grammarT={dict.grammar} situationsT={dict.situations} vocabularyT={dict.vocabulary} learnT={dict.chat.learn} locale={locale} />
         ) : (
           <PracticeSession
             packItems={items}
             t={t}
-            grammarT={dict.grammar} situationsT={dict.situations} vocabularyT={dict.vocabulary}
+            grammarT={dict.grammar} situationsT={dict.situations} vocabularyT={dict.vocabulary} learnT={dict.chat.learn}
             locale={locale}
             mode={mode}
             includeSaved={includesSaved(scope)}

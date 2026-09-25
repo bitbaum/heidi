@@ -116,6 +116,20 @@ export const de = {
   },
 
   chat: {
+    learn: {
+      title: "Daraus lernen",
+      breakdownLabel: "Wort für Wort",
+      breakdown: "Erklär mir «{text}» Wort für Wort.",
+      similarLabel: "Ähnlich und Gegenteil",
+      similar: "Welche Wörter sagt man in Zürich ähnlich wie «{word}» — und was ist das Gegenteil?",
+      storyLabel: "Kurzer Text damit",
+      story: "Schreib mir einen kurzen Text auf Züritüütsch mit «{word}», mit Übersetzung.",
+      otherWaysLabel: "Anders gesagt",
+      otherWays: "Wie kann man «{text}» auf Züritüütsch noch sagen?",
+      examplesLabel: "In anderen Sätzen",
+      examples: "Gib mir drei weitere Sätze auf Züritüütsch mit «{word}», jeweils mit Übersetzung.",
+      aiNote: "Diese Antworten schreibt das Sprachmodell im Chat — geprüft auf Zürcher Formen, aber nicht von einem Menschen gegengelesen.",
+    },
     /**
      * The dock — Heidi floating over every page that is not already a chat.
      *
@@ -964,15 +978,6 @@ export const de = {
       openScene: "Ganze Situation",
       practiseScene: "Diese Situation üben",
       practiseWord: "Dieses Wort üben",
-      askOtherWays: "Wie kann man «{text}» auf Züritüütsch noch sagen?",
-      askOtherWaysLabel: "Anders gesagt",
-      askSimilar: "Welche Wörter sagt man in Zürich ähnlich wie «{word}» — und was ist das Gegenteil?",
-      askSimilarLabel: "Ähnlich und Gegenteil",
-      askShortText: "Schreib mir einen kurzen Text auf Züritüütsch mit «{word}», mit Übersetzung.",
-      askShortTextLabel: "Kurzer Text damit",
-      askWordByWord: "Erklär mir «{text}» Wort für Wort.",
-      askWordByWordLabel: "Wort für Wort",
-      aiNote: "Diese Antworten schreibt das Sprachmodell im Chat — geprüft auf Zürcher Formen, aber nicht von einem Menschen gegengelesen.",
       alsoInPack: "Im Pack steht zusätzlich: {words}",
     },
     right: "Richtig",

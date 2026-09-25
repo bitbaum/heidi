@@ -37,7 +37,7 @@ type RevealItem = Extract<PracticeItem, { kind: "cloze" | "recall" }>;
  * on purpose. What is left here is what these two kinds always were: look,
  * remember, turn it over, say whether you had it.
  */
-export function RevealView({ item, t, grammarT, situationsT, vocabularyT, locale, onAnswer, onRecall }: ExerciseViewProps) {
+export function RevealView({ item, t, grammarT, situationsT, vocabularyT, learnT, locale, onAnswer, onRecall }: ExerciseViewProps) {
   const reveal = item as RevealItem;
   const [shown, setShown] = useState(false);
 
@@ -124,7 +124,7 @@ export function RevealView({ item, t, grammarT, situationsT, vocabularyT, locale
             </button>
           </div>
           <Trace item={item} t={t} locale={locale} />
-          <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} />
+          <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} />
         </div>
       ) : (
         <div className="mt-5 flex flex-wrap gap-3">

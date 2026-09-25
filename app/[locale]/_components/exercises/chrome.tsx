@@ -33,6 +33,7 @@ export function Verdict({
   grammarT,
   situationsT,
   vocabularyT,
+  learnT,
   item,
   locale,
   onNext,
@@ -42,6 +43,7 @@ export function Verdict({
   grammarT: Dictionary["grammar"];
   situationsT: Dictionary["situations"];
   vocabularyT: Dictionary["vocabulary"];
+  learnT: Dictionary["chat"]["learn"];
   item: PracticeItem;
   locale: Locale;
   onNext: () => void;
@@ -56,7 +58,7 @@ export function Verdict({
         <p className="mt-1 text-sm leading-relaxed text-fg-secondary">{fill(t.origin, { origin: item.origin })}</p>
       )}
 
-      <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} />
+      <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} />
       <Trace item={item} t={t} locale={locale} />
 
       <button

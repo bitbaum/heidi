@@ -29,7 +29,7 @@ import { missingWords } from "@/lib/domain/practice/compare";
  * other, in the same size, and the learner decides. The comparison is easy and
  * it is theirs; a machine placed between them would add only false authority.
  */
-export function TranslateView({ item, t, grammarT, situationsT, vocabularyT, locale, onAnswer }: ExerciseViewProps) {
+export function TranslateView({ item, t, grammarT, situationsT, vocabularyT, learnT, locale, onAnswer }: ExerciseViewProps) {
   const translate = item as TranslateItem;
   const [shown, setShown] = useState(false);
   const [wrote, setWrote] = useState("");
@@ -143,7 +143,7 @@ export function TranslateView({ item, t, grammarT, situationsT, vocabularyT, loc
               </button>
             </div>
             <Trace item={item} t={t} locale={locale} />
-            <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} />
+            <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} />
           </div>
         </div>
       ) : (
