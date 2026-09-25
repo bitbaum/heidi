@@ -1,6 +1,8 @@
 import { transcribe, createHealthTracker, ChainExhaustedError } from "@bitbaum/ai-kit";
 import { VARIETY } from "@/lib/variety/active";
-import { isFaithfulRendering } from "@/lib/speech/evidence";
+import { isFaithfulRendering, mayJudgeForm } from "@/lib/speech/evidence";
+import { hesitations } from "@/lib/speech/hesitation";
+import { checkGrammar } from "@/lib/domain/speaking/grammar-check";
 import { markerVerdict } from "@/lib/speech/dialect-marker";
 import { looksLikeSilence } from "@/lib/domain/chat/transcription";
 import { speechChain, speechConfigured } from "@/lib/domain/model/speech";
@@ -110,6 +112,9 @@ export async function POST(request: Request) {
       health: takeSpeechHealth,
       timeoutMs: TIMEOUT_MS,
       signal: request.signal,
+      // Word timings, for speech rate and length of run. Only this route asks:
+      // dictation needs the text and nothing else.
+      words: true,
     });
 
     // Whisper never answers "silence" — it answers with the likeliest sentence
@@ -136,12 +141,42 @@ export async function POST(request: Request) {
     const markers = VARIETY.speech.markers;
     const verdict = markers && text ? markerVerdict(text, markers) : null;
 
+    /**
+     * WHAT THE WORDS ADD, now that they are the learner's own.
+     *
+     * Not a second fluency computation. `lib/speech/spoken.ts` measures rate and
+     * pauses on the device, from the signal (the better clock) and the text
+     * (the only source of syllables), and two answers to one question from two
+     * sources would sooner or later disagree on the same screen. What the
+     * server adds is what the device cannot know:
+     *
+     *  - WHERE the long pauses were — which word came after them — from the
+     *    recogniser's per-word timings. Usually the word being reached for.
+     *  - GRAMMAR, from LanguageTool on our own box.
+     *
+     * Both are gated on `mayJudgeForm`, which is stricter than the
+     * `isFaithfulRendering` that let this route transcribe at all: a faithful
+     * but inaccurate recogniser may show you your text, but not correct it,
+     * because too many of its words would be its own.
+     *
+     * Each is null when it could not be computed and the page says "not
+     * checked" for null. A vendor that ignored the timing request, or a checker
+     * that is down, never turns into an empty list — that would read as "you
+     * did not hesitate" or "your grammar was fine" on the day we did not look.
+     */
+    const formsJudged = text !== "" && !!chosen.recognition && mayJudgeForm(chosen.recognition);
+
+    const hesitated = formsJudged && result.words ? hesitations(result.words) : null;
+    const grammar = formsJudged && chosen.grammarCode ? await checkGrammar(text, chosen.grammarCode) : null;
+
     return Response.json({
       text,
       variety: chosen.id,
       // "target" here means the learner used dialect forms. On a bridge take
       // that is a fact about them; the page has the sentence for it.
       spoke: verdict?.variety ?? "unclear",
+      hesitations: hesitated,
+      grammar,
     });
   } catch (error) {
     const detail =
