@@ -32,5 +32,15 @@ test('returns ok for "Das isch nöd guet"', async () => {
   const res = await POST(request({ text: "Das isch nöd guet" }));
   assert.equal(res.status, 200);
   const json = await res.json();
-  assert.deepEqual(json, { ok: true, findings: [] });
+  assert.equal(json.ok, true);
+  assert.deepEqual(json.findings, []);
+  // Two taught forms (`isch`, a form of `si`, and `nöd`), nothing from elsewhere.
+  assert.equal(json.reading.verdict, "consistent");
+});
+
+test("the reading names the area a received message points to", async () => {
+  const res = await POST(request({ text: "Das isch nid güet" }));
+  const json = await res.json();
+  assert.equal(json.reading.verdict, "area");
+  assert.ok(["Bern", "Ostschweiz"].includes(json.reading.lead.origin));
 });

@@ -1105,6 +1105,22 @@ export const fr: Dictionary = {
     hearNone:
       "Rien de vérifié dans le répertoire pour ce parler. Mieux vaut rien qu'un lien que personne n'a écouté.",
     hearAll: "Toutes les sources d'écoute",
+    reader: {
+      title: "D’où vient ce message ?",
+      lead: "Collez un message que vous avez reçu — de votre cheffe, d’un voisin, du groupe de la classe. Heidi montre d’où viennent les formes et ce que veulent dire les mots.",
+      placeholder: "p. ex. Dr Giel und ds Meitschi hei Miuch gno.",
+      button: "Situer",
+      failed: "Cela n’a pas marché. Veuillez réessayer.",
+      area: "Les formes renvoient à {area}.",
+      outside: "Cela ressemble à l’allemand standard d’Allemagne, pas de Suisse.",
+      consistent: "Rien ici ne s’éloigne de Zurich — les mots ci-dessous se disent ainsi à Zurich.",
+      unclear: "Trop peu pour situer. Une ou deux phrases de plus aident.",
+      fromTitle: "Formes d’ailleurs",
+      knownTitle: "Ce que veulent dire les mots",
+      zurich: "à Zurich : {form}",
+      outsideName: "Allemagne",
+      note: "Heidi ne situe que les formes qu’elle connaît avec certitude, et la liste s’allonge. Votre texte n’est pas enregistré.",
+    },
     whyManyTitle: "Pourquoi tant de parlers ?",
     whyManyBody:
       "La Suisse a gardé ses dialectes là où l'Allemagne a largement perdu les siens. Ce n'est ni un hasard ni une affaire de montagnes : cela tient à la construction de l'État, à l'école et à la radio.",

@@ -25,8 +25,8 @@ import type { SituationPack } from "../pack.ts";
  * spelling, using the vocabulary and the structures the variety pack already
  * teaches. They are not transcribed from a ward, not lifted from a phrasebook,
  * and not a corpus. Every one of them passes the deterministic gate — the
- * contract test runs `check()` over all of them, so a Bernese vowel or an
- * Ostschweiz negation fails the build rather than reaching somebody who could
+ * contract test runs `check()` over all of them, so a Bernese vowel or a
+ * Bernese negation fails the build rather than reaching somebody who could
  * not detect it.
  *
  * What they have NOT had is a native speaker's eye, and `provenance` says so
