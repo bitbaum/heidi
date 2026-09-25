@@ -1,4 +1,4 @@
-import { complete, freeChain, usableChain } from "@bitbaum/ai-kit";
+import { complete } from "@bitbaum/ai-kit";
 import { VARIETY } from "@/lib/variety/active";
 import { examplePrompt } from "@/lib/variety/prompt";
 import { usableExamples } from "@/lib/domain/saved/example";
@@ -50,14 +50,16 @@ export async function POST(request: Request) {
   // would refuse to store is not a word worth spending a model call on.
   if (!isKeepable(word)) return Response.json({ examples: [] });
 
+  // The learner's OWN key only. Nobody asked for this call: they tapped keep,
+  // and the example is fired after the save as a side effect. A side effect
+  // must not spend the free tier every app on the box shares, so without a
+  // key there are no examples and the review card shows the sentence the word
+  // came from — which is what it did before this route existed.
   const own = readByok(byok);
   const byokLinks = own.ok ? byokChain(own.config) : null;
-  const chain = byokLinks ? byokLinks.chain : usableChain(freeChain("HEIDI"), process.env);
-  const env = byokLinks ? { ...process.env, ...byokLinks.env } : process.env;
-
-  // No model configured is not an error here — it is a deployment with no
-  // examples, and the review card simply shows the sentence the word came from.
-  if (chain.length === 0) return Response.json({ examples: [] });
+  if (!byokLinks || byokLinks.chain.length === 0) return Response.json({ examples: [] });
+  const { chain } = byokLinks;
+  const env = { ...process.env, ...byokLinks.env };
 
   try {
     const { text: raw } = await complete({
