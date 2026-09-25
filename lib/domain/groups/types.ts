@@ -17,6 +17,8 @@ export type StudyGroup = {
   createdAt: string;
   /** Only ever sent to someone who may invite. Never to a plain member. */
   inviteToken?: string;
+  /** A team's situation domain; null for a study group. See `teams/overview.ts`. */
+  focus?: string | null;
 };
 
 export type GroupMember = {

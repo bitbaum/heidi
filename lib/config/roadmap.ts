@@ -59,15 +59,6 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         title: "Als Nächstes",
         summary: "Entschieden und geplant.",
         items: [
-          {
-            id: "teams",
-            title: "Heidi für Teams",
-            line: "Für Pflegeheime, Spitäler, Relocation-Firmen und alle, deren Leute hier neu anfangen.",
-            details: [
-              "Plätze für ein ganzes Team, ein Überblick pro Situation, und Situationspakete für den eigenen Arbeitsplatz — Visite, Übergabe, Patientengespräch.",
-              "Die Lernenden bestimmen, was geteilt wird.",
-            ],
-          },
         ],
       },
       {
@@ -124,15 +115,6 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         title: "Next",
         summary: "Decided and planned.",
         items: [
-          {
-            id: "teams",
-            title: "Heidi for Teams",
-            line: "For care homes, hospitals, relocation firms and anyone whose people are starting out here.",
-            details: [
-              "Seats for a whole team, an overview per situation, and situation packs for your own workplace — ward rounds, handovers, patient conversations.",
-              "Learners decide what is shared.",
-            ],
-          },
         ],
       },
       {

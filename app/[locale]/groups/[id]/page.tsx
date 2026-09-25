@@ -14,6 +14,10 @@ import type { ChatMessage } from "@/lib/domain/chat/types";
 import { PageHeader, Section, Shell } from "../../_components/page-shell";
 import { GroupChat } from "../../_components/group-chat";
 import { InvitePanel } from "../../_components/invite-panel";
+import { DOMAINS, SCENES } from "@/lib/situations/display";
+import { isSharing } from "@/lib/domain/teams/store";
+import { ShareToggle } from "../../_components/share-toggle";
+import { TeamPanel } from "../../_components/team-panel";
 
 export const dynamic = "force-dynamic";
 
@@ -162,6 +166,32 @@ export default async function GroupPage({
           />
         </div>
       </Section>
+
+      {/* A TEAM: the organiser picks the focus and sees who is ready; a member
+          decides whether to show them. See `lib/domain/teams/overview.ts`. */}
+      {mayInvite(group.createdBy, actorId) ? (
+        <Section title={dict.team.title}>
+          <TeamPanel
+            groupId={group.id}
+            t={dict.team}
+            domains={DOMAINS.map((d) => [d.id, dict.situations.domains[d.id as keyof typeof dict.situations.domains]?.title ?? d.id] as const)}
+            scenes={Object.fromEntries(
+              SCENES.map((s) => [s.id, dict.situations.scenes[s.id as keyof typeof dict.situations.scenes]?.title ?? s.id]),
+            )}
+          />
+        </Section>
+      ) : (
+        group.focus && (
+          <Section title={dict.team.shareTitle}>
+            <ShareToggle
+              groupId={group.id}
+              organiser={members.find((m) => m.actorId === group.createdBy)?.displayName ?? ""}
+              initial={await isSharing(group.id, actorId)}
+              t={dict.team}
+            />
+          </Section>
+        )
+      )}
 
       {/* Only the organiser. The panel is not rendered at all for anyone else
           — there is no token in the HTML to find with a dev console. */}

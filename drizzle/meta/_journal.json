@@ -36,6 +36,13 @@
       "when": 1790336357149,
       "tag": "0004_sync_certificates",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790336938856,
+      "tag": "0005_teams",
+      "breakpoints": true
     }
   ]
 }

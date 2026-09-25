@@ -106,12 +106,21 @@ export default async function OrganisationsPage({
       </div>
 
       <Section>
-        {/* First, not last. A reader who finds out on the way down that there
-            are no customers has been managed; a reader told at the top is
-            being levelled with, and everything below reads differently. */}
-        <p className="max-w-measure rounded-control border border-border-subtle bg-surface-raised p-4 text-sm leading-relaxed text-fg-secondary">
-          {t.noCustomers}
-        </p>
+        {/* What an organisation can do today, first: a team with a focus,
+            members who choose what they show, certificates anyone can check.
+            Every clause is a feature that exists — see `lib/domain/teams`. */}
+        <div className="max-w-measure rounded-control border border-border-subtle bg-surface-raised p-5">
+          <h2 className="font-heading text-lg font-semibold leading-snug tracking-display text-fg-primary">
+            {t.teamsTitle}
+          </h2>
+          <p className="mt-2 text-base leading-relaxed text-fg-secondary">{t.teamsBody}</p>
+          <Link
+            href={href(locale, "")}
+            className="mt-4 inline-flex min-h-11 items-center bg-action px-5 text-sm font-medium text-on-action hover:opacity-90"
+          >
+            {t.teamsCta} →
+          </Link>
+        </div>
 
         {/*
           THE WAY IN. Six names, and the one you are reading is marked.

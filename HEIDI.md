@@ -354,10 +354,13 @@ the variety layer underneath. Signed in, the home page IS the dashboard: same
 address, different page, because "Start" has to mean start.
 
 There are now accounts and a database. Identity is federated to OrangeCat and
-Heidi holds no users table; Postgres holds study groups, private conversations
-and the speaking rounds people schedule, and nothing else. Saved vocabulary and
-recorded takes live in the visitor's own browser. There is no learner model
-yet.
+Heidi holds no users table; Postgres holds study groups (and teams), private
+conversations, the speaking rounds people schedule, votes and comments on the
+roadmap and changelog (under a random browser key, not an account), and — ONLY
+for a learner who switched it on — their synced progress and the certificates
+issued from it. Saved vocabulary, the learner model and recorded takes live in
+the visitor's own browser by default; see "Progress on more than one device"
+below for what changes when sync is on.
 
 There is now audio, and the shape of it matters: a learner can record
 themselves, and the recording is measured **in the browser** — always, in every
@@ -1261,6 +1264,19 @@ exercise. Reconstructing a scrambled sentence is the obvious next shape and it
 cannot be marked honestly here — this variety tolerates more than one order,
 and an item that calls a valid alternative wrong would be §6's failure in a new
 place, aimed at the one person who cannot detect it.
+
+**Built: progress on more than one device, certificates, and teams — all opt-in.**
+Off by default and offered only signed in. When a learner switches sync on,
+each device keeps only what it observed and the server keeps each device's
+record apart; pages show the sum, so nothing is counted twice
+(`lib/domain/progress/sync.ts`). Switching off removes that device's copy; one
+button deletes all of it. A certificate is issued by the SERVER from the synced
+record, by the same rule the situation page shows (`strengthOf`, only at
+"sure"), and its public page carries no name. In a team, each member decides
+whether the organiser sees their standing per situation — never which lines or
+answers (`lib/domain/teams/overview.ts`). The default of §2 stands: without
+those switches, nothing about what a person cannot understand leaves their
+browser.
 
 **Built: the system knows what you keep getting wrong.** A learner model, in
 the browser, beside the kept words and for the same reason HEIDI.md gives for

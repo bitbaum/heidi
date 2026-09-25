@@ -31,7 +31,8 @@ test("adding an entry on top does not move the comments of the ones below", () =
 });
 
 test("only published things can be voted on", () => {
-  assert.equal(isFeedbackTarget("roadmap:teams"), true);
+  // Whatever is on the roadmap today — items leave it when they ship.
+  assert.equal(isFeedbackTarget(ROADMAP_TARGETS[0]), true);
   assert.equal(isFeedbackTarget("roadmap:anything-i-like"), false);
   assert.equal(isFeedbackTarget(CHANGELOG_TARGETS[0]), true);
 });
