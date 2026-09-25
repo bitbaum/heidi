@@ -413,27 +413,32 @@ body:has([data-chrome="chat"]) > main {
 }
 
 /**
- * The chat dock stands down where a conversation already lives.
+ * The chat dock is on EVERY page but one.
  *
- * Heidi floats over every page, because chat is how people use this product
- * and it used to exist on two surfaces out of eleven. On the three pages that
- * ARE a conversation — the home fold, the full-screen chat, a group — a
- * floating "ask Heidi" button is the same offer made twice, sitting on top of
- * the box that already does it.
+ * Heidi floats bottom-right on every page, phone and desktop, because chat is
+ * how people use this product. It used to stand down on the three pages that
+ * hold a conversation — the home fold, the full-screen chat, a group — on the
+ * argument that a button next to a chat box is the same offer twice. In use
+ * that read as "the chat is gone": the home page is where most visits start,
+ * and on a phone its chat box sits below the fold. A group's thread is a
+ * conversation with the group, not a private one with Heidi.
  *
- * WHY CSS RATHER THAN A LIST OF PATHNAMES. Whether the locale root holds a
- * chat depends on whether the visitor is signed in: signed out it is the chat,
- * signed in it is their dashboard. A route table cannot know that and the
- * rendering page always does, so the page marks itself and the chrome
- * responds — the same mechanism `data-chrome="chat"` already uses above to
- * drop the footer. No JavaScript, and nothing to flash on hydration, because
- * it is in the first stylesheet the browser sees.
- *
- * `display: none` rather than `visibility: hidden`, so the launcher takes no
- * Tab stop: a focusable control nobody can see is worse than a visible one.
+ * So the one exception is the full-screen chat (`data-chrome="chat"`), which
+ * IS the chat window the dock would open. `display: none` rather than
+ * `visibility: hidden`, so the launcher takes no Tab stop there.
  */
-body:has([data-chat="surface"]) [data-dock="heidi"],
 body:has([data-chrome="chat"]) [data-dock="heidi"] {
+  display: none;
+}
+
+/**
+ * The Loki feedback widget steps aside while Heidi's chat is open.
+ *
+ * Both float bottom-right, and on a phone the open dock is full-screen: the
+ * widget's pencil sat on top of the conversation. The widget is for the
+ * site's owner and returns the moment the dock closes.
+ */
+body:has([data-dock="heidi"] [role="dialog"]) #loki-feedback-host {
   display: none;
 }
 

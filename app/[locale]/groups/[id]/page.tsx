@@ -151,8 +151,7 @@ export default async function GroupPage({
       <PageHeader eyebrow={`${initialMembers.length} ${t.members}`} title={group.name} />
 
       <Section>
-        {/* Already a conversation, so the dock stands down over it. */}
-        <div data-chat="surface">
+        <div>
           <GroupChat
             groupId={group.id}
             t={t}

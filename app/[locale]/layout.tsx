@@ -131,9 +131,7 @@ export default async function LocaleLayout({
 
         <SiteFooter locale={locale} dict={dict} />
 
-        {/* Heidi, reachable from every page. It hides itself on the pages that
-            already hold a conversation — see the note in the component and the
-            `data-chat="surface"` rule in globals.css. */}
+        {/* Heidi, reachable from every page — see the dock rule in globals.css. */}
         <ChatDock locale={locale} dict={dict} />
 
         {/* Progress sync between devices. Renders nothing, and does nothing at
