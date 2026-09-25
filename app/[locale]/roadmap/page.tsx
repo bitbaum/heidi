@@ -7,6 +7,10 @@ import { ROADMAP } from "@/lib/config/roadmap";
 import { sectorLocale } from "@/lib/config/sectors";
 import { PageHeader, Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
+import { roadmapItemId } from "bip-kit";
+import { CommentThread, FeedbackProvider, StanceButtons, SuggestBox } from "bip-kit/react";
+import { ROADMAP_TARGETS } from "@/lib/feedback/targets";
+import { LOCALE_TAGS } from "@/lib/i18n/locales";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -17,15 +21,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 /**
- * What is coming, what is stuck, and what will never be built.
+ * What is being built, what comes next, and what after — and the reader's say
+ * in it.
  *
- * THE LAST BUCKET IS THE ONE THAT MATTERS. Every product has a roadmap; almost
- * none publishes the things it has decided not to build. §8 of the
- * specification is a register of claims this product may not make, and its
- * standing refusals — streaks, points, levels, a pronunciation score — are the
- * clearest statement of what Heidi is that exists anywhere. They belong next
- * to the plans, where somebody deciding whether to trust this can see both at
- * once, rather than in a document only we read.
+ * ANSWERABLE. Every item can be marked "I need this" or "not for me" and
+ * commented on, and anything missing can be suggested, without an account.
+ * The rules for that (one vote per browser, spam, duplicate suggestions) are
+ * bip-kit's, shared with every product whose roadmap it renders; Heidi only
+ * stores the answers (`lib/feedback/`). The order stays an editorial decision
+ * — HEIDI.md §9 says why — so the counts inform it and are shown, but do not
+ * silently reorder the page.
  *
  * RENDERED FROM `bip-kit`'s `RoadmapDoc`. The fleet already owns this contract
  * and nine products use it; the tenth hand-rolled version had no excuse. What
@@ -39,6 +44,8 @@ export default async function RoadmapPage({ params }: { params: Promise<{ locale
   const dict = getDictionary(locale);
   const lang = sectorLocale(locale);
   const doc = ROADMAP[lang];
+  const fb = dict.roadmapFeedback;
+  const readerLang = LOCALE_TAGS[locale];
 
   return (
     <Shell>
@@ -46,6 +53,9 @@ export default async function RoadmapPage({ params }: { params: Promise<{ locale
         <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
       </PageHeader>
 
+      <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{fb.intro}</p>
+
+      <FeedbackProvider endpoint="/api/feedback" targetIds={ROADMAP_TARGETS} labels={fb}>
       {doc.buckets.map((bucket) => (
         <section key={bucket.title} lang={lang} className="border-b border-border-subtle py-10">
           <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
@@ -85,11 +95,21 @@ export default async function RoadmapPage({ params }: { params: Promise<{ locale
                     {item.essay.label} →
                   </Link>
                 )}
+
+                <div lang={readerLang}>
+                  <StanceButtons targetId={roadmapItemId(item)} />
+                  <CommentThread targetId={roadmapItemId(item)} />
+                </div>
               </li>
             ))}
           </ul>
         </section>
       ))}
+
+      <div lang={readerLang} className="py-4">
+        <SuggestBox />
+      </div>
+      </FeedbackProvider>
 
       {/* A roadmap is a claim about the future; these two are the record of
           the past and the argument for the present. A reader who doubts the

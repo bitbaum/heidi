@@ -38,6 +38,31 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-09-25",
       tag: "feature",
+      title: "Fünf neue Situationen, und jede tiefer",
+      summary:
+        "Beim Arzt, auf der Gemeinde, in der Waschküche, am Apéro — und wenn «Nein» nicht «Nein» heisst. Die bisherigen vierzehn Situationen haben je zehn Sätze mehr.",
+      items: [
+        "19 Situationen mit zusammen 390 Sätzen, vorher 14 mit 140.",
+        "«Wenn Nein nicht Nein heisst»: «Mer chönnt sich das überlegge», «Das isch ächli schwierig» — und was man darauf sagt.",
+        "Neue Sätze stehen hinten an; was Sie schon geübt haben, bleibt dort, wo es war.",
+        "Jede Übersetzung wird jetzt auch auf Schweizer Hochdeutsch geprüft: «das Velo», nicht «das Fahrrad».",
+      ],
+    },
+    {
+      date: "2026-09-25",
+      tag: "feature",
+      title: "Mitreden beim Fahrplan und bei jeder Änderung",
+      summary:
+        "Bei jedem Punkt des Fahrplans können Sie sagen, ob Sie ihn brauchen, und darunter kommentieren. Was fehlt, schlagen Sie vor. Unter jeder Änderung hier können Sie etwas sagen. Ein Konto brauchen Sie dafür nicht.",
+      items: [
+        "Pro Browser zählt eine Stimme pro Punkt; ein zweiter Klick nimmt sie zurück.",
+        "Ein Vorschlag, den es ähnlich schon gibt, wird Ihnen gezeigt, bevor Sie ihn senden — mit «Ich auch» statt einer zweiten Zeile.",
+        "Gespeichert wird nur, was Sie schreiben, mit einem zufälligen Schlüssel Ihres Browsers — nicht, wer Sie sind. Die Datenschutzseite führt es auf.",
+      ],
+    },
+    {
+      date: "2026-09-25",
+      tag: "feature",
       title: "Woher kommt diese Nachricht?",
       summary:
         "Auf der Mundart-Seite lässt sich eine Nachricht einfügen, die man bekommen hat. Heidi zeigt, welche Formen woher kommen, was sie in Zürich hiessen und was die Wörter bedeuten.",
@@ -165,6 +190,31 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-25",
+      tag: "feature",
+      title: "Five new situations, and every one deeper",
+      summary:
+        "At the doctor's, at the municipal office, in the laundry room, at an apéro — and when «no» does not mean no. The fourteen existing situations each gained ten lines.",
+      items: [
+        "19 situations with 390 lines in all, up from 14 with 140.",
+        "«When no doesn’t mean no»: «Mer chönnt sich das überlegge», «Das isch ächli schwierig» — and what to say back.",
+        "New lines are added at the end; what you have already practised stays where it was.",
+        "Every translation is now also checked for Swiss Standard German: «das Velo», not «das Fahrrad».",
+      ],
+    },
+    {
+      date: "2026-09-25",
+      tag: "feature",
+      title: "Have your say on the roadmap and on every change",
+      summary:
+        "You can mark every roadmap item as needed or not, and comment on it. Suggest what is missing. Under every change here you can reply. No account needed.",
+      items: [
+        "One vote per item per browser; clicking again takes it back.",
+        "A suggestion that already exists in some form is shown to you before you send yours — with «Me too» instead of a second row.",
+        "Only what you write is stored, with a random key your browser keeps — not who you are. The privacy page lists it.",
+      ],
+    },
     {
       date: "2026-09-25",
       tag: "feature",

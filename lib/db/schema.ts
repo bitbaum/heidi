@@ -280,3 +280,56 @@ export const roundAttendance = pgTable(
   },
   (t) => [primaryKey({ columns: [t.roundId, t.actorId] }), index("round_attendance_actor_idx").on(t.actorId)],
 );
+
+/**
+ * Feedback on the roadmap and the changelog — the storage behind bip-kit's
+ * `FeedbackStore` contract (`lib/feedback/store.ts`).
+ *
+ * `voter` is NOT an identity. It is the random key the reader's browser keeps
+ * (bip-kit's `x-bip-voter`), so a vote needs no sign-in and says nothing about
+ * who cast it. `target_id` is a bip-kit id (`roadmap:teams`,
+ * `changelog:2026-09-25:1`), validated against the published roadmap and
+ * changelog by the route before anything is written.
+ */
+export const feedbackStances = pgTable(
+  "feedback_stances",
+  {
+    targetId: text("target_id").notNull(),
+    voter: text("voter").notNull(),
+    /** `needed` | `not-needed`. Withdrawing a stance deletes the row. */
+    stance: text("stance").notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.targetId, t.voter] })],
+);
+
+export const feedbackComments = pgTable(
+  "feedback_comments",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    targetId: text("target_id").notNull(),
+    voter: text("voter").notNull(),
+    body: text("body").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("feedback_comments_target_idx").on(t.targetId, t.createdAt)],
+);
+
+export const feedbackSuggestions = pgTable("feedback_suggestions", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  body: text("body").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+/** One row per voter who asked for a suggestion, its author included. */
+export const feedbackSupport = pgTable(
+  "feedback_support",
+  {
+    suggestionId: uuid("suggestion_id")
+      .notNull()
+      .references(() => feedbackSuggestions.id, { onDelete: "cascade" }),
+    voter: text("voter").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.suggestionId, t.voter] })],
+);

@@ -574,6 +574,7 @@ export const de = {
       practiceSeen: "Bereits gestellte Fragen",
       practiceModel: "Woran Sie noch arbeiten",
       streak: "Ihre Serie und Ihr Wochenziel",
+      roadmapFeedback: "Ihre Stimmen, Kommentare und Vorschläge zum Fahrplan",
       ownKey: "Ihr eigener API-Schlüssel",
       theme: "Helle oder dunkle Darstellung",
       dictationVerdict: "Ob das Diktat in diesem Browser geht",
@@ -957,6 +958,27 @@ export const de = {
    * KEIN PUNKTESTAND. Am Schluss stehen drei Zahlen, die stimmen — gefragt,
    * auf Anhieb, kommt nochmals. Keine Prozente, keine Serie, kein Level.
    */
+  roadmapFeedback: {
+    needed: "Brauche ich",
+    notNeeded: "Brauche ich nicht",
+    tally: "{needed} brauchen es, {notNeeded} nicht",
+    comments: "Kommentare",
+    commentPlaceholder: "Was denken Sie?",
+    send: "Senden",
+    noComments: "Noch keine Kommentare.",
+    suggestTitle: "Fehlt etwas?",
+    suggestPlaceholder: "Schlagen Sie eine Funktion vor",
+    suggest: "Vorschlagen",
+    similarTitle: "Ähnliches hat schon jemand vorgeschlagen:",
+    support: "Ich auch",
+    supported: "Gezählt",
+    postAnyway: "Meins ist anders — trotzdem senden",
+    thanks: "Danke — es steht auf der Liste.",
+    failed: "Das hat nicht geklappt. Versuchen Sie es noch einmal.",
+    refused: "Bitte schreiben Sie einen Satz, mit höchstens einem Link.",
+    intro: "Sagen Sie bei jedem Punkt, ob Sie ihn brauchen, und schlagen Sie vor, was fehlt — ohne Konto.",
+    changelogIntro: "Zu jeder Änderung können Sie etwas sagen — ohne Konto.",
+  },
   streak: {
     title: "Ihre Serie",
     start: "Heute anfangen — ein paar Fragen genügen.",
@@ -1657,15 +1679,17 @@ export const de = {
    * zwölf häufigsten Partikeln» — gebraucht werden vier Sätze darüber, wer
    * schlecht geschlafen hat.
    *
-   * «verified» sagt, wie die Sätze geprüft sind: maschinell auf Zürcher Formen,
-   * die Wörter im Idiotikon belegt. Eine Stärke, als Stärke formuliert — und
-   * nichts, was nicht stimmt.
+   * «verified» sagt, wie die Sätze geprüft sind: maschinell auf Zürcher Formen.
+   * Eine Stärke, als Stärke formuliert — und nichts, was nicht stimmt. Es sagte
+   * einmal auch «die Wörter im Idiotikon belegt»; das prüft keine Maschine
+   * (Lehnwörter wie «Stress» stehen dort nicht), also steht es hier nicht, bis
+   * das Zürcher Lexikon auf dem Fahrplan es prüfen kann.
    */
   situations: {
     title: "Wo Sie es brauchen",
     lead: "Nicht nach Wortarten geordnet, sondern nach dem Moment: was in dieser Situation wirklich gesagt wird, in der Reihenfolge, in der es kommt.",
     note: "Richtung wie überall hier: zuerst verstehen. Die meisten Sätze hören Sie — die wenigen, die Sie selbst sagen, sind markiert.",
-    verified: "Jeder Satz ist maschinell auf Zürcher Formen geprüft, und seine Wörter sind im Schweizerischen Idiotikon belegt.",
+    verified: "Jeder Satz ist maschinell auf Zürcher Formen geprüft: Formen aus anderen Mundarten oder aus Deutschland kommen nicht durch.",
     hear: "Das hören Sie",
     say: "Das sagen Sie",
     linesLabel: "Sätze",
