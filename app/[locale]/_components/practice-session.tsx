@@ -17,6 +17,7 @@ import { EMPTY_MODEL, observe } from "@/lib/domain/practice/model";
 import type { PracticeItem } from "@/lib/domain/practice/types";
 import { useSaved } from "./use-saved";
 import { useGrade } from "./use-review";
+import { recordPractice } from "./streak-store";
 
 /**
  * The exercise page, which is the first place in this product where the
@@ -183,6 +184,7 @@ export function PracticeSession({
     const answered = session?.[at];
     if (answered && !outcomes.some((o) => o.id === id)) {
       writeModel.write(observe(modelStore.read() ?? EMPTY_MODEL, answered, outcome));
+      recordPractice();
     }
 
     setOutcomes((previous) => [...previous, { id, outcome }]);

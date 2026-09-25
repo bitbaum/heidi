@@ -522,6 +522,7 @@ export const fr: Dictionary = {
       savedWords: "Mots gardés",
       practiceSeen: "Questions déjà posées",
       practiceModel: "Ce que vous travaillez encore",
+      streak: "Votre série et votre objectif hebdomadaire",
       ownKey: "Votre propre clé API",
       theme: "Apparence claire ou sombre",
       dictationVerdict: "Si la dictée fonctionne dans ce navigateur",
@@ -863,6 +864,19 @@ export const fr: Dictionary = {
     saidInTitle: "Dit dans",
   },
 
+  streak: {
+    title: "Votre série",
+    start: "Commencez aujourd'hui — quelques questions suffisent.",
+    doneToday: "Déjà pratiqué aujourd'hui.",
+    weekReached: "Objectif de la semaine atteint.",
+    goalLabel: "Objectif hebdomadaire",
+    freezes: "Un jour manqué est comblé automatiquement ({n} restant).",
+    practise: "S'exercer",
+    days: {"one": "{n} jour d'affilée", "few": "{n} jours d'affilée", "many": "{n} jours d'affilée", "other": "{n} jours d'affilée"},
+    best: {"one": "Record : {n} jour", "few": "Record : {n} jours", "many": "Record : {n} jours", "other": "Record : {n} jours"},
+    goalDays: {"one": "{n} jour par semaine", "few": "{n} jours par semaine", "many": "{n} jours par semaine", "other": "{n} jours par semaine"},
+    week: {"one": "Cette semaine : {n} sur {goal} jour", "few": "Cette semaine : {n} sur {goal} jours", "many": "Cette semaine : {n} sur {goal} jours", "other": "Cette semaine : {n} sur {goal} jours"},
+  },
   practice: {
     title: "Exercices",
     lead: "Une courte série de questions, quelques minutes. Tirées des règles qu'Heidi applique elle-même, des phrases qu'on dit vraiment — et des mots que vous avez gardés.",

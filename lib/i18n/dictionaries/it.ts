@@ -522,6 +522,7 @@ export const it: Dictionary = {
       savedWords: "Parole tenute",
       practiceSeen: "Domande già poste",
       practiceModel: "Su che cosa state ancora lavorando",
+      streak: "La sua serie e il suo obiettivo settimanale",
       ownKey: "La sua chiave API",
       theme: "Aspetto chiaro o scuro",
       dictationVerdict: "Se la dettatura funziona in questo browser",
@@ -863,6 +864,19 @@ export const it: Dictionary = {
     saidInTitle: "Detto in",
   },
 
+  streak: {
+    title: "La sua serie",
+    start: "Inizi oggi — bastano poche domande.",
+    doneToday: "Oggi ha già fatto pratica.",
+    weekReached: "Obiettivo settimanale raggiunto.",
+    goalLabel: "Obiettivo settimanale",
+    freezes: "Un giorno saltato viene colmato automaticamente ({n} rimasti).",
+    practise: "Esercitarsi ora",
+    days: {"one": "{n} giorno di fila", "few": "{n} giorni di fila", "many": "{n} giorni di fila", "other": "{n} giorni di fila"},
+    best: {"one": "Record: {n} giorno", "few": "Record: {n} giorni", "many": "Record: {n} giorni", "other": "Record: {n} giorni"},
+    goalDays: {"one": "{n} giorno a settimana", "few": "{n} giorni a settimana", "many": "{n} giorni a settimana", "other": "{n} giorni a settimana"},
+    week: {"one": "Questa settimana: {n} di {goal} giorno", "few": "Questa settimana: {n} di {goal} giorni", "many": "Questa settimana: {n} di {goal} giorni", "other": "Questa settimana: {n} di {goal} giorni"},
+  },
   practice: {
     title: "Esercizi",
     lead: "Una serie breve di domande, pochi minuti. Costruite sulle regole che Heidi stessa applica, sulle frasi che si dicono davvero — e sulle parole che avete tenuto.",

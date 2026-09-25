@@ -538,6 +538,7 @@ export const rm: Dictionary = {
       savedWords: "Pleds tegnids",
       practiceSeen: "Dumondas gia ponidas",
       practiceModel: "Tge che vus exercitais anc",
+      streak: "Vossa seria e Voss finamira da l'emna",
       ownKey: "Vossa atgna clav API",
       theme: "Apparientscha clera u stgira",
       dictationVerdict: "Sche la dictaziun funcziunescha en quest browser",
@@ -879,6 +880,19 @@ export const rm: Dictionary = {
     saidInTitle: "Ditg en",
   },
 
+  streak: {
+    title: "Vossa seria",
+    start: "Cumenzai oz — paucas dumondas bastan.",
+    doneToday: "Oz gia exercità.",
+    weekReached: "Finamira da l'emna cuntanschida.",
+    goalLabel: "Finamira da l'emna",
+    freezes: "In di manchentà vegn surpuntà automaticamain ({n} restan).",
+    practise: "Exercitar ussa",
+    days: {"one": "{n} di en seria", "few": "{n} dis en seria", "many": "{n} dis en seria", "other": "{n} dis en seria"},
+    best: {"one": "Record: {n} di", "few": "Record: {n} dis", "many": "Record: {n} dis", "other": "Record: {n} dis"},
+    goalDays: {"one": "{n} di per emna", "few": "{n} dis per emna", "many": "{n} dis per emna", "other": "{n} dis per emna"},
+    week: {"one": "Quest'emna: {n} da {goal} di", "few": "Quest'emna: {n} da {goal} dis", "many": "Quest'emna: {n} da {goal} dis", "other": "Quest'emna: {n} da {goal} dis"},
+  },
   practice: {
     title: "Exercizis",
     lead: "Ina curta seria da dumondas, paucas minutas. Or da las reglas che Heidi applitgescha sezza, or da las frasas che vegnan propi ditgas — ed or dals pleds che Vus avais tegnì.",

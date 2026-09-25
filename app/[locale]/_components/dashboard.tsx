@@ -20,6 +20,7 @@ import { RecentConversations } from "./recent-conversations";
 import { dbConfigured } from "@/lib/db";
 import { groupsFor } from "@/lib/domain/groups/store";
 import { conversationsFor } from "@/lib/domain/conversations/store";
+import { StreakCard } from "./streak-card";
 
 /**
  * The learner's own page, wherever it is rendered.
@@ -177,6 +178,8 @@ export async function Dashboard({ locale }: { locale: Locale }) {
             renders nothing until something has been practised, so it never
             adds a promise to a page that already had too many.
           */}
+          <StreakCard t={dict.streak} locale={locale} />
+
           <SituationBoard scenes={scenes} askable={askableByScene} t={dict.situations} locale={locale} />
 
           <section aria-labelledby="focus-heading" className="scroll-mt-anchor lg:scroll-mt-anchor" id="focus">
