@@ -62,11 +62,21 @@ export function MasteredPanel({
    */
   if (total === 0) {
     return (
-      <section aria-labelledby="mastered" className="mt-12 border-t border-border-subtle pt-10">
+      <section aria-labelledby="mastered-heading" className="mt-12 border-t border-border-subtle pt-10">
         <Heading t={t} />
-        <p className="max-w-measure rounded-control border border-border-subtle bg-surface-raised p-4 text-base leading-relaxed text-fg-secondary">
-          {t.masteredEmpty}
-        </p>
+        <div className="max-w-measure rounded-control border border-border-subtle bg-surface-raised p-4">
+          <p className="text-base leading-relaxed text-fg-secondary">{t.masteredEmpty}</p>
+          {/* A DOOR, NOT ONLY A RULE. The paragraph says how something gets
+              here; this is how to start doing it. An empty state that
+              explains itself and offers nothing was the pattern the whole
+              dashboard audit kept finding. */}
+          <Link
+            href={href(locale, "practice")}
+            className="mt-4 inline-flex min-h-11 items-center rounded-control bg-action px-4 text-sm font-medium text-on-action hover:opacity-90"
+          >
+            {t.nonePractise}
+          </Link>
+        </div>
       </section>
     );
   }
@@ -75,7 +85,7 @@ export function MasteredPanel({
   const groupName = (id: string) => vocabularyT.groups[id as keyof typeof vocabularyT.groups] ?? id;
 
   return (
-    <section aria-labelledby="mastered" className="mt-12 border-t border-border-subtle pt-10">
+    <section aria-labelledby="mastered-heading" className="mt-12 border-t border-border-subtle pt-10">
       <Heading t={t} />
 
       {/* ONE NUMBER, AND IT IS A COUNT OF THINGS — not a percentage, because
@@ -154,7 +164,7 @@ export function MasteredPanel({
 function Heading({ t }: { t: Dictionary["review"] }) {
   return (
     <h2
-      id="mastered"
+      id="mastered-heading"
       className="mb-3 font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
     >
       {t.masteredTitle}

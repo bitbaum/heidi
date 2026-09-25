@@ -36,11 +36,21 @@ export function PatternsPanel({ t }: { t: Dictionary["review"] }) {
    * the start; this is the same courtesy, arriving late.
    */
   if (!ready) return null;
+  /*
+   * EMPTY RENDERS NOTHING AGAIN, and the reason it stopped doing so is gone.
+   * It was changed to explain itself because the jump strip advertised it and
+   * clicking the link landed on nothing. The strip no longer lists it, so the
+   * explanation now only told a learner with five saved words to come back
+   * "once you have kept a few words" — measured against the rules this panel
+   * knows, which cover 12% of the vocabulary, that was a promise, not a
+   * description.
+   */
+  if (patterns.length === 0) return null;
 
   return (
-    <section aria-labelledby="patterns" className="mt-12 border-t border-border-subtle pt-10">
+    <section aria-labelledby="patterns-heading" className="mt-12 border-t border-border-subtle pt-10">
       <h2
-        id="patterns"
+        id="patterns-heading"
         className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
       >
         {t.patternsTitle}

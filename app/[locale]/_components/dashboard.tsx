@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { auth, authEnabled, signIn } from "@/lib/auth";
 import { getDictionary } from "@/lib/i18n";
+import { DOMAINS } from "@/lib/situations/display";
+import { PACK_ITEMS } from "@/lib/domain/practice/published";
+import { askableLines } from "@/lib/domain/practice/situation-strength";
+import { SituationBoard } from "./situation-board";
 import { type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { Shell } from "./page-shell";
@@ -33,6 +37,15 @@ import { conversationsFor } from "@/lib/domain/conversations/store";
  */
 
 export async function Dashboard({ locale }: { locale: Locale }) {
+  const scenes = DOMAINS.flatMap((domain) =>
+    domain.scenes.map((scene) => ({
+      id: scene.id,
+      title: getDictionary(locale).situations.scenes[scene.id as keyof ReturnType<typeof getDictionary>["situations"]["scenes"]]?.title ?? scene.id,
+    })),
+  );
+  const askableByScene = Object.fromEntries(
+    [...askableLines(PACK_ITEMS)].map(([scene, lines]) => [scene, [...lines].sort((a, b) => a - b)]),
+  );
   const dict = getDictionary(locale);
   const t = dict.auth;
   const session = authEnabled ? await auth() : null;
@@ -69,7 +82,10 @@ export async function Dashboard({ locale }: { locale: Locale }) {
        is the answer to the one they ask second. The old order had the
        diagnosis first and no counterpart to it at all. */
     { id: "mastered", label: t.sections.mastered },
-    { id: "patterns", label: t.sections.patterns },
+    // NOT "patterns". It knows four sound rules, which explain 12% of the
+    // pack's own words, so for most learners it will never have anything to
+    // show — and a jump link to an empty section is a promise the page cannot
+    // keep. The panel still appears, in place, the day it has something.
     { id: "words", label: t.sections.words },
     { id: "groups", label: t.sections.groups, count: groups.length },
     { id: "onward", label: t.sections.onward },
@@ -152,11 +168,22 @@ export async function Dashboard({ locale }: { locale: Locale }) {
             names the material and offers a session on it, and never scores the
             person.
           */}
-          <section aria-labelledby="focus" className="scroll-mt-anchor lg:scroll-mt-anchor" id="focus">
+          {/*
+            WHERE YOU ARE STRONG, FIRST.
+            The page was audited section by section and most of it described a
+            state without offering a next step. This is the one panel that
+            answers "what should I do now" by construction: every row is a
+            link, and it names the weakest situation you have started. It
+            renders nothing until something has been practised, so it never
+            adds a promise to a page that already had too many.
+          */}
+          <SituationBoard scenes={scenes} askable={askableByScene} t={dict.situations} locale={locale} />
+
+          <section aria-labelledby="focus-heading" className="scroll-mt-anchor lg:scroll-mt-anchor" id="focus">
             <FocusPanel t={dict.practice} grammarT={dict.grammar} situationsT={dict.situations} locale={locale} />
           </section>
 
-          <section aria-labelledby="review" className="scroll-mt-anchor lg:scroll-mt-anchor" id="review">
+          <section aria-labelledby="review-heading" className="scroll-mt-anchor lg:scroll-mt-anchor" id="review">
           <h2
             id="review-heading"
             className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
@@ -173,9 +200,9 @@ export async function Dashboard({ locale }: { locale: Locale }) {
               to resume — a signed-out conversation lives in their browser and
               is already on the page they left it on. */}
           {signedIn && (
-            <section aria-labelledby="recent" id="recent" className="mt-12 scroll-mt-anchor border-t border-border-subtle pt-10 lg:scroll-mt-anchor">
+            <section aria-labelledby="recent-heading" id="recent" className="mt-12 scroll-mt-anchor border-t border-border-subtle pt-10 lg:scroll-mt-anchor">
               <h2
-                id="recent"
+                id="recent-heading"
                 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
               >
                 {dict.review.recentTitle}
@@ -204,9 +231,9 @@ export async function Dashboard({ locale }: { locale: Locale }) {
             <PatternsPanel t={dict.review} />
           </div>
 
-          <section aria-labelledby="words" id="words" className="mt-12 scroll-mt-anchor border-t border-border-subtle pt-10 lg:scroll-mt-anchor">
+          <section aria-labelledby="words-heading" id="words" className="mt-12 scroll-mt-anchor border-t border-border-subtle pt-10 lg:scroll-mt-anchor">
             <h2
-              id="words"
+              id="words-heading"
               className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
             >
               {dict.saved.title}
@@ -220,9 +247,9 @@ export async function Dashboard({ locale }: { locale: Locale }) {
           {/* Groups sit beside the words rather than in the sidebar: they are
               the other half of what this page is FOR, and a list of rooms you
               are in is not a secondary control. */}
-          <section aria-labelledby="groups" id="groups" className="mt-12 scroll-mt-anchor border-t border-border-subtle pt-10 lg:scroll-mt-anchor">
+          <section aria-labelledby="groups-heading" id="groups" className="mt-12 scroll-mt-anchor border-t border-border-subtle pt-10 lg:scroll-mt-anchor">
             <h2
-              id="groups"
+              id="groups-heading"
               className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
             >
               {dict.groups.title}

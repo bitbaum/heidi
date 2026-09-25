@@ -71,9 +71,9 @@ export function FocusPanel({
    */
   if (areas.length === 0) {
     return (
-      <section aria-labelledby="focus">
+      <section aria-labelledby="focus-heading">
         <h2
-          id="focus"
+          id="focus-heading"
           className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
         >
           {t.focusTitle}
@@ -87,10 +87,10 @@ export function FocusPanel({
 
   return (
     <section
-      aria-labelledby="focus"
+      aria-labelledby="focus-heading"
       className="mb-8 rounded-control border border-border-subtle bg-surface-raised p-5"
     >
-      <h2 id="focus" className="font-heading text-lg font-semibold leading-snug tracking-display text-fg-primary">
+      <h2 id="focus-heading" className="font-heading text-lg font-semibold leading-snug tracking-display text-fg-primary">
         {t.focusTitle}
       </h2>
       <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-secondary">{t.focusLead}</p>
