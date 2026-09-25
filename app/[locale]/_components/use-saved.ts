@@ -42,6 +42,9 @@ export function useSaved() {
        * the learner already has.
        */
       if (next === current) return;
+      // Examples run only on the learner's own key (see /api/example), so
+      // without one there is nothing to ask for.
+      if (!byok) return;
 
       void (async () => {
         try {
