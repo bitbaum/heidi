@@ -5,13 +5,18 @@ import type { Dictionary } from "@/lib/i18n";
 import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
 import { DISPLAY } from "@/lib/variety/display";
 import { deliveryNotes, recordingNotes, spokenNotes, type Note } from "@/lib/domain/speaking/feedback";
-import { usable, type Delivery } from "@/lib/domain/speaking/delivery";
 import { MAX_SAID_LENGTH, type Take } from "@/lib/domain/speaking/take";
 import type { SpokenVarietyId } from "@/lib/domain/speaking/varieties";
-import { measureSpoken, type Spoken } from "@/lib/speech/spoken";
-import type { GrammarFinding } from "@/lib/speech/grammar";
-import { hesitations, type Hesitation } from "@/lib/speech/hesitation";
-import type { TimedWord } from "@/lib/speech/fluency";
+import {
+  hesitations,
+  measureSpoken,
+  usable,
+  type Delivery,
+  type GrammarFinding,
+  type Hesitation,
+  type Spoken,
+  type TimedWord,
+} from "@bitbaum/speechkit";
 import { NOTE_WORDING, type PlainNoteId } from "@/lib/i18n/speaking-notes";
 import { useClientValue } from "@/lib/browser/store";
 import { progressFrom, spokenMinutes } from "@/lib/domain/speaking/progress";
@@ -813,17 +818,31 @@ function HeardAnalysis({
                 {grammar.findings.map((f) => (
                   <li key={`${f.offset}-${f.ruleId}`} className="text-base leading-snug">
                     <span className="text-fg-secondary line-through decoration-danger">{f.text}</span>
-                    {f.replacements[0] && (
+                    {/* EVERY alternative, not the first. LanguageTool cannot tell
+                        which case the speaker meant: for "Er hat den Buch
+                        gelesen" it offered "dem Buch" FIRST and "das Buch"
+                        second (measured live). Showing only the first would
+                        hand a learner a wrong correction as if it were the
+                        answer. With several, the page says so beneath. */}
+                    {f.replacements.length > 0 && (
                       <>
                         <span aria-hidden="true" className="mx-2 text-fg-muted">
                           →
                         </span>
-                        <span className="font-medium text-fg-primary">{f.replacements[0]}</span>
+                        {f.replacements.map((r, i) => (
+                          <span key={r}>
+                            {i > 0 && <span className="mx-1.5 text-fg-muted">·</span>}
+                            <span className="font-medium text-fg-primary">{r}</span>
+                          </span>
+                        ))}
                       </>
                     )}
                   </li>
                 ))}
               </ul>
+              {grammar.findings.some((f) => f.replacements.length > 1) && (
+                <p className="mt-1 text-sm text-fg-muted">{t.grammarAlternatives}</p>
+              )}
               {grammar.total > grammar.findings.length && (
                 <p className="mt-1 text-sm text-fg-muted">
                   {t.grammarMore.replace("{shown}", num(grammar.findings.length)).replace("{total}", num(grammar.total))}

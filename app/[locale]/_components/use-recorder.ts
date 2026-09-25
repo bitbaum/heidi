@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { measure, type Delivery } from "@/lib/domain/speaking/delivery";
+import { measureDelivery, type Delivery } from "@bitbaum/speechkit";
 
 /**
  * Record a take, measure it on the device, and hand the audio back ONLY if the
@@ -136,7 +136,7 @@ export function useRecorder({ retainAudio = false }: { retainAudio?: boolean } =
       const decoded = await context.decodeAudioData(await blob.arrayBuffer());
       // Channel 0 is enough: a microphone take is mono in substance whatever
       // the container says, and averaging channels would only blur it.
-      const result = measure(decoded.getChannelData(0), decoded.sampleRate);
+      const result = measureDelivery(decoded.getChannelData(0), decoded.sampleRate);
       void context.close().catch(() => {});
       setDelivery(result);
       // Handed over only when the take was started in a mode that asked for

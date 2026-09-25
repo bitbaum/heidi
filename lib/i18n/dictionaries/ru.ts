@@ -1386,6 +1386,7 @@ export const ru: Dictionary = {
     grammarTitle: "Грамматика",
     grammarClean: "Ничего, что заметил бы слушатель.",
     grammarNotChecked: "В этот раз грамматика не проверялась.",
+    grammarAlternatives: "Несколько вариантов — какой подходит, зависит от того, что вы хотели сказать.",
     grammarMore: "Первые {shown} из {total}.",
     grammarLimit: "Проверяются согласование, падежи и формы глагола. Находится не всё — например, порядок слов после «weil».",
     hesitationTitle: "Где вы искали слово",

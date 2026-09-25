@@ -1,6 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { usable, type Delivery } from "./delivery.ts";
+import { usable, type Delivery } from "@bitbaum/speechkit";
 import { deliveryNotes, recordingNotes, spokenNotes } from "./feedback.ts";
 
 /**

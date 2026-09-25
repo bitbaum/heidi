@@ -1397,6 +1397,7 @@ export const gsw: Dictionary = {
     grammarTitle: "Grammatik",
     grammarClean: "Nüt, wo emne Zuehörer würd uffalle.",
     grammarNotChecked: "D Grammatik isch das Mal nöd prüeft worde.",
+    grammarAlternatives: "Mehreri Möglichkeite — weli passt, hängt devo ab, was Si händ wele säge.",
     grammarMore: "Di erschte {shown} vo {total}.",
     grammarLimit: "Prüeft wärded Übereinstimmig, Fäll und Verbforme. Nöd jede Fähler wird gfunde — zum Bispiil d Stellig vom Verb nach «weil».",
     hesitationTitle: "Wo Si es Wort gsuecht händ",

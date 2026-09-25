@@ -35,11 +35,9 @@
  * Pure: no I/O, no model, same input -> same output.
  */
 
-import { STUCK_PAUSE_MS } from "../../speech/pause.ts";
 import { check, type Finding } from "../../variety/check.ts";
 import type { VarietyPack } from "../../variety/pack.ts";
-import { usable, type Delivery } from "./delivery.ts";
-import { interpretation, type Spoken } from "../../speech/spoken.ts";
+import { interpretation, STUCK_PAUSE_MS, usable, type Delivery, type Spoken } from "@bitbaum/speechkit";
 
 /**
  * Every note Heidi can make about a take.

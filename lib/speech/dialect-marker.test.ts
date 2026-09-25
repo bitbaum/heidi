@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { markerVerdict, returnsSpokenVariety } from "./dialect-marker.ts";
+import { markerVerdict, returnsSpokenVariety } from "@bitbaum/speechkit";
 import { ZURICH_GERMAN } from "../variety/packs/gsw-zh.ts";
 
 const MARKERS = ZURICH_GERMAN.speech.markers!;

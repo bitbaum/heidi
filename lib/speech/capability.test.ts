@@ -1,7 +1,15 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { MEASURES, anyMeasureAvailable, verdictFor, verdicts, type VarietySpeech } from "./capability.ts";
-import { FORM_JUDGEMENT_MAX_WER } from "./evidence.ts";
+import { existsSync } from "node:fs";
+import {
+  MEASURES,
+  anyMeasureAvailable,
+  sourceUrl,
+  verdictFor,
+  verdicts,
+  type VarietySpeech,
+} from "./capability.ts";
+import { FORM_JUDGEMENT_MAX_WER } from "@bitbaum/speechkit";
 import type { VarietyPack } from "../variety/pack.ts";
 import { ZURICH_GERMAN } from "../variety/packs/gsw-zh.ts";
 import { UKRAINIAN } from "../variety/packs/uk.ts";
@@ -109,10 +117,30 @@ test("the target variety is preferred over the bridge when both would work", () 
   assert.equal(verdictFor(measure("grammar"), both), "target");
 });
 
-test("every measure names a module, so a reader can check rather than trust", () => {
+/**
+ * The page links each module for a reader to open, so it has to EXIST.
+ *
+ * The first version of this test checked only that the path looked like a
+ * path, and the "words" row pointed readers at `lib/variety/gate.ts` — a file
+ * that never existed — for as long as the page did. Now: a Heidi path must be
+ * in this repo, and a speechkit path must have its built counterpart in the
+ * installed package (the package ships `dist/`, not `src/`).
+ */
+test("every measure's source link points at a file that exists", () => {
+  const root = new URL("../../", import.meta.url);
   for (const m of MEASURES) {
     if (m.refused) continue;
-    assert.match(m.module, /^lib\/.+\.ts$/, `${m.id} does not say where it lives`);
+    const [repo, ...rest] = m.module.split("/");
+    const path = rest.join("/");
+    const onDisk =
+      repo === "heidi"
+        ? new URL(path, root)
+        : repo === "speechkit"
+          ? new URL(`node_modules/@bitbaum/speechkit/${path.replace(/^src\//, "dist/").replace(/\.ts$/, ".js")}`, root)
+          : null;
+    assert.ok(onDisk, `${m.id}: unknown repo in ${m.module}`);
+    assert.ok(existsSync(onDisk), `${m.id} links readers to ${m.module}, which does not exist`);
+    assert.match(sourceUrl(m.module), /^https:\/\/github\.com\/bitbaum\/(heidi|speechkit)\/blob\/main\/.+\.ts$/);
   }
 });
 

@@ -21,7 +21,7 @@
  */
 
 import type { Place as GeoPlace, RegionId as GeoRegionId } from "../geo/region.ts";
-import type { Recognition } from "../speech/evidence.ts";
+import type { Recognition } from "@bitbaum/speechkit";
 
 /** BCP-47 where one exists. Zurich German is `gsw-u-sd-chzh`; Ukrainian is `uk`. */
 export type VarietyTag = string;

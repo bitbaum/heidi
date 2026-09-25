@@ -1372,6 +1372,7 @@ export const en: Dictionary = {
     grammarTitle: "Grammar",
     grammarClean: "Nothing a listener would notice.",
     grammarNotChecked: "Grammar was not checked this time.",
+    grammarAlternatives: "Several possibilities — which one fits depends on what you meant to say.",
     grammarMore: "The first {shown} of {total}.",
     grammarLimit: "Checks agreement, case and verb forms. It does not catch everything — word order after «weil», for one.",
     hesitationTitle: "Where you searched for a word",
