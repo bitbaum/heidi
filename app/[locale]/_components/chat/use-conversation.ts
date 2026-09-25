@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import type { ChatMessage } from "@/lib/domain/chat/types";
 import { HEIDI_ID } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
@@ -41,6 +41,15 @@ export function useConversation({
   const [messages, setMessages] = useState<ChatMessage[]>(initial);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
+  /**
+   * The turn in flight, so it can be stopped.
+   *
+   * THERE WAS NO WAY TO CANCEL A TURN. Every transport accepted a `signal` and
+   * nothing ever passed one, so a slow answer could only be waited out — the
+   * standard's item 4, "a turn you cannot cancel is the thing that makes a
+   * slow answer feel broken" (fleet `SHARED.md`, from loki `Composer.tsx`).
+   */
+  const inFlight = useRef<AbortController | null>(null);
   const [attached, setAttached] = useState<string[]>([]);
   const [attachError, setAttachError] = useState<string | null>(null);
   /**
@@ -102,19 +111,40 @@ export function useConversation({
       setBusy(true);
       setStreaming("");
 
+      const controller = new AbortController();
+      inFlight.current = controller;
+
       const result = await transport({
         text: trimmed,
         history,
         locale,
         byok,
         images,
+        signal: controller.signal,
         onText: setStreaming,
       });
 
+      inFlight.current = null;
       setBusy(false);
       // Cleared BEFORE the message lands, so there is never a frame showing
       // the preview and the finished answer at the same time.
       setStreaming("");
+
+      /*
+       * STOPPED. The partial text is DISCARDED, not kept as an answer, and that
+       * is specific to this product: the streamed preview is the model's text
+       * before the variety gate has read it. Keeping it would make Stop a way
+       * to publish dialect nobody checked — the one thing every answer here is
+       * built to prevent. What stays is the learner's question and a bubble
+       * with Retry, which is the standard's item 5.
+       */
+      if (controller.signal.aborted) {
+        setMessages((prev) => [
+          ...prev,
+          { id: localId("stop"), authorId: HEIDI_ID, body: "", createdAt: new Date().toISOString(), error: t.stopped },
+        ]);
+        return;
+      }
 
       if (result.status === "ok") {
         setMessages((prev) => [...prev, ...result.messages.filter((m) => m.authorId !== me || !retry)]);
@@ -140,7 +170,7 @@ export function useConversation({
         { id: localId("err"), authorId: HEIDI_ID, body: "", createdAt: new Date().toISOString(), error: message },
       ]);
     },
-    [attached, busy, byok, locale, me, messages, t.cannotSeePicture, t.failed, t.notConfigured, t.unreachable, transport],
+    [attached, busy, byok, locale, me, messages, t.cannotSeePicture, t.failed, t.notConfigured, t.stopped, t.unreachable, transport],
   );
 
   const send = useCallback((text: string) => void run(text), [run]);
@@ -149,6 +179,11 @@ export function useConversation({
     const last = lastOwn(messages, me);
     if (last) void run(last, true);
   }, [messages, me, run]);
+
+  /** Abandon the turn in flight. A no-op when nothing is. */
+  const stop = useCallback(() => {
+    inFlight.current?.abort();
+  }, []);
 
   const reset = useCallback(() => {
     setMessages([]);
@@ -165,6 +200,7 @@ export function useConversation({
     streaming,
     send,
     retry,
+    stop,
     reset,
     attached,
     attachError,

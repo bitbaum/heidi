@@ -143,6 +143,8 @@ export const it: Dictionary = {
     explanationsIn: "Spiegazioni in italiano",
     notConfigured: "Il modello linguistico non è ancora configurato su questa installazione.",
     unreachable: "Heidi non è raggiungibile. Controllate la connessione e riprovate.",
+    stop: "Ferma",
+    stopped: "Fermato. La risposta a metà è stata scartata — non era ancora stata controllata per le forme zurighesi.",
     failed: "Heidi non è riuscita a rispondere in questo momento. Riprovate tra poco.",
     cannotSeePicture:
       "Heidi non riesce a leggere immagini in questo momento. Mandate il testo, oppure collegate un vostro modello che legge le immagini.",

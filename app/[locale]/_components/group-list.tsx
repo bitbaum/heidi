@@ -111,7 +111,7 @@ export function GroupList({
             onChange={(e) => setName(e.target.value)}
             maxLength={60}
             placeholder={t.namePlaceholder}
-            className="min-h-11 flex-1 rounded-control border border-border-strong bg-surface-raised px-3 text-base text-fg-primary placeholder:text-fg-muted focus:border-accent focus:outline-none"
+            className="min-h-11 flex-1 rounded-control border border-border-strong bg-surface-raised px-3 text-base text-fg-primary placeholder:text-fg-muted focus:border-fg-primary focus:outline-none"
           />
           <button
             type="submit"

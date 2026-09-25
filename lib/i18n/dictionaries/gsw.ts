@@ -166,6 +166,8 @@ export const gsw: Dictionary = {
     explanationsIn: "Erklärige uf Züritüütsch",
     notConfigured: "S Sprachmodell isch uf dere Installation na nöd iigrichtet.",
     unreachable: "Heidi isch nöd erreichbar. Bitte d Verbindig prüefe und nomal probiere.",
+    stop: "Aahalte",
+    stopped: "Aaghalte. Die halb Antwort isch verworfe — si isch na nöd uf Zürcher Forme prüeft gsi.",
     failed: "Heidi het das grad nöd chönne beantworte. Bitte glii nomal probiere.",
     cannotSeePicture:
       "Heidi cha grad kei Bilder läse. Schickid de Text, oder verbindid es eigens Modell, wo Bilder liist.",

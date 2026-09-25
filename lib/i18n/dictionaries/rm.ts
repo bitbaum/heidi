@@ -159,6 +159,8 @@ export const rm: Dictionary = {
     explanationsIn: "Decleraziuns per tudestg",
     notConfigured: "Il model da lingua n'è anc betg configurà sin questa installaziun.",
     unreachable: "Heidi n'è betg cuntanschibla. Controllai la connexiun ed empruvai danovamain.",
+    stop: "Fermar",
+    stopped: "Fermà. La resposta mesa è vegnida refusada — ella n'era anc betg controllada per las furmas da Turitg.",
     failed: "Heidi n'ha betg pudì respunder en quest mument. Empruvai danovamain en in mument.",
     cannotSeePicture:
       "Heidi na po betg leger maletgs en quest mument. Trametti il text, u collià in agen model che legia maletgs.",

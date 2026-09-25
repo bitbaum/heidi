@@ -143,6 +143,8 @@ export const fr: Dictionary = {
     explanationsIn: "Explications en français",
     notConfigured: "Le modèle de langue n'est pas encore configuré sur cette installation.",
     unreachable: "Heidi est injoignable. Vérifiez votre connexion et réessayez.",
+    stop: "Arrêter",
+    stopped: "Arrêté. La réponse inachevée a été écartée — elle n'avait pas encore été vérifiée pour les formes zurichoises.",
     failed: "Heidi n'a pas pu répondre à l'instant. Réessayez dans un moment.",
     cannotSeePicture:
       "Heidi ne peut pas lire d'image en ce moment. Envoyez le texte, ou connectez votre propre modèle capable de lire les images.",

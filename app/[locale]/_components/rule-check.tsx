@@ -75,7 +75,7 @@ export function RuleCheck({ t }: { t: Dictionary["check"] }) {
         placeholder={t.placeholder}
         maxLength={2000}
         rows={3}
-        className="w-full resize-y rounded-control border border-border-strong bg-surface-raised p-4 text-lg leading-relaxed text-fg-primary placeholder:text-fg-muted focus:border-accent focus:outline-none"
+        className="w-full resize-y rounded-control border border-border-strong bg-surface-raised p-4 text-lg leading-relaxed text-fg-primary placeholder:text-fg-muted focus:border-fg-primary focus:outline-none"
       />
 
       <button
