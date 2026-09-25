@@ -16,7 +16,7 @@
     "audit:language": "node scripts/audit/language.mjs"
   },
   "dependencies": {
-    "@bitbaum/ai-kit": "^1.11.0",
+    "@bitbaum/ai-kit": "^1.16.0",
     "bip-kit": "^0.3.1",
     "drizzle-orm": "^0.45.2",
     "limitkit": "^0.2.0",

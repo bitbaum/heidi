@@ -79,8 +79,8 @@ export type Measure = {
  */
 export const MEASURES: readonly Measure[] = [
   { id: "delivery", needs: "signal", module: "lib/domain/speaking/delivery.ts" },
-  { id: "fluency", needs: "words", module: "lib/speech/fluency.ts" },
-  { id: "words", needs: "words", module: "lib/variety/gate.ts" },
+  { id: "fluency", needs: "words", module: "lib/speech/spoken.ts" },
+  { id: "words", needs: "words", module: "lib/variety/check.ts" },
   { id: "grammar", needs: "words", needsGrammarService: true, module: "lib/speech/grammar.ts" },
   { id: "pronunciation", needs: "words", refused: true, module: "—" },
 ];

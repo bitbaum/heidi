@@ -50,7 +50,7 @@ const FRAME_MS = 20;
  * quietly disagreeing. See `lib/speech/pause.ts` for the phonetic reason the
  * number is 250.
  */
-import { MIN_PAUSE_MS } from "../../speech/pause.ts";
+import { MIN_PAUSE_MS, type PauseSpan } from "../../speech/pause.ts";
 
 /** A blip shorter than this is a click or a breath, not a run of speech. */
 const MIN_RUN_MS = 120;
@@ -112,7 +112,23 @@ export type Delivery = {
   /** Fraction of samples at the ceiling. A microphone fact, not a speaking one. */
   clippedRatio: number;
   problems: RecordingProblem[];
+  /**
+   * Where each pause was, in ms from the start of the recording.
+   *
+   * The counts above say HOW MUCH hesitation there was; this says WHERE, so a
+   * transcript's word timings can name the word that followed. Measured here
+   * rather than taken from the recogniser, because recognisers are poor
+   * clocks for silence: Whisper was observed stretching a one-syllable word
+   * across a 1.8 s pause, leaving no gap between words at all.
+   *
+   * Optional and never persisted: `take.ts` decodes only the numeric fields,
+   * so a stored take keeps no timeline — it is only needed while the take is
+   * on screen.
+   */
+  pauseSpans?: PauseSpan[];
 };
+
+export type { PauseSpan };
 
 /** Frame RMS in dBFS, floored so silence is a number rather than -Infinity. */
 function frameDb(samples: Float32Array, from: number, to: number): number {
@@ -289,11 +305,15 @@ export function measure(samples: Float32Array, sampleRate: number): Delivery {
   // `delivery.test.ts` asserts it rather than trusting this paragraph.
   const runs: number[] = [];
   const pauses: number[] = [];
+  const pauseSpans: PauseSpan[] = [];
   let runFrames = 0;
   let gapFrames = 0;
   for (let f = 0; f < voiced.length; f++) {
     if (voiced[f]) {
-      if (runFrames === 0 && runs.length > 0) pauses.push(gapFrames * FRAME_MS);
+      if (runFrames === 0 && runs.length > 0) {
+        pauses.push(gapFrames * FRAME_MS);
+        pauseSpans.push({ startMs: (f - gapFrames) * FRAME_MS, endMs: f * FRAME_MS });
+      }
       runFrames++;
       gapFrames = 0;
       continue;
@@ -321,6 +341,7 @@ export function measure(samples: Float32Array, sampleRate: number): Delivery {
     phonationRatio: spoken > 0 ? speechMs / spoken : 0,
     clippedRatio,
     problems,
+    pauseSpans,
   };
 }
 

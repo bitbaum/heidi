@@ -144,7 +144,23 @@ export function previousTake(takes: Take[], id: string): Take | undefined {
 
 /** Newest first, capped. The cap is enforced on write so storage cannot creep. */
 export function withTake(takes: Take[], take: Take): Take[] {
-  return [take, ...takes.filter((t) => t.id !== take.id)].slice(0, MAX_TAKES);
+  const stored: Take = { ...take, delivery: storedDelivery(take.delivery) };
+  return [stored, ...takes.filter((t) => t.id !== take.id)].slice(0, MAX_TAKES);
+}
+
+/**
+ * The delivery as it is KEPT: the numbers and the problems, nothing else.
+ *
+ * Applied on write, not only on read. `pauseSpans` — a timeline of where this
+ * person went silent — is needed while a take is on screen and nowhere after,
+ * and `decodeTakes` dropping it on the way back in would still have left it
+ * sitting in storage. The shape on disk is the shape `decodeDelivery` accepts.
+ */
+function storedDelivery(delivery: Delivery): Delivery {
+  const out: Record<string, unknown> = {};
+  for (const field of NUMERIC_FIELDS) out[field] = delivery[field];
+  out.problems = delivery.problems;
+  return out as Delivery;
 }
 
 export function withoutTake(takes: Take[], id: string): Take[] {

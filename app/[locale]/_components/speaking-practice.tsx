@@ -9,6 +9,9 @@ import { usable, type Delivery } from "@/lib/domain/speaking/delivery";
 import { MAX_SAID_LENGTH, type Take } from "@/lib/domain/speaking/take";
 import type { SpokenVarietyId } from "@/lib/domain/speaking/varieties";
 import { measureSpoken, type Spoken } from "@/lib/speech/spoken";
+import type { GrammarFinding } from "@/lib/speech/grammar";
+import { hesitations, type Hesitation } from "@/lib/speech/hesitation";
+import type { TimedWord } from "@/lib/speech/fluency";
 import { NOTE_WORDING, type PlainNoteId } from "@/lib/i18n/speaking-notes";
 import { useClientValue } from "@/lib/browser/store";
 import { progressFrom, spokenMinutes } from "@/lib/domain/speaking/progress";
@@ -104,6 +107,16 @@ export function SpeakingPractice({
   const [heardFailed, setHeardFailed] = useState(false);
   /** What the marker check made of the transcript. See `dialect-marker.ts`. */
   const [spoke, setSpoke] = useState<"target" | "bridge" | "unclear" | undefined>(undefined);
+  /**
+   * What the server could add about a transcribed take. `undefined` = this
+   * take was not transcribed, so there is nothing to say either way. `null` =
+   * transcribed, but this part could not be checked, and the page SAYS so —
+   * silence there would read as "no mistakes".
+   */
+  const [grammar, setGrammar] = useState<{ findings: GrammarFinding[]; total: number } | null | undefined>(
+    undefined,
+  );
+  const [timedWords, setTimedWords] = useState<TimedWord[] | null | undefined>(undefined);
 
   const takeId = recorder.takeId;
   const previous = takeId ? before(takeId) : undefined;
@@ -140,6 +153,17 @@ export function SpeakingPractice({
     if (!recorder.delivery || !said.trim()) return null;
     return measureSpoken(recorder.delivery, said, DISPLAY.speechRule, DISPLAY.fillers);
   }, [recorder.delivery, said]);
+
+  /**
+   * Where the long pauses fell, named. The signal (this device) says where the
+   * silences were; the transcript's timings say which word each one preceded.
+   * See `lib/speech/hesitation.ts` for why neither can do it alone.
+   */
+  const hesitated = useMemo<Hesitation[] | null | undefined>(() => {
+    if (timedWords === undefined) return undefined;
+    if (timedWords === null || !recorder.delivery?.pauseSpans) return null;
+    return hesitations(recorder.delivery.pauseSpans, timedWords);
+  }, [timedWords, recorder.delivery]);
 
   const spokenFeedback = useMemo(() => {
     if (!recorder.delivery || !spokenMeasures) return [];
@@ -273,7 +297,12 @@ export function SpeakingPractice({
     void (async () => {
       try {
         const res = await fetch("/api/speaking/transcribe", { method: "POST", body });
-        const data = (await res.json()) as { text?: string; spoke?: string };
+        const data = (await res.json()) as {
+          text?: string;
+          spoke?: string;
+          grammar?: { findings?: GrammarFinding[]; total?: number } | null;
+          words?: TimedWord[] | null;
+        };
         const text = typeof data.text === "string" ? data.text : "";
         if (!res.ok || !text) {
           // No transcript is not a failed exercise: the measurements are on
@@ -282,6 +311,12 @@ export function SpeakingPractice({
           setHeardFailed(true);
         } else {
           saveSaid(text);
+          setGrammar(
+            data.grammar && Array.isArray(data.grammar.findings)
+              ? { findings: data.grammar.findings, total: data.grammar.total ?? data.grammar.findings.length }
+              : null,
+          );
+          setTimedWords(Array.isArray(data.words) ? data.words : null);
           setSpoke(
             data.spoke === "target" || data.spoke === "bridge" || data.spoke === "unclear"
               ? data.spoke
@@ -330,6 +365,8 @@ export function SpeakingPractice({
     setAskedOnce(false);
     setHeardFailed(false);
     setSpoke(undefined);
+    setGrammar(undefined);
+    setTimedWords(undefined);
   }, []);
 
   /**
@@ -560,6 +597,10 @@ export function SpeakingPractice({
               className="mt-3 w-full rounded-control border border-border-subtle bg-surface-page p-3 text-base text-fg-primary"
             />
 
+            {transcribes && (grammar !== undefined || hesitated !== undefined) && (
+              <HeardAnalysis t={t} num={num} grammar={grammar} hesitated={hesitated} />
+            )}
+
             {language.length > 0 && (
               <ul className="mt-4 grid grid-cols-safe gap-2">
                 {language.map((note, i) => (
@@ -729,6 +770,86 @@ function ProgressStrip({ t, num, takes }: { t: T; num: Num; takes: Take[] }) {
         />
       </dl>
       <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.progressNote}</p>
+    </div>
+  );
+}
+
+/**
+ * What the server could add about a transcribed take: grammar, and where the
+ * long pauses fell.
+ *
+ * NOT CHECKED IS SHOWN AS NOT CHECKED. `null` renders a sentence saying so,
+ * because an empty space where the grammar would be reads as "no mistakes" on
+ * exactly the day the checker was down.
+ *
+ * Findings are shown as what was said and what to say instead, and NOT with
+ * the checker's explanation: LanguageTool explains in the language it checked,
+ * and a German sentence in a Russian reader's page is the leak `display.ts`
+ * exists to prevent. "den Buch → das Buch" needs no translation.
+ */
+function HeardAnalysis({
+  t,
+  num,
+  grammar,
+  hesitated,
+}: {
+  t: T;
+  num: (n: number) => string;
+  grammar: { findings: GrammarFinding[]; total: number } | null | undefined;
+  hesitated: Hesitation[] | null | undefined;
+}) {
+  return (
+    <div className="mt-4 flex flex-col gap-4">
+      {grammar !== undefined && (
+        <div>
+          <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.grammarTitle}</p>
+          {grammar === null ? (
+            <p className="mt-2 text-sm text-fg-muted">{t.grammarNotChecked}</p>
+          ) : grammar.findings.length === 0 ? (
+            <p className="mt-2 text-sm text-fg-secondary">{t.grammarClean}</p>
+          ) : (
+            <>
+              <ul className="mt-2 flex flex-col gap-1.5">
+                {grammar.findings.map((f) => (
+                  <li key={`${f.offset}-${f.ruleId}`} className="text-base leading-snug">
+                    <span className="text-fg-secondary line-through decoration-danger">{f.text}</span>
+                    {f.replacements[0] && (
+                      <>
+                        <span aria-hidden="true" className="mx-2 text-fg-muted">
+                          →
+                        </span>
+                        <span className="font-medium text-fg-primary">{f.replacements[0]}</span>
+                      </>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              {grammar.total > grammar.findings.length && (
+                <p className="mt-1 text-sm text-fg-muted">
+                  {t.grammarMore.replace("{shown}", num(grammar.findings.length)).replace("{total}", num(grammar.total))}
+                </p>
+              )}
+            </>
+          )}
+          {/* The limit, beside the result — a clean result from a partial
+              checker is only honest if the reader knows it is partial. */}
+          <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-muted">{t.grammarLimit}</p>
+        </div>
+      )}
+
+      {hesitated && hesitated.length > 0 && (
+        <div>
+          <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.hesitationTitle}</p>
+          <ul className="mt-2 flex flex-col gap-1">
+            {hesitated.map((h) => (
+              <li key={h.index} className="text-base text-fg-primary">
+                {t.hesitationBefore.replace("{s}", num(Math.round(h.ms / 100) / 10)).replace("{word}", h.before)}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 max-w-measure text-sm leading-relaxed text-fg-muted">{t.hesitationNote}</p>
+        </div>
+      )}
     </div>
   );
 }
