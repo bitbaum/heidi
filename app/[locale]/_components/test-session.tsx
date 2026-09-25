@@ -44,6 +44,7 @@ export function TestSession({
   grammarT,
   situationsT,
   vocabularyT,
+  learnT,
   locale,
 }: {
   items: readonly PracticeItem[];
@@ -51,6 +52,7 @@ export function TestSession({
   grammarT: Dictionary["grammar"];
   situationsT: Dictionary["situations"];
   vocabularyT: Dictionary["vocabulary"];
+  learnT: Dictionary["chat"]["learn"];
   locale: Locale;
 }) {
   const [run, setRun] = useState<readonly PracticeItem[] | null>(null);
@@ -159,7 +161,7 @@ export function TestSession({
       <Results
         given={given}
         t={t}
-        grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT}
+        grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT}
         locale={locale}
         outOfTime={outOfTime}
         onAgain={() => setRun(null)}
@@ -212,7 +214,7 @@ export function TestSession({
         key={item.id}
         item={item}
         t={t}
-        grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT}
+        grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT}
         locale={locale}
         reveal="later"
         onAnswer={record}
@@ -298,6 +300,7 @@ function Results({
   grammarT,
   situationsT,
   vocabularyT,
+  learnT,
   locale,
   outOfTime,
   onAgain,
@@ -307,6 +310,7 @@ function Results({
   grammarT: Dictionary["grammar"];
   situationsT: Dictionary["situations"];
   vocabularyT: Dictionary["vocabulary"];
+  learnT: Dictionary["chat"]["learn"];
   locale: Locale;
   outOfTime: boolean;
   onAgain: () => void;
@@ -381,7 +385,7 @@ function Results({
                 t={t}
                 grammarT={grammarT}
                 situationsT={situationsT}
-                vocabularyT={vocabularyT}
+                vocabularyT={vocabularyT} learnT={learnT}
                 compact
               />
             </li>

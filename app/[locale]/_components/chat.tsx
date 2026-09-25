@@ -122,6 +122,7 @@ export function Chat({
         onChange={chat.setInput}
         onSubmit={() => chat.send(chat.input)}
         busy={chat.busy}
+          onStop={chat.stop}
         t={t}
         modelT={dict.model}
         placeholder={t.composer}

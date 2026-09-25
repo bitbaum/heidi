@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 /** The order they are worth learning in, not alphabetical. */
-const GROUPS = ["function", "verbs", "helvetisms", "everyday", "greetings"] as const;
+const GROUPS = ["function", "verbs", "helvetisms", "everyday", "slang", "greetings"] as const;
 
 /**
  * The words that buy the most comprehension — now findable.
@@ -92,6 +92,7 @@ export default async function VocabularyPage({ params }: { params: Promise<{ loc
             group: word.group,
             ...(word.article ? { article: word.article } : {}),
             ...(word.mistakenFor ? { mistakenFor: word.mistakenFor } : {}),
+            ...(word.register ? { register: word.register } : {}),
             ...(word.forms ? { forms: word.forms } : {}),
             ...(word.example ? { example: word.example } : {}),
           }))}

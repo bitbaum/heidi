@@ -218,7 +218,7 @@ export type GrammarTopic = {
  * right, because they face opposite ways: understanding what somebody said,
  * versus writing something to send. Comprehension first is the whole product.
  */
-export type VocabularyGroup = "function" | "verbs" | "everyday" | "greetings" | "helvetisms";
+export type VocabularyGroup = "function" | "verbs" | "everyday" | "greetings" | "helvetisms" | "slang";
 
 /**
  * The article a learner would actually SAY, as a closed set.
@@ -315,6 +315,21 @@ export type VocabularyEntry = {
    * different and much safer kind of gap.
    */
   mistakenFor?: string;
+  /**
+   * How a word lands, when it is not neutral. A CLOSED SET — the label is
+   * rendered in seven languages from a key, never typed.
+   *
+   *   casual   among friends, at work with colleagues; odd in a letter.
+   *   rude     among friends it is warmth, to a stranger or a boss it is an
+   *            insult. `huere`, `Löli`, `Schnure`.
+   *
+   * WHY THIS IS NOT OPTIONAL FOR SLANG. Asked for: slang, "stuff like this".
+   * The meaning of `huere` is the easy half. The half a learner cannot audit —
+   * §2 again — is that saying it to the landlord is a different act from
+   * saying it at the Stammtisch, and nothing in the word itself tells them.
+   * A test refuses a `slang` entry without a register.
+   */
+  register?: "casual" | "rude";
   /**
    * Who vouches for the detail above.
    *

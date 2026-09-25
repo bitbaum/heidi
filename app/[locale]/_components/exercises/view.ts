@@ -45,6 +45,7 @@ export type ExerciseViewProps<T extends PracticeItem = PracticeItem> = {
   grammarT: Dictionary["grammar"];
   situationsT: Dictionary["situations"];
   vocabularyT: Dictionary["vocabulary"];
+  learnT: Dictionary["chat"]["learn"];
   locale: Locale;
   /**
    * WHEN THE LEARNER FINDS OUT — and it is the view's business because the

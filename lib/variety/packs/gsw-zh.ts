@@ -592,7 +592,7 @@ export const ZURICH_GERMAN: VarietyPack = {
     },
     {
       target: "Peperoni",
-      bridge: "Paprika (das Gemüse)",
+      bridge: "Paprika",
       group: "helvetisms",
       mistakenFor: "eine scharfe Schote",
       source: "idiotikon",
@@ -618,6 +618,20 @@ export const ZURICH_GERMAN: VarietyPack = {
       mistakenFor: "zügeln, im Zaum halten",
       source: "idiotikon",
     },
+    {
+      target: "lose",
+      bridge: "zuhören",
+      group: "helvetisms",
+      mistakenFor: "losen, das Los ziehen",
+      source: "idiotikon",
+    },
+    {
+      target: "springe",
+      bridge: "rennen",
+      group: "helvetisms",
+      mistakenFor: "springen, hüpfen",
+      source: "idiotikon",
+    },
     { target: "Perron", bridge: "Bahnsteig", group: "helvetisms" },
     { target: "Glace", bridge: "Speiseeis", group: "helvetisms" },
     { target: "Coiffeur", bridge: "Friseur", group: "helvetisms" },
@@ -625,6 +639,51 @@ export const ZURICH_GERMAN: VarietyPack = {
     { target: "Spital", bridge: "Krankenhaus", group: "helvetisms" },
     { target: "Nastuech", bridge: "Taschentuch", group: "helvetisms" },
     { target: "parkiere", bridge: "parken", group: "helvetisms" },
+
+    /**
+     * MORE OF THE WORDS NO SOUND RULE RESCUES — added with the larger list, so
+     * the page stays what it argues it is. Asked for: "there are just not
+     * enough words". Nouns and slang were added too, and every one of those
+     * is matched here by a function word or a verb, because the vocabulary
+     * test's rule — carrying words must outnumber the rest — is the page's
+     * whole thesis, and satisfying it by adding more of what it is FOR is
+     * better than carving a second exception into it.
+     */
+    { target: "mängisch", bridge: "manchmal", group: "function" },
+    { target: "öppedie", bridge: "ab und zu", group: "function" },
+    { target: "gliich", bridge: "trotzdem", group: "function" },
+    { target: "zerscht", bridge: "zuerst", group: "function" },
+    { target: "susch", bridge: "sonst", group: "function" },
+    { target: "dänk", bridge: "wohl, doch", group: "function" },
+    { target: "gnueg", bridge: "genug", group: "function" },
+    { target: "vill", bridge: "viel", group: "function" },
+    { target: "nüt", bridge: "nichts", group: "function" },
+    { target: "niemer", bridge: "niemand", group: "function" },
+    { target: "dört", bridge: "dort", group: "function" },
+    { target: "ufe", bridge: "hinauf", group: "function" },
+    { target: "abe", bridge: "hinunter", group: "function" },
+    { target: "ine", bridge: "hinein", group: "function" },
+    { target: "use", bridge: "hinaus", group: "function" },
+    { target: "zrugg", bridge: "zurück", group: "function" },
+    { target: "ewäg", bridge: "weg", group: "function" },
+    { target: "öb", bridge: "ob", group: "function" },
+    { target: "wil", bridge: "weil", group: "function" },
+    { target: "wänn", bridge: "wenn", group: "function" },
+    { target: "gseh", bridge: "sehen", group: "verbs" },
+    { target: "ghöre", bridge: "hören", group: "verbs" },
+    { target: "gä", bridge: "geben", group: "verbs" },
+    { target: "neh", bridge: "nehmen", group: "verbs" },
+    { target: "tänke", bridge: "denken", group: "verbs" },
+    { target: "sölle", bridge: "sollen", group: "verbs" },
+    { target: "dörfe", bridge: "dürfen", group: "verbs" },
+    { target: "chaufe", bridge: "kaufen", group: "verbs" },
+    { target: "zale", bridge: "zahlen", group: "verbs" },
+    { target: "trinke", bridge: "trinken", group: "verbs" },
+    { target: "schlafe", bridge: "schlafen", group: "verbs" },
+    { target: "hocke", bridge: "sitzen", group: "verbs" },
+    { target: "verzelle", bridge: "erzählen", group: "verbs" },
+    { target: "choche", bridge: "kochen", group: "verbs" },
+    { target: "gumpe", bridge: "hüpfen", group: "verbs" },
     { target: "aalüte", bridge: "anrufen", group: "verbs" },
     { target: "reklamiere", bridge: "sich beschweren", group: "verbs" },
     { target: "abmache", bridge: "vereinbaren", group: "verbs" },
@@ -731,19 +790,61 @@ export const ZURICH_GERMAN: VarietyPack = {
     { target: "Znacht", bridge: "Abendessen", group: "everyday", article: "s", source: "idiotikon" },
     { target: "Lüüt", bridge: "Leute", group: "everyday" },
     { target: "Velo", bridge: "Fahrrad", group: "helvetisms" },
-    { target: "Znüni", bridge: "Vormittagssnack", group: "everyday" },
-    { target: "Zvieri", bridge: "Nachmittagssnack", group: "everyday" },
+    { target: "Znüni", bridge: "zweites Frühstück", group: "everyday" },
+    { target: "Zvieri", bridge: "Zwischenmahlzeit am Nachmittag", group: "everyday" },
     { target: "Güetzi", bridge: "Keks", group: "everyday" },
     { target: "Rüebli", bridge: "Karotte", group: "everyday" },
     { target: "Poulet", bridge: "Hähnchen", group: "helvetisms" },
     { target: "Trottoir", bridge: "Bürgersteig", group: "helvetisms" },
 
+    /**
+     * Where the situations are: the table, the kitchen, the staircase, the doctor.
+     */
+    { target: "Gipfeli", bridge: "Croissant", group: "everyday" },
+    { target: "Weggli", bridge: "Brötchen", group: "everyday" },
+    { target: "Härdöpfel", bridge: "Kartoffel", group: "everyday" },
+    { target: "Anke", bridge: "Butter", group: "everyday" },
+    { target: "Nidle", bridge: "Sahne", group: "everyday" },
+    { target: "Chäs", bridge: "Käse", group: "everyday" },
+    { target: "Schoggi", bridge: "Schokolade", group: "everyday" },
+    { target: "Zibele", bridge: "Zwiebel", group: "everyday" },
+    { target: "Kafi", bridge: "Kaffee", group: "everyday" },
+    { target: "Beiz", bridge: "Kneipe", group: "everyday" },
+    { target: "Stange", bridge: "kleines Bier", group: "everyday" },
+    { target: "Waschchuchi", bridge: "Waschküche", group: "everyday" },
+    { target: "Stäge", bridge: "Treppe", group: "everyday" },
+    { target: "Chopfweh", bridge: "Kopfschmerzen", group: "everyday" },
+    { target: "Buuchweh", bridge: "Bauchschmerzen", group: "everyday" },
     { target: "Grüezi", bridge: "Guten Tag", group: "greetings" },
     { target: "Hoi", bridge: "Hallo", group: "greetings" },
     { target: "Salü", bridge: "Hallo", group: "greetings" },
     { target: "Ade", bridge: "Auf Wiedersehen", group: "greetings" },
     { target: "merci", bridge: "danke", group: "greetings" },
     { target: "Exgüsi", bridge: "Entschuldigung", group: "greetings" },
+    { target: "en Guete", bridge: "guten Appetit", group: "greetings" },
+    { target: "Proscht", bridge: "Prost", group: "greetings" },
+    { target: "Tschau", bridge: "Tschüss", group: "greetings" },
+
+    /**
+     * SLANG, EACH WITH ITS REGISTER. Asked for by name. The meaning is the easy
+     * half; `register` is the half a learner cannot audit — see `VocabularyEntry`.
+     * Only words the Idiotikon attests; Zurich youth slang dates fast and is
+     * deliberately not chased here.
+     */
+    { target: "Stutz", bridge: "Franken", group: "slang", register: "casual" },
+    { target: "Chlotz", bridge: "Geld", group: "slang", register: "casual" },
+    { target: "Büez", bridge: "Arbeit", group: "slang", register: "casual" },
+    { target: "chrampfe", bridge: "hart arbeiten", group: "slang", register: "casual" },
+    { target: "Seich", bridge: "Unsinn", group: "slang", register: "casual" },
+    { target: "mega", bridge: "sehr", group: "slang", register: "casual" },
+    { target: "gheie", bridge: "fallen", group: "slang", register: "casual" },
+    { target: "schiffe", bridge: "stark regnen", group: "slang", register: "casual" },
+    { target: "Hopp", bridge: "los", group: "slang", register: "casual" },
+    { target: "Grind", bridge: "Kopf", group: "slang", register: "rude" },
+    { target: "Schnure", bridge: "Mund", group: "slang", register: "rude" },
+    { target: "Löli", bridge: "Dummkopf", group: "slang", register: "rude" },
+    { target: "huere", bridge: "sehr", group: "slang", register: "rude" },
+    { target: "Gof", bridge: "Kind", group: "slang", register: "rude" },
   ],
 
   vocabularySources: ["idiotikon"],

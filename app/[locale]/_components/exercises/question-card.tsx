@@ -25,6 +25,7 @@ export function QuestionCard({
   grammarT,
   situationsT,
   vocabularyT,
+  learnT,
   locale,
   reveal,
   onAnswer,
@@ -35,6 +36,7 @@ export function QuestionCard({
   grammarT: Dictionary["grammar"];
   situationsT: Dictionary["situations"];
   vocabularyT: Dictionary["vocabulary"];
+  learnT: Dictionary["chat"]["learn"];
   locale: Locale;
   reveal: "now" | "later";
   onAnswer: (id: string, outcome: "right" | "wrong" | "skipped", chose?: string) => void;
@@ -61,7 +63,7 @@ export function QuestionCard({
         key={item.id}
         item={item}
         t={t}
-        grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT}
+        grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT}
         locale={locale}
         reveal={reveal}
         onAnswer={(outcome, chose) => onAnswer(item.id, outcome, chose)}

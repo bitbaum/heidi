@@ -26,6 +26,7 @@ export function Composer({
   onChange,
   onSubmit,
   busy,
+  onStop,
   t,
   modelT,
   placeholder,
@@ -43,6 +44,12 @@ export function Composer({
   onChange: (next: string) => void;
   onSubmit: () => void;
   busy: boolean;
+  /**
+   * Abandon the turn in flight. When given, the send slot becomes Stop while
+   * `busy` — the reference's arrangement (loki `Composer.tsx`): the control is
+   * where the eye already is, not a second button somewhere else.
+   */
+  onStop?: () => void;
   t: Dictionary["chat"];
   modelT: Dictionary["model"];
   placeholder: string;
@@ -157,7 +164,7 @@ export function Composer({
       )}
 
       <div
-        className="flex items-end gap-2 rounded-control border border-border-strong bg-surface-raised p-2 focus-within:border-accent"
+        className="flex items-end gap-2 rounded-control border border-border-strong bg-surface-raised p-2 focus-within:border-fg-primary"
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
           const files = imagesFromClipboard(e.dataTransfer);
@@ -253,14 +260,26 @@ export function Composer({
           </button>
         )}
 
-        <button
-          type="submit"
-          disabled={busy || !value.trim()}
-          aria-label={t.send}
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control bg-action text-on-action transition-colors disabled:bg-surface-sunk disabled:text-fg-muted"
-        >
-          <SendIcon />
-        </button>
+        {busy && onStop ? (
+          <button
+            type="button"
+            onClick={onStop}
+            aria-label={t.stop}
+            title={t.stop}
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control border border-border-strong bg-surface-page text-fg-primary transition-colors hover:bg-surface-sunk"
+          >
+            <StopIcon />
+          </button>
+        ) : (
+          <button
+            type="submit"
+            disabled={busy || !value.trim()}
+            aria-label={t.send}
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control bg-action text-on-action transition-colors disabled:bg-surface-sunk disabled:text-fg-muted"
+          >
+            <SendIcon />
+          </button>
+        )}
       </div>
 
       {dictationEnabled && (speech.listening || speech.transcribing) && (
@@ -276,5 +295,13 @@ export function Composer({
 
       {footer}
     </form>
+  );
+}
+
+function StopIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+      <rect x="2" y="2" width="10" height="10" rx="1" fill="currentColor" />
+    </svg>
   );
 }
