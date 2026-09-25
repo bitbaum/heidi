@@ -23,7 +23,7 @@ import { Verdict } from "./chrome";
  * lands would turn the passage into three separate questions and destroy the
  * point: the third gap is supposed to be informed by the first two.
  */
-export function GapTextView({ item, t, grammarT, locale, onAnswer }: ExerciseViewProps) {
+export function GapTextView({ item, t, grammarT, situationsT, vocabularyT, locale, onAnswer }: ExerciseViewProps) {
   const gap = item as Extract<PracticeItem, { kind: "gaptext" }>;
 
   /** `filled[g]` is the index in `bank` placed at gap `g`, or null. */
@@ -115,7 +115,7 @@ export function GapTextView({ item, t, grammarT, locale, onAnswer }: ExerciseVie
         </button>
       )}
 
-      {checked && <Verdict right={right} t={t} grammarT={grammarT} item={item} locale={locale} onNext={() => onAnswer(right ? "right" : "wrong")} />}
+      {checked && <Verdict right={right} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} item={item} locale={locale} onNext={() => onAnswer(right ? "right" : "wrong")} />}
     </div>
   );
 }

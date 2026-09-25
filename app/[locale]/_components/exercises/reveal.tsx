@@ -5,6 +5,7 @@ import { DISPLAY } from "@/lib/variety/display";
 import type { PracticeItem } from "@/lib/domain/practice/types";
 import type { ExerciseViewProps } from "./view";
 import { PROMPT_TEXT, Trace, ignoreKey } from "./chrome";
+import { Explanation } from "./explanation";
 
 type RevealItem = Extract<PracticeItem, { kind: "cloze" | "recall" }>;
 
@@ -36,7 +37,7 @@ type RevealItem = Extract<PracticeItem, { kind: "cloze" | "recall" }>;
  * on purpose. What is left here is what these two kinds always were: look,
  * remember, turn it over, say whether you had it.
  */
-export function RevealView({ item, t, locale, onAnswer, onRecall }: ExerciseViewProps) {
+export function RevealView({ item, t, grammarT, situationsT, vocabularyT, locale, onAnswer, onRecall }: ExerciseViewProps) {
   const reveal = item as RevealItem;
   const [shown, setShown] = useState(false);
 
@@ -76,7 +77,7 @@ export function RevealView({ item, t, locale, onAnswer, onRecall }: ExerciseView
     <>
       {reveal.kind === "cloze" ? (
         <>
-          <p lang={DISPLAY.tag} className={`${PROMPT_TEXT} wrap-anywhere`}>
+          <p lang={DISPLAY.tag} className={`${PROMPT_TEXT} wrap-anywhere text-dialect`}>
             {reveal.prompt}
           </p>
           <p lang="de" className="mt-2 max-w-measure wrap-anywhere text-base leading-relaxed text-fg-secondary">
@@ -85,14 +86,14 @@ export function RevealView({ item, t, locale, onAnswer, onRecall }: ExerciseView
           {/* The ANSWER is in the dialect exactly as the prompt above it is, and
               was the one line here that did not say so. */}
           {shown && (
-            <p lang={DISPLAY.tag} className={PROMPT_TEXT}>
+            <p lang={DISPLAY.tag} className={`${PROMPT_TEXT} text-dialect`}>
               {reveal.answer}
             </p>
           )}
         </>
       ) : (
         <>
-          <p lang={DISPLAY.tag} className={`${PROMPT_TEXT} wrap-anywhere`}>
+          <p lang={DISPLAY.tag} className={`${PROMPT_TEXT} wrap-anywhere text-dialect`}>
             {reveal.prompt}
           </p>
           {reveal.context && (
@@ -123,6 +124,7 @@ export function RevealView({ item, t, locale, onAnswer, onRecall }: ExerciseView
             </button>
           </div>
           <Trace item={item} t={t} locale={locale} />
+          <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} />
         </div>
       ) : (
         <div className="mt-5 flex flex-wrap gap-3">

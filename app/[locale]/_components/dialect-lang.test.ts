@@ -40,13 +40,8 @@ import { join } from "node:path";
  *                         teaches. The label is the area's own name and is
  *                         tagged where the name is the CONTENT, on the
  *                         dialect pages; in the bar it is chrome.
- *   exercises/chrome.tsx  `PROMPT_TEXT` is a className CONSTANT, not an
- *                         element. Its seven users each carry their own
- *                         `lang` — including `translate.tsx`, which is
- *                         correctly `lang="de"` because that prompt is the
- *                         German the learner translates FROM.
  */
-const DECORATION = new Set(["technology/page.tsx", "_components/site-header.tsx", "_components/exercises/chrome.tsx"]);
+const DECORATION = new Set(["technology/page.tsx", "_components/site-header.tsx"]);
 
 function tsxUnder(dir: string): string[] {
   const out: string[] = [];

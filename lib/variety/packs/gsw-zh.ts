@@ -955,7 +955,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       /**
        * The small words that carry the stance.
        *
-       * `gäll`, `halt`, `eba`, `dänk` — none of them changes who did what, and
+       * `gäll`, `halt`, `äbe`, `dänk` — none of them changes who did what, and
        * a learner who strips them all out still gets every fact in the
        * sentence. What they lose is the SPEAKER'S POSITION: whether they are
        * being asked to agree, told that nothing can be done, or answered with
@@ -975,11 +975,11 @@ export const ZURICH_GERMAN: VarietyPack = {
        */
       id: "modal-particles",
       band: "marks",
-      note: "gäll, halt, eba or dänk — or somebody asking why a sentence has a small extra word in it that no dictionary explains",
+      note: "gäll, halt, äbe or dänk — or somebody asking why a sentence has a small extra word in it that no dictionary explains",
       examples: [
         { target: "Das isch halt so.", bridge: "Das ist eben so, da kann man nichts machen." },
         { target: "Du chunnsch au, gäll?", bridge: "Du kommst auch, oder?" },
-        { target: "Eba, gnau das han ich gmeint.", bridge: "Genau, das habe ich gemeint." },
+        { target: "Äbe, gnau das han ich gmeint.", bridge: "Genau, das habe ich gemeint." },
       ],
     },
   ],
