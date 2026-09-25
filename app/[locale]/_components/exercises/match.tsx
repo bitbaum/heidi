@@ -143,6 +143,6 @@ function tileClass(solved: boolean, picked: boolean, wrong: boolean): string {
 
   if (solved) return `${base} border-border-subtle bg-surface-page text-fg-muted line-through`;
   if (wrong) return `${base} border-fg-muted text-fg-muted`;
-  if (picked) return `${base} border-accent bg-accent text-on-accent`;
+  if (picked) return `${base} border-action bg-action text-on-action`;
   return `${base} border-border-strong text-fg-primary hover:bg-surface-page`;
 }

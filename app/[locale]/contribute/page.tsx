@@ -101,7 +101,7 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
                   each row that keeps a register from becoming a promise. Two
                   of these say "built and empty" and one says "not built". */}
               <div className="mt-4 border-l-2 border-accent pl-4">
-                <p className="font-mono text-caption uppercase tracking-caps text-accent">{t.todayLabel}</p>
+                <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.todayLabel}</p>
                 <p className="mt-1 max-w-measure text-sm leading-relaxed text-fg-secondary">{role.today[lang]}</p>
               </div>
 
@@ -161,7 +161,7 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
           <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.ctaBody}</p>
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            className="mt-5 inline-flex min-h-11 items-center rounded-control bg-accent px-6 font-medium text-on-accent hover:opacity-90"
+            className="mt-5 inline-flex min-h-11 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
           >
             {t.ctaButton}
           </a>

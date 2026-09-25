@@ -109,7 +109,7 @@ export function GapTextView({ item, t, grammarT, locale, onAnswer }: ExerciseVie
         <button
           type="button"
           onClick={() => setChecked(true)}
-          className="mt-5 min-h-11 rounded-control bg-accent px-5 font-semibold text-on-accent hover:opacity-90"
+          className="mt-5 min-h-11 rounded-control bg-action px-5 font-semibold text-on-action hover:opacity-90"
         >
           {t.check}
         </button>
@@ -132,9 +132,9 @@ function gapClass(filled: boolean, checked: boolean, correct: boolean): string {
   const base = "mx-1 inline-flex min-h-8 min-w-16 items-baseline justify-center rounded-control border px-2 align-baseline";
   if (checked) {
     return correct
-      ? `${base} border-accent bg-accent text-on-accent`
+      ? `${base} border-action bg-action text-on-action`
       : `${base} border-border-strong text-fg-muted line-through`;
   }
-  if (filled) return `${base} border-accent bg-accent-tint text-fg-primary`;
+  if (filled) return `${base} border-border-strong bg-surface-sunk text-fg-primary`;
   return `${base} border-dashed border-border-strong`;
 }

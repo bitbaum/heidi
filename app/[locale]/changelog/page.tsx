@@ -72,7 +72,7 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
               </time>
               <span
                 className={`font-mono text-caption uppercase tracking-caps ${
-                  entry.tag === "fix" ? "text-accent" : "text-fg-muted"
+                  entry.tag === "fix" ? "text-fg-muted" : "text-fg-muted"
                 }`}
               >
                 {t.tags[entry.tag]}

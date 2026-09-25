@@ -57,12 +57,12 @@ export function JoinButton({ token, t, locale }: { token: string; t: Dictionary[
         type="button"
         onClick={join}
         disabled={busy}
-        className="inline-flex min-h-11 items-center rounded-control bg-accent px-6 font-medium text-on-accent transition-colors hover:opacity-90 disabled:bg-surface-sunk disabled:text-fg-muted"
+        className="inline-flex min-h-11 items-center rounded-control bg-action px-6 font-medium text-on-action transition-colors hover:opacity-90 disabled:bg-surface-sunk disabled:text-fg-muted"
       >
         {busy ? t.joining : t.join}
       </button>
       {error && (
-        <p role="alert" className="mt-3 max-w-measure text-base text-accent">
+        <p role="alert" className="mt-3 max-w-measure text-base text-danger">
           {error}
         </p>
       )}

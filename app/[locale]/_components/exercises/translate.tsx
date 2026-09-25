@@ -94,7 +94,7 @@ export function TranslateView({ item, t, locale, onAnswer }: ExerciseViewProps) 
           <p className="mt-4 font-mono text-caption uppercase tracking-caps text-fg-muted">{t.packSays}</p>
           <p
             lang={DISPLAY.tag}
-            className="mt-1 wrap-anywhere font-heading text-2xl font-semibold leading-snug tracking-display text-accent"
+            className="mt-1 wrap-anywhere font-heading text-2xl font-semibold leading-snug tracking-display text-dialect"
           >
             {translate.answer}
           </p>
@@ -110,7 +110,7 @@ export function TranslateView({ item, t, locale, onAnswer }: ExerciseViewProps) 
               <button
                 type="button"
                 onClick={() => onAnswer("right")}
-                className="min-h-11 rounded-control bg-accent px-4 font-medium text-on-accent hover:opacity-90"
+                className="min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
               >
                 {t.knew}
               </button>
@@ -165,7 +165,7 @@ export function TranslateView({ item, t, locale, onAnswer }: ExerciseViewProps) 
             <button
               type="button"
               onClick={() => setShown(true)}
-              className="min-h-11 rounded-control bg-accent px-4 font-medium text-on-accent hover:opacity-90"
+              className="min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
             >
               {t.check}
             </button>

@@ -254,7 +254,7 @@ function Before({ total, t, onStart }: { total: number; t: Dictionary["practice"
         <button
           type="button"
           onClick={() => onStart(null)}
-          className="min-h-11 rounded-control bg-accent px-4 font-medium text-on-accent hover:opacity-90"
+          className="min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
         >
           {t.testTimerOff}
         </button>
@@ -371,7 +371,7 @@ function Results({
       <button
         type="button"
         onClick={onAgain}
-        className="mt-10 min-h-11 rounded-control bg-accent px-4 font-medium text-on-accent hover:opacity-90"
+        className="mt-10 min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
       >
         {t.testAgain}
       </button>

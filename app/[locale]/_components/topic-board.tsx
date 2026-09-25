@@ -87,7 +87,7 @@ export function TopicBoard({
                   flat grey next to the count read as one more dead caption.
                 */}
                 {!topic.roundId && topic.interest >= INTEREST_TO_SCHEDULE && (
-                  <span className="text-accent"> · {t.scheduleIt}</span>
+                  <span className="text-fg-muted"> · {t.scheduleIt}</span>
                 )}
               </p>
 
@@ -110,7 +110,7 @@ export function TopicBoard({
         </ul>
       )}
 
-      {error && <p className="mt-3 text-sm text-accent">{error}</p>}
+      {error && <p className="mt-3 text-sm text-danger">{error}</p>}
 
       {signedIn ? <ProposeTopic t={t} onDone={() => router.refresh()} /> : null}
     </section>
@@ -181,11 +181,11 @@ function ProposeTopic({ t, onDone }: { t: T; onDone: () => void }) {
             className={FIELD}
           />
         </div>
-        {error && <p className="text-sm text-accent">{error}</p>}
+        {error && <p className="text-sm text-danger">{error}</p>}
         <button
           type="submit"
           disabled={busy}
-          className="min-h-12 rounded-control bg-accent px-5 text-base font-semibold text-on-accent disabled:opacity-50"
+          className="min-h-12 rounded-control bg-action px-5 text-base font-semibold text-on-action disabled:opacity-50"
         >
           {busy ? t.proposing : t.propose}
         </button>

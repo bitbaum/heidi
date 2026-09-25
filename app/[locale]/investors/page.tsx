@@ -61,7 +61,7 @@ export default async function InvestorsPage({ params }: { params: Promise<{ loca
               />
               <button
                 type="submit"
-                className="inline-flex min-h-11 items-center justify-center rounded-control bg-fg-primary px-5 text-sm font-medium text-surface-page transition-colors hover:bg-accent hover:text-on-accent"
+                className="inline-flex min-h-11 items-center justify-center rounded-control bg-fg-primary px-5 text-sm font-medium text-surface-page transition-colors hover:opacity-90 "
               >
                 Open
               </button>
@@ -99,7 +99,7 @@ export default async function InvestorsPage({ params }: { params: Promise<{ loca
     <Shell>
       <div lang="en">
       <header className="-mx-5 bg-hide px-5 py-10 sm:-mx-8 sm:px-8 sm:py-12">
-        <p className="font-mono text-caption uppercase tracking-caps text-accent">Heidi</p>
+        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">Heidi</p>
         <h1 className="mt-3 max-w-[22ch] font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">
           Understanding the language spoken around you
         </h1>

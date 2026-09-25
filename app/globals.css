@@ -131,6 +131,21 @@
   /* The isogloss. Swiss red, and the only colour in the product. */
   --primitive-red: #d8232a;
   --primitive-red-tint: #fdecec;
+  /*
+   * The same red as an INK, for text that is read at length.
+   *
+   * The rule below — "reserving red for the isogloss is what keeps it
+   * meaningful" — was right and stopped being true. Flag red spread to every
+   * primary button, every selected option, every error, every eyebrow label
+   * AND every dialect word: one practice screen carried three solid red
+   * blocks before the learner had answered anything, and it was reported,
+   * fairly, as aggressive. A colour that means five things means none.
+   *
+   * So the hue stays — still the only colour here — and each MEANING gets its
+   * own role: this deep ink for dialect text, black for actions, flag red only
+   * where alarm is the right message.
+   */
+  --primitive-red-ink: #9b1c22;
 
   /* Tier 2 — semantics (light: white cow, black patches) */
   --color-surface-page: var(--primitive-white);
@@ -147,9 +162,14 @@
      affordance. Reserving red for the isogloss is what keeps it meaningful. */
   --color-link: var(--primitive-black);
   --color-link-tint: var(--primitive-grey-100);
-  --color-dialect: var(--primitive-red);
+  --color-dialect: var(--primitive-red-ink);
   --color-ok: var(--primitive-black);
   --color-on-accent: var(--primitive-white);
+  /* What you press. Black: a page of red buttons is a page shouting. */
+  --color-action: var(--primitive-black);
+  --color-on-action: var(--primitive-white);
+  /* Something went wrong — the one place flag red is the right message. */
+  --color-danger: var(--primitive-red);
 
   /* Hard edges. A cow's patches have no corner radius. */
   --radius-control: 2px;
@@ -172,9 +192,12 @@
     --color-accent-tint: #2a1112;
     --color-link: var(--primitive-white);
     --color-link-tint: #202020;
-    --color-dialect: #ff5a5f;
+    --color-dialect: #ec8a8f;
     --color-ok: var(--primitive-white);
     --color-on-accent: var(--primitive-black);
+    --color-action: var(--primitive-white);
+    --color-on-action: var(--primitive-black);
+    --color-danger: #ff5a5f;
   }
 }
 :root[data-theme="dark"] {
@@ -190,9 +213,12 @@
   --color-accent-tint: #2a1112;
   --color-link: var(--primitive-white);
   --color-link-tint: #202020;
-  --color-dialect: #ff5a5f;
+  --color-dialect: #ec8a8f;
   --color-ok: var(--primitive-white);
   --color-on-accent: var(--primitive-black);
+  --color-action: var(--primitive-white);
+  --color-on-action: var(--primitive-black);
+  --color-danger: #ff5a5f;
 }
 
 /**

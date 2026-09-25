@@ -76,7 +76,7 @@ export default async function JoinPage({
             >
               <button
                 type="submit"
-                className="inline-flex min-h-11 items-center rounded-control bg-accent px-6 font-medium text-on-accent hover:opacity-90"
+                className="inline-flex min-h-11 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
               >
                 {dict.auth.signInWith}
               </button>

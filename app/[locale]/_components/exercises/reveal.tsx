@@ -85,7 +85,7 @@ export function RevealView({ item, t, locale, onAnswer, onRecall }: ExerciseView
           {/* The ANSWER is in the dialect exactly as the prompt above it is, and
               was the one line here that did not say so. */}
           {shown && (
-            <p lang={DISPLAY.tag} className={`${PROMPT_TEXT} text-accent`}>
+            <p lang={DISPLAY.tag} className={PROMPT_TEXT}>
               {reveal.answer}
             </p>
           )}
@@ -110,7 +110,7 @@ export function RevealView({ item, t, locale, onAnswer, onRecall }: ExerciseView
             <button
               type="button"
               onClick={() => mark(true)}
-              className="min-h-11 rounded-control bg-accent px-4 font-medium text-on-accent hover:opacity-90"
+              className="min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
             >
               {t.knew}
             </button>
@@ -129,7 +129,7 @@ export function RevealView({ item, t, locale, onAnswer, onRecall }: ExerciseView
           <button
             type="button"
             onClick={() => setShown(true)}
-            className="min-h-11 rounded-control bg-accent px-4 font-medium text-on-accent hover:opacity-90"
+            className="min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
           >
             {t.show}
           </button>

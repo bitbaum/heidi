@@ -179,7 +179,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="mt-6 grid gap-10 sm:grid-cols-3 sm:gap-8">
           {dict.pillars.map((s, i) => (
             <article key={s.title}>
-              <div className="mb-3 font-mono text-caption uppercase tracking-caps text-accent">
+              <div className="mb-3 font-mono text-caption uppercase tracking-caps text-fg-muted">
                 {String(i + 1).padStart(2, "0")}
               </div>
               <h3 className="font-heading text-xl font-semibold leading-tight tracking-display text-fg-primary">
@@ -214,7 +214,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.contributeBody}</p>
         <Link
           href={href(locale, "contribute")}
-          className="mt-5 inline-flex min-h-11 items-center rounded-control bg-accent px-6 font-medium text-on-accent hover:opacity-90"
+          className="mt-5 inline-flex min-h-11 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
         >
           {t.contributeCta}
         </Link>

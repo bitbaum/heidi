@@ -216,7 +216,7 @@ export function ModelSheet({
             type="button"
             onClick={() => void test()}
             disabled={state === "testing" || !key.trim() || !model.trim()}
-            className="inline-flex min-h-11 items-center rounded-control bg-accent px-5 font-medium text-on-accent disabled:opacity-40"
+            className="inline-flex min-h-11 items-center rounded-control bg-action px-5 font-medium text-on-action disabled:opacity-40"
           >
             {state === "testing" ? t.testing : t.test}
           </button>
@@ -246,7 +246,7 @@ export function ModelSheet({
             went wrong is in the server log, where a reader cannot act on it
             anyway. (`detail` on success is a MODEL ID, not prose.) */}
         {state === "error" && (
-          <p role="alert" className="mt-3 break-words text-sm text-accent">
+          <p role="alert" className="mt-3 break-words text-sm text-danger">
             {t.failed}
           </p>
         )}

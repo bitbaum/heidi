@@ -132,7 +132,7 @@ export default async function GrammarTopicPage({
         {askable && (
           <Link
             href={`${href(locale, "practice")}?topic=${encodeURIComponent(topic.id)}`}
-            className="inline-flex min-h-11 items-center rounded-control bg-accent px-5 text-sm font-semibold text-on-accent transition-opacity hover:opacity-90"
+            className="inline-flex min-h-11 items-center rounded-control bg-action px-5 text-sm font-semibold text-on-action transition-opacity hover:opacity-90"
           >
             {t.practiseTopic}
           </Link>

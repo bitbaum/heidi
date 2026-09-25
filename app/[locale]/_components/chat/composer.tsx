@@ -151,7 +151,7 @@ export function Composer({
       )}
 
       {images?.error && (
-        <p role="alert" className="mb-2 px-1 text-sm text-accent">
+        <p role="alert" className="mb-2 px-1 text-sm text-danger">
           {images.error}
         </p>
       )}
@@ -245,7 +245,7 @@ export function Composer({
             aria-busy={speech.transcribing}
             className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control border transition-colors disabled:opacity-50 ${
               speech.listening
-                ? "border-accent bg-accent text-on-accent"
+                ? "border-action bg-action text-on-action"
                 : "border-border-strong text-fg-secondary hover:text-fg-primary"
             }`}
           >
@@ -257,14 +257,14 @@ export function Composer({
           type="submit"
           disabled={busy || !value.trim()}
           aria-label={t.send}
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control bg-accent text-on-accent transition-colors disabled:bg-surface-sunk disabled:text-fg-muted"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control bg-action text-on-action transition-colors disabled:bg-surface-sunk disabled:text-fg-muted"
         >
           <SendIcon />
         </button>
       </div>
 
       {dictationEnabled && (speech.listening || speech.transcribing) && (
-        <p role="status" className="mt-1 px-1 font-mono text-caption uppercase tracking-caps text-accent">
+        <p role="status" className="mt-1 px-1 font-mono text-caption uppercase tracking-caps text-fg-muted">
           {speech.transcribing ? t.micTranscribing : t.micListening}
         </p>
       )}

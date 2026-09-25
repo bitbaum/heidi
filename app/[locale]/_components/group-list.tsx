@@ -116,13 +116,13 @@ export function GroupList({
           <button
             type="submit"
             disabled={busy || !name.trim()}
-            className="inline-flex min-h-11 items-center rounded-control bg-accent px-5 font-medium text-on-accent transition-colors disabled:bg-surface-sunk disabled:text-fg-muted"
+            className="inline-flex min-h-11 items-center rounded-control bg-action px-5 font-medium text-on-action transition-colors disabled:bg-surface-sunk disabled:text-fg-muted"
           >
             {busy ? t.creating : t.create}
           </button>
         </div>
         {error && (
-          <p role="alert" className="mt-2 text-sm text-accent">
+          <p role="alert" className="mt-2 text-sm text-danger">
             {error}
           </p>
         )}

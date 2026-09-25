@@ -49,7 +49,7 @@ export function Said({ body, name }: { body: string; name: string }) {
 export function FromHeidi({ children }: { children: React.ReactNode }) {
   return (
     <article className="flex flex-col items-start">
-      <span className="mb-1 flex items-center gap-1.5 font-mono text-caption uppercase tracking-caps text-accent">
+      <span className="mb-1 flex items-center gap-1.5 font-mono text-caption uppercase tracking-caps text-fg-muted">
         <CowMark size={14} className="text-fg-primary" />
         Heidi
       </span>

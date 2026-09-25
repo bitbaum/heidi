@@ -174,9 +174,7 @@ export function ChatDock({ locale, dict }: { locale: Locale; dict: Dictionary })
         // `env(safe-area-inset-bottom)` keeps it off the iOS home indicator,
         // which otherwise swallows the bottom third of the button.
         style={{ bottom: "max(1rem, env(safe-area-inset-bottom))" }}
-        className={`fixed right-4 z-40 inline-flex min-h-12 items-center gap-2 rounded-control border border-border-strong bg-fg-primary px-4 text-surface-page shadow-lg transition-colors hover:bg-accent hover:text-on-accent ${
-          open ? "hidden sm:inline-flex" : ""
-        }`}
+        className={`fixed right-4 z-40 inline-flex min-h-12 items-center gap-2 rounded-control border border-border-strong bg-fg-primary px-4 text-surface-page shadow-lg transition-colors hover:opacity-90 ${ open ? "hidden sm:inline-flex" : "" }`}
       >
         <ChatIcon />
         {/*

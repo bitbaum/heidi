@@ -45,6 +45,10 @@ function Word({ word, fragment, loud }: { word: string; fragment: string; loud: 
   return (
     <span className={tone}>
       {before}
+      {/* THE ISOGLOSS ITSELF — the sound that changes, marked on BOTH words,
+          German side included. This is the one use `globals.css` reserves
+          flag red for, which is why it is not the dialect ink: that marks
+          dialect TEXT, and half of what is marked here is German. */}
       <span className={loud ? "text-accent" : "text-accent/60"}>{hit}</span>
       {after}
     </span>

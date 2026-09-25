@@ -260,7 +260,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
             </p>
             <Link
               href={href(locale, "")}
-              className="inline-flex min-h-11 items-center justify-center rounded-control bg-accent px-6 text-center font-medium text-on-accent hover:opacity-90"
+              className="inline-flex min-h-11 items-center justify-center rounded-control bg-action px-6 text-center font-medium text-on-action hover:opacity-90"
             >
               {dict.chat.emptyTitle}
             </Link>

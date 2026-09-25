@@ -88,7 +88,7 @@ export function SituationBoard({
               </span>
               <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
                 {s.standing === "new" ? words.new : `${s.held}/${s.askable}`}
-                {s.standing === "sure" && <span className="ml-2 text-accent">{words.sure}</span>}
+                {s.standing === "sure" && <span className="ml-2 font-medium text-fg-primary">{words.sure}</span>}
               </span>
             </Link>
           </li>

@@ -132,7 +132,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
           {t.cantons}: {area.cantons.join(" · ")} · {area.town}
         </p>
         {area.taught && (
-          <p className="mt-3 inline-block rounded-control bg-accent px-3 py-1 text-sm font-medium text-on-accent">
+          <p className="mt-3 inline-block rounded-control bg-action px-3 py-1 text-sm font-medium text-on-action">
             {t.taught}
           </p>
         )}
@@ -151,7 +151,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
         </h2>
         {group ? (
           <>
-            <p className="mt-3 font-mono text-caption uppercase tracking-caps text-accent">
+            <p className="mt-3 font-mono text-caption uppercase tracking-caps text-fg-muted">
               {t.groupLabel}: {groupWords?.name}
             </p>
             <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{groupWords?.body}</p>
