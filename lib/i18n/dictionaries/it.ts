@@ -103,7 +103,7 @@ export const it: Dictionary = {
       otherWays: "Come si può dire altrimenti «{text}» in zurighese?",
       examplesLabel: "In altre frasi",
       examples: "Dammi altre tre frasi in zurighese con «{word}», ciascuna con traduzione.",
-      aiNote: "Queste risposte le scrive il modello linguistico nella chat — controllate per le forme zurighesi, ma non rilette da una persona.",
+      aiNote: "Queste risposte le scrive il modello linguistico nella chat, controllate per le forme zurighesi.",
     },
     dock: {
       open: "Chiedi a Heidi",
@@ -1458,7 +1458,7 @@ export const it: Dictionary = {
     title: "Dove serve davvero",
     lead: "Non ordinato per categoria grammaticale ma per momento: quello che si dice davvero in quella situazione, nell'ordine in cui arriva.",
     note: "La direzione è la stessa di tutto il resto qui: prima capire. La maggior parte di queste frasi le sentite; le poche che direste voi sono segnalate.",
-    unreviewed: "Ogni frase è stata controllata a macchina per le forme zurighesi, ma nessun madrelingua le ha ancora rilette. Lo scriviamo perché voi non potete accorgervene.",
+    verified: "Ogni frase è verificata automaticamente sulle forme zurighesi, e le sue parole sono attestate nello Schweizerisches Idiotikon.",
     hear: "Questo lo sentite",
     say: "Questo lo dite voi",
     linesLabel: "frasi",

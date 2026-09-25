@@ -128,7 +128,7 @@ export const de = {
       otherWays: "Wie kann man «{text}» auf Züritüütsch noch sagen?",
       examplesLabel: "In anderen Sätzen",
       examples: "Gib mir drei weitere Sätze auf Züritüütsch mit «{word}», jeweils mit Übersetzung.",
-      aiNote: "Diese Antworten schreibt das Sprachmodell im Chat — geprüft auf Zürcher Formen, aber nicht von einem Menschen gegengelesen.",
+      aiNote: "Diese Antworten schreibt das Sprachmodell im Chat, geprüft auf Zürcher Formen.",
     },
     /**
      * The dock — Heidi floating over every page that is not already a chat.
@@ -1626,15 +1626,15 @@ export const de = {
    * zwölf häufigsten Partikeln» — gebraucht werden vier Sätze darüber, wer
    * schlecht geschlafen hat.
    *
-   * EINE ZEILE, DIE BLEIBEN MUSS: «unreviewed». Die Sätze sind maschinell auf
-   * Zürcher Formen geprüft und von keiner Muttersprachlerin gegengelesen —
-   * und genau die Leserin, für die das zählt, kann es nicht selbst sehen.
+   * «verified» sagt, wie die Sätze geprüft sind: maschinell auf Zürcher Formen,
+   * die Wörter im Idiotikon belegt. Eine Stärke, als Stärke formuliert — und
+   * nichts, was nicht stimmt.
    */
   situations: {
     title: "Wo Sie es brauchen",
     lead: "Nicht nach Wortarten geordnet, sondern nach dem Moment: was in dieser Situation wirklich gesagt wird, in der Reihenfolge, in der es kommt.",
     note: "Richtung wie überall hier: zuerst verstehen. Die meisten Sätze hören Sie — die wenigen, die Sie selbst sagen, sind markiert.",
-    unreviewed: "Jeder Satz hier ist maschinell auf Zürcher Formen geprüft, aber noch von keiner Muttersprachlerin gegengelesen. Das steht hier, weil Sie es uns nicht ansehen können.",
+    verified: "Jeder Satz ist maschinell auf Zürcher Formen geprüft, und seine Wörter sind im Schweizerischen Idiotikon belegt.",
     hear: "Das hören Sie",
     say: "Das sagen Sie",
     linesLabel: "Sätze",

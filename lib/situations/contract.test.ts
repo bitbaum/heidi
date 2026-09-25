@@ -169,7 +169,7 @@ describe("situations and their words", () => {
       }
       assert.ok(t.title.trim() && t.lead.trim(), `${locale} is missing the index page's own words`);
       assert.ok(t.hear.trim() && t.say.trim(), `${locale} cannot label which way a line travels`);
-      assert.ok(t.unreviewed.trim(), `${locale} cannot say that a pack is unreviewed — which it must`);
+      assert.ok(t.verified.trim(), `${locale} cannot say how the pack is verified — which it must`);
     }
   });
 

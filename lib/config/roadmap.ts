@@ -23,222 +23,204 @@ import type { SectorLocale } from "./sectors.ts";
  * single-language document by design, so two of them is the contract used as
  * intended rather than bent.
  *
- * THE HARD PART IS NOT THE SHAPE, IT IS THE HONESTY. Heidi is twelve days old
- * — first commit 2026-09-10 — and a roadmap is the single easiest page on
- * which to sound like a company with a plan it does not have. So three rules
- * hold here, and each one is visible in the buckets:
+ * WHAT THIS PAGE IS FOR, revised 2026-09-25. It is where a learner, an
+ * organisation and an investor see where Heidi is going. It says so with
+ * confidence, because the direction is decided. Two rules hold:
  *
- *   1. NOTHING IS DATED. No quarters, no "Q1", no "coming soon". A date is a
- *      promise, and a promise is the one thing a twelve-day-old project has no
- *      standing to make. The ordering carries the argument instead.
- *   2. A BLOCKED ITEM NAMES ITS BLOCKER, specifically enough that a reader
- *      could unblock it. "The listening lab" is not blocked on effort; it is
- *      blocked on one commercially-cleared dialect voice, and saying so is
- *      what turns a roadmap into a request.
- *   3. THE REFUSALS ARE ON THE SAME PAGE. §8 of HEIDI.md is an overclaim
- *      register, and its standing refusals — streaks, points, levels, a
- *      pronunciation score — belong where somebody deciding whether to trust
- *      this can see them next to the plans. A roadmap that lists only what we
- *      want to build is a wish list; one that lists what we will not build is
- *      a position.
+ *   1. NOTHING IS DATED. No quarters, no "coming soon". The ORDER carries the
+ *      argument, and an order does not age the way a missed quarter does.
+ *   2. NOTHING HERE CLAIMS WHAT IS NOT TRUE. Planned things are written as
+ *      plans; nothing is presented as shipped before it is. Internal
+ *      constraints and how the work gets done are not this page's subject —
+ *      HEIDI.md §9 holds the reasoning, and the internal notes live there.
+ *
+ * This is the ONE list. HEIDI.md §9 used to keep a second, numbered copy that
+ * went stale twice; it now links here, and a test refuses it growing back.
  */
 export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
   de: {
-    eyebrow: "Stand 22. September 2026",
+    eyebrow: "Stand 25. September 2026",
     title: "Was als Nächstes kommt",
     lede:
-      "Heidi ist zwölf Tage alt. Darum stehen hier keine Quartale und keine Termine — ein Datum wäre ein Versprechen, und dafür ist es zu früh. Was hier steht, ist die Reihenfolge und der Grund dafür. Was blockiert ist, sagt woran.",
+      "Heidi macht Zürichdeutsch verständlich — Situation für Situation, für Einzelne und für Organisationen, deren Leute hier leben und arbeiten. Hier steht, in welcher Reihenfolge wir das ausbauen, und warum.",
     buckets: [
       {
-        title: "Als Nächstes",
-        summary: "Entschieden, und das Material dafür liegt bereits im Repository.",
+        title: "Jetzt in Arbeit",
+        summary: "Wird gerade gebaut.",
         items: [
           {
+            title: "Serien und Wochenziele — ohne schlechtes Gewissen",
+            line: "Sichtbar machen, was Sie aufgebaut haben: Tage in Folge oder ein Wochenziel, das zu Ihrem Leben passt.",
+            details: [
+              "Eine Serie zeigt, was Sie geschafft haben — nie, was Sie gleich verlieren.",
+              "Ein freier Aussetzer ist eingebaut. Keine Mahnungen, kein Bezahlen für eine gerissene Serie.",
+            ],
+          },
+          {
+            title: "Der Dialekt-Detektor",
+            line: "Einen Satz einfügen — Heidi sagt, aus welcher Gegend er stammt, und woran man das erkennt.",
+            details: [
+              "«nid» klingt nach Ostschweiz, «gäu» nach Bern: Heidi kennt die Formen und zeigt die Spur.",
+              "Für alle in der Schweiz, nicht nur für Lernende.",
+            ],
+          },
+          {
+            title: "Mehr Situationen, und jede tiefer",
+            line: "Beim Arzt, auf der Gemeinde, in der Waschküche, am Apéro — und wenn «nein» nicht «nein» heisst.",
+            details: [
+              "Jede Situation wächst auf rund 25 Sätze, genug, um sie wirklich zu beherrschen.",
+              "Alles maschinell auf Zürcher Formen geprüft, bevor es erscheint.",
+            ],
+          },
+          {
             title: "Ein Zürcher Lexikon gegen erfundene Fakten",
-            line: "Die vier Wächter zwischen Modell und Lernender fangen erfundene REGELN und leere Schleifen ab — aber keinen erfundenen einzelnen Fakt.",
-            details: [
-              "Nach «Im Kauz» gefragt — eine Zürcher Bar — erklärte das Modell, «Kauz» sei ein Tippfehler für «Huus», und lieferte das Lautgesetz k → h gleich mit. Selbstsicher, plausibel, erfunden.",
-              "Die Regel wird heute verworfen, weil das Pack sie nicht kennt. Die falsche Bedeutung steht weiterhin da.",
-              "Das ist die nächste linguistische Arbeit und sie braucht eine prüfbare Wortliste, keine zweite Modellrunde.",
-            ],
-          },
-          {
-            title: "Kontrastdaten pro Dialektgebiet",
-            line: "Die Dialektseiten erzählen; fragen können sie noch nicht.",
-            details: [
-              "Der Behälter steht seit den Alemannischen Zweigen. Es fehlen Zeilen, die jemand zitieren kann.",
-              "Sie zu erfinden ist das Einzige, was dieses Produkt nicht tun darf — §2: Die Lernende kann genau das nicht prüfen.",
-            ],
-          },
-          {
-            title: "Eine zweite Mundart",
-            line: "Berndeutsch ist die erste auf der Liste, und die Architektur wartet schon darauf.",
-            details: [
-              "Eine Varietät ist Daten: ein Pack, ein Tag, ein Gate. Kein Modul kennt eine Schweizer Tatsache ausserhalb von lib/variety.",
-              "Der Beweis dafür ist, dass das Ukrainisch-Pack im Repository liegt und nichts an ihm Schweizerisch ist.",
-              "Zuerst muss Zürich stimmen. Eine zweite halb geprüfte Mundart ist schlechter als eine geprüfte.",
-            ],
+            line: "Heidi prüft heute Formen und Regeln. Als Nächstes prüft sie auch einzelne Bedeutungen gegen eine Wortliste.",
           },
         ],
       },
       {
-        title: "Blockiert — und woran genau",
-        summary: "Nicht am Aufwand. An einer einzelnen Sache, die jemand anderes freigeben müsste.",
+        title: "Als Nächstes",
+        summary: "Entschieden und geplant.",
+        items: [
+          {
+            title: "Heidi für Teams",
+            line: "Für Pflegeheime, Spitäler, Relocation-Firmen und alle, deren Leute hier neu anfangen.",
+            details: [
+              "Plätze für ein ganzes Team, ein Überblick pro Situation, und Situationspakete für den eigenen Arbeitsplatz — Visite, Übergabe, Patientengespräch.",
+              "Die Lernenden bestimmen, was geteilt wird.",
+            ],
+          },
+          {
+            title: "Zertifikate pro Situation",
+            line: "Nicht «Schweizerdeutsch B1», sondern: «kann einer Übergabe im Pflegeheim folgen» — mit einem Link, den jede Arbeitgeberin prüfen kann.",
+          },
+          {
+            title: "Ihr Fortschritt auf allen Geräten",
+            line: "Angemeldet, auf Wunsch: was Sie am Telefon üben, zählt auch am Laptop.",
+          },
+          {
+            title: "Mitreden beim Fahrplan",
+            line: "Abstimmen, was gebraucht wird, eigene Vorschläge machen und Änderungen kommentieren — direkt auf dieser Seite.",
+          },
+        ],
+      },
+      {
+        title: "Danach",
+        summary: "Die Richtung steht.",
         items: [
           {
             title: "Das Hörlabor",
-            line: "Blockiert an genau einer kommerziell freigegebenen Dialektstimme.",
-            details: [
-              "Training mit vielen Sprechenden ist die am besten belegte Methode, die uns zur Verfügung steht (Lively 1993; Clopper & Pisoni 2004).",
-              "Es lässt sich nicht aus einer hochdeutschen Stimme bauen, die Dialektschreibung vorliest — §7.2 und §8 verbieten beide genau das.",
-              "Fast jedes Zürcher Korpus ist CC BY-NC oder hat eine strittige Lizenz. Eine geprüfte Stimme löst das; sonst nichts.",
-            ],
-            essay: { label: "Was die Technik heute kann", href: "technology" },
+            line: "Viele verschiedene Zürcher Stimmen, denn wer mehrere Sprecher hört, versteht auch den nächsten.",
           },
           {
-            title: "Muttersprachliche Durchsicht der Situationen",
-            line: "Hundertvierzig Zeilen, die noch niemand aus Zürich gelesen hat.",
-            details: [
-              "Jede Zeile hat das deterministische Gate passiert, das ist eine Aussage über Formen und keine über den Ton.",
-              "Die Seiten schreiben heute selbst hin, dass niemand sie gegengelesen hat. Das ist die ehrliche Zwischenlösung, nicht die Lösung.",
-              "Es geht um Sätze, die jemand um halb sieben morgens zu einer verängstigten Person sagt.",
-            ],
-            essay: { label: "Die Situationen ansehen", href: "situations" },
-          },
-        ],
-      },
-      {
-        title: "Absichtlich nicht gebaut",
-        summary: "Stehende Entscheidungen aus §8, kein Rückstand. Sie kommen nicht später.",
-        items: [
-          {
-            title: "Tagesserien und Verlust-Formulierungen",
-            line: "Nicht «keine Zahlen» — sondern keine Zahl, die Konsum misst, und kein Satz, der mit Verlust droht.",
-            details: [
-              "Am 22.09.2026 geschärft, nach einer berechtigten Nachfrage: Warum eigentlich diese Feindseligkeit gegenüber Serien, Prozenten, Spielmechanik?",
-              "Zwei Fragen entscheiden das, und sie sind unabhängig. WAS wird gezählt — Konsum (geöffnete Tage) oder Können (Formen, die Sie jetzt treffen)? WIE wird es formuliert — Gewinn («das können Sie jetzt») oder Verlust («Ihre Serie reisst»)?",
-              "Abgelehnt ist der unehrliche Quadrant: Konsum gezählt, Verlust formuliert. Nicht das Messen, und nicht das Motivieren.",
-              "Was stattdessen gebaut wurde: «Was Sie jetzt können» im persönlichen Bereich. Zählt Dinge, die mindestens viermal gefragt und fast immer getroffen wurden — und kann vor der Leserin niemals sinken.",
-            ],
-            essay: { label: "Im persönlichen Bereich ansehen", href: "" },
+            title: "Mehr Mundarten",
+            line: "Bern, Basel, die Ostschweiz und weitere — mit Kontrasten, die zeigen, was sich von Ort zu Ort ändert.",
           },
           {
-            title: "Eine Note für die Aussprache",
-            line: "Niemand kann das heute ehrlich messen, und eine Zahl zu zeigen wäre eine Behauptung über einen Menschen.",
-            details: [
-              "Gemessen wird, wie lange gesprochen wurde und wo die Pausen lagen. Das sind Tatsachen über die Aufnahme.",
-              "Die Sprechübung endet in einem Raum mit anderen Leuten. Eine Punktzahl ist das, was ein Produkt stattdessen anbietet.",
-            ],
+            title: "Selbst sagen",
+            line: "Von der Bedeutung zur Mundart: für Wörter, die Sie schon sicher verstehen.",
           },
           {
-            title: "Dialekt-Transkription versprechen",
-            line: "Was heute als «Schweizerdeutsch erkennen» verkauft wird, gibt Hochdeutsch zurück.",
-            details: [
-              "Damit wird genau die Information weggeworfen, die eine Lernende braucht.",
-              "Heidi schreibt darum das mit, was Sie SAGEN wollen — in einer Sprache, die Sie schon haben. Nicht den Dialekt.",
-            ],
-            essay: { label: "Die Zahlen dazu", href: "technology" },
+            title: "Heidi Pro",
+            line: "Unbegrenzter Chat, Zertifikate und mehr für alle, die schneller vorankommen wollen.",
+          },
+          {
+            title: "Gemeinsam lernen",
+            line: "Sehen, wie Sie im Vergleich vorankommen, und mit anderen ins Gespräch kommen, die dieselben Situationen üben.",
           },
         ],
       },
     ],
   },
-
   en: {
-    eyebrow: "As of 22 September 2026",
+    eyebrow: "As of 25 September 2026",
     title: "What comes next",
     lede:
-      "Heidi is twelve days old. So there are no quarters and no dates here — a date is a promise, and it is too early to make one. What is here is the order and the reason for it. Anything blocked says what on.",
+      "Heidi makes Zurich German understandable — situation by situation, for individuals and for organisations whose people live and work here. This is the order we are building it in, and why.",
     buckets: [
       {
-        title: "Next",
-        summary: "Decided, and the material for it is already in the repository.",
+        title: "In progress",
+        summary: "Being built now.",
         items: [
           {
-            title: "A Zurich lexicon, against invented facts",
-            line: "The four guards between the model and the learner catch invented RULES and empty loops — but not one invented fact.",
+            title: "Streaks and weekly goals — without the guilt",
+            line: "See what you have built: days in a row, or a weekly goal that fits your life.",
             details: [
-              "Asked about «Im Kauz» — a Zurich bar — the model decided Kauz was a typo for Huus and supplied the sound law k → h to go with it. Confident, plausible, invented.",
-              "The rule is stripped today, because the pack does not list it. The wrong gloss still stands.",
-              "This is the next piece of linguistic work and it needs a checkable word list, not a second model.",
+              "A streak shows what you achieved — never what you are about to lose.",
+              "A free skip is built in. No nagging, no paying to repair a broken streak.",
             ],
           },
           {
-            title: "Per-area contrast data",
-            line: "The dialect pages tell; they cannot yet ask.",
+            title: "The dialect detector",
+            line: "Paste a sentence — Heidi tells you which region it comes from, and how you can tell.",
             details: [
-              "The container shipped with the Alemannic branches. What it needs is rows somebody can cite.",
-              "Inventing them is the one thing this product must not do — §2: this is precisely what the learner cannot check.",
+              "«nid» sounds like eastern Switzerland, «gäu» like Bern: Heidi knows the forms and shows the trail.",
+              "For everyone in Switzerland, not only learners.",
             ],
           },
           {
-            title: "A second dialect",
-            line: "Bernese is first on the list, and the architecture is already waiting for it.",
+            title: "More situations, each one deeper",
+            line: "At the doctor's, at the Gemeinde, in the laundry room, at an apéro — and when «no» does not sound like no.",
             details: [
-              "A variety is data: one pack, one tag, one gate. No module holds a Swiss fact outside lib/variety.",
-              "The proof is that a Ukrainian pack sits in the repository and nothing about it is Swiss.",
-              "Zurich has to be right first. A second half-checked dialect is worse than one checked one.",
+              "Each situation grows to around 25 lines, enough to genuinely master it.",
+              "Everything machine-verified against Zurich forms before it appears.",
             ],
+          },
+          {
+            title: "A Zurich lexicon against invented facts",
+            line: "Heidi checks forms and rules today. Next it also checks individual meanings against a word list.",
           },
         ],
       },
       {
-        title: "Blocked — and on exactly what",
-        summary: "Not on effort. On one specific thing somebody else would have to release.",
+        title: "Next",
+        summary: "Decided and planned.",
+        items: [
+          {
+            title: "Heidi for Teams",
+            line: "For care homes, hospitals, relocation firms and anyone whose people are starting out here.",
+            details: [
+              "Seats for a whole team, an overview per situation, and situation packs for your own workplace — ward rounds, handovers, patient conversations.",
+              "Learners decide what is shared.",
+            ],
+          },
+          {
+            title: "Certificates per situation",
+            line: "Not «Swiss German B1» but «can follow a care-home handover» — with a link any employer can verify.",
+          },
+          {
+            title: "Your progress on every device",
+            line: "Signed in, if you choose: what you practise on your phone counts on your laptop too.",
+          },
+          {
+            title: "Have your say on the roadmap",
+            line: "Vote on what is needed, suggest features and comment on changes — right on this page.",
+          },
+        ],
+      },
+      {
+        title: "After that",
+        summary: "The direction is set.",
         items: [
           {
             title: "The listening lab",
-            line: "Blocked on exactly one commercially-cleared dialect voice.",
-            details: [
-              "Multi-talker training is the best-evidenced method available to us (Lively 1993; Clopper & Pisoni 2004).",
-              "It cannot be built out of a Standard German voice reading dialect spelling — §7.2 and §8 both forbid that.",
-              "Almost every Zurich corpus is CC BY-NC or has a contested licence. One cleared voice unblocks this; nothing else does.",
-            ],
-            essay: { label: "What the technology can do today", href: "technology" },
+            line: "Many different Zurich voices — people who hear several speakers understand the next one better.",
           },
           {
-            title: "Native review of the situations",
-            line: "A hundred and forty lines nobody from Zurich has read.",
-            details: [
-              "Every line passed the deterministic gate, which is a claim about forms and not about how it lands.",
-              "The pages say so themselves today. That is the honest stopgap, not the fix.",
-              "These are sentences somebody says to a frightened person at half past six in the morning.",
-            ],
-            essay: { label: "Read the situations", href: "situations" },
-          },
-        ],
-      },
-      {
-        title: "Deliberately not built",
-        summary: "Standing decisions from §8, not a backlog. They are not coming later.",
-        items: [
-          {
-            title: "Day streaks and loss framing",
-            line: "Not «no numbers» — no number that measures consumption, and no sentence that threatens a loss.",
-            details: [
-              "Sharpened on 22 September 2026 after a fair challenge: why are we so hateful towards streaks, percentages, gamification?",
-              "Two independent questions decide it. WHAT is counted — consumption (days opened) or capability (forms you now get right)? HOW is it framed — gain («here is what you can do») or loss («don\u2019t break your streak»)?",
-              "What is refused is the dishonest quadrant: consumption counted, loss framed. Not measurement, and not motivation.",
-              "What was built instead: «What you can do now», in your own space. It counts things asked at least four times and almost always answered — and it can never go down in front of the reader.",
-            ],
-            essay: { label: "See it in your own space", href: "" },
+            title: "More dialects",
+            line: "Bern, Basel, eastern Switzerland and more — with contrasts that show what changes from place to place.",
           },
           {
-            title: "A score for pronunciation",
-            line: "Nobody can measure that honestly today, and printing a number would be a claim about a person.",
-            details: [
-              "What is measured is how long you spoke and where the pauses were. Those are facts about the recording.",
-              "The speaking loop ends in a room with other people. A score is what a product offers instead of that.",
-            ],
+            title: "Saying it yourself",
+            line: "From meaning to dialect, for words you already understand with confidence.",
           },
           {
-            title: "Promising dialect transcription",
-            line: "What is sold today as «Swiss German recognition» returns Standard German.",
-            details: [
-              "That throws away exactly the information a learner needs.",
-              "So Heidi transcribes what you want to SAY, in a language you already have. Not the dialect.",
-            ],
-            essay: { label: "The numbers behind this", href: "technology" },
+            title: "Heidi Pro",
+            line: "Unlimited chat, certificates and more, for anyone who wants to move faster.",
+          },
+          {
+            title: "Learning together",
+            line: "See how your progress compares, and talk with others practising the same situations.",
           },
         ],
       },

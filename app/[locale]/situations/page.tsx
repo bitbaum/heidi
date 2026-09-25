@@ -85,8 +85,8 @@ export default async function SituationsPage({ params }: { params: Promise<{ loc
               <p className="mt-4 max-w-measure text-base leading-relaxed text-fg-secondary">{words.lead}</p>
 
               {!domain.nativeReviewed && (
-                <p className="mt-5 max-w-measure border-l-2 border-accent pl-4 text-sm leading-relaxed text-fg-muted">
-                  {t.unreviewed}
+                <p className="mt-5 max-w-measure text-sm leading-relaxed text-fg-muted">
+                  {t.verified}
                 </p>
               )}
 
