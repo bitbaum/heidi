@@ -55,7 +55,7 @@ export function NavPanel({
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={id}
-        className={`inline-flex items-center gap-1.5 whitespace-nowrap text-sm transition-colors ${
+        className={`inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap text-sm transition-colors ${
           current
             ? "font-semibold text-fg-primary underline decoration-accent decoration-2 underline-offset-8"
             : "text-fg-secondary hover:text-fg-primary"

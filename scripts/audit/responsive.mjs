@@ -355,13 +355,59 @@ for (const theme of THEMES) {
   }
 }
 
+/*
+ * THE NAVIGATION CONTRACT, AT THE WIDTHS THIS FILE NEVER RENDERED.
+ *
+ * `fleet/SHARED.md` holds eight rules for nav chrome, and names where they
+ * break: "one width was never a sample of the layout, only of one branch of
+ * it." This audit sweeps phone widths only. Measured on 2026-09-25, Heidi's
+ * desktop nav — Start, Chat, Lernen, Üben, Über Heidi — was 16 to 20px tall
+ * at 1440px, against the contract's 44px, and had been since it shipped.
+ * Every phone-width run was clean.
+ *
+ * So the header alone gets checked at a tablet and a desktop width, per
+ * locale: every control at least 44x44 (rule 3) and none crossing the
+ * viewport edge (rule 7). One page each, because the header is the same on
+ * every page — six renders rather than doubling the whole sweep.
+ */
+let navBreaches = 0;
+for (const width of [834, 1440]) {
+  const context = await browser.newContext({ viewport: { width, height: 900 } });
+  const page = await context.newPage();
+  for (const locale of LOCALES) {
+    try {
+      await page.goto(`${BASE}/${locale}`, { waitUntil: "domcontentloaded", timeout: 30_000 });
+    } catch {
+      continue;
+    }
+    await page.waitForTimeout(350);
+    const found = await page.evaluate((w) => {
+      const out = [];
+      for (const el of document.querySelectorAll("header a, header button")) {
+        const r = el.getBoundingClientRect();
+        if (r.width === 0 || r.height === 0 || getComputedStyle(el).visibility === "hidden") continue;
+        const name = (el.innerText || el.getAttribute("aria-label") || el.tagName).trim().slice(0, 24);
+        if (r.width < 43.5 || r.height < 43.5) out.push(`SMALL ${name} ${Math.round(r.width)}x${Math.round(r.height)}`);
+        if (r.right > w + 0.5 || r.left < -0.5) out.push(`EDGE  ${name} L${Math.round(r.left)} R${Math.round(r.right)}`);
+      }
+      return out;
+    }, width);
+    for (const line of found) {
+      navBreaches += 1;
+      console.log(`NAV  ${locale} @${width}: ${line}`);
+    }
+  }
+  await context.close();
+}
+
 await browser.close();
 console.log(
   `\n${renders} page renders measured — ${overflowing} with overflow` +
     (headerDrift > 0 ? `, ${headerDrift} where the header is not its token height` : "") +
+    (navBreaches > 0 ? `, ${navBreaches} navigation-contract breaches at 834/1440` : "") +
     (unreachable > 0 ? `, and ${unreachable} that did not load at all` : ""),
 );
 if (unreachable > 0) {
   console.log("A page that does not load is not a layout finding. Check the server before reading the rest.");
 }
-process.exit(overflowing === 0 && unreachable === 0 && headerDrift === 0 ? 0 : 1);
+process.exit(overflowing === 0 && unreachable === 0 && headerDrift === 0 && navBreaches === 0 ? 0 : 1);
