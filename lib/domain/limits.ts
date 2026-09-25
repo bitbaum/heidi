@@ -148,15 +148,6 @@ export function tooMany(result: LimitResult): Response {
 }
 
 /**
- * Roadmap and changelog feedback. Reading is cheap and cached by nobody, so
- * it gets room; writing is votes, comments and suggestions from people with
- * no account, which is where a limit per caller is the only thing between the
- * page and somebody scripting a thousand "needed".
- */
-export const feedbackRead = slidingWindow({ limit: 120, windowMs: 60_000 });
-export const feedbackWrite = slidingWindow({ limit: 20, windowMs: 10 * 60_000 });
-
-/**
  * Progress sync. A device pushes a few seconds after practice and pulls every
  * few minutes; this is room for several devices at once and nothing more.
  */

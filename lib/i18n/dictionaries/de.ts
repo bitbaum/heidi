@@ -962,27 +962,6 @@ export const de = {
    * KEIN PUNKTESTAND. Am Schluss stehen drei Zahlen, die stimmen — gefragt,
    * auf Anhieb, kommt nochmals. Keine Prozente, keine Serie, kein Level.
    */
-  roadmapFeedback: {
-    needed: "Brauche ich",
-    notNeeded: "Brauche ich nicht",
-    tally: "{needed} brauchen es, {notNeeded} nicht",
-    comments: "Kommentare",
-    commentPlaceholder: "Was denken Sie?",
-    send: "Senden",
-    noComments: "Noch keine Kommentare.",
-    suggestTitle: "Fehlt etwas?",
-    suggestPlaceholder: "Schlagen Sie eine Funktion vor",
-    suggest: "Vorschlagen",
-    similarTitle: "Ähnliches hat schon jemand vorgeschlagen:",
-    support: "Ich auch",
-    supported: "Gezählt",
-    postAnyway: "Meins ist anders — trotzdem senden",
-    thanks: "Danke — es steht auf der Liste.",
-    failed: "Das hat nicht geklappt. Versuchen Sie es noch einmal.",
-    refused: "Bitte schreiben Sie einen Satz, mit höchstens einem Link.",
-    intro: "Sagen Sie bei jedem Punkt, ob Sie ihn brauchen, und schlagen Sie vor, was fehlt — ohne Konto.",
-    changelogIntro: "Zu jeder Änderung können Sie etwas sagen — ohne Konto.",
-  },
   sync: {
     title: "Fortschritt auf allen Geräten",
     body: "Ihre Übungen, Ihre Serie und Ihre gemerkten Wörter werden zwischen Ihren angemeldeten Geräten abgeglichen. Ausgeschaltet bleibt alles nur in diesem Browser.",

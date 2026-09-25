@@ -37,6 +37,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-09-25",
+      tag: "improvement",
+      title: "Mitsprache gehört zu Solon",
+      summary:
+        "Die offenen Stimmen und Kommentare auf Fahrplan und Änderungen sind wieder weg. Eine Stimme ist ein Recht, das jemand hat — sie kommt über Solon, mit Konto und einem Sitz in Heidis Organisation.",
+      items: [
+        "Fahrplan und Änderungen sind wieder zum Lesen da.",
+        "Hinweise zu jeder Seite gehen weiterhin über das Rückmelde-Fenster.",
+        "Was bisher abgegeben wurde, bleibt gespeichert und steht auf der Datenschutzseite.",
+      ],
+    },
+    {
+      date: "2026-09-25",
       tag: "feature",
       title: "Heidi für Teams",
       summary:
@@ -217,6 +229,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-25",
+      tag: "improvement",
+      title: "A say belongs to Solon",
+      summary:
+        "The open votes and comments on the roadmap and changelog are gone again. A voice is a right someone holds — it comes through Solon, with an account and a seat in Heidi’s organisation.",
+      items: [
+        "The roadmap and the changelog are for reading again.",
+        "Pointing at anything on any page still goes through the feedback widget.",
+        "What was submitted so far stays stored and is listed on the privacy page.",
+      ],
+    },
     {
       date: "2026-09-25",
       tag: "feature",

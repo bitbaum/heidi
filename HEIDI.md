@@ -355,8 +355,9 @@ address, different page, because "Start" has to mean start.
 
 There are now accounts and a database. Identity is federated to OrangeCat and
 Heidi holds no users table; Postgres holds study groups (and teams), private
-conversations, the speaking rounds people schedule, votes and comments on the
-roadmap and changelog (under a random browser key, not an account), and — ONLY
+conversations, the speaking rounds people schedule, the votes and comments left on the
+roadmap and changelog while those were open (a random browser key, not an
+account; a say now goes through Solon), and — ONLY
 for a learner who switched it on — their synced progress and the certificates
 issued from it. Saved vocabulary, the learner model and recorded takes live in
 the visitor's own browser by default; see "Progress on more than one device"
