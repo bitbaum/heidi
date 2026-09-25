@@ -45,12 +45,33 @@ export type Metric = {
  */
 export const METRICS_READ_ON = "25 September 2026";
 
+/**
+ * The advertised test-file count, as a number the build can check.
+ *
+ * Parsing it back out of the string below would be a regex over prose. Said
+ * once here and rendered into that string, it is the same fact in the place a
+ * test can reach — see `investors.test.ts`, which fails when the claim starts
+ * OVERSTATING what is in the repository.
+ *
+ * Declared ABOVE `METRICS` so the string can actually use it. It used to sit
+ * below, where a reference would hit the temporal dead zone — so the string
+ * carried its own literal copy of the number, and "said once" was false.
+ */
+export const ADVERTISED_TEST_FILES = 103;
+
 /** Counts read from the repository, not estimated — each with how to check it. */
 export const METRICS: readonly Metric[] = [
   { label: "Live at", value: "heidi.orangecat.ch", verify: "Open it." },
   { label: "Built since", value: "10 September 2026", verify: "git log" },
   { label: "Merged pull requests", value: "119", verify: "github.com/bitbaum/heidi/pulls" },
-  { label: "Automated tests", value: `897 across ${111} files`, verify: "pnpm verify" },
+  { label: "Automated tests", value: `842 across ${ADVERTISED_TEST_FILES} files`, verify: "pnpm verify" },
+  // The speech engine moved into its own open-source package, and its tests
+  // went with it — counted there rather than quietly dropped from this page.
+  {
+    label: "Speech engine, open source",
+    value: "@bitbaum/speechkit — 94 tests",
+    verify: "github.com/bitbaum/speechkit",
+  },
   { label: "Interface languages", value: "7", verify: "The language switcher." },
   { label: "Situations, with per-situation mastery", value: "14", verify: "/situations" },
   { label: "Vocabulary entries", value: "164", verify: "/vocabulary" },
@@ -58,15 +79,6 @@ export const METRICS: readonly Metric[] = [
   { label: "Dialect areas mapped", value: "11", verify: "/dialect" },
 ];
 
-/**
- * The advertised test-file count, as a number the build can check.
- *
- * Parsing it back out of the string above would be a regex over prose. Said
- * once here and rendered into that string, it is the same fact in the place
- * a test can reach — see `investors.test.ts`, which fails when the claim
- * starts OVERSTATING what is in the repository.
- */
-export const ADVERTISED_TEST_FILES = 111;
 
 export type Section = {
   id: string;

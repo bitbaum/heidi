@@ -3,8 +3,7 @@ import assert from "node:assert/strict";
 import { ZURICH_GERMAN } from "./packs/gsw-zh.ts";
 import { UKRAINIAN } from "./packs/uk.ts";
 import type { VarietyPack } from "./pack.ts";
-import { countSyllables } from "../speech/syllables.ts";
-import { evidenceFrom, mayJudgeForm } from "../speech/evidence.ts";
+import { countSyllables, evidenceFrom, mayJudgeForm } from "@bitbaum/speechkit";
 
 /**
  * The speech profile, checked over EVERY pack.

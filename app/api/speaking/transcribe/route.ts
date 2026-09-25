@@ -1,8 +1,6 @@
 import { transcribe, createHealthTracker, ChainExhaustedError } from "@bitbaum/ai-kit";
 import { VARIETY } from "@/lib/variety/active";
-import { isFaithfulRendering, mayJudgeForm } from "@/lib/speech/evidence";
-import { checkGrammar } from "@/lib/domain/speaking/grammar-check";
-import { markerVerdict } from "@/lib/speech/dialect-marker";
+import { checkGrammar, isFaithfulRendering, markerVerdict, mayJudgeForm } from "@bitbaum/speechkit";
 import { looksLikeSilence } from "@/lib/domain/chat/transcription";
 import { speechChain, speechConfigured } from "@/lib/domain/model/speech";
 import { redact } from "@/lib/domain/model/byok";
@@ -169,7 +167,7 @@ export async function POST(request: Request) {
     const formsJudged = text !== "" && !!chosen.recognition && mayJudgeForm(chosen.recognition);
 
     const words = formsJudged && result.words ? result.words : null;
-    const grammar = formsJudged && chosen.grammarCode ? await checkGrammar(text, chosen.grammarCode) : null;
+    const grammar = formsJudged && chosen.grammarCode ? await checkGrammar(text, chosen.grammarCode, { url: process.env.LANGUAGETOOL_URL }) : null;
 
     return Response.json({
       text,

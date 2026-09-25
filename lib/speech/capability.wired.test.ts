@@ -14,10 +14,13 @@ import { MEASURES } from "./capability.ts";
  * grammar module. The page was derived from the engine, and the engine was
  * never plugged in.
  *
- * So this walks the import graph from every file under `app/` and requires each
- * offered measure's module to be reachable. Reachable, not directly imported:
- * fluency lives in `spoken.ts`, which the page imports, and a grep for direct
- * importers would have called that unwired.
+ * So this walks the import graph from every file under `app/` and requires,
+ * for each offered measure, that some REACHABLE file imports its `entry` — the
+ * function that makes the measure real. Reachable, not directly under `app/`:
+ * the word check is called from `domain/speaking/feedback.ts`, which the page
+ * imports. And by the imported NAME rather than a file path, because most of
+ * the engine now lives in `@bitbaum/speechkit`, and a product imports a
+ * package's name for a thing, never its internal file.
  *
  * A module that is only reached from tests is exactly the failure this exists
  * for, so `*.test.ts` files are never walked.
@@ -64,21 +67,41 @@ function reachableFromApp(): Set<string> {
 
 const REACHABLE = reachableFromApp();
 
+/** Every name imported by a reachable file, from anywhere. */
+function importedNames(): Set<string> {
+  const names = new Set<string>();
+  const block = /import\s+(?:type\s+)?\{([^}]*)\}\s*from\s*["'][^"']+["']/g;
+  for (const file of REACHABLE) {
+    for (const match of readFileSync(join(ROOT, file), "utf8").matchAll(block)) {
+      for (const part of match[1]!.split(",")) {
+        // `type X`, `X as Y` — the name imported is the first identifier.
+        const name = part.replace(/^\s*type\s+/, "").trim().split(/\s+as\s+/)[0]!.trim();
+        if (name) names.add(name);
+      }
+    }
+  }
+  return names;
+}
+
+const IMPORTED = importedNames();
+
 test("every measure the technology page may claim is actually called by the product", () => {
   for (const measure of MEASURES) {
     if (measure.refused) continue;
     assert.ok(
-      REACHABLE.has(measure.module),
-      `${measure.id} names ${measure.module}, which nothing under app/ reaches. ` +
+      IMPORTED.has(measure.entry),
+      `${measure.id} depends on ${measure.entry}(), which nothing reachable from app/ imports. ` +
         "Either wire it in or stop offering it — the technology page is rendering a claim the product does not keep.",
     );
   }
 });
 
-test("the walk itself works: it finds a module the app is known to use, and not a test", () => {
-  // Rung 4 for a detector: without a known positive, a resolver bug that
-  // reaches nothing would make the test above fail loudly — but one that
-  // reaches EVERYTHING (e.g. walking tests) would pass silently.
+test("the walk itself works: known positives are found, and tests are never walked", () => {
+  // Rung 4 for a detector: a resolver that reaches nothing fails the test
+  // above loudly, but one that reaches EVERYTHING (e.g. walking tests, where
+  // every entry is imported) would pass silently.
   assert.ok(REACHABLE.has("lib/variety/display.ts"), "the app imports display.ts everywhere");
-  assert.ok(![...REACHABLE].some((f) => f.endsWith(".test.ts")), "tests are never part of the product");
+  assert.ok(![...REACHABLE].some((f) => /\.test\.tsx?$/.test(f)), "tests are never part of the product");
+  assert.ok(IMPORTED.has("DISPLAY"), "a name every page imports must be seen");
+  assert.ok(!IMPORTED.has("definitelyNotImportedAnywhere"), "and an invented one must not");
 });

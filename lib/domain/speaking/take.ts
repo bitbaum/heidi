@@ -26,7 +26,7 @@
  * saved words already make, and it is the right way round.
  */
 
-import type { Delivery } from "./delivery.ts";
+import type { Delivery } from "@bitbaum/speechkit";
 
 /**
  * One line, generously. A take is a thing you SAY in one breath-group or two,

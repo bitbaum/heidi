@@ -37,7 +37,7 @@
 
 import { readFile } from "node:fs/promises";
 import { basename } from "node:path";
-import { markerVerdict, returnsSpokenVariety } from "../lib/speech/dialect-marker.ts";
+import { markerVerdict, returnsSpokenVariety } from "@bitbaum/speechkit";
 import { ZURICH_GERMAN } from "../lib/variety/packs/gsw-zh.ts";
 
 const [file, ...flags] = process.argv.slice(2);

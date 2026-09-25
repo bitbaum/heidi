@@ -3,7 +3,7 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { SOURCES, citation } from "@/lib/research/sources";
 import { ASR_RESULTS, CORPORA, SPEAKING, TEXT_MODELS, techSources } from "@/lib/research/language-tech";
-import { MEASURES } from "@/lib/speech/capability";
+import { MEASURES, sourceUrl } from "@/lib/speech/capability";
 import { DISPLAY } from "@/lib/variety/display";
 import { engineChain } from "@/lib/research/engine";
 import { BandHeader, Section, Shell } from "../_components/page-shell";
@@ -241,7 +241,14 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
                 ) : (
                   /* Where to go and check, rather than a request to believe. */
                   <p className="mt-2 font-mono text-caption text-fg-muted">
-                    {t.evalSource} · {measure.module}
+                    {t.evalSource} ·{" "}
+                    <a
+                      href={sourceUrl(measure.module)}
+                      rel="noreferrer"
+                      className="inline-flex min-h-11 items-center break-all underline underline-offset-4 hover:text-accent"
+                    >
+                      {measure.module}
+                    </a>
                   </p>
                 )}
               </li>

@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { MAX_SAID_LENGTH, MAX_TAKES, decodeTakes, previousTake, withTake, withoutTake, type Take } from "./take.ts";
-import type { Delivery } from "./delivery.ts";
+import type { Delivery } from "@bitbaum/speechkit";
 
 const delivery = (over: Partial<Delivery> = {}): Delivery => ({
   totalMs: 30_000,

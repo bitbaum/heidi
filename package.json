@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@bitbaum/ai-kit": "^1.16.0",
+    "@bitbaum/speechkit": "github:bitbaum/speechkit#v1.0.0",
     "bip-kit": "^0.3.1",
     "drizzle-orm": "^0.45.2",
     "limitkit": "^0.2.0",

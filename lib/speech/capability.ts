@@ -29,7 +29,7 @@
  * Pure: no I/O, no model, same input -> same output.
  */
 
-import { evidenceFrom, type EvidenceKind, type Recognition } from "./evidence.ts";
+import { evidenceFrom, type EvidenceKind, type Recognition } from "@bitbaum/speechkit";
 
 /**
  * What a measure needs before it may say anything.
@@ -66,9 +66,27 @@ export type Measure = {
    * reading the verdicts as "not yet" and implementing it when the WER drops.
    */
   refused?: true;
-  /** Where the code is, so a reader can go and check rather than trust. */
+  /**
+   * Where the code is, as `repo/path`, so a reader can go and check rather
+   * than trust. The technology page links it to GitHub.
+   */
   module: string;
+  /**
+   * The function the product must call for this measure to be real.
+   *
+   * `capability.wired.test.ts` requires something reachable from `app/` to
+   * import it. A file path could not carry that check once the engine moved
+   * into `@bitbaum/speechkit`: nothing in this repo imports a package's
+   * internal file, it imports the package's name for the thing.
+   */
+  entry: string;
 };
+
+/** A measure's `module` as a URL a reader can open. */
+export function sourceUrl(module: string): string {
+  const [repo, ...path] = module.split("/");
+  return `https://github.com/bitbaum/${repo}/blob/main/${path.join("/")}`;
+}
 
 /**
  * The five, in the order a learner meets them.
@@ -78,11 +96,17 @@ export type Measure = {
  * page should answer those questions having already shown its working.
  */
 export const MEASURES: readonly Measure[] = [
-  { id: "delivery", needs: "signal", module: "lib/domain/speaking/delivery.ts" },
-  { id: "fluency", needs: "words", module: "lib/speech/spoken.ts" },
-  { id: "words", needs: "words", module: "lib/variety/check.ts" },
-  { id: "grammar", needs: "words", needsGrammarService: true, module: "lib/speech/grammar.ts" },
-  { id: "pronunciation", needs: "words", refused: true, module: "—" },
+  { id: "delivery", needs: "signal", module: "speechkit/src/delivery.ts", entry: "measureDelivery" },
+  { id: "fluency", needs: "words", module: "speechkit/src/spoken.ts", entry: "measureSpoken" },
+  { id: "words", needs: "words", module: "heidi/lib/variety/check.ts", entry: "check" },
+  {
+    id: "grammar",
+    needs: "words",
+    needsGrammarService: true,
+    module: "speechkit/src/languagetool.ts",
+    entry: "checkGrammar",
+  },
+  { id: "pronunciation", needs: "words", refused: true, module: "—", entry: "—" },
 ];
 
 /**

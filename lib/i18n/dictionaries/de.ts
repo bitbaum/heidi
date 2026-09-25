@@ -1530,6 +1530,7 @@ export const de = {
     grammarTitle: "Grammatik",
     grammarClean: "Nichts gefunden, was einem Zuhörer auffallen würde.",
     grammarNotChecked: "Die Grammatik wurde diesmal nicht geprüft.",
+    grammarAlternatives: "Mehrere Möglichkeiten — welche passt, hängt davon ab, was Sie sagen wollten.",
     grammarMore: "Die ersten {shown} von {total}.",
     grammarLimit: "Geprüft werden Übereinstimmung, Fälle und Verbformen. Nicht jeder Fehler wird gefunden — etwa die Stellung des Verbs nach «weil».",
     hesitationTitle: "Wo Sie nach einem Wort gesucht haben",

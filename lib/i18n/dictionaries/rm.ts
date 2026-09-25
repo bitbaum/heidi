@@ -1393,6 +1393,7 @@ export const rm: Dictionary = {
     grammarTitle: "Grammatica",
     grammarClean: "Nagut che in auditur remartgass.",
     grammarNotChecked: "La grammatica n’è betg vegnida controllada questa giada.",
+    grammarAlternatives: "Pliras pussaivladads — tge che va bain dependa da quai che Vus vulevas dir.",
     grammarMore: "Las emprimas {shown} da {total}.",
     grammarLimit: "Controllescha concordanza, cas e furmas verbalas. Betg tut vegn chattà — per exempel la posiziun dal verb suenter «weil».",
     hesitationTitle: "Nua che Vus avais tschertgà in pled",

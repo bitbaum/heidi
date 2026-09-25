@@ -11,6 +11,9 @@ importers:
       '@bitbaum/ai-kit':
         specifier: ^1.16.0
         version: 1.16.0(react@19.2.4)
+      '@bitbaum/speechkit':
+        specifier: github:bitbaum/speechkit#v1.0.0
+        version: https://codeload.github.com/bitbaum/speechkit/tar.gz/3b0df03746b7948f09ba2c3db40e8237a66f30a1
       bip-kit:
         specifier: ^0.3.1
         version: 0.3.1(react@19.2.4)
@@ -168,6 +171,11 @@ packages:
     peerDependenciesMeta:
       react:
         optional: true
+
+  '@bitbaum/speechkit@https://codeload.github.com/bitbaum/speechkit/tar.gz/3b0df03746b7948f09ba2c3db40e8237a66f30a1':
+    resolution: {gitHosted: true, integrity: sha512-Hl3oBGlBcu5OaH4hO+3Q8Pyfi0s8yVXx6h07FSSa/1HKH9AJx14J9Ap8ZWmfApCMCkcmZiHBcWXZGoDLHsrmdQ==, tarball: https://codeload.github.com/bitbaum/speechkit/tar.gz/3b0df03746b7948f09ba2c3db40e8237a66f30a1}
+    version: 1.0.0
+    engines: {node: '>=22.18'}
 
   '@drizzle-team/brocli@0.10.2':
     resolution: {integrity: sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w==}
@@ -2895,6 +2903,8 @@ snapshots:
       ai-forms: 0.1.2(react@19.2.4)
     optionalDependencies:
       react: 19.2.4
+
+  '@bitbaum/speechkit@https://codeload.github.com/bitbaum/speechkit/tar.gz/3b0df03746b7948f09ba2c3db40e8237a66f30a1': {}
 
   '@drizzle-team/brocli@0.10.2': {}
 

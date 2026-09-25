@@ -1377,6 +1377,7 @@ export const fr: Dictionary = {
     grammarTitle: "Grammaire",
     grammarClean: "Rien qu’un auditeur remarquerait.",
     grammarNotChecked: "La grammaire n’a pas été vérifiée cette fois.",
+    grammarAlternatives: "Plusieurs possibilités — la bonne dépend de ce que vous vouliez dire.",
     grammarMore: "Les {shown} premières sur {total}.",
     grammarLimit: "Vérifie les accords, les cas et les formes verbales. Tout n’est pas détecté — par exemple la place du verbe après « weil ».",
     hesitationTitle: "Où vous avez cherché un mot",

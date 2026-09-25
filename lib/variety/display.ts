@@ -2,7 +2,7 @@ import { VARIETY } from "./active.ts";
 import { areasOf, isTaught, marksFor } from "./family.ts";
 import { ruleLabel, type Severity } from "./pack.ts";
 import type { Atlas } from "./pack.ts";
-import { FORM_JUDGEMENT_MAX_WER } from "../speech/evidence.ts";
+import { FORM_JUDGEMENT_MAX_WER } from "@bitbaum/speechkit";
 import { verdicts, type MeasureId, type Verdict } from "../speech/capability.ts";
 import { spokenVarieties } from "../domain/speaking/varieties.ts";
 import type { SpokenVarietyId } from "../domain/speaking/varieties.ts";

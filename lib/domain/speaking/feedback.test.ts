@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { VARIETY } from "../../variety/active.ts";
 import { deliveryNotes, feedbackFor, languageNotes, NOTE_IDS, recordingNotes, type Note } from "./feedback.ts";
-import type { Delivery } from "./delivery.ts";
+import type { Delivery } from "@bitbaum/speechkit";
 
 const take = (over: Partial<Delivery> = {}): Delivery => ({
   totalMs: 30_000,

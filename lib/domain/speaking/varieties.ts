@@ -35,7 +35,7 @@
  */
 
 import { siblingOf, type VarietyPack } from "../../variety/pack.ts";
-import { evidenceFrom, isFaithfulRendering, type EvidenceKind, type Recognition } from "../../speech/evidence.ts";
+import { evidenceFrom, isFaithfulRendering, type EvidenceKind, type Recognition } from "@bitbaum/speechkit";
 
 export type SpokenVarietyId = "target" | "bridge";
 
