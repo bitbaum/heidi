@@ -88,7 +88,7 @@ export function SiteHeader({
              the site — one finding per page in the responsive audit. The
              row does not get taller; the header's padding already exceeds
              it. Only the hit area grows. */
-          className="inline-flex min-h-11 items-center gap-2.5 whitespace-nowrap text-fg-primary"
+          className="inline-flex min-h-11 min-w-11 items-center gap-2.5 whitespace-nowrap text-fg-primary"
         >
           <CowMark size={30} title="Heidi" />
           {/*
@@ -183,7 +183,12 @@ export function SiteHeader({
                        one pays nothing. */
                     prefetch={false}
                     aria-current={isCurrent(route.segment) ? "page" : undefined}
-                    className={`whitespace-nowrap text-sm transition-colors ${
+                    /* `min-h-11 min-w-11`: rule 3 of the fleet's navigation
+                       contract. These were 16-20px tall — measured at 1440px,
+                       the one width this repo's audit never rendered. The bar
+                       does not grow; the header is a fixed token height and
+                       44px fits inside it. Only the hit area does. */
+                    className={`inline-flex min-h-11 min-w-11 items-center justify-center whitespace-nowrap text-sm transition-colors ${
                       isCurrent(route.segment)
                         ? "font-semibold text-fg-primary underline decoration-accent decoration-2 underline-offset-8"
                         : "text-fg-secondary hover:text-fg-primary"
