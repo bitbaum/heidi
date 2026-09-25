@@ -176,6 +176,8 @@ export const de = {
     explanationsIn: "Erklärungen auf Deutsch",
     notConfigured: "Das Sprachmodell ist auf dieser Installation noch nicht eingerichtet.",
     unreachable: "Heidi ist nicht erreichbar. Bitte Verbindung prüfen und nochmals versuchen.",
+    stop: "Anhalten",
+    stopped: "Angehalten. Die halbe Antwort ist verworfen — sie war noch nicht auf Zürcher Formen geprüft.",
     failed: "Heidi konnte das gerade nicht beantworten. Bitte gleich nochmals versuchen.",
     cannotSeePicture:
       "Heidi kann gerade keine Bilder lesen. Schicken Sie den Text, oder verbinden Sie ein eigenes Modell, das Bilder liest.",

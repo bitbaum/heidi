@@ -10,6 +10,7 @@ import type { Dictionary } from "@/lib/i18n";
 import { Copy } from "./copy-button";
 import { Speak } from "./speak-button";
 import { KeepWord } from "./keep-word";
+import { ChatMarkdown } from "./chat-markdown";
 
 /**
  * Everything Heidi found, rendered.
@@ -59,7 +60,7 @@ export function AnswerView({
 
   return (
     <>
-      <p className="text-base leading-relaxed text-fg-primary">{a.text}</p>
+      <ChatMarkdown text={a.text} className="text-base leading-relaxed text-fg-primary" />
 
       {/*
         The explanation itself can be heard, and that is not a nicety — it is

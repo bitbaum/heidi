@@ -57,7 +57,7 @@ export default async function InvestorsPage({ params }: { params: Promise<{ loca
                 type="password"
                 autoComplete="current-password"
                 required
-                className="min-h-11 rounded-control border border-border-strong bg-surface-raised px-3 text-base text-fg-primary focus:border-accent focus:outline-none"
+                className="min-h-11 rounded-control border border-border-strong bg-surface-raised px-3 text-base text-fg-primary focus:border-fg-primary focus:outline-none"
               />
               <button
                 type="submit"

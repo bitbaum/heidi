@@ -143,6 +143,8 @@ export const en: Dictionary = {
     explanationsIn: "Explanations in English",
     notConfigured: "The language model is not configured on this deployment yet.",
     unreachable: "Could not reach Heidi. Check your connection and try again.",
+    stop: "Stop",
+    stopped: "Stopped. The half-finished answer was discarded — it had not been checked for Zurich forms yet.",
     failed: "Heidi could not answer that just now. Try again in a moment.",
     cannotSeePicture:
       "Heidi cannot read pictures right now. Send the text instead, or connect a model of your own that reads images.",

@@ -313,8 +313,19 @@ body {
   overflow-x: clip;
 }
 
+/*
+ * Focus in INK, not flag red.
+ *
+ * A text field is focused for as long as somebody types in it, so its focus
+ * ring is not a moment but the normal state of the chat — and in the composer
+ * it stacked with a red `focus-within` border into two nested red rectangles
+ * around every message being written. Reported as "why so much aggressive
+ * red"; this was the part #113 kept. The ring stays 2px and offset, and ink
+ * clears 3:1 against every surface here in both themes, which is what a focus
+ * indicator has to do; being red was never part of that job.
+ */
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-fg-primary);
   outline-offset: 2px;
   border-radius: var(--radius-control);
 }

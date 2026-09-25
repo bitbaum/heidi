@@ -87,7 +87,7 @@ export function InvitePanel({
           value={link}
           aria-label={t.inviteTitle}
           onFocus={(e) => e.currentTarget.select()}
-          className="min-h-11 min-w-0 flex-1 rounded-control border border-border-subtle bg-surface-raised px-3 font-mono text-xs text-fg-secondary focus:border-accent focus:outline-none"
+          className="min-h-11 min-w-0 flex-1 rounded-control border border-border-subtle bg-surface-raised px-3 font-mono text-xs text-fg-secondary focus:border-fg-primary focus:outline-none"
         />
         <button
           type="button"
