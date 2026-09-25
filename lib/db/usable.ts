@@ -45,6 +45,8 @@ export const APP_TABLES = [
   "feedback_comments",
   "feedback_suggestions",
   "feedback_support",
+  "progress_devices",
+  "certificates",
 ] as const;
 
 export type SchemaProblem = { table: string; problem: string };

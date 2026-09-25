@@ -159,6 +159,7 @@ export default async function ScenePage({ params }: { params: Promise<{ locale: 
         scene={scene.id}
         askable={askableLines}
         lines={scene.phrases.map((p) => p.target)}
+        certificate={dict.certificate}
         t={t}
         locale={locale}
       />

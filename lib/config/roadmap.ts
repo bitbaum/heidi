@@ -68,16 +68,6 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
               "Die Lernenden bestimmen, was geteilt wird.",
             ],
           },
-          {
-            id: "certificates",
-            title: "Zertifikate pro Situation",
-            line: "Nicht «Schweizerdeutsch B1», sondern: «kann einer Übergabe im Pflegeheim folgen» — mit einem Link, den jede Arbeitgeberin prüfen kann.",
-          },
-          {
-            id: "sync",
-            title: "Ihr Fortschritt auf allen Geräten",
-            line: "Angemeldet, auf Wunsch: was Sie am Telefon üben, zählt auch am Laptop.",
-          },
         ],
       },
       {
@@ -142,16 +132,6 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
               "Seats for a whole team, an overview per situation, and situation packs for your own workplace — ward rounds, handovers, patient conversations.",
               "Learners decide what is shared.",
             ],
-          },
-          {
-            id: "certificates",
-            title: "Certificates per situation",
-            line: "Not «Swiss German B1» but «can follow a care-home handover» — with a link any employer can verify.",
-          },
-          {
-            id: "sync",
-            title: "Your progress on every device",
-            line: "Signed in, if you choose: what you practise on your phone counts on your laptop too.",
           },
         ],
       },

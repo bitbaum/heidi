@@ -4,10 +4,9 @@ import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
-import { useBrowserStore, useStorageReady } from "@/lib/browser/store";
-import { EMPTY_MODEL } from "@/lib/domain/practice/model";
+import { useStorageReady } from "@/lib/browser/store";
 import { strengthAcross, weakestStarted, type Standing } from "@/lib/domain/practice/situation-strength";
-import { modelStore } from "./practice-stores";
+import { useModelView } from "./sync-stores";
 
 /**
  * Where this learner is strong, situation by situation.
@@ -42,7 +41,7 @@ export function SituationBoard({
   t: Dictionary["situations"];
   locale: Locale;
 }) {
-  const model = useBrowserStore(modelStore) ?? EMPTY_MODEL;
+  const model = useModelView();
   const ready = useStorageReady();
   const words = t.strength;
 

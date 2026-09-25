@@ -38,6 +38,20 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-09-25",
       tag: "feature",
+      title: "Ihr Fortschritt auf allen Geräten, und ein Nachweis pro Situation",
+      summary:
+        "Angemeldet können Sie in den Einstellungen «Fortschritt auf allen Geräten» einschalten: Übungen, Serie und gemerkte Wörter sind dann auf Handy und Laptop dieselben. Wer eine Situation sicher versteht, kann dafür einen Nachweis ausstellen lassen.",
+      items: [
+        "Ausgeschaltet — so ist es, bis Sie es ändern — bleibt alles in Ihrem Browser.",
+        "Jedes Gerät zählt nur, was auf ihm geübt wurde; angezeigt wird die Summe. So wird nie etwas doppelt gezählt.",
+        "Ein gelöschtes gemerktes Wort bleibt gelöscht, auch auf den anderen Geräten.",
+        "Der Nachweis wird auf dem Server aus Ihrem abgeglichenen Fortschritt ausgestellt, nach denselben Regeln wie die Anzeige auf der Situationsseite. Er hat eine eigene Seite, die jede Person mit dem Link prüfen kann — ohne Ihren Namen.",
+        "Ausschalten entfernt die Kopie dieses Geräts vom Server; «Alles Abgeglichene löschen» entfernt alles.",
+      ],
+    },
+    {
+      date: "2026-09-25",
+      tag: "feature",
       title: "Fünf neue Situationen, und jede tiefer",
       summary:
         "Beim Arzt, auf der Gemeinde, in der Waschküche, am Apéro — und wenn «Nein» nicht «Nein» heisst. Die bisherigen vierzehn Situationen haben je zehn Sätze mehr.",
@@ -190,6 +204,20 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-25",
+      tag: "feature",
+      title: "Your progress on every device, and a certificate per situation",
+      summary:
+        "Signed in, you can switch on «Progress on every device» in settings: practice, streak and saved words are then the same on phone and laptop. Whoever understands a situation securely can have a certificate issued for it.",
+      items: [
+        "Switched off — as it is until you change it — everything stays in your browser.",
+        "Each device counts only what was practised on it; what you see is the sum. Nothing is ever counted twice.",
+        "A saved word you delete stays deleted, on your other devices too.",
+        "The certificate is issued on the server from your synced progress, by the same rules as the situation page. It has its own page anyone with the link can check — without your name.",
+        "Switching off removes this device’s copy from the server; «Delete everything synced» removes all of it.",
+      ],
+    },
     {
       date: "2026-09-25",
       tag: "feature",

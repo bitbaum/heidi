@@ -10,6 +10,7 @@ import { SiteHeader } from "./_components/site-header";
 import { AccountControl } from "./_components/account-control";
 import { SiteFooter } from "./_components/site-footer";
 import { ChatDock } from "./_components/chat/dock";
+import { SyncRunner } from "./_components/sync-runner";
 
 /**
  * This is the root layout. There is deliberately no `app/layout.tsx`: `<html
@@ -134,6 +135,10 @@ export default async function LocaleLayout({
             already hold a conversation — see the note in the component and the
             `data-chat="surface"` rule in globals.css. */}
         <ChatDock locale={locale} dict={dict} />
+
+        {/* Progress sync between devices. Renders nothing, and does nothing at
+            all unless the learner switched it on in settings. */}
+        <SyncRunner />
 
         {/* The Loki feedback widget. The owner looks at their own site,
             points at what they do not like, and an agent changes it. Env-gated,

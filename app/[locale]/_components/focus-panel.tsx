@@ -4,9 +4,8 @@ import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
-import { useBrowserStore } from "@/lib/browser/store";
-import { EMPTY_MODEL, weakest } from "@/lib/domain/practice/model";
-import { modelStore } from "./practice-stores";
+import { weakest } from "@/lib/domain/practice/model";
+import { useModelView } from "./sync-stores";
 
 /**
  * What keeps catching this learner out, and a way straight at it.
@@ -42,7 +41,7 @@ export function FocusPanel({
   situationsT: Dictionary["situations"];
   locale: Locale;
 }) {
-  const model = useBrowserStore(modelStore) ?? EMPTY_MODEL;
+  const model = useModelView();
 
   const topics = weakest(model, "topics", { limit: 3 }).flatMap((area) => {
     const words = grammarT.topics[area.id as keyof typeof grammarT.topics];

@@ -6,10 +6,10 @@ import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { fill } from "@/lib/i18n/fill";
 import { DISPLAY } from "@/lib/variety/display";
-import { useBrowserStore, useStorageReady } from "@/lib/browser/store";
-import { EMPTY_MODEL } from "@/lib/domain/practice/model";
+import { useStorageReady } from "@/lib/browser/store";
 import { strengthOf, type Standing } from "@/lib/domain/practice/situation-strength";
-import { modelStore } from "./practice-stores";
+import { useModelView } from "./sync-stores";
+import { CertificateButton } from "./certificate-button";
 
 /**
  * "You understand Zurich German in this situation."
@@ -46,6 +46,7 @@ export function SituationStrength({
   askable,
   lines,
   t,
+  certificate,
   locale,
 }: {
   scene: string;
@@ -54,9 +55,11 @@ export function SituationStrength({
   /** Every line's dialect text, by index, so the ones left can be printed. */
   lines: readonly string[];
   t: Dictionary["situations"];
+  /** The certificate's words, for the button offered once the claim is true. */
+  certificate: Dictionary["certificate"];
   locale: Locale;
 }) {
-  const model = useBrowserStore(modelStore) ?? EMPTY_MODEL;
+  const model = useModelView();
   const ready = useStorageReady();
   const s = strengthOf(scene, model, new Set(askable));
   const words = t.strength;
@@ -99,9 +102,12 @@ export function SituationStrength({
           {/* The claim, in full, only where it is true. Everywhere else the
               count speaks for itself and a sentence would be padding. */}
           {s.standing === "sure" && (
-            <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">
-              {fill(words.claim, { total: String(s.askable) })}
-            </p>
+            <>
+              <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">
+                {fill(words.claim, { total: String(s.askable) })}
+              </p>
+              <CertificateButton scene={scene} t={certificate} locale={locale} />
+            </>
           )}
 
           <p className="mt-2 font-mono text-caption uppercase tracking-caps text-fg-muted">

@@ -5,7 +5,7 @@ import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { fill } from "@/lib/i18n/fill";
 import { DISPLAY } from "@/lib/variety/display";
-import { useBrowserStore, useStoreWriter } from "@/lib/browser/store";
+import { useStoreWriter } from "@/lib/browser/store";
 import { recallItems } from "@/lib/domain/practice/generate";
 import { inMode, sessionSize, type Mode } from "@/lib/domain/practice/mode";
 import { QuestionCard } from "./exercises/question-card";
@@ -18,6 +18,7 @@ import type { PracticeItem } from "@/lib/domain/practice/types";
 import { useSaved } from "./use-saved";
 import { useGrade } from "./use-review";
 import { recordPractice } from "./streak-store";
+import { readHistoryView, readModelView, useHistoryView } from "./sync-stores";
 
 /**
  * The exercise page, which is the first place in this product where the
@@ -111,7 +112,7 @@ export function PracticeSession({
    * identical eight questions in the identical order. The ordering that
    * delivers variety already existed and was being fed nothing.
    */
-  const history = useBrowserStore(historyStore) ?? NO_HISTORY;
+  const history = useHistoryView();
   const writeHistory = useStoreWriter(historyStore);
 
   /**
@@ -126,14 +127,14 @@ export function PracticeSession({
   const writeModel = useStoreWriter(modelStore);
 
   const build = useCallback(() => {
-    historyAtBuild.current = historyStore.read() ?? NO_HISTORY;
+    historyAtBuild.current = readHistoryView();
     const own = includeSaved ? recallItems(saved.words).filter((item) => inMode(item, mode)) : [];
     setSession(
       orderSession({
         // Read at build rather than subscribed to, for the same reason the
         // history is: writing to it mid-session would rebuild the session
         // under the learner's hands, one question at a time.
-        model: modelStore.read() ?? EMPTY_MODEL,
+        model: readModelView(),
         items: [...packItems, ...own],
         // Empty in a scoped sitting, so the due-words-first rule has nothing
         // to promote. Passing the full list while withholding the items would

@@ -333,3 +333,53 @@ export const feedbackSupport = pgTable(
   },
   (t) => [primaryKey({ columns: [t.suggestionId, t.voter] })],
 );
+
+/**
+ * Progress synced between a learner's devices — OPT-IN, signed in, off by
+ * default (settings). One row per device per record kind; see
+ * `lib/domain/progress/sync.ts` for why devices are kept apart rather than
+ * merged into one row: a page adds them up when it shows them, and nothing is
+ * ever counted twice.
+ *
+ * `device_id` is random and names only "a browser"; `actor_id` is the OIDC
+ * subject, like everywhere else here. Turning sync off deletes this device's
+ * rows; "delete synced progress" deletes all of them.
+ */
+export const progressDevices = pgTable(
+  "progress_devices",
+  {
+    actorId: text("actor_id").notNull(),
+    deviceId: text("device_id").notNull(),
+    /** `model` | `history` | `streak` | `saved`. */
+    key: text("key").notNull(),
+    value: jsonb("value").notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.actorId, t.deviceId, t.key] })],
+);
+
+/**
+ * A certificate for one situation, issued by the SERVER from the learner's
+ * synced progress — never from a browser's say-so, which is what makes the
+ * public page worth showing to somebody else.
+ *
+ * It records what was measured when it was issued (`askable`, `held`,
+ * `stuck`), because situations grow: a certificate from a 10-line scene says
+ * 10, and stays true about what it certified after the scene has 20.
+ * No name: the page is public, and a name there would be a directory of who
+ * is learning Swiss German. The learner may type one for printing; it is not
+ * stored.
+ */
+export const certificates = pgTable(
+  "certificates",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    actorId: text("actor_id").notNull(),
+    sceneId: text("scene_id").notNull(),
+    askable: integer("askable").notNull(),
+    held: integer("held").notNull(),
+    stuck: integer("stuck").notNull(),
+    issuedAt: timestamp("issued_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("certificates_actor_scene_idx").on(t.actorId, t.sceneId)],
+);
