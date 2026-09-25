@@ -40,6 +40,7 @@ export function WordList({
     article?: string;
     /** The meaning a German reader would wrongly assume. See `VocabularyEntry`. */
     mistakenFor?: string;
+    register?: "casual" | "rude";
     forms?: ReadonlyArray<{ label: string; target: string; bridge: string }>;
     example?: { target: string; bridge: string };
   }>;
@@ -102,6 +103,20 @@ export function WordList({
             </span>
             <span lang="de" className="text-base leading-snug text-fg-secondary">
               {word.bridge}
+              {/* How it lands, in the reader's language, on the same line as
+                  the meaning — see `register` on `VocabularyEntry`. Mono caps,
+                  grey, like the other labels here: information, not alarm,
+                  even for `rude`. */}
+              {/* A REAL SPACE, not only a margin. A margin separates pixels; text
+                  copied, searched or read aloud saw "FrankenUMGANGSSPRACHLICH" —
+                  the exact stitched-word fault reported on this page as
+                  "frankenstein words", which the trap line had in #112. */}
+              {word.register && " "}
+              {word.register && (
+                <span className="ml-1 font-mono text-caption uppercase tracking-caps text-fg-muted">
+                  {t.register[word.register]}
+                </span>
+              )}
               {/*
                 THE TRAP, ON THE SAME LINE AS THE MEANING.
                 A false friend is only dangerous while the reader is certain,

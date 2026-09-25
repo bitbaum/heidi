@@ -175,6 +175,8 @@ export type DisplayVariety = {
      * with `lang="de"` beside the bridge, which is what it is.
      */
     mistakenFor?: string;
+    /** A closed key ("casual" | "rude") the dictionary renders — not prose. */
+    register?: "casual" | "rude";
     /** An id into `lib/research/sources.ts`, so a page can cite per word. */
     source?: string;
   }[];
@@ -292,6 +294,7 @@ export const DISPLAY: DisplayVariety = {
     group: w.group,
     ...(w.article ? { article: w.article } : {}),
     ...(w.mistakenFor ? { mistakenFor: w.mistakenFor } : {}),
+    ...(w.register ? { register: w.register } : {}),
     ...(w.forms?.length ? { forms: w.forms.map((f) => ({ label: f.label, target: f.target, bridge: f.bridge })) } : {}),
     ...(w.example ? { example: { target: w.example.target, bridge: w.example.bridge } } : {}),
     ...(w.source ? { source: w.source } : {}),

@@ -11,6 +11,7 @@ export type BrowserWord = {
   group: string;
   /** The meaning a German reader would wrongly assume. See `VocabularyEntry`. */
   mistakenFor?: string;
+  register?: "casual" | "rude";
   article?: string;
   forms?: ReadonlyArray<{ label: string; target: string; bridge: string }>;
   example?: { target: string; bridge: string };
