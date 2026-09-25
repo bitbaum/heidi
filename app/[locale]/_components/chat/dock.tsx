@@ -178,12 +178,14 @@ export function ChatDock({ locale, dict }: { locale: Locale; dict: Dictionary })
       >
         <ChatIcon />
         {/*
-          Visible on a laptop, collapsing to the icon on a phone where 390px of
-          bar is already spoken for — but it stays in the accessible tree either
-          way, because an icon-only button with no name is announced as
-          "button".
+          NAMED AT EVERY WIDTH. It used to collapse to the icon below `sm`, on
+          the reasoning that a phone's 390px was "already spoken for". That was
+          true of the HEADER, not of the bottom corner, which is empty — and an
+          unlabelled black square beside a third-party pencil is not
+          recognisably "ask Heidi". Reported from a phone as chat having gone
+          missing. The label costs ninety pixels of a corner nothing else uses.
         */}
-        <span className="text-sm font-medium max-sm:sr-only">{t.dock.open}</span>
+        <span className="text-sm font-medium">{t.dock.open}</span>
       </button>
     </div>
   );
