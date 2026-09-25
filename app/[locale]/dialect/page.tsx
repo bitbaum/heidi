@@ -5,6 +5,7 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { DISPLAY } from "@/lib/variety/display";
 import { BandHeader, Shell } from "../_components/page-shell";
+import { DialectReader } from "../_components/dialect-reader";
 
 /**
  * The essay this page hands its hardest question to.
@@ -85,6 +86,20 @@ export default async function DialectPage({ params }: { params: Promise<{ locale
           </section>
         ))}
       </div>
+
+      {/* The practical question: a message arrived, where is it from and what
+          does it say. Placed before the map because it is the one thing on this
+          page a visitor can DO. */}
+      <section aria-labelledby="reader" className="mt-14 border-t border-border-subtle pt-10">
+        <h2
+          id="reader"
+          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
+        >
+          {t.reader.title}
+        </h2>
+        <p className="mb-6 mt-3 max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.reader.lead}</p>
+        <DialectReader t={t.reader} locale={locale} />
+      </section>
 
       {/* The question a visitor actually arrives with, answered where they are
           rather than left implicit in a map of eleven dots. The page states the

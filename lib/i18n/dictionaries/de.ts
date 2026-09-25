@@ -1237,6 +1237,22 @@ export const de = {
     hearNone:
       "Für diese Mundart steht noch nichts Geprüftes im Verzeichnis. Lieber nichts als ein Link, den niemand angehört hat.",
     hearAll: "Alle Hörquellen",
+    reader: {
+      title: "Woher kommt diese Nachricht?",
+      lead: "Fügen Sie eine Nachricht ein, die Sie bekommen haben — vom Chef, von der Nachbarin, aus dem Klassenchat. Heidi zeigt, welche Formen woher kommen und was die Wörter heissen.",
+      placeholder: "Z. B.: Dr Giel und ds Meitschi hei Miuch gno.",
+      button: "Einordnen",
+      failed: "Das hat nicht geklappt. Versuchen Sie es noch einmal.",
+      area: "Die Formen weisen nach {area}.",
+      outside: "Das liest sich wie Hochdeutsch aus Deutschland, nicht aus der Schweiz.",
+      consistent: "Nichts hier weist aus Zürich weg — die Wörter unten sagt man in Zürich so.",
+      unclear: "Zu wenig, um es einzuordnen. Ein, zwei Sätze mehr helfen.",
+      fromTitle: "Formen von anderswo",
+      knownTitle: "Was die Wörter heissen",
+      zurich: "in Zürich: {form}",
+      outsideName: "Deutschland",
+      note: "Heidi ordnet nur Formen ein, die sie sicher kennt, und die Liste wächst. Ihr Text wird nicht gespeichert.",
+    },
     whyManyTitle: "Warum so viele?",
     whyManyBody:
       "Die Schweiz hat ihre Mundarten behalten, während Deutschland seine weitgehend verloren hat. Das ist kein Zufall und keine Frage der Berge — es hat mit Staatsbildung, Schule und Rundfunk zu tun.",

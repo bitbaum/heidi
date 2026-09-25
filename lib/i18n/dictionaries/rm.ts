@@ -1121,6 +1121,22 @@ export const rm: Dictionary = {
     hearNone:
       "Per quest idiom na datti anc nagut controllà en il register. Meglier nagut ch'ina colliaziun che nagin ha tadlà.",
     hearAll: "Tut las funtaunas d'udida",
+    reader: {
+      title: "Danunder vegn quest messadi?",
+      lead: "Tschentai en in messadi che Vus avais survegnì — dal schef, d’ina vischina, dal chat da la classa. Heidi mussa danunder che las furmas vegnan e tge ch’ils pleds signifitgan.",
+      placeholder: "p.ex. Dr Giel und ds Meitschi hei Miuch gno.",
+      button: "Classifitgar",
+      failed: "Quai n’ha betg funcziunà. Empruvai anc ina giada.",
+      area: "Las furmas mussan vers {area}.",
+      outside: "Quai para tudestg standard da la Germania, betg da la Svizra.",
+      consistent: "Nagut qua na mussa davent da Turitg — ils pleds sutvart di ins uschia a Turitg.",
+      unclear: "Memia pauc per classifitgar. Ina u duas frasas dapli gidan.",
+      fromTitle: "Furmas d’auters lieus",
+      knownTitle: "Tge ch’ils pleds signifitgan",
+      zurich: "a Turitg: {form}",
+      outsideName: "Germania",
+      note: "Heidi classifitgescha mo furmas ch’ella enconuscha segir, e la glista crescha. Voss text na vegn betg memorisà.",
+    },
     whyManyTitle: "Pertge uschè blers?",
     whyManyBody:
       "La Svizra ha mantegnì ses dialects, entant che la Germania ha per gronda part pers ils siter. Quai n'è betg in cas ni ina dumonda da muntognas: quai dependa da la furmaziun da l'stadi, da la scola e da la radio.",

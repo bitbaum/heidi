@@ -49,22 +49,6 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         summary: "Wird gerade gebaut.",
         items: [
           {
-            title: "Serien und Wochenziele — ohne schlechtes Gewissen",
-            line: "Sichtbar machen, was Sie aufgebaut haben: Tage in Folge oder ein Wochenziel, das zu Ihrem Leben passt.",
-            details: [
-              "Eine Serie zeigt, was Sie geschafft haben — nie, was Sie gleich verlieren.",
-              "Ein freier Aussetzer ist eingebaut. Keine Mahnungen, kein Bezahlen für eine gerissene Serie.",
-            ],
-          },
-          {
-            title: "Der Dialekt-Detektor",
-            line: "Einen Satz einfügen — Heidi sagt, aus welcher Gegend er stammt, und woran man das erkennt.",
-            details: [
-              "«nid» klingt nach Ostschweiz, «gäu» nach Bern: Heidi kennt die Formen und zeigt die Spur.",
-              "Für alle in der Schweiz, nicht nur für Lernende.",
-            ],
-          },
-          {
             title: "Mehr Situationen, und jede tiefer",
             line: "Beim Arzt, auf der Gemeinde, in der Waschküche, am Apéro — und wenn «nein» nicht «nein» heisst.",
             details: [
@@ -142,22 +126,6 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         title: "In progress",
         summary: "Being built now.",
         items: [
-          {
-            title: "Streaks and weekly goals — without the guilt",
-            line: "See what you have built: days in a row, or a weekly goal that fits your life.",
-            details: [
-              "A streak shows what you achieved — never what you are about to lose.",
-              "A free skip is built in. No nagging, no paying to repair a broken streak.",
-            ],
-          },
-          {
-            title: "The dialect detector",
-            line: "Paste a sentence — Heidi tells you which region it comes from, and how you can tell.",
-            details: [
-              "«nid» sounds like eastern Switzerland, «gäu» like Bern: Heidi knows the forms and shows the trail.",
-              "For everyone in Switzerland, not only learners.",
-            ],
-          },
           {
             title: "More situations, each one deeper",
             line: "At the doctor's, at the Gemeinde, in the laundry room, at an apéro — and when «no» does not sound like no.",

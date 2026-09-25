@@ -158,7 +158,7 @@ test("capabilities differ, so the same engine must build different products", ()
 const ZH_FORBIDDEN: Array<[string, string]> = [
   ["tüütsch", "Ostschweiz"],
   ["tütsch", "Ostschweiz"],
-  ["nid", "Ostschweiz"],
+  ["nid", "Bernese"],
   ["güet", "Bernese"],
   ["gäu", "Bernese"],
   ["öu", "Bernese"],
@@ -215,7 +215,7 @@ test("zh reports multiple findings in text order", () => {
 test("zh offers the Zurich form to use instead", () => {
   const r = check("Das isch nid guet.", ZURICH_GERMAN);
   assert.equal(r.findings[0].suggest, "nöd");
-  assert.equal(r.findings[0].origin, "Ostschweiz");
+  assert.equal(r.findings[0].origin, "Bern");
 });
 
 // ---------------------------------------------------------------------------

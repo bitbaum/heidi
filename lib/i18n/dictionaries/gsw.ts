@@ -1125,6 +1125,22 @@ export const gsw: Dictionary = {
     hearNone:
       "Für die Mundart stoht no nüt Prüefts im Verzeichnis. Lieber nüt als en Link, wo no niemert aaghört het.",
     hearAll: "Alli Hörquelle",
+    reader: {
+      title: "Vo wo chunt die Nachricht?",
+      lead: "Füeged Sie e Nachricht ii, wo Sie übercho händ — vom Chef, vo de Nachbarin, us em Klassechat. Heidi zeigt, weli Forme vo wo chömed und was d Wörter heissed.",
+      placeholder: "Z. B.: Chunsch hüt au a s Fäscht?",
+      button: "Iiordne",
+      failed: "Das hät nöd klappt. Probiered Sie s nomal.",
+      area: "D Forme wiised uf {area}.",
+      outside: "Das list sich wie Hochdütsch us Dütschland, nöd us de Schwiiz.",
+      consistent: "Nüüt da wiist vo Züri weg — d Wörter unde seit mer z Züri eso.",
+      unclear: "Z wenig, zum s iiordne. Es, zwei Sätz meh hälfed.",
+      fromTitle: "Forme vo anderswo",
+      knownTitle: "Was d Wörter heissed",
+      zurich: "z Züri: {form}",
+      outsideName: "Dütschland",
+      note: "Heidi ordnet nur Forme ii, wo sie sicher kännt, und d Lischte wachst. Ihre Text wird nöd gspeicheret.",
+    },
     whyManyTitle: "Warum so viili?",
     whyManyBody:
       "D Schwiiz het ihri Mundarte bhalte, während Dütschland sini grösstenteils verlore het. Das isch kein Zuefall und kei Frog vo de Bärge — es het mit Staatsbildig, Schuel und Radio z tue.",

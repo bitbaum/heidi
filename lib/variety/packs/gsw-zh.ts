@@ -1093,7 +1093,10 @@ export const ZURICH_GERMAN: VarietyPack = {
       origin: "Ostschweiz",
       reason: "Ostschweiz form — Zurich says it only inside Züritüütsch",
     },
-    { match: "nid", severity: "foreign", origin: "Ostschweiz", reason: "Ostschweiz 'nid' — Zurich says nöd", suggest: "nöd" },
+    // `nid` is Bern and central Switzerland; the east says `nöd` like Zurich
+    // (Appenzell `nüd`), Basel and Valais `nit`. It was labelled Ostschweiz
+    // until the dialect reader put the label in front of people.
+    { match: "nid", severity: "foreign", origin: "Bern", reason: "Bernese and central 'nid' — Zurich says nöd", suggest: "nöd" },
     { match: "güet", severity: "foreign", origin: "Bern", reason: "Bernese 'güet' — Zurich says guet", suggest: "guet" },
     { match: "gäu", severity: "foreign", origin: "Bern", reason: "Bernese tag 'gäu' — Zurich says gäll", suggest: "gäll" },
     {
@@ -1104,6 +1107,15 @@ export const ZURICH_GERMAN: VarietyPack = {
       reason: "Bernese öu diphthong — Zurich says au",
     },
     { match: "sai", severity: "foreign", origin: "Basel", reason: "Basel 'sai'" },
+    // The textbook markers, one line each: forms a Zurich reader would never
+    // produce and that any description of the dialect names first. Bern's
+    // l-vocalisation (Milch -> Miuch) and its two words for children; Basel's
+    // unaffricated k (Chuchi -> Kuchi) and its tram.
+    { match: "Giel", severity: "foreign", origin: "Bern", reason: "Bernese 'Giel' (boy) — Zurich says Bueb", suggest: "Bueb" },
+    { match: "Meitschi", severity: "foreign", origin: "Bern", reason: "Bernese 'Meitschi' (girl) — Zurich says Meitli", suggest: "Meitli" },
+    { match: "Miuch", severity: "foreign", origin: "Bern", reason: "Bernese l-vocalisation — Zurich says Milch", suggest: "Milch" },
+    { match: "Kuchi", severity: "foreign", origin: "Basel", reason: "Basel keeps the k — Zurich says Chuchi", suggest: "Chuchi" },
+    { match: "Drämmli", severity: "foreign", origin: "Basel", reason: "Basel's word for the tram — Zurich says Tram", suggest: "Tram" },
     {
       match: /ß/gu,
       display: "ß",

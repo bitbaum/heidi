@@ -36,6 +36,32 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-09-25",
+      tag: "feature",
+      title: "Woher kommt diese Nachricht?",
+      summary:
+        "Auf der Mundart-Seite lässt sich eine Nachricht einfügen, die man bekommen hat. Heidi zeigt, welche Formen woher kommen, was sie in Zürich hiessen und was die Wörter bedeuten.",
+      items: [
+        "«Giel», «Meitschi», «Miuch» weisen nach Bern, «Drämmli» und «Kuchi» nach Basel; «Fahrrad» und «Sahne» klingen nach Deutschland.",
+        "Jedes erkannte Zürcher Wort steht mit seiner Bedeutung da: «nöd = nicht», «isch = ist».",
+        "Zu wenig Text heisst «zu wenig, um es einzuordnen» — Heidi rät nicht.",
+        "«nid» galt bisher als Ostschweizer Form. Es ist Berndeutsch und Innerschweizerisch; die Ostschweiz sagt «nöd» wie Zürich. Korrigiert.",
+      ],
+    },
+    {
+      date: "2026-09-25",
+      tag: "feature",
+      title: "Serien und ein Wochenziel",
+      summary:
+        "Mein Bereich zeigt jetzt, wie viele Tage in Folge Sie geübt haben, Ihren Bestwert und ein Wochenziel, das Sie selbst wählen.",
+      items: [
+        "Ein verpasster Tag wird automatisch überbrückt; alle sieben Tage kommt eine Überbrückung dazu.",
+        "Endet eine Serie, steht dort «Heute anfangen» neben dem Bestwert — kein «verloren».",
+        "Das Wochenziel: 1 bis 7 Tage, Vorgabe 3. Über jeder Übung steht der Stand in einer Zeile.",
+        "Alles bleibt in Ihrem Browser.",
+      ],
+    },
+    {
       date: "2026-09-22",
       tag: "feature",
       title: "Üben ist jetzt etwas, das Sie wählen",
@@ -139,6 +165,32 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-25",
+      tag: "feature",
+      title: "Where is this message from?",
+      summary:
+        "On the dialect page you can paste a message you received. Heidi shows which forms come from where, what Zurich says instead, and what the words mean.",
+      items: [
+        "«Giel», «Meitschi», «Miuch» point to Bern, «Drämmli» and «Kuchi» to Basel; «Fahrrad» and «Sahne» read as Germany.",
+        "Every Zurich word it recognises is shown with its meaning: «nöd = nicht», «isch = ist».",
+        "Too little text says so — Heidi does not guess.",
+        "«nid» was labelled an eastern Swiss form. It is Bernese and central Swiss; the east says «nöd» like Zurich. Corrected.",
+      ],
+    },
+    {
+      date: "2026-09-25",
+      tag: "feature",
+      title: "Streaks and a weekly goal",
+      summary:
+        "Your area now shows how many days in a row you have practised, your best run, and a weekly goal you choose.",
+      items: [
+        "One missed day is bridged automatically; you earn a bridge every seven days.",
+        "When a run ends it says «start today» beside your best — never «lost».",
+        "The weekly goal: 1 to 7 days, 3 by default. Above every practice session, one line shows where you stand.",
+        "All of it stays in your browser.",
+      ],
+    },
     {
       date: "2026-09-22",
       tag: "feature",

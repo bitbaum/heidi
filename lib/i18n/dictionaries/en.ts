@@ -1100,6 +1100,22 @@ export const en: Dictionary = {
     hearNone:
       "Nothing checked in the register for this dialect yet. Better nothing than a link nobody has listened to.",
     hearAll: "Every listening source",
+    reader: {
+      title: "Where is this message from?",
+      lead: "Paste a message you received — from your boss, a neighbour, the class group chat. Heidi shows which forms come from where, and what the words mean.",
+      placeholder: "e.g. Dr Giel und ds Meitschi hei Miuch gno.",
+      button: "Place it",
+      failed: "That didn’t work. Please try again.",
+      area: "The forms point to {area}.",
+      outside: "This reads like Standard German from Germany, not from Switzerland.",
+      consistent: "Nothing here points away from Zurich — the words below are how Zurich says them.",
+      unclear: "Too little to place. A sentence or two more helps.",
+      fromTitle: "Forms from elsewhere",
+      knownTitle: "What the words mean",
+      zurich: "in Zurich: {form}",
+      outsideName: "Germany",
+      note: "Heidi only places forms it knows for certain, and the list keeps growing. Your text is not stored.",
+    },
     whyManyTitle: "Why so many?",
     whyManyBody:
       "Switzerland kept its dialects where Germany largely lost its own. That is neither an accident nor a matter of mountains: it has to do with how a state was built, with school, and with broadcasting.",

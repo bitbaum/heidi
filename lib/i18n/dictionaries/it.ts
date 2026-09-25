@@ -1105,6 +1105,22 @@ export const it: Dictionary = {
     hearNone:
       "Per questa parlata non c'è ancora nulla di verificato nel repertorio. Meglio niente che un link che nessuno ha ascoltato.",
     hearAll: "Tutte le fonti d'ascolto",
+    reader: {
+      title: "Da dove viene questo messaggio?",
+      lead: "Incolli un messaggio che ha ricevuto — dal capo, da una vicina, dalla chat di classe. Heidi mostra da dove vengono le forme e che cosa significano le parole.",
+      placeholder: "p. es. Dr Giel und ds Meitschi hei Miuch gno.",
+      button: "Collocare",
+      failed: "Non ha funzionato. Riprovi.",
+      area: "Le forme rimandano a {area}.",
+      outside: "Sembra tedesco standard della Germania, non della Svizzera.",
+      consistent: "Niente qui si allontana da Zurigo — le parole qui sotto si dicono così a Zurigo.",
+      unclear: "Troppo poco per collocarlo. Una o due frasi in più aiutano.",
+      fromTitle: "Forme da altrove",
+      knownTitle: "Che cosa significano le parole",
+      zurich: "a Zurigo: {form}",
+      outsideName: "Germania",
+      note: "Heidi colloca solo le forme che conosce con certezza, e l’elenco cresce. Il suo testo non viene salvato.",
+    },
     whyManyTitle: "Perché così tante?",
     whyManyBody:
       "La Svizzera ha conservato i suoi dialetti mentre la Germania ha in gran parte perso i propri. Non è un caso né una questione di montagne: dipende da come si è formato lo Stato, dalla scuola e dalla radio.",

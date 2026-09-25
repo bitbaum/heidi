@@ -1,4 +1,5 @@
 import { check } from "../../../lib/variety/check.ts";
+import { readDialect } from "../../../lib/variety/detect.ts";
 import { VARIETY } from "../../../lib/variety/active.ts";
 import { callerKey, dialectCheck, tooMany } from "../../../lib/domain/limits.ts";
 
@@ -26,6 +27,8 @@ export async function POST(request: Request) {
   }
 
   // The variety is the pack's, not this route's — /check works unchanged for
-  // whichever variety the deployment teaches.
-  return Response.json(check(text, VARIETY));
+  // whichever variety the deployment teaches. `reading` rides along: the same
+  // rules, read as "where does this come from" for a message somebody
+  // received (the dialect page), rather than as a pass/fail gate.
+  return Response.json({ ...check(text, VARIETY), reading: readDialect(text, VARIETY) });
 }
