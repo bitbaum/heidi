@@ -1,7 +1,6 @@
 import { transcribe, createHealthTracker, ChainExhaustedError } from "@bitbaum/ai-kit";
 import { VARIETY } from "@/lib/variety/active";
 import { isFaithfulRendering, mayJudgeForm } from "@/lib/speech/evidence";
-import { hesitations } from "@/lib/speech/hesitation";
 import { checkGrammar } from "@/lib/domain/speaking/grammar-check";
 import { markerVerdict } from "@/lib/speech/dialect-marker";
 import { looksLikeSilence } from "@/lib/domain/chat/transcription";
@@ -150,8 +149,11 @@ export async function POST(request: Request) {
      * sources would sooner or later disagree on the same screen. What the
      * server adds is what the device cannot know:
      *
-     *  - WHERE the long pauses were — which word came after them — from the
-     *    recogniser's per-word timings. Usually the word being reached for.
+     *  - the per-word TIMINGS, so the page can name the word each long pause
+     *    came before (`lib/speech/hesitation.ts`). The page, not this route,
+     *    does the join: the pauses themselves come from the device's signal,
+     *    because Whisper was observed stretching a word across a 1.8 s pause
+     *    and leaving no gap to find.
      *  - GRAMMAR, from LanguageTool on our own box.
      *
      * Both are gated on `mayJudgeForm`, which is stricter than the
@@ -166,7 +168,7 @@ export async function POST(request: Request) {
      */
     const formsJudged = text !== "" && !!chosen.recognition && mayJudgeForm(chosen.recognition);
 
-    const hesitated = formsJudged && result.words ? hesitations(result.words) : null;
+    const words = formsJudged && result.words ? result.words : null;
     const grammar = formsJudged && chosen.grammarCode ? await checkGrammar(text, chosen.grammarCode) : null;
 
     return Response.json({
@@ -175,7 +177,7 @@ export async function POST(request: Request) {
       // "target" here means the learner used dialect forms. On a bridge take
       // that is a fact about them; the page has the sentence for it.
       spoke: verdict?.variety ?? "unclear",
-      hesitations: hesitated,
+      words,
       grammar,
     });
   } catch (error) {

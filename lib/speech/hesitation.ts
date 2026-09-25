@@ -1,24 +1,35 @@
 /**
- * Where somebody hesitated — the one thing only word timings can say.
+ * Where somebody hesitated — the signal's pauses, named by the transcript's words.
  *
- * `spoken.ts` measures HOW MUCH hesitation there was, from the signal, and
- * `delivery.ts` knows WHEN each silence happened. Neither knows WHAT CAME NEXT:
- * the signal has no words, and the text has no times. "You stopped for 1.8 s"
- * is a number; "you stopped for 1.8 s before *Termin*" is something a learner
- * can act on, because the word after a long pause is very often the word they
- * were reaching for. That is the whole reason the transcription asks for
- * per-word timings (ai-kit `transcribe({ words: true })`).
+ * `delivery.ts` knows exactly WHEN each silence was, from the audio. It does
+ * not know what came next: the signal has no words. The transcript has the
+ * words and only rough times. Joining the two turns "you stopped for 1.8 s"
+ * into "you stopped for 1.8 s before *Buch*" — and the word after a long pause
+ * is very often the one the learner was reaching for, which is something they
+ * can act on.
  *
- * WHY THIS DOES NOT RECOMPUTE THE PAUSE COUNT. The signal already counts
- * pauses and is the better source for time (see `spoken.ts`). A second count
- * from a recogniser's alignment would sooner or later disagree with the first,
- * and a page showing two different pause counts for one take is showing that
- * neither is trustworthy. This file only NAMES the longest gaps; it reports no
- * totals.
+ * WHY THE PAUSES COME FROM THE SIGNAL AND NOT FROM GAPS BETWEEN WORDS.
  *
- * NO JUDGEMENT. A pause before a hard word is what speaking a second language
- * sounds like, and native speakers do it too. The output is a list of places,
- * never a score, and it is empty when nothing stands out.
+ * The first version of this file looked for gaps in the recogniser's word
+ * timings. Its unit tests passed. Then a real take went through Groq's Whisper
+ * — "Er hat den [1.8 s silence] Buch gelesen" — and came back as
+ *
+ *     den 1.28–1.84   Buch 1.84–4.14   gelesen 4.14–5.28
+ *
+ * with no gap anywhere: the recogniser stretched a one-syllable word across
+ * the whole pause. Gap detection would never have fired on real speech. So the
+ * signal decides WHETHER and WHERE there was a pause, and the words only NAME
+ * it: the pause belongs to the word being spoken when sound resumed, which is
+ * the word whose span reaches past the pause's end. That rule gives the same
+ * answer whether the recogniser leaves a gap or swallows it, and the tests pin
+ * both shapes — the second one with the exact timings Groq returned.
+ *
+ * Same recording, same clock: the page measures the very blob it uploads, so
+ * the two timelines share an origin.
+ *
+ * NO JUDGEMENT, NO TOTALS. The counts belong to the signal (`spoken.ts`); this
+ * only names places. A pause before a hard word is what speaking a second
+ * language sounds like, and native speakers do it too.
  *
  * Pure: no I/O, no model, same input -> same output.
  */
@@ -30,35 +41,44 @@ import type { TimedWord } from "./fluency.ts";
  * A gap has to be well past an ordinary breath to be worth pointing at.
  *
  * A DECISION in §3's sense. `MIN_PAUSE_MS` is where a gap starts to count as a
- * pause at all; pointing at every one of those would list half the sentence.
- * Three times that is roughly where a listener notices the speaker searching,
- * which is the moment this is meant to find.
+ * pause at all; pointing at every one would list half the sentence. Three
+ * times that is roughly where a listener notices the speaker searching.
  */
 export const NOTABLE_PAUSE_MS = MIN_PAUSE_MS * 3;
 
 /** As many places as anybody reads after one take. */
 export const MAX_HESITATIONS = 3;
 
+export type PauseSpan = { startMs: number; endMs: number };
+
 export type Hesitation = {
-  /** The word that came after the gap — usually the one being reached for. */
+  /** The word being spoken when sound resumed — usually the one reached for. */
   before: string;
-  /** Index of that word in the timed list, so the page can mark it in the text. */
+  /** Index of that word in the timed list. */
   index: number;
-  /** The gap, in ms. */
+  /** The pause, in ms, as the SIGNAL measured it. */
   ms: number;
 };
 
-/**
- * The longest notable gaps between words, in sentence order.
- *
- * Silence before the first word is not included: that is somebody finding the
- * button, not searching for a word — the same rule the signal half applies.
- */
-export function hesitations(timed: readonly TimedWord[], limit = MAX_HESITATIONS): Hesitation[] {
+/** Trailing punctuation is the recogniser's, not something the learner said. */
+const bare = (word: string) => word.replace(/[.,!?;:…»«"„“”]+$/u, "").replace(/^[«"„“]+/u, "");
+
+export function hesitations(
+  pauses: readonly PauseSpan[],
+  words: readonly TimedWord[],
+  limit = MAX_HESITATIONS,
+): Hesitation[] {
   const found: Hesitation[] = [];
-  for (let i = 1; i < timed.length; i++) {
-    const gapMs = Math.round((timed[i]!.start - timed[i - 1]!.end) * 1000);
-    if (gapMs >= NOTABLE_PAUSE_MS) found.push({ before: timed[i]!.word, index: i, ms: gapMs });
+  for (const pause of pauses) {
+    const ms = pause.endMs - pause.startMs;
+    if (ms < NOTABLE_PAUSE_MS) continue;
+    const resumedAt = pause.endMs / 1000;
+    // The first word still going on (or yet to start) when sound came back.
+    const index = words.findIndex((w) => w.end > resumedAt);
+    if (index < 0) continue; // a pause after the last recognised word names nothing
+    const word = bare(words[index]!.word);
+    if (!word) continue;
+    found.push({ before: word, index, ms: Math.round(ms) });
   }
   // Longest first to choose, then back into sentence order to read.
   return found

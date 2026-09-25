@@ -10,7 +10,8 @@ import { MAX_SAID_LENGTH, type Take } from "@/lib/domain/speaking/take";
 import type { SpokenVarietyId } from "@/lib/domain/speaking/varieties";
 import { measureSpoken, type Spoken } from "@/lib/speech/spoken";
 import type { GrammarFinding } from "@/lib/speech/grammar";
-import type { Hesitation } from "@/lib/speech/hesitation";
+import { hesitations, type Hesitation } from "@/lib/speech/hesitation";
+import type { TimedWord } from "@/lib/speech/fluency";
 import { NOTE_WORDING, type PlainNoteId } from "@/lib/i18n/speaking-notes";
 import { useClientValue } from "@/lib/browser/store";
 import { progressFrom, spokenMinutes } from "@/lib/domain/speaking/progress";
@@ -115,7 +116,7 @@ export function SpeakingPractice({
   const [grammar, setGrammar] = useState<{ findings: GrammarFinding[]; total: number } | null | undefined>(
     undefined,
   );
-  const [hesitated, setHesitated] = useState<Hesitation[] | null | undefined>(undefined);
+  const [timedWords, setTimedWords] = useState<TimedWord[] | null | undefined>(undefined);
 
   const takeId = recorder.takeId;
   const previous = takeId ? before(takeId) : undefined;
@@ -152,6 +153,17 @@ export function SpeakingPractice({
     if (!recorder.delivery || !said.trim()) return null;
     return measureSpoken(recorder.delivery, said, DISPLAY.speechRule, DISPLAY.fillers);
   }, [recorder.delivery, said]);
+
+  /**
+   * Where the long pauses fell, named. The signal (this device) says where the
+   * silences were; the transcript's timings say which word each one preceded.
+   * See `lib/speech/hesitation.ts` for why neither can do it alone.
+   */
+  const hesitated = useMemo<Hesitation[] | null | undefined>(() => {
+    if (timedWords === undefined) return undefined;
+    if (timedWords === null || !recorder.delivery?.pauseSpans) return null;
+    return hesitations(recorder.delivery.pauseSpans, timedWords);
+  }, [timedWords, recorder.delivery]);
 
   const spokenFeedback = useMemo(() => {
     if (!recorder.delivery || !spokenMeasures) return [];
@@ -289,7 +301,7 @@ export function SpeakingPractice({
           text?: string;
           spoke?: string;
           grammar?: { findings?: GrammarFinding[]; total?: number } | null;
-          hesitations?: Hesitation[] | null;
+          words?: TimedWord[] | null;
         };
         const text = typeof data.text === "string" ? data.text : "";
         if (!res.ok || !text) {
@@ -304,7 +316,7 @@ export function SpeakingPractice({
               ? { findings: data.grammar.findings, total: data.grammar.total ?? data.grammar.findings.length }
               : null,
           );
-          setHesitated(Array.isArray(data.hesitations) ? data.hesitations : null);
+          setTimedWords(Array.isArray(data.words) ? data.words : null);
           setSpoke(
             data.spoke === "target" || data.spoke === "bridge" || data.spoke === "unclear"
               ? data.spoke
@@ -354,7 +366,7 @@ export function SpeakingPractice({
     setHeardFailed(false);
     setSpoke(undefined);
     setGrammar(undefined);
-    setHesitated(undefined);
+    setTimedWords(undefined);
   }, []);
 
   /**

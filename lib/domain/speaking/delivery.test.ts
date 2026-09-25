@@ -217,3 +217,20 @@ test("the recording length is reported alongside the speaking time", () => {
   assert.ok(Math.abs(d.speechMs - 4000) < 300, `speechMs near 4000, got ${d.speechMs}`);
   assert.ok(d.speechMs < d.totalMs, "and it is the smaller of the two here");
 });
+
+test("each pause has a position, and the positions agree with the counts", () => {
+  // `hesitation.ts` names the word after a pause by WHERE it was, so the spans
+  // must describe the same pauses the count and total describe — or the page
+  // would name a hesitation the numbers above it do not contain.
+  const d = measure(build([silence(500), speech(1500), silence(1800), speech(1200), silence(400), speech(900), silence(500)]), RATE);
+  const spans = d.pauseSpans ?? [];
+  assert.equal(spans.length, d.pauseCount);
+  assert.equal(
+    spans.reduce((n, s) => n + (s.endMs - s.startMs), 0),
+    d.pauseMs,
+  );
+  // The long pause sits where it was put: after 0.5 s lead-in and 1.5 s of speech.
+  const long = spans.reduce((a, b) => (b.endMs - b.startMs > a.endMs - a.startMs ? b : a));
+  assert.ok(Math.abs(long.startMs - 2000) <= 60, `long pause starts at ${long.startMs}, expected ~2000`);
+  assert.ok(Math.abs(long.endMs - 3800) <= 60, `long pause ends at ${long.endMs}, expected ~3800`);
+});

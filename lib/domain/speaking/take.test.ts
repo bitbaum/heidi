@@ -116,3 +116,24 @@ test("a too-short take is skipped when looking for something to compare against"
   ];
   assert.equal(previousTake(takes, "newest")?.id, "real", "a false start is not last time's performance");
 });
+
+test("where somebody went silent is used on screen and never written to storage", async () => {
+  const { withTake } = await import("./take.ts");
+  const delivery = {
+    totalMs: 6000,
+    speechMs: 3000,
+    pauseMs: 1800,
+    pauseCount: 1,
+    longestPauseMs: 1800,
+    runCount: 2,
+    meanRunMs: 1500,
+    phonationRatio: 0.62,
+    clippedRatio: 0,
+    problems: [],
+    pauseSpans: [{ startMs: 2000, endMs: 3800 }],
+  };
+  const [stored] = withTake([], { id: "t", at: "2026-09-25T10:00:00Z", delivery, said: "" });
+  assert.equal("pauseSpans" in stored!.delivery, false);
+  assert.equal(stored!.delivery.pauseMs, 1800, "the numbers are kept");
+  assert.ok("pauseSpans" in delivery, "and the caller's object is not mutated");
+});
