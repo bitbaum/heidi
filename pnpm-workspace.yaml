@@ -19,6 +19,13 @@ allowBuilds:
   # GENERATE migrations) depends on it. Unapproved, pnpm install exits non-zero
   # and CI never reaches the build.
   esbuild: true
+# Our OWN packages are exempt from the release-age quarantine BY NAME, never by
+# version. The quarantine guards against a hijacked third-party release; it
+# has nothing to defend against in a package we published an hour ago. A
+# version-pinned exemption must be hand-edited per release — this line had
+# grown to "1.8.0 || 1.10.0 || 1.11.0 || 1.16.0" — and an un-edited release is
+# REFUSED at install, which turns every upgrade back into a manual job. Third
+# parties stay quarantined; that is the actual threat.
 minimumReleaseAgeExclude:
-  - '@bitbaum/ai-kit@1.8.0 || 1.10.0 || 1.11.0 || 1.16.0'
-  - bip-kit@0.3.1
+  - '@bitbaum/*'
+  - bip-kit

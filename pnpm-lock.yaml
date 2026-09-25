@@ -12,8 +12,8 @@ importers:
         specifier: ^1.16.0
         version: 1.16.0(react@19.2.4)
       '@bitbaum/speechkit':
-        specifier: github:bitbaum/speechkit#v1.0.0
-        version: https://codeload.github.com/bitbaum/speechkit/tar.gz/3b0df03746b7948f09ba2c3db40e8237a66f30a1
+        specifier: ^1.0.0
+        version: 1.0.0
       bip-kit:
         specifier: ^0.3.1
         version: 0.3.1(react@19.2.4)
@@ -172,9 +172,8 @@ packages:
       react:
         optional: true
 
-  '@bitbaum/speechkit@https://codeload.github.com/bitbaum/speechkit/tar.gz/3b0df03746b7948f09ba2c3db40e8237a66f30a1':
-    resolution: {gitHosted: true, integrity: sha512-Hl3oBGlBcu5OaH4hO+3Q8Pyfi0s8yVXx6h07FSSa/1HKH9AJx14J9Ap8ZWmfApCMCkcmZiHBcWXZGoDLHsrmdQ==, tarball: https://codeload.github.com/bitbaum/speechkit/tar.gz/3b0df03746b7948f09ba2c3db40e8237a66f30a1}
-    version: 1.0.0
+  '@bitbaum/speechkit@1.0.0':
+    resolution: {integrity: sha512-ZxfXP5sdPGgD4QsjmzIOr+OIBmZseFAXu0lGR42nisavNFrkoSEcwUbi3X2fr10aT3PlsbStSnkIYoVw09CtRA==}
     engines: {node: '>=22.18'}
 
   '@drizzle-team/brocli@0.10.2':
@@ -2904,7 +2903,7 @@ snapshots:
     optionalDependencies:
       react: 19.2.4
 
-  '@bitbaum/speechkit@https://codeload.github.com/bitbaum/speechkit/tar.gz/3b0df03746b7948f09ba2c3db40e8237a66f30a1': {}
+  '@bitbaum/speechkit@1.0.0': {}
 
   '@drizzle-team/brocli@0.10.2': {}
 
