@@ -211,10 +211,14 @@ export const FLOWS: readonly Flow[] = [
     /**
      * A recorded take, and the strongest claim on this page.
      *
-     * The audio is decoded and measured in the page that recorded it and then
-     * dropped — there is no audio table, no upload endpoint for takes, and no
-     * transcript of anybody's speech anywhere in this product. What stays is a
-     * handful of durations and the learner's own write-up, in their browser.
+     * The audio is decoded and measured in the page that recorded it, and
+     * what STAYS is a handful of durations and the learner's own text, in
+     * their browser. There is no audio table.
+     *
+     * This comment used to also say there was "no upload endpoint for takes".
+     * That stopped being true when Standard German takes started being
+     * transcribed, and nothing noticed, because the sentence lived in a comment
+     * rather than a test. The upload is its own row now, `speakingTranscription`.
      *
      * It has to be on this page precisely because it is the sensitive one. A
      * privacy page that enumerates nine flows and silently omits the voice
@@ -225,6 +229,23 @@ export const FLOWS: readonly Flow[] = [
     where: "localStorage · heidi.takes.v1",
     leavesDevice: false,
     recipients: [],
+  },
+  {
+    /**
+     * A Standard German take, sent to be written down.
+     *
+     * Only when the learner CHOOSES that mode for a take — the dialect half
+     * never uploads, because no recogniser returns Zurich German (§7). The
+     * audio goes to the transcription vendor for one request and is not kept
+     * by us; the text that comes back is grammar-checked by LanguageTool on
+     * our own server (`scripts/box/provision-languagetool.sh`), which is why
+     * the recipients are the vendor alone.
+     */
+    id: "speakingTranscription",
+    place: "vendor",
+    where: "/api/speaking/transcribe",
+    leavesDevice: true,
+    recipients: [TRANSCRIPTION_VENDOR],
   },
   {
     /**
