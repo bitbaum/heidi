@@ -38,6 +38,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-09-25",
       tag: "feature",
+      title: "Heidi für Teams",
+      summary:
+        "Eine Gruppe kann jetzt ein Team sein: Wer sie angelegt hat, wählt den Schwerpunkt — etwa die Situationen im Pflegeheim — und sieht, wer in welchen Situationen sicher ist.",
+      items: [
+        "Jedes Mitglied entscheidet selbst, ob es seinen Stand zeigt, und kann es jederzeit zurücknehmen. Ohne diese Entscheidung sieht die Leitung nur den Namen.",
+        "Gezeigt wird der Stand pro Situation und die Zahl der Nachweise — nie, welche Sätze oder was jemand falsch gemacht hat.",
+        "Wer teilt, aber den Abgleich zwischen Geräten nicht eingeschaltet hat, erscheint als «noch nichts zu sehen», nicht als «nicht angefangen».",
+        "Auf der Seite für Organisationen steht, wie man ein Team anlegt.",
+      ],
+    },
+    {
+      date: "2026-09-25",
+      tag: "feature",
       title: "Ihr Fortschritt auf allen Geräten, und ein Nachweis pro Situation",
       summary:
         "Angemeldet können Sie in den Einstellungen «Fortschritt auf allen Geräten» einschalten: Übungen, Serie und gemerkte Wörter sind dann auf Handy und Laptop dieselben. Wer eine Situation sicher versteht, kann dafür einen Nachweis ausstellen lassen.",
@@ -204,6 +217,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-25",
+      tag: "feature",
+      title: "Heidi for Teams",
+      summary:
+        "A group can now be a team: whoever created it chooses the focus — the situations in a care home, for example — and sees who is secure in which situations.",
+      items: [
+        "Every member decides for themselves whether to show their progress, and can take it back at any time. Until they do, the lead sees only their name.",
+        "What is shown is the standing per situation and the number of certificates — never which lines, or what anyone got wrong.",
+        "A member who shares but has not switched on sync between devices shows as «nothing to see yet», not as «not started».",
+        "The page for organisations explains how to create a team.",
+      ],
+    },
     {
       date: "2026-09-25",
       tag: "feature",

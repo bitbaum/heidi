@@ -1,4 +1,4 @@
-import { index, integer, jsonb, pgTable, primaryKey, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { boolean, index, integer, jsonb, pgTable, primaryKey, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 /**
  * Study groups — the first thing in Heidi that outlives a browser tab.
@@ -36,6 +36,13 @@ export const studyGroups = pgTable("study_groups", {
    * Unique so a link resolves to exactly one group.
    */
   inviteToken: text("invite_token").notNull().unique(),
+  /**
+   * The situation domain a TEAM works on (`care`, `everyday`, …), set by its
+   * organiser. Null for an ordinary study group. With a focus, members may
+   * choose to show the organiser their standing in those situations — see
+   * `lib/domain/teams/overview.ts`.
+   */
+  focus: text("focus"),
 });
 
 export const groupMembers = pgTable(
@@ -55,6 +62,12 @@ export const groupMembers = pgTable(
      * the messages they wrote authorless.
      */
     leftAt: timestamp("left_at", { withTimezone: true }),
+    /**
+     * Whether this member shows the organiser their situation standings. OFF
+     * until they turn it on, per team, and only ever standings — never which
+     * lines or answers.
+     */
+    sharesProgress: boolean("shares_progress").notNull().default(false),
   },
   (t) => [
     primaryKey({ columns: [t.groupId, t.actorId] }),

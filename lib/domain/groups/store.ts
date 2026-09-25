@@ -88,6 +88,7 @@ export async function groupById(id: string): Promise<StudyGroup | null> {
     createdBy: row.createdBy,
     createdAt: iso(row.createdAt),
     inviteToken: row.inviteToken,
+    focus: row.focus ?? null,
   };
 }
 
