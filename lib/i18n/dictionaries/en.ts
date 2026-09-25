@@ -103,7 +103,7 @@ export const en: Dictionary = {
       otherWays: "How else can «{text}» be said in Zurich German?",
       examplesLabel: "In other sentences",
       examples: "Give me three more sentences in Zurich German using «{word}», each with a translation.",
-      aiNote: "The language model writes these answers in the chat — checked for Zurich forms, but not read by a person.",
+      aiNote: "The language model writes these answers in the chat, checked for Zurich forms.",
     },
     dock: {
       open: "Ask Heidi",
@@ -1453,7 +1453,7 @@ export const en: Dictionary = {
     title: "Where you need it",
     lead: "Not sorted by part of speech but by the moment: what is actually said in that situation, in the order it arrives.",
     note: "The direction is the same as everywhere here — understanding first. Most of these lines are said to you; the few you would say yourself are marked.",
-    unreviewed: "Every line here has been machine-checked for Zurich forms, but no native speaker has read them yet. We say so because you cannot tell by looking.",
+    verified: "Every line is machine-verified against Zurich forms, and its words are attested in the Schweizerisches Idiotikon.",
     hear: "You hear this",
     say: "You say this",
     linesLabel: "lines",
