@@ -14,6 +14,7 @@ import { PracticeSession } from "../_components/practice-session";
 import { FocusPanel } from "../_components/focus-panel";
 import { PracticeChooser } from "../_components/practice-chooser";
 import { TestSession } from "../_components/test-session";
+import { StreakCard } from "../_components/streak-card";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -118,6 +119,9 @@ export default async function PracticePage({
       <BandHeader title={t.title} lead={t.lead} note={t.note} />
 
       <div className="border-t border-border-subtle pt-8">
+        <div className="mb-6">
+          <StreakCard t={dict.streak} locale={locale} compact />
+        </div>
         {/* The subject of a scoped sitting, named, with the door back to
             everything. A drill that has silently been narrowed is worse than
             one that has not: the learner cannot tell whether the pool is small

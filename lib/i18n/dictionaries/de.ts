@@ -573,6 +573,7 @@ export const de = {
       savedWords: "Gemerkte Wörter",
       practiceSeen: "Bereits gestellte Fragen",
       practiceModel: "Woran Sie noch arbeiten",
+      streak: "Ihre Serie und Ihr Wochenziel",
       ownKey: "Ihr eigener API-Schlüssel",
       theme: "Helle oder dunkle Darstellung",
       dictationVerdict: "Ob das Diktat in diesem Browser geht",
@@ -956,6 +957,19 @@ export const de = {
    * KEIN PUNKTESTAND. Am Schluss stehen drei Zahlen, die stimmen — gefragt,
    * auf Anhieb, kommt nochmals. Keine Prozente, keine Serie, kein Level.
    */
+  streak: {
+    title: "Ihre Serie",
+    start: "Heute anfangen — ein paar Fragen genügen.",
+    doneToday: "Heute schon geübt.",
+    weekReached: "Wochenziel erreicht.",
+    goalLabel: "Wochenziel",
+    freezes: "Ein verpasster Tag wird automatisch überbrückt ({n} übrig).",
+    practise: "Jetzt üben",
+    days: {"one": "{n} Tag in Folge", "few": "{n} Tage in Folge", "many": "{n} Tage in Folge", "other": "{n} Tage in Folge"},
+    best: {"one": "Bestwert: {n} Tag", "few": "Bestwert: {n} Tage", "many": "Bestwert: {n} Tage", "other": "Bestwert: {n} Tage"},
+    goalDays: {"one": "{n} Tag pro Woche", "few": "{n} Tage pro Woche", "many": "{n} Tage pro Woche", "other": "{n} Tage pro Woche"},
+    week: {"one": "Diese Woche: {n} von {goal} Tag", "few": "Diese Woche: {n} von {goal} Tagen", "many": "Diese Woche: {n} von {goal} Tagen", "other": "Diese Woche: {n} von {goal} Tagen"},
+  },
   practice: {
     title: "Übungen",
     lead: "Ein kurzer Satz Fragen, in ein paar Minuten. Aus den Regeln, die Heidi selbst anwendet, aus den Sätzen, die wirklich gesagt werden — und aus den Wörtern, die Sie behalten haben.",

@@ -521,6 +521,7 @@ export const en: Dictionary = {
       savedWords: "Saved words",
       practiceSeen: "Questions already asked",
       practiceModel: "What you are still working on",
+      streak: "Your streak and weekly goal",
       ownKey: "Your own API key",
       theme: "Light or dark appearance",
       dictationVerdict: "Whether dictation works in this browser",
@@ -858,6 +859,19 @@ export const en: Dictionary = {
     saidInTitle: "Said in",
   },
 
+  streak: {
+    title: "Your streak",
+    start: "Start today — a few questions is enough.",
+    doneToday: "Practised today.",
+    weekReached: "Weekly goal reached.",
+    goalLabel: "Weekly goal",
+    freezes: "A missed day is bridged automatically ({n} left).",
+    practise: "Practise now",
+    days: {"one": "{n} day in a row", "few": "{n} days in a row", "many": "{n} days in a row", "other": "{n} days in a row"},
+    best: {"one": "Best: {n} day", "few": "Best: {n} days", "many": "Best: {n} days", "other": "Best: {n} days"},
+    goalDays: {"one": "{n} day a week", "few": "{n} days a week", "many": "{n} days a week", "other": "{n} days a week"},
+    week: {"one": "This week: {n} of {goal} day", "few": "This week: {n} of {goal} days", "many": "This week: {n} of {goal} days", "other": "This week: {n} of {goal} days"},
+  },
   practice: {
     title: "Exercises",
     lead: "A short set of questions, a few minutes. Built from the rules Heidi applies herself, from the lines people actually say — and from the words you kept.",

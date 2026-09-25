@@ -6,6 +6,7 @@ import { comingUp, due, grade, settled } from "@/lib/domain/saved/review";
 import { patternsIn } from "@/lib/domain/saved/patterns";
 import { DISPLAY } from "@/lib/variety/display";
 import type { SavedWord } from "@/lib/domain/saved/types";
+import { recordPractice } from "./streak-store";
 
 /**
  * The review queue and what it says about the learner, from the words they
@@ -46,7 +47,10 @@ export function useReview() {
 export function useGrade() {
   const { grade: write } = useSaved();
   return useCallback(
-    (word: SavedWord, knew: boolean) => write(grade(word, knew, new Date())),
+    (word: SavedWord, knew: boolean) => {
+      write(grade(word, knew, new Date()));
+      recordPractice();
+    },
     [write],
   );
 }

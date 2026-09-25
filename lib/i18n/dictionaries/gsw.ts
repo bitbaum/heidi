@@ -606,6 +606,7 @@ export const gsw: Dictionary = {
       savedWords: "Gmerkti Wörter",
       practiceSeen: "Scho gstellti Frage",
       practiceModel: "Wo Sie no dra schaffed",
+      streak: "Ihri Serie und Ihres Wucheziel",
       ownKey: "Ihre eigne API-Schlüssel",
       theme: "Helli oder dunkli Darstellig",
       dictationVerdict: "Öb s Diktat i dem Browser gaht",
@@ -883,6 +884,19 @@ export const gsw: Dictionary = {
     saidInTitle: "Gseit i",
   },
 
+  streak: {
+    title: "Ihri Serie",
+    start: "Hüt aafange — es paar Frage länged.",
+    doneToday: "Hüt scho güebt.",
+    weekReached: "Wucheziel erreicht.",
+    goalLabel: "Wucheziel",
+    freezes: "En verpasste Tag wird automatisch überbrückt ({n} übrig).",
+    practise: "Jetzt üebe",
+    days: {"one": "{n} Tag hinderenand", "few": "{n} Täg hinderenand", "many": "{n} Täg hinderenand", "other": "{n} Täg hinderenand"},
+    best: {"one": "Bestwärt: {n} Tag", "few": "Bestwärt: {n} Täg", "many": "Bestwärt: {n} Täg", "other": "Bestwärt: {n} Täg"},
+    goalDays: {"one": "{n} Tag pro Wuche", "few": "{n} Täg pro Wuche", "many": "{n} Täg pro Wuche", "other": "{n} Täg pro Wuche"},
+    week: {"one": "Die Wuche: {n} vo {goal} Tag", "few": "Die Wuche: {n} vo {goal} Täg", "many": "Die Wuche: {n} vo {goal} Täg", "other": "Die Wuche: {n} vo {goal} Täg"},
+  },
   practice: {
     title: "Üebige",
     lead: "En churze Satz Frage, i es paar Minute. Us de Regle wo d Heidi sälber aawendet, us de Sätz wo würkli gseit werded — und us de Wörter wo Si behalte händ.",

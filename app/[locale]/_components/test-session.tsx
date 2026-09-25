@@ -10,6 +10,7 @@ import { TEST_SIZE, TEST_MINUTES, TEST_EXTEND_MINUTES } from "@/lib/domain/pract
 import { QuestionCard } from "./exercises/question-card";
 import { answerOf, explainingTopic, Trace } from "./exercises/chrome";
 import { Explanation } from "./exercises/explanation";
+import { recordPractice } from "./streak-store";
 
 /**
  * A run of questions that says nothing until it is over.
@@ -149,6 +150,7 @@ export function TestSession({
     const item = run?.[at];
     if (!item || item.id !== id) return;
     setGiven((g) => [...g, { item, outcome, chose }]);
+    recordPractice();
     setAt((n) => n + 1);
   }
 

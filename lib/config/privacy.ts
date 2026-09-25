@@ -152,6 +152,15 @@ export const FLOWS: readonly Flow[] = [
     recipients: [],
   },
   {
+    // The current run only — last day, length, best, freezes, this week's
+    // count. Never a list of dates; see `lib/domain/progress/streak.ts`.
+    id: "streak",
+    place: "device",
+    where: "localStorage · heidi.progress.streak.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
+  {
     id: "ownKey",
     place: "device",
     where: "localStorage · heidi.byok.v1",
