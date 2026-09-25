@@ -55,11 +55,11 @@ export function SituationBoard({
   const titles = new Map(scenes.map((s) => [s.id, s.title]));
   const suggestion = weakestStarted(all);
 
-  // Nothing practised at all: the board would be fourteen identical "not
+  // Nothing practised at all: the board would be a column of identical "not
   // started" rows, which is a wall rather than an orientation. The page's own
   // cards already invite someone in, so this stays out of the way until there
   // is something true to say.
-  // Also before hydration: the board would render fourteen "not started"
+  // Also before hydration: the board would render every scene as "not started"
   // rows and then rewrite them, which is the same momentary lie.
   if (!ready || all.every((s) => s.standing === "new")) return null;
 

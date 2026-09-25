@@ -4,6 +4,8 @@ import { readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { ADVERTISED_TEST_FILES, METRICS, METRICS_READ_ON, SECTIONS } from "./investors.ts";
 import { FORBIDDEN_CLAIMS } from "./sectors.ts";
+import { SITUATIONS } from "../situations/active.ts";
+import { PACK_ITEMS } from "../domain/practice/published.ts";
 
 /**
  * The data room may understate the repository. It may never overstate it.
@@ -42,6 +44,24 @@ describe("the data room", () => {
     assert.ok(
       ADVERTISED_TEST_FILES <= actual,
       `the data room claims ${ADVERTISED_TEST_FILES} test files and the repository has ${actual}`,
+    );
+  });
+
+  test("the advertised situation and question counts do not overstate the product", () => {
+    // The same asymmetry as the test count, for the two figures the content
+    // decides. Both are read from the modules the pages render, so deleting a
+    // scene or a line that fed a question turns this red the day the claim
+    // stops being true.
+    const stated = (label: string) => Number(METRICS.find((m) => m.label === label)?.value);
+    const scenes = SITUATIONS.flatMap((pack) => pack.situations).length;
+
+    assert.ok(
+      stated("Situations, with per-situation mastery") <= scenes,
+      `the data room claims ${stated("Situations, with per-situation mastery")} situations and the product has ${scenes}`,
+    );
+    assert.ok(
+      stated("Practice questions") <= PACK_ITEMS.length,
+      `the data room claims ${stated("Practice questions")} practice questions and the product has ${PACK_ITEMS.length}`,
     );
   });
 

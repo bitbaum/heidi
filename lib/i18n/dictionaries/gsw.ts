@@ -1602,6 +1602,26 @@ export const gsw: Dictionary = {
         title: "Bsuech",
         scene: "Uf eimal sind Sie s Huus. D Tochter am Sunntignamittag beurteilt de Betrib dernaa, öb d Person a de Tür ere hät chöne folge.",
       },
+      doctor: {
+        title: "I de Arztpraxis",
+        scene: "S Telifon hät Ihne en Termin gää; jetz chömed de Empfang, s Wartzimmer und s Sprächzimmer. Am Empfang wird schnäll gfrooget, bim Dokter gnau — und bi beidem zellt, das Sie d Frag verstande händ, bevor Sie antworted.",
+      },
+      municipality: {
+        title: "Uf de Gmeind",
+        scene: "Wer uf Züri züglet, mälded sich aa — meischtens i de erschte Wuche und meischtens, bevor er eme Satz cha folge. D Frage sind jedes Mal di gliiche, und d Person hinder em Glas stellt si hundertmal im Tag, entsprächend schnäll.",
+      },
+      "laundry-room": {
+        title: "I de Waschchuchi",
+        scene: "De Plan a de Wand isch es Gsetz, wo niemert erklärt. Wer s Sieb nöd putzt oder am falsche Tag wäscht, ghört dervo — sälte diräkt, meischtens uf eme Zädel.",
+      },
+      apero: {
+        title: "Am Apéro",
+        scene: "Es Glas i de Hand, niemert mues bliibe, alli redet Mundart. Da fangt e Zürcher Bekanntschaft aa — und «Mer sött emal öppis zäme mache» isch härzlich gmeint, aber kei Iiladig.",
+      },
+      "indirect-no": {
+        title: "Wänn Nei nöd Nei heisst",
+        scene: "Z Züri seit mer sälte diräkt Nei. «Das isch ächli schwierig» oder «Mer chönnt sich das überlegge» isch mängisch scho d Antwort, höflich verpackt — wer s wörtlich nimmt, wartet uf öppis, wo längscht gseit worde isch.",
+      },
     },
   },
 

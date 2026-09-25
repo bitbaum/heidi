@@ -1,6 +1,7 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { check } from "../variety/check.ts";
+import { check, checkAgainst } from "../variety/check.ts";
+import { bridgeRules } from "../variety/bridge.ts";
 import { VARIETY } from "../variety/active.ts";
 import { SOURCES } from "../research/sources.ts";
 import { getDictionary } from "../i18n/index.ts";
@@ -69,6 +70,27 @@ describe("every situation pack", () => {
           assert.ok(
             result.ok,
             `"${phrase.target}" — ${result.findings.map((f) => `${f.form} (${f.origin ?? f.reason})`).join(", ")}`,
+          );
+        }
+      });
+
+      test("every bridge is Swiss Standard German, not Germany's", () => {
+        /**
+         * The target gate, one variety over.
+         *
+         * The bridge is what a learner anchors the line to and what they will
+         * write back to a landlord or a doctor, and it is the half nobody
+         * checked: `neighbours` glossed «S Velo» as "Das Fahrrad" and `meals`
+         * glossed «Poulet» as "Hähnchen" — fluent German, marking the reader
+         * as foreign in exactly the way `bridgeRules` exists to catch. Same
+         * gate, same `foreign` threshold as the target.
+         */
+        const rules = bridgeRules(VARIETY);
+        for (const phrase of phrasesOf(pack)) {
+          const result = checkAgainst(phrase.bridge, rules, "foreign");
+          assert.ok(
+            result.ok,
+            `"${phrase.bridge}" — ${result.findings.map((f) => `${f.form} → ${f.suggest ?? "?"}`).join(", ")}`,
           );
         }
       });

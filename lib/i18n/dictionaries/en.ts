@@ -1577,6 +1577,26 @@ export const en: Dictionary = {
         title: "Visitors",
         scene: "Suddenly you are the institution. The daughter arriving on a Sunday afternoon judges the home by whether the person at the door could follow her.",
       },
+      doctor: {
+        title: "At the doctor's",
+        scene: "The phone got you a time; now come the front desk, the waiting room and the consulting room. The desk asks fast, the doctor asks precisely — and in both, what matters is that you understood the question before you answer it.",
+      },
+      municipality: {
+        title: "At the Gemeinde",
+        scene: "Everybody who moves to Zurich registers — usually in the first weeks, and usually before they can follow a sentence. The questions are the same every time, and the person behind the glass asks them a hundred times a day, at that speed.",
+      },
+      "laundry-room": {
+        title: "In the laundry room",
+        scene: "The plan on the wall is a law nobody explains. Leave the filter uncleaned or wash on the wrong day and you will hear about it — rarely to your face, usually on a note.",
+      },
+      apero: {
+        title: "At an apéro",
+        scene: "A glass in hand, nobody obliged to stay, everybody in dialect. This is where a Zurich acquaintance begins — and «Mer sött emal öppis zäme mache» is meant warmly, but it is not an invitation.",
+      },
+      "indirect-no": {
+        title: "When no does not sound like no",
+        scene: "Zurich rarely refuses outright. «Das isch ächli schwierig» or «Mer chönnt sich das überlegge» is often already the answer, politely wrapped — and whoever takes it literally waits for something that has already been said.",
+      },
     },
   },
 
