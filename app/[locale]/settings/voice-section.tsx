@@ -19,7 +19,7 @@ const LEVELS: readonly CorrectionLevel[] = ["off", "blocking", "all"];
  * WHAT THIS DEVICE CAN ACTUALLY SPEAK IS SHOWN, not promised. A settings page
  * that offers "read answers aloud" on a machine with no German voice has told
  * a lie that the learner discovers by pressing a button and hearing an English
- * accent read Züritüütsch. The claim comes from the same function the audio
+ * accent read Züridütsch. The claim comes from the same function the audio
  * will come from, so the page cannot drift from the speaker.
  */
 export function VoiceSection({ t }: { t: Dictionary["voice"] }) {

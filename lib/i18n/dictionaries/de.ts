@@ -123,11 +123,11 @@ export const de = {
       similarLabel: "Ähnlich und Gegenteil",
       similar: "Welche Wörter sagt man in Zürich ähnlich wie «{word}» — und was ist das Gegenteil?",
       storyLabel: "Kurzer Text damit",
-      story: "Schreib mir einen kurzen Text auf Züritüütsch mit «{word}», mit Übersetzung.",
+      story: "Schreib mir einen kurzen Text auf Züridütsch mit «{word}», mit Übersetzung.",
       otherWaysLabel: "Anders gesagt",
-      otherWays: "Wie kann man «{text}» auf Züritüütsch noch sagen?",
+      otherWays: "Wie kann man «{text}» auf Züridütsch noch sagen?",
       examplesLabel: "In anderen Sätzen",
-      examples: "Gib mir drei weitere Sätze auf Züritüütsch mit «{word}», jeweils mit Übersetzung.",
+      examples: "Gib mir drei weitere Sätze auf Züridütsch mit «{word}», jeweils mit Übersetzung.",
       aiNote: "Diese Antworten schreibt das Sprachmodell im Chat, geprüft auf Zürcher Formen.",
     },
     /**
@@ -465,7 +465,7 @@ export const de = {
     heidiTitle: "Was das für Heidi heisst",
     heidiBody: [
       "Das Diktieren schreibt nicht Mundart auf. Es schreibt, was Sie sagen wollen, in der Sprache, die Sie schon können — genau das, was die Forschung kann.",
-      "Heidi liest vor, behauptet aber nie, Mundart zu sprechen. Ein Synthesizer, den man um Zürichdeutsch bittet, liefert bestenfalls Schweizer Hochdeutsch — also sagt die Stimme, was sie ist, und schweigt lieber, als Ihnen eine englische Stimme zu geben, die Züritüütsch vorliest.",
+      "Heidi liest vor, behauptet aber nie, Mundart zu sprechen. Ein Synthesizer, den man um Zürichdeutsch bittet, liefert bestenfalls Schweizer Hochdeutsch — also sagt die Stimme, was sie ist, und schweigt lieber, als Ihnen eine englische Stimme zu geben, die Züridütsch vorliest.",
       "Die Dialektprüfung läuft ohne Modell. Sie ist eine feste Regelliste, kein Sprachmodell — deshalb kann sie nicht anfangen, sich Dinge auszudenken.",
     ],
     engineTitle: "Welches Modell Ihnen antwortet",
@@ -955,7 +955,7 @@ export const de = {
    * Bei einer objektiven Frage sagt die Seite «richtig» oder «nicht ganz» —
    * das darf sie, weil die Regel im Pack die Antwort festlegt. Bei einer
    * selbst bewerteten Frage fragt sie «Gewusst?», und das ist keine höfliche
-   * Umschreibung: für Züritüütsch gibt es keine amtliche Rechtschreibung, und
+   * Umschreibung: für Züridütsch gibt es keine amtliche Rechtschreibung, und
    * wer eine getippte Antwort bewertet, sagt irgendwann jemandem, er habe
    * falsch geschrieben, was gar nicht falsch war.
    *
@@ -1057,7 +1057,7 @@ export const de = {
     right: "Richtig",
     wrong: "Nicht ganz",
     ask: {
-      pairTarget: "Welches davon ist Züritüütsch?",
+      pairTarget: "Welches davon ist Züridütsch?",
       pairBridge: "Welches davon schreibt man in der Schweiz?",
       article: "Welcher Artikel gehört dazu?",
       form: "Welche Form passt?",
@@ -1066,7 +1066,7 @@ export const de = {
       match: "Was gehört zusammen?",
       gaptext: "Welche Wörter fehlen?",
       pick: "Welches Wort passt hier?",
-      translate: "Wie sagt man das auf Züritüütsch?",
+      translate: "Wie sagt man das auf Züridütsch?",
       card: "Wissen Sie das noch?",
     },
     matchHint: "Tippen Sie ein Wort an, dann seine Bedeutung.",
@@ -1084,10 +1084,10 @@ export const de = {
      * Unterschied findet, muss genau dort lesen, dass wir das nicht als Fehler
      * werten. §6 — diese Mundart hat keine festgelegte Rechtschreibung.
      */
-    translateLabel: "Auf Züritüütsch schreiben",
+    translateLabel: "Auf Züridütsch schreiben",
     packSays: "Im Pack steht",
     spellingNote:
-      "Züritüütsch hat keine festgelegte Rechtschreibung. Anders geschrieben heisst nicht falsch geschrieben — vergleichen Sie selbst und entscheiden Sie.",
+      "Züridütsch hat keine festgelegte Rechtschreibung. Anders geschrieben heisst nicht falsch geschrieben — vergleichen Sie selbst und entscheiden Sie.",
     cardRecognise: "Mundart → Bedeutung",
     cardProduce: "Bedeutung → Mundart",
     cardTurn: "Umdrehen",
@@ -1758,7 +1758,7 @@ export const de = {
       },
       care: {
         title: "Alters- und Pflegeheime",
-        lead: "Eine Bewohnerin mit Demenz verliert ihre Zweitsprachen zuerst. Was bleibt, ist das Züritüütsch ihrer Kindheit — und das ist die Sprache, in der die Schicht läuft.",
+        lead: "Eine Bewohnerin mit Demenz verliert ihre Zweitsprachen zuerst. Was bleibt, ist das Züridütsch ihrer Kindheit — und das ist die Sprache, in der die Schicht läuft.",
       },
     },
     scenes: {

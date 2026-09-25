@@ -129,13 +129,13 @@ test("the ceiling keeps the hard things away from a beginner", () => {
 });
 
 test("a preferred area comes first without hiding the rest", () => {
-  const picked = flow({ inSwitzerland: true, area: "zueritueuetsch" }, { take: 3, cursor: 0 });
+  const picked = flow({ inSwitzerland: true, area: "zueriduetsch" }, { take: 3, cursor: 0 });
   assert.ok(
-    picked.some((s) => s.area === "zueritueuetsch"),
+    picked.some((s) => s.area === "zueriduetsch"),
     "asked for Zurich and offered none of it",
   );
   const all = eligible({ inSwitzerland: true });
-  assert.ok(all.some((s) => s.area !== "zueritueuetsch"), "the area preference became a filter");
+  assert.ok(all.some((s) => s.area !== "zueriduetsch"), "the area preference became a filter");
 });
 
 test("asking for nothing returns nothing rather than a default handful", () => {

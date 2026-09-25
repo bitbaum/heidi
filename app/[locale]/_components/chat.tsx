@@ -32,7 +32,7 @@ export function Chat({
   dict: Dictionary;
   /**
    * The variety being taught: its BCP-47 tag, so a screen reader does not read
-   * Züritüütsch with German phonology, and the pack's flagship line, offered as
+   * Züridütsch with German phonology, and the pack's flagship line, offered as
    * the first thing a visitor can press.
    */
   dialect: { tag: string; showcase?: string };

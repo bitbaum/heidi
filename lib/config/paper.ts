@@ -249,7 +249,7 @@ const DE: Paper = {
       title: "Das Gerät behält, was es behalten kann",
       body: [
         "Gemerkte Wörter, ihr Wiederholungsplan, Ihre Aufnahmen und deren Messwerte liegen in Ihrem Browser. Nicht als Richtlinie, die man später ändern könnte — als Architektur, in der der Server sie nie bekommen hat.",
-        "Wo Ton das Gerät doch verlässt, geschieht das zu einem genannten Zweck, gesagt auf demselben Bildschirm statt in einer Datenschutzseite, und nur für die Varietät, bei der Transkription ehrlich ist. Auf Züritüütsch wird gar nichts gesendet.",
+        "Wo Ton das Gerät doch verlässt, geschieht das zu einem genannten Zweck, gesagt auf demselben Bildschirm statt in einer Datenschutzseite, und nur für die Varietät, bei der Transkription ehrlich ist. Auf Züridütsch wird gar nichts gesendet.",
         "Für eine Institution ist die entscheidende Grenze diese: Es gibt heute keinen Auftragsverarbeitungsvertrag mit einem Modellanbieter, Heidi eignet sich also nicht für Material unter Berufsgeheimnis. Das ist ein Vertrag, den man unterschreibt, kein Problem, das man löst — und es steht hier, weil es die erste Frage einer Beschaffungsstelle ist.",
       ],
       check: [{ label: "Was gespeichert wird, und wo", segment: "privacy" }],

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, LOCALES, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
@@ -72,6 +72,10 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   const t = dict.dialect;
+
+  // Zurich's slug was spelled with the east's t (`zueritueuetsch`) until the
+  // name was corrected to Züridütsch; links to the old one still arrive.
+  if (id === "zueritueuetsch") permanentRedirect(`${href(locale, "dialect")}/zueriduetsch`);
 
   const area = DISPLAY.areas.find((a) => a.id === id);
   if (!area) notFound();

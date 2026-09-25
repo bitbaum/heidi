@@ -484,7 +484,7 @@ above survives being read aloud and gets worse, because written text can be
 stared at and looked up while speech is gone the moment it is said. So
 `lib/voice/variety.ts` judges what a synthetic voice is actually speaking, and
 its rule is absolute rather than probabilistic: **no synthesiser is ever
-reported as dialect.** Not "probably not" — no platform ships a Züritüütsch
+reported as dialect.** Not "probably not" — no platform ships a Züridütsch
 voice, `de-CH` is Swiss Standard German on every operating system in reach, and
 §7.2 records the market selling the accent as the dialect. Dialect can only come
 from a source verified to be dialect, which today means a recorded human being.
@@ -554,7 +554,7 @@ because being wrong in public is expensive and quiet correction is cheap.
   accent — and §7.2 already records that most voices sold as "Swiss German" are
   exactly that. ✅ "This is a Swiss Standard German voice, not Zurich dialect",
   said every time she speaks. `lib/voice/variety.ts` has no code path that
-  returns `dialect`, and a test feeds it voices named *Züritüütsch* and
+  returns `dialect`, and a test feeds it voices named *Züridütsch* and
   *Schweizerdeutsch Mundart* to prove it is not fooled by a label.
 - ❌ "Heidi hears your dialect and corrects your pronunciation." She hears TEXT
   produced by a recogniser, and §7.4 says what that recogniser does: it
@@ -1052,7 +1052,7 @@ no importer in the app at all.
 So the practice screen now asks which variety this take is in, and the answer
 decides what may be said about it:
 
-- **Züritüütsch** — unchanged, and the default. The signal is measured on the
+- **Züridütsch** — unchanged, and the default. The signal is measured on the
   device, the audio never leaves it, the learner types what they said. §7 in
   full force.
 - **Swiss Standard German** — the recording goes once to a recogniser, the

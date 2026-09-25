@@ -17,7 +17,7 @@ test("no voice, of any description, is reported as dialect", () => {
   // implementation would fall for, and every one of them is a Standard German
   // voice with a Swiss-sounding label.
   const tempting = [
-    voice("Züritüütsch", "de-CH"),
+    voice("Züridütsch", "de-CH"),
     voice("Swiss German", "gsw"),
     voice("Schweizerdeutsch Mundart", "de-CH"),
     voice("Heidi", "gsw-ZH"),
@@ -60,6 +60,6 @@ test("the claim matches what will actually be heard", () => {
 
 test("speech is requested as de-CH, because no synthesiser implements gsw", () => {
   // Asking for the CORRECT code gets silence or an English voice reading
-  // Züritüütsch as English, which is the worst outcome available.
+  // Züridütsch as English, which is the worst outcome available.
   assert.equal(SPEECH_LANG, "de-CH");
 });

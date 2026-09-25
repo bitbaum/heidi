@@ -91,7 +91,7 @@ export function DialectFigure({ plannedLabel, othersLabel }: { plannedLabel: str
 
         {/* Dialects we do not teach yet: open rings, no fill.
             Their labels sit BELOW the dot while the taught variety's sits
-            above — which is what keeps "Züritüütsch" off the Aargau dot 40km
+            above — which is what keeps "Züridütsch" off the Aargau dot 40km
             away, without needing hand-placed offsets in the pack. */}
         {areas.map((d) => (
           <g key={d.id}>

@@ -3,7 +3,7 @@
  * never carries copy of its own.
  */
 export const LANDING = {
-  eyebrow: "Züritüütsch · Zürich",
+  eyebrow: "Züridütsch · Zürich",
   brand: "Heidi",
   headline: "Understand Zurich German. Then text like a local.",
   sub: "For people who already know some German and still understand nothing at the lunch table. Paste what you got, or write what you mean — Heidi answers first and teaches second.",

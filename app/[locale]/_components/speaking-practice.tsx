@@ -37,7 +37,7 @@ type T = Dictionary["speaking"];
  * THE SHAPE OF THE SCREEN IS THE SHAPE OF WHAT CAN BE KNOWN, and that shape
  * now has two columns rather than one, because the pack always said it did:
  *
- *   1. WHICH VARIETY. Züritüütsch, or the Standard German that the same
+ *   1. WHICH VARIETY. Züridütsch, or the Standard German that the same
  *      learner needs at a doctor's desk. Read from `DISPLAY.practice`, which
  *      reads `varieties.ts`, which reads the pack. Nothing here names a
  *      language, and a pack with one answer renders no switch at all.

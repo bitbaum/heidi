@@ -109,7 +109,7 @@ export type DisplayVariety = {
   /**
    * The variety's own name for itself. The ONE name that survives.
    *
-   * An endonym is language-neutral by definition: «Züritüütsch» is what it is
+   * An endonym is language-neutral by definition: «Züridütsch» is what it is
    * called in Russian, in French and in Romansh, because it is what the
    * speakers call it. That is why it renders anywhere.
    *

@@ -133,7 +133,7 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "Tippen war überall und Karten gab es nicht. Beides ist jetzt eine eigene Übungsart, und dazu kam ein Test, der erst am Schluss etwas sagt.",
       items: [
         "Vier Arten zu üben: Gemischt, Antippen, Schreiben, Karten. Die Wahl steht in der URL, ist also teilbar.",
-        "Zwei neue Aufgabentypen: ganze Sätze auf Züritüütsch schreiben, und echte Lernkarten über den ganzen Wortschatz.",
+        "Zwei neue Aufgabentypen: ganze Sätze auf Züridütsch schreiben, und echte Lernkarten über den ganzen Wortschatz.",
         "Der Fragenpool wuchs von 221 auf 553 Aufgaben.",
         "Ein Test: zwanzig Fragen am Stück, unterwegs sagt Heidi nichts, am Schluss alle Antworten mit Erklärung — die falschen zuerst. Zeit nehmen ist freiwillig und lässt sich verlängern.",
         "Das Tippfeld ist aus den Karten- und Lückenaufgaben verschwunden. Es tauchte vorher bei jeder zweiten oder dritten Frage auf.",
@@ -192,7 +192,7 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "Nehmen Sie sich auf und sehen Sie, was die Aufnahme tatsächlich zeigt: Sprechzeit, Pausen, und welche Wörter aus einer anderen Mundart stammen.",
       items: [
         "Keine Note für die Aussprache. Das kann heute niemand ehrlich messen, und eine Zahl wäre eine Behauptung über einen Menschen.",
-        "Auf Züritüütsch wird bewusst nicht transkribiert: kein System schreibt diese Mundart zuverlässig auf.",
+        "Auf Züridütsch wird bewusst nicht transkribiert: kein System schreibt diese Mundart zuverlässig auf.",
       ],
     },
     {

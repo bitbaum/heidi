@@ -75,7 +75,7 @@ test("a sector that states a fact cites where to check it", () => {
 
 test("the reader gets German in the German-speaking locales and English otherwise", () => {
   assert.equal(sectorLocale("de"), "de");
-  assert.equal(sectorLocale("gsw"), "de", "a Züritüütsch reader is a German-speaking reader");
+  assert.equal(sectorLocale("gsw"), "de", "a Züridütsch reader is a German-speaking reader");
   assert.equal(sectorLocale("fr"), "en");
   assert.equal(sectorLocale("ru"), "en");
   assert.equal(sectorLocale("it"), "en");

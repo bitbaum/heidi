@@ -425,7 +425,7 @@ export const fr: Dictionary = {
     heidiTitle: "Ce que cela signifie pour Heidi",
     heidiBody: [
       "La dictée n'écrit pas le dialecte. Elle écrit ce que vous voulez dire, dans la langue que vous avez déjà — précisément ce que la recherche sait faire.",
-      "Heidi lit à voix haute, mais ne prétend jamais parler le dialecte. Un synthétiseur à qui l'on demande du zurichois rend au mieux de l'allemand standard suisse : la voix dit donc ce qu'elle est, et se tait plutôt que de vous livrer une voix anglaise lisant du Züritüütsch.",
+      "Heidi lit à voix haute, mais ne prétend jamais parler le dialecte. Un synthétiseur à qui l'on demande du zurichois rend au mieux de l'allemand standard suisse : la voix dit donc ce qu'elle est, et se tait plutôt que de vous livrer une voix anglaise lisant du Züridütsch.",
       "Le contrôle dialectal fonctionne sans modèle. C'est une liste de règles fixe, pas un modèle de langue — c'est pourquoi il ne peut rien inventer.",
     ],
     engineTitle: "Quel modèle vous répond",

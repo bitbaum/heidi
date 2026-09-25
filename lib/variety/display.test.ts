@@ -117,7 +117,7 @@ test("the projection carries no English name for anything", () => {
    * site and finding a canton described in English.
    *
    * They got through because a name and a region read as DATA until you try to
-   * say them in another language. An endonym really is data — «Züritüütsch» is
+   * say them in another language. An endonym really is data — «Züridütsch» is
    * what it is called in Russian too, because it is what the speakers call it.
    * An exonym is a translation that happens to be in English.
    *

@@ -698,7 +698,7 @@ export type VarietyPack = {
   tag: VarietyTag;
   /** English name, e.g. "Zurich German". */
   name: string;
-  /** What speakers call it, e.g. "Züritüütsch". */
+  /** What speakers call it, e.g. "Züridütsch". */
   endonym: string;
   /** Where it is spoken, for the learner's orientation. */
   region: string;

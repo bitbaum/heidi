@@ -158,6 +158,18 @@ test("capabilities differ, so the same engine must build different products", ()
 const ZH_FORBIDDEN: Array<[string, string]> = [
   ["tüütsch", "Ostschweiz"],
   ["tütsch", "Ostschweiz"],
+  ["Züritüütsch", "Ostschweiz"],
+  ["Hochtüütsch", "Ostschweiz"],
+  ["Schwiizertüütsch", "Ostschweiz"],
+  ["tüütschi", "Ostschweiz"],
+  ["ig", "Bernese"],
+  ["wosch", "Bernese"],
+  ["het", "Bernese"],
+  ["Grüessech", "Bernese"],
+  ["vilmau", "Bernese"],
+  ["nit", "Basel"],
+  ["goht", "Basel"],
+  ["stoht", "Basel"],
   ["nid", "Bernese"],
   ["güet", "Bernese"],
   ["gäu", "Bernese"],
@@ -177,8 +189,12 @@ const ZH_ALLOWED = [
   "mer mached",
   "mer händ",
   "Züri",
-  "Züritüütsch",
-  "Schwiizertüütsch",
+  "Züridütsch",
+  "Schwiizerdütsch",
+  "Hochdütsch",
+  // Other regions' names for their own dialect are names, not Zurich forms.
+  "Glarnertüütsch",
+  "Ostschwiizertütsch",
 ];
 
 for (const [form, why] of ZH_FORBIDDEN) {
