@@ -80,6 +80,11 @@ describe("conversation store", { skip: HAS_DB ? false : "DATABASE_URL unset" }, 
   test("a message bumps the conversation so it rises in the list", async () => {
     const older = await createConversation({ actorId: "carol", locale: "de" });
     const newer = await createConversation({ actorId: "carol", locale: "de" });
+    // "Later" has to be later on the clock. On a fast CI runner the create and
+    // the bump landed in the SAME millisecond, both rows carried one
+    // `updatedAt`, and the order came out arbitrary — a failure about the test
+    // racing the clock, not about the product (no person replies in 1 ms).
+    await new Promise((resolve) => setTimeout(resolve, 5));
     await appendMessage({ conversationId: older.id, authorId: "carol", body: "later" });
 
     const list = await conversationsFor("carol");
