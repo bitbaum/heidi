@@ -1365,7 +1365,7 @@ export const en: Dictionary = {
     grammarNotChecked: "Grammar was not checked this time.",
     grammarMore: "The first {shown} of {total}.",
     grammarLimit: "Checks agreement, case and verb forms. It does not catch everything — word order after «weil», for one.",
-    hesitationTitle: "Where you hesitated",
+    hesitationTitle: "Where you searched for a word",
     hesitationBefore: "{s} s before «{word}»",
     hesitationNote: "The word after a long pause is often the one you were reaching for.",
 

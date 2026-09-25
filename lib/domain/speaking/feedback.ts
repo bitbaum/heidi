@@ -35,6 +35,7 @@
  * Pure: no I/O, no model, same input -> same output.
  */
 
+import { STUCK_PAUSE_MS } from "../../speech/pause.ts";
 import { check, type Finding } from "../../variety/check.ts";
 import type { VarietyPack } from "../../variety/pack.ts";
 import { usable, type Delivery } from "./delivery.ts";
@@ -97,8 +98,8 @@ export type Note = {
   origin?: string;
 };
 
-/** A silence this long is a stall by any reading, in any language. */
-const LONG_PAUSE_MS = 3_000;
+/** A silence this long is a stall. Defined beside its two siblings — see `speech/pause.ts`. */
+const LONG_PAUSE_MS = STUCK_PAUSE_MS;
 
 /**
  * How different two takes must be before the difference is reported.

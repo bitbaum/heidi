@@ -1390,7 +1390,7 @@ export const gsw: Dictionary = {
     grammarNotChecked: "D Grammatik isch das Mal nöd prüeft worde.",
     grammarMore: "Di erschte {shown} vo {total}.",
     grammarLimit: "Prüeft wärded Übereinstimmig, Fäll und Verbforme. Nöd jede Fähler wird gfunde — zum Bispiil d Stellig vom Verb nach «weil».",
-    hesitationTitle: "Wo Si zögeret händ",
+    hesitationTitle: "Wo Si es Wort gsuecht händ",
     hesitationBefore: "{s} s vor «{word}»",
     hesitationNote: "S Wort nach ere lange Pause isch oft das, wo Si gsuecht händ.",
 

@@ -1523,7 +1523,7 @@ export const de = {
     grammarNotChecked: "Die Grammatik wurde diesmal nicht geprüft.",
     grammarMore: "Die ersten {shown} von {total}.",
     grammarLimit: "Geprüft werden Übereinstimmung, Fälle und Verbformen. Nicht jeder Fehler wird gefunden — etwa die Stellung des Verbs nach «weil».",
-    hesitationTitle: "Wo Sie gezögert haben",
+    hesitationTitle: "Wo Sie nach einem Wort gesucht haben",
     hesitationBefore: "{s} s vor «{word}»",
     hesitationNote: "Das Wort nach einer langen Pause ist oft das, nach dem Sie gesucht haben.",
 

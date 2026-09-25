@@ -1386,7 +1386,7 @@ export const rm: Dictionary = {
     grammarNotChecked: "La grammatica n’è betg vegnida controllada questa giada.",
     grammarMore: "Las emprimas {shown} da {total}.",
     grammarLimit: "Controllescha concordanza, cas e furmas verbalas. Betg tut vegn chattà — per exempel la posiziun dal verb suenter «weil».",
-    hesitationTitle: "Nua che Vus avais esità",
+    hesitationTitle: "Nua che Vus avais tschertgà in pled",
     hesitationBefore: "{s} s avant «{word}»",
     hesitationNote: "Il pled suenter ina lunga pausa è savens quel che Vus avais tschertgà.",
 

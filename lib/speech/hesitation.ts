@@ -34,22 +34,20 @@
  * Pure: no I/O, no model, same input -> same output.
  */
 
-import { MIN_PAUSE_MS } from "./pause.ts";
+import { SEARCH_PAUSE_MS, type PauseSpan } from "./pause.ts";
 import type { TimedWord } from "./fluency.ts";
 
 /**
- * A gap has to be well past an ordinary breath to be worth pointing at.
- *
- * A DECISION in §3's sense. `MIN_PAUSE_MS` is where a gap starts to count as a
- * pause at all; pointing at every one would list half the sentence. Three
- * times that is roughly where a listener notices the speaker searching.
+ * Long enough that the speaker was searching for a word. Defined in
+ * `pause.ts` beside "counts as a pause" and "stuck", because this and the
+ * "no long pauses" note once contradicted each other on the same screen.
  */
-export const NOTABLE_PAUSE_MS = MIN_PAUSE_MS * 3;
+export const NOTABLE_PAUSE_MS = SEARCH_PAUSE_MS;
 
 /** As many places as anybody reads after one take. */
 export const MAX_HESITATIONS = 3;
 
-export type PauseSpan = { startMs: number; endMs: number };
+export type { PauseSpan } from "./pause.ts";
 
 export type Hesitation = {
   /** The word being spoken when sound resumed — usually the one reached for. */

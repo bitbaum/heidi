@@ -1379,7 +1379,7 @@ export const ru: Dictionary = {
     grammarNotChecked: "В этот раз грамматика не проверялась.",
     grammarMore: "Первые {shown} из {total}.",
     grammarLimit: "Проверяются согласование, падежи и формы глагола. Находится не всё — например, порядок слов после «weil».",
-    hesitationTitle: "Где вы запнулись",
+    hesitationTitle: "Где вы искали слово",
     hesitationBefore: "{s} с перед «{word}»",
     hesitationNote: "Слово после долгой паузы — часто то, которое вы искали.",
 

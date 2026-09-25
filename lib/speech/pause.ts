@@ -28,3 +28,29 @@
  * than the argument.
  */
 export const MIN_PAUSE_MS = 250;
+
+/**
+ * THREE PAUSE LENGTHS, ONE FILE, because two of them once met on the same
+ * screen and contradicted each other.
+ *
+ * A real take showed "Längste Pause 1.8 s", then "Keine langen Pausen — Sie
+ * sind durchgekommen, ohne stecken zu bleiben", then a new panel pointing at
+ * that same 1.8 s. Each line was right by its own threshold, and the page read
+ * as if it could not decide. The fix was not to pick one number: the three are
+ * genuinely different things, and the page now names them differently.
+ *
+ *   MIN_PAUSE_MS        a gap that COUNTS as a pause at all (above)
+ *   SEARCH_PAUSE_MS     long enough that the speaker was SEARCHING for a word —
+ *                       worth naming the word that came next
+ *   STUCK_PAUSE_MS      long enough that the speaker was STUCK — a stall by any
+ *                       reading, in any language
+ *
+ * Both are DECISIONS in §3's sense. Search is three times the pause floor,
+ * roughly where a listener notices the speaker looking for something; stuck is
+ * the length at which a conversation partner starts to help.
+ */
+export const SEARCH_PAUSE_MS = MIN_PAUSE_MS * 3;
+export const STUCK_PAUSE_MS = 3_000;
+
+/** Where one pause was, in ms from the start of the recording. */
+export type PauseSpan = { startMs: number; endMs: number };

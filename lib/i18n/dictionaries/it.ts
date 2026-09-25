@@ -1370,7 +1370,7 @@ export const it: Dictionary = {
     grammarNotChecked: "Questa volta la grammatica non è stata controllata.",
     grammarMore: "Le prime {shown} di {total}.",
     grammarLimit: "Controlla accordi, casi e forme verbali. Non trova tutto — ad esempio la posizione del verbo dopo «weil».",
-    hesitationTitle: "Dove ha esitato",
+    hesitationTitle: "Dove ha cercato una parola",
     hesitationBefore: "{s} s prima di «{word}»",
     hesitationNote: "La parola dopo una lunga pausa è spesso quella che stava cercando.",
 

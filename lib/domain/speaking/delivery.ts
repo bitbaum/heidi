@@ -50,7 +50,7 @@ const FRAME_MS = 20;
  * quietly disagreeing. See `lib/speech/pause.ts` for the phonetic reason the
  * number is 250.
  */
-import { MIN_PAUSE_MS } from "../../speech/pause.ts";
+import { MIN_PAUSE_MS, type PauseSpan } from "../../speech/pause.ts";
 
 /** A blip shorter than this is a click or a breath, not a run of speech. */
 const MIN_RUN_MS = 120;
@@ -128,7 +128,7 @@ export type Delivery = {
   pauseSpans?: PauseSpan[];
 };
 
-export type PauseSpan = { startMs: number; endMs: number };
+export type { PauseSpan };
 
 /** Frame RMS in dBFS, floored so silence is a number rather than -Infinity. */
 function frameDb(samples: Float32Array, from: number, to: number): number {
