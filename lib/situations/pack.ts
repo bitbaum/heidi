@@ -145,6 +145,15 @@ export type Situation = {
    * ORDER IS CONTENT HERE. A handover starts with who slept and ends with what
    * you are being asked to do; sorting these alphabetically would throw away
    * the only structure a scene has.
+   *
+   * GROW A SCENE BY APPENDING, NEVER BY INSERTING. A line's position is its
+   * identity to the learner model: practice ids and per-line strength are
+   * keyed `scene:index` (`lineKey` in `lib/domain/practice/model.ts`), and
+   * that record lives in the learner's browser where no migration reaches.
+   * A line inserted in the middle would silently hand every later line's
+   * progress to its neighbour. So a deepened scene gets a second beat after
+   * the first — the till after the shelf, the handover's afterthoughts —
+   * rather than lines threaded between the old ones.
    */
   phrases: readonly Phrase[];
 };

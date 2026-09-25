@@ -1582,6 +1582,26 @@ export const it: Dictionary = {
         title: "Le visite",
         scene: "All'improvviso l'istituto siete voi. La figlia che arriva una domenica pomeriggio giudica la casa da questo: se chi era alla porta è riuscito a seguirla.",
       },
+      doctor: {
+        title: "Dal medico",
+        scene: "Il telefono le ha procurato un appuntamento; ora vengono la reception, la sala d'attesa e l'ambulatorio. Alla reception si chiede in fretta, in ambulatorio con precisione — e in entrambi i casi conta aver capito la domanda prima di rispondere.",
+      },
+      municipality: {
+        title: "In Comune",
+        scene: "Chi si trasferisce a Zurigo deve notificarsi — di solito nelle prime settimane, e di solito prima di riuscire a seguire una frase. Le domande sono sempre le stesse, e la persona dietro il vetro le pone cento volte al giorno, a quella velocità.",
+      },
+      "laundry-room": {
+        title: "In lavanderia",
+        scene: "Il piano appeso al muro è una legge che nessuno spiega. Chi non pulisce il filtro o lava nel giorno sbagliato lo verrà a sapere — raramente in faccia, di solito con un biglietto.",
+      },
+      apero: {
+        title: "All'aperitivo",
+        scene: "Un bicchiere in mano, nessuno è obbligato a restare, tutti parlano dialetto. È qui che nasce una conoscenza zurighese — e «Mer sött emal öppis zäme mache» è detto con calore, ma non è un invito.",
+      },
+      "indirect-no": {
+        title: "Quando no non suona come no",
+        scene: "A Zurigo si rifiuta di rado in modo diretto. «Das isch ächli schwierig» o «Mer chönnt sich das überlegge» spesso è già la risposta, confezionata con cortesia — chi la prende alla lettera aspetta qualcosa che è già stato detto.",
+      },
     },
   },
 

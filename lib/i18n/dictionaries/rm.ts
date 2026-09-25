@@ -1598,6 +1598,26 @@ export const rm: Dictionary = {
         title: "Visitas",
         scene: "D'in mument a l'auter essas vus l'instituziun. La figlia ch'arriva ina dumengia suentermezdi giuditgescha la chasa tenor quai: ha la persuna a la porta pudì la suandar.",
       },
+      doctor: {
+        title: "Tar il medi",
+        scene: "Il telefon As ha procurà in termin; ussa vegnan la recepziun, la stanza da spetgar e la stanza da consultaziun. A la recepziun dumondan ins spert, tar il medi exact — ed en omadus cas quinta che Vus hajas chapì la dumonda avant che respunder.",
+      },
+      municipality: {
+        title: "Sin la vischnanca",
+        scene: "Tgi che sa translocha a Turitg sto s'annunziar — per ordinari las emprimas emnas, e per ordinari avant ch'el po suandar ina frasa. Las dumondas èn mintga giada las medemas, e la persuna davos il vaider las fa tschient giadas al di, cun quella sveltezza.",
+      },
+      "laundry-room": {
+        title: "En la lavanderia",
+        scene: "Il plan a la paraid è ina lescha che nagin n'explitgescha. Tgi che na nettegia betg il filter u lava il fals di vegn a savair — darar en fatscha, per il solit sin in cedel.",
+      },
+      apero: {
+        title: "A l'aperitiv",
+        scene: "In magiel en maun, nagin na sto restar, tuts discurran dialect. Qua cumenza ina enconuschientscha turitgaisa — e «Mer sött emal öppis zäme mache» è ditg cordialmain, ma i n'è nagina invitaziun.",
+      },
+      "indirect-no": {
+        title: "Cura che na na tuna betg sco na",
+        scene: "A Turitg refusan ins darar directamain. «Das isch ächli schwierig» u «Mer chönnt sich das überlegge» è savens gia la resposta, pachetada cun curtaschia — tgi che la prenda a la lettra spetga insatge ch'è gia vegnì ditg.",
+      },
     },
   },
 

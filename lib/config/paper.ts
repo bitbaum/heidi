@@ -78,7 +78,7 @@ const EN: Paper = {
       title: "One field, and a real message in it",
       body: [
         "Paste something a Zurich speaker actually sent you. Heidi explains it — what was said, which words did the work, and why the sentence is shaped the way it is. Then it offers the words worth keeping, and brings them back later on a schedule built from the spacing research rather than from a marketing calendar.",
-        "Around that sit the things a learner needs next: a grammar section of eleven topics, eighty-three words chosen because they block sentences rather than because they are common, fourteen scenes of what is actually said during a working shift, and five hundred and fifty-three practice questions generated from that same checked material.",
+        "Around that sit the things a learner needs next: a grammar section of twelve topics, a hundred and sixty-four words chosen because they block sentences rather than because they are common, nineteen scenes of what is actually said — at the Gemeinde, in the laundry room, at the doctor's and during a working shift — and 1,233 practice questions generated from that same checked material.",
         "Nothing in the product invents language. Every question, every example and every gloss is assembled from material the variety pack already vouches for, which is the constraint that makes the rest of this document possible.",
       ],
       check: [
@@ -110,7 +110,7 @@ const EN: Paper = {
         "That is what makes the product reviewable by the people qualified to review it. A native speaker can read the whole of what Heidi asserts about Zurich German in an afternoon and mark what is wrong, without reading a line of code. A linguist can check a rule against an atlas. Neither has to take our word for anything.",
         "It is also what makes a second dialect a pack rather than a rewrite. The proof that the seam is real is that a Ukrainian pack sits in the same repository and nothing about it is Swiss.",
       ],
-      check: [{ label: "The eleven grammar topics", segment: "grammar" }],
+      check: [{ label: "The twelve grammar topics", segment: "grammar" }],
     },
     {
       id: "gate",
@@ -181,7 +181,7 @@ const DE: Paper = {
       title: "Ein Feld, und eine echte Nachricht darin",
       body: [
         "Fügen Sie ein, was Ihnen jemand aus Zürich wirklich geschrieben hat. Heidi erklärt es — was gesagt wurde, welche Wörter die Arbeit tun und warum der Satz so gebaut ist. Danach bietet sie die Wörter an, die zu behalten sich lohnt, und bringt sie später zurück, nach einem Plan aus der Forschung zum verteilten Lernen und nicht aus einem Marketingkalender.",
-        "Darum herum steht, was eine Lernende als Nächstes braucht: elf Grammatikthemen, dreiundachtzig Wörter — ausgewählt, weil sie Sätze blockieren, nicht weil sie häufig sind —, vierzehn Szenen aus einer echten Schicht und 553 Übungsfragen, erzeugt aus genau diesem geprüften Material.",
+        "Darum herum steht, was eine Lernende als Nächstes braucht: zwölf Grammatikthemen, hundertvierundsechzig Wörter — ausgewählt, weil sie Sätze blockieren, nicht weil sie häufig sind —, neunzehn Szenen aus dem Alltag und aus einer echten Schicht und 1233 Übungsfragen, erzeugt aus genau diesem geprüften Material.",
         "Nichts in diesem Produkt erfindet Sprache. Jede Frage, jedes Beispiel und jede Bedeutung wird aus Material zusammengesetzt, für das das Varietäten-Pack bereits geradesteht. Diese Einschränkung ist es, die den Rest dieses Dokuments überhaupt möglich macht.",
       ],
       check: [
@@ -213,7 +213,7 @@ const DE: Paper = {
         "Genau das macht das Produkt für die Leute prüfbar, die es prüfen können. Eine Muttersprachlerin liest an einem Nachmittag alles, was Heidi über Zürichdeutsch behauptet, und streicht an, was nicht stimmt — ohne eine Zeile Code zu lesen. Eine Linguistin hält eine Regel gegen einen Atlas. Keine von beiden muss uns etwas glauben.",
         "Und es macht eine zweite Mundart zu einem Pack statt zu einem Umbau. Der Beweis, dass die Naht echt ist: Im selben Repository liegt ein ukrainisches Pack, und nichts daran ist schweizerisch.",
       ],
-      check: [{ label: "Die elf Grammatikthemen", segment: "grammar" }],
+      check: [{ label: "Die zwölf Grammatikthemen", segment: "grammar" }],
     },
     {
       id: "gate",

@@ -1758,6 +1758,26 @@ export const de = {
         title: "Besuch",
         scene: "Plötzlich sind Sie das Haus. Die Tochter am Sonntagnachmittag beurteilt den Betrieb danach, ob die Person an der Tür ihr folgen konnte.",
       },
+      doctor: {
+        title: "In der Arztpraxis",
+        scene: "Das Telefon hat Ihnen einen Termin verschafft; jetzt kommen Empfang, Wartezimmer und Sprechzimmer. Am Empfang wird schnell gefragt, im Sprechzimmer genau — und bei beidem zählt, dass Sie die Frage verstanden haben, bevor Sie antworten.",
+      },
+      municipality: {
+        title: "Auf der Gemeinde",
+        scene: "Wer nach Zürich zieht, meldet sich an — meist in den ersten Wochen und meist, bevor er einem Satz folgen kann. Die Fragen sind jedes Mal dieselben, und die Person hinter dem Glas stellt sie hundertmal am Tag, entsprechend schnell.",
+      },
+      "laundry-room": {
+        title: "In der Waschküche",
+        scene: "Der Plan an der Wand ist ein Gesetz, das niemand erklärt. Wer das Sieb nicht putzt oder am falschen Tag wäscht, hört davon — selten direkt, meistens auf einem Zettel.",
+      },
+      apero: {
+        title: "Am Apéro",
+        scene: "Ein Glas in der Hand, niemand muss bleiben, alle reden Mundart. Hier beginnt eine Zürcher Bekanntschaft — und «Mer sött emal öppis zäme mache» ist herzlich gemeint, aber keine Einladung.",
+      },
+      "indirect-no": {
+        title: "Wenn Nein nicht Nein heisst",
+        scene: "In Zürich wird selten direkt abgelehnt. «Das isch ächli schwierig» oder «Mer chönnt sich das überlegge» ist oft schon die Antwort, höflich verpackt — wer es wörtlich nimmt, wartet auf etwas, das längst gesagt wurde.",
+      },
     },
   },
 

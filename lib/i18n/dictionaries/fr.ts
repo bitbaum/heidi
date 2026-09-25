@@ -1582,6 +1582,26 @@ export const fr: Dictionary = {
         title: "Les visites",
         scene: "D'un coup, c'est vous l'établissement. La fille qui arrive un dimanche après-midi juge la maison à ceci : la personne à la porte a-t-elle pu la suivre.",
       },
+      doctor: {
+        title: "Chez le médecin",
+        scene: "Le téléphone vous a obtenu un rendez-vous ; viennent maintenant l'accueil, la salle d'attente et le cabinet. À l'accueil on demande vite, au cabinet on demande précisément — et dans les deux cas, l'important est d'avoir compris la question avant d'y répondre.",
+      },
+      municipality: {
+        title: "À la commune",
+        scene: "Quiconque s'installe à Zurich doit s'annoncer — en général dans les premières semaines, et en général avant de pouvoir suivre une phrase. Les questions sont toujours les mêmes, et la personne derrière la vitre les pose cent fois par jour, à cette vitesse.",
+      },
+      "laundry-room": {
+        title: "À la buanderie",
+        scene: "Le planning au mur est une loi que personne n'explique. Qui oublie de nettoyer le filtre ou lave le mauvais jour en entendra parler — rarement en face, le plus souvent par un petit mot.",
+      },
+      apero: {
+        title: "À l'apéro",
+        scene: "Un verre à la main, personne n'est obligé de rester, tout le monde parle dialecte. C'est ici que commence une connaissance zurichoise — et «Mer sött emal öppis zäme mache» est dit chaleureusement, mais ce n'est pas une invitation.",
+      },
+      "indirect-no": {
+        title: "Quand non ne sonne pas comme non",
+        scene: "À Zurich, on refuse rarement de front. «Das isch ächli schwierig» ou «Mer chönnt sich das überlegge» est souvent déjà la réponse, emballée poliment — qui le prend au pied de la lettre attend quelque chose qui a déjà été dit.",
+      },
     },
   },
 
