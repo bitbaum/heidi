@@ -16,7 +16,7 @@
  *
  * So the rule this module enforces, and the reason it is code rather than a
  * comment: A BROWSER VOICE IS NEVER DIALECT. Not "probably not" — never. No
- * platform ships a Züritüütsch voice; `de-CH` on macOS, Windows and Android is
+ * platform ships a Züridütsch voice; `de-CH` on macOS, Windows and Android is
  * Standard German. Dialect can only come from a source that was verified to be
  * dialect, which today is a recorded human being and nothing else.
  *
@@ -140,7 +140,7 @@ export function claimFor(voice: VoiceLike | null): VoiceClaim {
  * Zurich German is requested as `de-CH` and not as `gsw`, and that is a
  * deliberate, slightly uncomfortable choice. `gsw` is the correct ISO code for
  * Swiss German and no synthesiser implements it; asking for it gets silence or
- * an English fallback reading Züritüütsch as though it were English, which is
+ * an English fallback reading Züridütsch as though it were English, which is
  * the worst outcome available. `de-CH` gets the closest real thing, and
  * `claimFor` makes sure the learner is told what that closest real thing is.
  */

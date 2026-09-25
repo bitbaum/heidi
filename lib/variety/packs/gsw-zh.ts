@@ -15,7 +15,7 @@ import type { VarietyPack } from "../pack.ts";
 export const ZURICH_GERMAN: VarietyPack = {
   tag: "gsw-u-sd-chzh",
   name: "Zurich German",
-  endonym: "Züritüütsch",
+  endonym: "Züridütsch",
   region: "Canton of Zürich, Switzerland",
 
   family: {
@@ -82,9 +82,9 @@ export const ZURICH_GERMAN: VarietyPack = {
     ],
     areas: [
       {
-        id: "zueritueuetsch",
+        id: "zueriduetsch",
         group: "high",
-        endonym: "Züritüütsch",
+        endonym: "Züridütsch",
         cantons: ["ZH"],
         town: "Zürich",
         place: { lon: 8.5417, lat: 47.3769 },
@@ -1087,11 +1087,19 @@ export const ZURICH_GERMAN: VarietyPack = {
 
   rules: [
     {
-      match: /(?<!\p{L})tüü?tsch(?!\p{L})/giu,
-      display: "tüütsch / tütsch",
+      // Zurich keeps the d: Dütsch, Züridütsch, Hochdütsch, Schwiizerdütsch.
+      // The t-onset is the east's (and the name other regions give their own
+      // dialect — Glarnertüütsch, Ostschwiizertütsch — which is why only the
+      // bare word and the Zurich/generic compounds are matched, not every
+      // word ending in -tüütsch). This rule once exempted «Züritüütsch»; that
+      // exemption contradicted its own premise and let the product misname
+      // the variety it teaches ninety times.
+      match: /(?<!\p{L})(?:züri|hoch|schwiizer|schwizer)?t(?:üü|ü|u)tsch\p{L}*/giu,
+      display: "(Züri-/Hoch-)tüütsch",
       severity: "foreign",
       origin: "Ostschweiz",
-      reason: "Ostschweiz form — Zurich says it only inside Züritüütsch",
+      reason: "Ostschweiz t-onset — Zurich says Dütsch, Züridütsch, Hochdütsch",
+      suggest: "Dütsch",
     },
     // `nid` is Bern and central Switzerland; the east says `nöd` like Zurich
     // (Appenzell `nüd`), Basel and Valais `nit`. It was labelled Ostschweiz
@@ -1116,6 +1124,17 @@ export const ZURICH_GERMAN: VarietyPack = {
     { match: "Miuch", severity: "foreign", origin: "Bern", reason: "Bernese l-vocalisation — Zurich says Milch", suggest: "Milch" },
     { match: "Kuchi", severity: "foreign", origin: "Basel", reason: "Basel keeps the k — Zurich says Chuchi", suggest: "Chuchi" },
     { match: "Drämmli", severity: "foreign", origin: "Basel", reason: "Basel's word for the tram — Zurich says Tram", suggest: "Tram" },
+    // More of the forms every description of Bernese and Basel German names
+    // first — each one a word a Zurich speaker does not say, so the gate
+    // catches it in generated text and the dialect pages can show it.
+    { match: "ig", severity: "foreign", origin: "Bern", reason: "Bernese 'ig' (I) — Zurich says ich", suggest: "ich" },
+    { match: "wosch", severity: "foreign", origin: "Bern", reason: "Bernese 'wosch' (you want) — Zurich says wotsch", suggest: "wotsch" },
+    { match: "het", severity: "foreign", origin: "Bern", reason: "Bernese 'het' (has) — Zurich says hät", suggest: "hät" },
+    { match: "Grüessech", severity: "foreign", origin: "Bern", reason: "Bernese formal greeting — Zurich says Grüezi", suggest: "Grüezi" },
+    { match: "vilmau", severity: "foreign", origin: "Bern", reason: "Bernese l-vocalisation — Zurich says vilmal", suggest: "vilmal" },
+    { match: "goht", severity: "foreign", origin: "Basel", reason: "Basel 'goht' (goes) — Zurich says gaht", suggest: "gaht" },
+    { match: "stoht", severity: "foreign", origin: "Basel", reason: "Basel 'stoht' (stands) — Zurich says staht", suggest: "staht" },
+    { match: "nit", severity: "foreign", origin: "Basel", reason: "Basel 'nit' (not) — Zurich says nöd", suggest: "nöd" },
     {
       match: /ß/gu,
       display: "ß",

@@ -86,7 +86,7 @@ test("no locale left a German string in place of a translation", () => {
     if (locale === "de") continue;
     const dict = getDictionary(locale);
     assert.notEqual(dict.home.headline, de.home.headline, `${locale} headline is untranslated`);
-    // nav.method is exempt: "Methode" is genuinely the word in Züritüütsch as
+    // nav.method is exempt: "Methode" is genuinely the word in Züridütsch as
     // well as in German. A translation test that forbids agreement would be
     // demanding difference for its own sake.
     if (locale !== "gsw") {

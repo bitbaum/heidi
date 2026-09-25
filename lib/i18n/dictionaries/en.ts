@@ -425,7 +425,7 @@ export const en: Dictionary = {
     heidiTitle: "What this means for Heidi",
     heidiBody: [
       "Dictation does not write dialect down. It writes what you want to say, in the language you already have — which is exactly what the research can do.",
-      "Heidi reads aloud, but never claims to be speaking dialect. A synthesiser asked for Zurich German returns Swiss Standard German at best — so the voice says which it is, and stays silent rather than hand you an English voice reading Züritüütsch.",
+      "Heidi reads aloud, but never claims to be speaking dialect. A synthesiser asked for Zurich German returns Swiss Standard German at best — so the voice says which it is, and stays silent rather than hand you an English voice reading Züridütsch.",
       "The dialect check runs without a model. It is a fixed list of rules, not a language model, which is why it cannot start inventing things.",
     ],
     engineTitle: "Which model answers you",

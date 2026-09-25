@@ -153,7 +153,7 @@ test("the Zurich features are here, because that was the scarce thing", () => {
   // Recorded as a property rather than a comment: the register's own finding
   // was that Zurich material is scarce, and the fix was to go and find some.
   const zurichFeatures = LISTENING_SOURCES.filter(
-    (s) => (s.medium === "film" || s.medium === "series") && s.area === "zueritueuetsch",
+    (s) => (s.medium === "film" || s.medium === "series") && s.area === "zueriduetsch",
   );
   assert.ok(zurichFeatures.length >= 3, `only ${zurichFeatures.length} Zurich features in the register`);
 });

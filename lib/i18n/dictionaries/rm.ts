@@ -441,7 +441,7 @@ export const rm: Dictionary = {
     heidiTitle: "Tge che quai munta per Heidi",
     heidiBody: [
       "Il dictar na scriva betg il dialect. El scriva quai che Vus vulais dir, en la lingua che Vus avais gia — precis quai che la perscrutaziun sa far.",
-      "Heidi legia ad aut, ma na pretenda mai da discurrer il dialect. In sintetisader dumandà per turitgais dat al pli tudestg standard svizzer — uschè di la vusch tge ch'ella è, e tascha plitost che dar a Vus ina vusch englaisa che legia Züritüütsch.",
+      "Heidi legia ad aut, ma na pretenda mai da discurrer il dialect. In sintetisader dumandà per turitgais dat al pli tudestg standard svizzer — uschè di la vusch tge ch'ella è, e tascha plitost che dar a Vus ina vusch englaisa che legia Züridütsch.",
       "La controlla dal dialect funcziuna senza model. Ella è ina glista fixa da reglas, betg in model da lingua — perquai na po ella betg cumenzar ad inventar.",
     ],
     engineTitle: "Tge model che Vus respunda",

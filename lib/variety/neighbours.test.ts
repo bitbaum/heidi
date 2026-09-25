@@ -19,7 +19,7 @@ describe("where an area sits among the others", () => {
   };
 
   test("distance matches the map", () => {
-    const zurich = find("zueritueuetsch");
+    const zurich = find("zueriduetsch");
     const bern = find("baerndueuetsch");
     const basel = find("baseldytsch");
 
@@ -36,7 +36,7 @@ describe("where an area sits among the others", () => {
   });
 
   test("distance is symmetric and zero to itself", () => {
-    const a = find("zueritueuetsch");
+    const a = find("zueriduetsch");
     const b = find("wallisertitsch");
     assert.equal(distanceKm(a.place, b.place), distanceKm(b.place, a.place));
     assert.equal(distanceKm(a.place, a.place), 0);

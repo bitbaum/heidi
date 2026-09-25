@@ -7,7 +7,7 @@ import { ZURICH_GERMAN } from "../variety/packs/gsw-zh.ts";
 
 /**
  * The site now speaks the language it teaches — which means our own copy is
- * subject to our own rule. If Heidi's Züritüütsch cannot pass Heidi's dialect
+ * subject to our own rule. If Heidi's Züridütsch cannot pass Heidi's dialect
  * gate, then either the gate is wrong or the copy is, and either way we would
  * rather find out here than have a Zurich reader find it on the home page.
  */
@@ -55,7 +55,7 @@ test("Swiss German is offered, and is NOT claimed to be a national language", ()
 
   // Named with the FAMILY endonym, not the Zurich one. The locale code is gsw
   // (Swiss German) and every other surface says Swiss German; labelling the
-  // site language "Züritüütsch" claimed something narrower than the product.
+  // site language "Züridütsch" claimed something narrower than the product.
   assert.equal(LOCALE_NAMES.gsw, "Schwiizerdütsch");
 });
 
@@ -85,5 +85,5 @@ test("the assistant answers Swiss German readers in Swiss German", () => {
   // The explanation language is named so a model recognises it, and whatever
   // comes back faces the same gate as any other generated line.
   const dict = getDictionary("gsw");
-  assert.match(dict.chat.explanationsIn, /Züritüütsch/);
+  assert.match(dict.chat.explanationsIn, /Züridütsch/);
 });

@@ -7,7 +7,7 @@
  *   VARIETY  what you are learning — Zurich German. One per deployment.
  *   locale   what Heidi speaks to YOU while you learn it. Five.
  *
- * A French speaker in Zürich is learning exactly the same Züritüütsch as a
+ * A French speaker in Zürich is learning exactly the same Züridütsch as a
  * German one; only the scaffolding language differs. Conflating the two would
  * mean a Lesya deployment had to re-translate the site as well as swap the
  * pack, which is precisely the coupling the pack exists to prevent.
@@ -80,7 +80,7 @@ export const EXPLANATION_LANGUAGE: Record<Locale, string> = {
   // The site can speak what it teaches. The model writes this variety all
   // day; here it writes the explanations in it too — and the deterministic
   // gate checks those exactly like any other generated line.
-  gsw: "Zurich German (Züritüütsch)",
+  gsw: "Zurich German (Züridütsch)",
   fr: "French",
   it: "Italian",
   rm: "German",

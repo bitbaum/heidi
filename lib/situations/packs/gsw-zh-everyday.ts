@@ -286,7 +286,7 @@ export const EVERYDAY: SituationPack = {
         { target: "Schöne Aabig no.", bridge: "Noch einen schönen Abend.", direction: "hear", source: "idiotikon" },
         { target: "Wo chunnsch ursprünglich här?", bridge: "Woher kommst du ursprünglich?", direction: "hear", grammar: "question-words", source: "idiotikon" },
         { target: "Wie lang bisch scho z Züri?", bridge: "Wie lange bist du schon in Zürich?", direction: "hear", grammar: "question-words", source: "idiotikon" },
-        { target: "Verstahsch scho ächli Züritüütsch?", bridge: "Verstehst du schon ein bisschen Zürichdeutsch?", direction: "hear", source: "idiotikon" },
+        { target: "Verstahsch scho ächli Züridütsch?", bridge: "Verstehst du schon ein bisschen Zürichdeutsch?", direction: "hear", source: "idiotikon" },
         { target: "Mir sind am Sunntig go wandere.", bridge: "Wir sind am Sonntag wandern gegangen.", direction: "hear", grammar: "go-cho-infinitive", source: "idiotikon" },
         { target: "Hüt isch es mega heiss.", bridge: "Heute ist es sehr heiss.", direction: "hear", source: "idiotikon" },
         { target: "Häsch de Match geschter gseh?", bridge: "Hast du den Match gestern gesehen?", direction: "hear", grammar: "no-preterite", source: "idiotikon" },

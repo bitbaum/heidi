@@ -89,7 +89,7 @@ export const SECTORS: readonly Sector[] = [
     id: "care",
     name: { de: "Alters- und Pflegeheime", en: "Care and nursing homes" },
     moment: {
-      de: "Eine Bewohnerin mit Demenz verliert ihre Zweitsprachen zuerst. Am Ende bleibt das Züritüütsch ihrer Kindheit. Die Pflegefachfrau im Spätdienst ist vor zwei Jahren aus Lissabon gekommen und hat Hochdeutsch gelernt — nicht dieses.",
+      de: "Eine Bewohnerin mit Demenz verliert ihre Zweitsprachen zuerst. Am Ende bleibt das Züridütsch ihrer Kindheit. Die Pflegefachfrau im Spätdienst ist vor zwei Jahren aus Lissabon gekommen und hat Hochdeutsch gelernt — nicht dieses.",
       en: "A resident with dementia loses her second languages first. What is left is the Zurich German of her childhood. The carer on the late shift arrived from Lisbon two years ago and learned Standard German — not that.",
     },
     stake: {

@@ -425,7 +425,7 @@ export const it: Dictionary = {
     heidiTitle: "Che cosa significa per Heidi",
     heidiBody: [
       "La dettatura non scrive il dialetto. Scrive ciò che lei vuole dire, nella lingua che già possiede — esattamente ciò che la ricerca sa fare.",
-      "Heidi legge ad alta voce, ma non pretende mai di parlare il dialetto. Un sintetizzatore a cui si chiede lo zurighese restituisce al massimo tedesco standard svizzero: la voce dice quindi che cosa è, e tace piuttosto che darle una voce inglese che legge il Züritüütsch.",
+      "Heidi legge ad alta voce, ma non pretende mai di parlare il dialetto. Un sintetizzatore a cui si chiede lo zurighese restituisce al massimo tedesco standard svizzero: la voce dice quindi che cosa è, e tace piuttosto che darle una voce inglese che legge il Züridütsch.",
       "Il controllo del dialetto funziona senza modello. È un elenco fisso di regole, non un modello linguistico — per questo non può mettersi a inventare.",
     ],
     engineTitle: "Quale modello le risponde",

@@ -50,7 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
    * around them lives in the dictionaries, which are typed against German so
    * a missing one is a build error rather than a fallback.
    *
-   * Worth crawling on their own rather than only through the index: "Züritüütsch
+   * Worth crawling on their own rather than only through the index: "Züridütsch
    * Übergabe" and "Schweizerdeutsch Pflege" are searches somebody makes the
    * evening before a shift, and the page that answers them is the scene, not a
    * list of six links to scenes.

@@ -42,7 +42,7 @@ export type SpokenVarietyId = "target" | "bridge";
 export type SpokenVariety = {
   id: SpokenVarietyId;
   /**
-   * What speakers call it — `Züritüütsch`, `Swiss Standard German`.
+   * What speakers call it — `Züridütsch`, `Swiss Standard German`.
    *
    * A NAME, so it survives the projection into `DISPLAY` and reads correctly
    * in every locale, for the reason `display.ts` gives at length: a name is
