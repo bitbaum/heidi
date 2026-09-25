@@ -6,10 +6,8 @@ import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { fill } from "@/lib/i18n/fill";
 import { DISPLAY } from "@/lib/variety/display";
-import { useBrowserStore } from "@/lib/browser/store";
-import { EMPTY_MODEL } from "@/lib/domain/practice/model";
 import { masteredCount, masteredIn } from "@/lib/domain/practice/mastered";
-import { modelStore } from "./practice-stores";
+import { useModelView } from "./sync-stores";
 
 /**
  * What you can do now that you could not before.
@@ -51,7 +49,7 @@ export function MasteredPanel({
   vocabularyT: Dictionary["vocabulary"];
   locale: Locale;
 }) {
-  const model = useBrowserStore(modelStore) ?? EMPTY_MODEL;
+  const model = useModelView();
   const mastered = masteredIn(model);
   const total = masteredCount(mastered);
 

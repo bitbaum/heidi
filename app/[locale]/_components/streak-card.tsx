@@ -6,9 +6,10 @@ import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { plural } from "@/lib/i18n/plural";
 import { fill } from "@/lib/i18n/fill";
-import { useBrowserStore, useStorageReady } from "@/lib/browser/store";
-import { EMPTY_STREAK, localDay, view } from "@/lib/domain/progress/streak";
-import { setWeekGoal, streakStore } from "./streak-store";
+import { useStorageReady } from "@/lib/browser/store";
+import { localDay, view } from "@/lib/domain/progress/streak";
+import { setWeekGoal } from "./streak-store";
+import { useStreakView } from "./sync-stores";
 
 /**
  * The streak, shown as what the learner has built.
@@ -31,7 +32,7 @@ export function StreakCard({
   locale: Locale;
   compact?: boolean;
 }) {
-  const stored = useBrowserStore(streakStore) ?? EMPTY_STREAK;
+  const stored = useStreakView();
   const ready = useStorageReady();
   if (!ready) return compact ? null : <div className="min-h-24" aria-hidden="true" />;
 

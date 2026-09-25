@@ -155,3 +155,9 @@ export function tooMany(result: LimitResult): Response {
  */
 export const feedbackRead = slidingWindow({ limit: 120, windowMs: 60_000 });
 export const feedbackWrite = slidingWindow({ limit: 20, windowMs: 10 * 60_000 });
+
+/**
+ * Progress sync. A device pushes a few seconds after practice and pulls every
+ * few minutes; this is room for several devices at once and nothing more.
+ */
+export const progressSync = slidingWindow({ limit: 60, windowMs: 5 * 60_000 });

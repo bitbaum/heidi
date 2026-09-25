@@ -7,6 +7,7 @@ import { href } from "@/lib/i18n/routes";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
 import { SignOutButton } from "../_components/account-control";
 import { DataSection } from "./data-section";
+import { SyncSection } from "./sync-section";
 import { ModelSection } from "./model-section";
 import { VoiceSection } from "./voice-section";
 import { ThemeControl } from "../_components/theme-control";
@@ -151,6 +152,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
             </form>
           )}
         </div>
+        {authEnabled && <SyncSection t={dict.sync} signedIn={Boolean(session?.actorId)} />}
       </Section>
 
       <Section id="data" title={sections.data}>

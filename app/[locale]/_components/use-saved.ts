@@ -14,7 +14,8 @@ import { EMPTY, type SavedWord } from "@/lib/domain/saved/types";
  * that the seam was cut in the right place.
  */
 
-const store = createBrowserStore("heidi.saved.v1", decode);
+export const savedStore = createBrowserStore("heidi.saved.v1", decode);
+const store = savedStore;
 
 export function useSaved() {
   const collection = useBrowserStore(store) ?? EMPTY;

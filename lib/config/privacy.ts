@@ -161,6 +161,41 @@ export const FLOWS: readonly Flow[] = [
     recipients: [],
   },
   {
+    // Off unless the learner turns sync on, signed in (settings).
+    id: "syncSetting",
+    place: "device",
+    where: "localStorage · heidi.sync.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
+  {
+    // A cache of the learner's OTHER devices' records, only while sync is on.
+    id: "syncOthers",
+    place: "device",
+    where: "localStorage · heidi.sync.others.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
+  {
+    // Only when switched on: this device's practice record, seen questions,
+    // streak and saved words, under the account. Off deletes this device's
+    // copy; "delete everything synced" deletes all of it.
+    id: "progressSync",
+    place: "server",
+    where: "progress_devices",
+    leavesDevice: true,
+    recipients: [],
+  },
+  {
+    // Issued on request from synced progress: the situation, when, and what was
+    // measured. No name — the certificate's page is public.
+    id: "certificates",
+    place: "server",
+    where: "certificates",
+    leavesDevice: true,
+    recipients: [],
+  },
+  {
     id: "ownKey",
     place: "device",
     where: "localStorage · heidi.byok.v1",

@@ -6,6 +6,8 @@ import { decodeTakes } from "../domain/speaking/take.ts";
 import { decode as decodeSaved } from "../domain/saved/collection.ts";
 import { add } from "../domain/saved/collection.ts";
 import { EMPTY as EMPTY_SAVED } from "../domain/saved/types.ts";
+import { decodeStreak, touch, EMPTY_STREAK } from "../domain/progress/streak.ts";
+import { decodeOthers, decodeSyncSetting } from "../domain/progress/sync.ts";
 
 /**
  * Every browser store round-trips. All of them, in one place.
@@ -66,12 +68,39 @@ describe("every decoder can read what its store writes", () => {
     assert.deepEqual(decodeTakes(JSON.stringify([])), []);
   });
 
+  test("the streak", () => {
+    const value = touch(EMPTY_STREAK, "2026-09-25");
+    assert.deepEqual(decodeStreak(JSON.stringify(value)), value);
+  });
+
+  test("the sync switch", () => {
+    const value = { on: true, device: "0f5c6d2e-1a2b-4c3d-8e9f-001122334455", savedChangedAt: "2026-09-25T10:00:00.000Z" };
+    assert.deepEqual(decodeSyncSetting(JSON.stringify(value)), value);
+  });
+
+  test("the other devices' records", () => {
+    const model = observe(EMPTY_MODEL, {
+      id: "i",
+      kind: "cloze",
+      marking: "self",
+      prompt: "p",
+      answer: "a",
+      bridge: "b",
+      source: { kind: "situation", scene: "restaurant", line: 0 },
+    } as never, "right");
+    const value = { model: [model], history: [["a"]], streak: [touch(EMPTY_STREAK, "2026-09-25")] };
+    const decoders = { model: decodeModel, history: decodeHistory, streak: decodeStreak };
+    assert.deepEqual(decodeOthers(JSON.stringify(value), decoders), value);
+  });
+
   test("garbage in storage is absent, never a crash", () => {
     for (const raw of ["", "nonsense", "null", "[1,2,3]", "{"]) {
       assert.doesNotThrow(() => decodeHistory(raw));
       assert.doesNotThrow(() => decodeModel(raw));
       assert.doesNotThrow(() => decodeTakes(raw));
       assert.doesNotThrow(() => decodeSaved(raw));
+      assert.doesNotThrow(() => decodeSyncSetting(raw));
+      assert.doesNotThrow(() => decodeOthers(raw, { model: decodeModel, history: decodeHistory, streak: decodeStreak }));
     }
   });
 });
