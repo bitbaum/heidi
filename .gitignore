@@ -5,3 +5,10 @@ next-env.d.ts
 *.tsbuildinfo
 .env
 .env*.local
+
+# Scratch browser checks. 16 of these reached main on 2026-09-25 across eight
+# PRs because `git add -A` swept them up — one-off Playwright probes with a
+# personal job directory hard-coded in them. A check worth keeping belongs in
+# `scripts/audit/*.mjs` under a real name, the way the navigation-contract pass
+# was folded into `responsive.mjs`; a leading underscore means "not that".
+scripts/audit/_*
