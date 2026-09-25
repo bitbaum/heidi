@@ -52,13 +52,11 @@ function nextAskId(): number {
  * already knows, costs the page below it nothing, and is the SAME conversation
  * as the other two surfaces because it reads the same store.
  *
- * WHERE IT IS NOT. Pages that already hold a conversation mark themselves with
- * `data-chat="surface"`, and `globals.css` hides the dock when the document
- * contains one. That is the mechanism the full-screen chat already uses to drop
- * the footer (`data-chrome="chat"`), and it is CSS rather than a list of
- * pathnames for a concrete reason: whether the locale root holds a chat depends
- * on whether the visitor is SIGNED IN, which a route table cannot know and the
- * rendering page always does.
+ * WHERE IT IS NOT. Only the full-screen chat, which marks itself
+ * `data-chrome="chat"` and IS the window this would open. Everywhere else —
+ * the home page and group pages included — it stays, because a chat that is
+ * missing from the page people land on reads as a chat that is gone. See the
+ * dock rule in `globals.css`.
  */
 export function ChatDock({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const t = dict.chat;

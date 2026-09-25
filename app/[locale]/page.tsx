@@ -102,12 +102,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </section>
 
       <div className="pb-12 sm:pb-16">
-        {/* `data-chat="surface"` tells the dock to stand down: this page already
-            IS the conversation, and a floating "ask Heidi" button over a chat
-            box is the same offer twice. Marked here rather than matched by
-            pathname because the signed-in locale root renders the dashboard
-            instead, and only the page knows which it rendered. */}
-        <div data-chat="surface">
+        <div>
           <Chat locale={locale} dict={dict} dialect={{ tag: DISPLAY.tag, showcase: DISPLAY.showcase?.line }} />
         </div>
       </div>
