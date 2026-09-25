@@ -149,6 +149,12 @@ export default async function LocaleLayout({
             // launcher is urgent; it belongs after the page is idle.
             strategy="lazyOnload"
             data-fc-project={process.env.NEXT_PUBLIC_FC_WIDGET_TOKEN}
+            // ABOVE Heidi's own launcher, deliberately. Both live in the
+            // bottom-right corner; left to its default the pencil stacked
+            // against the chat button, two unlabelled floats a thumb apart.
+            // Heidi's button is 3rem tall at a 1rem inset, so 5.5rem clears it
+            // with a gap a finger can find.
+            data-fc-bottom="88"
           />
         )}
       </body>
