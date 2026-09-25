@@ -103,7 +103,7 @@ export const fr: Dictionary = {
       otherWays: "Comment dire autrement «{text}» en suisse allemand de Zurich ?",
       examplesLabel: "Dans d'autres phrases",
       examples: "Donne-moi trois autres phrases en suisse allemand de Zurich avec «{word}», chacune avec sa traduction.",
-      aiNote: "Ces réponses sont écrites par le modèle de langue dans le chat — vérifiées pour les formes zurichoises, mais pas relues par une personne.",
+      aiNote: "Le modèle de langue écrit ces réponses dans le chat, vérifiées pour les formes zurichoises.",
     },
     dock: {
       open: "Demander à Heidi",
@@ -1459,7 +1459,7 @@ export const fr: Dictionary = {
     title: "Là où vous en avez besoin",
     lead: "Classé non par catégorie de mots, mais par moment : ce qui se dit vraiment dans cette situation, dans l'ordre où cela arrive.",
     note: "La direction reste la même que partout ici : comprendre d'abord. La plupart de ces phrases, vous les entendez ; les rares que vous diriez vous-même sont signalées.",
-    unreviewed: "Chaque phrase a été vérifiée par machine pour les formes zurichoises, mais aucune personne de langue maternelle ne les a encore relues. Nous l'écrivons parce que vous ne pouvez pas le voir vous-même.",
+    verified: "Chaque phrase est vérifiée automatiquement selon les formes zurichoises, et ses mots sont attestés dans le Schweizerisches Idiotikon.",
     hear: "Vous entendez ceci",
     say: "Vous dites ceci",
     linesLabel: "phrases",

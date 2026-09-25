@@ -181,8 +181,16 @@ headings are kept separate on purpose, and every claim below is filed under one.
   motivating on their own (Ryan & Deci 2000); nothing about that requires a
   flame icon.
 
-  So: **counts of capability, framed as gain, never loss.** No streak of days.
-  No percentage "fluency", because there is no denominator. No pronunciation
+  So: **counts of capability, framed as gain, never loss.** Revised again
+  2026-09-25: a **streak of days is allowed** on exactly those terms — shown as
+  what you have built, never as something you are about to lose. No shaming
+  reminder, no "your streak ends tonight", no paying to repair one, and a free
+  freeze, because a week of illness is not a failure. A weekly goal is offered
+  beside it for people whose life does not run in days. What stays refused is
+  the guilt, not the count.
+  No percentage "fluency", because there is no denominator for a language — a
+  SITUATION has one, which is why "10 of 10 lines" is allowed and "73% fluent"
+  is not. No pronunciation
   score, for the separate reason in §8 — that one is about what can be measured
   at all, not about how it would be framed.
 
@@ -1354,35 +1362,37 @@ real one appears — and the two are then shown one above the other with no
 verdict between them. That is the same information and none of the false
 authority.
 
-**Next, in order, and the ordering is the argument:**
+**What comes next lives in one place: the public roadmap, `lib/config/roadmap.ts`,
+rendered at `/roadmap`.** This section used to hold a second, numbered copy of
+it, and that copy went stale twice without anybody noticing — its first item
+had largely shipped (#117), and its refusal of "percentages and levels"
+contradicted §3 while "10 of 10 lines" was already live. A list in prose drifts;
+the roadmap is typed data that a test can hold. So this section keeps only the
+REASONING behind the order:
 
-1. **Feedback that names the rule, not just the region.** A `pair` item already
-   says the other form is Bernese; the pack also holds what Zurich says instead
-   and why, and the page shows neither. This is the cheapest remaining gain in
-   the product: the data exists, the component is written, and corrective
-   feedback is the one ingredient *(Butler & Roediger 2008)* that decides
-   whether a multiple-choice drill teaches or misleads.
-2. **The productive direction, for words that have survived a few reviews.**
-   Recall asks dialect → meaning, which is recognition. What a learner needs at
-   the point of writing a message is meaning → dialect, which is harder and is
-   where *(Bertsch 2007)* applies. Gated on review step rather than offered
-   from the start: §1 argues recognition first, and that ordering stands.
-3. **Per-area contrast data**, so a dialect page can ask as well as tell. The
-   container shipped with the branches; it needs rows somebody can cite, and
-   inventing them is the one thing this product must not do.
-4. **The listening lab**, still blocked on the same thing it has always been
-   blocked on: recordings. Multi-talker training is the single best-evidenced
-   method available to us *(Lively 1993; Clopper & Pisoni 2004)* and we cannot
-   build it out of a Standard German voice reading dialect spelling — §7.2 and
-   §8 both forbid it. Verifying one commercially-cleared dialect voice unblocks
-   this and nothing else does.
+- **The situation is the spine.** "I understand Swiss German at the doctor's"
+  is the claim a learner wants to make and an employer wants to buy, so
+  situations get deeper before anything gets wider — and the certificate, when
+  it comes, is per situation, never "Swiss German, level B1".
+- **Individuals and organisations are one product.** Care homes, hospitals
+  recruiting from Germany, relocation firms and employers of people who moved
+  here buy the same situations their people practise. Teams, workplace packs and
+  per-situation certificates are the organisation side of features that exist
+  for one person.
+- **Motivation without guilt.** Streaks and weekly goals, framed as gain — §3.
+- **The productive direction**, meaning → dialect, once a word has survived a
+  few reviews: recognition first (§1), production when it has something to
+  stand on *(Bertsch 2007)*.
+- **Multi-talker listening** is the best-evidenced method available
+  *(Lively 1993; Clopper & Pisoni 2004)*, and it is built on real dialect audio,
+  never a Standard German voice reading dialect spelling (§7.2, §8).
+- **Wider, for everyone in Switzerland.** Other dialects, and a detector that
+  tells anybody where a sentence comes from, make Heidi worth opening for people
+  who already speak Swiss German.
 
-**Deliberately refused, and it is a standing decision rather than a backlog
-item:** streaks, points, levels, percentages, a daily goal. A streak measures
-how much Heidi somebody consumed while looking exactly like a measure of
-learning, and §8's metric is how much of an unfamiliar Zurich speaker they
-understand. If that ever costs us retention against a competitor with a flame
-icon, we lose that comparison on purpose.
+INTERNAL, NOT ON THE ROADMAP: content is machine-verified against Zurich forms
+(the gate, cross-model checks, the Idiotikon); a native speaker's read would
+strengthen it further. It is noted here and nowhere public.
 
 Two loops explain Heidi better than any feature list:
 

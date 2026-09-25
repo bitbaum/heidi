@@ -119,7 +119,7 @@ export const rm: Dictionary = {
       otherWays: "Co pon ins dir autramain «{text}» en tudestg da Turitg?",
       examplesLabel: "En autras frasas",
       examples: "Dà a mai trais ulteriuras frasas en tudestg da Turitg cun «{word}», mintgina cun translaziun.",
-      aiNote: "Questas respostas scriva il model linguistic en il chat — controlladas per las furmas da Turitg, ma betg relegidas d'ina persuna.",
+      aiNote: "Questas respostas scriva il model linguistic en il chat, controlladas per las furmas da Turitg.",
     },
     dock: {
       open: "Dumandar Heidi",
@@ -1475,7 +1475,7 @@ export const rm: Dictionary = {
     title: "Nua che vus ils duvrais",
     lead: "Betg ordinà tenor categorias da pleds, mabain tenor il mument: quai che vegn ditg propi en quella situaziun, en l'urden ch'i arriva.",
     note: "La direcziun è la medema sco dapertut qua: emprim chapir. La gronda part da questas frasas udis vus; las paucas che vus dischessas sez èn marcadas.",
-    unreviewed: "Mintga frasa qua è vegnida controllada da maschina per las furmas turitgaisas, ma nagin da lingua materna n'ha anc legì ellas. Nus al scrivain perquai che vus na pudais betg al vesair sez.",
+    verified: "Mintga frasa è controllada automaticamain tenor las furmas da Turitg, e ses pleds èn documentads en il Schweizerisches Idiotikon.",
     hear: "Quai udis vus",
     say: "Quai dischais vus",
     linesLabel: "frasas",

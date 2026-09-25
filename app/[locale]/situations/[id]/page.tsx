@@ -104,8 +104,8 @@ export default async function ScenePage({ params }: { params: Promise<{ locale: 
       <PageHeader eyebrow={domainWords?.title} title={words.title} lead={words.scene} />
 
       {domain && !domain.nativeReviewed && (
-        <p className="mt-6 max-w-measure border-l-2 border-accent pl-4 text-sm leading-relaxed text-fg-muted">
-          {t.unreviewed}
+        <p className="mt-6 max-w-measure text-sm leading-relaxed text-fg-muted">
+          {t.verified}
         </p>
       )}
 

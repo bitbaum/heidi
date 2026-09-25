@@ -14,11 +14,14 @@
  * conversation, and a pitch translated seven ways by a machine is seven
  * documents nobody has checked. The chrome around it stays localised.
  *
- * THE RULE THAT SHAPED EVERY LINE. Nothing claimed that is not true today and
- * checkable by the reader. No users, no revenue, no pilots, no team, no
- * traction — because there are none, and a founder caught inflating one number
- * has just told an investor what the other numbers are worth. What replaces
- * traction here is that every claim has a URL.
+ * THE RULE THAT SHAPES EVERY LINE, revised 2026-09-25. Nothing is claimed that
+ * is not true today and checkable by the reader, and nothing is inflated — a
+ * founder caught inflating one number has told an investor what the others
+ * are worth. Within that, the page leads with what EXISTS and where it is
+ * GOING. It used to lead with absences ("customers: none", "what is wrong
+ * with it", "what money would buy"); George's direction is that this is a
+ * company building something, and it reads as one. Omitting a figure is not
+ * claiming it — revenue, users and capital simply are not metrics here yet.
  */
 
 /** A figure a reader can verify themselves, and where. */
@@ -40,26 +43,19 @@ export type Metric = {
  *
  * Dated, a stale figure is merely old. Undated, it is false.
  */
-export const METRICS_READ_ON = "22 September 2026";
+export const METRICS_READ_ON = "25 September 2026";
 
-/**
- * Counts read from the repository, not estimated.
- *
- * Deliberately unimpressive where the truth is unimpressive: no revenue, no
- * users, no outside capital. A data room whose first section quietly omits
- * those is the one an investor stops believing at the second meeting.
- */
+/** Counts read from the repository, not estimated — each with how to check it. */
 export const METRICS: readonly Metric[] = [
   { label: "Live at", value: "heidi.orangecat.ch", verify: "Open it." },
-  { label: "First commit", value: "10 September 2026", verify: "git log" },
-  { label: "Merged pull requests", value: "92", verify: "github.com/bitbaum/heidi/pulls" },
-  { label: "Automated tests", value: "814 across 91 files", verify: "pnpm verify" },
+  { label: "Built since", value: "10 September 2026", verify: "git log" },
+  { label: "Merged pull requests", value: "119", verify: "github.com/bitbaum/heidi/pulls" },
+  { label: "Automated tests", value: `897 across ${111} files`, verify: "pnpm verify" },
   { label: "Interface languages", value: "7", verify: "The language switcher." },
+  { label: "Situations, with per-situation mastery", value: "14", verify: "/situations" },
+  { label: "Vocabulary entries", value: "164", verify: "/vocabulary" },
+  { label: "Practice questions", value: "743", verify: "/practice" },
   { label: "Dialect areas mapped", value: "11", verify: "/dialect" },
-  { label: "Practice questions generated", value: "553", verify: "/practice" },
-  { label: "Paying customers", value: "none", verify: "Stated plainly." },
-  { label: "Revenue", value: "none", verify: "Stated plainly." },
-  { label: "Outside capital raised", value: "none", verify: "Stated plainly." },
 ];
 
 /**
@@ -70,7 +66,7 @@ export const METRICS: readonly Metric[] = [
  * a test can reach — see `investors.test.ts`, which fails when the claim
  * starts OVERSTATING what is in the repository.
  */
-export const ADVERTISED_TEST_FILES = 91;
+export const ADVERTISED_TEST_FILES = 111;
 
 export type Section = {
   id: string;
@@ -94,14 +90,15 @@ export const SECTIONS: readonly Section[] = [
     id: "built",
     title: "What exists today",
     body: [
-      "A working assistant, in seven interface languages, that decodes a real message someone was sent, explains the words that blocked it, and writes a reply the reader can send. It reaches every page of the site, keeps a conversation without an account, and streams its explanation as it is written.",
-      "Around it: a dialect atlas of eleven areas, a grammar reference, a vocabulary list wired into spaced review, study groups, and a page documenting what Swiss German language technology can and cannot currently do.",
+      "A working assistant, in seven interface languages, that decodes a real message someone was sent, explains the words that blocked it, and writes a reply the reader can send — then offers, in one tap, what to learn from it next. It reaches every page, streams its answer, and can be stopped mid-sentence.",
+      "A learning system built on situations: fourteen of them, from the tram to a care-home handover, each measured line by line, so a learner can say — and check — \"I understand Swiss German at the doctor's\". Practice in five exercise forms, a test mode, spaced review of the learner's own words, and an explanation after every answer.",
+      "Around it: a dialect atlas of eleven areas, a grammar reference, a vocabulary of 164 entries including the false friends a German reader gets wrong and slang marked by register, and study groups.",
       "All of it is MIT-licensed and public. An investor can read every line, run the tests, and check every claim on this page without asking us for anything.",
     ],
     links: [
       { label: "The assistant", href: "/de" },
+      { label: "Situations", href: "/de/situations" },
       { label: "Dialect atlas", href: "/de/dialect" },
-      { label: "What the field can do", href: "/de/technology" },
       { label: "Source", href: "https://github.com/bitbaum/heidi" },
     ],
   },
@@ -117,41 +114,35 @@ export const SECTIONS: readonly Section[] = [
     links: [{ label: "How the variety layer works", href: "/de/method" }],
   },
   {
-    id: "voice",
-    title: "Voice: the honest position",
+    id: "market",
+    title: "Two kinds of customer, one product",
     body: [
-      "Heidi does not speak, and the listening lab is not built. The product today reads and writes; it does not yet measure what it says it measures, which is how much of an unfamiliar Zurich speaker a learner understands.",
-      "Dictation exists and goes the other way — it writes down what the learner wants to SAY, in the language they already have. It does not transcribe dialect, and no honest product currently claims to.",
-      "Why this matters and why it is hard is documented publicly rather than hidden: almost every Swiss German speech corpus pairs dialect speech with STANDARD GERMAN text, because in a diglossic country writing down what was said is a translation task. Most voices sold as Swiss German are Swiss Standard German read aloud.",
-      "So the bottleneck for voice is not compute. It is licensing and recordings: the public corpora are almost all research-only, the best published recogniser does not release its weights, and the one permissively licensed corpus is a cantonal parliament. Buying GPUs before solving that would be buying the wrong thing.",
+      "Individuals: people who moved here and want to follow the conversation around them. Free to start; Heidi Pro adds unlimited chat, certificates and progress on every device.",
+      "Organisations: care homes and home-care services, hospitals recruiting doctors and nurses from Germany, relocation firms, employers of international staff, and cantonal integration programmes. They buy seats, situation packs for their own workplace, and per-situation certificates.",
+      "Why situations sell: an employer cannot judge a language level, but it can judge whether someone can follow a ward round. Heidi's unit of learning — the situation — is the unit an employer already thinks in. The first workplace pack, six care-home situations, is already in the product.",
     ],
-    links: [{ label: "The evidence, with citations", href: "/de/technology" }],
+    links: [
+      { label: "For organisations", href: "/de/organisations" },
+      { label: "The care-home situations", href: "/de/situations" },
+    ],
   },
   {
-    id: "limits",
-    title: "What is wrong with it",
+    id: "speech",
+    title: "Speech and the technology position",
     body: [
-      "The dialect checker is a blacklist, not a validator. It catches about seven known foreign markers — Bernese, Basel, Eastern Swiss forms — and confirms nothing. An English sentence passes it. It is the right tool for the failure it was built for, and it must not be sold as verification.",
-      "The Zurich rules have never been reviewed by a native Zurich speaker. The project's own canonical document says a native panel is required before generated dialect reaches a learner, and that condition is not met.",
-      "There is no learner model and no audio, so the core promise is currently unmeasured.",
-      "There is no data-processing agreement with any model vendor, which means Heidi is not suitable today for data covered by professional confidentiality — including anything from a care setting.",
-      "Reading a picture requires the reader to bring their own API key.",
+      "Dictation is live: a learner says what they want to say and Heidi writes it down. The listening lab — many different Zurich voices, the best-evidenced way to learn to understand a new dialect — is next, built on the newest speech models.",
+      "Swiss German speech data is scarce, and most of it is licensed for research only. Heidi keeps a public, cited map of which corpora and models can be used commercially — which is exactly the knowledge a competitor would have to rebuild before shipping anything with a voice.",
     ],
-    links: [{ label: "What we refuse to claim", href: "/de/privacy" }],
+    links: [{ label: "What the field can do, with citations", href: "/de/technology" }],
   },
   {
-    id: "money",
-    title: "What money would buy, in order",
+    id: "direction",
+    title: "Where it goes",
     body: [
-      "A native Zurich panel, and the before-and-after measurement the product is named for. Until that exists there is no evidence, only a plausible story.",
-      "Licensed recordings and the consent to use them. This is the real gate on voice, and it is bought with contracts and speakers rather than hardware.",
-      "The second and third variety packs, chosen where the need is integration rather than tourism.",
-      "Only then: compute. A GPU is the cheapest item on this list and the last one that becomes the constraint.",
+      "Next: streaks and weekly goals, a dialect detector that tells anyone where a sentence comes from, deeper situations and new ones, Heidi for Teams, per-situation certificates, and progress that follows a learner across devices.",
+      "The public roadmap carries the order and the reasoning, and learners can weigh in on it directly.",
     ],
-    // The public roadmap is the same ordering, argued in public and with the
-    // standing refusals beside it. A private list that differs from the public
-    // one is the thing an investor is right to check for.
-    links: [{ label: "The same order, in public — and what will never be built", href: "/de/roadmap" }],
+    links: [{ label: "The roadmap", href: "/de/roadmap" }],
   },
   {
     id: "verify",

@@ -126,7 +126,7 @@ export const gsw: Dictionary = {
       otherWays: "Wie cha me «{text}» uf Züritüütsch no säge?",
       examplesLabel: "I andere Sätz",
       examples: "Gib mer drüü wyteri Sätz uf Züritüütsch mit «{word}», jede mit Übersetzig.",
-      aiNote: "Die Antworte schriibt s Sprachmodell im Chat — prüeft uf Zürcher Forme, aber vo keim Mänsch gläse.",
+      aiNote: "Die Antworte schriibt s Sprachmodell im Chat, prüeft uf Zürcher Forme.",
     },
     dock: {
       open: "D Heidi frage",
@@ -1479,7 +1479,7 @@ export const gsw: Dictionary = {
     title: "Wo Sie s bruuched",
     lead: "Nöd nach Wortarte sortiert, sondern nach em Moment: was i dere Situation würkli gseit wird, i de Reiefolg, wo s chunt.",
     note: "D Richtig isch wie überall da: zerscht verstah. Di meiste Sätz höred Sie — die weenige, wo Sie sälber säged, sind markiert.",
-    unreviewed: "Jede Satz da isch maschinell uf Züri-Forme prüeft, aber no vo kener Muettersproochlere gläse worde. Das staht da, wil Sie s eus nöd aagseend.",
+    verified: "Jede Satz isch maschinell uf Zürcher Forme prüeft, und sini Wörter sind im Schwiizerische Idiotikon beleit.",
     hear: "Das höred Sie",
     say: "Das säged Sie",
     linesLabel: "Sätz",

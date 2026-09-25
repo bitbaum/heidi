@@ -104,14 +104,13 @@ export default async function InvestorsPage({ params }: { params: Promise<{ loca
           Understanding the language spoken around you
         </h1>
         <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">
-          Pre-revenue, open source, and honest about what is not built yet. Every claim on this page has a URL or a
-          command beside it.
+          Situation by situation, for individuals and for organisations. Open source and verifiable: every claim on
+          this page has a URL or a command beside it.
         </p>
       </header>
 
-      {/* THE NUMBERS FIRST, INCLUDING THE EMPTY ONES. An investor finds out
-          there are no customers either way; the only question is whether they
-          hear it from us on the first screen or discover it on the third. */}
+      {/* THE NUMBERS FIRST — each one counted from the repository, with how to
+          check it beside it. */}
       <section className="border-t border-border-subtle py-10">
         <ul className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
           {METRICS.map((metric) => (
