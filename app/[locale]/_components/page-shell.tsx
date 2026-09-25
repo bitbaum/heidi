@@ -56,7 +56,7 @@ export function PageHeader({
       {/* The eyebrow is never `lang`-tagged: it comes from the navigation
           dictionary and is therefore always in the reader's own language,
           even on a page whose body is not. */}
-      {eyebrow && <p className="font-mono text-caption uppercase tracking-caps text-accent">{eyebrow}</p>}
+      {eyebrow && <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{eyebrow}</p>}
       <h1
         lang={lang}
         className={`mt-3 ${
@@ -217,7 +217,7 @@ export function NumberedList({ items }: { items: ReadonlyArray<{ title: string; 
     <ol className="mt-2 flex flex-col gap-8">
       {items.map((item, i) => (
         <li key={item.title} className="grid grid-cols-safe gap-2 sm:grid-cols-[3rem_1fr] sm:gap-6">
-          <span className="font-mono text-caption uppercase tracking-caps text-accent sm:pt-1.5">
+          <span className="font-mono text-caption uppercase tracking-caps text-fg-muted sm:pt-1.5">
             {String(i + 1).padStart(2, "0")}
           </span>
           <div>

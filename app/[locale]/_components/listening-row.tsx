@@ -65,7 +65,7 @@ export function ListeningRow({ source, t, areaNames }: { source: ListeningSource
       <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
         <span
           className={`font-mono text-caption uppercase tracking-caps ${
-            source.spoken === "standard" ? "text-fg-muted" : "text-accent"
+            source.spoken === "standard" ? "text-fg-muted" : "text-fg-muted"
           }`}
         >
           {t.spoken[source.spoken]}

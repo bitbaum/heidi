@@ -136,7 +136,7 @@ export default async function OrganisationsPage({
                     aria-current={current ? "page" : undefined}
                     className={`inline-flex min-h-11 items-center rounded-control border px-4 text-sm font-medium ${
                       current
-                        ? "border-accent bg-accent text-on-accent"
+                        ? "border-action bg-action text-on-action"
                         : "border-border-strong text-fg-primary hover:bg-surface-raised"
                     }`}
                   >
@@ -287,7 +287,7 @@ function SectorFull({
       {/* Set apart and in the accent, because it is the only thing here
           addressed AT the reader rather than about them. */}
       <div className="mt-6 border-t border-border-subtle pt-4">
-        <p className="font-mono text-caption uppercase tracking-caps text-accent">{t.unknownLabel}</p>
+        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.unknownLabel}</p>
         <p className="mt-1 max-w-measure text-sm leading-relaxed text-fg-secondary">{sector.unknown[lang]}</p>
       </div>
 
@@ -329,7 +329,7 @@ function MailLink({ t, subject }: { t: ReturnType<typeof getDictionary>["organis
   return (
     <a
       href={href}
-      className="inline-flex min-h-12 items-center rounded-control bg-accent px-5 text-base font-semibold text-on-accent"
+      className="inline-flex min-h-12 items-center rounded-control bg-action px-5 text-base font-semibold text-on-action"
     >
       {t.talk}
     </a>

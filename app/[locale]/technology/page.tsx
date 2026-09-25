@@ -88,7 +88,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
                 </h3>
                 {/* The direction is the point of the whole table, so it is the
                     one thing set in the accent rather than in grey. */}
-                <p className="font-mono text-caption uppercase tracking-caps text-accent">
+                <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
                   {t.directions[corpus.direction]}
                 </p>
               </div>

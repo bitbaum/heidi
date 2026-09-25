@@ -261,7 +261,7 @@ export function PracticeSession({
         {/* Said, not hidden. A question the learner already answered arriving
             again with no explanation reads as a bug; saying it is the second
             attempt is also the honest reason the total just went up by one. */}
-        {isRepeat && <span className="text-accent"> · {t.secondTry}</span>}
+        {isRepeat && <span className="text-fg-muted"> · {t.secondTry}</span>}
       </p>
 
       {/* Keyed on the item so every answer starts a genuinely new card:
@@ -352,7 +352,7 @@ function Done({
       <button
         type="button"
         onClick={onRestart}
-        className="mt-5 min-h-11 rounded-control bg-accent px-4 font-medium text-on-accent hover:opacity-90"
+        className="mt-5 min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
       >
         {t.restart}
       </button>

@@ -80,7 +80,7 @@ export function ReviewPanel({ t, locale }: { t: Dictionary["review"]; locale: Lo
         <div className="mt-4 flex flex-wrap gap-2">
           <Link
             href={href(locale, "practice")}
-            className="inline-flex min-h-11 items-center rounded-control bg-accent px-4 text-sm font-medium text-on-accent hover:opacity-90"
+            className="inline-flex min-h-11 items-center rounded-control bg-action px-4 text-sm font-medium text-on-action hover:opacity-90"
           >
             {t.nonePractise}
           </Link>
@@ -153,7 +153,7 @@ export function ReviewPanel({ t, locale }: { t: Dictionary["review"]; locale: Lo
               <button
                 type="button"
                 onClick={() => answer(true)}
-                className="min-h-11 rounded-control bg-accent px-4 font-medium text-on-accent hover:opacity-90"
+                className="min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
               >
                 {t.knew}
               </button>

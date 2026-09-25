@@ -133,7 +133,7 @@ export function RoundList({
                     type="button"
                     onClick={() => void act(round, "join")}
                     disabled={busy === round.id}
-                    className="min-h-11 rounded-control bg-accent px-4 text-sm font-semibold text-on-accent disabled:opacity-50"
+                    className="min-h-11 rounded-control bg-action px-4 text-sm font-semibold text-on-action disabled:opacity-50"
                   >
                     {t.join}
                   </button>
@@ -160,7 +160,7 @@ export function RoundList({
                     type="button"
                     onClick={() => void act(round, "cancel")}
                     disabled={busy === round.id}
-                    className="min-h-11 px-2 font-mono text-caption uppercase tracking-caps text-accent disabled:opacity-50"
+                    className="min-h-11 px-2 font-mono text-caption uppercase tracking-caps text-fg-muted disabled:opacity-50"
                   >
                     {t.cancelRound}
                   </button>
@@ -171,7 +171,7 @@ export function RoundList({
         </ul>
       )}
 
-      {error && <p className="mt-3 text-sm text-accent">{error}</p>}
+      {error && <p className="mt-3 text-sm text-danger">{error}</p>}
 
       {signedIn ? (
         <OpenRound t={t} topics={topics} busy={opening} setBusy={setOpening} onDone={() => router.refresh()} />
@@ -385,12 +385,12 @@ function OpenRound({
           <p className="mt-1 max-w-measure text-sm leading-relaxed text-fg-muted">{t.linkHint}</p>
         </div>
 
-        {error && <p className="text-sm text-accent">{error}</p>}
+        {error && <p className="text-sm text-danger">{error}</p>}
 
         <button
           type="submit"
           disabled={busy}
-          className="min-h-12 rounded-control bg-accent px-5 text-base font-semibold text-on-accent disabled:opacity-50"
+          className="min-h-12 rounded-control bg-action px-5 text-base font-semibold text-on-action disabled:opacity-50"
         >
           {busy ? t.opening : t.open}
         </button>

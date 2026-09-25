@@ -97,7 +97,7 @@ export function CardView({ item, t, locale, onAnswer, onRecall }: ExerciseViewPr
           <>
             <p
               lang={frontIsDialect ? "de" : DISPLAY.tag}
-              className="wrap-anywhere font-heading text-2xl font-semibold leading-snug tracking-display text-accent sm:text-3xl"
+              className="wrap-anywhere font-heading text-2xl font-semibold leading-snug tracking-display text-dialect sm:text-3xl"
             >
               {card.article && !frontIsDialect && <span className="text-fg-secondary">{card.article} </span>}
               {card.answer}
@@ -146,7 +146,7 @@ export function CardView({ item, t, locale, onAnswer, onRecall }: ExerciseViewPr
             <button
               type="button"
               onClick={() => mark(true)}
-              className="min-h-11 rounded-control bg-accent px-4 font-medium text-on-accent hover:opacity-90"
+              className="min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
             >
               {t.knew}
             </button>

@@ -203,7 +203,7 @@ export default async function ScenePage({ params }: { params: Promise<{ locale: 
         {askable && (
           <Link
             href={`${href(locale, "practice")}?scene=${encodeURIComponent(scene.id)}`}
-            className="inline-flex items-center rounded-control bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition-opacity hover:opacity-90"
+            className="inline-flex items-center rounded-control bg-action px-5 py-2.5 text-sm font-semibold text-on-action transition-opacity hover:opacity-90"
           >
             {t.practiseLabel}
           </Link>

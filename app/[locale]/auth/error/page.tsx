@@ -23,7 +23,7 @@ export default async function AuthErrorPage({ params }: { params: Promise<{ loca
   return (
     <Shell>
       <div className="py-20 sm:py-28">
-        <p className="font-mono text-caption uppercase tracking-caps text-accent">{dict.auth.signIn}</p>
+        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{dict.auth.signIn}</p>
         <h1 className="mt-3 max-w-[20ch] font-heading text-3xl font-semibold leading-tight tracking-display text-fg-primary sm:text-4xl">
           {dict.auth.errorTitle}
         </h1>
@@ -31,7 +31,7 @@ export default async function AuthErrorPage({ params }: { params: Promise<{ loca
         <div className="mt-8 flex flex-wrap gap-4">
           <Link
             href={href(locale, "")}
-            className="inline-flex min-h-11 items-center rounded-control bg-accent px-6 font-medium text-on-accent hover:opacity-90"
+            className="inline-flex min-h-11 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
           >
             {dict.auth.tryAgain}
           </Link>

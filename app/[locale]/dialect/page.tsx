@@ -193,7 +193,7 @@ function AreaCards({
               {area.cantons.join(" · ")}
             </span>
             {area.taught && (
-              <span className="mt-1 font-mono text-caption uppercase tracking-caps text-accent">{taughtLabel}</span>
+              <span className="mt-1 font-mono text-caption uppercase tracking-caps text-fg-muted">{taughtLabel}</span>
             )}
           </Link>
         </li>

@@ -118,7 +118,7 @@ export function SectionNav({ sections, label }: { sections: readonly NavSection[
               >
                 {section.label}
                 {section.count !== undefined && (
-                  <span className={`font-mono text-caption ${active ? "text-accent" : "text-fg-muted"}`}>
+                  <span className={`font-mono text-caption ${active ? "text-fg-primary" : "text-fg-muted"}`}>
                     {section.count}
                   </span>
                 )}

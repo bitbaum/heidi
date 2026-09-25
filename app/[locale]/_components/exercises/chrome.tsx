@@ -43,7 +43,7 @@ export function Verdict({
 }) {
   return (
     <div className="mt-5 border-t border-border-subtle pt-4">
-      <p className={`text-base font-medium ${right ? "text-accent" : "text-fg-primary"}`}>
+      <p className={`text-base font-medium ${right ? "text-ok" : "text-fg-primary"}`}>
         {right ? t.right : t.wrong}
       </p>
 
@@ -57,7 +57,7 @@ export function Verdict({
       <button
         type="button"
         onClick={onNext}
-        className="mt-4 min-h-11 rounded-control bg-accent px-4 font-medium text-on-accent hover:opacity-90"
+        className="mt-4 min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
       >
         {t.next}
       </button>
@@ -271,7 +271,7 @@ export function optionClass(index: number, chose: number | null, answer: number)
   if (chose === null) {
     return `${base} border-border-strong text-fg-primary hover:bg-surface-page`;
   }
-  if (index === answer) return `${base} border-accent bg-accent text-on-accent`;
+  if (index === answer) return `${base} border-action bg-action text-on-action`;
   if (index === chose) return `${base} border-border-strong text-fg-muted line-through`;
   return `${base} border-border-subtle text-fg-muted`;
 }

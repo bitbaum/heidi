@@ -156,7 +156,7 @@ export default async function MethodPage({ params }: { params: Promise<{ locale:
         <ol className="flex flex-col gap-0">
           {t.loopSteps.map((step, i) => (
             <li key={step} className="flex gap-4 border-b border-border-subtle py-4 last:border-b-0">
-              <span className="shrink-0 font-mono text-caption uppercase tracking-caps text-accent">
+              <span className="shrink-0 font-mono text-caption uppercase tracking-caps text-fg-muted">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span className="max-w-measure text-base leading-relaxed text-fg-secondary">{step}</span>

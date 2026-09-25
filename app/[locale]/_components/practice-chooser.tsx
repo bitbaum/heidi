@@ -140,7 +140,7 @@ function Choice({ href: to, current, label, note }: { href: string; current: boo
   const base =
     "min-w-0 flex-1 basis-[calc(50%-0.25rem)] rounded-control border px-4 py-3 text-left sm:flex-none sm:basis-auto";
   const state = current
-    ? "border-accent bg-accent text-on-accent"
+    ? "border-action bg-action text-on-action"
     : "border-border-strong text-fg-primary hover:bg-surface-raised";
 
   return (

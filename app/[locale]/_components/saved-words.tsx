@@ -76,7 +76,7 @@ export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: Loca
             }}
             onBlur={() => setConfirming(false)}
             className={`min-h-9 font-mono text-caption uppercase tracking-caps underline underline-offset-4 ${
-              confirming ? "text-accent" : "text-fg-muted hover:text-fg-primary"
+              confirming ? "text-fg-muted" : "text-fg-muted hover:text-fg-primary"
             }`}
           >
             {confirming ? t.clearConfirm : t.clear}

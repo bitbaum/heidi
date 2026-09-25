@@ -15,14 +15,14 @@ export default function NotFound() {
   return (
     <Shell>
       <div className="py-20 sm:py-28">
-        <p className="font-mono text-caption uppercase tracking-caps text-accent">404</p>
+        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">404</p>
         <h1 className="mt-3 font-heading text-3xl font-semibold leading-tight tracking-display text-fg-primary sm:text-5xl">
           {dict.errors.notFoundTitle}
         </h1>
         <p className="mt-4 max-w-measure text-lg leading-relaxed text-fg-secondary">{dict.errors.notFoundBody}</p>
         <Link
           href={href(DEFAULT_LOCALE, "")}
-          className="mt-8 inline-flex min-h-11 items-center rounded-control bg-accent px-6 font-medium text-on-accent hover:opacity-90"
+          className="mt-8 inline-flex min-h-11 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
         >
           {dict.errors.backHome}
         </Link>

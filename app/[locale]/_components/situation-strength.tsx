@@ -178,7 +178,7 @@ function Bar({ held, stuck, total }: { held: number; stuck: number; total: numbe
         <li
           key={i}
           className={`h-2 w-6 rounded-sm ${
-            i < stuck ? "bg-accent" : i < held ? "bg-fg-primary" : "bg-border-subtle"
+            i < stuck ? "bg-dialect" : i < held ? "bg-fg-primary" : "bg-border-subtle"
           }`}
         />
       ))}

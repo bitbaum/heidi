@@ -82,13 +82,13 @@ export function RuleCheck({ t }: { t: Dictionary["check"] }) {
         type="button"
         onClick={() => void run()}
         disabled={pending || text.trim().length === 0}
-        className="mt-3 inline-flex min-h-11 items-center justify-center rounded-control bg-accent px-6 font-medium text-on-accent transition-colors hover:opacity-90 disabled:bg-surface-sunk disabled:text-fg-muted"
+        className="mt-3 inline-flex min-h-11 items-center justify-center rounded-control bg-action px-6 font-medium text-on-action transition-colors hover:opacity-90 disabled:bg-surface-sunk disabled:text-fg-muted"
       >
         {t.button}
       </button>
 
       {failed && (
-        <p role="alert" className="mt-6 max-w-measure text-base leading-relaxed text-accent">
+        <p role="alert" className="mt-6 max-w-measure text-base leading-relaxed text-danger">
           {t.failed}
         </p>
       )}

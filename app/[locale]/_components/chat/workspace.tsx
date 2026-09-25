@@ -478,7 +478,7 @@ function AdoptPrompt({
           <button
             type="button"
             onClick={onKeep}
-            className="min-h-9 rounded-control bg-accent px-3 py-1.5 text-sm font-medium text-on-accent"
+            className="min-h-9 rounded-control bg-action px-3 py-1.5 text-sm font-medium text-on-action"
           >
             {t.adoptKeep}
           </button>

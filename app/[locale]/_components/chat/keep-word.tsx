@@ -58,7 +58,7 @@ export function KeepWord({
          on the chat surface, for one of its two core actions. */
       className={`inline-flex h-6 w-6 shrink-0 translate-y-0.5 items-center justify-center rounded-control border text-xs transition-colors max-sm:h-11 max-sm:w-11 ${
         kept
-          ? "border-accent bg-accent text-on-accent"
+          ? "border-action bg-action text-on-action"
           : "border-border-subtle text-fg-muted hover:border-border-strong hover:text-fg-primary"
       }`}
     >

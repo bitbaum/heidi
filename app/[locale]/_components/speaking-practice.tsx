@@ -506,9 +506,9 @@ export function SpeakingPractice({
           )}
 
           {!supported && <p className="text-center text-sm text-fg-muted">{t.micUnsupported}</p>}
-          {recorder.error === "denied" && <p className="text-center text-sm text-accent">{t.micDenied}</p>}
-          {recorder.error === "unsupported" && <p className="text-center text-sm text-accent">{t.micUnsupported}</p>}
-          {recorder.error === "failed" && <p className="text-center text-sm text-accent">{t.failed}</p>}
+          {recorder.error === "denied" && <p className="text-center text-sm text-danger">{t.micDenied}</p>}
+          {recorder.error === "unsupported" && <p className="text-center text-sm text-danger">{t.micUnsupported}</p>}
+          {recorder.error === "failed" && <p className="text-center text-sm text-danger">{t.failed}</p>}
         </div>
 
         {recorder.delivery && <Measured t={t} num={num} delivery={recorder.delivery} spoken={spokenMeasures} />}
@@ -585,7 +585,7 @@ export function SpeakingPractice({
                 <p className="mt-2 text-base leading-relaxed text-fg-primary">{suggestion.better}</p>
                 {suggestion.why && <p className="mt-2 text-sm leading-relaxed text-fg-secondary">{suggestion.why}</p>}
                 {suggestion.flagged && suggestion.flagged.length > 0 && (
-                  <p className="mt-2 text-sm leading-relaxed text-accent">{t.flaggedSuggestion}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-danger">{t.flaggedSuggestion}</p>
                 )}
               </div>
             )}

@@ -111,7 +111,12 @@ export function WordList({
                 the German meaning being ruled out, not a Zurich form.
               */}
               {word.mistakenFor && (
-                <span className="ml-2 text-sm text-accent">
+                /* Its OWN line, not an inline tail: inline it rendered as
+                   "DachbodenNicht: Fussbodenbelag" to anything that reads
+                   text rather than pixels — a screen reader, a copy, the
+                   page as it was reported. Grey, because it is a note on the
+                   meaning, not an alarm. */
+                <span className="mt-0.5 block text-sm text-fg-muted">
                   {fill(t.mistakenForLabel, { assumed: word.mistakenFor })}
                 </span>
               )}
@@ -156,7 +161,7 @@ export function WordList({
                   title={kept ? chatT.savedWord : chatT.saveWord}
                   className={`inline-flex h-7 w-7 items-center justify-center rounded-control border text-xs transition-colors max-sm:h-11 max-sm:w-11 ${
                     kept
-                      ? "border-accent bg-accent text-on-accent"
+                      ? "border-action bg-action text-on-action"
                       : "border-border-subtle text-fg-muted hover:border-border-strong hover:text-fg-primary"
                   }`}
                 >

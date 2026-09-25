@@ -117,7 +117,7 @@ export function AnswerView({
           {/* A flagged line is MARKED, never dropped. The learner cannot audit
               this work, so drift has to stay visible rather than be tidied. */}
           {a.dialectClean === false && (
-            <p className="mt-1 font-mono text-caption text-accent">
+            <p className="mt-1 font-mono text-caption text-danger">
               {t.flagged} {a.dialectFlags?.join(", ")}
             </p>
           )}
@@ -207,7 +207,7 @@ export function AnswerView({
                 </p>
                 {s.english && <p className="text-sm text-fg-secondary">{s.english}</p>}
                 {!s.clean && (
-                  <p className="mt-1 font-mono text-caption text-accent">
+                  <p className="mt-1 font-mono text-caption text-danger">
                     {t.flagged} {s.flags.join(", ")}
                   </p>
                 )}

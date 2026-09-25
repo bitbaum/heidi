@@ -106,7 +106,7 @@ export default async function PaperPage({ params }: { params: Promise<{ locale: 
               prose that the reader is being asked to ACT on. */}
           {section.check && section.check.length > 0 && (
             <div className="mt-6 border-l-2 border-accent pl-4">
-              <p className="font-mono text-caption uppercase tracking-caps text-accent">{dict.paper.checkLabel}</p>
+              <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{dict.paper.checkLabel}</p>
               <ul className="mt-2 flex flex-col gap-1">
                 {section.check.map((door) => (
                   <li key={door.segment + door.label}>
