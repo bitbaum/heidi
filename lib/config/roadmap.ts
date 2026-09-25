@@ -49,14 +49,7 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         summary: "Wird gerade gebaut.",
         items: [
           {
-            title: "Mehr Situationen, und jede tiefer",
-            line: "Beim Arzt, auf der Gemeinde, in der Waschküche, am Apéro — und wenn «nein» nicht «nein» heisst.",
-            details: [
-              "Jede Situation wächst auf rund 25 Sätze, genug, um sie wirklich zu beherrschen.",
-              "Alles maschinell auf Zürcher Formen geprüft, bevor es erscheint.",
-            ],
-          },
-          {
+            id: "zurich-lexicon",
             title: "Ein Zürcher Lexikon gegen erfundene Fakten",
             line: "Heidi prüft heute Formen und Regeln. Als Nächstes prüft sie auch einzelne Bedeutungen gegen eine Wortliste.",
           },
@@ -67,6 +60,7 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         summary: "Entschieden und geplant.",
         items: [
           {
+            id: "teams",
             title: "Heidi für Teams",
             line: "Für Pflegeheime, Spitäler, Relocation-Firmen und alle, deren Leute hier neu anfangen.",
             details: [
@@ -75,16 +69,14 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
             ],
           },
           {
+            id: "certificates",
             title: "Zertifikate pro Situation",
             line: "Nicht «Schweizerdeutsch B1», sondern: «kann einer Übergabe im Pflegeheim folgen» — mit einem Link, den jede Arbeitgeberin prüfen kann.",
           },
           {
+            id: "sync",
             title: "Ihr Fortschritt auf allen Geräten",
             line: "Angemeldet, auf Wunsch: was Sie am Telefon üben, zählt auch am Laptop.",
-          },
-          {
-            title: "Mitreden beim Fahrplan",
-            line: "Abstimmen, was gebraucht wird, eigene Vorschläge machen und Änderungen kommentieren — direkt auf dieser Seite.",
           },
         ],
       },
@@ -93,22 +85,27 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         summary: "Die Richtung steht.",
         items: [
           {
+            id: "listening-lab",
             title: "Das Hörlabor",
             line: "Viele verschiedene Zürcher Stimmen, denn wer mehrere Sprecher hört, versteht auch den nächsten.",
           },
           {
+            id: "more-dialects",
             title: "Mehr Mundarten",
             line: "Bern, Basel, die Ostschweiz und weitere — mit Kontrasten, die zeigen, was sich von Ort zu Ort ändert.",
           },
           {
+            id: "speaking",
             title: "Selbst sagen",
             line: "Von der Bedeutung zur Mundart: für Wörter, die Sie schon sicher verstehen.",
           },
           {
+            id: "pro",
             title: "Heidi Pro",
             line: "Unbegrenzter Chat, Zertifikate und mehr für alle, die schneller vorankommen wollen.",
           },
           {
+            id: "learning-together",
             title: "Gemeinsam lernen",
             line: "Sehen, wie Sie im Vergleich vorankommen, und mit anderen ins Gespräch kommen, die dieselben Situationen üben.",
           },
@@ -127,14 +124,7 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         summary: "Being built now.",
         items: [
           {
-            title: "More situations, each one deeper",
-            line: "At the doctor's, at the Gemeinde, in the laundry room, at an apéro — and when «no» does not sound like no.",
-            details: [
-              "Each situation grows to around 25 lines, enough to genuinely master it.",
-              "Everything machine-verified against Zurich forms before it appears.",
-            ],
-          },
-          {
+            id: "zurich-lexicon",
             title: "A Zurich lexicon against invented facts",
             line: "Heidi checks forms and rules today. Next it also checks individual meanings against a word list.",
           },
@@ -145,6 +135,7 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         summary: "Decided and planned.",
         items: [
           {
+            id: "teams",
             title: "Heidi for Teams",
             line: "For care homes, hospitals, relocation firms and anyone whose people are starting out here.",
             details: [
@@ -153,16 +144,14 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
             ],
           },
           {
+            id: "certificates",
             title: "Certificates per situation",
             line: "Not «Swiss German B1» but «can follow a care-home handover» — with a link any employer can verify.",
           },
           {
+            id: "sync",
             title: "Your progress on every device",
             line: "Signed in, if you choose: what you practise on your phone counts on your laptop too.",
-          },
-          {
-            title: "Have your say on the roadmap",
-            line: "Vote on what is needed, suggest features and comment on changes — right on this page.",
           },
         ],
       },
@@ -171,22 +160,27 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         summary: "The direction is set.",
         items: [
           {
+            id: "listening-lab",
             title: "The listening lab",
             line: "Many different Zurich voices — people who hear several speakers understand the next one better.",
           },
           {
+            id: "more-dialects",
             title: "More dialects",
             line: "Bern, Basel, eastern Switzerland and more — with contrasts that show what changes from place to place.",
           },
           {
+            id: "speaking",
             title: "Saying it yourself",
             line: "From meaning to dialect, for words you already understand with confidence.",
           },
           {
+            id: "pro",
             title: "Heidi Pro",
             line: "Unlimited chat, certificates and more, for anyone who wants to move faster.",
           },
           {
+            id: "learning-together",
             title: "Learning together",
             line: "See how your progress compares, and talk with others practising the same situations.",
           },

@@ -8,6 +8,10 @@ import { sectorLocale } from "@/lib/config/sectors";
 import { PageHeader, Shell } from "../_components/page-shell";
 import { formatDate } from "@/lib/i18n/dates";
 import { OtherLanguage } from "../_components/other-language";
+import { changelogEntryId } from "bip-kit";
+import { CommentThread, FeedbackProvider } from "bip-kit/react";
+import { CHANGELOG_TARGETS, withChangelogIds } from "@/lib/feedback/targets";
+import { LOCALE_TAGS } from "@/lib/i18n/locales";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -40,7 +44,8 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
   const dict = getDictionary(locale);
   const t = dict.changelog;
   const lang = sectorLocale(locale);
-  const entries = CHANGELOG[lang];
+  const entries = withChangelogIds(CHANGELOG[lang]);
+  const fb = dict.roadmapFeedback;
 
   /**
    * The date as this reader writes dates.
@@ -59,6 +64,11 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
         <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
       </PageHeader>
 
+      {/* Every change can be answered. The thread sits under each entry,
+          closed until asked for, so the page still reads as a record first. */}
+      <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{fb.changelogIntro}</p>
+
+      <FeedbackProvider endpoint="/api/feedback" targetIds={CHANGELOG_TARGETS} labels={fb}>
       <ol className="flex flex-col">
         {entries.map((entry) => (
           <li
@@ -96,9 +106,14 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
                 ))}
               </ul>
             )}
+
+            <div lang={LOCALE_TAGS[locale]}>
+              <CommentThread targetId={changelogEntryId(entry)} />
+            </div>
           </li>
         ))}
       </ol>
+      </FeedbackProvider>
 
       <nav aria-label={t.title} className="flex flex-wrap gap-x-6 gap-y-2 py-8">
         {(["roadmap", "paper", "contribute"] as const).map((key) => (

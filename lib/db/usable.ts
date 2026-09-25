@@ -41,6 +41,10 @@ export const APP_TABLES = [
   "topic_interest",
   "speaking_rounds",
   "round_attendance",
+  "feedback_stances",
+  "feedback_comments",
+  "feedback_suggestions",
+  "feedback_support",
 ] as const;
 
 export type SchemaProblem = { table: string; problem: string };

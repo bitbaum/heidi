@@ -15,8 +15,8 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       bip-kit:
-        specifier: ^0.3.1
-        version: 0.3.1(react@19.2.4)
+        specifier: ^0.4.0
+        version: 0.4.0(react@19.2.4)
       drizzle-orm:
         specifier: ^0.45.2
         version: 0.45.2(@types/pg@8.23.1)(pg@8.23.0)
@@ -1362,8 +1362,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  bip-kit@0.3.1:
-    resolution: {integrity: sha512-OnkaJiDCRz0UeMifgI8NHnHoaBWyvpYOgdDIfOcxMiIWDWliVyHU+jg5aYX6zccIH15G5uze1vaGJV1XdRDDJg==}
+  bip-kit@0.4.0:
+    resolution: {integrity: sha512-RkdrHVKvwWhRck/eQ4Bay1ElzB6OdGYd1QEB5k/Vx/J86Rslm8eyKL4AclPc+KW7bi419f8l8eEJkIDXJSyedg==}
     engines: {node: '>=20'}
     peerDependencies:
       katex: '>=0.16'
@@ -3776,7 +3776,7 @@ snapshots:
 
   baseline-browser-mapping@2.11.21: {}
 
-  bip-kit@0.3.1(react@19.2.4):
+  bip-kit@0.4.0(react@19.2.4):
     dependencies:
       react: 19.2.4
 

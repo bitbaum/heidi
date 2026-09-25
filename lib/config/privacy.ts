@@ -284,6 +284,15 @@ export const FLOWS: readonly Flow[] = [
     recipients: [...MODEL_VENDORS],
   },
   {
+    // A vote, comment or suggestion on the roadmap or changelog. No account:
+    // stored with a random key the browser keeps, never with who you are.
+    id: "roadmapFeedback",
+    place: "server",
+    where: "feedback_stances · feedback_comments · feedback_suggestions",
+    leavesDevice: true,
+    recipients: [],
+  },
+  {
     id: "feedback",
     place: "vendor",
     where: "widget.js · loki.orangecat.ch",
