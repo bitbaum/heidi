@@ -24,7 +24,7 @@ type ChoiceItem = Extract<PracticeItem, { kind: "pair" | "article" | "form" | "p
  * gets through eight questions without anybody learning from the six they
  * missed.
  */
-export function ChoiceView({ item, t, grammarT, situationsT, vocabularyT, locale, reveal, onAnswer }: ExerciseViewProps) {
+export function ChoiceView({ item, t, grammarT, situationsT, vocabularyT, learnT, locale, reveal, onAnswer }: ExerciseViewProps) {
   const choice = item as ChoiceItem;
   const [chose, setChose] = useState<number | null>(null);
 
@@ -112,7 +112,7 @@ export function ChoiceView({ item, t, grammarT, situationsT, vocabularyT, locale
         <Verdict
           right={chose === choice.answer}
           t={t}
-          grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT}
+          grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT}
           item={item}
           locale={locale}
           onNext={() => onAnswer(chose === choice.answer ? "right" : "wrong")}

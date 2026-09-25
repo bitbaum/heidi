@@ -11,6 +11,8 @@ import { Copy } from "./copy-button";
 import { Speak } from "./speak-button";
 import { KeepWord } from "./keep-word";
 import { ChatMarkdown } from "./chat-markdown";
+import { fill } from "@/lib/i18n/fill";
+import { learnMoves, type LearnMove } from "@/lib/domain/chat/learn";
 
 /**
  * Everything Heidi found, rendered.
@@ -224,6 +226,10 @@ export function AnswerView({
         <NextMoves moves={a.next} t={t} onMove={onMove} locale={locale} />
       )}
 
+      {/* What to LEARN from this answer, beside what to DO with it. Decided
+          from the answer's structure, not by the model — see `learn.ts`. */}
+      {onMove && <LearnRow answer={a} t={t} onMove={onMove} />}
+
       {/* Provenance. An answer with no model attached is a rumour. */}
       <p className="mt-3 border-t border-border-subtle pt-2 font-mono text-caption text-fg-muted">
         {t.checkedNote} · {a.model}
@@ -300,6 +306,53 @@ function NextMoves({
           return (
             <button key={moveId(move)} type="button" onClick={() => onMove(wording.say)} className={style}>
               {wording.label}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * One tap on what a learner most likely asks next about THIS answer.
+ *
+ * The same chips, the same send path (`onMove` is the conversation's own
+ * `send`), the same visible-message rule as the move row above — only the
+ * question is different: not "what do I do with this message" but "what do I
+ * learn from it". Renders nothing when the answer holds no Zurich line and no
+ * word worth asking about.
+ */
+function LearnRow({ answer, t, onMove }: { answer: Answer; t: Dictionary["chat"]; onMove: (say: string) => void }) {
+  const moves = learnMoves(answer);
+  if (moves.length === 0) return null;
+  const l = t.learn;
+  const say = (m: LearnMove): { label: string; text: string } => {
+    switch (m.id) {
+      case "breakdown":
+        return { label: l.breakdownLabel, text: fill(l.breakdown, { text: m.text }) };
+      case "similar":
+        return { label: l.similarLabel, text: fill(l.similar, { word: m.word }) };
+      case "story":
+        return { label: l.storyLabel, text: fill(l.story, { word: m.word }) };
+      case "examples":
+        return { label: l.examplesLabel, text: fill(l.examples, { word: m.word }) };
+    }
+  };
+  return (
+    <div className="mt-3 border-t border-border-subtle pt-3">
+      <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{l.title}</p>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {moves.map((m) => {
+          const { label, text } = say(m);
+          return (
+            <button
+              key={m.id}
+              type="button"
+              onClick={() => onMove(text)}
+              className="inline-flex min-h-9 items-center rounded-control border border-border-subtle px-3 text-sm text-fg-secondary transition-colors hover:border-border-strong hover:text-fg-primary"
+            >
+              {label}
             </button>
           );
         })}

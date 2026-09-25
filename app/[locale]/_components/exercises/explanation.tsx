@@ -49,6 +49,7 @@ export function Explanation({
   grammarT,
   situationsT,
   vocabularyT,
+  learnT,
   compact = false,
 }: {
   item: PracticeItem;
@@ -57,6 +58,8 @@ export function Explanation({
   grammarT: Dictionary["grammar"];
   situationsT: Dictionary["situations"];
   vocabularyT: Dictionary["vocabulary"];
+  /** The "ask Heidi" sentences — the chat's own, so a tap here and a tap in the chat send the same words. */
+  learnT: Dictionary["chat"]["learn"];
   /** In a long review list: folded behind one control instead of expanded. */
   compact?: boolean;
 }) {
@@ -154,13 +157,13 @@ export function Explanation({
         <Part title={x.askTitle}>
           <div className="flex flex-wrap gap-2">
             {(e.sentence ?? e.term) && (
-              <Ask say={fill(x.askOtherWays, { text: (e.sentence ?? e.term)! })} label={x.askOtherWaysLabel} />
+              <Ask say={fill(learnT.otherWays, { text: (e.sentence ?? e.term)! })} label={learnT.otherWaysLabel} />
             )}
-            {e.term && <Ask say={fill(x.askSimilar, { word: e.term })} label={x.askSimilarLabel} />}
-            {e.term && <Ask say={fill(x.askShortText, { word: e.term })} label={x.askShortTextLabel} />}
-            {e.sentence && <Ask say={fill(x.askWordByWord, { text: e.sentence })} label={x.askWordByWordLabel} />}
+            {e.term && <Ask say={fill(learnT.similar, { word: e.term })} label={learnT.similarLabel} />}
+            {e.term && <Ask say={fill(learnT.story, { word: e.term })} label={learnT.storyLabel} />}
+            {e.sentence && <Ask say={fill(learnT.breakdown, { text: e.sentence })} label={learnT.breakdownLabel} />}
           </div>
-          <p className="mt-2 max-w-measure text-xs leading-relaxed text-fg-muted">{x.aiNote}</p>
+          <p className="mt-2 max-w-measure text-xs leading-relaxed text-fg-muted">{learnT.aiNote}</p>
         </Part>
       )}
     </div>

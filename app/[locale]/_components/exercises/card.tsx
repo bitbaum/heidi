@@ -28,7 +28,7 @@ import { Explanation } from "./explanation";
  * grey rectangle on a browser that does not do it. The face changes; the card
  * stays still.
  */
-export function CardView({ item, t, grammarT, situationsT, vocabularyT, locale, onAnswer, onRecall }: ExerciseViewProps) {
+export function CardView({ item, t, grammarT, situationsT, vocabularyT, learnT, locale, onAnswer, onRecall }: ExerciseViewProps) {
   const card = item as CardItem;
   const [turned, setTurned] = useState(false);
 
@@ -160,7 +160,7 @@ export function CardView({ item, t, grammarT, situationsT, vocabularyT, locale, 
             </button>
           </div>
           <Trace item={item} t={t} locale={locale} />
-          <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} />
+          <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} />
         </div>
       )}
     </>
