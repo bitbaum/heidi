@@ -38,6 +38,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-09-26",
       tag: "improvement",
+      title: "Das stärkste Modell, das Ihr Schlüssel kann",
+      summary:
+        "Wer einen eigenen API-Schlüssel mitbringt, fügt ihn ein — Heidi prüft ihn sofort und zeigt die Modelle, die er erreicht, das stärkste vorausgewählt.",
+      items: [
+        "Zehn Anbieter statt fünf, neu auch Anthropic, Google Gemini, Mistral, xAI und Cerebras.",
+        "Die Prüfung kostet nichts mehr: Heidi fragt den Anbieter, welche Modelle der Schlüssel kann, statt eine Probeanfrage zu bezahlen.",
+        "Klappt es nicht, steht dort, was der Anbieter meldet — etwa ein leeres Guthaben. «Nicht erreichbar» heisst nicht «falscher Schlüssel».",
+        "Der Schlüssel bleibt wie bisher nur in Ihrem Browser.",
+      ],
+    },
+    {
+      date: "2026-09-26",
+      tag: "improvement",
       title: "Die Mundarten, aus der Fachliteratur belegt",
       summary:
         "Jede Mundartseite zeigt jetzt Formen, an denen man die Gegend erkennt — jede mit Quelle —, und verlinkt die Grammatiken und Wörterbücher der Region.",
@@ -242,6 +255,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-26",
+      tag: "improvement",
+      title: "The strongest model your key can use",
+      summary:
+        "Bring your own API key: paste it, Heidi checks it at once and lists the models it can reach, with the strongest preselected.",
+      items: [
+        "Ten providers instead of five, now including Anthropic, Google Gemini, Mistral, xAI and Cerebras.",
+        "The check no longer costs anything: Heidi asks the provider which models the key can use instead of paying for a test request.",
+        "When it fails, you see what the provider says — an empty balance, for instance. «Could not be reached» is not «wrong key».",
+        "The key stays only in your browser, as before.",
+      ],
+    },
     {
       date: "2026-09-26",
       tag: "improvement",

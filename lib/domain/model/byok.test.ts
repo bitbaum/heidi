@@ -30,7 +30,8 @@ test("the endpoint is never taken from the request", () => {
 });
 
 test("an unlisted provider is refused even if it looks plausible", () => {
-  assert.equal(readByok({ ...good, provider: "anthropic" }).ok, false);
+  assert.equal(readByok({ ...good, provider: "localhost" }).ok, false);
+  assert.equal(readByok({ ...good, provider: "evil.example" }).ok, false);
   assert.equal(readByok({ ...good, provider: "" }).ok, false);
 });
 
@@ -72,6 +73,8 @@ test("someone else's key claims none of our rationed capacity", () => {
   // dailyTokens feeds the fair-share pool. Their key, their quota — telling
   // the pool it has capacity it does not own produces the exact wall that
   // rationing exists to prevent.
+  // ai-kit marks the link unmetered (Infinity); Heidi's free chain shares
+  // provider ids with it, so the adapter pins 0.
   assert.equal(byokChain({ provider: "groq", key: "gsk_EXAMPLENOTREAL", model: "m" })?.chain[0].provider.dailyTokens, 0);
 });
 
@@ -79,8 +82,14 @@ test("every allowlisted provider is https and has no trailing slash", () => {
   for (const p of BYOK_PROVIDERS) {
     assert.ok(p.baseUrl.startsWith("https://"), `${p.id} is not https`);
     assert.ok(!p.baseUrl.endsWith("/"), `${p.id} has a trailing slash`);
-    assert.ok(p.textModel.length > 0, `${p.id} has no default model`);
   }
+});
+
+test("the list is ai-kit's, so a vendor added there reaches Heidi", () => {
+  // Heidi kept its own five vendors; the shared list has more, Anthropic and
+  // Google among them. Asserted so a local copy cannot quietly return.
+  const ids = BYOK_PROVIDERS.map((p) => p.id);
+  for (const id of ["openrouter", "openai", "anthropic", "google", "groq"]) assert.ok(ids.includes(id as never), id);
 });
 
 test("keys are redacted before anything is logged", () => {
@@ -88,6 +97,9 @@ test("keys are redacted before anything is logged", () => {
   assert.match(redact("bad key sk-EXAMPLENOTAREALKEY rejected"), /<key>/);
   assert.match(redact("gsk_EXAMPLENOTAREALKEY is invalid"), /<key>/);
   assert.match(redact("sk-or-EXAMPLENOTAREALKEY expired"), /<key>/);
+  assert.match(redact("sk-ant-EXAMPLENOTAREALKEY expired"), /<key>/);
+  assert.match(redact("key AIzaEXAMPLENOTAREALKEY0123456789 invalid"), /<key>/);
+  assert.match(redact("xai-EXAMPLENOTAREALKEY invalid"), /<key>/);
   assert.doesNotMatch(redact("bad key sk-EXAMPLENOTAREALKEY"), /EXAMPLENOTAREALKEY/);
 });
 

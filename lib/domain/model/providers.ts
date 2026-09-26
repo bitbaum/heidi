@@ -16,7 +16,22 @@
  * recommended choice: one key, and Claude, Gemini and GPT are all behind it.
  */
 
-export type ProviderId = "openrouter" | "openai" | "groq" | "deepseek" | "together";
+import { BYOK_VENDORS, type ByokVendorId } from "@bitbaum/ai-kit/byok";
+
+/**
+ * WHICH VENDORS A KEY MAY BE SENT TO — ai-kit's list, not ours.
+ *
+ * Heidi kept its own five-vendor table (no Anthropic, no Gemini) while
+ * ai-kit's `BYOK_VENDORS` became the one answer every app shares: which hosts
+ * a server may send a stranger's key to (the SSRF allowlist), where to get a
+ * key, and how to check one. A vendor added there reaches Heidi with a version
+ * bump. This file only adapts the names Heidi's code already uses.
+ *
+ * No per-vendor "can read pictures" flag and no default model: ai-kit routes
+ * images on the model's observed capability, and the model is picked from the
+ * list the reader's own key can reach (`/api/model/check`), not guessed here.
+ */
+export type ProviderId = ByokVendorId;
 
 export type ByokProvider = {
   id: ProviderId;
@@ -25,76 +40,21 @@ export type ByokProvider = {
   baseUrl: string;
   /** Where the person goes to create a key. */
   keysUrl: string;
-  /** Shape hint used for a cheap client-side sanity check, never for auth. */
-  keyPrefix?: string;
-  /** A sensible default model that can read images, when the vendor has one. */
-  visionModel?: string;
-  /** A sensible default for text, when they just want better answers. */
-  textModel: string;
-  /**
-   * Why someone would pick this one — SOURCE COPY for maintainers, in English.
-   *
-   * Deliberately not rendered: it leaked English into a German dropdown once.
-   * What a visitor needs in order to choose is whether the provider can read a
-   * picture, and that is shown from the dictionary as a localised badge.
-   */
-  note: string;
+  /** Placeholder hint for the key field. Not validation. */
+  keyHint: string;
+  /** Placeholder for the model field, when the vendor lists no models. */
+  modelExample: string;
 };
 
-export const BYOK_PROVIDERS: readonly ByokProvider[] = [
-  {
-    id: "openrouter",
-    label: "OpenRouter",
-    baseUrl: "https://openrouter.ai/api/v1",
-    keysUrl: "https://openrouter.ai/keys",
-    keyPrefix: "sk-or-",
-    visionModel: "openai/gpt-5-mini",
-    textModel: "openai/gpt-5-mini",
-    note: "One key, and Claude, Gemini and GPT are all behind it.",
-  },
-  {
-    id: "openai",
-    label: "OpenAI",
-    baseUrl: "https://api.openai.com/v1",
-    keysUrl: "https://platform.openai.com/api-keys",
-    keyPrefix: "sk-",
-    visionModel: "gpt-5-mini",
-    textModel: "gpt-5-mini",
-    note: "Direct, if you already have an account.",
-  },
-  {
-    id: "groq",
-    label: "Groq",
-    baseUrl: "https://api.groq.com/openai/v1",
-    keysUrl: "https://console.groq.com/keys",
-    keyPrefix: "gsk_",
-    // Groq's hosted models are text-only at the time of writing, so no vision
-    // default is offered rather than one being guessed.
-    textModel: "openai/gpt-oss-120b",
-    note: "Very fast. Text only.",
-  },
-  {
-    id: "deepseek",
-    label: "DeepSeek",
-    baseUrl: "https://api.deepseek.com/v1",
-    keysUrl: "https://platform.deepseek.com/api_keys",
-    keyPrefix: "sk-",
-    textModel: "deepseek-chat",
-    note: "Inexpensive. Text only.",
-  },
-  {
-    id: "together",
-    label: "Together",
-    baseUrl: "https://api.together.xyz/v1",
-    keysUrl: "https://api.together.ai/settings/api-keys",
-    textModel: "meta-llama/Llama-4-Scout-17B-16E-Instruct",
-    note: "Open-weight models.",
-  },
-];
+export const BYOK_PROVIDERS: readonly ByokProvider[] = BYOK_VENDORS.map((v) => ({
+  id: v.id,
+  label: v.label,
+  baseUrl: v.baseUrl,
+  keysUrl: v.keyUrl,
+  keyHint: v.keyHint,
+  modelExample: v.modelExample,
+}));
 
 export function findProvider(id: string): ByokProvider | undefined {
   return BYOK_PROVIDERS.find((p) => p.id === id);
 }
-
-/** Providers that can be given a picture. Drives what the attach button says. */
-export const VISION_PROVIDERS = BYOK_PROVIDERS.filter((p) => p.visionModel);
