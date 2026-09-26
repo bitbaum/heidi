@@ -48,6 +48,11 @@ function fromRules(rules: readonly VarietyRule[], variety: "target" | "bridge"):
 
   for (const rule of rules) {
     if (typeof rule.match !== "string") continue;
+    // A house-style rule (`dispreferred`) names a form real Zurich speakers
+    // use — «het», «nid» in parts of the canton. Quizzing it as the WRONG
+    // answer would teach a learner that something correct is an error. Only
+    // forms the gate refuses outright become a question.
+    if (rule.severity === "dispreferred" || rule.severity === "variant") continue;
     const wrong = rule.match.trim();
     const right = rule.suggest?.trim();
     if (!wrong || !right || wrong.toLowerCase() === right.toLowerCase()) continue;

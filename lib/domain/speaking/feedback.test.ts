@@ -91,14 +91,14 @@ test("longer runs than before are reported when the gain is beyond noise", () =>
 });
 
 test("a form from another dialect is named, with the Zurich one to use instead", () => {
-  const notes = languageNotes("Das isch güet gsi, gäu", VARIETY);
+  const notes = languageNotes("Ig ha gseit, wosch es Miuch", VARIETY);
   const forms = notes.filter((n) => n.id === "foreign-form");
-  assert.ok(forms.length >= 2, `expected güet and gäu, got ${JSON.stringify(notes)}`);
+  assert.ok(forms.length >= 2, `expected ig, wosch and Miuch, got ${JSON.stringify(notes)}`);
 
-  const guet = forms.find((n) => n.form?.toLowerCase() === "güet");
-  assert.ok(guet);
-  assert.equal(guet.suggest, "guet");
-  assert.equal(guet.origin, "Bern");
+  const wosch = forms.find((n) => n.form?.toLowerCase() === "wosch");
+  assert.ok(wosch);
+  assert.equal(wosch.suggest, "wotsch");
+  assert.equal(wosch.origin, "Bern");
 });
 
 /**

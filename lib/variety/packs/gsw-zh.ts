@@ -88,7 +88,7 @@ export const ZURICH_GERMAN: VarietyPack = {
         cantons: ["ZH"],
         town: "Zürich",
         place: { lon: 8.5417, lat: 47.3769 },
-        sources: ["sds-atlas", "kleiner-sprachatlas"],
+        sources: ["sds-atlas", "kleiner-sprachatlas", "dialektatlas-2025", "hotzenkoecherle-1984", "weber-zuerich-grammatik", "gallmann-zuerich-woerterbuch", "fleischer-schmid-2006", "leemann-2016-crowdsourcing"],
       },
       {
         id: "baerndueuetsch",
@@ -98,7 +98,7 @@ export const ZURICH_GERMAN: VarietyPack = {
         town: "Bern",
         place: { lon: 7.4474, lat: 46.948 },
         ruleOrigin: "Bern",
-        sources: ["sds-atlas", "kleiner-sprachatlas"],
+        sources: ["sds-atlas", "kleiner-sprachatlas", "dialektatlas-2025", "hotzenkoecherle-1984", "marti-bern-grammatik"],
       },
       {
         id: "baseldytsch",
@@ -108,7 +108,7 @@ export const ZURICH_GERMAN: VarietyPack = {
         town: "Basel",
         place: { lon: 7.5886, lat: 47.5596 },
         ruleOrigin: "Basel",
-        sources: ["sds-atlas", "kleiner-sprachatlas"],
+        sources: ["sds-atlas", "kleiner-sprachatlas", "dialektatlas-2025", "hotzenkoecherle-1984", "suter-basel-grammatik", "suter-basel-woerterbuch"],
       },
       {
         id: "innerschwyzertuetsch",
@@ -116,7 +116,8 @@ export const ZURICH_GERMAN: VarietyPack = {
         cantons: ["LU", "UR", "SZ", "OW", "NW", "ZG"],
         town: "Luzern",
         place: { lon: 8.3093, lat: 47.0502 },
-        sources: ["sds-atlas", "kleiner-sprachatlas"],
+        ruleOrigin: "Innerschweiz",
+        sources: ["sds-atlas", "kleiner-sprachatlas", "dialektatlas-2025", "hotzenkoecherle-1984", "bossard-zuger-mundartbuch", "aschwanden-urner-woerterbuch"],
       },
       {
         id: "ostschwiizertuetsch",
@@ -126,7 +127,7 @@ export const ZURICH_GERMAN: VarietyPack = {
         town: "St. Gallen",
         place: { lon: 9.3767, lat: 47.4245 },
         ruleOrigin: "Ostschweiz",
-        sources: ["sds-atlas", "kleiner-sprachatlas"],
+        sources: ["sds-atlas", "kleiner-sprachatlas", "dialektatlas-2025", "hotzenkoecherle-1984", "schaffhauser-mundartwoerterbuch", "sonderegger-appenzeller-sprachbuch"],
       },
       {
         id: "aargauerdueuetsch",
@@ -135,7 +136,7 @@ export const ZURICH_GERMAN: VarietyPack = {
         cantons: ["AG"],
         town: "Aarau",
         place: { lon: 8.0456, lat: 47.3909 },
-        sources: ["sds-atlas", "kleiner-sprachatlas"],
+        sources: ["sds-atlas", "kleiner-sprachatlas", "dialektatlas-2025", "hotzenkoecherle-1984", "meng-baden-woerterbuch"],
       },
       {
         id: "glarnertueuetsch",
@@ -144,7 +145,8 @@ export const ZURICH_GERMAN: VarietyPack = {
         cantons: ["GL"],
         town: "Glarus",
         place: { lon: 9.0678, lat: 47.0404 },
-        sources: ["sds-atlas", "kleiner-sprachatlas"],
+        ruleOrigin: "Glarus",
+        sources: ["sds-atlas", "kleiner-sprachatlas", "dialektatlas-2025", "hotzenkoecherle-1984", "glarner-mundartwoerterbuch"],
       },
       {
         id: "solothurnerdueuetsch",
@@ -153,7 +155,7 @@ export const ZURICH_GERMAN: VarietyPack = {
         cantons: ["SO"],
         town: "Solothurn",
         place: { lon: 7.5378, lat: 47.2088 },
-        sources: ["sds-atlas", "kleiner-sprachatlas"],
+        sources: ["sds-atlas", "kleiner-sprachatlas", "dialektatlas-2025", "hotzenkoecherle-1984", "solothurner-mundartverein"],
       },
       {
         id: "seyslerdueuetsch",
@@ -162,7 +164,8 @@ export const ZURICH_GERMAN: VarietyPack = {
         cantons: ["FR"],
         town: "Freiburg",
         place: { lon: 7.162, lat: 46.8065 },
-        sources: ["sds-atlas", "kleiner-sprachatlas"],
+        ruleOrigin: "Sense",
+        sources: ["sds-atlas", "kleiner-sprachatlas", "dialektatlas-2025", "hotzenkoecherle-1984", "schmutz-haas-sensler-woerterbuch"],
       },
       {
         // The one the map was missing, and not a small omission: Graubünden is
@@ -172,7 +175,8 @@ export const ZURICH_GERMAN: VarietyPack = {
         cantons: ["GR"],
         town: "Chur",
         place: { lon: 9.53, lat: 46.85 },
-        sources: ["sds-atlas", "kleiner-sprachatlas"],
+        ruleOrigin: "Graubünden",
+        sources: ["sds-atlas", "kleiner-sprachatlas", "dialektatlas-2025", "hotzenkoecherle-1984", "davoser-woerterbuch", "rheinwalder-woerterbuch"],
       },
       {
         // Highest Alemannic, and the reason the SDS extends past the border:
@@ -187,7 +191,8 @@ export const ZURICH_GERMAN: VarietyPack = {
         // this file exists to avoid.
         town: "Brig",
         place: { lon: 7.988, lat: 46.316 },
-        sources: ["sds-atlas", "kleiner-sprachatlas"],
+        ruleOrigin: "Wallis",
+        sources: ["sds-atlas", "kleiner-sprachatlas", "dialektatlas-2025", "hotzenkoecherle-1984", "bohnenberger-walliser-mundart"],
       },
     ],
 
@@ -264,13 +269,6 @@ export const ZURICH_GERMAN: VarietyPack = {
           reason: "Germany's word. Swiss Standard German says Rahm.",
           origin: "Germany",
           suggest: "Rahm",
-        },
-        {
-          match: "Strassenbahn",
-          severity: "foreign",
-          reason: "Germany's word. In Switzerland it is the Tram.",
-          origin: "Germany",
-          suggest: "Tram",
         },
         {
           match: "Tüte",
@@ -1086,55 +1084,72 @@ export const ZURICH_GERMAN: VarietyPack = {
   ],
 
   rules: [
+    /**
+     * HOUSE STYLE, not regional claims. Each of these is a real form inside
+     * the canton of Zurich or a spelling variant, so it is `dispreferred`:
+     * Heidi's own copy says Züridütsch, hät, nöd, gaht, staht (tests hold our
+     * copy to it), but nothing here tells a reader the form comes from
+     * somewhere else. Several were once labelled regional and were wrong:
+     * SDS 3/48 has «het» at 13 Zurich points; SDS 3/57 has o-forms of «geht»
+     * at 28; SDS 4/167 has «nid» as the majority form nearly everywhere,
+     * Zurich included; and DWDS treats Schwyzerdütsch/Schwyzertütsch as one
+     * word with a varying spelling of the same consonant — which is why
+     * «Züritüütsch» is a spelling we do not use, not an eastern form.
+     */
     {
-      // Zurich keeps the d: Dütsch, Züridütsch, Hochdütsch, Schwiizerdütsch.
-      // The t-onset is the east's (and the name other regions give their own
-      // dialect — Glarnertüütsch, Ostschwiizertütsch — which is why only the
-      // bare word and the Zurich/generic compounds are matched, not every
-      // word ending in -tüütsch). This rule once exempted «Züritüütsch»; that
-      // exemption contradicted its own premise and let the product misname
-      // the variety it teaches ninety times.
       match: /(?<!\p{L})(?:züri|hoch|schwiizer|schwizer)?t(?:üü|ü|u)tsch\p{L}*/giu,
       display: "(Züri-/Hoch-)tüütsch",
-      severity: "foreign",
-      origin: "Ostschweiz",
-      reason: "Ostschweiz t-onset — Zurich says Dütsch, Züridütsch, Hochdütsch",
+      severity: "dispreferred",
+      reason: "House spelling is Dütsch: Züridütsch, Hochdütsch, Schwiizerdütsch",
       suggest: "Dütsch",
     },
-    // `nid` is Bern and central Switzerland; the east says `nöd` like Zurich
-    // (Appenzell `nüd`), Basel and Valais `nit`. It was labelled Ostschweiz
-    // until the dialect reader put the label in front of people.
-    { match: "nid", severity: "foreign", origin: "Bern", reason: "Bernese and central 'nid' — Zurich says nöd", suggest: "nöd" },
-    { match: "güet", severity: "foreign", origin: "Bern", reason: "Bernese 'güet' — Zurich says guet", suggest: "guet" },
-    { match: "gäu", severity: "foreign", origin: "Bern", reason: "Bernese tag 'gäu' — Zurich says gäll", suggest: "gäll" },
+    { match: "het", severity: "dispreferred", reason: "House form is hät (Zurich city, SDS 3/48)", suggest: "hät" },
+    { match: "goht", severity: "dispreferred", reason: "House form is gaht (SDS 3/57)", suggest: "gaht" },
+    { match: "stoht", severity: "dispreferred", reason: "House form is staht", suggest: "staht" },
+    { match: "nid", severity: "dispreferred", reason: "House form is nöd (Zurich city, SDS 4/167)", suggest: "nöd" },
+    { match: "nit", severity: "dispreferred", reason: "House form is nöd (Zurich city, SDS 4/167)", suggest: "nöd" },
+
+    /**
+     * REGIONAL FORMS, each one a whole word no Zurich survey point uses, each
+     * citing where it is described. The SDS map is named in the reason
+     * (volume/map; the digital edition at sprachatlas.ch). A form shared by
+     * several areas is filed under the area where the atlas has most of it,
+     * and the reason names the rest. A test refuses a regional rule with no
+     * source, because the wrong ones above had none.
+     */
+    { match: "ig", severity: "foreign", origin: "Bern", reason: "Bern (also Solothurn): «iig» for ich, SDS 3/195", suggest: "ich", sources: ["sds-atlas"] },
+    { match: "iig", severity: "foreign", origin: "Bern", reason: "Bern (also Solothurn): «iig» for ich, SDS 3/195", suggest: "ich", sources: ["sds-atlas"] },
+    { match: "wosch", severity: "foreign", origin: "Bern", reason: "Bern, Fribourg, Luzern: «wosch» for willst, SDS 3/112", suggest: "wotsch", sources: ["sds-atlas"] },
+    { match: "geisch", severity: "foreign", origin: "Bern", reason: "Bern, Wallis, Solothurn: «geisch» for gehst, SDS 3/57", suggest: "gaasch", sources: ["sds-atlas"] },
+    { match: "geit", severity: "foreign", origin: "Bern", reason: "Bern, Wallis, Solothurn: «geit» for geht, SDS 3/57", suggest: "gaat", sources: ["sds-atlas"] },
+    { match: "Grüessech", severity: "foreign", origin: "Bern", reason: "Bern greeting «Grüess ech», SDS 5/112 — Zurich says Grüezi", suggest: "Grüezi", sources: ["sds-atlas"] },
+    { match: "Miuch", severity: "foreign", origin: "Bern", reason: "l-vocalisation (Bern, Luzern, Solothurn, Aargau), SDS 1/165", suggest: "Milch", sources: ["sds-atlas"] },
+    { match: "Meitschi", severity: "foreign", origin: "Bern", reason: "Bern, Luzern, Solothurn: «Meitschi» for Mädchen, SDS 4/146", suggest: "Meitli", sources: ["sds-atlas"] },
+    { match: "Hung", severity: "foreign", origin: "Bern", reason: "nd as ng (Bern, Solothurn), SDS 2/120", suggest: "Hund", sources: ["sds-atlas"] },
     {
       match: /\p{L}*öu\p{L}*/giu,
       display: "…öu…",
       severity: "foreign",
       origin: "Bern",
-      reason: "Bernese öu diphthong — Zurich says au",
+      reason: "l-vocalisation after ö (Bern and neighbours), SDS 1/165 — Zurich keeps the l",
+      sources: ["sds-atlas"],
     },
-    { match: "sai", severity: "foreign", origin: "Basel", reason: "Basel 'sai'" },
-    // The textbook markers, one line each: forms a Zurich reader would never
-    // produce and that any description of the dialect names first. Bern's
-    // l-vocalisation (Milch -> Miuch) and its two words for children; Basel's
-    // unaffricated k (Chuchi -> Kuchi) and its tram.
-    { match: "Giel", severity: "foreign", origin: "Bern", reason: "Bernese 'Giel' (boy) — Zurich says Bueb", suggest: "Bueb" },
-    { match: "Meitschi", severity: "foreign", origin: "Bern", reason: "Bernese 'Meitschi' (girl) — Zurich says Meitli", suggest: "Meitli" },
-    { match: "Miuch", severity: "foreign", origin: "Bern", reason: "Bernese l-vocalisation — Zurich says Milch", suggest: "Milch" },
-    { match: "Kuchi", severity: "foreign", origin: "Basel", reason: "Basel keeps the k — Zurich says Chuchi", suggest: "Chuchi" },
-    { match: "Drämmli", severity: "foreign", origin: "Basel", reason: "Basel's word for the tram — Zurich says Tram", suggest: "Tram" },
-    // More of the forms every description of Bernese and Basel German names
-    // first — each one a word a Zurich speaker does not say, so the gate
-    // catches it in generated text and the dialect pages can show it.
-    { match: "ig", severity: "foreign", origin: "Bern", reason: "Bernese 'ig' (I) — Zurich says ich", suggest: "ich" },
-    { match: "wosch", severity: "foreign", origin: "Bern", reason: "Bernese 'wosch' (you want) — Zurich says wotsch", suggest: "wotsch" },
-    { match: "het", severity: "foreign", origin: "Bern", reason: "Bernese 'het' (has) — Zurich says hät", suggest: "hät" },
-    { match: "Grüessech", severity: "foreign", origin: "Bern", reason: "Bernese formal greeting — Zurich says Grüezi", suggest: "Grüezi" },
-    { match: "vilmau", severity: "foreign", origin: "Bern", reason: "Bernese l-vocalisation — Zurich says vilmal", suggest: "vilmal" },
-    { match: "goht", severity: "foreign", origin: "Basel", reason: "Basel 'goht' (goes) — Zurich says gaht", suggest: "gaht" },
-    { match: "stoht", severity: "foreign", origin: "Basel", reason: "Basel 'stoht' (stands) — Zurich says staht", suggest: "staht" },
-    { match: "nit", severity: "foreign", origin: "Basel", reason: "Basel 'nit' (not) — Zurich says nöd", suggest: "nöd" },
+    { match: "Drämmli", severity: "foreign", origin: "Basel", reason: "Basel's name for the tram", suggest: "Tram", sources: ["wikipedia-strassenbahn-basel"] },
+    { match: "Kuchi", severity: "foreign", origin: "Basel", reason: "Basel city keeps the k (Khind, Kueche)", suggest: "Chuchi", sources: ["wikipedia-baseldeutsch"] },
+    { match: "Gumel", severity: "foreign", origin: "Innerschweiz", reason: "Schwyz, Uri, Zug: «Gumel» for Kartoffel, SDS 6/202", suggest: "Härdöpfel", sources: ["sds-atlas"] },
+    { match: "Gumeli", severity: "foreign", origin: "Innerschweiz", reason: "Schwyz, Uri, Zug: «Gumeli» for Kartoffel, SDS 6/202", suggest: "Härdöpfel", sources: ["sds-atlas"] },
+    { match: "Eiker", severity: "foreign", origin: "Innerschweiz", reason: "Luzern, Zug: «Eiker» for Eichhörnchen, SDS 6/257", suggest: "Eichhörnli", sources: ["sds-atlas"] },
+    { match: "Eikerli", severity: "foreign", origin: "Innerschweiz", reason: "Luzern, Zug: «Eikerli» for Eichhörnchen, SDS 6/257", suggest: "Eichhörnli", sources: ["sds-atlas"] },
+    { match: "näbis", severity: "foreign", origin: "Ostschweiz", reason: "Appenzell, St. Gallen (Toggenburg): «näbis» for etwas, SDS 3/226", suggest: "öppis", sources: ["sds-atlas", "wikipedia-ostschweizer-dialekt"] },
+    { match: "schüü", severity: "foreign", origin: "Glarus", reason: "Glarus (also St. Gallen, Graubünden): «schüü» for schön, SDS 1/102", suggest: "schön", sources: ["sds-atlas"] },
+    { match: "gùgge", severity: "foreign", origin: "Sense", reason: "Senslerdeutsch «gùgge» for schauen — Zurich says luege", suggest: "luege", sources: ["wikipedia-senslerdeutsch"] },
+    { match: "eswas", severity: "foreign", origin: "Graubünden", reason: "Walser (Graubünden, Wallis): «eswas» for etwas, SDS 3/226", suggest: "öppis", sources: ["sds-atlas"] },
+    { match: "appas", severity: "foreign", origin: "Wallis", reason: "Wallis: «appas» for etwas, SDS 3/226", suggest: "öppis", sources: ["sds-atlas"] },
+    { match: "wier", severity: "foreign", origin: "Wallis", reason: "Wallis, Walser, Bernese Oberland: «wier» for wir, SDS 3/203", suggest: "mir", sources: ["sds-atlas"] },
+    { match: "wilt", severity: "foreign", origin: "Wallis", reason: "Wallis, Bernese Oberland: «wilt» for willst, SDS 3/112", suggest: "wotsch", sources: ["sds-atlas"] },
+    { match: "Häärpfel", severity: "foreign", origin: "Wallis", reason: "Wallis: «Häärpfel» for Kartoffel, SDS 6/202", suggest: "Härdöpfel", sources: ["sds-atlas"] },
+    { match: "Aache", severity: "foreign", origin: "Wallis", reason: "Wallis, Fribourg: «Aache» for Butter, SDS 5/179", suggest: "Anke", sources: ["sds-atlas"] },
+    { match: "güet", severity: "foreign", origin: "Wallis", reason: "ü-diphthong in «guet» (Wallis, Uri), SDS 1/142", suggest: "guet", sources: ["sds-atlas"] },
     {
       match: /ß/gu,
       display: "ß",

@@ -28,11 +28,11 @@ test("Heidi's own Swiss German passes Heidi's own dialect gate", () => {
 
   for (const [path, text] of strings(dict)) {
     // The dialect EXAMPLES are deliberately exempt: `check.placeholder` is
-    // "Das isch nid güet, gäu" — a sentence chosen precisely because it fails,
+    // "Ig ha gseit, wosch es Miuch?" (Bernese: iig, wosch, Miuch) — a sentence chosen precisely because it fails,
     // so a reader can watch the checker catch something.
     if (path.startsWith("check.placeholder")) continue;
 
-    const verdict = check(text, ZURICH_GERMAN);
+    const verdict = check(text, ZURICH_GERMAN, "dispreferred");
     if (!verdict.ok) {
       failures.push(`${path}: ${verdict.findings.map((f) => f.form).join(", ")} — ${text.slice(0, 70)}`);
     }

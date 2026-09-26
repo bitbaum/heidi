@@ -72,10 +72,13 @@ describe("where an area sits among the others", () => {
   });
 
   test("the nearest recognised area is one Heidi actually has forms for", () => {
-    const walliser = find("wallisertitsch");
-    assert.equal(walliser.marks.length, 0, "this test is about an area with no forms");
+    // Solothurn: described as Bern-like, Aargau-like and Basel-like in its
+    // three parts, with no word of its own — so it has no marks, and the
+    // page points to a neighbour that does.
+    const solothurn = find("solothurnerdueuetsch");
+    assert.equal(solothurn.marks.length, 0, "this test is about an area with no forms");
 
-    const nearest = nearestRecognised(walliser, areas);
+    const nearest = nearestRecognised(solothurn, areas);
     assert.ok(nearest, "somewhere in this pack has forms");
     assert.ok(nearest.area.marks.length > 0, "pointed at an area with nothing in the gate");
   });

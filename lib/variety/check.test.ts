@@ -156,28 +156,44 @@ test("capabilities differ, so the same engine must build different products", ()
 // ---------------------------------------------------------------------------
 
 const ZH_FORBIDDEN: Array<[string, string]> = [
-  ["tüütsch", "Ostschweiz"],
-  ["tütsch", "Ostschweiz"],
-  ["Züritüütsch", "Ostschweiz"],
-  ["Hochtüütsch", "Ostschweiz"],
-  ["Schwiizertüütsch", "Ostschweiz"],
-  ["tüütschi", "Ostschweiz"],
-  ["ig", "Bernese"],
-  ["wosch", "Bernese"],
-  ["het", "Bernese"],
-  ["Grüessech", "Bernese"],
-  ["vilmau", "Bernese"],
-  ["nit", "Basel"],
-  ["goht", "Basel"],
-  ["stoht", "Basel"],
-  ["nid", "Bernese"],
-  ["güet", "Bernese"],
-  ["gäu", "Bernese"],
-  ["öu", "Bernese"],
-  ["Löu", "Bernese"],
-  ["sai", "Basel"],
+  // Every regional form, each backed by an SDS map or a named source (see
+  // the rules in gsw-zh.ts and the "every regional form names where it is
+  // described" test in sources.test.ts).
+  ["ig", "Bern"],
+  ["iig", "Bern"],
+  ["wosch", "Bern"],
+  ["geisch", "Bern"],
+  ["geit", "Bern"],
+  ["Grüessech", "Bern"],
+  ["Miuch", "Bern"],
+  ["Meitschi", "Bern"],
+  ["Hung", "Bern"],
+  ["öu", "Bern"],
+  ["Löu", "Bern"],
+  ["Drämmli", "Basel"],
+  ["Kuchi", "Basel"],
+  ["Gumel", "Innerschweiz"],
+  ["Eiker", "Innerschweiz"],
+  ["näbis", "Ostschweiz"],
+  ["schüü", "Glarus"],
+  ["gùgge", "Sense"],
+  ["eswas", "Graubünden"],
+  ["appas", "Wallis"],
+  ["wier", "Wallis"],
+  ["wilt", "Wallis"],
+  ["Häärpfel", "Wallis"],
+  ["Aache", "Wallis"],
+  ["güet", "Wallis"],
   ["Strasse mit ß", "ß"],
 ];
+
+/**
+ * HOUSE STYLE: real forms inside the canton of Zurich, or spelling variants,
+ * so they pass the generation gate ("foreign") and are held back only from
+ * our own copy ("dispreferred"). Each was once filed as another region's and
+ * the atlas says otherwise — see the note on the rules in gsw-zh.ts.
+ */
+const ZH_HOUSE_STYLE = ["tüütsch", "tütsch", "Züritüütsch", "Hochtüütsch", "Schwiizertüütsch", "het", "goht", "stoht", "nid", "nit"];
 
 const ZH_ALLOWED = [
   "nöd",
@@ -203,6 +219,18 @@ for (const [form, why] of ZH_FORBIDDEN) {
     assert.equal(r.ok, false);
     assert.ok(r.findings.length >= 1);
     assert.ok(r.findings[0].reason.length > 0);
+    // The label is part of the claim: a form must be filed under the region
+    // the literature puts it in, not merely rejected.
+    if (why !== "ß") assert.equal(r.findings[0].origin, why);
+  });
+}
+
+for (const form of ZH_HOUSE_STYLE) {
+  test(`zh keeps ${JSON.stringify(form)} out of our copy without calling it foreign`, () => {
+    assert.equal(check(`Das isch ${form} gsi.`, ZURICH_GERMAN, "foreign").ok, true);
+    const r = check(`Das isch ${form} gsi.`, ZURICH_GERMAN, "dispreferred");
+    assert.equal(r.ok, false);
+    assert.equal(r.findings[0].origin, undefined, "a house-style rule names no region");
   });
 }
 
@@ -214,23 +242,23 @@ for (const form of ZH_ALLOWED) {
 }
 
 test("zh is case-insensitive and reports the offset", () => {
-  const r = check("Nid so.", ZURICH_GERMAN);
+  const r = check("Wier gönd.", ZURICH_GERMAN);
   assert.equal(r.ok, false);
-  assert.equal(r.findings[0].form, "Nid");
+  assert.equal(r.findings[0].form, "Wier");
   assert.equal(r.findings[0].index, 0);
 });
 
 test("zh reports multiple findings in text order", () => {
-  const r = check("gäu, das isch nid güet", ZURICH_GERMAN);
+  const r = check("Ig ha gseit, wosch es Miuch?", ZURICH_GERMAN);
   assert.deepEqual(
     r.findings.map((f) => f.form),
-    ["gäu", "nid", "güet"],
+    ["Ig", "wosch", "Miuch"],
   );
 });
 
 test("zh offers the Zurich form to use instead", () => {
-  const r = check("Das isch nid guet.", ZURICH_GERMAN);
-  assert.equal(r.findings[0].suggest, "nöd");
+  const r = check("Wosch es Kafi?", ZURICH_GERMAN);
+  assert.equal(r.findings[0].suggest, "wotsch");
   assert.equal(r.findings[0].origin, "Bern");
 });
 

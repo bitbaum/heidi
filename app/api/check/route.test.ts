@@ -20,8 +20,8 @@ test("rejects over-long input with 400", async () => {
   assert.equal(res.status, 400);
 });
 
-test('returns violations for "Das isch nid güet"', async () => {
-  const res = await POST(request({ text: "Das isch nid güet" }));
+test('returns violations for "Ig ha gseit, wosch es Miuch?"', async () => {
+  const res = await POST(request({ text: "Ig ha gseit, wosch es Miuch?" }));
   assert.equal(res.status, 200);
   const json = await res.json();
   assert.equal(json.ok, false);
@@ -39,8 +39,8 @@ test('returns ok for "Das isch nöd guet"', async () => {
 });
 
 test("the reading names the area a received message points to", async () => {
-  const res = await POST(request({ text: "Das isch nid güet" }));
+  const res = await POST(request({ text: "Ig ha gseit, wosch es Miuch?" }));
   const json = await res.json();
   assert.equal(json.reading.verdict, "area");
-  assert.ok(["Bern", "Ostschweiz"].includes(json.reading.lead.origin));
+  assert.equal(json.reading.lead.origin, "Bern");
 });

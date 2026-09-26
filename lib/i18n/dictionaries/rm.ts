@@ -406,7 +406,7 @@ export const rm: Dictionary = {
   check: {
     title: "Controlla dal dialect",
     intro: "Ina glista fixa da reglas — betg in model linguistic. Ella controllescha mintga lingia che Heidi As mussa. Qua pudais Vus la laschar currer sezs.",
-    placeholder: "Das isch nid güet, gäu",
+    placeholder: "Ig ha gseit, wosch es Miuch?",
     button: "Controllar",
     failed: "La verificaziun n'era betg cuntanschibla. Empruvai anc ina giada.",
     ok: "Naginas furmas estras chattadas. Quai po passar sco tudestg da Turitg.",

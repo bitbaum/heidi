@@ -389,6 +389,13 @@ export type VarietyRule = {
   origin?: string;
   /** The target-variety form to use instead. */
   suggest?: string;
+  /**
+   * Ids into `lib/research/sources.ts` for WHERE this form is said. Required
+   * (by a test) for a rule that places a form in a dialect area: a regional
+   * claim nobody can look up is exactly the kind that turned out wrong
+   * (`nid` was once labelled Ostschweiz).
+   */
+  sources?: readonly string[];
 };
 
 /**
