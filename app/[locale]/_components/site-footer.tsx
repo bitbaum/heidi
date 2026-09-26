@@ -115,7 +115,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                     <Link
                       href={href(locale, route.segment)}
                       prefetch={false}
-                      className="inline-flex min-h-11 items-center wrap-anywhere text-sm text-fg-secondary hover:text-fg-primary"
+                      className="inline-flex min-h-11 min-w-11 items-center wrap-anywhere text-sm text-fg-secondary hover:text-fg-primary"
                     >
                       {dict.nav[route.key]}
                     </Link>
@@ -150,7 +150,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                     lang={l}
                     prefetch={false}
                     aria-current={l === locale ? "true" : undefined}
-                    className={`inline-flex min-h-11 items-center wrap-anywhere text-sm hover:text-fg-primary ${
+                    className={`inline-flex min-h-11 min-w-11 items-center wrap-anywhere text-sm hover:text-fg-primary ${
                       l === locale ? "font-medium text-fg-primary" : "text-fg-secondary"
                     }`}
                   >
