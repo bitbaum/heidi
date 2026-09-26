@@ -1253,9 +1253,9 @@ export const en: Dictionary = {
         watch: "Em Peter sis Auto is not a mistake, it is the normal form. The person comes first, the thing after.",
       },
       "diminutive-li": {
-        title: "The -li on everything",
-        rule: "The -li diminutive is highly productive and often means nothing small at all.",
-        watch: "Es Bierli is not a small beer, it is a beer said kindly. Do not take -li literally.",
+        title: "-li: the diminutive — and words that simply are that way",
+        rule: "-li goes on the noun, the vowel takes an umlaut where it can, and the word is always neuter: s Huus → s Hüüsli, s Brot → s Brötli, d Chatz → s Chätzli. The plural does not change: zwei Brötli. It means small, or makes something more familiar — like German -chen, only far more often.",
+        watch: "Many -li words are not diminutives at all but the ordinary word: Rüebli (carrot), Gipfeli (croissant), Weggli (bread roll), Müesli, Zältli (sweet), Meitli (girl). A Rüebli is not a small carrot. And because -li is always neuter, it is s Chätzli even though the cat is d Chatz.",
       },
       "am-progressive": {
         title: "«am» plus the verb — in the middle of it",
@@ -1271,6 +1271,41 @@ export const en: Dictionary = {
         title: "«gäll», «halt», «äbe» — where the speaker stands",
         rule: "These small words change no fact, only the position behind it: «gäll» asks you to agree, «halt» means nothing can be done, «äbe» says that is exactly the point.",
         watch: "German has «eben», and «gell» is alive in the south — what is new is mostly how often they come, and «dänk», which has no German equivalent. You will follow the sentence without them. You just will not hear whether you were agreed with or asked something.",
+      },
+      subjunctive: {
+        title: "hett, wär, chönnt — the subjunctive is alive",
+        rule: "Wishes, polite requests and anything hypothetical use the subjunctive: hett (would have), wär (would be), chönnt (could), sött (should), wett (would like, wanted) — or würd plus the infinitive. You will often hear them with -i as well: hetti, wäri.",
+        watch: "One vowel separates «would have» from «has»: «Er hett Ziit» is «he would have time», «er hät Ziit» is «he has time». And «Ich wett» is not a bet (German Wette) but «I would like».",
+      },
+      "pronoun-clitics": {
+        title: "en, em, ere — pronouns that look like articles",
+        rule: "Unstressed pronouns shrink: ihn → en, ihm → em, dative ihr → ere, es → s. They lean on the verb before them: «Ich han en gsee», «Säg em», «Wie gaht s ere?».",
+        watch: "Here «en» is not «einen» (a) but «ihn» (him), and «em» is not «dem» (the) but «ihm» (to him). If you wait for a noun after it, none comes — the pronoun is the whole object.",
+      },
+      participles: {
+        title: "gsi, gha, cho — participles with barely a ge-",
+        rule: "ge- becomes g-: gmacht, gseit, gsi (gewesen, been), gha (gehabt, had). Before k/ch, p, t and g it disappears: cho (gekommen), chauft (gekauft), trunke (getrunken), gange (gegangen).",
+        watch: "With no simple past, every past tense hangs on a participle like these. «cho» and «gsi» look like no German word — learn the common ones as words, not as a rule.",
+      },
+      "clock-time": {
+        title: "am vieri, halbi drüü — telling the time",
+        rule: "«am» means «at», «ab» means «past»: am viertel ab achti = at quarter past eight. The full hour usually takes an -i: am vieri, am achti, am zwölfi. «Halbi drüü» is half past two, 2:30 — counted towards three, as in German.",
+        watch: "All three little words mean something else in German: «am» sounds like «am Montag» (on Monday), «ab» like «ab acht Uhr» (from eight). But «viertel ab achti» is 8:15, not «from 7:45».",
+      },
+      "verb-order": {
+        title: "chönne cho — the final verbs the other way round",
+        rule: "When several verbs stack up at the end, the auxiliary or modal comes first and the verb carrying the meaning comes last: «Ich ha nöd chönne cho», where German says «… kommen können». The same in a subordinate clause: «…, dass si hät müesse schaffe».",
+        watch: "Understanding it is easy — the words are the same. Use the German order («cho chönne») and you will be understood, but you will sound like Standard German with Zurich words in it.",
+      },
+      directions: {
+        title: "ine, use, ufe, abe — no hin or her",
+        rule: "Direction words end in -e: ine (in), use (out), ufe (up), abe (down), ume (over, around). One word serves both directions.",
+        watch: "German separates «hin» (away from me) from «her» (towards me): hinein and herein. Zurich German does not: «Chömed Sie ine» and «Gönd Sie ine» use the same ine. Do not look for the difference — it is in the verb, not in the direction word.",
+      },
+      "names-article": {
+        title: "de Peter, d Anna — the article before a name",
+        rule: "First names almost always take an article: de Peter, d Anna, em Luca (to Luca). It is the normal, neutral form.",
+        watch: "In northern Germany «die Anna» sounds sloppy or dismissive. Not here — if anything, leaving the article out is what stands out.",
       },
     },
   },

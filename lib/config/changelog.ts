@@ -38,6 +38,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-09-26",
       tag: "improvement",
+      title: "Mehr Grammatik, mehr Wörter — und eine echte Regel für das -li",
+      summary:
+        "Sieben neue Grammatikthemen, 62 neue Wörter, und das Thema zum -li sagt jetzt, wie die Form gebildet wird, statt dass sie «oft nichts Kleines bedeutet».",
+      items: [
+        "Neu: hett, wär, chönnt (der Konjunktiv) · en, em, ere (Pronomen, die wie Artikel aussehen) · gsi, gha, cho (Partizipien ohne ge-) · chönne cho (die Verben am Ende andersherum) · ine, use, ufe, abe · de Peter, d Anna (Artikel vor Namen) · am vieri, halbi drüü (die Uhrzeit).",
+        "Das -li-Thema zeigt die Regel: Umlaut wo möglich, immer sächlich (d Chatz → s Chätzli), Mehrzahl unverändert — und dass Rüebli, Gipfeli, Weggli, Müesli und Meitli einfach die normalen Wörter sind.",
+        "Der Wortschatz wächst von 164 auf 226 Einträge: vor allem kurze Wörter und Verben (ämel, worum, eso, dusse, lah, lauffe, aalege), dazu hebe und rüere, die im Deutschen etwas anderes heissen.",
+        "Alle neuen Beispiele laufen durch dieselbe Zürich-Prüfung wie der Rest; die Übungen haben dadurch 1451 statt 1233 Fragen.",
+      ],
+    },
+    {
+      date: "2026-09-26",
+      tag: "improvement",
       title: "Das stärkste Modell, das Ihr Schlüssel kann",
       summary:
         "Wer einen eigenen API-Schlüssel mitbringt, fügt ihn ein — Heidi prüft ihn sofort und zeigt die Modelle, die er erreicht, das stärkste vorausgewählt.",
@@ -255,6 +268,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-26",
+      tag: "improvement",
+      title: "More grammar, more words — and a real rule for the -li",
+      summary:
+        "Seven new grammar topics, 62 new words, and the -li topic now says how the form is built instead of that it \"often means nothing small\".",
+      items: [
+        "New: hett, wär, chönnt (the subjunctive) · en, em, ere (pronouns that look like articles) · gsi, gha, cho (participles without ge-) · chönne cho (the final verbs the other way round) · ine, use, ufe, abe · de Peter, d Anna (the article before a name) · am vieri, halbi drüü (telling the time).",
+        "The -li topic states the rule: umlaut where possible, always neuter (d Chatz → s Chätzli), plural unchanged — and that Rüebli, Gipfeli, Weggli, Müesli and Meitli are simply the ordinary words.",
+        "The vocabulary grows from 164 to 226 entries, mostly short words and verbs (ämel, worum, eso, dusse, lah, lauffe, aalege), plus hebe and rüere, which mean something else in German.",
+        "Every new example passes the same Zurich check as the rest; practice now has 1451 questions instead of 1233.",
+      ],
+    },
     {
       date: "2026-09-26",
       tag: "improvement",

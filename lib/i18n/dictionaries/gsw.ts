@@ -1278,9 +1278,9 @@ export const gsw: Dictionary = {
         watch: "«Em Peter sis Auto» isch kein Fähler, sondern di normali Form. D Person chunnt zerscht, d Sach dernah.",
       },
       "diminutive-li": {
-        title: "S -li a allem",
-        rule: "D Verchlinerigsform uf -li isch sehr produktiv und bedüüted oft gar nüüt Chliises.",
-        watch: "«Es Bierli» isch kei chlises Bier, sondern es fründlich gseits Bier. Nämed Si s -li nöd wörtlich.",
+        title: "-li: d Verchliinerig — und Wörter, wo eifach so heissed",
+        rule: "-li chunt as Nomen, de Vokal wird wänn mögli umglautet, und s Wort isch immer sächlich: s Huus → s Hüüsli, s Brot → s Brötli, d Chatz → s Chätzli. I de Mehrzahl blibt s gliich: zwei Brötli. Es heisst «chli» oder macht öppis vertrauter — wie -chen im Hochdütsche, nume vill hüüfiger.",
+        watch: "Vill -li-Wörter sind gar kei Verchliinerig, sondern eifach s normale Wort: Rüebli (Karotte), Gipfeli (Croissant), Weggli (Brötchen), Müesli, Zältli (Bonbon), Meitli (Mädchen). Es Rüebli isch kei chliini Karotte. Und will -li immer sächlich macht, seit mer s Chätzli, au wänn d Chatz wiiblich isch.",
       },
       "am-progressive": {
         title: "«am» plus Verb — grad dra",
@@ -1296,6 +1296,41 @@ export const gsw: Dictionary = {
         title: "«gäll», «halt», «äbe» — d Haltig im Satz",
         rule: "Die chliine Wörtli änderet kei Tatsach, nume d Haltig dehinter: «gäll» suecht Zuestimmig, «halt» heisst «da chasch nüt mache», «äbe» bestätigt gnau de Punkt.",
         watch: "Hochdütsch hät «eben», und im Süde läbt «gell» — nöi isch vor allem, wie oft si chömed, und «dänk», wo s uf Hochdütsch kei Wort derfür git. De Satz verstönd Sie au ohni. Sie ghöred denn nume nöd, öb me Ihne rächt git oder Sie öppis fragt.",
+      },
+      subjunctive: {
+        title: "hett, wär, chönnt — de Konjunktiv läbt",
+        rule: "Wünsch, höflichi Bitte und alles, wo nume möglich isch, stönd im Konjunktiv: hett (hätte), wär (wäre), chönnt (könnte), sött (sollte), wett (möchte) — oder würd plus Grundform. Mer ghört si au mit -i: hetti, wäri.",
+        watch: "En einzige Vokal trännt «hätte» vo «hat»: «Er hett Ziit» heisst «er hätte Zeit», «er hät Ziit» heisst «er hat Zeit». Und «Ich wett» isch kei Wette, sondern «ich möchte».",
+      },
+      "pronoun-clitics": {
+        title: "en, em, ere — Pronomen, nöd Artikel",
+        rule: "Unbetonti Pronomen wärded chürzer: ihn → en, ihm → em, ihr → ere, es → s. Si hänked sich as Verb devor: «Ich han en gsee», «Säg em», «Wie gaht s ere?».",
+        watch: "«en» isch da nöd «einen», sondern «ihn», und «em» nöd «dem», sondern «ihm». Wer drufabe es Nomen erwartet, wartet vergäbe — s Pronomen isch scho s ganze Objekt.",
+      },
+      participles: {
+        title: "gsi, gha, cho — Partizip fascht ohni ge-",
+        rule: "Us ge- wird g-: gmacht, gseit, gsi (gewesen), gha (gehabt). Vor k/ch, p, t und g fallt s ganz wäg: cho (gekommen), chauft (gekauft), trunke (getrunken), gange (gegangen).",
+        watch: "Will s kei Präteritum git, hanget jedi Vergangeheit a somene Partizip. «cho» und «gsi» gsehnd nach keim hochdütsche Wort uus — lärned Sie di hüüfigste als Wörter, nöd als Regle.",
+      },
+      "clock-time": {
+        title: "am vieri, halbi drüü — d Uhrziit",
+        rule: "«am» heisst «um», «ab» heisst «nach»: am viertel ab achti = um Viertel nach acht. Di voll Stund überchunt meistens es -i: am vieri, am achti, am zwölfi. «Halbi drüü» isch halb drei, also 2:30 — wie im Hochdütsche.",
+        watch: "Alli drüü chliine Wörtli bedüüted im Hochdütsche öppis anders: «am» tönt wie «am Montag», «ab» wie «ab acht Uhr». «Viertel ab achti» isch aber 8:15, nöd «ab 7:45».",
+      },
+      "verb-order": {
+        title: "chönne cho — d Verbe am Schluss umgekehrt",
+        rule: "Wänn am Satzend mehreri Verbe stönd, chunt s Hilfs- oder Modalverb zerscht und s Verb mit de Bedüütig zletscht: «Ich ha nöd chönne cho», wo s Hochdütsch «… kommen können» seit. Im Nebesatz gliich: «…, dass si hät müesse schaffe».",
+        watch: "Verstah isch eifach — d Wörter sind di gliiche. Wer d hochdütschi Reihefolg nimmt («cho chönne»), wird verstande, tönt aber wie Hochdütsch mit Zürcher Wörter.",
+      },
+      directions: {
+        title: "ine, use, ufe, abe — ohni hin und her",
+        rule: "D Richtigswörter änded uf -e: ine, use, ufe, abe, ume. Eis Wort für beidi Richtige.",
+        watch: "S Hochdütsch trännt «hin» (vo mir wäg) und «her» (zu mir): hinein und herein. S Züridütsch nöd: «Chömed Sie ine» und «Gönd Sie ine» bruuched s gliiche ine. Sueched Sie de Unterschied nöd — er steckt im Verb, nöd im Richtigswort.",
+      },
+      "names-article": {
+        title: "de Peter, d Anna — de Artikel vor em Name",
+        rule: "Vornäme händ fascht immer en Artikel: de Peter, d Anna, em Luca. Das isch di normal, neutral Form.",
+        watch: "Im Norde vo Dütschland tönt «die Anna» salopp oder abschätzig. Da nöd — eher fallt uf, wer de Artikel weglaht.",
       },
     },
   },

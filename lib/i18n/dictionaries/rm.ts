@@ -1274,9 +1274,9 @@ export const rm: Dictionary = {
         watch: "«Em Peter sis Auto» n'è nagin sbagl, quai è la furma normala. Emprim la persuna, lura la chaussa.",
       },
       "diminutive-li": {
-        title: "Il -li sin tut",
-        rule: "La furma diminutiva sin -li è fitg productiva e na signifitga savens nagut pitschen.",
-        watch: "«Es Bierli» n'è betg ina biera pitschna, mabain ina biera ditga amiaivlamain. Na prendai betg il -li a la lettra.",
+        title: "-li: il diminutiv — e pleds che èn simplamain uschia",
+        rule: "-li vegn agiuntà al substantiv, il vocal survegn in umlaut sche pussaivel, ed il pled è adina neutral: s Huus → s Hüüsli, s Brot → s Brötli, d Chatz → s Chätzli. Il plural na sa mida betg: zwei Brötli. El vul dir «pitschen» u renda insatge pli familiar — sco -chen en tudestg, mo bler pli savens.",
+        watch: "Blers pleds sin -li n'èn nagins diminutivs, mabain il pled normal: Rüebli (carotta), Gipfeli (croissant), Weggli (panin), Müesli, Zältli (bumbun), Meitli (matta). In Rüebli n'è betg ina carotta pitschna. E perquai che -li è adina neutral, di ins s Chätzli, schebain che il giat è d Chatz.",
       },
       "am-progressive": {
         title: "«am» plus il verb — en il mument",
@@ -1292,6 +1292,41 @@ export const rm: Dictionary = {
         title: "«gäll», «halt», «äbe» — la posiziun da quel che discurra",
         rule: "Quests pleds pitschens na midan nagin fatg, mabain la posiziun davos: «gäll» tschertga Voss consentiment, «halt» vul dir ch\u2019i na va betg autra, «äbe» conferma gist quel punct.",
         watch: "Il tudestg ha «eben», e «gell» viva en il sid — nov è surtut quant savens ch\u2019els vegnan, e «dänk», che n\u2019ha nagin equivalent tudestg. La frasa chapis Vus era senza. Vus na tadlais mo betg sche ins As dat raschun u sche ins As dumonda insatge.",
+      },
+      subjunctive: {
+        title: "hett, wär, chönnt — il conjunctiv viva",
+        rule: "Giavischs, dumondas curtaschaivlas e tut quai ch'è ipotetic stattan en il conjunctiv: hett (avess), wär (fiss), chönnt (pudess), sött (duess), wett (vuless) — u würd plus l'infinitiv. Savens auda ins els era cun -i: hetti, wäri.",
+        watch: "In vocal separa «avess» da «ha»: «Er hett Ziit» vul dir «el avess temp», «er hät Ziit» «el ha temp». E «Ich wett» n'è betg ina scumessa (Wette), mabain «jau vuless».",
+      },
+      "pronoun-clitics": {
+        title: "en, em, ere — pronoms che paran artitgels",
+        rule: "Ils pronoms betg accentuads vegnan pli curts: ihn → en, ihm → em, ihr (dativ) → ere, es → s. Els sa pendan vi dal verb avant: «Ich han en gsee», «Säg em», «Wie gaht s ere?».",
+        watch: "Qua n'è «en» betg «einen» (in), mabain «ihn» (el), ed «em» n'è betg «dem», mabain «ihm» (ad el). Tgi che spetga in substantiv suenter, spetga per nagut — il pronom è gia l'entir object.",
+      },
+      participles: {
+        title: "gsi, gha, cho — participis quasi senza ge-",
+        rule: "Ord ge- daventa g-: gmacht, gseit, gsi (gewesen, stà), gha (gehabt, gì). Avant k/ch, p, t e g croda el davent: cho (gekommen), chauft (gekauft), trunke (getrunken), gange (gegangen).",
+        watch: "Perquai ch'i na dat nagin preterit, penda mintga passà vi d'in tal participi. «cho» e «gsi» na sumeglian a nagin pled tudestg — emprendai ils pli frequents sco pleds, betg sco regla.",
+      },
+      "clock-time": {
+        title: "am vieri, halbi drüü — l'ura",
+        rule: "«am» vul dir «a las», «ab» vul dir «suenter»: am viertel ab achti = las otg ed in quart. L'ura entira survegn per il solit in -i: am vieri, am achti, am zwölfi. «Halbi drüü» èn las duas e mesa, 2:30 — sco en tudestg.",
+        watch: "Tut ils trais pledins vulan dir insatge auter en tudestg: «am» tuna sco «am Montag» (il glindesdi), «ab» sco «ab acht Uhr» (a partir da las otg). Ma «viertel ab achti» è 8:15, betg «a partir da 7:45».",
+      },
+      "verb-order": {
+        title: "chönne cho — ils verbs a la fin al revers",
+        rule: "Sche plirs verbs stattan a la fin da la frasa, vegn il verb auxiliar u modal l'emprim ed il verb cun la muntada l'ultim: «Ich ha nöd chönne cho», nua ch'il tudestg di «… kommen können». Il medem en la frasa subordinada: «…, dass si hät müesse schaffe».",
+        watch: "Chapir è facil — ils pleds èn ils medems. Tgi che prenda l'urden tudestg («cho chönne») vegn chapì, ma tuna sco tudestg standard cun pleds turitgais.",
+      },
+      directions: {
+        title: "ine, use, ufe, abe — senza hin e her",
+        rule: "Ils pleds da direcziun finan sin -e: ine (en), use (or), ufe (si), abe (giu), ume (sur, enturn). In pled per omaduas direcziuns.",
+        watch: "Il tudestg distingua «hin» (davent da mai) e «her» (vers mai): hinein e herein. Il tudestg da Turitg betg: «Chömed Sie ine» e «Gönd Sie ine» dovran il medem ine. Na tschertgai betg la differenza — ella è en il verb, betg en il pled da direcziun.",
+      },
+      "names-article": {
+        title: "de Peter, d Anna — l'artitgel avant il num",
+        rule: "Prenums han quasi adina in artitgel: de Peter, d Anna, em Luca (al Luca). Quai è la furma normala e neutrala.",
+        watch: "En la Germania dal nord tuna «die Anna» negligent u sprezzant. Betg qua — plitost dat en egl tgi che lascha davent l'artitgel.",
       },
     },
   },

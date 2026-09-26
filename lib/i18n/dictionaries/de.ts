@@ -1411,9 +1411,9 @@ export const de = {
         watch: "«Em Peter sis Auto» ist nicht «dem Peter sein Auto» als Fehler, sondern die normale Form. Die Person kommt zuerst, die Sache danach.",
       },
       "diminutive-li": {
-        title: "Das -li an allem",
-        rule: "Die Verkleinerungsform auf -li ist sehr produktiv und bedeutet oft gar nichts Kleines.",
-        watch: "«Es Bierli» ist kein kleines Bier, sondern ein freundlich gesagtes Bier. Nehmen Sie -li nicht wörtlich.",
+        title: "-li: die Verkleinerung — und Wörter, die einfach so heissen",
+        rule: "-li kommt ans Nomen, der Vokal wird wenn möglich umgelautet, und das Wort ist immer sächlich: s Huus → s Hüüsli, s Brot → s Brötli, d Chatz → s Chätzli. In der Mehrzahl bleibt es gleich: zwei Brötli. Es bedeutet «klein» oder macht etwas vertrauter — wie -chen, nur viel häufiger.",
+        watch: "Viele -li-Wörter sind keine Verkleinerung, sondern das ganz normale Wort: Rüebli (Karotte), Gipfeli (Croissant), Weggli (Brötchen), Müesli, Zältli (Bonbon), Meitli (Mädchen). Ein Rüebli ist keine kleine Karotte. Und weil -li immer sächlich macht, heisst es s Chätzli, obwohl die Katze d Chatz ist.",
       },
       "am-progressive": {
         title: "«am» plus Verb — gerade dabei",
@@ -1429,6 +1429,41 @@ export const de = {
         title: "«gäll», «halt», «äbe» — die Haltung im Satz",
         rule: "Diese Wörtchen ändern keine Tatsache, sondern die Haltung dahinter: «gäll» sucht Zustimmung, «halt» heisst «da ist nichts zu machen», «äbe» bestätigt genau den Punkt.",
         watch: "Deutsch kennt «eben», und im Süden lebt «gell» — neu ist vor allem, wie oft sie kommen, und «dänk», für das es kein deutsches Wort gibt. Den Satz verstehen Sie auch ohne. Sie hören dann bloss nicht, ob man Ihnen zustimmt oder Sie etwas fragt.",
+      },
+      subjunctive: {
+        title: "hett, wär, chönnt — der Konjunktiv lebt",
+        rule: "Wünsche, höfliche Bitten und alles Hypothetische stehen im Konjunktiv: hett (hätte), wär (wäre), chönnt (könnte), sött (sollte), wett (möchte, wollte) — oder würd plus Grundform. Oft hört man sie auch mit -i: hetti, wäri.",
+        watch: "Ein Vokal trennt «hätte» von «hat»: «Er hett Ziit» heisst «er hätte Zeit», «er hät Ziit» heisst «er hat Zeit». Und «Ich wett» ist keine Wette, sondern «ich möchte».",
+      },
+      "pronoun-clitics": {
+        title: "en, em, ere — Pronomen, die wie Artikel aussehen",
+        rule: "Unbetonte Pronomen schrumpfen: ihn → en, ihm → em, ihr (Dativ) → ere, es → s. Sie lehnen sich ans Verb davor: «Ich han en gsee», «Säg em», «Wie gaht s ere?».",
+        watch: "«en» ist hier nicht «einen», sondern «ihn», und «em» nicht «dem», sondern «ihm». Wer danach ein Nomen erwartet, wartet vergeblich — das Pronomen ist schon das ganze Objekt.",
+      },
+      participles: {
+        title: "gsi, gha, cho — Partizipien fast ohne ge-",
+        rule: "Aus ge- wird g-: gmacht, gseit, gsi (gewesen), gha (gehabt). Vor k/ch, p, t und g fällt es ganz weg: cho (gekommen), chauft (gekauft), trunke (getrunken), gange (gegangen).",
+        watch: "Weil es kein Präteritum gibt, hängt jede Vergangenheit an so einem Partizip. «cho» und «gsi» sehen nach keinem deutschen Wort aus — lernen Sie die häufigsten als Wörter, nicht als Regel.",
+      },
+      "clock-time": {
+        title: "am vieri, halbi drüü — die Uhrzeit",
+        rule: "«am» heisst «um», «ab» heisst «nach»: am viertel ab achti = um Viertel nach acht. Die volle Stunde bekommt meist ein -i: am vieri, am achti, am zwölfi. «Halbi drüü» ist halb drei, also 2:30 — wie im Deutschen.",
+        watch: "Alle drei kleinen Wörter bedeuten im Deutschen etwas anderes: «am» klingt nach «am Montag», «ab» nach «ab acht Uhr». «Viertel ab achti» ist aber 8:15, nicht «ab 7:45».",
+      },
+      "verb-order": {
+        title: "chönne cho — die Verben am Ende andersherum",
+        rule: "Stehen am Satzende mehrere Verben, kommt das Hilfs- oder Modalverb zuerst und das Verb mit der Bedeutung zuletzt: «Ich ha nöd chönne cho», wo das Deutsche «… kommen können» sagt. Im Nebensatz ebenso: «…, dass si hät müesse schaffe».",
+        watch: "Verstehen ist leicht — die Wörter sind dieselben. Wer die deutsche Reihenfolge nimmt («cho chönne»), wird verstanden, klingt aber nach Hochdeutsch mit Zürcher Wörtern.",
+      },
+      directions: {
+        title: "ine, use, ufe, abe — ohne hin und her",
+        rule: "Richtungen enden auf -e: ine (hinein, herein), use (hinaus, heraus), ufe (hinauf, herauf), abe (hinunter, herunter), ume (hinüber, herum). Ein Wort für beide Richtungen.",
+        watch: "Deutsch unterscheidet «hin» (von mir weg) und «her» (zu mir): hinein und herein. Zürichdeutsch nicht: «Chömed Sie ine» und «Gönd Sie ine» brauchen dasselbe ine. Suchen Sie den Unterschied nicht — er steckt im Verb, nicht im Richtungswort.",
+      },
+      "names-article": {
+        title: "de Peter, d Anna — der Artikel vor dem Namen",
+        rule: "Vornamen haben fast immer einen Artikel: de Peter, d Anna, em Luca (dem Luca). Das ist die normale, neutrale Form.",
+        watch: "In Norddeutschland klingt «die Anna» salopp oder abschätzig. Hier nicht — eher fällt auf, wer den Artikel weglässt.",
       },
     },
   },

@@ -1258,9 +1258,9 @@ export const it: Dictionary = {
         watch: "«Em Peter sis Auto» non è un errore, è la forma normale. Prima la persona, poi la cosa.",
       },
       "diminutive-li": {
-        title: "Il -li su tutto",
-        rule: "Il diminutivo in -li è molto produttivo e spesso non indica nulla di piccolo.",
-        watch: "«Es Bierli» non è una birra piccola, è una birra detta con simpatia. Non prendete il -li alla lettera.",
+        title: "-li: il diminutivo — e parole che sono semplicemente così",
+        rule: "-li si aggiunge al nome, la vocale prende l'umlaut quando può, e la parola è sempre neutra: s Huus → s Hüüsli, s Brot → s Brötli, d Chatz → s Chätzli. Il plurale non cambia: zwei Brötli. Significa «piccolo» o rende la cosa più familiare — come -chen in tedesco, ma molto più spesso.",
+        watch: "Molte parole in -li non sono diminutivi, ma la parola normale: Rüebli (carota), Gipfeli (cornetto), Weggli (panino), Müesli, Zältli (caramella), Meitli (ragazza). Un Rüebli non è una carota piccola. E siccome -li è sempre neutro, si dice s Chätzli, anche se il gatto è d Chatz.",
       },
       "am-progressive": {
         title: "«am» più il verbo — sto facendo",
@@ -1276,6 +1276,41 @@ export const it: Dictionary = {
         title: "«gäll», «halt», «äbe» — la posizione di chi parla",
         rule: "Queste paroline non cambiano alcun fatto, solo la posizione dietro: «gäll» cerca il suo consenso, «halt» significa che non c\u2019è niente da fare, «äbe» conferma esattamente il punto.",
         watch: "Il tedesco ha «eben», e «gell» è vivo nel sud — la novità è soprattutto la frequenza, e «dänk», che non ha equivalente tedesco. La frase la capirà anche senza. Semplicemente non sentirà se le stanno dando ragione o le stanno chiedendo qualcosa.",
+      },
+      subjunctive: {
+        title: "hett, wär, chönnt — il congiuntivo è vivo",
+        rule: "Desideri, richieste gentili e tutto ciò che è ipotetico vanno al congiuntivo: hett (avrebbe), wär (sarebbe), chönnt (potrebbe), sött (dovrebbe), wett (vorrebbe) — oppure würd più l'infinito. Spesso si sentono anche con -i: hetti, wäri.",
+        watch: "Una vocale separa «avrebbe» da «ha»: «Er hett Ziit» è «avrebbe tempo», «er hät Ziit» è «ha tempo». E «Ich wett» non è una scommessa (Wette), ma «vorrei».",
+      },
+      "pronoun-clitics": {
+        title: "en, em, ere — pronomi che sembrano articoli",
+        rule: "I pronomi atoni si accorciano: ihn → en, ihm → em, ihr (dativo) → ere, es → s. Si appoggiano al verbo che li precede: «Ich han en gsee», «Säg em», «Wie gaht s ere?».",
+        watch: "Qui «en» non è «einen» (un), ma «ihn» (lo), ed «em» non è «dem», ma «ihm» (gli). Chi aspetta un nome dopo, aspetta invano — il pronome è già tutto l'oggetto.",
+      },
+      participles: {
+        title: "gsi, gha, cho — participi quasi senza ge-",
+        rule: "ge- diventa g-: gmacht, gseit, gsi (gewesen, stato), gha (gehabt, avuto). Davanti a k/ch, p, t e g sparisce: cho (gekommen), chauft (gekauft), trunke (getrunken), gange (gegangen).",
+        watch: "Senza passato semplice, ogni passato si regge su un participio come questi. «cho» e «gsi» non somigliano a nessuna parola tedesca — imparate i più frequenti come parole, non come regola.",
+      },
+      "clock-time": {
+        title: "am vieri, halbi drüü — l'ora",
+        rule: "«am» significa «alle», «ab» significa «e» (dopo): am viertel ab achti = alle otto e un quarto. L'ora piena prende di solito una -i: am vieri, am achti, am zwölfi. «Halbi drüü» sono le due e mezza, 2:30 — come in tedesco.",
+        watch: "Tutte e tre le paroline significano altro in tedesco: «am» ricorda «am Montag» (lunedì), «ab» ricorda «ab acht Uhr» (dalle otto). Ma «viertel ab achti» sono le 8:15, non «dalle 7:45».",
+      },
+      "verb-order": {
+        title: "chönne cho — i verbi finali al contrario",
+        rule: "Quando più verbi si accumulano alla fine, l'ausiliare o il modale viene prima e il verbo che porta il significato per ultimo: «Ich ha nöd chönne cho», dove il tedesco dice «… kommen können». Lo stesso nella subordinata: «…, dass si hät müesse schaffe».",
+        watch: "Capire è facile — le parole sono le stesse. Con l'ordine tedesco («cho chönne») vi capiranno, ma suonerete come tedesco standard con parole zurighesi.",
+      },
+      directions: {
+        title: "ine, use, ufe, abe — senza hin e her",
+        rule: "Le parole di direzione finiscono in -e: ine (dentro), use (fuori), ufe (su), abe (giù), ume (di là, intorno). Una parola per entrambe le direzioni.",
+        watch: "Il tedesco distingue «hin» (via da me) e «her» (verso di me): hinein e herein. Lo zurighese no: «Chömed Sie ine» e «Gönd Sie ine» usano lo stesso ine. Non cercate la differenza — sta nel verbo, non nella parola di direzione.",
+      },
+      "names-article": {
+        title: "de Peter, d Anna — l'articolo davanti al nome",
+        rule: "I nomi di battesimo hanno quasi sempre l'articolo: de Peter, d Anna, em Luca (a Luca). È la forma normale e neutra.",
+        watch: "Nel nord della Germania «die Anna» suona trascurato o sprezzante. Qui no — semmai si nota chi lo omette.",
       },
     },
   },
