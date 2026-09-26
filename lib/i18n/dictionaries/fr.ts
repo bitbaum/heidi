@@ -1289,7 +1289,7 @@ export const fr: Dictionary = {
       },
       participles: {
         title: "gsi, gha, cho — des participes presque sans ge-",
-        rule: "ge- devient g- : gmacht, gseit, gsi (gewesen, été), gha (gehabt, eu). Devant k/ch, p, t et g, il disparaît : cho (gekommen), chauft (gekauft), trunke (getrunken), gange (gegangen).",
+        rule: "ge- devient g- : gmacht, gseit, gsi (gewesen, été), gha (gehabt, eu). Devant k/ch, p, t et g, il disparaît : cho (gekommen), kauft (gekauft), trunke (getrunken), gange (gegangen).",
         watch: "Sans passé simple, tout le passé repose sur un participe de ce genre. «cho» et «gsi» ne ressemblent à aucun mot allemand — apprenez les plus fréquents comme des mots, pas comme une règle.",
       },
       "clock-time": {

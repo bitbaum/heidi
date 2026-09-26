@@ -1442,7 +1442,7 @@ export const de = {
       },
       participles: {
         title: "gsi, gha, cho — Partizipien fast ohne ge-",
-        rule: "Aus ge- wird g-: gmacht, gseit, gsi (gewesen), gha (gehabt). Vor k/ch, p, t und g fällt es ganz weg: cho (gekommen), chauft (gekauft), trunke (getrunken), gange (gegangen).",
+        rule: "Aus ge- wird g-: gmacht, gseit, gsi (gewesen), gha (gehabt). Vor k/ch, p, t und g fällt es ganz weg: cho (gekommen), kauft (gekauft), trunke (getrunken), gange (gegangen).",
         watch: "Weil es kein Präteritum gibt, hängt jede Vergangenheit an so einem Partizip. «cho» und «gsi» sehen nach keinem deutschen Wort aus — lernen Sie die häufigsten als Wörter, nicht als Regel.",
       },
       "clock-time": {

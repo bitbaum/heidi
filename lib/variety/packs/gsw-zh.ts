@@ -1244,7 +1244,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       band: "blocks",
       note: "a wish, a polite request or something hypothetical — hett, wär, chönnt, sött, wett, würd — and especially hett (hätte) heard or written as hät (hat), or wett read as a bet",
       examples: [
-        { target: "Ich hett gern en Kafi.", bridge: "Ich hätte gern einen Kaffee." },
+        { target: "Ich hett gern es Kafi.", bridge: "Ich hätte gern einen Kaffee." },
         { target: "Chönnted Sie mir hälfe?", bridge: "Könnten Sie mir helfen?" },
         { target: "Ich würd cho, wänn ich Ziit hett.", bridge: "Ich würde kommen, wenn ich Zeit hätte." },
       ],
@@ -1274,17 +1274,17 @@ export const ZURICH_GERMAN: VarietyPack = {
        * The partner of `no-preterite`. With no simple past, every past runs on
        * a participle — and the most common ones do not look like German ones.
        * `ge-` shrinks to `g-` (gmacht, gseit, gsi, gha) and disappears in front
-       * of a k/ch, p, t or g: `cho` (gekommen), `chauft` (gekauft), `trunke`
+       * of a k/ch, p, t or g: `cho` (gekommen), `kauft` (gekauft, g + ch fuse into k), `trunke`
        * (getrunken), `gange` (gegangen). A reader hunting for "ge-" finds
        * nothing to hold on to.
        */
       id: "participles",
       band: "blocks",
-      note: "a past participle that does not look German — gsi, gha, cho, gange, chauft, trunke — or somebody asking where the ge- went",
+      note: "a past participle that does not look German — gsi, gha, cho, gange, kauft, trunke — or somebody asking where the ge- went",
       examples: [
         { target: "Ich ha kei Ziit gha.", bridge: "Ich hatte keine Zeit." },
         { target: "Er isch geschter cho.", bridge: "Er ist gestern gekommen." },
-        { target: "Häsch s Billett scho chauft?", bridge: "Hast du die Fahrkarte schon gekauft?" },
+        { target: "Häsch s Billett scho kauft?", bridge: "Hast du die Fahrkarte schon gekauft?" },
       ],
     },
     {

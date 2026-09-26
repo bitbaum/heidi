@@ -1298,7 +1298,7 @@ export const ru: Dictionary = {
       },
       participles: {
         title: "gsi, gha, cho — причастия почти без ge-",
-        rule: "ge- превращается в g-: gmacht, gseit, gsi (gewesen, был), gha (gehabt, имел). Перед k/ch, p, t и g оно исчезает: cho (gekommen), chauft (gekauft), trunke (getrunken), gange (gegangen).",
+        rule: "ge- превращается в g-: gmacht, gseit, gsi (gewesen, был), gha (gehabt, имел). Перед k/ch, p, t и g оно исчезает: cho (gekommen), kauft (gekauft), trunke (getrunken), gange (gegangen).",
         watch: "Простого прошедшего нет, поэтому всё прошлое держится на таких причастиях. «cho» и «gsi» не похожи ни на одно немецкое слово — учите самые частые как слова, а не как правило.",
       },
       "clock-time": {

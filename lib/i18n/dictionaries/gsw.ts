@@ -1309,7 +1309,7 @@ export const gsw: Dictionary = {
       },
       participles: {
         title: "gsi, gha, cho — Partizip fascht ohni ge-",
-        rule: "Us ge- wird g-: gmacht, gseit, gsi (gewesen), gha (gehabt). Vor k/ch, p, t und g fallt s ganz wäg: cho (gekommen), chauft (gekauft), trunke (getrunken), gange (gegangen).",
+        rule: "Us ge- wird g-: gmacht, gseit, gsi (gewesen), gha (gehabt). Vor k/ch, p, t und g fallt s ganz wäg: cho (gekommen), kauft (gekauft), trunke (getrunken), gange (gegangen).",
         watch: "Will s kei Präteritum git, hanget jedi Vergangeheit a somene Partizip. «cho» und «gsi» gsehnd nach keim hochdütsche Wort uus — lärned Sie di hüüfigste als Wörter, nöd als Regle.",
       },
       "clock-time": {

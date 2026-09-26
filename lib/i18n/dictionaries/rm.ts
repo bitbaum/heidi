@@ -1305,7 +1305,7 @@ export const rm: Dictionary = {
       },
       participles: {
         title: "gsi, gha, cho — participis quasi senza ge-",
-        rule: "Ord ge- daventa g-: gmacht, gseit, gsi (gewesen, stà), gha (gehabt, gì). Avant k/ch, p, t e g croda el davent: cho (gekommen), chauft (gekauft), trunke (getrunken), gange (gegangen).",
+        rule: "Ord ge- daventa g-: gmacht, gseit, gsi (gewesen, stà), gha (gehabt, gì). Avant k/ch, p, t e g croda el davent: cho (gekommen), kauft (gekauft), trunke (getrunken), gange (gegangen).",
         watch: "Perquai ch'i na dat nagin preterit, penda mintga passà vi d'in tal participi. «cho» e «gsi» na sumeglian a nagin pled tudestg — emprendai ils pli frequents sco pleds, betg sco regla.",
       },
       "clock-time": {

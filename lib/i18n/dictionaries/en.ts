@@ -1284,7 +1284,7 @@ export const en: Dictionary = {
       },
       participles: {
         title: "gsi, gha, cho — participles with barely a ge-",
-        rule: "ge- becomes g-: gmacht, gseit, gsi (gewesen, been), gha (gehabt, had). Before k/ch, p, t and g it disappears: cho (gekommen), chauft (gekauft), trunke (getrunken), gange (gegangen).",
+        rule: "ge- becomes g-: gmacht, gseit, gsi (gewesen, been), gha (gehabt, had). Before k/ch, p, t and g it disappears: cho (gekommen), kauft (gekauft), trunke (getrunken), gange (gegangen).",
         watch: "With no simple past, every past tense hangs on a participle like these. «cho» and «gsi» look like no German word — learn the common ones as words, not as a rule.",
       },
       "clock-time": {
