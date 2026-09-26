@@ -1295,9 +1295,9 @@ export const fr: Dictionary = {
         watch: "« Em Peter sis Auto » n'est pas une faute, c'est la forme normale. La personne d'abord, la chose ensuite.",
       },
       "diminutive-li": {
-        title: "Le -li sur tout",
-        rule: "Le diminutif en -li est très productif et n'indique souvent rien de petit.",
-        watch: "« Es Bierli » n'est pas une petite bière, c'est une bière dite gentiment. Ne prenez pas le -li au pied de la lettre.",
+        title: "-li : le diminutif — et des mots qui sont simplement ainsi",
+        rule: "-li s'ajoute au nom, la voyelle prend un umlaut quand c'est possible, et le mot est toujours neutre : s Huus → s Hüüsli, s Brot → s Brötli, d Chatz → s Chätzli. Le pluriel ne change pas : zwei Brötli. Il veut dire «petit» ou rend la chose plus familière — comme -chen en allemand, mais bien plus souvent.",
+        watch: "Beaucoup de mots en -li ne sont pas des diminutifs, mais le mot ordinaire : Rüebli (carotte), Gipfeli (croissant), Weggli (petit pain), Müesli, Zältli (bonbon), Meitli (fille). Un Rüebli n'est pas une petite carotte. Et comme -li est toujours neutre, on dit s Chätzli, alors que le chat est d Chatz.",
       },
       "am-progressive": {
         title: "« am » plus le verbe — en train de",
@@ -1313,6 +1313,41 @@ export const fr: Dictionary = {
         title: "«gäll», «halt», «äbe» — la position de celui qui parle",
         rule: "Ces petits mots ne changent aucun fait, seulement la position derrière : «gäll» cherche votre accord, «halt» signifie qu\u2019on n\u2019y peut rien, «äbe» confirme exactement le point.",
         watch: "L\u2019allemand a «eben», et «gell» vit dans le sud — la nouveauté est surtout leur fréquence, et «dänk», sans équivalent allemand. Vous comprendrez la phrase sans eux. Vous n\u2019entendrez simplement pas si l\u2019on vous approuve ou si l\u2019on vous demande quelque chose.",
+      },
+      subjunctive: {
+        title: "hett, wär, chönnt — le subjonctif est vivant",
+        rule: "Souhaits, demandes polies et tout ce qui est hypothétique passent au subjonctif : hett (aurait), wär (serait), chönnt (pourrait), sött (devrait), wett (voudrait) — ou würd suivi de l'infinitif. On les entend souvent aussi avec -i : hetti, wäri.",
+        watch: "Une voyelle sépare «aurait» de «a» : «Er hett Ziit» veut dire «il aurait le temps», «er hät Ziit» «il a le temps». Et «Ich wett» n'est pas un pari (Wette), mais «je voudrais».",
+      },
+      "pronoun-clitics": {
+        title: "en, em, ere — des pronoms qui ressemblent à des articles",
+        rule: "Les pronoms non accentués rétrécissent : ihn → en, ihm → em, ihr (datif) → ere, es → s. Ils s'appuient sur le verbe qui précède : «Ich han en gsee», «Säg em», «Wie gaht s ere?».",
+        watch: "Ici «en» n'est pas «einen» (un), mais «ihn» (le), et «em» n'est pas «dem», mais «ihm» (lui). Qui attend un nom derrière attend en vain — le pronom est déjà tout l'objet.",
+      },
+      participles: {
+        title: "gsi, gha, cho — des participes presque sans ge-",
+        rule: "ge- devient g- : gmacht, gseit, gsi (gewesen, été), gha (gehabt, eu). Devant k/ch, p, t et g, il disparaît : cho (gekommen), kauft (gekauft), trunke (getrunken), gange (gegangen).",
+        watch: "Sans passé simple, tout le passé repose sur un participe de ce genre. «cho» et «gsi» ne ressemblent à aucun mot allemand — apprenez les plus fréquents comme des mots, pas comme une règle.",
+      },
+      "clock-time": {
+        title: "am vieri, halbi drüü — l'heure",
+        rule: "«am» veut dire «à», «ab» veut dire «et» (après) : am viertel ab achti = à huit heures et quart. L'heure pleine prend en général un -i : am vieri, am achti, am zwölfi. «Halbi drüü», c'est deux heures et demie, 2 h 30 — comme en allemand.",
+        watch: "Les trois petits mots veulent dire autre chose en allemand : «am» évoque «am Montag» (lundi), «ab» évoque «ab acht Uhr» (à partir de huit heures). Mais «viertel ab achti», c'est 8 h 15, pas «à partir de 7 h 45».",
+      },
+      "verb-order": {
+        title: "chönne cho — les verbes de fin à l'envers",
+        rule: "Quand plusieurs verbes s'accumulent en fin de phrase, l'auxiliaire ou le modal vient d'abord et le verbe porteur de sens en dernier : «Ich ha nöd chönne cho», là où l'allemand dit «… kommen können». De même dans la subordonnée : «…, dass si hät müesse schaffe».",
+        watch: "Comprendre est facile — les mots sont les mêmes. Avec l'ordre allemand («cho chönne»), on vous comprend, mais vous sonnez comme de l'allemand standard avec des mots zurichois.",
+      },
+      directions: {
+        title: "ine, use, ufe, abe — sans hin ni her",
+        rule: "Les mots de direction finissent en -e : ine (dedans), use (dehors), ufe (en haut), abe (en bas), ume (de l'autre côté, autour). Un seul mot pour les deux sens.",
+        watch: "L'allemand distingue «hin» (loin de moi) et «her» (vers moi) : hinein et herein. Le zurichois non : «Chömed Sie ine» et «Gönd Sie ine» emploient le même ine. Ne cherchez pas la différence — elle est dans le verbe, pas dans le mot de direction.",
+      },
+      "names-article": {
+        title: "de Peter, d Anna — l'article devant le prénom",
+        rule: "Les prénoms prennent presque toujours un article : de Peter, d Anna, em Luca (à Luca). C'est la forme normale et neutre.",
+        watch: "Dans le nord de l'Allemagne, «die Anna» paraît relâché ou méprisant. Pas ici — c'est plutôt l'absence d'article qui se remarque.",
       },
     },
   },

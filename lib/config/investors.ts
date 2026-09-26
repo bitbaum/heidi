@@ -74,8 +74,8 @@ export const METRICS: readonly Metric[] = [
   },
   { label: "Interface languages", value: "7", verify: "The language switcher." },
   { label: "Situations, with per-situation mastery", value: "19", verify: "/situations" },
-  { label: "Vocabulary entries", value: "164", verify: "/vocabulary" },
-  { label: "Practice questions", value: "1233", verify: "/practice" },
+  { label: "Vocabulary entries", value: "226", verify: "/vocabulary" },
+  { label: "Practice questions", value: "1451", verify: "/practice" },
   { label: "Dialect areas mapped", value: "11", verify: "/dialect" },
 ];
 
@@ -104,7 +104,7 @@ export const SECTIONS: readonly Section[] = [
     body: [
       "A working assistant, in seven interface languages, that decodes a real message someone was sent, explains the words that blocked it, and writes a reply the reader can send — then offers, in one tap, what to learn from it next. It reaches every page, streams its answer, and can be stopped mid-sentence.",
       "A learning system built on situations: nineteen of them, from the tram and the Gemeinde to a care-home handover, each measured line by line, so a learner can say — and check — \"I understand Swiss German at the doctor's\". Practice in five exercise forms, a test mode, spaced review of the learner's own words, and an explanation after every answer.",
-      "Around it: a dialect atlas of eleven areas, a grammar reference, a vocabulary of 164 entries including the false friends a German reader gets wrong and slang marked by register, and study groups.",
+      "Around it: a dialect atlas of eleven areas, a grammar reference, a vocabulary of 226 entries including the false friends a German reader gets wrong and slang marked by register, and study groups.",
       "All of it is MIT-licensed and public. An investor can read every line, run the tests, and check every claim on this page without asking us for anything.",
     ],
     links: [
