@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Dictionary } from "@/lib/i18n";
@@ -8,7 +8,7 @@ import type { Locale } from "@/lib/i18n/locales";
 import { href, navGroups, NAV_SECTIONS, type NavGroup } from "@/lib/i18n/routes";
 import { LanguageSwitcher } from "./language-switcher";
 import { CowMark } from "./cow-mark";
-import { NavPanel } from "./nav-panel";
+import { NavIcon } from "./nav-icon";
 import { useDismiss } from "./use-dismiss";
 import { DISPLAY } from "@/lib/variety/display";
 
@@ -56,6 +56,30 @@ export function SiteHeader({
    */
   const dismiss = useCallback(() => setOpen(false), []);
   useDismiss({ open, onDismiss: dismiss, containerRef: bar, focusRef: menuButton });
+
+  /**
+   * ONE PANEL FOR THE WHOLE BAR, not a popover per button.
+   *
+   * The three groups used to open three small boxes of bare links, anchored
+   * to their buttons, with nothing to say what is behind each page. Now the
+   * bar opens one full-width panel under itself: every page a card with an
+   * icon and a line saying what is there, a dimmed page behind so "tap
+   * outside to close" is obvious, and moving to another trigger while it is
+   * open swaps the contents in place instead of closing and reopening.
+   */
+  const [mega, setMega] = useState<NavGroup | null>(null);
+  const closeMega = useCallback(() => setMega(null), []);
+  useDismiss({ open: mega !== null, onDismiss: closeMega, containerRef: bar });
+
+  // The page behind a full-screen phone menu must not scroll under it.
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [open]);
 
   const groupLabel = (group: NavGroup) =>
     group === "use"
@@ -202,33 +226,40 @@ export function SiteHeader({
 
           <span aria-hidden="true" className="mx-3 h-4 w-px bg-border-subtle" />
 
-          {/* The material. */}
-          <NavPanel
-            label={groupLabel("learn")}
-            current={groups.some(({ group, routes }) => group === "learn" && routes.some((r) => isCurrent(r.segment)))}
-          >
-            <LearnPanel locale={locale} dict={dict} isCurrent={isCurrent} />
-          </NavPanel>
-
-          <span aria-hidden="true" className="mx-3 h-4 w-px bg-border-subtle" />
-
-          {/* What you do with it — the drill, the speaking, the listening. */}
-          <NavPanel
-            label={groupLabel("practise")}
-            current={groups.some(({ group, routes }) => group === "practise" && routes.some((r) => isCurrent(r.segment)))}
-          >
-            <PanelList group="practise" locale={locale} dict={dict} isCurrent={isCurrent} />
-          </NavPanel>
-
-          <span aria-hidden="true" className="mx-3 h-4 w-px bg-border-subtle" />
-
-          {/* Why it works this way, who is doing it, and the writing. */}
-          <NavPanel
-            label={groupLabel("about")}
-            current={groups.some(({ group, routes }) => group === "about" && routes.some((r) => isCurrent(r.segment)))}
-          >
-            <PanelList group="about" locale={locale} dict={dict} isCurrent={isCurrent} />
-          </NavPanel>
+          {/* The material, what you do with it, and why it works this way. */}
+          {(["learn", "practise", "about"] as const).map((group) => {
+            const isOpen = mega === group;
+            const current = groups.some((g) => g.group === group && g.routes.some((r) => isCurrent(r.segment)));
+            return (
+              <button
+                key={group}
+                type="button"
+                aria-expanded={isOpen}
+                aria-controls="mega-menu"
+                onClick={() => setMega(isOpen ? null : group)}
+                onPointerEnter={() => mega !== null && setMega(group)}
+                className={`mx-1.5 inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap px-1.5 text-sm transition-colors ${
+                  current || isOpen
+                    ? "font-semibold text-fg-primary underline decoration-accent decoration-2 underline-offset-8"
+                    : "text-fg-secondary hover:text-fg-primary"
+                }`}
+              >
+                {groupLabel(group)}
+                <svg
+                  aria-hidden="true"
+                  width="10"
+                  height="10"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
+                >
+                  <path d="M2 4.5 6 8.5 10 4.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            );
+          })}
         </nav>
 
         {/* `relative` is the anchor every control in this row hangs its panel
@@ -256,44 +287,94 @@ export function SiteHeader({
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="site-menu"
-            className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-3 font-mono text-caption uppercase tracking-caps text-fg-primary lg:hidden"
+            aria-label={open ? dict.nav.closeMenu : undefined}
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-control border border-border-strong px-3 font-mono text-caption uppercase tracking-caps text-fg-primary lg:hidden"
           >
-            {dict.nav.menu}
+            {open ? "✕" : dict.nav.menu}
           </button>
         </div>
       </div>
 
+      {mega && (
+        <>
+          {/* The dimmed page: pressing it closes the panel. */}
+          <div
+            aria-hidden="true"
+            onClick={closeMega}
+            className="fixed inset-x-0 bottom-0 top-[var(--header-height)] z-20 hidden bg-fg-primary/20 lg:block"
+          />
+          <div
+            id="mega-menu"
+            className="absolute inset-x-0 top-full z-30 hidden border-b border-border-strong bg-surface-page shadow-lg lg:block"
+          >
+            <nav aria-label={groupLabel(mega)} className="mx-auto w-full max-w-shell px-8 py-7">
+              <MegaGroup group={mega} locale={locale} dict={dict} isCurrent={isCurrent} onPick={closeMega} />
+            </nav>
+          </div>
+        </>
+      )}
+
       {open && (
-        <div id="site-menu" className="border-t border-border-subtle bg-surface-raised lg:hidden">
-          <nav aria-label={dict.nav.menu} className="mx-auto w-full max-w-shell px-5 py-4 sm:px-8">
-            {groups.map(({ group, routes }) => (
-              <section key={group} className="mb-4 last:mb-0">
-                <h2 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{groupLabel(group)}</h2>
-                <ul className="mt-1 flex flex-col">
-                  {routes.map((route) => (
-                    <li key={route.key}>
-                      <Link
-                        href={href(locale, route.segment)}
-                        prefetch={false}
-                        onClick={() => setOpen(false)}
-                        aria-current={isCurrent(route.segment) ? "page" : undefined}
-                        className={`flex min-h-12 items-center border-b border-border-subtle text-base ${
-                          isCurrent(route.segment) ? "font-semibold text-fg-primary" : "text-fg-secondary"
-                        }`}
-                      >
-                        {dict.nav[route.key]}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ))}
+        <div
+          id="site-menu"
+          className="fixed inset-x-0 bottom-0 top-[var(--header-height)] z-50 overflow-y-auto overscroll-contain bg-surface-page lg:hidden"
+        >
+          <nav aria-label={dict.nav.menu} className="mx-auto w-full max-w-shell px-5 pb-10 pt-5 sm:px-8">
+            {/* The two things people open the menu for, as buttons. */}
+            <div className="grid grid-cols-2 gap-3">
+              <Link
+                href={href(locale, "chat")}
+                prefetch={false}
+                onClick={() => setOpen(false)}
+                className="flex min-h-14 items-center justify-center gap-2 rounded-control bg-action px-3 text-center font-medium text-on-action"
+              >
+                <NavIcon route="chat" />
+                {dict.nav.quickChat}
+              </Link>
+              <Link
+                href={href(locale, "practice")}
+                prefetch={false}
+                onClick={() => setOpen(false)}
+                className="flex min-h-14 items-center justify-center gap-2 rounded-control border border-border-strong px-3 text-center font-medium text-fg-primary"
+              >
+                <NavIcon route="practice" />
+                {dict.nav.quickPractice}
+              </Link>
+            </div>
+
+            {groups
+              .filter(({ group }) => group !== "use")
+              .map(({ group, routes }) => (
+                <section key={group} className="mt-7">
+                  <h2 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{groupLabel(group)}</h2>
+                  <ul className="mt-3 grid grid-cols-safe gap-2 xs:grid-cols-2">
+                    {routes.map((route) => (
+                      <li key={route.key} className="min-w-0">
+                        <Link
+                          href={href(locale, route.segment)}
+                          prefetch={false}
+                          onClick={() => setOpen(false)}
+                          aria-current={isCurrent(route.segment) ? "page" : undefined}
+                          className={`flex min-h-12 items-center gap-2.5 rounded-control border px-3 py-2 text-base ${
+                            isCurrent(route.segment)
+                              ? "border-border-strong font-semibold text-fg-primary"
+                              : "border-border-subtle text-fg-secondary"
+                          }`}
+                        >
+                          <NavIcon route={route.key} className="text-fg-muted" />
+                          <span className="min-w-0 wrap-anywhere">{dict.nav[route.key]}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
 
             {/* Signed out only: the sign-in button and the gear, which do not
                 fit in the bar beside everything else. Signed in this renders
                 nothing at all, so the dropdown exists once in the document. */}
             {accountSheet && (
-              <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-border-subtle pt-5">
+              <div className="mt-8 flex flex-wrap items-center gap-2 border-t border-border-subtle pt-5">
                 {accountSheet}
               </div>
             )}
@@ -330,133 +411,92 @@ export function SiteHeader({
  * «Üben», and repeating it one line below is the menu explaining itself to
  * somebody who is looking at the answer.
  */
-function PanelList({
+/**
+ * One group's pages as cards — icon, name, and what is behind it — with the
+ * dialect areas under "learn" and the project pages under "about" in their
+ * headed columns. `onPick` closes the panel when a card is followed.
+ */
+function MegaGroup({
   group,
   locale,
   dict,
   isCurrent,
+  onPick,
 }: {
   group: NavGroup;
   locale: Locale;
   dict: Dictionary;
   isCurrent: (segment: string) => boolean;
+  onPick: () => void;
 }) {
   const routes = navGroups().find((g) => g.group === group)?.routes ?? [];
+  const blurbs = dict.nav.blurbs as Record<string, string>;
 
-  const link = (route: (typeof routes)[number]) => (
-    <li key={route.key}>
+  const card = (route: (typeof routes)[number]) => (
+    <li key={route.key} className="min-w-0">
       <Link
         href={href(locale, route.segment)}
         prefetch={false}
+        onClick={onPick}
         aria-current={isCurrent(route.segment) ? "page" : undefined}
-        className={`whitespace-nowrap text-base ${
-          isCurrent(route.segment) ? "font-semibold text-fg-primary" : "text-fg-secondary hover:text-fg-primary"
+        className={`group flex h-full gap-3 rounded-control border p-4 transition-colors hover:border-border-strong hover:bg-surface-raised ${
+          isCurrent(route.segment) ? "border-border-strong" : "border-border-subtle"
         }`}
       >
-        {dict.nav[route.key]}
+        <NavIcon route={route.key} className="mt-0.5 text-fg-muted group-hover:text-accent" />
+        <span className="min-w-0">
+          <span className="block font-medium text-fg-primary">{dict.nav[route.key]}</span>
+          {blurbs[route.key] && (
+            <span className="mt-0.5 block text-sm leading-snug text-fg-secondary">{blurbs[route.key]}</span>
+          )}
+        </span>
       </Link>
     </li>
   );
 
-  /**
-   * SUBDIVIDED WHERE A PANEL HAS OUTGROWN SCANNING.
-   *
-   * `about` is nine entries and was reported as "way too many unstructured
-   * entries" — which is right: nine in a flat column is past scanning and into
-   * reading, and a menu that has to be read gets closed. Three headings of
-   * three is one glance.
-   *
-   * Every other panel is a plain list, because every other panel is short.
-   * The shape follows the content rather than being imposed on all four.
-   */
-  const sectioned = routes.some((route) => route.section !== undefined);
-
-  if (!sectioned) {
-    return <ul className="flex w-[15rem] max-w-full flex-col gap-2">{routes.map(link)}</ul>;
+  if (group === "about") {
+    return (
+      <div className="grid grid-cols-3 gap-6">
+        {NAV_SECTIONS.map((section) => {
+          const inSection = routes.filter((route) => route.section === section);
+          if (inSection.length === 0) return null;
+          return (
+            <div key={section}>
+              <h3 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{dict.nav.sections[section]}</h3>
+              <ul className="mt-3 flex flex-col gap-2">{inSection.map(card)}</ul>
+            </div>
+          );
+        })}
+        {routes.some((route) => route.section === undefined) && (
+          <ul className="flex flex-col gap-2">{routes.filter((r) => r.section === undefined).map(card)}</ul>
+        )}
+      </div>
+    );
   }
 
   return (
-    <div className="flex w-[15rem] max-w-full flex-col gap-5">
-      {NAV_SECTIONS.map((section) => {
-        const inSection = routes.filter((route) => route.section === section);
-        if (inSection.length === 0) return null;
-        return (
-          <div key={section}>
-            <h3 className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-              {dict.nav.sections[section]}
-            </h3>
-            <ul className="mt-2 flex flex-col gap-2">{inSection.map(link)}</ul>
-          </div>
-        );
-      })}
-
-      {/* A route in the group with no section still renders, below the
-          headings rather than silently missing — the failure a filtered list
-          makes invisible. */}
-      {routes.some((route) => route.section === undefined) && (
-        <ul className="flex flex-col gap-2">{routes.filter((r) => r.section === undefined).map(link)}</ul>
-      )}
-    </div>
-  );
-}
-
-function LearnPanel({
-  locale,
-  dict,
-  isCurrent,
-}: {
-  locale: Locale;
-  dict: Dictionary;
-  isCurrent: (segment: string) => boolean;
-}) {
-  const learn = navGroups().find((g) => g.group === "learn")?.routes ?? [];
-
-  return (
-    /*
-      Held to a fixed, modest width. `NavPanel` sizes to its content, and a
-      wrapped list of eleven endonyms will happily take 42rem — which made the
-      panel wider than it was before, defeating the point. Narrow, the same
-      names wrap to three quiet lines and the panel stops covering the
-      headline behind it.
-    */
-    <div className="flex w-[22rem] max-w-full flex-col gap-4">
-      <ul className="flex flex-col gap-2">
-        {learn.map((route) => (
-          <li key={route.key}>
+    <div>
+      <ul className={`grid gap-3 ${routes.length >= 4 ? "grid-cols-4" : "grid-cols-3"}`}>{routes.map(card)}</ul>
+      {group === "learn" && (
+        <div className="mt-5 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-t border-border-subtle pt-4">
+          <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{dict.dialect.areasTitle}</span>
+          {DISPLAY.areas.map((area) => (
             <Link
-              href={href(locale, route.segment)}
+              key={area.id}
+              href={`${href(locale, "dialect")}/${area.id}`}
               prefetch={false}
-              aria-current={isCurrent(route.segment) ? "page" : undefined}
-              className={`whitespace-nowrap text-base ${
-                isCurrent(route.segment) ? "font-semibold text-fg-primary" : "text-fg-secondary hover:text-fg-primary"
+              onClick={onPick}
+              lang={DISPLAY.tag}
+              title={area.taught ? dict.dialect.taught : undefined}
+              className={`whitespace-nowrap text-sm ${
+                area.taught ? "font-semibold text-dialect hover:text-accent" : "text-fg-secondary hover:text-fg-primary"
               }`}
             >
-              {dict.nav[route.key]}
+              {area.endonym}
             </Link>
-          </li>
-        ))}
-      </ul>
-
-      <div className="border-t border-border-subtle pt-3">
-        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{dict.dialect.areasTitle}</p>
-        <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
-          {DISPLAY.areas.map((area) => (
-            <li key={area.id}>
-              <Link
-                href={`${href(locale, "dialect")}/${area.id}`}
-                prefetch={false}
-                lang={DISPLAY.tag}
-                title={area.taught ? dict.dialect.taught : undefined}
-                className={`whitespace-nowrap text-nav ${
-                  area.taught ? "font-semibold text-dialect hover:text-accent" : "text-fg-muted hover:text-fg-primary"
-                }`}
-              >
-                {area.endonym}
-              </Link>
-            </li>
           ))}
-        </ul>
-      </div>
+        </div>
+      )}
     </div>
   );
 }

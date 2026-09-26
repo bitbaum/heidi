@@ -38,6 +38,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-09-26",
       tag: "improvement",
+      title: "Eine Startseite, die man in einer Minute liest",
+      summary:
+        "Die Startseite sagt jetzt in zwei Spalten, worum es geht — mit einer Kuh vor den Alpen daneben — und führt in drei Schritten hinein: Situationen, Üben, Chat.",
+      items: [
+        "Fast halb so viel Text: rund 250 statt 440 Wörter.",
+        "Das Beispiel klingt wie eine echte Nachricht vom Mittagstisch: «Geschter im Kauz gsi — mega geil! 😍 Chunnsch s nächscht Mal au?»",
+        "Das Menü öffnet auf Klick, zeigt jede Seite mit einem Satz dazu und schliesst mit Escape oder einem Klick daneben.",
+        "Auf dem Handy öffnet das Menü als ganze Seite, mit grossen Kacheln und dem Chat zuoberst.",
+      ],
+    },
+    {
+      date: "2026-09-26",
+      tag: "improvement",
       title: "Mehr Grammatik, mehr Wörter — und eine echte Regel für das -li",
       summary:
         "Sieben neue Grammatikthemen, 62 neue Wörter, und das Thema zum -li sagt jetzt, wie die Form gebildet wird, statt dass sie «oft nichts Kleines bedeutet».",
@@ -268,6 +281,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-26",
+      tag: "improvement",
+      title: "A home page you can read in a minute",
+      summary:
+        "The home page now says what Heidi is in two columns — with a cow in front of the Alps beside it — and leads in through three steps: situations, practice, chat.",
+      items: [
+        "Nearly half the text: about 250 words instead of 440.",
+        "The example reads like a real message from the lunch table: «Geschter im Kauz gsi — mega geil! 😍 Chunnsch s nächscht Mal au?»",
+        "The menu opens on a click, shows every page with one line about it, and closes with Escape or a click outside.",
+        "On a phone the menu opens as a full page, with large tiles and the chat at the top.",
+      ],
+    },
     {
       date: "2026-09-26",
       tag: "improvement",
