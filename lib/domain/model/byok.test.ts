@@ -73,9 +73,11 @@ test("someone else's key claims none of our rationed capacity", () => {
   // dailyTokens feeds the fair-share pool. Their key, their quota — telling
   // the pool it has capacity it does not own produces the exact wall that
   // rationing exists to prevent.
-  // ai-kit marks the link unmetered (Infinity); Heidi's free chain shares
-  // provider ids with it, so the adapter pins 0.
-  assert.equal(byokChain({ provider: "groq", key: "gsk_EXAMPLENOTREAL", model: "m" })?.chain[0].provider.dailyTokens, 0);
+  // ai-kit >= 1.18 marks the link as the reader's own and claims no tokens.
+  // Kept here so a regression upstream turns Heidi red, not just ai-kit.
+  const provider = byokChain({ provider: "groq", key: "gsk_EXAMPLENOTREAL", model: "m" })?.chain[0].provider;
+  assert.equal(provider?.dailyTokens, 0);
+  assert.equal(provider?.byok, true);
 });
 
 test("every allowlisted provider is https and has no trailing slash", () => {

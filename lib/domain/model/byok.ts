@@ -95,11 +95,10 @@ export function readByok(raw: unknown): ByokCheck {
 export function byokChain(config: ByokConfig) {
   if (!findProvider(config.provider)) return null;
   // ai-kit builds the link: the host from its allowlist, the key in an env
-  // var. It marks the link unmetered (`Infinity`); Heidi's own free chain has
-  // providers with the SAME ids (groq, openrouter…), so an unmetered entry
-  // could read as capacity in our pool. Their key claims none of it: 0.
+  // var, and (since 1.18) `byok: true` with `dailyTokens: 0`, so its shared
+  // bookkeeping — capacity, cooldown, health — never counts a reader's key.
   const { chain, env } = kitChain({ vendor: config.provider, apiKey: config.key, model: config.model });
-  return { chain: chain.map((link) => ({ ...link, provider: { ...link.provider, dailyTokens: 0 } })), env };
+  return { chain, env };
 }
 
 export function redact(text: string): string {
