@@ -40,6 +40,7 @@
  * ready to make.
  */
 
+import { byokChain as kitChain } from "@bitbaum/ai-kit/byok";
 import { findProvider, type ProviderId } from "./providers.ts";
 
 export type ByokConfig = {
@@ -92,28 +93,18 @@ export function readByok(raw: unknown): ByokCheck {
  * cannot see, and bill our budget for the privilege. Better to fail and say so.
  */
 export function byokChain(config: ByokConfig) {
-  const provider = findProvider(config.provider);
-  if (!provider) return null;
-  return {
-    env: { HEIDI_BYOK_KEY: config.key },
-    chain: [
-      {
-        provider: {
-          id: provider.id,
-          baseUrl: provider.baseUrl,
-          keyEnv: "HEIDI_BYOK_KEY",
-          models: [config.model],
-          // Their key, their quota. Nothing of ours is being rationed, so the
-          // fair-share pool must not think it has capacity it does not own.
-          dailyTokens: 0,
-        },
-        model: config.model,
-      },
-    ],
-  };
+  if (!findProvider(config.provider)) return null;
+  // ai-kit builds the link: the host from its allowlist, the key in an env
+  // var. It marks the link unmetered (`Infinity`); Heidi's own free chain has
+  // providers with the SAME ids (groq, openrouter…), so an unmetered entry
+  // could read as capacity in our pool. Their key claims none of it: 0.
+  const { chain, env } = kitChain({ vendor: config.provider, apiKey: config.key, model: config.model });
+  return { chain: chain.map((link) => ({ ...link, provider: { ...link.provider, dailyTokens: 0 } })), env };
 }
 
-/** Never let a key reach a log line, an error body, or a bug report. */
 export function redact(text: string): string {
-  return text.replace(/\b(sk-[A-Za-z0-9-_]{8,}|gsk_[A-Za-z0-9]{8,}|sk-or-[A-Za-z0-9-_]{8,})\b/g, "<key>");
+  return text.replace(
+    /\b(sk-[A-Za-z0-9-_]{8,}|gsk_[A-Za-z0-9]{8,}|sk-or-[A-Za-z0-9-_]{8,}|xai-[A-Za-z0-9-_]{8,}|csk-[A-Za-z0-9-_]{8,}|AIza[0-9A-Za-z-_]{20,})\b/g,
+    "<key>",
+  );
 }

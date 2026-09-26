@@ -58,19 +58,18 @@ export function useByok() {
      * read pictures" — that was never true of free models, only of a chain
      * with no vision routing.
      *
-     * A CONNECTED key still decides for itself, and this is the case that
-     * keeps the check alive rather than deleting it: a brought key REPLACES
-     * the free chain (see `respondInThread`), so someone connected to Groq or
-     * DeepSeek — text-only, both in the allowlist — genuinely cannot send a
-     * picture, and telling them to attach one would be a worse lie than the
-     * old one.
+     * A CONNECTED key no longer decides from a per-vendor flag. That flag
+     * was a guess written into a table ("Groq: text only"), and vendors add
+     * vision models without telling us; ai-kit routes on the model's observed
+     * capability. So the button is offered, and a text-only model answers
+     * `blind` in one sentence — the chain's answer, not this file's guess.
      *
      * Optimistic where we have no evidence, which matches what the chain does
      * underneath: if the deployment turns out to have no sighted vendor keyed,
      * the turn comes back `blind` and says so in one sentence. Refusing up
      * front would be this file guessing at something the chain answers.
      */
-    canSee: config ? Boolean(provider?.visionModel) : true,
+    canSee: true,
     save,
     clear,
   };
