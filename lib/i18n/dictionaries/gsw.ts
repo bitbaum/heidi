@@ -111,6 +111,20 @@ export const gsw: Dictionary = {
     contributeBody:
       "Jedi Sekunde Dialekt, wo Si bi Heidi ghöred, chunt vo mene echte Mensch us Züri. Wänn Si öis bim Rede würded ufnäh la, mälded Si sich.",
     contributeCta: "Mitmache",
+    eyebrow: "Züridütsch · für alli, wo scho Dütsch chönd",
+    ctaTry: "Grad uusprobiere",
+    ctaSituations: "Situatione entdecke",
+    trustLine: "Gratis, ohni Konto — jedi Zile uf Zürcher Forme prüeft.",
+    illustration: "E Chue mit Glogge vor de Alpe seit «Grüezi mitenand!»",
+    tryTitle: "Probiered Sie s uus",
+    tryLead: "Füeged Sie e Nachricht ii, wo Sie übercho händ — oder tippe Sie uf es Bischpil.",
+    stepsTitle: "So chömed Sie wiiter",
+    steps: [{"title": "Verstah", "body": "Echti Sätz us em Alltag, vo de Arbet und us de Pflege — Situation für Situation.", "cta": "Zu de Situatione"}, {"title": "Üebe", "body": "Es paar Minute am Tag, mit Erchlärige, wo hanged bliibed.", "cta": "Zu de Üebige"}, {"title": "Sälber schriibe", "body": "Heidi hilft Ihne, z antworte wie öpper vo da.", "cta": "Mit Heidi schriibe"}],
+    dialectLead: "Züridütsch zerscht — und Heidi merkt scho hüt, vo wo e Nachricht chunt.",
+    orgTitle: "Für Teams und Organisatione",
+    orgBody: "Pflegheim, Spitäler, Arbeitgäber: Ihres Team üebt genau die Situatione, wo s bruucht.",
+    orgCta: "Meh erfahre",
+    bubble: "Grüezi mitenand!",
   },
 
   chat: {
@@ -150,7 +164,7 @@ export const gsw: Dictionary = {
     exampleUnderstand: "Was heisst das?",
     exampleCompose: "Für mi schriibe",
     examples: [
-      { kind: "dialect", text: "Im Kauz scho, hät mer nöd so gfalle. Du au?" },
+      { kind: "dialect", text: "Geschter im Kauz gsi — mega geil! 😍 Chunnsch s nächscht Mal au?" },
       { kind: "compose", text: "Säg ihne, dass i zäh Minute spöter chum — fründlich." },
       { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],

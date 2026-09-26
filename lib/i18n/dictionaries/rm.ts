@@ -104,6 +104,20 @@ export const rm: Dictionary = {
     contributeBody:
       "Mintga secunda da dialect che Vus vegnis a udir tar Heidi vegn d'ina persuna reala da Turitg. Sche Vus ans laschais registrar Vossa vusch, scrivai a nus.",
     contributeCta: "Far part",
+    eyebrow: "Tudestg da Turitg · per tuts che san gia tudestg",
+    ctaTry: "Empruvar dalunga",
+    ctaSituations: "Scuvrir las situaziuns",
+    trustLine: "Gratuit, senza conto — mintga lingia controllada tenor las furmas da Turitg.",
+    illustration: "Ina vatga cun zampogna davant las Alps di «Grüezi mitenand!»",
+    tryTitle: "Empruvai",
+    tryLead: "Tschentai en in messadi che Vus avais survegnì — u tutgai in exempel.",
+    stepsTitle: "Uschia avanzais Vus",
+    steps: [{"title": "Chapir", "body": "Frasas vairas dal mintgadi, da la lavur e da la tgira — situaziun per situaziun.", "cta": "A las situaziuns"}, {"title": "Exercitar", "body": "Paucas minutas al di, cun explicaziuns che restan.", "cta": "Als exercizis"}, {"title": "Scriver sez", "body": "Heidi As gida a respunder sco insatgi da qua.", "cta": "Scriver cun Heidi"}],
+    dialectLead: "L’emprim il tudestg da Turitg — e Heidi enconuscha gia oz danunder ch’in messadi vegn.",
+    orgTitle: "Per teams ed organisaziuns",
+    orgBody: "Chasas da tgira, ospitals, patruns: voss team exercitescha las situaziuns ch’el dovra.",
+    orgCta: "Dapli",
+    bubble: "Grüezi mitenand!",
   },
 
   chat: {
@@ -143,7 +157,7 @@ export const rm: Dictionary = {
     exampleUnderstand: "Tge vul quai dir?",
     exampleCompose: "Scriver quai per mai",
     examples: [
-      { kind: "dialect", text: "Im Kauz scho, hät mer nöd so gfalle. Du au?" },
+      { kind: "dialect", text: "Geschter im Kauz gsi — mega geil! 😍 Chunnsch s nächscht Mal au?" },
       { kind: "compose", text: "Di ad els che jau arriv diesch minutas pli tard — amiaivlamain." },
       { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],

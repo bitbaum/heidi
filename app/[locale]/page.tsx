@@ -8,6 +8,7 @@ import { DialectFigure } from "./_components/dialect-figure";
 import { CorrespondenceFigure } from "./_components/correspondence-figure";
 import { Shell } from "./_components/page-shell";
 import { Dashboard } from "./_components/dashboard";
+import { SwissScene } from "./_components/swiss-scene";
 import { auth, authEnabled } from "@/lib/auth";
 
 /**
@@ -75,44 +76,81 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const session = authEnabled ? await auth() : null;
   if (session?.actorId) return <Dashboard locale={locale} />;
 
+  const steps = [
+    { ...t.steps[0], href: href(locale, "situations"), n: "01" },
+    { ...t.steps[1], href: href(locale, "practice"), n: "02" },
+    { ...t.steps[2], href: href(locale, "chat"), n: "03" },
+  ];
+
   return (
     <Shell>
-      {/* One column, because the fold has ONE job: get a real Zurich sentence
-          decoded in this person's hands. It used to spend the right half on a
-          figure that quoted a line AND printed its meaning underneath — a
-          picture of the product, placed next to the product. It proved nothing,
-          because the visitor did not do it, and it pushed the box that does the
-          work below the middle of the screen.
-
-          That line is now the first thing you can press (see Chat's examples).
-          Same asset, opposite effect: it opens the gap and offers to close it
-          instead of closing it for you. */}
-      <section className="pb-9 pt-8 sm:pb-16 sm:pt-14">
-        <h1
-          id="headline"
-          className="max-w-[26ch] font-heading text-title font-bold leading-[1.04] tracking-display text-fg-primary"
-        >
-          {t.headline}
-        </h1>
-        {/* The eyebrow above this said "We are starting with Zurich" — a limit,
-            announced before the visitor knew what the thing does, and then said
-            again as its own heading further down the page. The scope belongs
-            where it is argued, not in the greeting. */}
-        <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.sub}</p>
+      {/* THE FOLD, in two columns: what Heidi is and the two ways in on the
+          left, a picture on the right. It used to be a headline over a
+          full-width chat box and then 440 words of argument; the argument now
+          lives on /method, where a reader who wants it goes looking. */}
+      <section className="grid grid-cols-safe items-center gap-8 pb-10 pt-8 sm:pb-14 sm:pt-12 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
+        <div>
+          <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.eyebrow}</p>
+          <h1
+            id="headline"
+            className="mt-3 max-w-[22ch] font-heading text-title font-bold leading-[1.04] tracking-display text-fg-primary"
+          >
+            {t.headline}
+          </h1>
+          <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.sub}</p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <a
+              href="#try"
+              className="inline-flex min-h-12 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
+            >
+              {t.ctaTry} ↓
+            </a>
+            <Link
+              href={href(locale, "situations")}
+              className="inline-flex min-h-12 items-center rounded-control border border-border-strong px-6 font-medium text-fg-primary hover:bg-surface-raised"
+            >
+              {t.ctaSituations} →
+            </Link>
+          </div>
+          <p className="mt-5 text-sm text-fg-muted">{t.trustLine}</p>
+        </div>
+        <div className="mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none">
+          <SwissScene label={t.illustration} bubble={t.bubble} />
+        </div>
       </section>
 
-      <div className="pb-12 sm:pb-16">
-        <div>
-          <Chat locale={locale} dict={dict} dialect={{ tag: DISPLAY.tag, showcase: DISPLAY.showcase?.line }} />
-        </div>
-      </div>
+      <section id="try" aria-labelledby="try-title" className="scroll-mt-24 border-t border-border-subtle pb-12 pt-10 sm:pb-16">
+        <h2 id="try-title" className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
+          {t.tryTitle}
+        </h2>
+        <div className="mt-4" />
+        <Chat locale={locale} dict={dict} dialect={{ tag: DISPLAY.tag, showcase: DISPLAY.showcase?.line }} />
+      </section>
 
-      <section className="border-y border-border-subtle py-10 sm:py-12" aria-labelledby="rules">
-        {/* Five sections, and their headings used to alternate between an
-            11px mono caption and a full title with nothing deciding which — so
-            "a dozen rules open hundreds of words", one of the best lines on the
-            site, was whispered underneath type three times its size. A section
-            is a section; they are all titled now. */}
+      <section className="border-t border-border-subtle py-10 sm:py-14" aria-labelledby="steps">
+        <h2 id="steps" className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
+          {t.stepsTitle}
+        </h2>
+        <ol className="mt-6 grid grid-cols-safe gap-3 sm:grid-cols-3">
+          {steps.map((step) => (
+            <li key={step.n}>
+              <Link
+                href={step.href}
+                className="group flex h-full flex-col rounded-control border border-border-subtle p-5 transition-colors hover:border-border-strong"
+              >
+                <span className="font-mono text-caption uppercase tracking-caps text-accent">{step.n}</span>
+                <span className="mt-2 font-heading text-xl font-semibold tracking-display text-fg-primary">{step.title}</span>
+                <span className="mt-2 flex-1 text-base leading-relaxed text-fg-secondary">{step.body}</span>
+                <span className="mt-4 text-sm font-medium text-fg-primary underline underline-offset-4 group-hover:text-accent">
+                  {step.cta} →
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="border-t border-border-subtle py-10 sm:py-12" aria-labelledby="rules">
         <h2 id="rules" className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
           {t.correspondencesTitle}
         </h2>
@@ -121,97 +159,37 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
       </section>
 
-      <section className="border-b border-border-subtle py-10 sm:py-12" aria-labelledby="trust">
-        <div className="grid grid-cols-safe gap-6 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
+      <section className="border-t border-border-subtle py-10 sm:py-12" aria-labelledby="dialect">
+        <div className="grid grid-cols-safe gap-8 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
           <div>
             <h2
-              id="trust"
+              id="dialect"
               className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
             >
-              {t.trustTitle}
+              {t.dialectTitle}
             </h2>
-            <p className="mt-4 max-w-measure text-base leading-relaxed text-fg-secondary">{t.trustBody}</p>
-            {/* The claim's evidence moved to the method page with the rule
-                list it belongs to, so this points there rather than at a
-                page that asked the reader for Zurich German they cannot write. */}
+            <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.dialectLead}</p>
             <Link
-              href={href(locale, "method")}
-              className="mt-5 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
+              href={href(locale, "dialect")}
+              className="mt-4 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
             >
-              {t.trustLink}
+              {dict.nav.dialect} →
             </Link>
           </div>
-          <ul className="flex flex-col gap-2 self-start rounded-control border border-border-subtle bg-surface-raised p-4 font-mono text-sm">
-            {DISPLAY.rules.slice(0, 5).map((rule) => (
-              <li key={rule.label} className="flex flex-wrap items-baseline gap-2">
-                <span className="text-accent">✕</span>
-                <span className="text-fg-primary">{rule.label}</span>
-                {rule.origin && <span className="text-caption uppercase tracking-caps text-fg-muted">{rule.origin}</span>}
-                {rule.suggest && <span className="text-ok">→ {rule.suggest}</span>}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="border-b border-border-subtle py-10 sm:py-12" aria-labelledby="dialect">
-        <h2
-          id="dialect"
-          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
-        >
-          {t.dialectTitle}
-        </h2>
-        <div className="mt-6 grid grid-cols-safe gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
-          <p className="max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.dialectBody}</p>
           {DISPLAY.family && <DialectFigure plannedLabel={t.dialectPlanned} othersLabel={t.dialectOthers} />}
         </div>
       </section>
 
-      <section className="border-b border-border-subtle py-12 sm:py-16" aria-labelledby="pillars">
-        <h2 id="pillars" className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
-          {t.pillarsTitle}
-        </h2>
-        <div className="mt-6 grid gap-10 sm:grid-cols-3 sm:gap-8">
-          {dict.pillars.map((s, i) => (
-            <article key={s.title}>
-              <div className="mb-3 font-mono text-caption uppercase tracking-caps text-fg-muted">
-                {String(i + 1).padStart(2, "0")}
-              </div>
-              <h3 className="font-heading text-xl font-semibold leading-tight tracking-display text-fg-primary">
-                {s.title}
-              </h3>
-              <p className="mt-3 text-base leading-relaxed text-fg-secondary">{s.body}</p>
-            </article>
-          ))}
+      <section className="my-10 flex flex-col gap-4 rounded-control bg-surface-raised p-6 sm:my-14 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="font-heading text-xl font-semibold tracking-display text-fg-primary">{t.orgTitle}</h2>
+          <p className="mt-1 max-w-measure text-base leading-relaxed text-fg-secondary">{t.orgBody}</p>
         </div>
-        <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-          <Link
-            href={href(locale, "method")}
-            className="inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
-          >
-            {t.methodLink}
-          </Link>
-          <Link
-            // Research merged into Method: the evidence is the argument FOR
-            // the method, not a peer of it. The anchor keeps the link honest.
-            href={`${href(locale, "method")}#facts`}
-            className="inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
-          >
-            {t.researchLink}
-          </Link>
-        </div>
-      </section>
-
-      <section className="my-12 border-l-2 border-accent bg-surface-raised px-5 py-6 sm:my-16 sm:px-6">
-        <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
-          {t.contributeTitle}
-        </h2>
-        <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{t.contributeBody}</p>
         <Link
-          href={href(locale, "contribute")}
-          className="mt-5 inline-flex min-h-11 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
+          href={href(locale, "organisations")}
+          className="inline-flex min-h-11 shrink-0 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
         >
-          {t.contributeCta}
+          {t.orgCta} →
         </Link>
       </section>
     </Shell>

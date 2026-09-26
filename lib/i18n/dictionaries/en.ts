@@ -88,6 +88,20 @@ export const en: Dictionary = {
     contributeBody:
       "Every second of dialect you will hear in Heidi comes from a real person in Zurich. If you would let us record you speaking, get in touch.",
     contributeCta: "Take part",
+    eyebrow: "Zurich German · for people who already know German",
+    ctaTry: "Try it now",
+    ctaSituations: "Explore the situations",
+    trustLine: "Free, no account — every line checked against Zurich forms.",
+    illustration: "A cow with a bell in front of the Alps says «Grüezi mitenand!»",
+    tryTitle: "Try it",
+    tryLead: "Paste a message you received — or tap an example.",
+    stepsTitle: "How you get further",
+    steps: [{"title": "Understand", "body": "Real sentences from everyday life, work and care — one situation at a time.", "cta": "To the situations"}, {"title": "Practise", "body": "A few minutes a day, with explanations that stick.", "cta": "To the exercises"}, {"title": "Write it yourself", "body": "Heidi helps you reply like someone from here.", "cta": "Write with Heidi"}],
+    dialectLead: "Zurich German first — and Heidi can already tell where a message comes from.",
+    orgTitle: "For teams and organisations",
+    orgBody: "Care homes, hospitals, employers: your team practises exactly the situations it needs.",
+    orgCta: "Learn more",
+    bubble: "Grüezi mitenand!",
   },
 
   chat: {
@@ -127,7 +141,7 @@ export const en: Dictionary = {
     exampleUnderstand: "What does it mean?",
     exampleCompose: "Write it for me",
     examples: [
-      { kind: "dialect", text: "Im Kauz scho, hät mer nöd so gfalle. Du au?" },
+      { kind: "dialect", text: "Geschter im Kauz gsi — mega geil! 😍 Chunnsch s nächscht Mal au?" },
       { kind: "compose", text: "Tell them I am running ten minutes late — friendly." },
       { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],

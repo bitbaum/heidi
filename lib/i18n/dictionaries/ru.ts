@@ -96,6 +96,20 @@ export const ru: Dictionary = {
     contributeBody:
       "Каждая секунда диалекта, которую вы услышите в Heidi, записана живым человеком из Цюриха. Если вы согласны, чтобы мы записали вашу речь, напишите нам.",
     contributeCta: "Участвовать",
+    eyebrow: "Цюрихский немецкий · для тех, кто уже знает немецкий",
+    ctaTry: "Попробовать сейчас",
+    ctaSituations: "Посмотреть ситуации",
+    trustLine: "Бесплатно, без аккаунта — каждая фраза проверена на цюрихские формы.",
+    illustration: "Корова с колокольчиком на фоне Альп говорит «Grüezi mitenand!»",
+    tryTitle: "Попробуйте",
+    tryLead: "Вставьте полученное сообщение — или нажмите на пример.",
+    stepsTitle: "Как продвигаться",
+    steps: [{"title": "Понимать", "body": "Настоящие фразы из быта, работы и ухода — ситуация за ситуацией.", "cta": "К ситуациям"}, {"title": "Упражняться", "body": "Несколько минут в день, с объяснениями, которые запоминаются.", "cta": "К упражнениям"}, {"title": "Писать самому", "body": "Heidi поможет ответить так, как отвечают здесь.", "cta": "Писать с Heidi"}],
+    dialectLead: "Сначала цюрихский — а откуда пришло сообщение, Heidi распознаёт уже сейчас.",
+    orgTitle: "Для команд и организаций",
+    orgBody: "Дома престарелых, больницы, работодатели: ваша команда тренирует именно нужные ситуации.",
+    orgCta: "Подробнее",
+    bubble: "Grüezi mitenand!",
   },
 
   chat: {
@@ -135,7 +149,7 @@ export const ru: Dictionary = {
     exampleUnderstand: "Что это значит?",
     exampleCompose: "Написать за меня",
     examples: [
-      { kind: "dialect", text: "Im Kauz scho, hät mer nöd so gfalle. Du au?" },
+      { kind: "dialect", text: "Geschter im Kauz gsi — mega geil! 😍 Chunnsch s nächscht Mal au?" },
       { kind: "compose", text: "Скажи им, что я опоздаю на десять минут — по-дружески." },
       { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],

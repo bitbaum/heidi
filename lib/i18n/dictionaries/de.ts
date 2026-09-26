@@ -113,6 +113,20 @@ export const de = {
     contributeBody:
       "Jede Sekunde Dialekt, die Sie bei Heidi hören werden, stammt von einem echten Menschen aus Zürich. Wenn Sie uns beim Sprechen aufnehmen lassen würden, melden Sie sich.",
     contributeCta: "Mitmachen",
+    eyebrow: "Züridütsch · für alle, die schon Deutsch können",
+    ctaTry: "Gleich ausprobieren",
+    ctaSituations: "Situationen entdecken",
+    trustLine: "Gratis, ohne Konto — jede Zeile auf Zürcher Formen geprüft.",
+    illustration: "Eine Kuh mit Glocke vor den Alpen sagt «Grüezi mitenand!»",
+    tryTitle: "Probieren Sie es aus",
+    tryLead: "Fügen Sie eine Nachricht ein, die Sie bekommen haben — oder tippen Sie auf ein Beispiel.",
+    stepsTitle: "So kommen Sie weiter",
+    steps: [{"title": "Verstehen", "body": "Echte Sätze aus Alltag, Arbeit und Pflege — Situation für Situation.", "cta": "Zu den Situationen"}, {"title": "Üben", "body": "Ein paar Minuten am Tag, mit Erklärungen, die hängen bleiben.", "cta": "Zu den Übungen"}, {"title": "Selber schreiben", "body": "Heidi hilft Ihnen, zu antworten wie jemand von hier.", "cta": "Mit Heidi schreiben"}],
+    dialectLead: "Zürichdeutsch zuerst — und Heidi erkennt schon heute, woher eine Nachricht kommt.",
+    orgTitle: "Für Teams und Organisationen",
+    orgBody: "Pflegeheime, Spitäler, Arbeitgeber: Ihr Team übt genau die Situationen, die es braucht.",
+    orgCta: "Mehr erfahren",
+    bubble: "Grüezi mitenand!",
   },
 
   chat: {
@@ -160,7 +174,7 @@ export const de = {
     exampleUnderstand: "Was heisst das?",
     exampleCompose: "Für mich schreiben",
     examples: [
-      { kind: "dialect", text: "Im Kauz scho, hät mer nöd so gfalle. Du au?" },
+      { kind: "dialect", text: "Geschter im Kauz gsi — mega geil! 😍 Chunnsch s nächscht Mal au?" },
       { kind: "compose", text: "Sag ihnen, dass ich zehn Minuten später komme — freundlich." },
       { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],

@@ -170,6 +170,10 @@
   --color-on-action: var(--primitive-white);
   /* Something went wrong — the one place flag red is the right message. */
   --color-danger: var(--primitive-red);
+  /* A Swiss flag is white on red in every theme — deliberately not flipped
+     in dark mode, unlike every other token here. */
+  --color-flag: var(--primitive-red);
+  --color-flag-cross: var(--primitive-white);
 
   /* Hard edges. A cow's patches have no corner radius. */
   --radius-control: 2px;

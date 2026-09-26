@@ -88,6 +88,20 @@ export const it: Dictionary = {
     contributeBody:
       "Ogni secondo di dialetto che sentirete su Heidi viene da una persona reale di Zurigo. Se ci lasciate registrare la vostra voce, scriveteci.",
     contributeCta: "Partecipare",
+    eyebrow: "Zurighese · per chi sa già il tedesco",
+    ctaTry: "Provare subito",
+    ctaSituations: "Scoprire le situazioni",
+    trustLine: "Gratis, senza account — ogni frase verificata sulle forme zurighesi.",
+    illustration: "Una mucca con il campanaccio davanti alle Alpi dice «Grüezi mitenand!»",
+    tryTitle: "Lo provi",
+    tryLead: "Incolli un messaggio ricevuto — o tocchi un esempio.",
+    stepsTitle: "Come andare avanti",
+    steps: [{"title": "Capire", "body": "Frasi vere dalla vita quotidiana, dal lavoro e dalla cura — situazione per situazione.", "cta": "Alle situazioni"}, {"title": "Esercitarsi", "body": "Pochi minuti al giorno, con spiegazioni che restano.", "cta": "Agli esercizi"}, {"title": "Scrivere da sé", "body": "Heidi l’aiuta a rispondere come qualcuno di qui.", "cta": "Scrivere con Heidi"}],
+    dialectLead: "Prima lo zurighese — e Heidi riconosce già da dove viene un messaggio.",
+    orgTitle: "Per team e organizzazioni",
+    orgBody: "Case di cura, ospedali, datori di lavoro: il suo team si esercita proprio sulle situazioni che servono.",
+    orgCta: "Saperne di più",
+    bubble: "Grüezi mitenand!",
   },
 
   chat: {
@@ -127,7 +141,7 @@ export const it: Dictionary = {
     exampleUnderstand: "Che cosa significa?",
     exampleCompose: "Scrivilo per me",
     examples: [
-      { kind: "dialect", text: "Im Kauz scho, hät mer nöd so gfalle. Du au?" },
+      { kind: "dialect", text: "Geschter im Kauz gsi — mega geil! 😍 Chunnsch s nächscht Mal au?" },
       { kind: "compose", text: "Di' loro che arrivo dieci minuti più tardi — gentilmente." },
       { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],

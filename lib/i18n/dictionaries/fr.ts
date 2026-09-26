@@ -88,6 +88,20 @@ export const fr: Dictionary = {
     contributeBody:
       "Chaque seconde de dialecte que vous entendrez chez Heidi vient d'une personne réelle de Zurich. Si vous acceptez que nous vous enregistrions, écrivez-nous.",
     contributeCta: "Participer",
+    eyebrow: "Zurichois · pour qui parle déjà allemand",
+    ctaTry: "Essayer tout de suite",
+    ctaSituations: "Découvrir les situations",
+    trustLine: "Gratuit, sans compte — chaque ligne vérifiée selon les formes zurichoises.",
+    illustration: "Une vache avec sa cloche devant les Alpes dit « Grüezi mitenand! »",
+    tryTitle: "Essayez",
+    tryLead: "Collez un message reçu — ou touchez un exemple.",
+    stepsTitle: "Comment avancer",
+    steps: [{"title": "Comprendre", "body": "De vraies phrases du quotidien, du travail et des soins — situation par situation.", "cta": "Vers les situations"}, {"title": "S’exercer", "body": "Quelques minutes par jour, avec des explications qui restent.", "cta": "Vers les exercices"}, {"title": "Écrire soi-même", "body": "Heidi vous aide à répondre comme quelqu’un d’ici.", "cta": "Écrire avec Heidi"}],
+    dialectLead: "Le zurichois d’abord — et Heidi reconnaît déjà d’où vient un message.",
+    orgTitle: "Pour les équipes et les organisations",
+    orgBody: "EMS, hôpitaux, employeurs : votre équipe s’exerce aux situations dont elle a besoin.",
+    orgCta: "En savoir plus",
+    bubble: "Grüezi mitenand!",
   },
 
   chat: {
@@ -127,7 +141,7 @@ export const fr: Dictionary = {
     exampleUnderstand: "Ça veut dire quoi ?",
     exampleCompose: "L'écrire pour moi",
     examples: [
-      { kind: "dialect", text: "Im Kauz scho, hät mer nöd so gfalle. Du au?" },
+      { kind: "dialect", text: "Geschter im Kauz gsi — mega geil! 😍 Chunnsch s nächscht Mal au?" },
       { kind: "compose", text: "Dis-leur que j'arrive dix minutes en retard — gentiment." },
       { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],
