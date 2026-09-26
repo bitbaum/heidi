@@ -192,6 +192,11 @@ export function answerOf(item: PracticeItem): string {
     case "article":
     case "form":
     case "pick":
+    case "reply":
+    case "gist":
+    case "transform":
+    case "clock":
+    case "meaning":
       return item.options[item.answer] ?? "";
     /**
      * A grid's answer is four answers, so it prints as the pairs themselves.
@@ -218,9 +223,16 @@ export function answerOf(item: PracticeItem): string {
  * correct one is marked even if it was not the one pressed. A drill that only
  * says "no" teaches the learner that they were wrong and not what was right.
  */
-export function optionClass(index: number, chose: number | null, answer: number): string {
-  const base =
-    "min-h-11 w-full rounded-control border px-4 font-heading text-base font-semibold tracking-display sm:w-auto";
+export function optionClass(index: number, chose: number | null, answer: number, sentence = false): string {
+  /**
+   * A sentence option is a full-width, left-aligned row that may wrap; a word
+   * or a number is a button as wide as itself. Two classes, not one class with
+   * an override appended, because two width utilities on one element resolve
+   * by emission order — the trap `PROMPT_TEXT` documents for colour.
+   */
+  const base = sentence
+    ? "min-h-11 w-full rounded-control border px-4 py-2.5 text-left font-heading text-base font-semibold leading-snug tracking-display"
+    : "min-h-11 w-full rounded-control border px-4 font-heading text-base font-semibold tracking-display sm:w-auto";
 
   if (chose === null) {
     return `${base} border-border-strong text-fg-primary hover:bg-surface-page`;

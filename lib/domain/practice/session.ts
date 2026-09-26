@@ -154,9 +154,29 @@ export function orderSession({
   // Due words lead: they are the only items with a deadline.
   const picked: PracticeItem[] = dueRecalls.slice(0, size);
 
-  // Then round-robin across the remaining kinds, in a fixed order so the
-  // session stays reproducible.
-  const kinds = [...buckets.keys()].sort();
+  // Then round-robin across the remaining kinds, in an order that is fixed for
+  // the same inputs and still MOVES between sittings.
+  //
+  // It was alphabetical, and with more kinds than seats that was a bug: the
+  // first eight names took the eight seats every time, so `translate` — ninth
+  // of nine — never appeared in a mixed sitting at all. Now a kind that the
+  // model says is weak still goes first (the head item's pressure band), and
+  // among the rest the kind asked LEAST RECENTLY sits first. Item freshness
+  // cannot do this on its own: every kind has an unseen item at its head for
+  // weeks, so they would all tie and fall back to the alphabet again.
+  const kindOf = new Map(candidates.map((item) => [item.id, item.kind]));
+  const lastAsked = new Map<string, number>();
+  for (const [at, id] of seen.entries()) {
+    const kind = kindOf.get(id);
+    if (kind) lastAsked.set(kind, at);
+  }
+  const kinds = [...buckets.keys()].sort((a, b) => {
+    const pressureGap = band(buckets.get(b)![0]!) - band(buckets.get(a)![0]!);
+    if (pressureGap !== 0) return pressureGap;
+    const recencyGap = (lastAsked.get(a) ?? -1) - (lastAsked.get(b) ?? -1);
+    if (recencyGap !== 0) return recencyGap;
+    return a.localeCompare(b);
+  });
   let exhausted = false;
   while (picked.length < size && !exhausted) {
     exhausted = true;

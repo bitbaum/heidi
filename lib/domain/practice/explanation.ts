@@ -1,4 +1,4 @@
-import type { PracticeItem } from "./types.ts";
+import type { LessonId, PracticeItem } from "./types.ts";
 import { sceneById, scenesSayingWord, type DisplayPhrase } from "../../situations/display.ts";
 import { DISPLAY } from "../../variety/display.ts";
 
@@ -44,6 +44,14 @@ export type Explanation = {
   sentence?: string;
   /** The single word in focus, when the item has one. */
   term?: string;
+  /**
+   * The item's own teaching point: a closed key the dictionaries render, and
+   * the pack strings its placeholders take. Only template-built items carry
+   * one — see `QuestionItem.lesson`.
+   */
+  lesson?: { id: LessonId; slots: Readonly<Record<string, string>> };
+  /** The Zurich word the answer turned on, and its German. */
+  listen?: { word: string; means: string };
 };
 
 const GAP = /_{2,}/;
@@ -102,6 +110,14 @@ function sentenceOf(item: PracticeItem, phrase: DisplayPhrase | undefined): stri
       return item.answer;
     case "recall":
       return item.prompt;
+    // The sentence that WAS the answer, so "other ways to say it" asks about
+    // the Zurich line rather than about the German prompt.
+    case "transform":
+      return item.options[item.answer];
+    case "clock":
+      return item.said;
+    case "meaning":
+      return item.said !== item.focus ? item.said : undefined;
     default:
       return undefined;
   }
@@ -109,6 +125,11 @@ function sentenceOf(item: PracticeItem, phrase: DisplayPhrase | undefined): stri
 
 export function explanationFor(item: PracticeItem): Explanation {
   const out: Explanation = { saidIn: [] };
+
+  if ("lesson" in item) {
+    out.lesson = { id: item.lesson, slots: item.slots ?? {} };
+    if (item.listen) out.listen = item.listen;
+  }
 
   const topic = topicOf(item);
   if (topic) out.topic = topic;
@@ -151,5 +172,5 @@ export function explanationFor(item: PracticeItem): Explanation {
 
 /** True when there is nothing at all to show — the case this exists to end. */
 export function isEmpty(e: Explanation): boolean {
-  return !e.topic && !e.scene && !e.word && !e.sentence && !e.term;
+  return !e.topic && !e.scene && !e.word && !e.sentence && !e.term && !e.lesson;
 }

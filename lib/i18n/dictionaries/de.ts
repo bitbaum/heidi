@@ -1092,6 +1092,8 @@ export const de = {
       practiseScene: "Diese Situation üben",
       practiseWord: "Dieses Wort üben",
       alsoInPack: "Im Pack steht zusätzlich: {words}",
+      lessonTitle: "Warum",
+      listenTitle: "Hören Sie auf",
     },
     right: "Richtig",
     wrong: "Nicht ganz",
@@ -1107,6 +1109,40 @@ export const de = {
       pick: "Welches Wort passt hier?",
       translate: "Wie sagt man das auf Züridütsch?",
       card: "Wissen Sie das noch?",
+      reply: "Was passt als Antwort?",
+      gist: "Was ist gemeint?",
+      transform: "Welcher Satz sagt genau das?",
+      clock: "Welche Zahl ist das?",
+      meaning: "Was heisst das Wort hier?",
+    },
+    /**
+     * Ein Satz pro Lernpunkt der Vorlagen-Fragen (`LESSON_IDS` in
+     * lib/domain/practice/types.ts). `{word}`, `{means}` und `{trap}` kommen
+     * aus dem Pack. Ein neuer Schlüssel hier verlangt ihn in allen sieben
+     * Wörterbüchern — der Typprüfer nennt jedes, das fehlt.
+     */
+    lessons: {
+      "false-friend": "«{word}» sieht aus wie ein Wort, das Sie kennen — aber es heisst nicht «{trap}», sondern «{means}». Genau solche Wörter versteht man falsch, ohne es zu merken.",
+      "word": "«{word}» heisst «{means}». Merken Sie es sich im Satz, nicht allein: ein Wort, das man im Zusammenhang erkannt hat, erkennt man auch im Gespräch wieder.",
+      "clock-half": "«halbi drüü» ist halb drei: die halbe Stunde VOR der genannten Stunde, also 2:30 — nicht halb nach drei wie im Englischen. Die Stundenzahl bekommt oft ein -i: vieri, achti, zwölfi.",
+      "clock-quarter": "Bei der Uhrzeit heisst «ab» «nach»: Viertel ab drüü ist 3:15. «vor» bleibt «vor»: Viertel vor drüü ist 2:45.",
+      "price": "Erst die Franken, dann die Rappen, ohne «und» dazwischen: drüü Franke zwänzg ist 3.20. Die Zehner enden auf -zg: zwänzg, drissg, vierzg, füfzg.",
+      "either-or": "Eine Frage mit «oder» will eine der beiden Möglichkeiten zurück — nicht Ja oder Nein.",
+      "yes-no": "Steht das Verb vorn (Händ Sie …? Sind Sie …? Bruuched Sie …?), ist es eine Ja-Nein-Frage. Die passende Antwort beginnt mit Ja oder Nei — oder gibt genau das, wonach gefragt ist.",
+      "offer": "«Wänd Sie …?» heisst «Möchten Sie …?», «Dörf s no öppis sii?» heisst «Darf es noch etwas sein?» — ein Angebot. Man nimmt es an oder lehnt ab, mit einem merci.",
+      "request": "«Chönd Sie …?» und «Chasch du …?» sind der Form nach Fragen und gemeint als Bitten. Die Antwort ist eine Zusage oder eine Absage, keine Auskunft.",
+      "question-word": "Das Fragewort entscheidet: Wie (wie), Wie lang (wie lange), Wänn (wann), Wo (wo), Was (was), Wer (wer), Weli (welche). Hören Sie zuerst darauf — die Antwort muss genau diese Lücke füllen.",
+      "past": "Züridütsch hat kein Präteritum. «war» heisst «isch gsi», «ging» heisst «isch gange», «sagte» heisst «hät gseit». Wer auf ein «war» wartet, verpasst, dass es schon vorbei ist.",
+      "since": "«sit» ist «seit»: gefragt wird, wie lange etwas schon so ist. «für drüü Täg» antwortet auf eine andere Frage — wie lange es dauern soll.",
+      "indirect-no": "In Zürich wird selten direkt abgelehnt. «Mer luegt dänn», «Das müesst mer no aaluege» oder «Villicht es anders Mal» sind meist schon die Antwort — höflich verpackt.",
+      "mag": "«möge» heisst im Züridütsch oft «die Kraft haben» oder «sich danach fühlen», nicht nur «gern haben». «Ich mag nüme» heisst: Ich kann nicht mehr.",
+      "es-haet": "«Es hät» heisst oft «es gibt»: Es hät Lüüs — es gibt Läuse. Wer «es hat» hört, sucht vergeblich nach dem, der etwas hat.",
+      "person": "Hören Sie auf die Person: mir = wir, Chömed er = kommt ihr, si = sie, mer = man oder wir, Ihne = Ihnen. Im Plural hat das Verb eine Form für alle drei Personen — die Person steckt nur im Pronomen. Die Höflichkeitsform endet auf -ed mit Sie (Blibed Sie), die du-Form nicht (Blib).",
+      "verb-frame": "Die Form um das Verb trägt die Bedeutung: «isch am warte» ist das Jetzt, «go» heisst hingehen, «cho» herkommen, «hät gwartet» ist vorbei.",
+      "small-word": "Ein einziges kleines Wort entscheidet den ganzen Satz — oben steht, welches. Genau solche Wörter überhört man, weil sie im Hochdeutschen anders klingen oder gar nicht vorkommen.",
+      "whose": "Züridütsch sagt «wo» für der, die, das im Relativsatz (De Maa, wo dört staht) und «em Herr Meier sis Zimmer» für Herrn Meiers Zimmer. Hören Sie, WER gemeint ist.",
+      "thanks-sorry": "Die Antwort reagiert auf das, was passiert ist: auf einen Gefallen folgt ein Dank, auf einen Vorwurf eine Entschuldigung, auf Blumen eine Vase. Das Partizip sagt, was passiert ist: aagnoh, gleert, mitbrocht.",
+      "comfort": "Wer Angst hat, Schmerzen hat oder nicht mehr mag, braucht zuerst eine Antwort auf genau das — keine Auskunft über etwas anderes.",
     },
     matchHint: "Tippen Sie ein Wort an, dann seine Bedeutung.",
     gapHint:
