@@ -475,7 +475,7 @@ export const gsw: Dictionary = {
   check: {
     title: "Dialekt-Prüefig",
     intro: "En feschti Regelliste — kes Sprachmodäll. Si prüeft jedi Zile, wo d Heidi der zeigt. Da chasch d Liste sälber laa laufe.",
-    placeholder: "Das isch nid güet, gäu",
+    placeholder: "Ig ha gseit, wosch es Miuch?",
     button: "Prüefe",
     failed: "D Prüefig isch grad nöd erreichbar gsi. Bitte nomal probiere.",
     ok: "Kei fremdi Forme gfunde. Das cha als Züridütsch duregah.",

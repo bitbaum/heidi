@@ -30,7 +30,7 @@ function strings(value: unknown, path: string, out: [string, string][]) {
 
 test("the rule exists — this test cannot pass by finding nothing to apply", () => {
   assert.equal(nameRule.length, 1);
-  assert.equal(checkAgainst("Züritüütsch", nameRule).ok, false);
+  assert.equal(checkAgainst("Züritüütsch", nameRule, "dispreferred").ok, false);
 });
 
 test("no reader-facing string names Zurich German with the eastern t", () => {
@@ -45,6 +45,6 @@ test("no reader-facing string names Zurich German with the eastern t", () => {
   // Other regions' own names for their dialect are names, and the checker
   // leaves them alone by construction (only the bare word and the Zurich or
   // generic compounds match) — so there is no allowlist here to grow.
-  const bad = all.filter(([, s]) => !checkAgainst(s, nameRule).ok).map(([p, s]) => `${p}: ${s.slice(0, 80)}`);
+  const bad = all.filter(([, s]) => !checkAgainst(s, nameRule, "dispreferred").ok).map(([p, s]) => `${p}: ${s.slice(0, 80)}`);
   assert.deepEqual(bad, []);
 });

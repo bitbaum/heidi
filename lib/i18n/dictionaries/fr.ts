@@ -390,7 +390,7 @@ export const fr: Dictionary = {
   check: {
     title: "Vérification du dialecte",
     intro: "Une liste de règles fixe — pas un modèle de langue. Elle vérifie chaque ligne que Heidi vous montre. Vous pouvez la faire tourner vous-même ici.",
-    placeholder: "Das isch nid güet, gäu",
+    placeholder: "Ig ha gseit, wosch es Miuch?",
     button: "Vérifier",
     failed: "La vérification n'était pas joignable. Réessayez.",
     ok: "Aucune forme étrangère trouvée. Cela peut passer pour du zurichois.",

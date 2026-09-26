@@ -1,5 +1,5 @@
 import { VARIETY } from "./active.ts";
-import { areasOf, isTaught, marksFor } from "./family.ts";
+import { areasOf, isTaught, marksFor, sourcesFor } from "./family.ts";
 import { ruleLabel, type Severity } from "./pack.ts";
 import type { Atlas } from "./pack.ts";
 import { FORM_JUDGEMENT_MAX_WER } from "@bitbaum/speechkit";
@@ -307,7 +307,7 @@ export const DISPLAY: DisplayVariety = {
     town: area.town,
     place: { lon: area.place.lon, lat: area.place.lat },
     marks: marksFor(VARIETY, area),
-    sources: area.sources,
+    sources: sourcesFor(VARIETY, area),
     taught: isTaught(VARIETY, area),
     ...(area.group ? { group: area.group } : {}),
   })),

@@ -36,6 +36,19 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-09-26",
+      tag: "improvement",
+      title: "Die Mundarten, aus der Fachliteratur belegt",
+      summary:
+        "Jede Mundartseite zeigt jetzt Formen, an denen man die Gegend erkennt — jede mit Quelle —, und verlinkt die Grammatiken und Wörterbücher der Region.",
+      items: [
+        "Neu erkannt: Wallis (appas, wier, wilt, Häärpfel, Aache), Innerschweiz (Gumel, Eiker), Glarus (schüü), Sensebezirk (gùgge), Graubünden (eswas), dazu mehr für Bern (geisch, geit, Hung).",
+        "Belegt mit dem Sprachatlas der deutschen Schweiz — Band und Karte stehen bei jeder Form —, dem Dialäktatlas 2025 und den Bänden der Reihe «Grammatiken und Wörterbücher des Schweizerdeutschen».",
+        "Korrigiert: «het», «nid», «goht» und «stoht» sind keine Merkmale anderer Gegenden; der Atlas belegt sie auch im Kanton Zürich. Heidi schreibt weiterhin hät, nöd, gaht, staht, stuft die anderen Formen aber nicht mehr als fremd ein.",
+        "Die Übung «Welches ist Zürich?» fragt nur noch nach Formen, die sicher nicht zürcherisch sind.",
+      ],
+    },
+    {
       date: "2026-09-25",
       tag: "improvement",
       title: "Mitsprache gehört zu Solon",
@@ -229,6 +242,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-26",
+      tag: "improvement",
+      title: "The dialects, documented from the literature",
+      summary:
+        "Every dialect page now shows forms that identify the region — each with its source — and links the region’s grammars and dictionaries.",
+      items: [
+        "Newly recognised: Wallis (appas, wier, wilt, Häärpfel, Aache), Central Switzerland (Gumel, Eiker), Glarus (schüü), Sense (gùgge), Graubünden (eswas), and more for Bern (geisch, geit, Hung).",
+        "Sourced from the Linguistic Atlas of German-speaking Switzerland — volume and map given for every form —, the 2025 Dialäktatlas, and the volumes of the series «Grammatiken und Wörterbücher des Schweizerdeutschen».",
+        "Corrected: «het», «nid», «goht» and «stoht» are not markers of other regions; the atlas records them inside the canton of Zurich too. Heidi still writes hät, nöd, gaht, staht, but no longer calls the others foreign.",
+        "The «Which one is Zurich?» exercise now only asks about forms that are certainly not Zurich German.",
+      ],
+    },
     {
       date: "2026-09-25",
       tag: "improvement",

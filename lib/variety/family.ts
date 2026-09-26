@@ -69,3 +69,16 @@ export function isTaught(pack: VarietyPack, area: DialectArea): boolean {
   if (!home) return false;
   return area.place.lon === home.lon && area.place.lat === home.lat;
 }
+
+/**
+ * What an area's page cites: its own literature, then every source its marks
+ * rest on — each once, in that order. The page renders one reference list, so
+ * a form shown under "how to recognise it" is always one click from where it
+ * is described.
+ */
+export function sourcesFor(pack: VarietyPack, area: DialectArea): string[] {
+  const fromRules = area.ruleOrigin
+    ? pack.rules.filter((r) => r.origin === area.ruleOrigin).flatMap((r) => r.sources ?? [])
+    : [];
+  return [...new Set([...area.sources, ...fromRules])];
+}

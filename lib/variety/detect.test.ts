@@ -14,12 +14,12 @@ describe("reading where a message comes from", () => {
   });
 
   test("a Bernese form points to Bern and links the area", () => {
-    const r = readDialect("Das isch güet, gäu?", PACK);
+    const r = readDialect("Ig ha gseit, wosch?", PACK);
     assert.equal(r.verdict, "area");
     assert.equal(r.lead?.origin, "Bern");
     assert.equal(r.lead?.areaId, "baerndueuetsch");
     assert.equal(r.lead?.forms.length, 2);
-    assert.equal(r.lead?.forms.find((f) => f.form === "gäu")?.suggest, "gäll");
+    assert.equal(r.lead?.forms.find((f) => f.form === "wosch")?.suggest, "wotsch");
   });
 
   test("Germany's German reads as outside the family, not as a canton", () => {
@@ -30,7 +30,7 @@ describe("reading where a message comes from", () => {
   });
 
   test("an area outranks an outside origin — the more specific answer", () => {
-    const r = readDialect("Güet, i nimm s Fahrrad.", PACK);
+    const r = readDialect("Wosch, i nimm s Fahrrad.", PACK);
     assert.equal(r.verdict, "area");
     assert.equal(r.lead?.origin, "Bern");
     assert.deepEqual(r.origins.map((o) => o.origin).sort(), ["Bern", "Germany"]);
@@ -45,7 +45,7 @@ describe("reading where a message comes from", () => {
   test("one word is one piece of evidence", () => {
     // A form flagged as foreign is not also counted as a taught form, and a
     // taught form is found once however many entries could match it.
-    const r = readDialect("güet güet", PACK);
+    const r = readDialect("wosch wosch", PACK);
     assert.equal(r.known.length, 0);
     const indexes = readDialect("nöd nöd", PACK).known.map((k) => k.index);
     assert.equal(new Set(indexes).size, indexes.length);
@@ -53,7 +53,7 @@ describe("reading where a message comes from", () => {
 
   test("a pack with no areas still answers, without inventing one", () => {
     const bare = { ...PACK, family: undefined };
-    const r = readDialect("Das isch güet.", bare);
+    const r = readDialect("Wosch es?", bare);
     assert.equal(r.verdict, "outside");
     assert.equal(r.lead?.areaId, undefined);
   });

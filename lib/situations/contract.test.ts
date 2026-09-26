@@ -66,7 +66,7 @@ describe("every situation pack", () => {
          * forms.
          */
         for (const phrase of phrasesOf(pack)) {
-          const result = check(phrase.target, VARIETY, "foreign");
+          const result = check(phrase.target, VARIETY, "dispreferred");
           assert.ok(
             result.ok,
             `"${phrase.target}" — ${result.findings.map((f) => `${f.form} (${f.origin ?? f.reason})`).join(", ")}`,

@@ -4,7 +4,7 @@ import { SOURCES, citation, shortCitation, type Source, type SourceId } from "./
 import { techSources } from "./language-tech.ts";
 import { paperSources } from "../config/paper.ts";
 import { ESSAYS } from "../essays/registry.ts";
-import { areasOf } from "../variety/family.ts";
+import { areasOf, sourcesFor } from "../variety/family.ts";
 import { VARIETY } from "../variety/active.ts";
 import { getDictionary } from "../i18n/index.ts";
 import { LOCALES } from "../i18n/locales.ts";
@@ -119,7 +119,7 @@ test("no source is defined but never cited", () => {
   // The research page is no longer the only thing that cites: a dialect area
   // vouches for itself the same way, and a source used only there is being
   // used, not orphaned.
-  for (const area of areasOf(VARIETY)) for (const id of area.sources) used.add(id);
+  for (const area of areasOf(VARIETY)) for (const id of sourcesFor(VARIETY, area)) used.add(id);
   for (const id of VARIETY.vocabularySources ?? []) used.add(id);
   // The technology page vouches for every figure it prints the same way, and
   // its data lives outside the dictionaries because a number is not
@@ -177,4 +177,21 @@ test("every dialect group names a source that exists", () => {
       assert.ok(id in SOURCES, `dialect group "${group.id}" cites unknown source "${id}"`);
     }
   }
+});
+
+test("every regional form names where it is described, and the source exists", () => {
+  // The forms that turned out wrong (het, goht, nid as regional) all had no
+  // source. A rule that places a form in an area must say who says so.
+  const areaOrigins = new Set(areasOf(VARIETY).flatMap((a) => (a.ruleOrigin ? [a.ruleOrigin] : [])));
+  const bad = VARIETY.rules
+    .filter((r) => r.origin && areaOrigins.has(r.origin))
+    .filter((r) => !r.sources?.length || r.sources.some((id) => !(id in SOURCES)))
+    .map((r) => `${String(r.display ?? r.match)} (${r.origin})`);
+  assert.deepEqual(bad, []);
+});
+
+test("every origin a rule names is an area with a page — no region the site cannot show", () => {
+  const areaOrigins = new Set(areasOf(VARIETY).flatMap((a) => (a.ruleOrigin ? [a.ruleOrigin] : [])));
+  const orphans = [...new Set(VARIETY.rules.flatMap((r) => (r.origin ? [r.origin] : [])))].filter((o) => !areaOrigins.has(o));
+  assert.deepEqual(orphans, []);
 });

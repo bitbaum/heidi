@@ -390,7 +390,7 @@ export const it: Dictionary = {
   check: {
     title: "Verifica del dialetto",
     intro: "Un elenco fisso di regole — non un modello linguistico. Controlla ogni riga che Heidi le mostra. Qui può farlo girare lei stessa.",
-    placeholder: "Das isch nid güet, gäu",
+    placeholder: "Ig ha gseit, wosch es Miuch?",
     button: "Verifica",
     failed: "La verifica non era raggiungibile. Riprovi.",
     ok: "Nessuna forma estranea trovata. Può passare per zurighese.",

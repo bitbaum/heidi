@@ -390,7 +390,7 @@ export const en: Dictionary = {
   check: {
     title: "Dialect check",
     intro: "A fixed list of rules — not a language model. It checks every line Heidi shows you. You can run the list yourself here.",
-    placeholder: "Das isch nid güet, gäu",
+    placeholder: "Ig ha gseit, wosch es Miuch?",
     button: "Check",
     failed: "The check could not be reached. Please try again.",
     ok: "No foreign forms found. This can pass as Zurich German.",

@@ -115,8 +115,10 @@ describe("marks are read from the gate, never listed twice", () => {
     // The honest state of "we have not written those rules". A page that filled
     // the gap with plausible forms would be the exact failure the dialect gate
     // exists to prevent, committed by us instead of by a model.
-    const gr = areaById(PACK, "buendnerdueuetsch")!;
-    assert.deepEqual(marksFor(PACK, gr), []);
+    // Aargau: a transition area with no word of its own the literature names
+    // ("Aargauerdeutsch gibt es nicht", SRF 2023) — so it gets none.
+    const ag = areaById(PACK, "aargauerdueuetsch")!;
+    assert.deepEqual(marksFor(PACK, ag), []);
   });
 
   test("a pattern rule is never printed at a reader", () => {
