@@ -40,15 +40,41 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
       tag: "feature",
       title: "Fünf neue Übungsarten — und nach jeder Antwort ein Warum",
       summary:
-        "Die Übungen fragen jetzt auch, was jemand meint, welche Antwort passt, welcher Satz genau das Deutsche sagt, welche Uhrzeit oder welcher Preis gemeint ist, und was ein Wort im Satz heisst. Der Fragenpool ist von 1249 auf 1533 Fragen gewachsen, die eindeutig prüfbaren von 208 auf 492.",
+        "Die Übungen fragen jetzt auch, was jemand meint, welche Antwort passt, welcher Satz genau das Deutsche sagt, welche Uhrzeit oder welcher Preis gemeint ist, und was ein Wort im Satz heisst. Der Fragenpool ist von 1451 auf 1793 Fragen gewachsen, die eindeutig prüfbaren von 246 auf 588.",
       items: [
         "«Was passt als Antwort?» — 40 Fragen aus den Situationen: auf «Zäme oder separat?» eine der zwei Möglichkeiten, auf «Sit wenn …?» ein «sit», kein «für».",
         "«Was ist gemeint?» — 34 gehörte Sätze mit vier Lesarten, darunter die höflichen Absagen («Mer luegt dänn») und die Fallen «mag» und «hei».",
         "«Welcher Satz sagt genau das?» — 25 Fragen, bei denen jede falsche Antwort richtiges Züridütsch ist, das etwas anderes sagt: wir statt sie, gehen statt kommen, vorbei statt jetzt.",
         "Uhrzeiten und Preise — 30 Fragen: «halbi drüü», «Viertel ab achti», «drüü Franke zwänzg».",
-        "«Was heisst das Wort hier?» — 155 Wörter im eigenen Satz; bei den falschen Freunden wie «schmöcke» oder «Eschtrich» steht die naheliegende falsche Bedeutung zur Auswahl.",
+        "«Was heisst das Wort hier?» — 213 Wörter im eigenen Satz; bei den falschen Freunden wie «schmöcke» oder «Eschtrich» steht die naheliegende falsche Bedeutung zur Auswahl.",
         "Nach jeder dieser Fragen: das Wort, auf das es ankam, und ein Satz, warum — in allen sieben Sprachen.",
         "Behoben: Eine gemischte Übung über alles zog die Fragetypen in alphabetischer Reihenfolge, und weil es mehr Typen als Plätze gab, kam «Auf Züridütsch schreiben» nie dran. Jetzt kommt zuerst, was am längsten nicht gefragt wurde.",
+      ],
+    },
+    {
+      date: "2026-09-26",
+      tag: "improvement",
+      title: "Eine Startseite, die man in einer Minute liest",
+      summary:
+        "Die Startseite sagt jetzt in zwei Spalten, worum es geht — mit einer Kuh vor den Alpen daneben — und führt in drei Schritten hinein: Situationen, Üben, Chat.",
+      items: [
+        "Fast halb so viel Text: rund 250 statt 440 Wörter.",
+        "Das Beispiel klingt wie eine echte Nachricht vom Mittagstisch: «Geschter im Kauz gsi — mega geil! 😍 Chunnsch s nächscht Mal au?»",
+        "Das Menü öffnet auf Klick, zeigt jede Seite mit einem Satz dazu und schliesst mit Escape oder einem Klick daneben.",
+        "Auf dem Handy öffnet das Menü als ganze Seite, mit grossen Kacheln und dem Chat zuoberst.",
+      ],
+    },
+    {
+      date: "2026-09-26",
+      tag: "improvement",
+      title: "Mehr Grammatik, mehr Wörter — und eine echte Regel für das -li",
+      summary:
+        "Sieben neue Grammatikthemen, 62 neue Wörter, und das Thema zum -li sagt jetzt, wie die Form gebildet wird, statt dass sie «oft nichts Kleines bedeutet».",
+      items: [
+        "Neu: hett, wär, chönnt (der Konjunktiv) · en, em, ere (Pronomen, die wie Artikel aussehen) · gsi, gha, cho (Partizipien ohne ge-) · chönne cho (die Verben am Ende andersherum) · ine, use, ufe, abe · de Peter, d Anna (Artikel vor Namen) · am vieri, halbi drüü (die Uhrzeit).",
+        "Das -li-Thema zeigt die Regel: Umlaut wo möglich, immer sächlich (d Chatz → s Chätzli), Mehrzahl unverändert — und dass Rüebli, Gipfeli, Weggli, Müesli und Meitli einfach die normalen Wörter sind.",
+        "Der Wortschatz wächst von 164 auf 226 Einträge: vor allem kurze Wörter und Verben (ämel, worum, eso, dusse, lah, lauffe, aalege), dazu hebe und rüere, die im Deutschen etwas anderes heissen.",
+        "Alle neuen Beispiele laufen durch dieselbe Zürich-Prüfung wie der Rest; die Übungen haben dadurch 1451 statt 1233 Fragen.",
       ],
     },
     {
@@ -276,15 +302,41 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
       tag: "feature",
       title: "Five new kinds of question — and a reason after every answer",
       summary:
-        "Practice now also asks what somebody means, which reply fits, which sentence says exactly the German, what time or price was said, and what a word means in its sentence. The pool grew from 1,249 questions to 1,533, the objectively marked ones from 208 to 492.",
+        "Practice now also asks what somebody means, which reply fits, which sentence says exactly the German, what time or price was said, and what a word means in its sentence. The pool grew from 1,451 questions to 1,793, the objectively marked ones from 246 to 588.",
       items: [
         "\"Which reply fits?\" — 40 questions from the situations: «Zäme oder separat?» wants one of two words back, «Sit wenn …?» wants a «sit», not a «für».",
         "\"What is meant?\" — 34 heard lines with four readings, among them the polite refusals («Mer luegt dänn») and the traps «mag» and «hei».",
         "\"Which sentence says exactly this?\" — 25 questions where every wrong answer is correct Zurich German that says something else: we instead of they, going instead of coming, over instead of now.",
         "Times and prices — 30 questions: «halbi drüü», «Viertel ab achti», «drüü Franke zwänzg».",
-        "\"What does the word mean here?\" — 155 words in their own sentence; for false friends like «schmöcke» or «Eschtrich», the tempting wrong meaning is one of the options.",
+        "\"What does the word mean here?\" — 213 words in their own sentence; for false friends like «schmöcke» or «Eschtrich», the tempting wrong meaning is one of the options.",
         "After each of these: the word the answer turned on, and one sentence on why — in all seven languages.",
         "Fixed: a mixed session over everything drew question types in alphabetical order, and with more types than seats, writing in Zurich German was never asked at all. Now the type asked least recently goes first.",
+      ],
+    },
+    {
+      date: "2026-09-26",
+      tag: "improvement",
+      title: "A home page you can read in a minute",
+      summary:
+        "The home page now says what Heidi is in two columns — with a cow in front of the Alps beside it — and leads in through three steps: situations, practice, chat.",
+      items: [
+        "Nearly half the text: about 250 words instead of 440.",
+        "The example reads like a real message from the lunch table: «Geschter im Kauz gsi — mega geil! 😍 Chunnsch s nächscht Mal au?»",
+        "The menu opens on a click, shows every page with one line about it, and closes with Escape or a click outside.",
+        "On a phone the menu opens as a full page, with large tiles and the chat at the top.",
+      ],
+    },
+    {
+      date: "2026-09-26",
+      tag: "improvement",
+      title: "More grammar, more words — and a real rule for the -li",
+      summary:
+        "Seven new grammar topics, 62 new words, and the -li topic now says how the form is built instead of that it \"often means nothing small\".",
+      items: [
+        "New: hett, wär, chönnt (the subjunctive) · en, em, ere (pronouns that look like articles) · gsi, gha, cho (participles without ge-) · chönne cho (the final verbs the other way round) · ine, use, ufe, abe · de Peter, d Anna (the article before a name) · am vieri, halbi drüü (telling the time).",
+        "The -li topic states the rule: umlaut where possible, always neuter (d Chatz → s Chätzli), plural unchanged — and that Rüebli, Gipfeli, Weggli, Müesli and Meitli are simply the ordinary words.",
+        "The vocabulary grows from 164 to 226 entries, mostly short words and verbs (ämel, worum, eso, dusse, lah, lauffe, aalege), plus hebe and rüere, which mean something else in German.",
+        "Every new example passes the same Zurich check as the rest; practice now has 1451 questions instead of 1233.",
       ],
     },
     {

@@ -843,6 +843,127 @@ export const ZURICH_GERMAN: VarietyPack = {
     { target: "Löli", bridge: "Dummkopf", group: "slang", register: "rude" },
     { target: "huere", bridge: "sehr", group: "slang", register: "rude" },
     { target: "Gof", bridge: "Kind", group: "slang", register: "rude" },
+    /**
+     * THE LUNCH-TABLE BATCH (2026-09-26). Asked for: "there is a little bit
+     * more we can do in terms of content". Chosen by the same test as
+     * everything above — a German reader either cannot recover the word, or
+     * recovers it wrongly — and weighted the way the page's thesis demands:
+     * the short words and the verbs first, nouns second, so the vocabulary
+     * test's "carrying words dominate" still holds with room to spare.
+     *
+     * The direction words (`obe`, `une`, `dusse`, `dinne`, `ume`) belong with
+     * the `directions` grammar topic; `wo` is the relative particle the
+     * `wo-relative` topic is about, listed so it can be saved like any word.
+     */
+    { target: "ämel", bridge: "jedenfalls, wenigstens", group: "function" },
+    { target: "fascht", bridge: "fast", group: "function" },
+    { target: "worum", bridge: "warum", group: "function" },
+    { target: "dänn", bridge: "dann", group: "function" },
+    { target: "eso", bridge: "so", group: "function" },
+    { target: "sone", bridge: "so ein", group: "function" },
+    { target: "chli", bridge: "klein, ein wenig", group: "function" },
+    { target: "übermorn", bridge: "übermorgen", group: "function" },
+    { target: "vorgeschter", bridge: "vorgestern", group: "function" },
+    { target: "dur", bridge: "durch", group: "function" },
+    { target: "alli", bridge: "alle", group: "function" },
+    { target: "beidi", bridge: "beide", group: "function" },
+    { target: "zwüsche", bridge: "zwischen", group: "function" },
+    { target: "ohni", bridge: "ohne", group: "function" },
+    { target: "wäge", bridge: "wegen", group: "function" },
+    { target: "hine", bridge: "hinten", group: "function" },
+    { target: "obe", bridge: "oben", group: "function" },
+    { target: "une", bridge: "unten", group: "function" },
+    { target: "dusse", bridge: "draussen", group: "function" },
+    { target: "dinne", bridge: "drinnen", group: "function" },
+    { target: "ume", bridge: "herum, hinüber", group: "function" },
+    { target: "wo", bridge: "der, die, das (im Relativsatz)", group: "function" },
+    { target: "eus", bridge: "uns", group: "function" },
+    { target: "eu", bridge: "euch", group: "function" },
+    { target: "wäsche", bridge: "waschen", group: "verbs" },
+    { target: "lah", bridge: "lassen", group: "verbs" },
+    { target: "tue", bridge: "tun", group: "verbs" },
+    { target: "blibe", bridge: "bleiben", group: "verbs" },
+    {
+      // Looks like German `laufen` and is used for plain walking, where a
+      // German reader expects running — which is `springe`, further up.
+      target: "lauffe",
+      bridge: "zu Fuss gehen",
+      group: "verbs",
+      example: { target: "Mir lauffed hei.", bridge: "Wir gehen zu Fuss nach Hause." },
+      source: "idiotikon",
+    },
+    { target: "schriibe", bridge: "schreiben", group: "verbs" },
+    { target: "läse", bridge: "lesen", group: "verbs" },
+    { target: "spile", bridge: "spielen", group: "verbs" },
+    { target: "aalege", bridge: "anziehen (Kleider)", group: "verbs" },
+    { target: "ufstah", bridge: "aufstehen", group: "verbs" },
+    { target: "vergässe", bridge: "vergessen", group: "verbs" },
+    { target: "iichaufe", bridge: "einkaufen", group: "verbs" },
+    { target: "tschuute", bridge: "Fussball spielen", group: "verbs" },
+    { target: "verwütsche", bridge: "erwischen", group: "verbs" },
+    {
+      target: "hebe",
+      bridge: "halten",
+      group: "helvetisms",
+      mistakenFor: "heben, hochheben",
+      example: { target: "Chasch mer schnäll d Tasche hebe?", bridge: "Kannst du mir kurz die Tasche halten?" },
+      source: "idiotikon",
+    },
+    {
+      target: "rüere",
+      bridge: "werfen",
+      group: "helvetisms",
+      mistakenFor: "rühren, umrühren",
+      example: { target: "Chasch das in Güsel rüere?", bridge: "Kannst du das in den Abfall werfen?" },
+      source: "idiotikon",
+    },
+    { target: "Abwart", bridge: "Hauswart", group: "helvetisms", article: "de", source: "idiotikon" },
+    {
+      // Neuter, like every noun ending in -li would be — but this one has no
+      // -li at all. `s Grosi` is simply the word.
+      target: "Grosi",
+      bridge: "Grossmutter",
+      group: "everyday",
+      article: "s",
+      example: { target: "S Grosi chunt am Sunntig.", bridge: "Die Grossmutter kommt am Sonntag." },
+      source: "idiotikon",
+    },
+    {
+      // Feminine, and its diminutive is neuter — the `diminutive-li` topic's
+      // own first example (`D Chatz hät es Chätzli`).
+      target: "Chatz",
+      bridge: "Katze",
+      group: "everyday",
+      article: "d",
+      example: { target: "D Chatz schlaft uf em Sofa.", bridge: "Die Katze schläft auf dem Sofa." },
+      source: "idiotikon",
+    },
+    { target: "Meitli", bridge: "Mädchen", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Bueb", bridge: "Junge", group: "everyday", article: "de", source: "idiotikon" },
+    { target: "Nachber", bridge: "Nachbar", group: "everyday", article: "de", source: "idiotikon" },
+    { target: "Schuel", bridge: "Schule", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Gmeind", bridge: "Gemeinde", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Zältli", bridge: "Bonbon", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Säckli", bridge: "Tüte", group: "everyday", article: "s", source: "idiotikon" },
+    { target: "Wösch", bridge: "Wäsche", group: "everyday", article: "d", source: "idiotikon" },
+    {
+      target: "Pfnüsel",
+      bridge: "Schnupfen",
+      group: "everyday",
+      article: "de",
+      example: { target: "Ich ha de Pfnüsel.", bridge: "Ich habe Schnupfen." },
+      source: "idiotikon",
+    },
+    { target: "Chilbi", bridge: "Jahrmarkt", group: "everyday", article: "d", source: "idiotikon" },
+    { target: "Uf Widerluege", bridge: "Auf Wiedersehen", group: "greetings" },
+    { target: "Merci vilmal", bridge: "Vielen Dank", group: "greetings" },
+    { target: "Gärn gscheh", bridge: "Gern geschehen", group: "greetings" },
+    { target: "Hoi zäme", bridge: "Hallo zusammen", group: "greetings" },
+    { target: "pfuse", bridge: "schlafen", group: "slang", register: "casual" },
+    { target: "bschiisse", bridge: "betrügen", group: "slang", register: "casual" },
+    { target: "Chabis", bridge: "Unsinn", group: "slang", register: "casual" },
+    { target: "lässig", bridge: "toll", group: "slang", register: "casual" },
+    { target: "Tubel", bridge: "Idiot", group: "slang", register: "rude" },
   ],
 
   vocabularySources: ["idiotikon"],
@@ -991,15 +1112,30 @@ export const ZURICH_GERMAN: VarietyPack = {
       ],
     },
     {
-      // Productive to a degree German is not: it attaches to almost anything
-      // and often carries no smallness at all.
+      /**
+       * Rewritten 2026-09-26. The first version said the diminutive "often
+       * means nothing small at all" and showed `es Bierli` as "a beer said
+       * kindly" — an aphorism, not a rule, and George called it exactly that.
+       *
+       * What a German reader can actually USE is three facts: how the form is
+       * built (-li, umlaut where the vowel allows it: Huus → Hüüsli, Brot →
+       * Brötli, Chatz → Chätzli), that it is always neuter and unchanged in
+       * the plural, and that a set of everyday words only exists in the -li
+       * form — `Rüebli`, `Gipfeli`, `Weggli`, `Müesli`, `Meitli`, `Zältli` —
+       * so there is nothing small about them. The formation is described in
+       * Weber's Zürichdeutsche Grammatik (the pack's grammar reference); each
+       * lexicalised word here is in the vocabulary with its own gloss.
+       *
+       * The examples: a feminine noun whose diminutive is neuter, a plural
+       * that does not change, and two words that are simply the normal word.
+       */
       id: "diminutive-li",
       band: "marks",
-      note: "a word ending in -li, especially one that means nothing small and was taken literally",
+      note: "a noun ending in -li: how it is formed (umlaut, always neuter s/es, plural unchanged), or a word like Rüebli, Gipfeli, Weggli, Müesli or Meitli that is simply the normal word and was taken to mean something small",
       examples: [
-        { target: "Machsch es Bierli?", bridge: "Trinken wir ein Bier?" },
-        { target: "Es Kafi und es Gipfeli.", bridge: "Ein Kaffee und ein Croissant." },
-        { target: "Gang no schnäll go poschte, es Sächeli.", bridge: "Geh noch kurz einkaufen, eine Kleinigkeit." },
+        { target: "D Chatz hät es Chätzli.", bridge: "Die Katze hat ein Kätzchen." },
+        { target: "Zwei Brötli, bitte.", bridge: "Zwei Brötchen, bitte." },
+        { target: "Es Müesli und es Rüebli.", bridge: "Ein Müsli und eine Karotte." },
       ],
     },
     {
@@ -1079,6 +1215,144 @@ export const ZURICH_GERMAN: VarietyPack = {
         { target: "Das isch halt so.", bridge: "Das ist eben so, da kann man nichts machen." },
         { target: "Du chunnsch au, gäll?", bridge: "Du kommst auch, oder?" },
         { target: "Äbe, gnau das han ich gmeint.", bridge: "Genau, das habe ich gemeint." },
+      ],
+    },
+    /**
+     * THE SEVEN TOPICS ADDED 2026-09-26, asked for as "maybe there could be a
+     * little bit more rules". Each is something a German reader meets at the
+     * first lunch table and that none of the twelve above explains. The forms
+     * follow Weber's Zürichdeutsche Grammatik and Gallmann's Zürichdeutsches
+     * Wörterbuch, the two Zurich references in `lib/research/sources.ts`; the
+     * participle rule (ge- → g-, lost before a stop) and the verb order
+     * (`wölle cho`, not `kommen wollen`) are also stated in the Alemannic
+     * grammar summary on de.wikipedia, which is where they were cross-checked.
+     * Every example passes the pack's own gate (grammar.test.ts). Like the
+     * rest of the pack, they still await a native Zurich reviewer.
+     */
+    {
+      /**
+       * The Konjunktiv II is alive — far more alive than in spoken German —
+       * and one vowel separates it from the indicative: `hät` is "hat",
+       * `hett` is "hätte". A reader who hears the first where the second was
+       * said turns a wish into a fact. That is why it is `blocks`.
+       *
+       * The forms are given without the final -i (`hett`, `wär`, `chönnt`);
+       * `hetti`, `wäri` are heard too, and the rule says so rather than
+       * pretending there is one form.
+       */
+      id: "subjunctive",
+      band: "blocks",
+      note: "a wish, a polite request or something hypothetical — hett, wär, chönnt, sött, wett, würd — and especially hett (hätte) heard or written as hät (hat), or wett read as a bet",
+      examples: [
+        { target: "Ich hett gern es Kafi.", bridge: "Ich hätte gern einen Kaffee." },
+        { target: "Chönnted Sie mir hälfe?", bridge: "Könnten Sie mir helfen?" },
+        { target: "Ich würd cho, wänn ich Ziit hett.", bridge: "Ich würde kommen, wenn ich Zeit hätte." },
+      ],
+    },
+    {
+      /**
+       * The unstressed pronouns, which shrink to something that looks like an
+       * article: `en` is "ihn", not "einen"; `em` is "ihm", not "dem". A
+       * reader who has just learned the indefinite article `en` parses
+       * "Ich han en gsee" as a noun phrase missing its noun.
+       *
+       * `han` before the vowel is the pack's existing spelling (`han ich
+       * gmeint` in modal-particles); `Wie gaht s ere?` is already published by
+       * the care pack.
+       */
+      id: "pronoun-clitics",
+      band: "blocks",
+      note: "a short unstressed pronoun — en (ihn), em (ihm), ere (ihr), s (es) — especially one read as an article, as in «Ich han en gsee» or «Säg em»",
+      examples: [
+        { target: "Ich han en geschter gsee.", bridge: "Ich habe ihn gestern gesehen." },
+        { target: "Säg em, er söll cho.", bridge: "Sag ihm, er soll kommen." },
+        { target: "Wie gaht s ere?", bridge: "Wie geht es ihr?" },
+      ],
+    },
+    {
+      /**
+       * The partner of `no-preterite`. With no simple past, every past runs on
+       * a participle — and the most common ones do not look like German ones.
+       * `ge-` shrinks to `g-` (gmacht, gseit, gsi, gha) and disappears in front
+       * of a k/ch, p, t or g: `cho` (gekommen), `kauft` (gekauft, g + ch fuse into k), `trunke`
+       * (getrunken), `gange` (gegangen). A reader hunting for "ge-" finds
+       * nothing to hold on to.
+       */
+      id: "participles",
+      band: "blocks",
+      note: "a past participle that does not look German — gsi, gha, cho, gange, kauft, trunke — or somebody asking where the ge- went",
+      examples: [
+        { target: "Ich ha kei Ziit gha.", bridge: "Ich hatte keine Zeit." },
+        { target: "Er isch geschter cho.", bridge: "Er ist gestern gekommen." },
+        { target: "Häsch s Billett scho kauft?", bridge: "Hast du die Fahrkarte schon gekauft?" },
+      ],
+    },
+    {
+      /**
+       * When verbs pile up at the end, the order is the mirror of German's:
+       * `ha … chönne cho` where German has `habe … kommen können`. The
+       * Alemannic grammar summary gives `är het wölle cho` against the eastern
+       * `er hot kommə wellə`. Understood without trouble, produced wrongly by
+       * nearly every German speaker — `marks`.
+       */
+      id: "verb-order",
+      band: "marks",
+      note: "two or three verbs at the end of a clause — ha nöd chönne cho, hät müesse schaffe, lah flicke — or somebody who put them in German order (kommen können)",
+      examples: [
+        { target: "Ich ha nöd chönne cho.", bridge: "Ich habe nicht kommen können." },
+        { target: "Si hät müesse schaffe.", bridge: "Sie hat arbeiten müssen." },
+        { target: "Mir händ s Velo lah flicke.", bridge: "Wir haben das Fahrrad flicken lassen." },
+      ],
+    },
+    {
+      /**
+       * The direction words. German says `hinein` or `herein` depending on
+       * where the speaker stands; Zurich German says `ine` for both, and the
+       * same for `use`, `ufe`, `abe`, `ume`. The article on Zurich German in
+       * de.wikipedia glosses `ufe` as "herauf, hinauf" and `abe` as "herunter,
+       * hinunter" for the same reason.
+       */
+      id: "directions",
+      band: "marks",
+      note: "a direction word — ine, use, ufe, abe, ume, zrugg — or somebody trying to choose between hin- and her-, which this variety does not distinguish",
+      examples: [
+        { target: "Chömed Sie ine!", bridge: "Kommen Sie herein!" },
+        { target: "Ich gang schnäll abe.", bridge: "Ich gehe schnell hinunter." },
+        { target: "Bringsch de Güsel use?", bridge: "Bringst du den Abfall hinaus?" },
+      ],
+    },
+    {
+      /**
+       * First names take the article, always and neutrally. The pack has
+       * shown it since the start (`Em Peter sis Auto`, `De Anna ihri
+       * Schwöschter`) and never said so. A German reader from the north hears
+       * it as careless or as slightly rude; here, leaving it out is what
+       * sounds odd.
+       */
+      id: "names-article",
+      band: "marks",
+      note: "a first name with an article — de Peter, d Anna, em Luca — or somebody who thinks the article before a name is rude or careless",
+      examples: [
+        { target: "Das isch d Anna.", bridge: "Das ist Anna." },
+        { target: "Häsch de Peter gsee?", bridge: "Hast du Peter gesehen?" },
+        { target: "Ich säg s em Luca.", bridge: "Ich sage es Luca." },
+      ],
+    },
+    {
+      /**
+       * Telling the time, which is where an appointment is lost. `am` is
+       * "um", `ab` is "nach", `halbi drüü` is half past two exactly as in
+       * German, and the full hour usually takes an -i (`am vieri`, `am
+       * achti`). `blocks`, because the number arrives inside three words that
+       * each mean something else in German.
+       */
+      id: "clock-time",
+      band: "blocks",
+      note: "a time of day — am vieri, halbi drüü, viertel ab achti, viertel vor zwölfi — or somebody who read am as «am» and ab as «ab» and missed the appointment",
+      examples: [
+        { target: "Mir träffed eus am halbi drüü.", bridge: "Wir treffen uns um halb drei." },
+        { target: "De Zug fahrt am viertel ab achti.", bridge: "Der Zug fährt um Viertel nach acht." },
+        { target: "Chunnsch am vieri?", bridge: "Kommst du um vier?" },
       ],
     },
   ],
