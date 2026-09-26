@@ -37,6 +37,22 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-09-26",
+      tag: "feature",
+      title: "Fünf neue Übungsarten — und nach jeder Antwort ein Warum",
+      summary:
+        "Die Übungen fragen jetzt auch, was jemand meint, welche Antwort passt, welcher Satz genau das Deutsche sagt, welche Uhrzeit oder welcher Preis gemeint ist, und was ein Wort im Satz heisst. Der Fragenpool ist von 1249 auf 1533 Fragen gewachsen, die eindeutig prüfbaren von 208 auf 492.",
+      items: [
+        "«Was passt als Antwort?» — 40 Fragen aus den Situationen: auf «Zäme oder separat?» eine der zwei Möglichkeiten, auf «Sit wenn …?» ein «sit», kein «für».",
+        "«Was ist gemeint?» — 34 gehörte Sätze mit vier Lesarten, darunter die höflichen Absagen («Mer luegt dänn») und die Fallen «mag» und «hei».",
+        "«Welcher Satz sagt genau das?» — 25 Fragen, bei denen jede falsche Antwort richtiges Züridütsch ist, das etwas anderes sagt: wir statt sie, gehen statt kommen, vorbei statt jetzt.",
+        "Uhrzeiten und Preise — 30 Fragen: «halbi drüü», «Viertel ab achti», «drüü Franke zwänzg».",
+        "«Was heisst das Wort hier?» — 155 Wörter im eigenen Satz; bei den falschen Freunden wie «schmöcke» oder «Eschtrich» steht die naheliegende falsche Bedeutung zur Auswahl.",
+        "Nach jeder dieser Fragen: das Wort, auf das es ankam, und ein Satz, warum — in allen sieben Sprachen.",
+        "Behoben: Eine gemischte Übung über alles zog die Fragetypen in alphabetischer Reihenfolge, und weil es mehr Typen als Plätze gab, kam «Auf Züridütsch schreiben» nie dran. Jetzt kommt zuerst, was am längsten nicht gefragt wurde.",
+      ],
+    },
+    {
+      date: "2026-09-26",
       tag: "improvement",
       title: "Das stärkste Modell, das Ihr Schlüssel kann",
       summary:
@@ -255,6 +271,22 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-26",
+      tag: "feature",
+      title: "Five new kinds of question — and a reason after every answer",
+      summary:
+        "Practice now also asks what somebody means, which reply fits, which sentence says exactly the German, what time or price was said, and what a word means in its sentence. The pool grew from 1,249 questions to 1,533, the objectively marked ones from 208 to 492.",
+      items: [
+        "\"Which reply fits?\" — 40 questions from the situations: «Zäme oder separat?» wants one of two words back, «Sit wenn …?» wants a «sit», not a «für».",
+        "\"What is meant?\" — 34 heard lines with four readings, among them the polite refusals («Mer luegt dänn») and the traps «mag» and «hei».",
+        "\"Which sentence says exactly this?\" — 25 questions where every wrong answer is correct Zurich German that says something else: we instead of they, going instead of coming, over instead of now.",
+        "Times and prices — 30 questions: «halbi drüü», «Viertel ab achti», «drüü Franke zwänzg».",
+        "\"What does the word mean here?\" — 155 words in their own sentence; for false friends like «schmöcke» or «Eschtrich», the tempting wrong meaning is one of the options.",
+        "After each of these: the word the answer turned on, and one sentence on why — in all seven languages.",
+        "Fixed: a mixed session over everything drew question types in alphabetical order, and with more types than seats, writing in Zurich German was never asked at all. Now the type asked least recently goes first.",
+      ],
+    },
     {
       date: "2026-09-26",
       tag: "improvement",

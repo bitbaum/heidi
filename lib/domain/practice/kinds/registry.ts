@@ -8,6 +8,7 @@ import { PICK } from "./pick.ts";
 import { RECALL } from "./recall.ts";
 import { TRANSLATE } from "./translate.ts";
 import { CARD } from "./card.ts";
+import { CLOCK_KIND, GIST_KIND, MEANING_KIND, REPLY_KIND, TRANSFORM_KIND } from "./question.ts";
 
 /**
  * Every exercise kind there is. The single source of truth.
@@ -27,6 +28,11 @@ import { CARD } from "./card.ts";
 export const KINDS: readonly ExerciseKind[] = [
   PAIR,
   PICK,
+  REPLY_KIND,
+  GIST_KIND,
+  MEANING_KIND,
+  TRANSFORM_KIND,
+  CLOCK_KIND,
   ARTICLE,
   FORM,
   MATCH,

@@ -7,7 +7,7 @@ import { href } from "@/lib/i18n/routes";
 import { fill } from "@/lib/i18n/fill";
 import { askHeidi } from "@/lib/browser/ask";
 import { DISPLAY } from "@/lib/variety/display";
-import type { PracticeItem } from "@/lib/domain/practice/types";
+import type { LessonId, PracticeItem } from "@/lib/domain/practice/types";
 import { explanationFor } from "@/lib/domain/practice/explanation";
 import type { DisplayPhrase } from "@/lib/situations/display";
 
@@ -68,9 +68,32 @@ export function Explanation({
   const topic = e.topic ? grammarT.topics[e.topic as keyof typeof grammarT.topics] : undefined;
   const sceneTitle = e.scene ? situationsT.scenes[e.scene.id as keyof typeof situationsT.scenes]?.title : undefined;
   const practice = href(locale, "practice");
+  // Typed as the full record so a lesson id missing from `de.ts` is a type
+  // error here rather than an empty paragraph on a French reader's screen.
+  const lessons: Record<LessonId, string> = t.lessons;
 
   const body = (
     <div className="flex flex-col gap-5">
+      {/* FIRST, because it is the only part written for THIS question: the
+          word the answer turned on, and the one-sentence reason. Everything
+          below it is about the topic, the scene or the word in general. */}
+      {(e.listen || e.lesson) && (
+        <Part title={x.lessonTitle}>
+          {e.listen && (
+            <p className="text-sm leading-relaxed">
+              <span className="text-fg-muted">{x.listenTitle}: </span>
+              <span lang={DISPLAY.tag} className="font-medium text-dialect">«{e.listen.word}»</span>{" "}
+              <span lang="de" className="text-fg-secondary">= {e.listen.means}</span>
+            </p>
+          )}
+          {e.lesson && (
+            <p className="mt-1 max-w-measure text-sm leading-relaxed text-fg-secondary">
+              {fill(lessons[e.lesson.id], e.lesson.slots)}
+            </p>
+          )}
+        </Part>
+      )}
+
       {topic && e.topic && (
         <Part title={x.ruleTitle}>
           <p className="text-sm font-medium text-fg-primary">{topic.title}</p>

@@ -51,4 +51,14 @@ export const VIEWS: Record<PracticeItem["kind"], ExerciseView> = {
    */
   card: CardView,
   translate: TranslateView,
+  /**
+   * The template-built kinds (`lib/domain/practice/templates/`). All five are
+   * "read, tap one, be told why", which is exactly what `ChoiceView` already
+   * is — so a new authored kind is a line here and nothing else in `app/`.
+   */
+  reply: ChoiceView,
+  gist: ChoiceView,
+  transform: ChoiceView,
+  clock: ChoiceView,
+  meaning: ChoiceView,
 };

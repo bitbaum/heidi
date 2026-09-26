@@ -6,6 +6,7 @@ import { ADVERTISED_TEST_FILES, METRICS, METRICS_READ_ON, SECTIONS } from "./inv
 import { FORBIDDEN_CLAIMS } from "./sectors.ts";
 import { SITUATIONS } from "../situations/active.ts";
 import { PACK_ITEMS } from "../domain/practice/published.ts";
+import { KINDS } from "../domain/practice/kinds/registry.ts";
 
 /**
  * The data room may understate the repository. It may never overstate it.
@@ -62,6 +63,19 @@ describe("the data room", () => {
     assert.ok(
       stated("Practice questions") <= PACK_ITEMS.length,
       `the data room claims ${stated("Practice questions")} practice questions and the product has ${PACK_ITEMS.length}`,
+    );
+  });
+
+  test("the number of kinds of question in the prose is the number the registry has", () => {
+    // "Five exercise forms" stood in this file while the registry held ten.
+    // Prose cannot be derived, so it is pinned: adding a kind turns this red
+    // and the sentence gets rewritten in the same commit.
+    const words: Record<number, string> = { 15: "fifteen" };
+    const said = words[KINDS.length];
+    assert.ok(said, `the registry has ${KINDS.length} kinds; teach this test the word and fix the sentence`);
+    assert.ok(
+      JSON.stringify(SECTIONS).includes(`${said} kinds of question`),
+      `the investor page should say "${said} kinds of question"`,
     );
   });
 

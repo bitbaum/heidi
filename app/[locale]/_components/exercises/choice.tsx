@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { DISPLAY } from "@/lib/variety/display";
-import type { PracticeItem } from "@/lib/domain/practice/types";
+import type { PracticeItem, QuestionItem, QuestionKind } from "@/lib/domain/practice/types";
 import type { ExerciseViewProps } from "./view";
 import { PROMPT_TEXT, Verdict, ignoreKey, optionClass, person } from "./chrome";
 
-type ChoiceItem = Extract<PracticeItem, { kind: "pair" | "article" | "form" | "pick" }>;
+type ChoiceItem = Extract<PracticeItem, { kind: "pair" | "article" | "form" | "pick" | QuestionKind }>;
 
 /**
  * The four kinds with options: which is Zurich, which article, which form,
@@ -85,14 +85,17 @@ export function ChoiceView({ item, t, grammarT, situationsT, vocabularyT, learnT
     <>
       <ChoicePrompt item={choice} t={t} />
 
-      <ul className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+      {/* Sentences do not sit side by side: a reply or a reading is a line
+          of text, and four of them in a row wrap into a wall. Words and
+          numbers still do. */}
+      <ul className={`mt-5 flex flex-col gap-2 ${isSentences(choice) ? "" : "sm:flex-row sm:flex-wrap"}`}>
         {choice.options.map((option, index) => (
           <li key={option}>
             <button
               type="button"
               disabled={chose !== null}
               onClick={() => pick(index)}
-              className={optionClass(index, chose, choice.answer)}
+              className={optionClass(index, chose, choice.answer, isSentences(choice))}
             >
               {/* The key that picks it. Muted, and gone once answered — at
                   which point it is a label for something you can no longer
@@ -102,7 +105,7 @@ export function ChoiceView({ item, t, grammarT, situationsT, vocabularyT, learnT
                   {index + 1}
                 </span>
               )}
-              <span lang={DISPLAY.tag}>{option}</span>
+              <span {...optionLang(choice)}>{option}</span>
             </button>
           </li>
         ))}
@@ -122,10 +125,34 @@ export function ChoiceView({ item, t, grammarT, situationsT, vocabularyT, learnT
   );
 }
 
+/** Whether the options are whole sentences rather than words or numbers. */
+function isSentences(item: ChoiceItem): boolean {
+  return item.kind === "reply" || item.kind === "gist" || item.kind === "transform";
+}
+
+/**
+ * The `lang` an option is announced in. A reply is Zurich German, a reading is
+ * German, a time is digits — and a screen reader that reads «Eher nein» in a
+ * Zurich voice, or «halbi drüü» in a German one, is mispronouncing the
+ * question it is meant to help with.
+ */
+function optionLang(item: ChoiceItem): { lang?: string } {
+  if (!("optionsIn" in item)) return { lang: DISPLAY.tag };
+  if (item.optionsIn === "target") return { lang: DISPLAY.tag };
+  if (item.optionsIn === "bridge") return { lang: "de" };
+  return {};
+}
+
 /** What is being asked, which is the only part the three kinds disagree on. */
 function ChoicePrompt({ item, t }: { item: ChoiceItem; t: ExerciseViewProps["t"] }) {
   // The options ARE the question for a pair — nothing to print above them.
   if (item.kind === "pair") return null;
+
+  // `"lesson" in` rather than five `kind ===`: a union member whose own
+  // discriminant is a union is not narrowed away by comparing it to each
+  // literal in turn, and the guard is also the thing that is true of every
+  // template-built question.
+  if ("lesson" in item) return <QuestionPrompt item={item} />;
 
   /**
    * A `pick` prints the sentence and then the German, and the ORDER matters.
@@ -208,5 +235,47 @@ function ChoicePrompt({ item, t }: { item: ChoiceItem; t: ExerciseViewProps["t"]
         )}
       </p>
     </>
+  );
+}
+
+/**
+ * The prompt of a template-built question.
+ *
+ * A heard line is set large, in the dialect ink, in quotation marks — it is
+ * something SAID, and the marks are what tell a reader that «Mer luegt dänn»
+ * is a person talking rather than a heading. A German prompt (`transform`) is
+ * set the same size in the ordinary ink, because it is the question itself.
+ * A `meaning` item shows the word in its sentence with the word marked, and
+ * no German: the German would print the answer.
+ */
+function QuestionPrompt({ item }: { item: QuestionItem }) {
+  if (item.german) {
+    return (
+      <p lang="de" className={`${PROMPT_TEXT} wrap-anywhere text-fg-primary`}>
+        {item.german}
+      </p>
+    );
+  }
+  if (!item.said) return null;
+
+  if (item.focus && item.said !== item.focus) {
+    const at = item.said.toLowerCase().indexOf(item.focus.toLowerCase());
+    if (at >= 0) {
+      return (
+        <p lang={DISPLAY.tag} className={`${PROMPT_TEXT} wrap-anywhere text-dialect`}>
+          «{item.said.slice(0, at)}
+          <mark className="rounded-sm bg-surface-sunk px-1 text-dialect underline decoration-2 underline-offset-4">
+            {item.said.slice(at, at + item.focus.length)}
+          </mark>
+          {item.said.slice(at + item.focus.length)}»
+        </p>
+      );
+    }
+  }
+
+  return (
+    <p lang={DISPLAY.tag} className={`${PROMPT_TEXT} wrap-anywhere text-dialect`}>
+      {item.said === item.focus ? item.said : `«${item.said}»`}
+    </p>
   );
 }

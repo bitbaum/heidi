@@ -4,7 +4,9 @@ import { VARIETY } from "../../variety/active.ts";
 import { check, checkAgainst } from "../../variety/check.ts";
 import { bridgeRules } from "../../variety/bridge.ts";
 import { allItems, articleItems, clozeItems, formItems, pairItems, recallItems } from "./generate.ts";
-import { RELEARN_GAP, buildSession, requeue, summarise } from "./session.ts";
+import { RELEARN_GAP, buildSession, orderSession, requeue, summarise } from "./session.ts";
+import { PACK_KINDS } from "./kinds/registry.ts";
+import { PACK_ITEMS } from "./published.ts";
 import { MIN_FORMS_TO_ASK, SESSION_SIZE, type PracticeItem } from "./types.ts";
 import { LIMIT, NO_HISTORY, decodeHistory, remember } from "./history.ts";
 import type { SavedWord } from "../saved/types.ts";
@@ -187,6 +189,28 @@ describe("a sitting", () => {
     const kinds = session.map((i) => i.kind);
     const runs = kinds.filter((kind, i) => i > 0 && kind === kinds[i - 1]).length;
     assert.ok(runs <= 2, `too many same-kind neighbours: ${kinds.join(", ")}`);
+  });
+
+  test("with more kinds than seats, every kind still gets its turn", () => {
+    /**
+     * THE BUG THIS PINS. Kinds used to take their seats in alphabetical order,
+     * and there are more kinds than a sitting has seats — so the same first
+     * eight names won every sitting and `translate`, ninth of nine, was never
+     * asked in a mixed session at all. Now the kind whose next question is most
+     * overdue sits first, and three sittings reach every kind the pack has.
+     */
+    const seen: string[] = [];
+    const met = new Set<string>();
+    const sittings = Math.ceil(PACK_KINDS.length / SESSION_SIZE) + 1;
+    for (let i = 0; i < sittings; i++) {
+      const session = orderSession({ items: PACK_ITEMS, saved: [], now: NOW, seen });
+      for (const item of session) {
+        met.add(item.kind);
+        seen.push(item.id);
+      }
+    }
+    const missing = PACK_KINDS.map((k) => k.id).filter((id) => !met.has(id));
+    assert.deepEqual(missing, [], `after ${sittings} sittings these kinds were never asked`);
   });
 
   test("every item id is unique within a session", () => {

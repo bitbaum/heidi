@@ -1,0 +1,348 @@
+import type { LineRef, ReplyTemplate, Written } from "../template.ts";
+
+/**
+ * "Which reply fits?" — a line is heard, four Zurich lines are offered.
+ *
+ * WHY THIS KIND. Following a sentence is half of a conversation; the other
+ * half is knowing that «Zäme oder separat?» wants one of two words back. A
+ * learner who can pick the fitting reply has understood the question well
+ * enough to act on it — which is a stronger proof of listening than choosing
+ * its translation, and it rehearses the reply at the same time.
+ *
+ * ALMOST EVERY OPTION IS A LINE THE PACKS ALREADY SAY, so almost nothing here
+ * is new Zurich German: the replies are gated, sourced and have their own
+ * scenes. Where no scene has the natural reply, one is written — short, in
+ * the house spelling, citing the Idiotikon for its words.
+ *
+ * WRONG ON CONTENT. The distractors answer a DIFFERENT question — "how long"
+ * against "how do you like it", "for three days" against "since when", a
+ * thank-you against a complaint — so each is plainly not an answer to this
+ * one. A reply that would merely be less polite is never a distractor, and
+ * neither is "could you repeat that", which fits every question ever asked.
+ */
+
+const L = (scene: string, line: number): LineRef => ({ scene, line });
+const W = (target: string, bridge: string): Written => ({ target, bridge, cite: "idiotikon" });
+
+export const REPLY: readonly ReplyTemplate[] = [
+  {
+    id: "card-or-cash",
+    heard: L("shopping", 2),
+    right: L("restaurant", 8),
+    wrong: [L("morning-care", 15), L("small-talk", 18), L("tram", 7)],
+    lesson: "either-or",
+    listen: { word: "Charte oder bar", means: "Karte oder bar" },
+  },
+  {
+    id: "need-a-bag",
+    heard: L("shopping", 3),
+    right: L("shopping", 19),
+    wrong: [L("doctor", 7), L("tram", 18), L("apero", 13)],
+    lesson: "yes-no",
+    listen: { word: "Säckli", means: "Tüte" },
+  },
+  {
+    id: "anything-else",
+    heard: L("shopping", 10),
+    right: W("Nei merci, das isch alles.", "Nein danke, das ist alles."),
+    wrong: [L("tram", 8), L("tram", 19), L("at-work", 7)],
+    lesson: "offer",
+    listen: { word: "no öppis", means: "noch etwas" },
+  },
+  {
+    id: "together-or-separate",
+    heard: L("restaurant", 5),
+    right: W("Zäme, bitte.", "Zusammen, bitte."),
+    wrong: [L("morning-care", 15), L("small-talk", 8), L("shopping", 6)],
+    lesson: "either-or",
+    listen: { word: "Zäme", means: "Zusammen" },
+  },
+  {
+    id: "another-coffee",
+    heard: L("restaurant", 4),
+    right: W("Ja gern, merci.", "Ja gerne, danke."),
+    wrong: [L("restaurant", 9), L("appointment", 17), L("neighbours", 19)],
+    lesson: "offer",
+    listen: { word: "Wänd Sie", means: "Möchten Sie" },
+  },
+  {
+    id: "was-everything-fine",
+    heard: L("restaurant", 10),
+    right: W("Ja, sehr fein, merci.", "Ja, sehr gut, danke."),
+    wrong: [L("doctor", 1), L("shopping", 7), L("tram", 19)],
+    lesson: "past",
+    listen: { word: "gsi", means: "gewesen, war" },
+  },
+  {
+    id: "since-when",
+    heard: L("appointment", 5),
+    right: L("pain", 6),
+    wrong: [L("doctor", 18), L("restaurant", 8), L("morning-care", 15)],
+    lesson: "since",
+    listen: { word: "Sit wenn", means: "Seit wann" },
+  },
+  {
+    id: "allergic",
+    heard: L("doctor", 9),
+    right: W("Ja, uf Nüss.", "Ja, auf Nüsse."),
+    wrong: [L("tram", 19), L("apero", 9), L("apero", 13)],
+    lesson: "yes-no",
+    listen: { word: "allergisch", means: "allergisch" },
+  },
+  {
+    id: "what-brings-you",
+    heard: L("doctor", 6),
+    right: L("doctor", 7),
+    wrong: [L("small-talk", 18), L("restaurant", 9), L("visitors", 14)],
+    lesson: "question-word",
+    listen: { word: "Was füert Sie", means: "Was führt Sie" },
+  },
+  {
+    id: "sick-note",
+    heard: L("doctor", 17),
+    right: L("doctor", 18),
+    wrong: [L("restaurant", 8), L("morning-care", 15), L("laundry-room", 16)],
+    lesson: "yes-no",
+    listen: { word: "Arztzügnis", means: "Arztzeugnis" },
+  },
+  {
+    id: "what-can-i-do",
+    heard: L("municipality", 1),
+    right: L("municipality", 2),
+    wrong: [L("handover", 19), L("apero", 7), L("restaurant", 9)],
+    lesson: "question-word",
+    listen: { word: "was chan ich für Sie tue", means: "was kann ich für Sie tun" },
+  },
+  {
+    id: "confession",
+    heard: L("municipality", 9),
+    right: L("municipality", 10),
+    wrong: [L("small-talk", 18), L("neighbours", 19), L("apero", 19)],
+    lesson: "question-word",
+    listen: { word: "Weli", means: "Welche" },
+  },
+  {
+    id: "married",
+    heard: L("municipality", 8),
+    right: W("Nei, ich bi ledig.", "Nein, ich bin ledig."),
+    wrong: [L("municipality", 10), L("municipality", 2), L("municipality", 20)],
+    lesson: "yes-no",
+    listen: { word: "verhüratet", means: "verheiratet" },
+  },
+  {
+    id: "rental-contract",
+    heard: L("municipality", 4),
+    right: L("municipality", 6),
+    wrong: [L("municipality", 20), L("shopping", 18), L("morning-care", 15)],
+    lesson: "yes-no",
+    listen: { word: "debii", means: "dabei" },
+  },
+  {
+    id: "white-or-red",
+    heard: L("apero", 2),
+    right: L("apero", 3),
+    wrong: [L("apero", 4), L("small-talk", 18), L("school-parents", 19)],
+    lesson: "either-or",
+    listen: { word: "Wiiss oder rot", means: "Weiss oder rot" },
+  },
+  {
+    id: "not-met-yet",
+    heard: L("apero", 5),
+    right: L("apero", 9),
+    wrong: [L("apero", 4), L("small-talk", 8), L("at-work", 19)],
+    lesson: "past",
+    listen: { word: "no nöd kännegleert", means: "noch nicht kennengelernt" },
+  },
+  {
+    id: "duzen",
+    heard: L("apero", 8),
+    right: W("Gern, ich bi d Anna.", "Gerne, ich bin Anna."),
+    wrong: [L("restaurant", 8), L("morning-care", 18), L("laundry-room", 2)],
+    lesson: "offer",
+    listen: { word: "Duzed mer üs", means: "Duzen wir uns" },
+  },
+  {
+    id: "what-job",
+    heard: L("apero", 11),
+    right: W("Ich schaffe i de Pflege.", "Ich arbeite in der Pflege."),
+    wrong: [L("small-talk", 18), L("apero", 20), L("restaurant", 8)],
+    lesson: "question-word",
+    listen: { word: "beruflich", means: "beruflich" },
+  },
+  {
+    id: "how-do-you-like-it",
+    heard: L("apero", 12),
+    right: L("apero", 13),
+    wrong: [L("small-talk", 18), L("apero", 19), L("restaurant", 8)],
+    lesson: "question-word",
+    listen: { word: "Wie gfallt s Ihne", means: "Wie gefällt es Ihnen" },
+  },
+  {
+    id: "how-long-here",
+    heard: L("small-talk", 11),
+    right: L("small-talk", 18),
+    wrong: [L("apero", 13), L("small-talk", 8), L("restaurant", 8)],
+    lesson: "question-word",
+    listen: { word: "Wie lang", means: "Wie lange" },
+  },
+  {
+    id: "lunch-together",
+    heard: L("small-talk", 3),
+    right: L("small-talk", 8),
+    wrong: [L("restaurant", 8), L("small-talk", 18), L("tram", 7)],
+    lesson: "offer",
+    listen: { word: "Chunnsch mit", means: "Kommst du mit" },
+  },
+  {
+    id: "weekend-plans",
+    heard: L("small-talk", 2),
+    right: L("small-talk", 7),
+    wrong: [L("small-talk", 1), L("restaurant", 8), L("morning-care", 15)],
+    lesson: "question-word",
+    listen: { word: "Was machsch", means: "Was machst du" },
+  },
+  {
+    id: "weekend-was",
+    heard: L("small-talk", 0),
+    right: L("small-talk", 1),
+    wrong: [L("small-talk", 7), L("restaurant", 8), L("school-parents", 19)],
+    lesson: "past",
+    listen: { word: "isch … gsi", means: "war" },
+  },
+  {
+    id: "swap-day",
+    heard: L("laundry-room", 17),
+    right: W("Ja gern, wänn?", "Ja gerne, wann?"),
+    wrong: [L("apero", 9), L("morning-care", 15), L("apero", 4)],
+    lesson: "request",
+    listen: { word: "tuusche", means: "tauschen" },
+  },
+  {
+    id: "dryer-not-emptied",
+    heard: L("laundry-room", 6),
+    right: L("laundry-room", 19),
+    wrong: [L("neighbours", 18), L("apero", 7), L("restaurant", 8)],
+    lesson: "thanks-sorry",
+    listen: { word: "nöd gleert", means: "nicht geleert" },
+  },
+  {
+    id: "parcel-taken",
+    heard: L("neighbours", 3),
+    right: L("neighbours", 18),
+    wrong: [L("apero", 20), L("shopping", 6), L("restaurant", 8)],
+    lesson: "thanks-sorry",
+    listen: { word: "aagnoh", means: "angenommen" },
+  },
+  {
+    id: "new-here",
+    heard: L("neighbours", 12),
+    right: L("neighbours", 7),
+    wrong: [L("restaurant", 8), L("apero", 4), L("at-work", 19)],
+    lesson: "yes-no",
+    listen: { word: "nöi", means: "neu" },
+  },
+  {
+    id: "look-at-it",
+    heard: L("at-work", 10),
+    right: L("at-work", 18),
+    wrong: [L("small-talk", 18), L("apero", 7), L("tram", 8)],
+    lesson: "request",
+    listen: { word: "aaluege", means: "anschauen" },
+  },
+  {
+    id: "end-of-work",
+    heard: L("at-work", 5),
+    right: W("Hüt am sächsi.", "Heute um sechs."),
+    wrong: [L("at-work", 8), L("small-talk", 18), L("morning-care", 15)],
+    lesson: "question-word",
+    listen: { word: "Wänn", means: "Wann" },
+  },
+  {
+    id: "headache",
+    heard: L("pain", 1),
+    right: L("pain", 7),
+    wrong: [L("meals", 6), L("morning-care", 19), L("meals", 19)],
+    lesson: "comfort",
+    listen: { word: "Chopf", means: "Kopf" },
+  },
+  {
+    id: "glasses",
+    heard: L("morning-care", 18),
+    right: L("morning-care", 19),
+    wrong: [L("meals", 1), L("morning-care", 3), L("morning-care", 5)],
+    lesson: "question-word",
+    listen: { word: "Brülle", means: "Brille" },
+  },
+  {
+    id: "can-do-it-myself",
+    heard: L("morning-care", 16),
+    right: L("morning-care", 17),
+    wrong: [L("morning-care", 19), L("meals", 6), L("pain", 7)],
+    lesson: "comfort",
+    listen: { word: "sälber", means: "selber" },
+  },
+  {
+    id: "who-are-you",
+    heard: L("evening-unrest", 14),
+    right: L("evening-unrest", 15),
+    wrong: [L("meals", 6), L("meals", 2), L("morning-care", 5)],
+    lesson: "question-word",
+    listen: { word: "Wer bisch du", means: "Wer bist du" },
+  },
+  {
+    id: "afraid",
+    heard: L("evening-unrest", 16),
+    right: L("evening-unrest", 17),
+    wrong: [L("meals", 6), L("meals", 19), L("morning-care", 12)],
+    lesson: "comfort",
+    listen: { word: "Angscht", means: "Angst" },
+  },
+  {
+    id: "not-hungry",
+    heard: L("meals", 13),
+    right: L("meals", 14),
+    wrong: [L("morning-care", 19), L("morning-care", 5), L("morning-care", 4)],
+    lesson: "comfort",
+    listen: { word: "kei Hunger", means: "keinen Hunger" },
+  },
+  {
+    id: "how-is-she",
+    heard: L("visitors", 5),
+    right: L("visitors", 3),
+    wrong: [L("visitors", 16), L("visitors", 14), L("visitors", 2)],
+    lesson: "question-word",
+    listen: { word: "Wie gaht s ere", means: "Wie geht es ihr" },
+  },
+  {
+    id: "where-is-she",
+    heard: L("visitors", 10),
+    right: L("visitors", 11),
+    wrong: [L("visitors", 3), L("visitors", 14), L("pain", 0)],
+    lesson: "yes-no",
+    listen: { word: "Zimmer", means: "Zimmer" },
+  },
+  {
+    id: "flowers",
+    heard: L("visitors", 13),
+    right: L("visitors", 14),
+    wrong: [L("visitors", 16), L("morning-care", 5), L("pain", 0)],
+    lesson: "thanks-sorry",
+    listen: { word: "Blueme", means: "Blumen" },
+  },
+  {
+    id: "drop-by",
+    heard: L("handover", 6),
+    right: L("handover", 19),
+    wrong: [L("morning-care", 4), L("meals", 19), L("morning-care", 5)],
+    lesson: "request",
+    listen: { word: "Chasch du", means: "Kannst du" },
+  },
+  {
+    id: "take-room-four",
+    heard: L("handover", 15),
+    right: W("Ja, das chan ich mache.", "Ja, das kann ich machen."),
+    wrong: [L("morning-care", 5), L("meals", 6), L("pain", 0)],
+    lesson: "request",
+    listen: { word: "übernäh", means: "übernehmen" },
+  },
+];

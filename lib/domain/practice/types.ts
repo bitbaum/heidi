@@ -428,6 +428,67 @@ export type CardItem = {
   source: ItemSource;
 };
 
+/**
+ * One question, four options, one right answer — the shape every AUTHORED
+ * exercise takes, and the generated ones that fit it.
+ *
+ * WHY ONE SHAPE FOR FIVE KINDS. "Which reply fits", "what does she mean",
+ * "which sentence says exactly this", "what time is that" and "what does this
+ * word mean" differ in what the question SAYS and agree completely on what
+ * answering looks like: read, tap, be told why. One item type means one view,
+ * one keyboard handler and one verdict, and a new kind of authored question is
+ * a line in `templates/` rather than a file in `app/`.
+ *
+ * WHY THEY ARE STILL FIVE KINDS rather than one kind with a label. The
+ * session draws round-robin by kind, so a kind is the unit of variety: five
+ * kinds is five turns in a sitting; one kind would be one turn, however many
+ * hundred items sat behind it.
+ *
+ * OBJECTIVE BY CONSTRUCTION. Every option is either a checked line from the
+ * packs, a written line that passes the gate and cites its lexis, a German
+ * sentence, or a number — and the template layer refuses a question whose
+ * wrong answers do not differ from the right one in MEANING (see
+ * `templates/validate.ts`). Nuance is taught in the lesson, never tested.
+ */
+export type QuestionKind = "reply" | "gist" | "transform" | "clock" | "meaning";
+
+export type QuestionItem = {
+  id: string;
+  kind: QuestionKind;
+  marking: "objective";
+  /** The Zurich line the question is about — what was heard, or a word in its sentence. */
+  said?: string;
+  /** Standard German shown AS the question (`transform`): say exactly this. */
+  german?: string;
+  /** Which word of `said` is being asked about, for a `meaning` item. */
+  focus?: string;
+  options: readonly string[];
+  /**
+   * What the options are written in. Decides the `lang` a screen reader
+   * announces and whether the gate reads them. `plain` is digits — a time or a
+   * price, the same in every language.
+   */
+  optionsIn: "target" | "bridge" | "plain";
+  answer: number;
+  /**
+   * The teaching point, as a closed key every dictionary renders
+   * (`practice.lessons`). Never prose on the item: `display.test.ts` walks
+   * these for exactly that, because English on an item reaches a French
+   * reader.
+   */
+  lesson: LessonId;
+  /**
+   * What to listen for in THIS item: one Zurich word or phrase from the
+   * question and what it means in German. Language-neutral data, so it needs
+   * no translation, and it is what makes the feedback specific rather than a
+   * rule restated.
+   */
+  listen?: { word: string; means: string };
+  /** Values for the lesson's `{placeholders}` — pack strings only. */
+  slots?: Readonly<Record<string, string>>;
+  source: ItemSource;
+};
+
 export type PracticeItem =
   | PairItem
   | RecallItem
@@ -438,7 +499,46 @@ export type PracticeItem =
   | GapTextItem
   | PickItem
   | TranslateItem
-  | CardItem;
+  | CardItem
+  | QuestionItem;
+
+/**
+ * Every teaching point an authored or template-built question can end on.
+ *
+ * A CLOSED LIST, joined to the dictionaries by the type system: the practice
+ * view reads `t.lessons` as `Record<LessonId, string>`, so a lesson added here
+ * and missing from `de.ts` is a type error, and `de.ts` types the other six.
+ * `templates/templates.test.ts` catches the other direction — a lesson every
+ * dictionary translates that no question uses.
+ */
+export const LESSON_IDS = [
+  "false-friend",
+  "word",
+  "clock-half",
+  "clock-quarter",
+  "price",
+  "either-or",
+  "yes-no",
+  "offer",
+  "request",
+  "question-word",
+  "past",
+  "since",
+  "indirect-no",
+  "mag",
+  "es-haet",
+  "person",
+  "verb-frame",
+  "small-word",
+  "whose",
+  "thanks-sorry",
+  "comfort",
+] as const;
+
+export type LessonId = (typeof LESSON_IDS)[number];
+
+/** How many options a `QuestionItem` offers. Four, for `PICK_OPTIONS`'s reason. */
+export const QUESTION_OPTIONS = 4;
 
 /**
  * How many words a `pick` offers, and how many sentences one word may claim.

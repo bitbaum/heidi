@@ -78,7 +78,7 @@ const EN: Paper = {
       title: "One field, and a real message in it",
       body: [
         "Paste something a Zurich speaker actually sent you. Heidi explains it — what was said, which words did the work, and why the sentence is shaped the way it is. Then it offers the words worth keeping, and brings them back later on a schedule built from the spacing research rather than from a marketing calendar.",
-        "Around that sit the things a learner needs next: a grammar section of twelve topics, a hundred and sixty-four words chosen because they block sentences rather than because they are common, nineteen scenes of what is actually said — at the Gemeinde, in the laundry room, at the doctor's and during a working shift — and 1,233 practice questions generated from that same checked material.",
+        "Around that sit the things a learner needs next: a grammar section of twelve topics, a hundred and sixty-four words chosen because they block sentences rather than because they are common, nineteen scenes of what is actually said — at the Gemeinde, in the laundry room, at the doctor's and during a working shift — and 1,533 practice questions built from that same checked material and held to the same gate.",
         "Nothing in the product invents language. Every question, every example and every gloss is assembled from material the variety pack already vouches for, which is the constraint that makes the rest of this document possible.",
       ],
       check: [
@@ -181,7 +181,7 @@ const DE: Paper = {
       title: "Ein Feld, und eine echte Nachricht darin",
       body: [
         "Fügen Sie ein, was Ihnen jemand aus Zürich wirklich geschrieben hat. Heidi erklärt es — was gesagt wurde, welche Wörter die Arbeit tun und warum der Satz so gebaut ist. Danach bietet sie die Wörter an, die zu behalten sich lohnt, und bringt sie später zurück, nach einem Plan aus der Forschung zum verteilten Lernen und nicht aus einem Marketingkalender.",
-        "Darum herum steht, was eine Lernende als Nächstes braucht: zwölf Grammatikthemen, hundertvierundsechzig Wörter — ausgewählt, weil sie Sätze blockieren, nicht weil sie häufig sind —, neunzehn Szenen aus dem Alltag und aus einer echten Schicht und 1233 Übungsfragen, erzeugt aus genau diesem geprüften Material.",
+        "Darum herum steht, was eine Lernende als Nächstes braucht: zwölf Grammatikthemen, hundertvierundsechzig Wörter — ausgewählt, weil sie Sätze blockieren, nicht weil sie häufig sind —, neunzehn Szenen aus dem Alltag und aus einer echten Schicht und 1533 Übungsfragen, gebaut aus genau diesem geprüften Material und vom selben Gate geprüft.",
         "Nichts in diesem Produkt erfindet Sprache. Jede Frage, jedes Beispiel und jede Bedeutung wird aus Material zusammengesetzt, für das das Varietäten-Pack bereits geradesteht. Diese Einschränkung ist es, die den Rest dieses Dokuments überhaupt möglich macht.",
       ],
       check: [
