@@ -1,6 +1,11 @@
 import type { RoadmapDoc } from "bip-kit";
 import type { SectorLocale } from "./sectors.ts";
 
+// `ROADMAP.md` at the repo root is the copy the fleet map
+// (loki.orangecat.ch/api/fleet/map) reads: buckets as `##`, the English items
+// as `###`, each item's line underneath. It changes in the same PR as this
+// file, and `records.test.ts` fails when the two lists of items differ.
+
 /**
  * What is coming, what is stuck, and what will never be built.
  *

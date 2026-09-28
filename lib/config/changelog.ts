@@ -1,6 +1,11 @@
 import type { ChangelogEntry } from "bip-kit";
 import type { SectorLocale } from "./sectors.ts";
 
+// `CHANGELOG.md` at the repo root is the copy the fleet map
+// (loki.orangecat.ch/api/fleet/map) reads: one `## YYYY-MM-DD` heading per
+// day, bullets under it. An entry added here is added there in the same PR;
+// `records.test.ts` fails when a date here has no heading there.
+
 /**
  * What changed, dated, in the words of somebody using it.
  *
