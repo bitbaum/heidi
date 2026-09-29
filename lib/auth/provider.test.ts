@@ -17,7 +17,10 @@ const provider = orangecatProvider("test-id", "test-secret");
 test("the token endpoint auth method is client_secret_post", () => {
   // Auth.js defaults to client_secret_basic. OrangeCat rejects that with a
   // 400 reading "client_id is required", which points at the wrong problem.
-  assert.equal(provider.client.token_endpoint_auth_method, "client_secret_post");
+  assert.equal(
+    provider.client.token_endpoint_auth_method,
+    "client_secret_post",
+  );
 });
 
 test("PKCE and state are both checked", () => {
@@ -52,7 +55,11 @@ test("the portal exists as a route but stays out of the main navigation", () => 
   const portal = ROUTES.find((r) => r.key === "portal");
   assert.ok(portal, "portal route is missing");
   assert.equal(portal?.segment, "portal");
-  assert.equal(portal?.group, undefined, "a personal space in the nav reads as a locked door");
+  assert.equal(
+    portal?.group,
+    undefined,
+    "a personal space in the nav reads as a locked door",
+  );
 });
 
 test("every language can name the portal and the sign-in control", () => {
@@ -60,6 +67,9 @@ test("every language can name the portal and the sign-in control", () => {
     const dict = getDictionary(locale);
     assert.ok(dict.nav.portal?.length > 0, `${locale} has no portal label`);
     assert.ok(dict.auth.signIn?.length > 0, `${locale} has no sign-in label`);
-    assert.ok(dict.auth.signInWith?.includes("OrangeCat"), `${locale} should name the identity provider`);
+    assert.ok(
+      dict.auth.signInWith?.includes("OrangeCat"),
+      `${locale} should name the identity provider`,
+    );
   }
 });

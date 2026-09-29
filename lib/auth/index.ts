@@ -1,5 +1,11 @@
 import NextAuth from "next-auth";
-import { orangecatProvider } from "./provider.ts";
+import {
+  applyOcRefresh,
+  bindOcTokens,
+  ocRefreshDue,
+  refreshOcTokens,
+} from "./oc-session.ts";
+import { orangecatIssuer, orangecatProvider } from "./provider.ts";
 
 /**
  * "Sign in with OrangeCat" — the only login Heidi will ever have.
@@ -49,12 +55,29 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: authEnabled ? [orangecatProvider(clientId!, clientSecret!)] : [],
 
   callbacks: {
-    jwt({ token, profile }) {
+    async jwt({ token, profile, account }) {
       if (profile?.sub) {
         // id_token.sub is the OrangeCat actor id. It — never the email — is
         // the cross-product identity boundary: two accounts can share an
         // email string and must not thereby become the same person.
         token.actorId = profile.sub;
+      }
+      if (account?.provider === "orangecat") {
+        return bindOcTokens(token, account);
+      }
+      // The session lives only as long as OrangeCat lets it: once the access
+      // token expires, refresh; a refusal (Disconnect on OrangeCat, Sign out
+      // everywhere, account deleted) ends the session. See oc-session.ts.
+      const nowSeconds = Math.floor(Date.now() / 1000);
+      if (clientId && clientSecret && ocRefreshDue(token, nowSeconds)) {
+        const result = await refreshOcTokens(token.ocRefreshToken as string, {
+          issuer: orangecatIssuer(),
+          clientId,
+          clientSecret,
+          fetch,
+          nowSeconds,
+        });
+        return applyOcRefresh(token, result, nowSeconds);
       }
       return token;
     },
