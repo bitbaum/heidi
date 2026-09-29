@@ -15,12 +15,17 @@
  * exchange, which is the least debuggable place for it to appear. Hence the
  * tests next door.
  */
+/** Where OrangeCat's authorization server lives — one answer for the provider and the refresh. */
+export function orangecatIssuer(): string {
+  return process.env.ORANGECAT_OAUTH_ISSUER ?? "https://orangecat.ch";
+}
+
 export function orangecatProvider(id: string, secret: string) {
   return {
     id: "orangecat",
     name: "OrangeCat",
     type: "oidc" as const,
-    issuer: process.env.ORANGECAT_OAUTH_ISSUER ?? "https://orangecat.ch",
+    issuer: orangecatIssuer(),
     clientId: id,
     clientSecret: secret,
     client: { token_endpoint_auth_method: "client_secret_post" as const },
