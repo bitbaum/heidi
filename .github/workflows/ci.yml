@@ -154,3 +154,14 @@ jobs:
           LOCALES: de,fr,ru
           WIDTHS: 320,360,390
           THEMES: light
+
+      # Every disclosure opened and checked for being on top. The header's
+      # menus were drawn under the chat's conversation list on desktop and no
+      # check noticed, because every other check looks at pages with
+      # everything shut. Dark as well as light: it was reported in dark.
+      - name: Overlay audit
+        run: pnpm run audit:overlays
+        env:
+          BASE: http://127.0.0.1:3000
+          WIDTHS: 1440,390
+          THEMES: light,dark

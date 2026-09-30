@@ -694,14 +694,7 @@ export const it: Dictionary = {
 
   auth: {
     sections: {
-      focus: "Dove vi bloccate",
-      mastered: "Acquisito",
-      review: "Ripassare",
-      recent: "Conversazioni",
-      patterns: "Regolarità",
-      words: "Parole",
       groups: "Gruppi",
-      onward: "Avanti",
     },
     menu: {
       portal: "Le sue parole e conversazioni",
@@ -713,7 +706,7 @@ export const it: Dictionary = {
     account: "Account",
     portalTitle: "Il mio spazio",
     portalLead:
-      "Le vostre parole, quando è il momento di rivederle — e quello che vi ferma più spesso.",
+      "Cosa l’aspetta oggi, su cosa sta lavorando e cosa sa già fare.",
     signedInAs: "Connesso come",
     notSignedIn: "Non avete effettuato l'accesso",
     notSignedInBody:
@@ -975,13 +968,15 @@ export const it: Dictionary = {
     failed: "Non ha funzionato. Riprovi.",
   },
   streak: {
-    title: "La sua serie",
+    today: "Oggi",
     start: "Inizi oggi — bastano poche domande.",
     doneToday: "Oggi ha già fatto pratica.",
     weekReached: "Obiettivo settimanale raggiunto.",
     goalLabel: "Obiettivo settimanale",
     freezes: "Un giorno saltato viene colmato automaticamente ({n} rimasti).",
     practise: "Esercitarsi ora",
+    nothingDue: "Oggi non c’è niente da ripassare. Si eserciti su ciò che vuole — o chieda a Heidi.",
+    dueWords: {"one": "1 parola è da ripassare.", "few": "{n} parole sono da ripassare.", "many": "{n} parole sono da ripassare.", "other": "{n} parole sono da ripassare."},
     days: {"one": "{n} giorno di fila", "few": "{n} giorni di fila", "many": "{n} giorni di fila", "other": "{n} giorni di fila"},
     best: {"one": "Record: {n} giorno", "few": "Record: {n} giorni", "many": "Record: {n} giorni", "other": "Record: {n} giorni"},
     goalDays: {"one": "{n} giorno a settimana", "few": "{n} giorni a settimana", "many": "{n} giorni a settimana", "other": "{n} giorni a settimana"},
@@ -1164,8 +1159,6 @@ export const it: Dictionary = {
     testUnanswered: "Senza risposta",
     testAgain: "Un’altra prova",
     focusTitle: "Dove vi bloccate",
-    focusEmpty:
-      "Ancora niente. Appena avrà risposto a qualche domanda, qui comparirà ciò che continua a coglierla in fallo — e un clic esercita proprio quello.",
     focusLead: "Questo vi torna sbagliato di continuo. Un tocco esercita solo quello.",
     scopedTo: "Solo: {what}",
     scopeAll: "Esercitarsi su tutto",
@@ -1475,14 +1468,7 @@ export const it: Dictionary = {
     title: "Da ripassare",
     lead: "Le parole che avete tenuto tornano qui — dopo un giorno, poi tre, poi una settimana. Chiedere più tardi funziona meglio che chiedere più spesso.",
     due: "da ripassare",
-    none: "Oggi non c'è niente da ripassare.",
     noneHint: "Tornate domani — oppure cercate qualcosa di nuovo.",
-    noneFree: "Il programma è in pari. Se vuole continuare adesso, da questa parte:",
-    nonePractise: "Una seduta breve",
-    noneCards: "Carte",
-    noneAsk: "Incollare un messaggio",
-    empty: "Ancora nessuna parola da ripassare.",
-    emptyHint: "Tenete una parola durante una conversazione e Heidi ve la richiederà più tardi.",
     tomorrow: "domani",
     settled: "acquisite",
     prompt: "Che cosa vuol dire?",
@@ -1499,8 +1485,6 @@ export const it: Dictionary = {
     masteredCount: "{n} cose tengono",
     masteredLead:
       "Non si conta quante volte è passato di qui, ma che cosa ora le riesce — chiesto almeno quattro volte e quasi sempre azzeccato.",
-    masteredEmpty:
-      "Ancora niente. Appena qualcosa le sarà stato chiesto quattro volte e l\u2019avrà quasi sempre azzeccato, comparirà qui. Si conta quello che sa, non quanto è venuto.",
     masteredTopics: "Grammatica",
     masteredWords: "Parole",
     masteredGroups: "Gruppi di parole",

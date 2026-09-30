@@ -1,14 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/locales";
-import { href } from "@/lib/i18n/routes";
 import { DISPLAY } from "@/lib/variety/display";
 import { useGrade, useReview } from "./use-review";
-import { SessionLink } from "./session/links";
-import { ALL } from "@/lib/domain/practice/scope";
 import type { ReviewWord } from "@/lib/domain/saved/review";
 
 /**
@@ -32,81 +27,29 @@ import type { ReviewWord } from "@/lib/domain/saved/review";
  * they were not. "Did you know it?" is a question they can answer honestly and
  * we cannot get wrong.
  */
-export function ReviewPanel({ t, locale }: { t: Dictionary["review"]; locale: Locale }) {
+export function ReviewPanel({ t }: { t: Dictionary["review"] }) {
   const review = useReview();
   const grade = useGrade();
   const [revealed, setRevealed] = useState(false);
 
   // Storage cannot be read on the server, so the first pass renders nothing
   // rather than flashing "no words" at somebody who has plenty.
-  if (!review.ready) return <div className="min-h-32" aria-hidden="true" />;
-
-  if (review.words.length === 0) {
-    return (
-      <Empty title={t.empty} hint={t.emptyHint}>
-        <Link
-          href={href(locale, "chat")}
-          className="mt-3 inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
-        >
-          {t.recentTitle}
-        </Link>
-      </Empty>
-    );
-  }
+  if (!review.ready) return null;
 
   const current = review.queue[0];
 
+  /**
+   * NOTHING DUE SHOWS ONLY THE FACTS, and no buttons.
+   *
+   * This used to hold an empty state with its own three doors — practise,
+   * cards, paste a message — answering a complaint that "nothing due today"
+   * was a dead end («what am I supposed to do with this info»). Those doors
+   * now open the page, in `today-panel.tsx`, where they apply whether or not
+   * any word is due, so repeating them here was the same offer twice. With no
+   * words at all the list below explains how to keep one.
+   */
   if (!current) {
-    /**
-     * NOTHING DUE IS NOT NOTHING TO DO, and this used to say otherwise.
-     *
-     * It read: «Heute nichts fällig. Kommen Sie morgen wieder — oder schlagen
-     * Sie etwas Neues nach.» Reported, fairly, as "what am I supposed to do
-     * with this info" — a dashboard whose main panel tells you to leave and
-     * come back tomorrow is a dashboard with no reason to exist.
-     *
-     * The spacing schedule is right and nothing here overrides it: a word due
-     * on Thursday is not dragged forward, because asking later beats asking
-     * more often and that is the whole argument for the schedule. What was
-     * wrong is treating the empty QUEUE as an empty PRODUCT. There are five
-     * hundred and fifty-three practice questions that need no schedule and no
-     * account, and on the day the queue is empty they are exactly what a
-     * learner should be offered.
-     *
-     * Three doors, in the order they are worth taking: a short mixed sitting,
-     * a fast run of cards, and the thing this product is actually for — paste
-     * something somebody really sent you.
-     */
-    return (
-      <Empty title={t.none} hint={t.noneFree}>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <SessionLink
-            locale={locale}
-            scope={ALL}
-            className="inline-flex min-h-11 items-center rounded-control bg-action px-4 text-sm font-medium text-on-action hover:opacity-90"
-          >
-            {t.nonePractise}
-          </SessionLink>
-          <SessionLink
-            locale={locale}
-            scope={ALL}
-            mode="card"
-            className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-sm font-medium text-fg-primary hover:bg-surface-page"
-          >
-            {t.noneCards}
-          </SessionLink>
-          <Link
-            href={href(locale, "chat")}
-            className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-sm font-medium text-fg-primary hover:bg-surface-page"
-          >
-            {t.noneAsk}
-          </Link>
-        </div>
-        <div className="mt-4">
-          <Counts t={t} tomorrow={review.tomorrow} settled={review.settled} />
-        </div>
-      </Empty>
-    );
+    return <Counts t={t} tomorrow={review.tomorrow} settled={review.settled} />;
   }
 
   function answer(knew: boolean) {
@@ -212,16 +155,6 @@ function Counts({ t, tomorrow, settled }: { t: Dictionary["review"]; tomorrow: n
         </span>
       )}
     </p>
-  );
-}
-
-function Empty({ title, hint, children }: { title: string; hint: string; children?: React.ReactNode }) {
-  return (
-    <div className="rounded-control border border-border-subtle p-5">
-      <p className="text-base leading-relaxed text-fg-primary">{title}</p>
-      <p className="mt-1 max-w-measure text-sm leading-relaxed text-fg-secondary">{hint}</p>
-      {children}
-    </div>
   );
 }
 

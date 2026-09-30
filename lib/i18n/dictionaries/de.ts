@@ -754,14 +754,7 @@ export const de = {
 
   auth: {
     sections: {
-      focus: "Woran Sie hängen",
-      mastered: "Können",
-      review: "Wiederholen",
-      recent: "Gespräche",
-      patterns: "Muster",
-      words: "Wörter",
       groups: "Gruppen",
-      onward: "Weiter",
     },
     /**
      * One line under each entry of the avatar menu, saying what is behind it.
@@ -780,7 +773,7 @@ export const de = {
     account: "Konto",
     portalTitle: "Mein Bereich",
     portalLead:
-      "Ihre Wörter, wenn es Zeit ist, sie wieder anzuschauen — und was Ihnen dabei immer wieder begegnet.",
+      "Was heute ansteht, woran Sie arbeiten und was Sie schon können.",
     signedInAs: "Angemeldet als",
     notSignedIn: "Sie sind nicht angemeldet",
     notSignedInBody:
@@ -1069,13 +1062,15 @@ export const de = {
     failed: "Das hat nicht geklappt. Versuchen Sie es noch einmal.",
   },
   streak: {
-    title: "Ihre Serie",
+    today: "Heute",
     start: "Heute anfangen — ein paar Fragen genügen.",
     doneToday: "Heute schon geübt.",
     weekReached: "Wochenziel erreicht.",
     goalLabel: "Wochenziel",
     freezes: "Ein verpasster Tag wird automatisch überbrückt ({n} übrig).",
     practise: "Jetzt üben",
+    nothingDue: "Heute ist nichts fällig. Üben Sie, worauf Sie Lust haben — oder fragen Sie Heidi.",
+    dueWords: {"one": "1 Wort ist zum Wiederholen fällig.", "few": "{n} Wörter sind zum Wiederholen fällig.", "many": "{n} Wörter sind zum Wiederholen fällig.", "other": "{n} Wörter sind zum Wiederholen fällig."},
     days: {"one": "{n} Tag in Folge", "few": "{n} Tage in Folge", "many": "{n} Tage in Folge", "other": "{n} Tage in Folge"},
     best: {"one": "Bestwert: {n} Tag", "few": "Bestwert: {n} Tage", "many": "Bestwert: {n} Tage", "other": "Bestwert: {n} Tage"},
     goalDays: {"one": "{n} Tag pro Woche", "few": "{n} Tage pro Woche", "many": "{n} Tage pro Woche", "other": "{n} Tage pro Woche"},
@@ -1290,8 +1285,6 @@ export const de = {
      * Person — alles andere wäre ein Punktestand mit anderem Namen.
      */
     focusTitle: "Daran hängen Sie gerade",
-    focusEmpty:
-      "Noch nichts. Sobald Sie ein paar Fragen beantwortet haben, steht hier, was Sie immer wieder erwischt — und ein Klick übt genau das.",
     focusLead: "Das kommt bei Ihnen immer wieder vor. Ein Klick übt nur das.",
     /**
      * Eine Übung, die eingegrenzt wurde, sagt das — sonst sieht ein kleiner
@@ -1634,14 +1627,7 @@ export const de = {
     title: "Zum Wiederholen",
     lead: "Wörter, die Sie behalten wollten, kommen hier zurück — erst nach einem Tag, dann nach drei, dann nach einer Woche. Später zu fragen wirkt besser als öfter zu fragen.",
     due: "fällig",
-    none: "Heute nichts fällig.",
     noneHint: "Kommen Sie morgen wieder — oder schlagen Sie etwas Neues nach.",
-    noneFree: "Der Plan ist eingehalten. Wenn Sie jetzt weitermachen wollen, hier entlang:",
-    nonePractise: "Kurz üben",
-    noneCards: "Karten",
-    noneAsk: "Nachricht einfügen",
-    empty: "Noch keine Wörter zum Wiederholen.",
-    emptyHint: "Merken Sie sich ein Wort im Gespräch, dann fragt Heidi Sie später danach.",
     tomorrow: "morgen fällig",
     settled: "sitzen",
     prompt: "Was heisst das?",
@@ -1658,8 +1644,6 @@ export const de = {
     masteredCount: "{n} Dinge sitzen",
     masteredLead:
       "Nicht gezählt wird, wie oft Sie hier waren, sondern was Sie inzwischen richtig machen — mindestens viermal gefragt und fast immer getroffen.",
-    masteredEmpty:
-      "Noch nichts. Sobald Sie etwas viermal gefragt bekommen und fast immer richtig haben, steht es hier. Es zählt, was Sie können, nicht wie oft Sie da waren.",
     masteredTopics: "Grammatik",
     masteredWords: "Wörter",
     masteredGroups: "Wortgruppen",

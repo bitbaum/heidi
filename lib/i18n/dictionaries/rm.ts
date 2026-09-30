@@ -710,14 +710,7 @@ export const rm: Dictionary = {
 
   auth: {
     sections: {
-      focus: "Nua che vus restais tatgads",
-      mastered: "Quai che tegna",
-      review: "Repeter",
-      recent: "Conversaziuns",
-      patterns: "Structuras",
-      words: "Pleds",
       groups: "Gruppas",
-      onward: "Vinavant",
     },
     menu: {
       portal: "Voss pleds e Vossas conversaziuns",
@@ -729,7 +722,7 @@ export const rm: Dictionary = {
     account: "Conto",
     portalTitle: "Mes intschess",
     portalLead:
-      "Voss pleds, cura ch'igl è ura da revair els — e quai che As ferma il pli savens.",
+      "Quai ch’As spetga oz, vi da tge ch’As lavurais e quai ch’As savais gia.",
     signedInAs: "Annunzià sco",
     notSignedIn: "Vus n'essas betg annunzià",
     notSignedInBody:
@@ -991,13 +984,15 @@ export const rm: Dictionary = {
     failed: "Quai n’ha betg funcziunà. Empruvai anc ina giada.",
   },
   streak: {
-    title: "Vossa seria",
+    today: "Oz",
     start: "Cumenzai oz — paucas dumondas bastan.",
     doneToday: "Oz gia exercità.",
     weekReached: "Finamira da l'emna cuntanschida.",
     goalLabel: "Finamira da l'emna",
     freezes: "In di manchentà vegn surpuntà automaticamain ({n} restan).",
     practise: "Exercitar ussa",
+    nothingDue: "Oz n’è nagut da repeter. Exercitai quai che As plascha — u dumandai Heidi.",
+    dueWords: {"one": "1 pled è da repeter.", "few": "{n} pleds èn da repeter.", "many": "{n} pleds èn da repeter.", "other": "{n} pleds èn da repeter."},
     days: {"one": "{n} di en seria", "few": "{n} dis en seria", "many": "{n} dis en seria", "other": "{n} dis en seria"},
     best: {"one": "Record: {n} di", "few": "Record: {n} dis", "many": "Record: {n} dis", "other": "Record: {n} dis"},
     goalDays: {"one": "{n} di per emna", "few": "{n} dis per emna", "many": "{n} dis per emna", "other": "{n} dis per emna"},
@@ -1180,8 +1175,6 @@ export const rm: Dictionary = {
     testUnanswered: "Betg respundì",
     testAgain: "In auter test",
     focusTitle: "Nua che vus restais tatgads",
-    focusEmpty:
-      "Anc nagut. Uschespert che Vus avais respundì in pèr dumondas, cumpara qua quai che Vus tschiffa adina puspè — ed in clic exercitescha gist quai.",
     focusLead: "Quai turna adina puspè fallà tar vus. In clic exercitescha mo quai.",
     scopedTo: "Mo: {what}",
     scopeAll: "Exercitar tut",
@@ -1491,14 +1484,7 @@ export const rm: Dictionary = {
     title: "Da repeter",
     lead: "Ils pleds che Vus avais mantegnì returnan qua — suenter in di, lura suenter trais, lura suenter ina emna. Dumandar pli tard funcziuna meglier che dumandar pli savens.",
     due: "da repeter",
-    none: "Oz n'è nagut da repeter.",
     noneHint: "Vegni puspè damaun — u tschertgai insatge nov.",
-    noneFree: "Il plan è actual. Sche Vus vulais cuntinuar ussa, qua tras:",
-    nonePractise: "Ina curta sesida",
-    noneCards: "Cartas",
-    noneAsk: "Encollar in messadi",
-    empty: "Anc nagins pleds da repeter.",
-    emptyHint: "Mantegnai in pled durant ina conversaziun, lura As dumonda Heidi pli tard.",
     tomorrow: "damaun",
     settled: "segirs",
     prompt: "Tge vul quai dir?",
@@ -1515,8 +1501,6 @@ export const rm: Dictionary = {
     masteredCount: "{n} chaussas tegnan",
     masteredLead:
       "I na vegn betg quintà quant savens che Vus essas stà qua, mabain tge che Vus fais uss endrizza — dumandà almain quatter giadas e quasi adina gudagnà.",
-    masteredEmpty:
-      "Anc nagut. Uschespert ch\u2019insatge Vus vegn dumandà quatter giadas e Vus l\u2019avais quasi adina gì, cumpara quai qua. I vegn quintà tge che Vus savais, betg quant savens che Vus essas vegnì.",
     masteredTopics: "Grammatica",
     masteredWords: "Pleds",
     masteredGroups: "Gruppas da pleds",

@@ -55,38 +55,18 @@ export function FocusPanel({
   const areas = [...topics, ...scenes];
 
   /**
-   * NOTHING YET STILL RENDERS, because the dashboard advertises this section.
-   *
-   * It returned null when there was nothing to show — and it is the FIRST
-   * entry in the jump strip, so on a new account the first thing in the index
-   * scrolled to nothing at all. That is precisely the defect reported against
-   * the patterns panel ("so what is patterns in that content table?"); this
-   * one was left because nobody had named it yet.
-   *
-   * The empty state says what will appear and what produces it, which also
-   * answers the question the heading raises on day one: nothing is catching
-   * you out because nothing has been asked of you yet.
+   * NOTHING YET RENDERS NOTHING. It used to show an empty box because the
+   * personal page's jump strip linked here first, and a link that scrolls to
+   * nothing is worse than an empty state. The strip is gone, so the rule in
+   * this file's header applies again: no promise to somebody who has not
+   * practised yet.
    */
-  if (areas.length === 0) {
-    return (
-      <section aria-labelledby="focus-heading">
-        <h2
-          id="focus-heading"
-          className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
-        >
-          {t.focusTitle}
-        </h2>
-        <p className="mt-3 max-w-measure rounded-control border border-border-subtle bg-surface-raised p-4 text-base leading-relaxed text-fg-secondary">
-          {t.focusEmpty}
-        </p>
-      </section>
-    );
-  }
+  if (areas.length === 0) return null;
 
   return (
     <section
       aria-labelledby="focus-heading"
-      className="mb-8 rounded-control border border-border-subtle bg-surface-raised p-5"
+      className="rounded-control border border-border-subtle bg-surface-raised p-5"
     >
       <h2 id="focus-heading" className="font-heading text-lg font-semibold leading-snug tracking-display text-fg-primary">
         {t.focusTitle}

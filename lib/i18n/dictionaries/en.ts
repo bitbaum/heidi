@@ -693,14 +693,7 @@ export const en: Dictionary = {
 
   auth: {
     sections: {
-      focus: "What catches you out",
-      mastered: "What you can do",
-      review: "Review",
-      recent: "Conversations",
-      patterns: "Patterns",
-      words: "Words",
       groups: "Groups",
-      onward: "Onward",
     },
     menu: {
       portal: "Your words and conversations",
@@ -712,7 +705,7 @@ export const en: Dictionary = {
     account: "Account",
     portalTitle: "My space",
     portalLead:
-      "Your words, when it is time to see them again — and what keeps catching you.",
+      "What today asks of you, what you are working on, and what you can already do.",
     signedInAs: "Signed in as",
     notSignedIn: "You are not signed in",
     notSignedInBody:
@@ -970,13 +963,15 @@ export const en: Dictionary = {
     failed: "That didn’t work. Please try again.",
   },
   streak: {
-    title: "Your streak",
+    today: "Today",
     start: "Start today — a few questions is enough.",
     doneToday: "Practised today.",
     weekReached: "Weekly goal reached.",
     goalLabel: "Weekly goal",
     freezes: "A missed day is bridged automatically ({n} left).",
     practise: "Practise now",
+    nothingDue: "Nothing is due today. Practise whatever you like — or ask Heidi.",
+    dueWords: {"one": "1 word is due for review.", "few": "{n} words are due for review.", "many": "{n} words are due for review.", "other": "{n} words are due for review."},
     days: {"one": "{n} day in a row", "few": "{n} days in a row", "many": "{n} days in a row", "other": "{n} days in a row"},
     best: {"one": "Best: {n} day", "few": "Best: {n} days", "many": "Best: {n} days", "other": "Best: {n} days"},
     goalDays: {"one": "{n} day a week", "few": "{n} days a week", "many": "{n} days a week", "other": "{n} days a week"},
@@ -1159,8 +1154,6 @@ export const en: Dictionary = {
     testUnanswered: "Not answered",
     testAgain: "Another test",
     focusTitle: "What is catching you out",
-    focusEmpty:
-      "Nothing yet. Once you have answered a few questions, this is where what keeps catching you out appears — and one tap practises exactly that.",
     focusLead: "These keep coming back wrong for you. One tap practises only those.",
     scopedTo: "Just: {what}",
     scopeAll: "Practise everything",
@@ -1470,14 +1463,7 @@ export const en: Dictionary = {
     title: "Due for review",
     lead: "Words you kept come back here — after a day, then three, then a week. Asking later works better than asking more often.",
     due: "due",
-    none: "Nothing due today.",
     noneHint: "Come back tomorrow — or go and look something up.",
-    noneFree: "The schedule is up to date. If you want to keep going now, this way:",
-    nonePractise: "A short sitting",
-    noneCards: "Cards",
-    noneAsk: "Paste a message",
-    empty: "No words to review yet.",
-    emptyHint: "Keep a word during a conversation and Heidi will ask you about it later.",
     tomorrow: "due tomorrow",
     settled: "settled",
     prompt: "What does this mean?",
@@ -1494,8 +1480,6 @@ export const en: Dictionary = {
     masteredCount: "{n} things hold",
     masteredLead:
       "Not a count of how often you have been here — a count of what you now get right. Asked at least four times, and almost always answered.",
-    masteredEmpty:
-      "Nothing yet. Once something has been asked four times and you have almost always had it, it appears here. It counts what you can do, not how often you turned up.",
     masteredTopics: "Grammar",
     masteredWords: "Words",
     masteredGroups: "Word groups",

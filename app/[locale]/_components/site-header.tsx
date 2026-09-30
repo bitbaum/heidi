@@ -104,7 +104,11 @@ export function SiteHeader({
          tallest child happens to make it, because three other things have to
          clear this bar and were each guessing. Content is 44px + py-3, so the
          token is the height it already had — now by construction. */
-      className="sticky top-0 z-30 h-[var(--header-height)] border-b border-border-strong bg-surface-page"
+      /* `z-45`: above every layer a PAGE may use (40 and below) and below the
+         real overlays (50). At 30 it tied with the chat's conversation list,
+         which comes later in the document and so painted over every panel
+         this header opens. `layers.test.ts` holds the scale. */
+      className="sticky top-0 z-45 h-[var(--header-height)] border-b border-border-strong bg-surface-page"
     >
       <div className="mx-auto flex w-full max-w-shell items-center justify-between gap-4 px-5 py-3 sm:px-8">
         <Link
@@ -277,12 +281,14 @@ export function SiteHeader({
               people look for in the corner without being told. The slot no
               longer hides itself — `AccountControl` decides what belongs here
               at which width, because only it knows whether there is a session. */}
-          <div className="flex items-center gap-2">{account}</div>
+          {/* Language, then the account: the avatar is the corner control
+              people look for, and a setting of the page sits before it. */}
           <LanguageSwitcher
             current={locale}
             label={dict.nav.language}
             groupLabels={{ national: dict.nav.langNational, dialect: dict.nav.langDialect, other: dict.nav.langOther }}
           />
+          <div className="flex items-center gap-2">{account}</div>
           <button
             ref={menuButton}
             type="button"

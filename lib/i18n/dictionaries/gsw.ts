@@ -344,14 +344,7 @@ export const gsw: Dictionary = {
 
   auth: {
     sections: {
-      focus: "Wo Sie hanged",
-      mastered: "Chönne",
-      review: "Widerhole",
-      recent: "Gspröch",
-      patterns: "Muschter",
-      words: "Wörter",
       groups: "Gruppe",
-      onward: "Wiiter",
     },
     menu: {
       portal: "Ihri Wörter und Gspräch",
@@ -363,7 +356,7 @@ export const gsw: Dictionary = {
     account: "Konto",
     portalTitle: "Min Bereich",
     portalLead:
-      "Ihri Wörter, wänns Ziit isch für si wieder aazluege — und was Ihne debii immer wieder begegnet.",
+      "Was hüt aastaht, woraa Sie schaffed und was Sie scho chönd.",
     signedInAs: "Aagmäldet als",
     notSignedIn: "Si sind nöd aagmäldet",
     notSignedInBody:
@@ -995,13 +988,15 @@ export const gsw: Dictionary = {
     failed: "Das hät nöd klappt. Probiered Sie s nomal.",
   },
   streak: {
-    title: "Ihri Serie",
+    today: "Hüt",
     start: "Hüt aafange — es paar Frage länged.",
     doneToday: "Hüt scho güebt.",
     weekReached: "Wucheziel erreicht.",
     goalLabel: "Wucheziel",
     freezes: "En verpasste Tag wird automatisch überbrückt ({n} übrig).",
     practise: "Jetzt üebe",
+    nothingDue: "Hüt isch nüt fällig. Üebed Sie, worauf Sie Luscht händ — oder fröged Sie d Heidi.",
+    dueWords: {"one": "1 Wort isch zum Wiederhole fällig.", "few": "{n} Wörter sind zum Wiederhole fällig.", "many": "{n} Wörter sind zum Wiederhole fällig.", "other": "{n} Wörter sind zum Wiederhole fällig."},
     days: {"one": "{n} Tag hinderenand", "few": "{n} Täg hinderenand", "many": "{n} Täg hinderenand", "other": "{n} Täg hinderenand"},
     best: {"one": "Bestwärt: {n} Tag", "few": "Bestwärt: {n} Täg", "many": "Bestwärt: {n} Täg", "other": "Bestwärt: {n} Täg"},
     goalDays: {"one": "{n} Tag pro Wuche", "few": "{n} Täg pro Wuche", "many": "{n} Täg pro Wuche", "other": "{n} Täg pro Wuche"},
@@ -1184,8 +1179,6 @@ export const gsw: Dictionary = {
     testUnanswered: "Nöd beantwortet",
     testAgain: "Nöie Test",
     focusTitle: "Da hänged Sie grad",
-    focusEmpty:
-      "No nüt. Sobald Sie es paar Fräge beantwortet händ, staht da, was Sie immer wieder verwütscht — und ei Klick üebt genau das.",
     focusLead: "Das chunt bi Ihne immer wider. Ei Klick üebt nur das.",
     scopedTo: "Nur zu: {what}",
     scopeAll: "Alles üebe",
@@ -1495,14 +1488,7 @@ export const gsw: Dictionary = {
     title: "Zum Wiederhole",
     lead: "Wörter, wo Si händ wele bhalte, chömed da zrugg — zerscht nach eim Tag, denn nach drü, denn nach ere Wuche. Spöter frage bringt meh als öfters frage.",
     due: "fällig",
-    none: "Hüt isch nüt fällig.",
     noneHint: "Chömed morn wieder — oder schlaged öppis Neus nache.",
-    noneFree: "De Plan isch iighalte. Wänn Sie jetz wiitermache wänd, da düre:",
-    nonePractise: "Churz üebe",
-    noneCards: "Charte",
-    noneAsk: "Nachricht iifüege",
-    empty: "Na kei Wörter zum Wiederhole.",
-    emptyHint: "Merked Ihne es Wort im Gspräch, denn fragt Si d Heidi spöter dernach.",
     tomorrow: "morn fällig",
     settled: "sitzed",
     prompt: "Was heisst das?",
@@ -1519,8 +1505,6 @@ export const gsw: Dictionary = {
     masteredCount: "{n} Sache sitzed",
     masteredLead:
       "Zellt wird nöd, wie oft Sie da gsi sind, sondern was Sie inzwüsche richtig mached — mindeschtens viermal gfragt und fascht immer troffe.",
-    masteredEmpty:
-      "No nüt. Sobald öppis viermal gfragt worde isch und Sie s fascht immer richtig ghaa händ, staht s da. Zellt wird, was Sie chönd, nöd wie oft Sie da gsi sind.",
     masteredTopics: "Grammatik",
     masteredWords: "Wörter",
     masteredGroups: "Wortgruppe",

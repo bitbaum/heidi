@@ -393,10 +393,13 @@ body:has([data-chrome="chat"]) {
   overflow: hidden;
 }
 
-/* Static, not sticky: inside a viewport-height page there is nothing to stick
-   to, and a sticky header inside a non-scrolling body is just a header. */
+/* Relative, not sticky: inside a viewport-height page there is nothing to
+   stick to. NOT static — the header's menus hang off it (`top-full`) and its
+   z-index only applies to a positioned box. At `static` the menus were placed
+   below the bottom of the screen and drawn under the conversation list: "the
+   menu does not open on /chat". */
 body:has([data-chrome="chat"]) > header {
-  position: static;
+  position: relative;
 }
 
 /* Not `display: none` on a real page — but this footer is site navigation that

@@ -2,102 +2,33 @@
 
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
-import { ALL } from "@/lib/domain/practice/scope";
-import { SessionLink } from "./session/links";
 import { plural } from "@/lib/i18n/plural";
-import { fill } from "@/lib/i18n/fill";
 import { useStorageReady } from "@/lib/browser/store";
 import { localDay, view } from "@/lib/domain/progress/streak";
-import { setWeekGoal } from "./streak-store";
 import { useStreakView } from "./sync-stores";
 
 /**
- * The streak, shown as what the learner has built.
+ * The streak as one line above a practice session: the run and the week.
  *
- * HEIDI.md §3: gain, never loss. So there is no "streak lost", no countdown
- * and no warning colour anywhere in this component. An ended run renders as an
- * invitation to start, beside the best run — the same fact, the other
- * framing. A day already practised says so, and nothing asks for more.
+ * HEIDI.md §3: gain, never loss — no "streak lost", no countdown, no warning
+ * colour. The full view, with the week's cells and the goal, is the top of the
+ * personal page (`today-panel.tsx`).
  *
- * It WAITS FOR STORAGE before saying anything. The server cannot see this
+ * It WAITS FOR STORAGE before saying anything: the server cannot see this
  * browser, and the first pass would otherwise tell somebody on a nine-day run
- * to "start today" — the false flash the situation panel was fixed for.
+ * to "start today".
  */
-export function StreakCard({
-  t,
-  locale,
-  compact = false,
-}: {
-  t: Dictionary["streak"];
-  locale: Locale;
-  compact?: boolean;
-}) {
+export function StreakLine({ t, locale }: { t: Dictionary["streak"]; locale: Locale }) {
   const stored = useStreakView();
   const ready = useStorageReady();
-  if (!ready) return compact ? null : <div className="min-h-24" aria-hidden="true" />;
+  if (!ready) return null;
 
   const v = view(stored, localDay(new Date()));
   const run = v.current > 0 ? plural(t.days, v.current, locale) : t.start;
   const week = plural(t.week, v.weekGoal, locale, { n: String(v.weekDays), goal: String(v.weekGoal) });
-
-  if (compact) {
-    // One line above a practice session: the run and the week, nothing else.
-    return (
-      <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-        {run} · {v.weekReached ? t.weekReached : week}
-      </p>
-    );
-  }
-
   return (
-    <section aria-labelledby="streak-heading" className="rounded-control border border-border-subtle bg-surface-raised p-5">
-      <h2 id="streak-heading" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-        {t.title}
-      </h2>
-      <p className="mt-2 font-heading text-2xl font-semibold tracking-display text-fg-primary">{run}</p>
-      {v.best > 0 && <p className="mt-1 text-sm text-fg-secondary">{plural(t.best, v.best, locale)}</p>}
-
-      {/* The week, as cells: filled for days practised, up to the goal. */}
-      <div className="mt-4 flex items-center gap-3">
-        <ul aria-hidden="true" className="flex gap-1">
-          {Array.from({ length: v.weekGoal }, (_, i) => (
-            <li key={i} className={`h-2 w-6 rounded-sm ${i < v.weekDays ? "bg-fg-primary" : "bg-border-subtle"}`} />
-          ))}
-        </ul>
-        <p className="text-sm text-fg-secondary">{v.weekReached ? t.weekReached : week}</p>
-      </div>
-
-      {v.current > 0 && v.freezes > 0 && (
-        <p className="mt-2 text-sm text-fg-muted">{fill(t.freezes, { n: String(v.freezes) })}</p>
-      )}
-
-      <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
-        {v.practisedToday ? (
-          <p className="text-sm text-fg-secondary">{t.doneToday}</p>
-        ) : (
-          <SessionLink
-            locale={locale}
-            scope={ALL}
-            className="inline-flex min-h-11 items-center rounded-control bg-action px-4 text-sm font-medium text-on-action hover:opacity-90"
-          >
-            {t.practise}
-          </SessionLink>
-        )}
-        <label className="inline-flex min-h-11 items-center gap-2 text-sm text-fg-secondary">
-          {t.goalLabel}
-          <select
-            value={v.weekGoal}
-            onChange={(e) => setWeekGoal(Number(e.target.value))}
-            className="min-h-11 rounded-control border border-border-strong bg-surface-page px-2 text-base text-fg-primary"
-          >
-            {[1, 2, 3, 4, 5, 6, 7].map((n) => (
-              <option key={n} value={n}>
-                {plural(t.goalDays, n, locale)}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-    </section>
+    <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
+      {run} · {v.weekReached ? t.weekReached : week}
+    </p>
   );
 }

@@ -353,6 +353,27 @@ every other page, the deterministic gate shown as evidence on `/method`, and
 the variety layer underneath. Signed in, the home page IS the dashboard: same
 address, different page, because "Start" has to mean start.
 
+The dashboard («Mein Bereich», `dashboard.tsx`) is one column in the order the
+questions come: the warm-up invitation until it is done; **«Heute»**
+(`today-panel.tsx`): the streak, the questions and kept words due, «Jetzt
+üben» and «Mit Heidi chatten», the weekly goal; then what you are working on,
+the situations, what you can do and the patterns, EACH ONLY ONCE IT HAS
+SOMETHING TO SHOW; then the kept words (the one due, then the list); then
+conversations and groups, side by side on a wide screen. No jump strip, and no
+empty box promising later: a new account sees the invitation, «Heute», the
+words and the groups. The gap between blocks is set by the page; panels carry
+no outer margin.
+
+The header's right-hand row reads language, then account (or settings and
+sign-in), and the account keeps the corner. Its dropdowns hang from the row,
+not from their buttons, so none can leave a phone's screen. **One layer
+scale** for the site: a page uses 40 or below, the header and everything it
+opens is 45, and only overlays meant to cover it (dialogs, sheets, the open
+chat, a full-screen task) use 50. `lib/config/layers.test.ts` holds the scale
+and forbids unpositioning the header; `pnpm run audit:overlays` opens every
+expandable control in a real browser, light and dark, and fails on a panel
+that is covered, empty or see-through. CI runs it after the layout audit.
+
 There are now accounts and a database. Identity is federated to OrangeCat and
 Heidi holds no users table; Postgres holds study groups (and teams), private
 conversations, the speaking rounds people schedule, the votes and comments left on the
@@ -487,7 +508,7 @@ which of the two it is in, next to the button, in the learner's language. See
   middle, the only part that scrolls; and the answer buttons in a bar at the
   bottom, under the thumb. No site header, no footer, no dock launcher (the
   dock itself still opens from an explanation's "ask Heidi"). Answering inside a page made
-  it jump: the streak card and focus panel above the question change height
+  it jump: the streak line and focus panel above the question change height
   with every answer, and iOS Safari has no scroll anchoring. Here nothing
   above can move the question, and each new one starts at the top.
   - One tap in, from anywhere. The dock's launcher is split: «Üben» beside

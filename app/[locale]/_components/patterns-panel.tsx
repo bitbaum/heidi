@@ -48,7 +48,7 @@ export function PatternsPanel({ t }: { t: Dictionary["review"] }) {
   if (patterns.length === 0) return null;
 
   return (
-    <section aria-labelledby="patterns-heading" className="mt-12 border-t border-border-subtle pt-10">
+    <section aria-labelledby="patterns-heading">
       <h2
         id="patterns-heading"
         className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary"
