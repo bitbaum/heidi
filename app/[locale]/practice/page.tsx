@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { sittingPool } from "@/lib/domain/practice/pool";
 import { parseScope } from "@/lib/domain/practice/scope";
-import { itemsFor, parseFlow, parseMode } from "@/lib/domain/practice/mode";
+import { MODES, itemsFor, parseFlow, parseMode, testable } from "@/lib/domain/practice/mode";
 import { sittingKey, sittingQuery } from "@/lib/domain/practice/sitting";
 import { fill } from "@/lib/i18n/fill";
 import { SOURCES, shortCitation } from "@/lib/research/sources";
@@ -77,7 +78,13 @@ export default async function PracticePage({
    */
   const mode = parseMode(query);
   const flow = parseFlow(query);
-  const items = itemsFor(sittingPool(scope), mode, flow);
+  const pool = sittingPool(scope);
+  // A test of this scope would be two or three taps: offer it as practice.
+  if (flow === "test" && !testable(pool)) {
+    const practice = sittingQuery({ scope, mode: "mixed", flow: "practice" });
+    redirect(practice ? `${href(locale, "practice")}?${practice}` : href(locale, "practice"));
+  }
+  const items = itemsFor(pool, mode, flow);
   const named = scopeName(dict, scope);
 
   /**
@@ -117,7 +124,17 @@ export default async function PracticePage({
             changes every question that follows. */}
         {scope.kind === "all" && <WarmupInvite t={dict.warmup} locale={locale} variant="line" />}
 
-        <PracticeChooser mode={mode} flow={flow} scope={scope} t={t} locale={locale} />
+        <PracticeChooser
+          mode={mode}
+          flow={flow}
+          scope={scope}
+          t={t}
+          locale={locale}
+          available={{
+            modes: MODES.filter((m) => itemsFor(pool, m, "practice").length > 0),
+            test: testable(pool),
+          }}
+        />
 
         {/* The questions are on the session screen, not on this page — see
             `session/frame.tsx`. This is the button the chooser configures. */}

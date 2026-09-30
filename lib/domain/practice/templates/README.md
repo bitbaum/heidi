@@ -31,4 +31,11 @@ A new question is a record, not a feature. The full contract is the header of
 person, tense or thing asked is markable; "less polite" is not. Nuance goes in
 the lesson.
 
+**And never wrong by a giveaway.** A wrong answer keeps the right one's people
+and things; the difference must sit in the form the lesson teaches. For
+«Annas Schwester kommt auch noch», «Em Reto sini Schwöschter…» (another name)
+or «D Anna chunt au no» (the sister missing) are ruled out by matching the
+German, without understanding «de Anna ihri» at all. «D Anna und ihri
+Schwöschter chömed au no» is not: only the construction says who comes.
+
 Ids are permanent: `<kind>:<id>` keys the learner's history in their browser.

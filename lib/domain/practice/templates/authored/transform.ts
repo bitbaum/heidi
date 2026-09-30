@@ -99,10 +99,10 @@ export const TRANSFORM: readonly TransformTemplate[] = [
     right: X("wo-relative", 0),
     wrong: [
       W("De Maa, wo dört gstande isch.", "Der Mann, der dort stand."),
-      W("D Frau, wo dört staht.", "Die Frau, die dort steht."),
+      W("Wo staht de Maa?", "Wo steht der Mann?"),
       W("De Maa staht dört.", "Der Mann steht dort."),
     ],
-    lesson: "whose",
+    lesson: "relative",
     listen: { word: "wo", means: "der, die, das (Relativpronomen)" },
   },
   {
@@ -111,10 +111,10 @@ export const TRANSFORM: readonly TransformTemplate[] = [
     right: X("wo-relative", 1),
     wrong: [
       W("D Frau, wo mich gsee hät.", "Die Frau, die mich gesehen hat."),
-      W("De Maa, wo ich gsee ha.", "Der Mann, den ich gesehen habe."),
+      W("Wo han ich d Frau gsee?", "Wo habe ich die Frau gesehen?"),
       W("D Frau hät mich gsee.", "Die Frau hat mich gesehen."),
     ],
-    lesson: "whose",
+    lesson: "relative",
     listen: { word: "wo ich gsee ha", means: "die ich gesehen habe" },
   },
   {
@@ -206,9 +206,9 @@ export const TRANSFORM: readonly TransformTemplate[] = [
     about: { topic: "possessive-dative" },
     right: L("visitors", 2),
     wrong: [
-      W("De Frau Meier ihres Zimmer isch dört äne.", "Frau Meiers Zimmer ist dort drüben."),
-      W("Em Herr Meier sis Zimmer isch da vorne.", "Herrn Meiers Zimmer ist hier vorne."),
-      W("De Herr Meier isch i sim Zimmer.", "Herr Meier ist in seinem Zimmer."),
+      W("De Herr Meier isch dört äne i sim Zimmer.", "Herr Meier ist dort drüben in seinem Zimmer."),
+      W("S Zimmer dört äne isch nöd em Herr Meier sis.", "Das Zimmer dort drüben ist nicht das von Herrn Meier."),
+      W("Em Herr Meier sis Zimmer isch nöd dört äne.", "Herrn Meiers Zimmer ist nicht dort drüben."),
     ],
     lesson: "whose",
     listen: { word: "Em Herr Meier sis", means: "Herrn Meiers" },
@@ -218,9 +218,9 @@ export const TRANSFORM: readonly TransformTemplate[] = [
     about: { topic: "possessive-dative" },
     right: L("visitors", 7),
     wrong: [
-      W("Em Reto sini Schwöschter chunt au no.", "Retos Schwester kommt auch noch."),
-      W("D Anna chunt au no.", "Anna kommt auch noch."),
-      W("De Anna ihri Schwöschter chunt nöd.", "Annas Schwester kommt nicht."),
+      W("D Anna und ihri Schwöschter chömed au no.", "Anna und ihre Schwester kommen auch noch."),
+      W("D Anna chunt au no, ihri Schwöschter nöd.", "Anna kommt auch noch, ihre Schwester nicht."),
+      W("D Anna chunt au no zu ihrere Schwöschter.", "Anna kommt auch noch zu ihrer Schwester."),
     ],
     lesson: "whose",
     listen: { word: "De Anna ihri", means: "Annas" },

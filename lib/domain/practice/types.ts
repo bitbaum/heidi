@@ -531,6 +531,7 @@ export const LESSON_IDS = [
   "verb-frame",
   "small-word",
   "whose",
+  "relative",
   "thanks-sorry",
   "comfort",
 ] as const;

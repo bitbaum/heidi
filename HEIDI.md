@@ -504,6 +504,11 @@ which of the two it is in, next to the button, in the learner's language. See
     began. `/practice` stays as the full chooser, and the warm-up page
     explains itself and starts the screen; the query strings are the same
     (`sitting.ts`).
+  - A test needs half a run of markable questions in its scope (`TEST_MIN`,
+    ten of `TEST_SIZE`'s twenty). Below that the scope offers practice only,
+    and a test link to it opens practice: «Bsitz andersume» had two markable
+    questions and produced a two-tap test under a three-minute clock. Most
+    grammar topics do not qualify yet; the situations and «everything» all do.
   - A situation's sitting is its sentences AND the words said in it
     (`pool.ts`, `sittingPool`): a word is in the scene when a phrase of it
     says the word. `PRACTISABLE` lists the scenes and topics with questions,

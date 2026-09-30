@@ -41,6 +41,11 @@ import { QUESTION_OPTIONS, type ItemSource, type LessonId, type QuestionItem, ty
  * — never on nuance. "Which reply is more polite" is a real skill and not one
  * this product can mark; the lesson is where nuance goes, and it is never the
  * thing being scored.
+ *
+ * AND NEVER BY A GIVEAWAY. A wrong answer keeps the right one's people and
+ * things, so the difference sits in the form being taught. One that swaps the
+ * name or drops the noun is ruled out by matching the German, and the question
+ * then tests German (README.md has the worked example).
  */
 
 /** A line already in a situation pack, by scene and position. */

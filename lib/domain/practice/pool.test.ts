@@ -4,6 +4,7 @@ import { saysWord } from "../../text/words.ts";
 import { SCENES } from "../../situations/display.ts";
 import { itemsInScope } from "./scope.ts";
 import { PRACTISABLE, sittingPool } from "./pool.ts";
+import { TEST_MIN, itemsFor, testable } from "./mode.ts";
 
 const handover = SCENES.find((s) => s.id === "handover")!;
 
@@ -30,4 +31,14 @@ test("other scopes are exactly their scope", () => {
 test("every scene and every listed topic can be practised", () => {
   assert.equal(PRACTISABLE.scene.length, SCENES.length);
   for (const id of PRACTISABLE.topic) assert.ok(sittingPool({ kind: "topic", id }).length > 0, id);
+});
+
+test("a scope offers a test only when it can fill half a run", () => {
+  // The regression: «Bsitz andersume» offered a "test" of two questions.
+  const possession = sittingPool({ kind: "topic", id: "possessive-dative" });
+  assert.ok(itemsFor(possession, "mixed", "test").length < TEST_MIN);
+  assert.equal(testable(possession), false);
+
+  assert.equal(testable(sittingPool({ kind: "all" })), true);
+  for (const id of PRACTISABLE.scene) assert.equal(testable(sittingPool({ kind: "scene", id })), true, id);
 });
