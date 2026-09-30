@@ -1,5 +1,5 @@
-import type { Answer, Gloss, Suggestion, Tone } from "./types.ts";
-import { TONES } from "./types.ts";
+import type { Answer, Gloss, Mode, Suggestion, Tone } from "./types.ts";
+import { MODES, TONES } from "./types.ts";
 import { decodeMoves } from "./moves.ts";
 
 /**
@@ -72,7 +72,9 @@ export function decodeAnswer(value: unknown): Answer | null {
 
   return {
     text,
-    mode: a.mode === "produce" ? "produce" : "understand",
+    // Checked against the list: collapsing to two values turned every stored
+    // "answer" into "understand" on reload.
+    mode: MODES.includes(a.mode as Mode) ? (a.mode as Mode) : "understand",
     dialect: typeof a.dialect === "string" ? a.dialect : "",
     dialectClean: a.dialectClean === false ? false : true,
     dialectFlags: Array.isArray(a.dialectFlags)

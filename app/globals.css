@@ -386,8 +386,10 @@ body:has([data-chrome="chat"]) {
      win on a phone: `vh` measures the viewport WITHOUT the browser toolbar, so
      the body ends up taller than the screen and the composer hides under it.
      `dvh` is the one that tracks the toolbar sliding away. */
-  height: 100dvh;
-  min-height: 100dvh;
+  /* `--app-height` is what the on-screen keyboard leaves visible, published by
+     `use-keyboard-viewport.ts`; `dvh` until it is. */
+  height: var(--app-height, 100dvh);
+  min-height: var(--app-height, 100dvh);
   overflow: hidden;
 }
 

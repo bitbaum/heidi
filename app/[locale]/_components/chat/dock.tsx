@@ -15,6 +15,8 @@ import { Composer } from "./composer";
 import { Transcript } from "./transcript";
 import { WordPick } from "./word-pick";
 import { useDraftChat } from "./use-draft-chat";
+import { useKeyboardViewport } from "../use-keyboard-viewport";
+import { NewChatButton } from "./new-chat-button";
 
 /**
  * The dock's box, which must NOT be `chat-input`.
@@ -216,6 +218,7 @@ function DockPanel({
   const endRef = useRef<HTMLDivElement>(null);
   const transcriptRef = useRef<HTMLDivElement>(null);
   const { chat, byok, reset, started, ready, modelSheet } = useDraftChat({ locale, dict });
+  useKeyboardViewport();
 
   /**
    * Send what a page asked for, exactly once, and not before the stored thread
@@ -270,7 +273,9 @@ function DockPanel({
        * `dvh`, not `vh`: `vh` measures the viewport WITHOUT the browser
        * toolbar, so on a phone the panel ends up taller than the screen and the
        * composer sits underneath the toolbar — the trap the full-screen chat
-       * already documents in globals.css.
+       * already documents in globals.css. On a phone the top and height
+       * follow `--app-top` / `--app-height`, so the header stays on screen
+       * while the keyboard is open.
        */
       /*
        * `sm:bottom-20` clears the launcher rather than covering it. At
@@ -278,7 +283,7 @@ function DockPanel({
        * so on a laptop the one control that closes the dock was underneath the
        * dock. Measured on screen, not reasoned about.
        */
-      className="fixed inset-0 z-50 flex flex-col border-border-strong bg-surface-page sm:inset-auto sm:bottom-20 sm:right-4 sm:h-[min(34rem,calc(100dvh-8rem))] sm:w-[26rem] sm:rounded-control sm:border sm:shadow-lg"
+      className="fixed inset-x-0 top-[var(--app-top,0px)] z-50 flex h-[var(--app-height,100dvh)] flex-col border-border-strong bg-surface-page sm:inset-auto sm:bottom-20 sm:right-4 sm:h-[min(34rem,calc(100dvh-8rem))] sm:w-[26rem] sm:rounded-control sm:border sm:shadow-lg"
     >
       <header className="flex items-center justify-between gap-2 border-b border-border-strong px-4 py-3">
         <div className="flex min-w-0 items-center gap-2">
@@ -286,16 +291,8 @@ function DockPanel({
           <p className="truncate font-heading text-base font-bold tracking-display text-fg-primary">{t.dock.title}</p>
         </div>
 
-        <div className="flex shrink-0 items-center gap-3">
-          {started && (
-            <button
-              type="button"
-              onClick={reset}
-              className="text-sm text-link underline underline-offset-4 hover:text-accent"
-            >
-              {t.newChat}
-            </button>
-          )}
+        <div className="flex shrink-0 items-center gap-1">
+          {started && <NewChatButton variant="icon" label={t.newChat} onClick={reset} />}
           {/* The way out of a small box and into the room. Offered only once
               there is something to expand — on an empty panel it is a second
               front door to the same empty panel. */}
@@ -306,7 +303,7 @@ function DockPanel({
               onClick={onClose}
               aria-label={t.full.expand}
               title={t.full.expand}
-              className="inline-flex h-9 w-9 items-center justify-center text-fg-secondary hover:text-fg-primary"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-control text-fg-secondary transition-colors hover:bg-surface-raised hover:text-fg-primary"
             >
               <ExpandIcon />
             </Link>
@@ -315,7 +312,7 @@ function DockPanel({
             type="button"
             onClick={onClose}
             aria-label={t.dock.close}
-            className="inline-flex h-9 w-9 items-center justify-center text-fg-secondary hover:text-fg-primary"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-control text-fg-secondary transition-colors hover:bg-surface-raised hover:text-fg-primary"
           >
             <CloseIcon />
           </button>

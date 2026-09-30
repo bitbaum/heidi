@@ -1,6 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { POST } from "./route.ts";
+import { POST, sanitise } from "./route.ts";
 
 /**
  * Streaming must not be a way around anything.
@@ -139,5 +139,20 @@ describe("the two shapes differ only in shape", () => {
     assert.match(body, /^data: /m, "every frame is an SSE data line");
     const frame = JSON.parse(body.split("data: ")[1].split("\n")[0]);
     assert.deepEqual(frame, { type: "error", kind: "unconfigured" });
+  });
+});
+
+describe("the history the model is shown", () => {
+  test("Heidi's sendable line travels with her turn", () => {
+    const [, heidi] = sanitise([
+      { authorId: "me", body: "Schreib mir einen Satz mit «Bilanz»." },
+      { authorId: "heidi", body: "Hier ein kurzer Satz.", dialect: "I ha d Bilanz gmacht." },
+    ]);
+    assert.equal(heidi.answer?.dialect, "I ha d Bilanz gmacht.");
+  });
+
+  test("a learner's turn cannot carry one", () => {
+    const [mine] = sanitise([{ authorId: "me", body: "Hoi", dialect: "invented" }]);
+    assert.equal(mine.answer, undefined);
   });
 });

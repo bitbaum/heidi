@@ -430,12 +430,26 @@ which of the two it is in, next to the button, in the learner's language. See
   dashboard, so the landing page had no composer at all. The dock
   (`_components/chat/dock.tsx`) is the same conversation as the other two
   surfaces, because all three read one store through `use-draft-chat.ts`.
-- **A page that already holds a conversation marks itself**, with
-  `data-chat="surface"`, and `globals.css` hides the dock when the document
-  contains one. CSS rather than a list of pathnames, because whether the locale
-  root holds a chat depends on whether the visitor is signed in — which a route
-  table cannot know and the rendering page always does. Same mechanism as
-  `data-chrome="chat"`.
+- **The dock stands down on one page only: the full-screen chat**, which marks
+  itself `data-chrome="chat"`. `globals.css` hides the dock when the document
+  contains that marker, because it IS the window the dock would open. It used
+  to stand down on every page holding a conversation, and on the home page,
+  where the chat box sits below the fold on a phone, that read as the chat
+  being gone.
+- **Starting again is one tap on every chat surface.** The sidebar button on a
+  laptop, a toolbar above the transcript on a phone (the sidebar is off-canvas
+  there), and an icon in the dock's header. All three are `new-chat-button.tsx`.
+  The header's "Chat" link always opens an empty conversation. `/chat` gets a
+  fresh `key` per request, because a first message moves the address with
+  `replaceState`, and a constant key re-rendered the page in place with the
+  conversation just left still in it.
+- **A full-height chat fits above the phone keyboard.** `dvh` follows the
+  browser toolbar, not the keyboard. iOS, and Android by default, shrink only
+  the visual viewport and scroll the page instead, which pushed the chat's
+  header off the screen. The layout sets `interactive-widget=resizes-content`
+  for Android, and `use-keyboard-viewport.ts` publishes the visible height as
+  `--app-height` for iOS. The full-screen chat focuses its box on load only
+  with a fine pointer, so a phone does not open the keyboard over the examples.
 - **The account is one control, not three.** An avatar menu replaced a gear
   icon beside a pill with a green status dot that nothing measured. What is in
   it comes from `ACCOUNT_MENU_KEYS` in `lib/i18n/routes.ts`, so a menu entry
@@ -625,6 +639,17 @@ list rather than a migration. threadkit already encodes the social rule we
 would have got wrong: two participants means the assistant *is* the
 conversation and answers every turn; three or more means it waits to be
 addressed, since two humans talking is not an invitation.
+
+**What the model is shown is ours, not threadkit's.** threadkit decides what
+Heidi may see and whether she speaks; `renderPrompt` in `lib/domain/chat/thread.ts`
+decides how that reads. The last 20 turns go in as context marked "already
+answered", and the newest message is set apart under its own heading. Heidi's
+past turns carry the sentence she wrote (`answer.dialect`), not only her
+explanation of it. threadkit's own rendering, one undifferentiated "role: body"
+list, made the model answer the THREAD rather than the last line: after three
+turns about «Le Bilan», «Pire» got a fourth «Le Bilan» sentence in 4 of 6 live
+runs. With the split it got none. The system prompt says the other half: answer
+only the newest message, and a word on its own is a question about that word.
 
 Four deterministic guards sit between the model and the learner, and all four
 exist for the same reason — the learner cannot check this work:

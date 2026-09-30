@@ -104,6 +104,21 @@ function errorFor(status: number): SendResult {
 }
 
 /**
+ * The thread as the stateless route reads it. `dialect` travels with Heidi's
+ * turns because her `body` is only the explanation — see `contextBody`.
+ */
+function historyPayload(history: ChatMessage[]) {
+  return history
+    .filter((m) => m.body)
+    .map((m) => ({
+      authorId: m.authorId,
+      body: m.body,
+      createdAt: m.createdAt,
+      ...(m.answer?.dialect ? { dialect: m.answer.dialect } : {}),
+    }));
+}
+
+/**
  * The stateless route. The client owns the thread and posts it every time —
  * which is also why this one works with no database and no account.
  */
@@ -115,7 +130,7 @@ export function draftTransport(): Transport {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           input: text,
-          history: history.filter((m) => m.body).map((m) => ({ authorId: m.authorId, body: m.body, createdAt: m.createdAt })),
+          history: historyPayload(history),
           locale,
           byok,
           images,
@@ -179,9 +194,7 @@ export function streamingDraftTransport(): Transport {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           input: text,
-          history: history
-            .filter((m) => m.body)
-            .map((m) => ({ authorId: m.authorId, body: m.body, createdAt: m.createdAt })),
+          history: historyPayload(history),
           locale,
           byok,
           images,

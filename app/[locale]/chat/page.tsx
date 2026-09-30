@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import type { Metadata } from "next";
 import { auth, authEnabled } from "@/lib/auth";
 import { getDictionary } from "@/lib/i18n";
@@ -40,7 +41,13 @@ export default async function ChatPage({ params }: { params: Promise<{ locale: s
       // A different conversation is a different component: `key` resets the
       // draft seed, the composer and the transport in one move, which an
       // effect synchronising four pieces of state could only approximate.
-      key="new"
+      //
+      // Fresh per request, not a constant. The first message moves the address
+      // to /chat/<id> with `replaceState`, so the tree on screen is still THIS
+      // page's; a constant key meant the header's "Chat" link re-rendered it
+      // in place and showed the conversation just left — and the next message
+      // went into it.
+      key={randomUUID()}
       locale={locale}
       dict={dict}
       signedIn={signedIn}

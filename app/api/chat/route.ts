@@ -6,6 +6,7 @@ import { soloThread } from "../../../lib/domain/chat/thread.ts";
 import { respondInThread } from "../../../lib/domain/chat/respond.ts";
 import { HEIDI_ID, LEARNER_ID, type ChatMessage } from "../../../lib/domain/chat/types.ts";
 import { redact } from "../../../lib/domain/model/byok.ts";
+import { decodeAnswer } from "../../../lib/domain/chat/answer.ts";
 import { MAX_IMAGES, readImage } from "../../../lib/domain/chat/image.ts";
 import { callerKey, chat as chatLimit, tooMany } from "../../../lib/domain/limits.ts";
 
@@ -29,7 +30,7 @@ function bad(error: string, status: number, operator = false) {
 }
 
 /** Trust nothing from the client: ids, authors and timestamps are all rebuilt here. */
-function sanitise(raw: unknown): ChatMessage[] {
+export function sanitise(raw: unknown): ChatMessage[] {
   if (!Array.isArray(raw)) return [];
   return raw
     .slice(-MAX_HISTORY)
@@ -44,7 +45,11 @@ function sanitise(raw: unknown): ChatMessage[] {
         typeof v.createdAt === "string" && !Number.isNaN(Date.parse(v.createdAt))
           ? v.createdAt
           : new Date(Date.now() - (MAX_HISTORY - i) * 1000).toISOString();
-      return { id: `h${i}`, authorId, body, createdAt } satisfies ChatMessage;
+      // Heidi's sendable line, so the model remembers what she actually wrote.
+      // Context only: nothing here is shown, stored or trusted as an answer.
+      const dialect = authorId === HEIDI_ID && typeof v.dialect === "string" ? v.dialect.slice(0, MAX_INPUT) : "";
+      const answer = dialect ? decodeAnswer({ text: body, dialect }) : null;
+      return { id: `h${i}`, authorId, body, createdAt, ...(answer ? { answer } : {}) } satisfies ChatMessage;
     })
     .filter((m): m is ChatMessage => m !== null);
 }

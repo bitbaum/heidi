@@ -41,6 +41,21 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-09-30",
+      tag: "fix",
+      title: "Heidi antwortet auf das, was Sie zuletzt geschrieben haben",
+      summary:
+        "Nach drei Antworten zu «Le Bilan» fragte jemand «Pire» — und bekam einen vierten Satz über «Le Bilan», zweimal. Der Chat gab dem Modell das ganze Gespräch als eine Liste, ohne zu sagen, welche Nachricht die Frage ist. Jetzt steht die neue Nachricht für sich, und ein einzelnes Wort gilt als Frage nach genau diesem Wort.",
+      items: [
+        "Im Test mit dem echten Modell: vorher bekam «Pire» in 4 von 6 Läufen wieder einen «Le Bilan»-Satz, nachher in keinem.",
+        "Heidi erinnert sich jetzt an den Satz, den sie geschrieben hat, nicht nur an ihre Erklärung dazu — «Kürzer» meint weiterhin die letzte Antwort.",
+        "Das Modell sieht die letzten 20 Nachrichten, auch in gespeicherten Gesprächen; bisher bekam es dort das ganze Gespräch, egal wie lang.",
+        "«Neues Gespräch» ist auf dem Handy direkt über dem Chat, nicht mehr nur im Seitenmenü, und im schwebenden Chat ein Symbol neben Vergrössern und Schliessen statt eines umbrechenden Links.",
+        "Behoben: Mit offener Handy-Tastatur rutschte der Kopf des Chats — und «Neues Gespräch» darin — aus dem Bild. Der Chat passt sich jetzt dem sichtbaren Teil des Bildschirms an.",
+        "Behoben: «Chat» im Menü zeigte angemeldet das Gespräch, das man gerade verlassen hatte, und die nächste Nachricht landete darin. Jetzt öffnet «Chat» ein leeres Gespräch.",
+      ],
+    },
+    {
       date: "2026-09-26",
       tag: "feature",
       title: "Fünf neue Übungsarten — und nach jeder Antwort ein Warum",
@@ -302,6 +317,21 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-30",
+      tag: "fix",
+      title: "Heidi answers what you wrote last",
+      summary:
+        "After three answers about «Le Bilan», someone asked «Pire» — and got a fourth sentence about «Le Bilan», twice. The chat handed the model the whole conversation as one list, without saying which message was the question. The new message now stands on its own, and a single word is taken as a question about that word.",
+      items: [
+        "Tested against the real model: before, «Pire» got another «Le Bilan» sentence in 4 of 6 runs; after, in none.",
+        "Heidi now remembers the sentence she wrote, not only her explanation of it — «Shorter» still means the last answer.",
+        "The model sees the last 20 messages, saved conversations included; there it used to get the whole conversation however long.",
+        "«New conversation» sits right above the chat on a phone instead of only in the side menu, and in the floating chat it is an icon beside expand and close instead of a link that wrapped.",
+        "Fixed: with the phone keyboard open, the top of the chat — and «New conversation» in it — slid off the screen. The chat now fits the part of the screen you can see.",
+        "Fixed: signed in, «Chat» in the menu showed the conversation you had just left, and the next message went into it. «Chat» now opens an empty conversation.",
+      ],
+    },
     {
       date: "2026-09-26",
       tag: "feature",

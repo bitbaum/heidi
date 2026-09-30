@@ -37,7 +37,6 @@ export function Composer({
   footer,
   className,
   sticky,
-  autoFocus,
   labelledOutside,
 }: {
   value: string;
@@ -82,7 +81,6 @@ export function Composer({
   footer?: React.ReactNode;
   className?: string;
   sticky?: boolean;
-  autoFocus?: boolean;
   /**
    * The caller renders its own visible `<label htmlFor="chat-input">`.
    *
@@ -183,7 +181,6 @@ export function Composer({
           id={id}
           ref={areaRef}
           value={value}
-          autoFocus={autoFocus}
           onChange={(e) => onChange(e.target.value)}
           onKeyDown={(e) => {
             // Enter sends on a keyboard; Shift+Enter is a newline. On a phone

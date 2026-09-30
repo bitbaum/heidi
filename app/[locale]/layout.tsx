@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { notFound } from "next/navigation";
 import "../globals.css";
@@ -18,6 +18,17 @@ import { SyncRunner } from "./_components/sync-runner";
  * locale segment cannot know it. Middleware sends every non-localised path
  * here, so nothing renders outside a locale.
  */
+
+/**
+ * `resizes-content`: on Android the on-screen keyboard shrinks the layout, so
+ * `dvh` and a full-height chat end above the keyboard instead of under it.
+ * iOS ignores the key; `use-keyboard-viewport.ts` covers it there.
+ */
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  interactiveWidget: "resizes-content",
+};
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
