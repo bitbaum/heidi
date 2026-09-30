@@ -3,7 +3,8 @@ import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { MODES, FLOWS, type Mode, type Flow } from "@/lib/domain/practice/mode";
-import { scopeQuery, type Scope } from "@/lib/domain/practice/scope";
+import type { Scope } from "@/lib/domain/practice/scope";
+import { sittingQuery } from "@/lib/domain/practice/sitting";
 
 /**
  * The two choices, before anything is asked.
@@ -49,11 +50,9 @@ export function PracticeChooser({
    * "choosing cards silently throws away the topic I was practising".
    */
   function link(next: { mode?: Mode; flow?: Flow }): string {
-    const params = new URLSearchParams(scopeQuery(scope).replace(/^\?/, ""));
-    const f = next.flow ?? flow;
     /**
-     * A TEST CARRIES NO MODE, and this line is the whole of a dead end that
-     * would otherwise be one tap away.
+     * A TEST CARRIES NO MODE (`sittingQuery`), and that rule is the whole of a
+     * dead end that would otherwise be one tap away.
      *
      * A test may only ask what can be marked outright (`markableInTest`), and
      * every writing and card kind is self-marked. So `?mode=write&flow=test`
@@ -62,10 +61,7 @@ export function PracticeChooser({
      * why. Dropping the mode makes that press mean the obvious thing instead:
      * the test you can actually take.
      */
-    const m = f === "test" ? "mixed" : (next.mode ?? mode);
-    if (m !== "mixed") params.set("mode", m);
-    if (f !== "practice") params.set("flow", f);
-    const query = params.toString();
+    const query = sittingQuery({ scope, mode: next.mode ?? mode, flow: next.flow ?? flow });
     return query ? `${base}?${query}` : base;
   }
 

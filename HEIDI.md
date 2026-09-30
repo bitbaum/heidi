@@ -480,17 +480,35 @@ which of the two it is in, next to the button, in the learner's language. See
   for Android, and `use-keyboard-viewport.ts` publishes the visible height as
   `--app-height` for iOS. The full-screen chat focuses its box on load only
   with a fine pointer, so a phone does not open the keyboard over the examples.
-- **On a phone, a task takes the screen.** Practice, the test, the warm-up and
-  the home-page chat open full screen below `lg` (`focus-surface.tsx`), with
-  "Minimise" back into the page and "Continue full screen" out again; the
-  children stay mounted, so nothing is lost either way. Answering in the page
-  made it jump: the streak card and focus panel above the question change
-  height with every answer, and iOS Safari has no scroll anchoring. Inside the
-  layer nothing above can move the question, and each new one starts at the
-  top. Practice is built on load, so on a phone it waits behind a "Losgehen"
-  button instead of opening itself; a restored chat opens when the learner
-  writes, not when the home page loads. On a wide screen tasks stay inline, and
-  a new question that begins above the viewport is scrolled to.
+- **Exercises have their own screen, on every device.** `/practice/session`
+  (practice and the test) and `/warmup/session` open a session screen
+  (`session/frame.tsx`) instead of running inside a page: a close button, a
+  progress bar and — in a timed test — the clock on top; the question in the
+  middle, the only part that scrolls; and the answer buttons in a bar at the
+  bottom, under the thumb. No site header, no footer, no dock launcher (the
+  dock itself still opens from "Heidi fragen"). Answering inside a page made
+  it jump: the streak card and focus panel above the question change height
+  with every answer, and iOS Safari has no scroll anchoring. Here nothing
+  above can move the question, and each new one starts at the top.
+  - The pages became launchers. `/practice` configures a sitting (scope,
+    mode, test) and offers one button into it; the warm-up page explains
+    itself and starts the screen. Their query strings are the same
+    (`sitting.ts`), so every "practise this" link from grammar, scenes and
+    words opens the same sitting either way.
+  - Each view owns its buttons and hands them to the bar (`exercises/
+    actions.tsx`); outside a session screen they render in place.
+  - Closing keeps the place. The sitting is saved in the browser after every
+    answer (`resume.ts`, `heidi.practice.session.v1`) and picked up for 12
+    hours when the same sitting is opened again; the button on `/practice`
+    then reads "Weitermachen — Frage 4 von 8". A finished sitting is cleared,
+    and the test never resumes.
+  - Close goes back where the learner came from (`?back=`, through the same
+    open-redirect guard as the language switch), otherwise to the launcher.
+- **On a phone, the home-page chat takes the screen** once the learner writes
+  (`focus-surface.tsx`), with "Minimise" back into the page and "Continue full
+  screen" out again; the conversation stays mounted either way. A restored
+  chat stays in the page until the learner writes. On a wide screen it stays
+  inline.
 - **The account is one control, not three.** An avatar menu replaced a gear
   icon beside a pill with a green status dot that nothing measured. What is in
   it comes from `ACCOUNT_MENU_KEYS` in `lib/i18n/routes.ts`, so a menu entry

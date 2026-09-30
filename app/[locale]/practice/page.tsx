@@ -4,16 +4,16 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { PACK_ITEMS } from "@/lib/domain/practice/published";
-import { includesSaved, itemsInScope, parseScope, type Scope } from "@/lib/domain/practice/scope";
+import { itemsInScope, parseScope, type Scope } from "@/lib/domain/practice/scope";
 import { itemsFor, parseFlow, parseMode } from "@/lib/domain/practice/mode";
+import { sittingKey, sittingQuery } from "@/lib/domain/practice/sitting";
 import { fill } from "@/lib/i18n/fill";
 import type { Dictionary } from "@/lib/i18n/dictionaries/de";
 import { SOURCES, shortCitation } from "@/lib/research/sources";
 import { BandHeader, Shell } from "../_components/page-shell";
-import { PracticeSession } from "../_components/practice-session";
 import { FocusPanel } from "../_components/focus-panel";
 import { PracticeChooser } from "../_components/practice-chooser";
-import { TestSession } from "../_components/test-session";
+import { StartCard } from "../_components/session/start-card";
 import { StreakCard } from "../_components/streak-card";
 import { WarmupInvite } from "../_components/warmup-invite";
 
@@ -114,6 +114,7 @@ export default async function PracticePage({
    * would drop somebody into a blank session with no explanation.
    */
   const empty = items.length === 0;
+  const sitting = sittingQuery({ scope, mode, flow });
 
   return (
     <Shell>
@@ -143,27 +144,25 @@ export default async function PracticePage({
 
         <PracticeChooser mode={mode} flow={flow} scope={scope} t={t} locale={locale} />
 
+        {/* The questions are on the session screen, not on this page — see
+            `session/frame.tsx`. This is the button the chooser configures. */}
+        {empty ? (
+          <p className="mb-8 max-w-measure text-base leading-relaxed text-fg-secondary">{t.scopeEmpty}</p>
+        ) : (
+          <StartCard
+            sessionHref={`${href(locale, "practice")}/session${sitting ? `?${sitting}` : ""}`}
+            sessionKey={sittingKey({ scope, mode })}
+            test={flow === "test"}
+            t={t}
+            sessionT={dict.session}
+          />
+        )}
+
         {/* Only on the unscoped page: inside a scoped sitting the learner has
             already said what they want to work on, and offering them three
             other things is the product arguing with them. */}
         {scope.kind === "all" && flow === "practice" && (
           <FocusPanel t={t} grammarT={dict.grammar} situationsT={dict.situations} locale={locale} />
-        )}
-
-        {empty ? (
-          <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.scopeEmpty}</p>
-        ) : flow === "test" ? (
-          <TestSession items={items} t={t} grammarT={dict.grammar} situationsT={dict.situations} vocabularyT={dict.vocabulary} learnT={dict.chat.learn} focusT={dict.focus} locale={locale} />
-        ) : (
-          <PracticeSession
-            packItems={items}
-            t={t}
-            grammarT={dict.grammar} situationsT={dict.situations} vocabularyT={dict.vocabulary} learnT={dict.chat.learn}
-            focusT={dict.focus}
-            locale={locale}
-            mode={mode}
-            includeSaved={includesSaved(scope)}
-          />
         )}
       </div>
 

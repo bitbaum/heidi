@@ -630,6 +630,7 @@ export const de = {
       progressSync: "Abgeglichener Fortschritt (nur wenn eingeschaltet)",
       certificates: "Ihre Nachweise",
       warmup: "Ihr Aufwärmen: welche Sätze Sie verstanden haben",
+      practiceSession: "Eine angefangene Übung, damit Sie weitermachen können",
       language: "Ihre gewählte Sprache (nur mit Konto)",
       ownKey: "Ihr eigener API-Schlüssel",
       theme: "Helle oder dunkle Darstellung",
@@ -1115,6 +1116,13 @@ export const de = {
   focus: {
     minimize: "Verkleinern",
     expand: "Im Vollbild weiter",
+  },
+
+  /** Der Übungsbildschirm — siehe `session/frame.tsx`. */
+  session: {
+    close: "Übung schliessen",
+    finish: "Fertig",
+    resume: "Weitermachen — Frage {n} von {total}",
   },
 
   practice: {

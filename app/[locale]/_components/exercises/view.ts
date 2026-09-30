@@ -76,8 +76,10 @@ export type ExerciseViewProps<T extends PracticeItem = PracticeItem> = {
   /**
    * A recall answer is also a REVIEW answer: the word carries its own
    * schedule, and practising it without telling the schedule would spend the
-   * spacing effect the schedule exists to produce. Only `recall` calls this;
-   * every other kind reports through `onAnswer` alone.
+   * spacing effect the schedule exists to produce. Only `recall` and `card`
+   * call this, and INSTEAD of `onAnswer`, never beside it: the session records
+   * a recall answer as the answer, so both would count it twice and skip the
+   * next question (`answer-once.test.ts`).
    */
   onRecall: (prompt: string, knew: boolean) => void;
 };

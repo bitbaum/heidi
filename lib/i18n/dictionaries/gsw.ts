@@ -662,6 +662,7 @@ export const gsw: Dictionary = {
       progressSync: "Abglichene Fortschritt (nur wänn iigschaltet)",
       certificates: "Ihri Nachwiis",
       warmup: "Ihres Iiwärme: weli Sätz Si verstande händ",
+      practiceSession: "E aagfangeni Üebig, dass Si chönd wiitermache",
       language: "Ihri gwählti Sprach (nu mit Konto)",
       ownKey: "Ihre eigne API-Schlüssel",
       theme: "Helli oder dunkli Darstellig",
@@ -1037,6 +1038,13 @@ export const gsw: Dictionary = {
   focus: {
     minimize: "Verchliinere",
     expand: "Uf ganze Bildschirm",
+  },
+
+  /** Der Übungsbildschirm — siehe `session/frame.tsx`. */
+  session: {
+    close: "Üebig zuemache",
+    finish: "Fertig",
+    resume: "Wiitermache — Frag {n} vo {total}",
   },
 
   practice: {

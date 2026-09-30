@@ -1,6 +1,7 @@
 import { createBrowserStore } from "@/lib/browser/store";
 import { decodeHistory } from "@/lib/domain/practice/history";
 import { decodeModel } from "@/lib/domain/practice/model";
+import { decodeSaved } from "@/lib/domain/practice/resume";
 
 /**
  * The two practice stores, created ONCE.
@@ -25,3 +26,6 @@ export const historyStore = createBrowserStore("heidi.practice.seen.v1", decodeH
  * cannot yet understand. It never leaves the browser.
  */
 export const modelStore = createBrowserStore("heidi.practice.model.v1", decodeModel);
+
+/** The sitting in progress, so closing the screen does not lose it — see `resume.ts`. */
+export const sessionStore = createBrowserStore("heidi.practice.session.v1", decodeSaved);

@@ -586,6 +586,7 @@ export const ru: Dictionary = {
       progressSync: "Синхронизированный прогресс (только если включено)",
       certificates: "Ваши сертификаты",
       warmup: "Ваша разминка: какие фразы вы поняли",
+      practiceSession: "Начатая тренировка, чтобы её можно было продолжить",
       language: "Выбранный язык (только с аккаунтом)",
       ownKey: "Ваш собственный API-ключ",
       theme: "Светлое или тёмное оформление",
@@ -1025,6 +1026,13 @@ export const ru: Dictionary = {
   focus: {
     minimize: "Свернуть",
     expand: "Продолжить на весь экран",
+  },
+
+  /** The exercise screen — see `session/frame.tsx`. */
+  session: {
+    close: "Закрыть упражнение",
+    finish: "Готово",
+    resume: "Продолжить — вопрос {n} из {total}",
   },
 
   practice: {

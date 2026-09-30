@@ -10,13 +10,15 @@ import { useBrowserStore, useStorageReady, useStoreWriter } from "@/lib/browser/
 import type { PracticeItem } from "@/lib/domain/practice/types";
 import { EMPTY_MODEL, observe } from "@/lib/domain/practice/model";
 import { NO_HISTORY, remember } from "@/lib/domain/practice/history";
+import { OPENER } from "@/lib/domain/warmup/ladder";
 import { LENGTH, nextQuestion, portrait, sceneLookup, type WarmupAnswer, type WarmupRecord } from "@/lib/domain/warmup/run";
 import { QuestionCard } from "./exercises/question-card";
 import { historyStore, modelStore } from "./practice-stores";
 import { recordPractice } from "./streak-store";
 import { warmupStore } from "./warmup-store";
 import { LanguageLink } from "./language-link";
-import { FocusSurface } from "./focus-surface";
+import { SessionFrame } from "./session/frame";
+import { Actions, PRIMARY } from "./exercises/actions";
 
 /**
  * The warm-up, start to portrait. The rules live in `lib/domain/warmup/run.ts`;
@@ -25,6 +27,11 @@ import { FocusSurface } from "./focus-surface";
  * Every answer is also practice: it goes into the learner model and the
  * seen-questions history exactly as a drill answer would, so the first real
  * session starts where the warm-up found the gaps instead of from zero.
+ *
+ * TWO PLACES. On `/warmup` (`surface: "page"`) it is the invitation or, once
+ * done, the result — and the button opens the session screen. The eight lines
+ * themselves are asked on `/warmup/session` (`surface: "session"`), full
+ * screen like every other exercise, and the result closes the run there.
  */
 export function WarmupSession({
   items,
@@ -34,8 +41,11 @@ export function WarmupSession({
   situationsT,
   vocabularyT,
   learnT,
-  focusT,
+  sessionT,
   locale,
+  surface,
+  sessionHref,
+  closeHref,
 }: {
   items: readonly PracticeItem[];
   t: Dictionary["warmup"];
@@ -44,8 +54,13 @@ export function WarmupSession({
   situationsT: Dictionary["situations"];
   vocabularyT: Dictionary["vocabulary"];
   learnT: Dictionary["chat"]["learn"];
-  focusT: Dictionary["focus"];
+  sessionT: Dictionary["session"];
   locale: Locale;
+  surface: "page" | "session";
+  /** The session screen, for the page's buttons. */
+  sessionHref: string;
+  /** Where the session screen closes to. */
+  closeHref: string;
 }) {
   const ready = useStorageReady();
   const record = useBrowserStore(warmupStore);
@@ -56,13 +71,20 @@ export function WarmupSession({
   const byId = useMemo(() => new Map(items.map((i) => [i.id, i])), [items]);
   const sceneOf = useMemo(() => sceneLookup(items), [items]);
 
-  /** Null when not running: the intro, or the portrait of the last run. */
-  const [answers, setAnswers] = useState<WarmupAnswer[] | null>(null);
-  const [current, setCurrent] = useState<string | null>(null);
+  /**
+   * Null when not running. The session screen opens running: it was opened
+   * to play, and the first line is always the same opener, so the server and
+   * the browser agree on it.
+   */
+  const [answers, setAnswers] = useState<WarmupAnswer[] | null>(surface === "session" ? [] : null);
+  const [current, setCurrent] = useState<string | null>(surface === "session" ? OPENER : null);
+  /** The result shown on the session screen is this run's, never an older one. */
+  const [finishedHere, setFinishedHere] = useState(false);
 
   function start() {
     setAnswers([]);
     setCurrent(nextQuestion([], sceneOf));
+    setFinishedHere(false);
   }
 
   function answer(id: string, outcome: "right" | "wrong" | "skipped") {
@@ -88,74 +110,83 @@ export function WarmupSession({
     recordPractice();
     setAnswers(null);
     setCurrent(null);
+    setFinishedHere(true);
   }
 
-  // Nothing until storage is readable, so a returning visitor does not see
-  // the intro flash before their result.
-  if (!ready) return <div className="min-h-64" aria-hidden="true" />;
+  const result = record ? (
+    <Result
+      record={record}
+      sceneOf={sceneOf}
+      t={t}
+      situationsT={situationsT}
+      locale={locale}
+      again={surface === "session" ? { onClick: start } : { href: sessionHref }}
+      onDecline={() => writeRecord.write({ ...record, dialect: "declined" })}
+      onAccept={() => writeRecord.write({ ...record, dialect: "accepted" })}
+    />
+  ) : null;
 
-  const item = current ? byId.get(current) : undefined;
-  const running = answers !== null && item !== undefined;
-  const n = (answers?.length ?? 0) + 1;
-  const progress = n > LENGTH ? t.bonus : fill(t.progress, { n: String(n), total: String(LENGTH) });
-
-  return (
-    <FocusSurface open={running} title={t.inviteTitle} progress={running ? progress : undefined} t={focusT} scrollKey={current ?? "rest"}>
-      {answers && item ? (
-        <div className="max-w-measure">
-          <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{progress}</p>
-          <Dots answers={answers} />
-          <QuestionCard
-            key={item.id}
-            item={item}
-            t={practiceT}
-            grammarT={grammarT}
-            situationsT={situationsT}
-            vocabularyT={vocabularyT}
-            learnT={learnT}
-            locale={locale}
-            reveal="now"
-            onAnswer={answer}
-            onRecall={() => {}}
-          />
-        </div>
-      ) : record ? (
-        <Result
-          record={record}
-          sceneOf={sceneOf}
-          t={t}
-          situationsT={situationsT}
-          locale={locale}
-          onAgain={start}
-          onDecline={() => writeRecord.write({ ...record, dialect: "declined" })}
-          onAccept={() => writeRecord.write({ ...record, dialect: "accepted" })}
-        />
-      ) : (
+  if (surface === "page") {
+    // Nothing until storage is readable, so a returning visitor does not see
+    // the intro flash before their result.
+    if (!ready) return <div className="min-h-64" aria-hidden="true" />;
+    return (
+      result ?? (
         <div className="max-w-measure rounded-control border border-border-strong bg-surface-raised p-5 sm:p-6">
           <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.facts}</p>
-          <button
-            type="button"
-            onClick={start}
+          <Link
+            href={sessionHref}
             className="mt-4 inline-flex min-h-12 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
           >
             {t.start} →
-          </button>
+          </Link>
         </div>
-      )}
-    </FocusSurface>
-  );
-}
+      )
+    );
+  }
 
-/** How far along, as eight marks: filled for understood, hollow for missed. */
-function Dots({ answers }: { answers: readonly WarmupAnswer[] }) {
+  const item = current ? byId.get(current) : undefined;
+  const n = (answers?.length ?? 0) + 1;
+  const progress = n > LENGTH ? t.bonus : fill(t.progress, { n: String(n), total: String(LENGTH) });
+
+  if (answers && item) {
+    return (
+      <SessionFrame
+        t={sessionT}
+        closeHref={closeHref}
+        progress={{ at: Math.min(answers.length, LENGTH - 1), total: LENGTH, label: progress }}
+        scrollKey={item.id}
+      >
+        {/* The bar above counts to eight; the bonus line is the one it cannot say. */}
+        {n > LENGTH && <p className="mb-3 font-mono text-caption uppercase tracking-caps text-fg-muted">{progress}</p>}
+        <QuestionCard
+          key={item.id}
+          item={item}
+          t={practiceT}
+          grammarT={grammarT}
+          situationsT={situationsT}
+          vocabularyT={vocabularyT}
+          learnT={learnT}
+          locale={locale}
+          reveal="now"
+          onAnswer={answer}
+          onRecall={() => {}}
+        />
+      </SessionFrame>
+    );
+  }
+
   return (
-    <ol aria-hidden="true" className="mt-2 flex gap-1.5">
-      {Array.from({ length: LENGTH }, (_, i) => {
-        const a = answers[i];
-        const tone = !a ? "bg-border-subtle" : a.right ? "bg-accent" : "border border-border-strong bg-transparent";
-        return <li key={i} className={`h-2 w-6 rounded-full ${tone}`} />;
-      })}
-    </ol>
+    <SessionFrame t={sessionT} closeHref={closeHref} scrollKey="result">
+      {finishedHere && result}
+      {finishedHere && result && (
+        <Actions>
+          <Link href={closeHref} replace className={`${PRIMARY} inline-flex items-center justify-center`}>
+            {sessionT.finish}
+          </Link>
+        </Actions>
+      )}
+    </SessionFrame>
   );
 }
 
@@ -165,7 +196,7 @@ function Result({
   t,
   situationsT,
   locale,
-  onAgain,
+  again,
   onDecline,
   onAccept,
 }: {
@@ -174,7 +205,8 @@ function Result({
   t: Dictionary["warmup"];
   situationsT: Dictionary["situations"];
   locale: Locale;
-  onAgain: () => void;
+  /** Another round: in place on the session screen, or a link to it from the page. */
+  again: { onClick: () => void } | { href: string };
   onDecline: () => void;
   onAccept: () => void;
 }) {
@@ -268,13 +300,17 @@ function Result({
         )}
       </div>
 
-      <button
-        type="button"
-        onClick={onAgain}
-        className="mt-4 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
-      >
-        {t.again}
-      </button>
+      {"href" in again ? (
+        <Link href={again.href} className={AGAIN}>
+          {t.again}
+        </Link>
+      ) : (
+        <button type="button" onClick={again.onClick} className={AGAIN}>
+          {t.again}
+        </button>
+      )}
     </div>
   );
 }
+
+const AGAIN = "mt-4 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent";

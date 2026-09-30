@@ -594,6 +594,7 @@ export const rm: Dictionary = {
       progressSync: "Progress sincronisà (mo sch’activà)",
       certificates: "Voss attestats",
       warmup: "Voss scaldar: tge frasas che Vus avais chapì",
+      practiceSession: "In exercizi cumenzà, per cuntinuar pli tard",
       language: "La lingua tschernida (mo cun in conto)",
       ownKey: "Vossa atgna clav API",
       theme: "Apparientscha clera u stgira",
@@ -1033,6 +1034,13 @@ export const rm: Dictionary = {
   focus: {
     minimize: "Reducir",
     expand: "Cuntinuar sin l’entir visur",
+  },
+
+  /** The exercise screen — see `session/frame.tsx`. */
+  session: {
+    close: "Serrar l’exercizi",
+    finish: "Fatg",
+    resume: "Cuntinuar — dumonda {n} da {total}",
   },
 
   practice: {

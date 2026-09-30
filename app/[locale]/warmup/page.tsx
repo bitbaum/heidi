@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
-import { PACK_ITEMS } from "@/lib/domain/practice/published";
-import { LADDER, OPENER } from "@/lib/domain/warmup/ladder";
+import { href } from "@/lib/i18n/routes";
 import { PageHeader, Shell } from "../_components/page-shell";
 import { WarmupSession } from "../_components/warmup-session";
+import { WARMUP_ITEMS } from "./items";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -12,20 +12,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return { title: dict.warmup.title, description: dict.warmup.metaDescription };
 }
 
-/** Only the warm-up's own questions travel to the browser, not the whole pool. */
-const WARMUP_IDS = new Set([OPENER, ...LADDER.flat()]);
-const WARMUP_ITEMS = PACK_ITEMS.filter((item) => WARMUP_IDS.has(item.id));
-
 /**
  * «Wie viel Züridütsch verstehen Sie schon?» — eight lines, no grade, and
  * where starting pays off. See `lib/domain/warmup/run.ts` for the rules and
- * why there is no level.
+ * why there is no level. The lines themselves are asked on the session
+ * screen, `/warmup/session`; this page is the invitation and the result.
  */
 export default async function WarmupPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   const t = dict.warmup;
+  const page = href(locale, "warmup");
 
   return (
     <Shell>
@@ -39,8 +37,11 @@ export default async function WarmupPage({ params }: { params: Promise<{ locale:
           situationsT={dict.situations}
           vocabularyT={dict.vocabulary}
           learnT={dict.chat.learn}
-          focusT={dict.focus}
+          sessionT={dict.session}
           locale={locale}
+          surface="page"
+          sessionHref={`${page}/session`}
+          closeHref={page}
         />
       </div>
     </Shell>

@@ -1,31 +1,29 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import { useDismiss } from "./use-dismiss";
 import { useKeyboardViewport } from "./use-keyboard-viewport";
 
 /**
- * Doing something on a phone gets the whole screen; minimising puts it back
- * into the page.
+ * The home page's chat, full screen on a phone once the learner writes;
+ * minimising puts it back into the page.
  *
- * WHY. Answering a question on a phone moved the page under the learner's
- * thumb. Above the question sit the streak card and the "what to work on"
- * panel, and both change height as answers come in; iOS Safari has no scroll
- * anchoring, so every change above pushed the question down. A shorter next
- * question made the page snap up instead. The learner scrolled back and forth
- * after every answer.
- *
- * Full screen fixes that by construction: inside a fixed layer with its own
- * scroll, nothing on the page can move what you are working on, and each new
- * question (`scrollKey`) starts at the top. It is also what an app does, and
- * minimising is one tap back to the site with the session intact — the
+ * WHY. A conversation that grows inside a page pushes the page around: the
+ * composer drifts down with every answer and the reader scrolls past the chat
+ * to the footer and back. Inside a fixed layer with its own scroll the
+ * composer sits at the bottom of the screen, like a messaging app, and
+ * minimising is one tap back to the site with the conversation intact — the
  * children are the same tree either way, only the frame changes.
  *
- * BELOW `lg` ONLY. On a wide screen the page has room beside the task and the
- * browser anchors scrolling itself; there a new question that begins above
- * the viewport is simply scrolled to, which is the part of the fix that
- * applies everywhere.
+ * Exercises used to run in this too. They have their own screen now
+ * (`session/frame.tsx`), because a drill has no page it needs to return into.
+ *
+ * BELOW `lg` ONLY. On a wide screen the page has room beside the chat.
+ *
+ * CONTROLLED. The chat decides when it wants the screen: a conversation
+ * restored from yesterday sits in the page, and takes the screen when the
+ * learner writes (`chat.tsx`).
  *
  * The keyboard: the layer is sized by `--app-height`/`--app-top`, kept equal
  * to what the on-screen keyboard leaves visible — the same as the open dock,
@@ -48,95 +46,36 @@ export function useCompact(): boolean {
 export function FocusSurface({
   open,
   title,
-  progress,
   t,
-  scrollKey,
-  gate,
-  minimized: controlledMinimized,
+  minimized,
   onMinimizedChange,
   children,
 }: {
-  /** The task is under way, so on a phone it takes the screen. */
+  /** There is a conversation, so on a phone it may take the screen. */
   open: boolean;
-  /** What is being done, in the header of the full-screen layer. */
+  /** In the header of the full-screen layer, and on the bar that brings it back. */
   title: string;
-  /** "Question 3 of 8": on the bar that brings a minimised task back. */
-  progress?: string;
   t: Dictionary["focus"];
-  /** Changes when a new question appears; the layer goes back to its top. */
-  scrollKey?: string;
-  /**
-   * For a task that is ready before anyone asked for it (practice builds its
-   * session on load): on a phone, a button that starts it full screen instead
-   * of a question sitting half way down the page.
-   */
-  gate?: { label: string; onStart: () => void };
-  /**
-   * Held by the caller instead, for a task that decides for itself when it
-   * wants the screen: a chat restored from yesterday sits in the page, and
-   * takes the screen when the learner writes.
-   */
-  minimized?: boolean;
-  onMinimizedChange?: (minimized: boolean) => void;
+  minimized: boolean;
+  onMinimizedChange: (minimized: boolean) => void;
   children: React.ReactNode;
 }) {
   const compact = useCompact();
-  const [ownMinimized, setOwnMinimized] = useState(false);
-  const minimized = controlledMinimized ?? ownMinimized;
-  const setMinimized = onMinimizedChange ?? setOwnMinimized;
   const ref = useRef<HTMLDivElement>(null);
-
-  // A task that opens again (another round) opens full screen again.
-  const [wasOpen, setWasOpen] = useState(open);
-  if (open !== wasOpen) {
-    setWasOpen(open);
-    if (open) setOwnMinimized(false);
-  }
-
   const full = compact && open && !minimized;
 
-  // A new question starts at its top, full screen or not.
-  const lastKey = useRef(scrollKey);
-  useEffect(() => {
-    if (scrollKey === lastKey.current) return;
-    lastKey.current = scrollKey;
-    const el = ref.current;
-    if (!el) return;
-    if (full) {
-      el.scrollTo({ top: 0 });
-    } else if (el.getBoundingClientRect().top < 0) {
-      el.scrollIntoView({ block: "start" });
-    }
-  }, [scrollKey, full]);
-
-  // Back in the page — after minimising, or when the task ends — the reader
-  // lands where it now sits, not wherever the page happened to be scrolled.
+  // Back in the page after minimising, the reader lands where the chat now
+  // sits, not wherever the page happened to be scrolled.
   const wasFull = useRef(full);
   useEffect(() => {
     if (wasFull.current && !full) ref.current?.scrollIntoView({ block: "start" });
     wasFull.current = full;
   }, [full]);
 
-  // Escape minimises, as it closes the dock. A tap on the page cannot: there
-  // is no page showing, and a tap inside is an answer.
-  const minimize = useCallback(() => setMinimized(true), [setMinimized]);
+  // Escape minimises, as it closes the dock. A tap outside cannot: there is
+  // no page showing.
+  const minimize = useCallback(() => onMinimizedChange(true), [onMinimizedChange]);
   useDismiss({ open: full, onDismiss: minimize, containerRef: ref, onPointerOutside: false, onNavigate: false });
-
-  if (compact && !open && gate) {
-    return (
-      <div className="max-w-measure rounded-control border border-border-strong bg-surface-raised p-5">
-        <button
-          type="button"
-          onClick={gate.onStart}
-          className="inline-flex min-h-12 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
-        >
-          {gate.label} →
-        </button>
-      </div>
-    );
-  }
-
-  const heading = progress ? `${title} · ${progress}` : title;
 
   return (
     <div
@@ -151,7 +90,6 @@ export function FocusSurface({
       {full && <KeyboardViewport />}
       {full && (
         <div className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-border-subtle bg-surface-page px-4 py-1.5">
-          {/* The title alone: the task shows its own progress right below. */}
           <p className="min-w-0 truncate font-mono text-caption uppercase tracking-caps text-fg-muted">{title}</p>
           <button
             type="button"
@@ -167,10 +105,10 @@ export function FocusSurface({
       {compact && open && minimized && (
         <button
           type="button"
-          onClick={() => setMinimized(false)}
+          onClick={() => onMinimizedChange(false)}
           className="mb-3 flex min-h-11 w-full max-w-measure items-center justify-between gap-3 rounded-control border border-border-strong bg-surface-raised px-4 text-left text-sm"
         >
-          <span className="min-w-0 truncate text-fg-secondary">{heading}</span>
+          <span className="min-w-0 truncate text-fg-secondary">{title}</span>
           <span className="inline-flex shrink-0 items-center gap-1.5 font-medium text-fg-primary">
             <ExpandIcon />
             {t.expand}
@@ -178,7 +116,7 @@ export function FocusSurface({
         </button>
       )}
 
-      {/* A column that fills the screen, so a chat can put its box at the
+      {/* A column that fills the screen, so the chat can put its box at the
           bottom (`mt-auto`) the way a messaging app does. */}
       <div className={full ? "flex flex-1 flex-col px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))]" : undefined}>
         {children}

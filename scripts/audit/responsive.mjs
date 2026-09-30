@@ -80,6 +80,10 @@ const PATHS = [
   // The practice page in a SCOPED state, which is a different layout: it adds
   // the scope banner above the session, and its pill wraps in three languages.
   "/practice?topic=no-preterite",
+  // The session screens: no header and no footer, a body exactly the screen
+  // high, and the answer bar pinned under a scrolling question. The test
+  // carries its clock in the top bar, the one place a long label can collide.
+  "/practice/session", "/practice/session?flow=test", "/warmup", "/warmup/session",
 ];
 
 /**
