@@ -42,6 +42,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-09-30",
+      tag: "fix",
+      title: "Kein Test aus zwei Fragen, keine Fragen ohne Züridütsch",
+      summary:
+        "Ein Test zu «Bsitz andersume» hatte zwei Fragen, egal welche Zeit Sie wählten: Das Thema hat nur zwei Fragen, die sich prüfen lassen. Einen Test gibt es jetzt nur ab zehn solchen Fragen, sonst wird geübt.",
+      items: [
+        "Bei «Annas Schwester kommt auch noch» nannten die falschen Antworten eine andere Person, liessen die Schwester weg oder sagten «nöd». Die richtige fand man, indem man das Deutsche verglich. Jetzt kommen in allen Antworten Anna und ihre Schwester vor, und nur «de Anna ihri» sagt, wer kommt.",
+        "Ebenso bei «Herrn Meiers Zimmer» und den beiden «wo»-Fragen, deren falsche Antworten «wo» jetzt als Frage nach dem Ort lesen.",
+        "Die Erklärung zum Besitz spricht nicht mehr von «wo» im Relativsatz; das ist jetzt eine eigene Erklärung.",
+      ],
+    },
+    {
+      date: "2026-09-30",
       tag: "feature",
       title: "Fragen kommen wieder, bevor Sie sie vergessen",
       summary:
@@ -408,6 +420,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-30",
+      tag: "fix",
+      title: "No two-question tests, no questions that need no Zurich German",
+      summary:
+        "A test on \u201cBsitz andersume\u201d had two questions, whatever time you chose: the topic has only two questions that can be marked. A test is now offered only with at least ten; below that you practise.",
+      items: [
+        "For \u201cAnnas Schwester kommt auch noch\u201d the wrong answers named another person, dropped the sister or said \u201cn\u00f6d\u201d, so comparing the German found the right one. Now every answer has Anna and her sister, and only \u201cde Anna ihri\u201d says who comes.",
+        "The same for \u201cHerrn Meiers Zimmer\u201d and the two \u201cwo\u201d questions, whose wrong answers now read \u201cwo\u201d as \u201cwhere\u201d.",
+        "The explanation for possession no longer talks about \u201cwo\u201d relative clauses; that has its own explanation now.",
+      ],
+    },
     {
       date: "2026-09-30",
       tag: "feature",
