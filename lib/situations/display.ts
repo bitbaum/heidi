@@ -132,3 +132,12 @@ export function scenesSayingWord(word: string): DisplayScene[] {
   if (!needle) return [];
   return SCENES.filter((scene) => scene.phrases.some((phrase) => saysWord(phrase.target, needle)));
 }
+
+/** Every line that says the word, with its scene — the same whole-word join, one line at a time. */
+export function linesSayingWord(word: string): { scene: DisplayScene; phrase: DisplayPhrase }[] {
+  const needle = word.trim();
+  if (!needle) return [];
+  return SCENES.flatMap((scene) =>
+    scene.phrases.filter((phrase) => saysWord(phrase.target, needle)).map((phrase) => ({ scene, phrase })),
+  );
+}

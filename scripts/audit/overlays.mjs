@@ -17,6 +17,8 @@
  *   NONE     no panel can be found — for a screen reader, too
  *   EMPTY    the panel has no size
  *   COVERED  another element is on top of the panel at one of five points
+ *            (only for panels drawn over the page; one that opens in the
+ *            flow, like a word row, is not an overlay)
  *   CLEAR    no background anywhere up the tree: the page shows through
  *   BRIGHT   in dark mode, a fixed element (floating chrome, a backdrop)
  *            painted light — the white pill in the corner and the white haze
@@ -38,6 +40,19 @@ const THEMES = (process.env.THEMES ?? "light,dark").split(",");
 
 /** Runs in the page: what is wrong with the panel `trigger` just opened. */
 function inspect(trigger) {
+  /**
+   * Whether the panel is drawn OVER the page: it, or something it sits in, is
+   * taken out of the flow. A disclosure that opens in the flow — a word row on
+   * /vocabulary — pushes the page down instead; the floating dock passing over
+   * it on scroll is the dock doing its job, not a layer tie. Declared inside,
+   * because Playwright serialises this function without its surroundings.
+   */
+  const layered = (panel) => {
+    for (let el = panel; el && el !== document.body; el = el.parentElement) {
+      if (el.tagName === "DIALOG" || ["fixed", "absolute", "sticky"].includes(getComputedStyle(el).position)) return true;
+    }
+    return false;
+  };
   const id = trigger.getAttribute("aria-controls");
   const panel =
     (id && document.getElementById(id)) ||
@@ -45,6 +60,7 @@ function inspect(trigger) {
   if (!panel) return ["NONE"];
   const r = panel.getBoundingClientRect();
   if (r.width < 4 || r.height < 4) return ["EMPTY"];
+  if (!layered(panel)) return [];
 
   const out = [];
   const clampX = (x) => Math.max(1, Math.min(x, innerWidth - 2));

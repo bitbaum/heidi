@@ -21,6 +21,14 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-10-01
+
+- **The vocabulary page says what to learn next.** It used to print every word with up to seventeen scene links: 23,217 px on a phone, with no hint which word mattered or whether you knew it. It now opens with the ten words that pay off most and one button to practise exactly those, then the full list in the same order, at 5,532 px on a phone.
+  - The order is measured: words you hear most in the scenes and cannot work out from German come first; words that sound almost like German (after the sound rules) go last; false friends lead among equals.
+  - Each word shows whether it is new, being learned or known, read from your practice answers and kept words, with nothing new stored.
+  - Rows open on demand: an example sentence, forms, where it comes up, «practise just this word» and «show it in a sentence». Search ignores accents and spelling (hardopfel finds Härdöpfel).
+  - Practice gains a words scope (`?words=…`, at most 30), used by «learn the next ten», each row and the group button.
+
 ## 2026-09-30
 
 - **Tests for 17 of the 19 grammar topics.** Before, only «Kein Präteritum» had enough markable questions for a test. 107 new «which sentence says exactly this?» questions cover the subjunctive, short pronouns, participles, verb order, direction words, articles before names, «wo» clauses, possession, the imperative and the indefinite article, each with its own lesson where the existing ones did not fit (wish, clitic, modal-past, direction, name-role). The practice pool grows from 1,761 to 1,876 questions.

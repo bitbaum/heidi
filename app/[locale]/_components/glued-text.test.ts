@@ -21,14 +21,14 @@ import { join } from "node:path";
 describe("the word list never stitches two words together", () => {
   test("every inline tag after the meaning is separated by a real space", () => {
     const text = readFileSync(join("app", "[locale]", "_components", "word-list.tsx"), "utf8");
-    const i = text.indexOf("{word.bridge}");
+    const i = text.indexOf("{row.bridge}");
     assert.ok(i > 0, "the meaning is no longer rendered where this test looks");
-    const line = text.slice(i, text.indexOf("</span>", text.indexOf("{word.bridge}") + 400) + 7);
+    const line = text.slice(i, text.indexOf("</span>", text.indexOf("{row.bridge}") + 400) + 7);
     // any `<span className="ml-…` inline tag in the meaning's line must have a
     // `" "` expression immediately before its conditional
-    const tags = [...line.matchAll(/\{word\.(\w+) && \(\s*<span className="(ml-[^"]*)"/g)];
+    const tags = [...line.matchAll(/\{row\.(\w+) && \(\s*<span className="(ml-[^"]*)"/g)];
     for (const [, field] of tags) {
-      assert.match(line, new RegExp(`\\{word\\.${field} && " "\\}`), `word.${field} is glued to the meaning — add {word.${field} && " "}`);
+      assert.match(line, new RegExp(`\\{row\\.${field} && " "\\}`), `row.${field} is glued to the meaning — add {row.${field} && " "}`);
     }
   });
 });
