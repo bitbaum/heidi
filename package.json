@@ -12,6 +12,7 @@
     "test": "node --no-warnings --experimental-strip-types --experimental-test-module-mocks --test-concurrency=1 --test 'app/**/*.test.ts' 'lib/**/*.test.ts'",
     "db:generate": "drizzle-kit generate",
     "audit:responsive": "node scripts/audit/responsive.mjs",
+    "audit:overlays": "node scripts/audit/overlays.mjs",
     "audit:speaking": "node scripts/audit/speaking.mjs",
     "audit:language": "node scripts/audit/language.mjs"
   },

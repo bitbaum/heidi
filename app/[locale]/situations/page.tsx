@@ -70,7 +70,9 @@ export default async function SituationsPage({ params }: { params: Promise<{ loc
       <PageHeader title={t.title} lead={t.lead} />
       <p className="mt-6 max-w-measure text-sm leading-relaxed text-fg-muted">{t.note}</p>
 
-      <SituationBoard scenes={scenes} askable={askableByScene} t={t} locale={locale} />
+      <div className="mt-12 empty:hidden">
+        <SituationBoard scenes={scenes} askable={askableByScene} t={t} locale={locale} />
+      </div>
 
       <div className="mt-12 flex flex-col gap-16">
         {DOMAINS.map((domain) => {

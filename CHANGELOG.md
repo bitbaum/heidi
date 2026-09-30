@@ -23,6 +23,12 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-09-30
 
+- **Fixed: menus did not show over the chat.** On `/chat` the header's menus opened below the bottom of the screen and behind the conversation list, on a computer, in light and dark. A stylesheet rule made the header `position: static` there, which switched its z-index off and anchored its menus to the page; and its layer (30) tied with the conversation list, which comes later in the page. The header is positioned again, sits on its own layer (45) above anything a page uses, and a source test holds the scale. A new overlay audit opens every expandable control on six pages at two widths in light and dark and fails if a panel is missing, empty, covered or see-through; CI runs it after the build.
+  - The language switcher sits left of the account menu, which keeps the corner. Its panel hangs from the header row like the account menu's, so it stays on a 320px screen.
+- **«Mein Bereich» starts with what today asks of you.** A «Heute» panel on top: the streak, how many questions and kept words are due, «Jetzt üben» and «Mit Heidi chatten», and the weekly goal. It replaces the streak card, the due count further down and the chat button at the end of the page.
+  - Progress panels (what to work on, situations, what you can do, patterns) appear only once they have something to show. A new account used to see six empty boxes.
+  - Kept words are one section (the one due, then the list). Conversations and groups sit side by side on a wide screen. The jump strip is gone: on a page this short it only ever pointed at the empty parts.
+  - The page is about a third shorter: 3541 to 2374 pixels on a desktop for a new account.
 - **Questions come back before you forget them.** Every question now has its own date to return: tomorrow after a first right answer, then after 3, 7, 16 and 35 days, and back to tomorrow after a miss. A sitting starts with the questions that are due, then brings new ones; a question you answered recently waits its turn. Before, a question answered right once never came back on purpose, and only the words you kept had a schedule.
   - The practice page says how many questions are due today, and the end of a sitting how many come back tomorrow.
   - Practice and the warm-up count; the test does not (it only measures). Only the first answer in a sitting counts, as before.

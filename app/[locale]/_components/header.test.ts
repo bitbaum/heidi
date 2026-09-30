@@ -65,4 +65,21 @@ describe("the desktop header", () => {
       assert.ok(grouped.has(route.key), `${route.key} is navigable but reaches no menu`);
     }
   });
+
+  test("the language sits left of the account, which keeps the corner", () => {
+    const language = HEADER.indexOf("<LanguageSwitcher");
+    const account = HEADER.indexOf("{account}");
+    assert.ok(language > 0 && account > 0, "the header no longer renders both controls");
+    assert.ok(language < account, "the account menu is the corner control; the language goes before it");
+  });
+
+  test("the row's dropdowns hang from the row, not from their own button", () => {
+    // Anchored to its button, a panel is on screen only while that button is
+    // the last in the row. Both have run off a phone's left edge that way.
+    for (const file of ["./language-switcher.tsx", "./account-menu.tsx"]) {
+      const src = readFileSync(fileURLToPath(new URL(file, import.meta.url)), "utf8");
+      assert.doesNotMatch(src, /<div ref=\{\w+\} className="[^"]*\brelative\b/, `${file}: its wrapper must stay unpositioned`);
+      assert.match(src, /absolute right-0 top-full/, `${file}: the panel anchors to the row's right edge`);
+    }
+  });
 });

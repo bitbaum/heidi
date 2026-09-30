@@ -67,7 +67,7 @@ export function WarmupInvite({
   }
 
   return (
-    <section className="mb-8 flex flex-col gap-4 rounded-control border border-accent bg-surface-raised p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+    <section className="flex flex-col gap-4 rounded-control border border-accent bg-surface-raised p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
       <div className="min-w-0">
         <h2 className="font-heading text-xl font-semibold tracking-display text-fg-primary">{t.inviteTitle}</h2>
         <p className="mt-1 text-base leading-relaxed text-fg-secondary">{t.inviteBody}</p>

@@ -15,7 +15,7 @@ import { BandHeader, Shell } from "../_components/page-shell";
 import { FocusPanel } from "../_components/focus-panel";
 import { PracticeChooser } from "../_components/practice-chooser";
 import { StartCard } from "../_components/session/start-card";
-import { StreakCard } from "../_components/streak-card";
+import { StreakLine } from "../_components/streak-card";
 import { WarmupInvite } from "../_components/warmup-invite";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -104,7 +104,7 @@ export default async function PracticePage({
 
       <div className="border-t border-border-subtle pt-8">
         <div className="mb-6">
-          <StreakCard t={dict.streak} locale={locale} compact />
+          <StreakLine t={dict.streak} locale={locale} />
         </div>
         {/* The subject of a scoped sitting, named, with the door back to
             everything. A drill that has silently been narrowed is worse than

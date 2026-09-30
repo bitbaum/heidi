@@ -43,6 +43,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-09-30",
       tag: "fix",
+      title: "Menüs über dem Chat sichtbar, «Mein Bereich» aufgeräumt",
+      summary:
+        "Auf der Chat-Seite öffneten sich die Menüs im Kopf (Lernen, Üben, Über Heidi) unsichtbar: unter dem unteren Bildschirmrand und hinter der Gesprächsliste, am Computer, hell wie dunkel. Sie liegen jetzt immer obenauf. Die Sprachwahl steht links vom Konto.",
+      items: [
+        "Jedes aufklappbare Element der Website wird jetzt bei jeder Änderung automatisch geöffnet und geprüft, ob es sichtbar und zuoberst ist, am Computer und am Handy, hell und dunkel.",
+        "«Mein Bereich» beginnt mit «Heute»: Ihre Serie, wie viele Fragen und Wörter fällig sind, «Jetzt üben» und «Mit Heidi chatten», darunter das Wochenziel.",
+        "Was Sie üben und schon können, erscheint erst, wenn es etwas zu zeigen gibt. Vorher waren es sechs leere Kästen mit «Noch nichts».",
+        "Ihre Wörter sind ein Abschnitt; Gespräche und Lerngruppen stehen am Computer nebeneinander. Die Sprungleiste links und der doppelte Chat-Knopf am Ende sind weg.",
+      ],
+    },
+    {
+      date: "2026-09-30",
+      tag: "fix",
       title: "Kein Test aus zwei Fragen, keine Fragen ohne Züridütsch",
       summary:
         "Ein Test zu «Bsitz andersume» hatte zwei Fragen, egal welche Zeit Sie wählten: Das Thema hat nur zwei Fragen, die sich prüfen lassen. Einen Test gibt es jetzt nur ab zehn solchen Fragen, sonst wird geübt.",
@@ -420,6 +433,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-30",
+      tag: "fix",
+      title: "Menus visible over the chat, \u201cMein Bereich\u201d tidied",
+      summary:
+        "On the chat page the header's menus (Learn, Practise, About Heidi) opened out of sight: below the bottom of the screen and behind the conversation list, on a computer, in light and dark. They are always on top now. The language switcher sits left of the account.",
+      items: [
+        "Every expandable element on the site is now opened automatically on every change and checked for being visible and on top, on a computer and a phone, in light and dark.",
+        "\u201cMein Bereich\u201d starts with \u201cToday\u201d: your streak, how many questions and words are due, \u201cPractise now\u201d and \u201cChat with Heidi\u201d, with the weekly goal underneath.",
+        "What you are working on and what you can already do appear once there is something to show. Before, they were six empty boxes saying \u201cnothing yet\u201d.",
+        "Your words are one section; conversations and groups sit side by side on a computer. The jump strip on the left and the second chat button at the end are gone.",
+      ],
+    },
     {
       date: "2026-09-30",
       tag: "fix",

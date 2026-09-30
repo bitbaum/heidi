@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useId, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { useDismiss } from "./use-dismiss";
@@ -31,16 +31,15 @@ export function LanguageSwitcher({
   current,
   label,
   groupLabels,
-  align = "right",
 }: {
   current: Locale;
   label: string;
   groupLabels: Record<LocaleGroup, string>;
-  align?: "left" | "right";
 }) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const button = useRef<HTMLButtonElement>(null);
+  const panel = useId();
   const pathname = usePathname();
 
   // The path below the locale, so switching keeps you on the page you are
@@ -59,12 +58,17 @@ export function LanguageSwitcher({
   useDismiss({ open, onDismiss: dismiss, containerRef: root, focusRef: button });
 
   return (
-    <div ref={root} className="relative">
+    /* Unpositioned, like the account menu's wrapper: the panel hangs from the
+       header's control row, whose right edge is the page gutter. Anchored to
+       this button it ran 45px off the left of a 320px screen the day the
+       button stopped being the last control in the row. */
+    <div ref={root}>
       <button
         ref={button}
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
+        aria-controls={open ? panel : undefined}
         aria-haspopup="true"
         aria-label={label}
         className="inline-flex min-h-11 items-center gap-1.5 rounded-control border border-border-strong px-3 text-fg-secondary transition-colors hover:text-fg-primary"
@@ -80,9 +84,8 @@ export function LanguageSwitcher({
 
       {open && (
         <div
-          className={`absolute z-40 mt-1 w-56 overflow-hidden rounded-control border border-border-strong bg-surface-raised shadow-lg ${
-            align === "right" ? "right-0" : "left-0"
-          }`}
+          id={panel}
+          className="absolute right-0 top-full z-40 mt-1 w-56 overflow-hidden rounded-control border border-border-strong bg-surface-raised shadow-lg"
         >
           {GROUP_ORDER.map((group) => (
             <div key={group} className="border-b border-border-subtle last:border-b-0">

@@ -9,7 +9,6 @@ import { DISPLAY } from "@/lib/variety/display";
 import { masteredCount, masteredIn } from "@/lib/domain/practice/mastered";
 import { useModelView } from "./sync-stores";
 import { SessionLink } from "./session/links";
-import { ALL } from "@/lib/domain/practice/scope";
 
 /**
  * What you can do now that you could not before.
@@ -56,37 +55,18 @@ export function MasteredPanel({
   const total = masteredCount(mastered);
 
   /**
-   * Nothing yet is the common case on day one, and it says so rather than
-   * disappearing — the same lesson the patterns panel had to learn when the
-   * dashboard started advertising it in a jump strip.
+   * NOTHING YET RENDERS NOTHING. The empty box used to stay because a jump
+   * strip at the top of the page linked here; the strip is gone, and a
+   * personal page made of promises about later was the complaint. The top of
+   * the page (`today-panel.tsx`) already offers the session that fills this.
    */
-  if (total === 0) {
-    return (
-      <section aria-labelledby="mastered-heading" className="mt-12 border-t border-border-subtle pt-10">
-        <Heading t={t} />
-        <div className="max-w-measure rounded-control border border-border-subtle bg-surface-raised p-4">
-          <p className="text-base leading-relaxed text-fg-secondary">{t.masteredEmpty}</p>
-          {/* A DOOR, NOT ONLY A RULE. The paragraph says how something gets
-              here; this is how to start doing it. An empty state that
-              explains itself and offers nothing was the pattern the whole
-              dashboard audit kept finding. */}
-          <SessionLink
-            locale={locale}
-            scope={ALL}
-            className="mt-4 inline-flex min-h-11 items-center rounded-control bg-action px-4 text-sm font-medium text-on-action hover:opacity-90"
-          >
-            {t.nonePractise}
-          </SessionLink>
-        </div>
-      </section>
-    );
-  }
+  if (total === 0) return null;
 
   const topicName = (id: string) => grammarT.topics[id as keyof typeof grammarT.topics]?.title ?? id;
   const groupName = (id: string) => vocabularyT.groups[id as keyof typeof vocabularyT.groups] ?? id;
 
   return (
-    <section aria-labelledby="mastered-heading" className="mt-12 border-t border-border-subtle pt-10">
+    <section aria-labelledby="mastered-heading">
       <Heading t={t} />
 
       {/* ONE NUMBER, AND IT IS A COUNT OF THINGS — not a percentage, because

@@ -21,6 +21,7 @@ import { join } from "node:path";
  */
 const FILES = [
   "dashboard.tsx",
+  "today-panel.tsx",
   "focus-panel.tsx",
   "review-panel.tsx",
   "mastered-panel.tsx",

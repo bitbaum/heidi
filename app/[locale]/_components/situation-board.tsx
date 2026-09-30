@@ -65,7 +65,7 @@ export function SituationBoard({
   return (
     <section
       aria-labelledby="board-heading"
-      className="mt-12 rounded-control border border-border-subtle bg-surface-raised p-5 sm:p-6"
+      className="rounded-control border border-border-subtle bg-surface-raised p-5 sm:p-6"
     >
       <h2
         id="board-heading"

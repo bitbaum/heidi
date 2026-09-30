@@ -694,14 +694,7 @@ export const fr: Dictionary = {
 
   auth: {
     sections: {
-      focus: "Ce qui vous accroche",
-      mastered: "Acquis",
-      review: "Réviser",
-      recent: "Conversations",
-      patterns: "Régularités",
-      words: "Mots",
       groups: "Groupes",
-      onward: "Continuer",
     },
     menu: {
       portal: "Vos mots et vos conversations",
@@ -713,7 +706,7 @@ export const fr: Dictionary = {
     account: "Compte",
     portalTitle: "Mon espace",
     portalLead:
-      "Vos mots, au moment de les revoir — et ce qui vous arrête le plus souvent.",
+      "Ce qui vous attend aujourd’hui, ce sur quoi vous travaillez et ce que vous savez déjà.",
     signedInAs: "Connecté en tant que",
     notSignedIn: "Vous n'êtes pas connecté",
     notSignedInBody:
@@ -975,13 +968,15 @@ export const fr: Dictionary = {
     failed: "Cela n’a pas marché. Veuillez réessayer.",
   },
   streak: {
-    title: "Votre série",
+    today: "Aujourd’hui",
     start: "Commencez aujourd'hui — quelques questions suffisent.",
     doneToday: "Déjà pratiqué aujourd'hui.",
     weekReached: "Objectif de la semaine atteint.",
     goalLabel: "Objectif hebdomadaire",
     freezes: "Un jour manqué est comblé automatiquement ({n} restant).",
     practise: "S'exercer",
+    nothingDue: "Rien à revoir aujourd’hui. Exercez-vous à ce qui vous plaît — ou demandez à Heidi.",
+    dueWords: {"one": "1 mot est à revoir.", "few": "{n} mots sont à revoir.", "many": "{n} mots sont à revoir.", "other": "{n} mots sont à revoir."},
     days: {"one": "{n} jour d'affilée", "few": "{n} jours d'affilée", "many": "{n} jours d'affilée", "other": "{n} jours d'affilée"},
     best: {"one": "Record : {n} jour", "few": "Record : {n} jours", "many": "Record : {n} jours", "other": "Record : {n} jours"},
     goalDays: {"one": "{n} jour par semaine", "few": "{n} jours par semaine", "many": "{n} jours par semaine", "other": "{n} jours par semaine"},
@@ -1164,8 +1159,6 @@ export const fr: Dictionary = {
     testUnanswered: "Sans réponse",
     testAgain: "Un autre test",
     focusTitle: "Ce qui vous accroche",
-    focusEmpty:
-      "Rien encore. Dès que vous aurez répondu à quelques questions, vous verrez ici ce qui vous piège régulièrement — et un clic s\u2019y attaque.",
     focusLead: "Cela revient souvent chez vous. Un clic n’exerce que cela.",
     scopedTo: "Seulement : {what}",
     scopeAll: "Tout réviser",
@@ -1475,14 +1468,7 @@ export const fr: Dictionary = {
     title: "À réviser",
     lead: "Les mots que vous avez gardés reviennent ici — après un jour, puis trois, puis une semaine. Demander plus tard marche mieux que demander plus souvent.",
     due: "à réviser",
-    none: "Rien à réviser aujourd'hui.",
     noneHint: "Revenez demain — ou cherchez quelque chose de nouveau.",
-    noneFree: "Le programme est à jour. Si vous voulez continuer maintenant, par ici :",
-    nonePractise: "Une courte séance",
-    noneCards: "Cartes",
-    noneAsk: "Coller un message",
-    empty: "Aucun mot à réviser pour l'instant.",
-    emptyHint: "Gardez un mot pendant une conversation, et Heidi vous le redemandera plus tard.",
     tomorrow: "demain",
     settled: "acquis",
     prompt: "Ça veut dire quoi ?",
@@ -1499,8 +1485,6 @@ export const fr: Dictionary = {
     masteredCount: "{n} choses tiennent",
     masteredLead:
       "On ne compte pas vos passages ici, mais ce que vous réussissez désormais — posé au moins quatre fois, et presque toujours juste.",
-    masteredEmpty:
-      "Rien encore. Dès qu\u2019une chose vous aura été demandée quatre fois et que vous l\u2019aurez presque toujours eue, elle apparaîtra ici. On compte ce que vous savez, pas votre assiduité.",
     masteredTopics: "Grammaire",
     masteredWords: "Mots",
     masteredGroups: "Groupes de mots",

@@ -295,7 +295,7 @@ export function ChatWorkspace({
         // of a phone screen the conversation needs.
         className={`${
           menuOpen ? "flex" : "hidden"
-        } absolute inset-y-0 left-0 z-30 w-72 shrink-0 flex-col border-r border-border-subtle bg-surface-page p-3 lg:relative lg:flex`}
+        } absolute inset-y-0 left-0 z-30 w-72 shrink-0 flex-col border-r border-border-subtle bg-surface-page p-3 lg:relative lg:z-auto lg:flex`}
       >
         <div className="flex items-center justify-between gap-2 pb-2">
           <h2 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{f.yourChats}</h2>
