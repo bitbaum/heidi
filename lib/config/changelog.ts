@@ -42,6 +42,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-09-30",
+      tag: "feature",
+      title: "Aufwärmen: Wie viel Züridütsch verstehen Sie schon?",
+      summary:
+        "Acht Zürcher Sätze in zwei Minuten, ohne Note und ohne Niveau. Danach sehen Sie, welche Situationen Sie schon verstehen und wo sich der Anfang lohnt.",
+      items: [
+        "Die Sätze werden schwieriger, solange Sie mithalten, und leichter nach einem Fehler. Nach jeder Antwort steht das Wort, an dem der Satz hängt.",
+        "Die Antworten fliessen in Ihre Übungen ein: Die erste Übung beginnt dort, wo das Aufwärmen die Lücken gefunden hat.",
+        "Wer auch die Sätze zwischen den Zeilen versteht, bekommt das Angebot, die Seite auf Schwiizerdütsch zu lesen. Ein Nein wird nicht wiederholt.",
+        "Angeboten auf der Startseite, im eigenen Bereich (bis Sie es gemacht haben) und bei den Übungen. Gespeichert nur in Ihrem Browser.",
+      ],
+    },
+    {
+      date: "2026-09-30",
       tag: "fix",
       title: "Heidi antwortet auf das, was Sie zuletzt geschrieben haben",
       summary:
@@ -331,6 +344,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-30",
+      tag: "feature",
+      title: "Warm-up: how much Zurich German do you already understand?",
+      summary:
+        "Eight Zurich lines in two minutes, with no grade and no level. Afterwards you see which situations you already follow and where starting pays off.",
+      items: [
+        "The lines get harder while you keep up and easier after a miss. After each answer you see the word the line turns on.",
+        "Your answers feed your practice: the first session starts where the warm-up found the gaps.",
+        "If you also get the between-the-lines questions, you are offered the site in Swiss German. A no is not asked again.",
+        "Offered on the home page, on your dashboard (until you have done it) and on the practice page. Stored only in your browser.",
+      ],
+    },
     {
       date: "2026-09-30",
       tag: "fix",

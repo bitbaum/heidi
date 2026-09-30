@@ -20,6 +20,7 @@ export type RouteKey =
   | "chat"
   | "speaking"
   | "practice"
+  | "warmup"
   | "listen"
   | "dialect"
   | "essays"
@@ -133,6 +134,10 @@ export const ROUTES: readonly Route[] = [
   // language whose spelling is not settled. The page is useful signed out,
   // because the pack's own items need no account.
   { key: "practice", segment: "practice", group: "practise", indexed: true, priority: 0.85 },
+  // Out of the menu: it is offered where a newcomer already is (home, the
+  // dashboard, practice) rather than being one more page to find. Indexed,
+  // because "how much Zurich German do I understand" is a question people ask.
+  { key: "warmup", segment: "warmup", indexed: true, priority: 0.7 },
   // Somewhere you GO and spend twenty minutes, not something you look up
   // mid-sentence. Indexed and high, because "Swiss German podcasts" is a real
   // search whose unanswered half is which programmes are actually dialect.

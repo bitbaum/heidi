@@ -22,6 +22,7 @@ import { dbConfigured } from "@/lib/db";
 import { groupsFor } from "@/lib/domain/groups/store";
 import { conversationsFor } from "@/lib/domain/conversations/store";
 import { StreakCard } from "./streak-card";
+import { WarmupInvite } from "./warmup-invite";
 
 /**
  * The learner's own page, wherever it is rendered.
@@ -179,6 +180,10 @@ export async function Dashboard({ locale }: { locale: Locale }) {
             renders nothing until something has been practised, so it never
             adds a promise to a page that already had too many.
           */}
+          {/* First thing for a new account, gone once done: eight lines that
+              tell the panels below where to start. */}
+          <WarmupInvite t={dict.warmup} locale={locale} variant="card" />
+
           <StreakCard t={dict.streak} locale={locale} />
 
           <SituationBoard scenes={scenes} askable={askableByScene} t={dict.situations} locale={locale} />
