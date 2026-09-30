@@ -32,8 +32,12 @@ import { join } from "node:path";
 
 const ROOTS = ["app", "lib"];
 
-/** The only expression allowed to name it, and what makes it allowed. */
-const SIGN_IN_RETURN = /redirectTo:\s*href\([^)]*"portal"\)/;
+/**
+ * The only expression allowed to name it, and what makes it allowed. Wrapped
+ * in `afterSignIn` it is still the sign-in return — it passes through the
+ * saved-language redirect on the way (`lib/domain/preferences/language.ts`).
+ */
+const SIGN_IN_RETURN = /redirectTo:\s*(?:afterSignIn\()?href\([^)]*"portal"\)/;
 
 /** Any other way a file can build the URL. */
 const PORTAL_HREF = /href\(\s*\w+\s*,\s*"portal"\s*\)/g;

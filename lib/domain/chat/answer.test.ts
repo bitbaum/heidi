@@ -33,6 +33,13 @@ test("a well-formed answer survives the round trip", () => {
   assert.equal(a!.model, "openai/gpt-oss-120b");
 });
 
+test("all three modes survive the round trip, and an unknown one falls back", () => {
+  for (const mode of ["understand", "produce", "answer"] as const) {
+    assert.equal(decodeAnswer({ ...full, mode })!.mode, mode);
+  }
+  assert.equal(decodeAnswer({ ...full, mode: "chat" })!.mode, "understand");
+});
+
 test("anything that is not an answer decodes to null, not a crash", () => {
   for (const junk of [null, undefined, "", "a string", 42, [], {}]) {
     assert.equal(decodeAnswer(junk), null, `${JSON.stringify(junk)} should not decode`);

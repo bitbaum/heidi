@@ -21,7 +21,7 @@
  * words, so "I had to wait again" does not summon it.
  */
 
-import { afterEveryMessage, runAiTurn, whenMentioned, type Message, type Thread } from "threadkit";
+import { afterEveryMessage, runAiTurn, visibleMessages, whenMentioned, type Message, type Thread } from "threadkit";
 import { ASSISTANT_NAME } from "../../config/site.ts";
 import type { ChatMessage } from "./types.ts";
 import { HEIDI_ID, LEARNER_ID } from "./types.ts";
@@ -90,6 +90,59 @@ export type TurnResult =
   | { status: "skipped"; reason: string };
 
 /**
+ * How many turns the model is shown. Enough for a follow-up about something
+ * a few answers up; beyond it the oldest turns stop earning their tokens and
+ * start pulling the answer back towards themselves.
+ */
+export const MAX_CONTEXT = 20;
+
+/**
+ * What a turn SAID, as the model should remember it.
+ *
+ * A learner's turn is its body. Heidi's body is only the explanation — in
+ * produce mode that is "here is a short sentence with X", and the sentence
+ * itself lives in `answer.dialect`. Without it the model reads a history of
+ * promises it never kept, and does the last one again.
+ */
+export function contextBody(message: ChatMessage): string {
+  const dialect = message.answer?.dialect?.trim();
+  return dialect ? `${message.body}\n  [the sendable line: ${dialect}]` : message.body;
+}
+
+function speaker(thread: Thread, authorId: string): string {
+  if (authorId === HEIDI_ID) return ASSISTANT_NAME;
+  const participant = thread.participants.find((p) => p.actorId === authorId);
+  return participant?.role ?? participant?.kind ?? "unknown";
+}
+
+/**
+ * The conversation as the model reads it: earlier turns marked as context,
+ * and the one message to answer set apart from them.
+ *
+ * NOT threadkit's `renderTranscript`, which joins every turn into one
+ * undifferentiated "role: body" list. Handed that, the model answers the
+ * THREAD rather than the last line: asked «Pire» after three turns about «Le
+ * Bilan», it wrote a fourth sentence about «Le Bilan» — twice. A short new
+ * message loses to a long old topic unless something says which one is the
+ * question.
+ */
+export function renderPrompt(thread: Thread, messages: ChatMessage[]): string {
+  const recent = messages.slice(-MAX_CONTEXT);
+  const latest = recent.at(-1);
+  if (!latest) return "";
+  const line = (m: ChatMessage) => `${speaker(thread, m.authorId)}: ${contextBody(m)}`;
+  const earlier = recent.slice(0, -1);
+
+  return [
+    ...(earlier.length
+      ? ["EARLIER IN THIS CONVERSATION — context only; every turn here has already been answered:", ...earlier.map(line), ""]
+      : []),
+    "THE MESSAGE TO ANSWER NOW:",
+    line(latest),
+  ].join("\n");
+}
+
+/**
  * Ask threadkit whether Heidi should speak, and if so produce the text.
  *
  * `complete` is supplied by the caller — threadkit never imports an SDK and
@@ -110,11 +163,16 @@ export async function heidiTurn(
     model: string;
   },
 ): Promise<TurnResult> {
-  const result = await runAiTurn(thread, toThreadMessages(messages, thread.id), {
+  const threadMessages = toThreadMessages(messages, thread.id);
+  // threadkit still decides what Heidi may SEE; only the rendering is ours.
+  const seen = new Set(visibleMessages(thread, HEIDI_ID, threadMessages).map((m) => m.id));
+  const prompt = renderPrompt(thread, messages.filter((m) => seen.has(m.id)));
+
+  const result = await runAiTurn(thread, threadMessages, {
     actorId: HEIDI_ID,
     systemPrompt: opts.systemPrompt,
     model: opts.model,
-    complete: opts.complete,
+    complete: (input) => opts.complete({ ...input, prompt }),
     shouldRespond: respondPolicy,
     // The chain leads with reasoning models, which spend budget on hidden
     // thinking before emitting a visible token. At 1200 a four-gloss answer

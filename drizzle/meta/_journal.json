@@ -43,6 +43,13 @@
       "when": 1790336938856,
       "tag": "0005_teams",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1790773999195,
+      "tag": "0006_preferences",
+      "breakpoints": true
     }
   ]
 }

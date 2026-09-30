@@ -200,6 +200,14 @@ export const gsw: Dictionary = {
      * friend, and no way to tell them apart without this.
      */
     writtenStandard: "Schriftdütsch",
+    tones: {
+      warm: "herzlich",
+      neutral: "neutral",
+      formal: "förmlich",
+      curt: "churz aabunde",
+      playful: "verspielt",
+      annoyed: "gnervt",
+    },
     copy: "Kopiere",
     copied: "Kopiert",
     flagged: "Nöd Züridütsch:",
@@ -317,7 +325,7 @@ export const gsw: Dictionary = {
     title: "Iistellige",
     lead: "Alles, was Heidi über Si weiss, a eim Ort — und alles dervo chönd Si wieder ewägnäh.",
     languageTitle: "Sprach vo de Siite",
-    languageBody: "I welere Sprach Heidi mit Ihne redt. Was Si lerned, bliibt Züridütsch.",
+    languageBody: "I welere Sprach Heidi mit Ihne redt. Was Si lerned, bliibt Züridütsch. Wänn Si aagmäldet sind, gaht d Wahl mit Ihne uf jedes Grät.",
     modelTitle: "Sprachmodell",
     modelBody:
       "Standardmässig bruucht Heidi gratis Modell, wo Bilder chönd läse. En eigene Schlüssel macht d Antworte schärfer.",
@@ -635,6 +643,7 @@ export const gsw: Dictionary = {
       speakingTranscription: "nur wänn Si Hochdütsch wähled; d Ufnahm bhalted mir nöd, und d Grammatik wird uf eusem eigete Server prüeft",
       speakingSuggestion: "nu de Satz, wo Sie bestätigt händ",
       account: "nu d Kennig, kein Name und kei Adrässe",
+      language: "nu d Sprach, susch nüüt",
     },
     place: { device: "Nur uf Ihrem Grät", server: "Uf eusem Server", vendor: "Bi eme Aabieter" },
     col: { what: "Was", where: "Wo", who: "Wer s susch gseht" },
@@ -651,6 +660,7 @@ export const gsw: Dictionary = {
       syncOthers: "Ihre Fortschritt vo andere Grät",
       progressSync: "Abglichene Fortschritt (nur wänn iigschaltet)",
       certificates: "Ihri Nachwiis",
+      language: "Ihri gwählti Sprach (nu mit Konto)",
       ownKey: "Ihre eigne API-Schlüssel",
       theme: "Helli oder dunkli Darstellig",
       dictationVerdict: "Öb s Diktat i dem Browser gaht",

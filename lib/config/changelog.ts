@@ -41,6 +41,35 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-09-30",
+      tag: "fix",
+      title: "Heidi antwortet auf das, was Sie zuletzt geschrieben haben",
+      summary:
+        "Nach drei Antworten zu «Le Bilan» fragte jemand «Pire» — und bekam einen vierten Satz über «Le Bilan», zweimal. Der Chat gab dem Modell das ganze Gespräch als eine Liste, ohne zu sagen, welche Nachricht die Frage ist. Jetzt steht die neue Nachricht für sich, und ein einzelnes Wort gilt als Frage nach genau diesem Wort.",
+      items: [
+        "Im Test mit dem echten Modell: vorher bekam «Pire» in 4 von 6 Läufen wieder einen «Le Bilan»-Satz, nachher in keinem.",
+        "Heidi erinnert sich jetzt an den Satz, den sie geschrieben hat, nicht nur an ihre Erklärung dazu — «Kürzer» meint weiterhin die letzte Antwort.",
+        "Das Modell sieht die letzten 20 Nachrichten, auch in gespeicherten Gesprächen; bisher bekam es dort das ganze Gespräch, egal wie lang.",
+        "«Neues Gespräch» ist auf dem Handy direkt über dem Chat, nicht mehr nur im Seitenmenü, und im schwebenden Chat ein Symbol neben Vergrössern und Schliessen statt eines umbrechenden Links.",
+        "Behoben: Mit offener Handy-Tastatur rutschte der Kopf des Chats — und «Neues Gespräch» darin — aus dem Bild. Der Chat passt sich jetzt dem sichtbaren Teil des Bildschirms an.",
+        "Behoben: «Chat» im Menü zeigte angemeldet das Gespräch, das man gerade verlassen hatte, und die nächste Nachricht landete darin. Jetzt öffnet «Chat» ein leeres Gespräch.",
+      ],
+    },
+    {
+      date: "2026-09-30",
+      tag: "improvement",
+      title: "Schwiizerdütsch, durchgehend",
+      summary:
+        "Schwiizerdütsch steht jetzt zuoberst in der Sprachauswahl. Wer die Seite auf Schwiizerdütsch liest, bekommt Heidis Erklärungen auch in gespeicherten Gesprächen auf Züridütsch — bisher behielten sie die Sprache, in der sie begonnen hatten.",
+      items: [
+        "Sprachauswahl, Fusszeile und Einstellungen zeigen die Sprachen in derselben Reihenfolge: zuerst die Mundart, dann die vier Landessprachen, dann Englisch und Russisch.",
+        "Ein Gespräch folgt der Sprache der Seite, von der aus Sie schreiben — nicht der, in der es begonnen hat.",
+        "Die Beschriftungen der Vorschläge («Wärmer», «Chürzer») und der Ton kommen aus dem Wörterbuch, statt als Englisch des Modells zu erscheinen («warmer», «shorter», «bridge»).",
+        "Die Übersetzung unter einem Vorschlag steht in Ihrer Sprache; wer Schwiizerdütsch liest, bekommt unter einer Mundartzeile keine. Im Test mit dem echten Modell: vorher englische Übersetzungen in 2 von 2 Antworten mit Übersetzung, nachher in keiner von 4.",
+        "Angemeldet folgt Ihnen die gewählte Sprache auf jedes Gerät: Nach dem Anmelden öffnet sich die Seite in der Sprache, die Sie zuletzt gewählt haben. Deutsch bleibt der Standard für alle anderen.",
+      ],
+    },
+    {
       date: "2026-09-26",
       tag: "feature",
       title: "Fünf neue Übungsarten — und nach jeder Antwort ein Warum",
@@ -302,6 +331,35 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-30",
+      tag: "fix",
+      title: "Heidi answers what you wrote last",
+      summary:
+        "After three answers about «Le Bilan», someone asked «Pire» — and got a fourth sentence about «Le Bilan», twice. The chat handed the model the whole conversation as one list, without saying which message was the question. The new message now stands on its own, and a single word is taken as a question about that word.",
+      items: [
+        "Tested against the real model: before, «Pire» got another «Le Bilan» sentence in 4 of 6 runs; after, in none.",
+        "Heidi now remembers the sentence she wrote, not only her explanation of it — «Shorter» still means the last answer.",
+        "The model sees the last 20 messages, saved conversations included; there it used to get the whole conversation however long.",
+        "«New conversation» sits right above the chat on a phone instead of only in the side menu, and in the floating chat it is an icon beside expand and close instead of a link that wrapped.",
+        "Fixed: with the phone keyboard open, the top of the chat — and «New conversation» in it — slid off the screen. The chat now fits the part of the screen you can see.",
+        "Fixed: signed in, «Chat» in the menu showed the conversation you had just left, and the next message went into it. «Chat» now opens an empty conversation.",
+      ],
+    },
+    {
+      date: "2026-09-30",
+      tag: "improvement",
+      title: "Swiss German, all the way through",
+      summary:
+        "Schwiizerdütsch now comes first in the language menu. Reading the site in Swiss German gets you Heidi's explanations in Züridütsch in saved conversations too. They used to keep the language they were started in.",
+      items: [
+        "The language menu, the footer and settings list languages in one order: the dialect first, then the four national languages, then English and Russian.",
+        "A conversation follows the language of the page you write from, not the one it began in.",
+        "Suggestion labels («Wärmer», «Chürzer») and the tone come from the dictionary instead of appearing as the model's English («warmer», «shorter», «bridge»).",
+        "The translation under a suggestion is in your language, and a Swiss German reader gets none under a dialect line. Tested against the real model: English translations in 2 of 2 answers that carried translations before, in none of 4 after.",
+        "Signed in, your chosen language follows you to every device: after signing in, the page opens in the language you last picked. German stays the default for everyone else.",
+      ],
+    },
     {
       date: "2026-09-26",
       tag: "feature",

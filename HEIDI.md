@@ -383,8 +383,23 @@ which of the two it is in, next to the button, in the learner's language. See
   what you learn, one per deployment; `locale` is what Heidi speaks to you
   while you learn it, seven of them. Conflating them would make a Lesya
   deployment re-translate the site as well as swap the pack.
-- **German is the default locale**, then the other national languages, Swiss
-  German, English and Russian. German is the source dictionary and the others
+- **German is the default locale; Swiss German comes first in every list of
+  languages.** The switcher, the footer and settings share one order
+  (`MENU_ORDER`): the dialect, then the four national languages, then English
+  and Russian. It is what the site teaches, and a reader who can read it should
+  not have to scan past four other languages to find it. A Swiss German reader
+  gets Heidi's explanations in Züridütsch too. Every saved conversation follows
+  the language of the page it is written from, not the language it began in.
+  Dialect suggestions come without a translation for that reader, since the
+  only possible translation is the line itself (`forReader` in `respond.ts`).
+  A signed-in learner's language follows them to every device: picking one in
+  any language menu saves it (`preferences`, one row per account), and every
+  sign-in returns through `/api/account/language`, which puts the saved
+  language into the page they land on. Signing in from a non-German page with
+  nothing saved yet saves that page's language, since German is where everyone
+  starts and says nothing about a choice. A shared link is never rewritten,
+  and signed out nothing is stored (`lib/domain/preferences/`).
+  German is the source dictionary and the others
   are typed against it, so a missing key is a build error. Romansh is unreviewed
   by a native speaker and says so; the assistant answers Romansh readers in
   German rather than invent low-resource output at an audience that would spot
@@ -430,12 +445,26 @@ which of the two it is in, next to the button, in the learner's language. See
   dashboard, so the landing page had no composer at all. The dock
   (`_components/chat/dock.tsx`) is the same conversation as the other two
   surfaces, because all three read one store through `use-draft-chat.ts`.
-- **A page that already holds a conversation marks itself**, with
-  `data-chat="surface"`, and `globals.css` hides the dock when the document
-  contains one. CSS rather than a list of pathnames, because whether the locale
-  root holds a chat depends on whether the visitor is signed in — which a route
-  table cannot know and the rendering page always does. Same mechanism as
-  `data-chrome="chat"`.
+- **The dock stands down on one page only: the full-screen chat**, which marks
+  itself `data-chrome="chat"`. `globals.css` hides the dock when the document
+  contains that marker, because it IS the window the dock would open. It used
+  to stand down on every page holding a conversation, and on the home page,
+  where the chat box sits below the fold on a phone, that read as the chat
+  being gone.
+- **Starting again is one tap on every chat surface.** The sidebar button on a
+  laptop, a toolbar above the transcript on a phone (the sidebar is off-canvas
+  there), and an icon in the dock's header. All three are `new-chat-button.tsx`.
+  The header's "Chat" link always opens an empty conversation. `/chat` gets a
+  fresh `key` per request, because a first message moves the address with
+  `replaceState`, and a constant key re-rendered the page in place with the
+  conversation just left still in it.
+- **A full-height chat fits above the phone keyboard.** `dvh` follows the
+  browser toolbar, not the keyboard. iOS, and Android by default, shrink only
+  the visual viewport and scroll the page instead, which pushed the chat's
+  header off the screen. The layout sets `interactive-widget=resizes-content`
+  for Android, and `use-keyboard-viewport.ts` publishes the visible height as
+  `--app-height` for iOS. The full-screen chat focuses its box on load only
+  with a fine pointer, so a phone does not open the keyboard over the examples.
 - **The account is one control, not three.** An avatar menu replaced a gear
   icon beside a pill with a green status dot that nothing measured. What is in
   it comes from `ACCOUNT_MENU_KEYS` in `lib/i18n/routes.ts`, so a menu entry
@@ -625,6 +654,17 @@ list rather than a migration. threadkit already encodes the social rule we
 would have got wrong: two participants means the assistant *is* the
 conversation and answers every turn; three or more means it waits to be
 addressed, since two humans talking is not an invitation.
+
+**What the model is shown is ours, not threadkit's.** threadkit decides what
+Heidi may see and whether she speaks; `renderPrompt` in `lib/domain/chat/thread.ts`
+decides how that reads. The last 20 turns go in as context marked "already
+answered", and the newest message is set apart under its own heading. Heidi's
+past turns carry the sentence she wrote (`answer.dialect`), not only her
+explanation of it. threadkit's own rendering, one undifferentiated "role: body"
+list, made the model answer the THREAD rather than the last line: after three
+turns about «Le Bilan», «Pire» got a fourth «Le Bilan» sentence in 4 of 6 live
+runs. With the split it got none. The system prompt says the other half: answer
+only the newest message, and a word on its own is a question about that word.
 
 Four deterministic guards sit between the model and the learner, and all four
 exist for the same reason — the learner cannot check this work:
@@ -1469,6 +1509,12 @@ second ago.
 **Your own model key is never stored by us.** A key you bring stays in your
 browser, is forwarded on the request it is for, and is redacted out of every
 log line before anything is written.
+
+**Signed in, your site language is stored, and nothing else about how you
+read.** One row per account in `preferences`: the locale, written when you pick
+a language (or sign in from a page that is not German), read when you sign in
+on another device. Signed out, a language pick is remembered by this browser's
+`heidi_locale` cookie and by nothing on our side.
 
 **Saved words stay on your device.** They need no account, work signed out, and
 keep Heidi from holding a record of what a particular person cannot understand.

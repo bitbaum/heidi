@@ -5,6 +5,7 @@ import { auth, authEnabled, signIn } from "@/lib/auth";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
+import { afterSignIn } from "@/lib/domain/preferences/language";
 import { dbConfigured } from "@/lib/db";
 import { groupById, membersOf, messagesIn } from "@/lib/domain/groups/store";
 import { visibleMessages } from "threadkit";
@@ -84,7 +85,7 @@ export default async function GroupPage({
               className="mt-4"
               action={async () => {
                 "use server";
-                await signIn("orangecat", { redirectTo: href(locale, `groups/${id}`) });
+                await signIn("orangecat", { redirectTo: afterSignIn(href(locale, `groups/${id}`)) });
               }}
             >
               <button

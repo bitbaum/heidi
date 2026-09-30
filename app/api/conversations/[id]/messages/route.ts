@@ -7,6 +7,7 @@ import {
   conversationById,
   countMessages,
   messagesIn,
+  setConversationLocale,
 } from "../../../../../lib/domain/conversations/store.ts";
 import { soloThread } from "../../../../../lib/domain/chat/thread.ts";
 import { respondInThread } from "../../../../../lib/domain/chat/respond.ts";
@@ -58,7 +59,12 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     return Response.json({ error: "Could not read that request." }, { status: 400 });
   }
 
-  const { text, byok, images } = (body ?? {}) as { text?: unknown; byok?: unknown; images?: unknown };
+  const { text, byok, images, locale: asked } = (body ?? {}) as {
+    text?: unknown;
+    byok?: unknown;
+    images?: unknown;
+    locale?: unknown;
+  };
   const checked = checkBody(text);
   if (!checked.ok) {
     return Response.json({ error: `That message is ${checked.problem.replace("-", " ")}.` }, { status: 400 });
@@ -82,9 +88,19 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     imageCount: pictures.length,
   });
 
-  // The conversation's own locale, not the request's: re-opening a thread in a
-  // differently negotiated browser must not switch Heidi mid-conversation.
-  const locale: Locale = isLocale(conversation.locale) ? conversation.locale : DEFAULT_LOCALE;
+  // The language of the page the reader is writing from. The locale is in the
+  // URL, so it is a choice, not a negotiation. Pinning it to the thread's first
+  // message meant switching the site to Züridütsch still got German
+  // explanations in every conversation started before the switch, under a
+  // composer promising "Erklärige uf Züridütsch". The stored one is the
+  // fallback for a client that sends none.
+  const locale: Locale =
+    typeof asked === "string" && isLocale(asked)
+      ? asked
+      : isLocale(conversation.locale)
+        ? conversation.locale
+        : DEFAULT_LOCALE;
+  if (locale !== conversation.locale) await setConversationLocale(conversation.id, locale);
 
   const stored = await messagesIn(conversation.id);
   let reply = null;

@@ -3,6 +3,7 @@ import { auth, authEnabled, signIn, signOut } from "@/lib/auth";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { accountMenu, href } from "@/lib/i18n/routes";
+import { afterSignIn } from "@/lib/domain/preferences/language";
 import { AccountMenu } from "./account-menu";
 
 /**
@@ -116,7 +117,7 @@ function SignInCorner({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       <form
         action={async () => {
           "use server";
-          await signIn("orangecat", { redirectTo: href(locale, "portal") });
+          await signIn("orangecat", { redirectTo: afterSignIn(href(locale, "portal")) });
         }}
       >
         <button

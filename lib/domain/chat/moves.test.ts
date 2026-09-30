@@ -1,8 +1,43 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { MAX_MOVES, MOVE_IDS, REPHRASE_AXES, decodeMoves, moveKey, withReply } from "./moves.ts";
+import { MAX_MOVES, MOVE_IDS, REPHRASE_AXES, decodeMoves, moveKey, suggestionLabel, withReply } from "./moves.ts";
 import { LOCALES } from "../../i18n/locales.ts";
 import { getDictionary } from "../../i18n/index.ts";
+
+describe("a suggestion's label, in the reader's language", () => {
+  // The model writes these in English whatever the page is in: a Züridütsch
+  // page showed "warmer", "shorter" and "bridge" above Heidi's suggestions.
+  test("a tone dial maps to the move of the same name", () => {
+    assert.deepEqual(suggestionLabel("warmer"), { kind: "axis", axis: "warmer" });
+    assert.deepEqual(suggestionLabel("Shorter"), { kind: "axis", axis: "shorter" });
+    assert.deepEqual(suggestionLabel("more formal"), { kind: "axis", axis: "formal" });
+  });
+
+  test("neutral and warm are tones", () => {
+    assert.deepEqual(suggestionLabel("neutral"), { kind: "tone", tone: "neutral" });
+    assert.deepEqual(suggestionLabel("warm"), { kind: "tone", tone: "warm" });
+  });
+
+  test("a variety name is hidden — the badge beside it already says it", () => {
+    assert.deepEqual(suggestionLabel("bridge"), { kind: "hidden" });
+  });
+
+  test("anything else is shown as written", () => {
+    assert.deepEqual(suggestionLabel("für de Vermieter"), { kind: "raw", text: "für de Vermieter" });
+  });
+
+  test("every label it can produce has words in every language", () => {
+    for (const locale of LOCALES) {
+      const t = getDictionary(locale).chat;
+      for (const raw of ["neutral", "warm", "shorter", "warmer", "firmer", "formal", "casual", "simpler"]) {
+        const label = suggestionLabel(raw);
+        const text =
+          label.kind === "axis" ? t.moves[label.axis].label : label.kind === "tone" ? t.tones[label.tone] : "";
+        assert.ok(text, `${locale} has no words for the "${raw}" label`);
+      }
+    }
+  });
+});
 
 describe("what Heidi offers to do next", () => {
   test("a reply move survives", () => {

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
-import { LOCALES, LOCALE_NAMES } from "@/lib/i18n/locales";
+import { LOCALE_NAMES, MENU_ORDER } from "@/lib/i18n/locales";
 import { href, navGroups, type NavGroup } from "@/lib/i18n/routes";
 import { DISPLAY } from "@/lib/variety/display";
+import { LanguageLink } from "./language-link";
 
 /**
  * The footer, rebuilt around the structure the site already had.
@@ -133,12 +134,13 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                 is 300px of footer for a switch the header already carries —
                 and it was the single tallest thing down here. */}
             <ul className="mt-3 grid grid-cols-2 gap-x-4 lg:grid-cols-1">
-              {LOCALES.map((l) => (
+              {MENU_ORDER.map((l) => (
                 <li key={l}>
                   {/* Seven languages, seven prefetched copies of the home
                       page — for a switch almost nobody touches, and never
                       before they have read anything. */}
-                  <Link
+                  <LanguageLink
+                    language={l}
                     href={href(l, "")}
                     hrefLang={l}
                     /* `lang` as well as `hrefLang`: the link TEXT is the
@@ -155,7 +157,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                     }`}
                   >
                     {LOCALE_NAMES[l]}
-                  </Link>
+                  </LanguageLink>
                 </li>
               ))}
             </ul>

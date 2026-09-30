@@ -21,6 +21,17 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-09-30
+
+- **Heidi answers what you wrote last.** After three answers about «Le Bilan», someone asked «Pire» and got a fourth «Le Bilan» sentence, twice: the model was handed the whole conversation as one list with nothing marking the question. The newest message now stands apart from the history, a lone word is a question about that word, and Heidi's past turns carry the sentence she actually wrote. Against the live model: 4 of 6 runs wrong before, none after.
+  - The model sees the last 20 messages on every surface; saved conversations used to send all of them.
+  - A stored answer in mode «answer» no longer comes back as «understand» after a reload.
+- **«New conversation» where you need it.** On a phone it sits in a toolbar right above the chat instead of only inside the side menu; in the floating chat it is an icon beside expand and close instead of an underlined link that wrapped. The side menu now closes with Escape.
+- **Fixed: the phone keyboard pushed the chat's header off the screen.** Both chats now size themselves to what the keyboard leaves visible, and the full-screen chat no longer opens the keyboard by itself on a phone.
+- **Swiss German, all the way through.** Schwiizerdütsch is now first in the language menu, the footer and settings. With the site in Swiss German, Heidi explains in Züridütsch in saved conversations too. They used to keep the language they were started in, so a thread begun in German kept German explanations under «Erklärige uf Züridütsch». Suggestion labels («Wärmer», «Chürzer») and tones now come from the dictionary instead of appearing as the model's English («warmer», «shorter», «bridge»). The translation under a suggestion is in the reader's language, and a Swiss German reader gets none under a dialect line. Against the live model: English translations in 2 of 2 answers that carried translations before, in none of 4 after.
+  - Signed in, the chosen language follows you to every device: picking one saves it to the account, and signing in opens the page in the language you last picked. German stays the default for everyone else; signed out, nothing is stored.
+- **Fixed: «Chat» showed the conversation you had just left.** Signed in, the first message moves the address to the saved conversation without reloading, and the menu's «Chat» link then re-rendered that same page — the next message went into the old conversation. «Chat» now always opens an empty one.
+
 ## 2026-09-26
 
 - **Five new kinds of question — and a reason after every answer.** Practice now also asks what somebody means, which reply fits, which sentence says exactly the German, what time or price was said, and what a word means in its sentence. The pool grew from 1,451 questions to 1,793, the objectively marked ones from 246 to 588. After each of these: the word the answer turned on, and one sentence on why — in all seven languages. (#143)

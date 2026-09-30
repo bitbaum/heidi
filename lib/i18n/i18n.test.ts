@@ -7,6 +7,7 @@ import {
   LOCALES,
   LOCALE_NAMES,
   LOCALE_TAGS,
+  MENU_ORDER,
   isLocale,
   localesInGroup,
   negotiate,
@@ -39,6 +40,14 @@ test("the Swiss national languages are grouped apart from the others", () => {
   assert.deepEqual(localesInGroup("national"), ["de", "fr", "it", "rm"]);
   assert.deepEqual(localesInGroup("dialect"), ["gsw"]);
   assert.deepEqual(localesInGroup("other"), ["en", "ru"]);
+});
+
+test("the dialect comes first in every list of languages", () => {
+  // It is what the site teaches; a reader who can read it should not have to
+  // scan past four national languages to reach it.
+  assert.equal(GROUP_ORDER[0], "dialect");
+  assert.equal(MENU_ORDER[0], "gsw");
+  assert.deepEqual([...MENU_ORDER].sort(), [...LOCALES].sort());
 });
 
 test("Russian is negotiated from an Accept-Language header", () => {

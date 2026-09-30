@@ -210,6 +210,15 @@ export const de = {
      * friend, and no way to tell them apart without this.
      */
     writtenStandard: "Schriftdeutsch",
+    /** The tone the model names, from a closed list — never printed as the model spelled it. */
+    tones: {
+      warm: "herzlich",
+      neutral: "neutral",
+      formal: "förmlich",
+      curt: "knapp",
+      playful: "verspielt",
+      annoyed: "genervt",
+    },
     copy: "Kopieren",
     copied: "Kopiert",
     flagged: "Nicht Zürichdeutsch:",
@@ -602,6 +611,7 @@ export const de = {
       speakingTranscription: "nur wenn Sie Hochdeutsch wählen; die Aufnahme bewahren wir nicht auf, die Grammatik wird auf unserem eigenen Server geprüft",
       speakingSuggestion: "nur der Satz, den Sie bestätigt haben",
       account: "nur die Kennung, kein Name und keine Adresse",
+      language: "nur die Sprache, sonst nichts",
     },
     place: { device: "Nur auf Ihrem Gerät", server: "Auf unserem Server", vendor: "Bei einem Anbieter" },
     col: { what: "Was", where: "Wo", who: "Wer es sonst sieht" },
@@ -618,6 +628,7 @@ export const de = {
       syncOthers: "Ihr Fortschritt von anderen Geräten",
       progressSync: "Abgeglichener Fortschritt (nur wenn eingeschaltet)",
       certificates: "Ihre Nachweise",
+      language: "Ihre gewählte Sprache (nur mit Konto)",
       ownKey: "Ihr eigener API-Schlüssel",
       theme: "Helle oder dunkle Darstellung",
       dictationVerdict: "Ob das Diktat in diesem Browser geht",
@@ -722,7 +733,7 @@ export const de = {
     title: "Einstellungen",
     lead: "Alles, was Heidi über Sie weiss, an einem Ort — und alles davon können Sie wieder entfernen.",
     languageTitle: "Sprache der Seite",
-    languageBody: "In welcher Sprache Heidi mit Ihnen spricht. Was Sie lernen, bleibt Zürichdeutsch.",
+    languageBody: "In welcher Sprache Heidi mit Ihnen spricht. Was Sie lernen, bleibt Zürichdeutsch. Wenn Sie angemeldet sind, folgt Ihnen die Wahl auf jedes Gerät.",
     modelTitle: "Sprachmodell",
     modelBody: "Standardmässig benutzt Heidi kostenlose Modelle, die Bilder lesen können. Ein eigener Schlüssel macht die Antworten schärfer.",
     modelNone: "Kein eigenes Modell verbunden",

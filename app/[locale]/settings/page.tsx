@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { auth, authEnabled, signIn } from "@/lib/auth";
 import { getDictionary } from "@/lib/i18n";
-import { DEFAULT_LOCALE, LOCALES, LOCALE_NAMES, isLocale, type Locale } from "@/lib/i18n/locales";
+import { DEFAULT_LOCALE, LOCALE_NAMES, MENU_ORDER, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
+import { afterSignIn } from "@/lib/domain/preferences/language";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
 import { SignOutButton } from "../_components/account-control";
 import { DataSection } from "./data-section";
@@ -11,6 +12,7 @@ import { SyncSection } from "./sync-section";
 import { ModelSection } from "./model-section";
 import { VoiceSection } from "./voice-section";
 import { ThemeControl } from "../_components/theme-control";
+import { LanguageLink } from "../_components/language-link";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -84,9 +86,10 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
       <Section id="language" title={sections.language}>
         <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.languageBody}</p>
         <ul className="mt-4 flex flex-wrap gap-2">
-          {LOCALES.map((l) => (
+          {MENU_ORDER.map((l) => (
             <li key={l}>
-              <Link
+              <LanguageLink
+                language={l}
                 href={href(l, "settings")}
                 hrefLang={l}
                 lang={l}
@@ -98,7 +101,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
                 }`}
               >
                 {LOCALE_NAMES[l]}
-              </Link>
+              </LanguageLink>
             </li>
           ))}
         </ul>
@@ -140,7 +143,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
             <form
               action={async () => {
                 "use server";
-                await signIn("orangecat", { redirectTo: href(locale, "settings") });
+                await signIn("orangecat", { redirectTo: afterSignIn(href(locale, "settings")) });
               }}
             >
               <button

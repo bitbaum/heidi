@@ -144,6 +144,11 @@ export async function appendMessage(args: {
   });
 }
 
+/** The language Heidi explains in follows the page the reader last wrote from. */
+export async function setConversationLocale(id: string, locale: string): Promise<void> {
+  await db.update(conversations).set({ locale }).where(eq(conversations.id, id));
+}
+
 export async function renameConversation(id: string, title: string): Promise<void> {
   await db.update(conversations).set({ title: titleFrom(title) }).where(eq(conversations.id, id));
 }

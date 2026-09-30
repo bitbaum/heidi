@@ -152,3 +152,9 @@ export function tooMany(result: LimitResult): Response {
  * few minutes; this is room for several devices at once and nothing more.
  */
 export const progressSync = slidingWindow({ limit: 60, windowMs: 5 * 60_000 });
+
+/**
+ * Saving the site language. One write per click in a language menu — nobody
+ * changes language thirty times in ten minutes on purpose.
+ */
+export const preferenceWrite = slidingWindow({ limit: 30, windowMs: 10 * 60_000 });

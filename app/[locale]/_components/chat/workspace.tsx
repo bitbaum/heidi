@@ -18,6 +18,10 @@ import { useConversation } from "./use-conversation";
 import { conversationTransport, streamingDraftTransport, type ConversationSummary } from "./transports";
 import { ConversationList } from "./conversation-list";
 import { WordPick } from "./word-pick";
+import { NewChatButton } from "./new-chat-button";
+import { MenuIcon } from "./icons";
+import { useKeyboardViewport } from "../use-keyboard-viewport";
+import { useDismiss } from "../use-dismiss";
 
 /**
  * The chat with room to be a chat.
@@ -69,6 +73,7 @@ export function ChatWorkspace({
   const router = useRouter();
   const byok = useByok();
   const draft = useDraft();
+  useKeyboardViewport({ pin: true });
 
   const [sheetOpen, setSheetOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -80,6 +85,11 @@ export function ChatWorkspace({
   const [conversationId, setConversationId] = useState<string | null>(initialConversationId);
   const endRef = useRef<HTMLDivElement>(null);
   const transcriptRef = useRef<HTMLDivElement>(null);
+  const sidebarRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+  // The backdrop already closes it on a tap beside it.
+  useDismiss({ open: menuOpen, onDismiss: closeMenu, containerRef: sidebarRef, focusRef: menuButtonRef, onPointerOutside: false });
 
   /**
    * The conversation was created by the transport, on the first message.
@@ -177,6 +187,12 @@ export function ChatWorkspace({
     if (messages.length > 0) endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages]);
 
+  // Ready to type on a laptop. Not on a phone: focusing there opens the
+  // keyboard over the examples before the reader has decided anything.
+  useEffect(() => {
+    if (window.matchMedia("(pointer: fine)").matches) document.getElementById("chat-input")?.focus();
+  }, []);
+
   const openConversation = useCallback(
     (id: string) => {
       setMenuOpen(false);
@@ -273,6 +289,8 @@ export function ChatWorkspace({
       )}
 
       <aside
+        ref={sidebarRef}
+        id="chat-sidebar"
         // Off-canvas below `lg`, where a permanent sidebar would eat the half
         // of a phone screen the conversation needs.
         className={`${
@@ -290,13 +308,7 @@ export function ChatWorkspace({
           </button>
         </div>
 
-        <button
-          type="button"
-          onClick={startNew}
-          className="mb-3 w-full rounded-control border border-border-strong px-3 py-2 text-sm font-medium text-fg-primary transition-colors hover:bg-surface-raised"
-        >
-          {t.newChat}
-        </button>
+        <NewChatButton label={t.newChat} onClick={startNew} className="mb-3 w-full" />
 
         <div className="min-h-0 flex-1 overflow-y-auto">
           {signedIn ? (
@@ -321,14 +333,21 @@ export function ChatWorkspace({
       </aside>
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-        <div className="flex items-center gap-3 border-b border-border-subtle px-4 py-2 lg:hidden">
+        {/* On a phone the sidebar is off-canvas, so starting again has to be
+            here too — one tap, not open-the-menu-then-find-it. */}
+        <div className="flex items-center justify-between gap-2 border-b border-border-subtle px-3 py-1.5 lg:hidden">
           <button
+            ref={menuButtonRef}
             type="button"
             onClick={() => setMenuOpen(true)}
-            className="inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4"
+            aria-expanded={menuOpen}
+            aria-controls="chat-sidebar"
+            className="inline-flex min-h-11 min-w-0 items-center gap-2 rounded-control px-2 text-sm font-medium text-fg-primary transition-colors hover:bg-surface-raised"
           >
-            {f.menuOpen}
+            <MenuIcon />
+            <span className="min-w-0 truncate">{f.menuOpen}</span>
           </button>
+          {(started || conversationId) && <NewChatButton label={t.newChat} onClick={startNew} />}
         </div>
 
         {offerAdoption && (
@@ -383,7 +402,6 @@ export function ChatWorkspace({
               modelT={dict.model}
               placeholder={t.composer}
               locale={locale}
-              autoFocus
               images={{
                 attached: chat.attached,
                 onAccept: chat.accept,

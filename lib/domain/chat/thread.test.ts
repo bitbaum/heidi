@@ -1,7 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { canRead, visibleMessages } from "threadkit";
-import { heidiTurn, soloThread, toThreadMessages, THREAD_ID } from "./thread.ts";
+import { contextBody, heidiTurn, MAX_CONTEXT, renderPrompt, soloThread, toThreadMessages, THREAD_ID } from "./thread.ts";
+import { decodeAnswer } from "./answer.ts";
 import { HEIDI_ID, LEARNER_ID, type ChatMessage } from "./types.ts";
 
 /**
@@ -124,6 +125,68 @@ test("in a group, Heidi answers when addressed by name", async () => {
     complete: stubComplete('{"mode":"answer","text":"It means: by, as in coming by."}'),
   });
   assert.equal(result.status, "responded");
+});
+
+/**
+ * The conversation that was reported broken, turn for turn: three answers
+ * about «Le Bilan», then «Pire» — and Heidi wrote a fourth «Le Bilan»
+ * sentence, twice, because the model was handed one undifferentiated list.
+ */
+function leBilanThread(): ChatMessage[] {
+  const produced = decodeAnswer({
+    mode: "produce",
+    text: "Hier ein kurzer Satz auf Züridütsch mit «Le Bilan».",
+    dialect: "I ha d Bilanz fertig gmacht.",
+  })!;
+  return [
+    msg(LEARNER_ID, "Le Bilan", 1),
+    msg(HEIDI_ID, "«Le Bilan» ist Französisch und bedeutet «die Bilanz».", 2),
+    msg(LEARNER_ID, "Schreib mir einen kurzen Text auf Züridütsch mit «Le Bilan».", 3),
+    { ...msg(HEIDI_ID, produced.text, 4), answer: produced },
+    msg(LEARNER_ID, "Pire", 5),
+  ];
+}
+
+test("the message to answer is set apart from the turns before it", () => {
+  const prompt = renderPrompt(soloThread(new Date(at(0))), leBilanThread());
+  const [earlier, now] = prompt.split("THE MESSAGE TO ANSWER NOW:");
+  assert.ok(now, "the latest message has its own section");
+  assert.equal(now.trim(), "learner: Pire");
+  assert.match(earlier, /already been answered/);
+  assert.doesNotMatch(now, /Bilan/, "the old topic must not sit in the question");
+});
+
+test("Heidi's past turns carry the line she wrote, not only the promise of it", () => {
+  const produced = leBilanThread()[3];
+  assert.match(contextBody(produced), /I ha d Bilanz fertig gmacht/);
+  assert.match(renderPrompt(soloThread(new Date(at(0))), leBilanThread()), /Heidi: Hier ein kurzer Satz[\s\S]*sendable line: I ha d Bilanz/);
+});
+
+test("a first message is rendered with no empty history section", () => {
+  const prompt = renderPrompt(soloThread(new Date(at(0))), [msg(LEARNER_ID, "Hoi", 1)]);
+  assert.equal(prompt, "THE MESSAGE TO ANSWER NOW:\nlearner: Hoi");
+});
+
+test("only the most recent turns are shown to the model", () => {
+  const long = Array.from({ length: MAX_CONTEXT + 10 }, (_, i) =>
+    msg(i % 2 ? HEIDI_ID : LEARNER_ID, `turn ${i}`, i + 1),
+  );
+  const prompt = renderPrompt(soloThread(new Date(at(0))), long);
+  assert.doesNotMatch(prompt, /turn 9\b/);
+  assert.match(prompt, /turn 10\b/);
+});
+
+test("heidiTurn hands the model the rendered prompt", async () => {
+  let seen = "";
+  await heidiTurn(soloThread(new Date(at(0))), leBilanThread(), {
+    systemPrompt: "test",
+    model: "test/model",
+    complete: async ({ prompt }) => {
+      seen = prompt;
+      return "{}";
+    },
+  });
+  assert.match(seen, /THE MESSAGE TO ANSWER NOW:\nlearner: Pire$/);
 });
 
 test("a skipped turn reports a reason instead of throwing", () => {

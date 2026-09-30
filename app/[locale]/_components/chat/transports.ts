@@ -104,6 +104,21 @@ function errorFor(status: number): SendResult {
 }
 
 /**
+ * The thread as the stateless route reads it. `dialect` travels with Heidi's
+ * turns because her `body` is only the explanation — see `contextBody`.
+ */
+function historyPayload(history: ChatMessage[]) {
+  return history
+    .filter((m) => m.body)
+    .map((m) => ({
+      authorId: m.authorId,
+      body: m.body,
+      createdAt: m.createdAt,
+      ...(m.answer?.dialect ? { dialect: m.answer.dialect } : {}),
+    }));
+}
+
+/**
  * The stateless route. The client owns the thread and posts it every time —
  * which is also why this one works with no database and no account.
  */
@@ -115,7 +130,7 @@ export function draftTransport(): Transport {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           input: text,
-          history: history.filter((m) => m.body).map((m) => ({ authorId: m.authorId, body: m.body, createdAt: m.createdAt })),
+          history: historyPayload(history),
           locale,
           byok,
           images,
@@ -179,9 +194,7 @@ export function streamingDraftTransport(): Transport {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           input: text,
-          history: history
-            .filter((m) => m.body)
-            .map((m) => ({ authorId: m.authorId, body: m.body, createdAt: m.createdAt })),
+          history: historyPayload(history),
           locale,
           byok,
           images,
@@ -262,9 +275,9 @@ export type ConversationSummary = {
  * in-flight promise is the other half of that guard: two sends that arrive
  * together await the same creation instead of racing to make one each.
  *
- * The locale is sent only at CREATION. After that the conversation carries its
- * own, so reopening a thread in a differently negotiated browser cannot switch
- * Heidi mid-way.
+ * The locale goes with EVERY message, not only at creation: it is the page's,
+ * which is in the URL and therefore the reader's choice. Switching the site to
+ * another language switches the language Heidi explains in, in old threads too.
  */
 export function conversationTransport({
   conversationId,
@@ -311,7 +324,7 @@ export function conversationTransport({
       const res = await fetch(`/api/conversations/${target}/messages`, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ text, byok, images }),
+        body: JSON.stringify({ text, byok, images, locale }),
         signal,
       });
 

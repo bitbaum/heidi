@@ -197,3 +197,38 @@ export function moveKey(move: NextMove): string {
 export function moveId(move: NextMove): string {
   return move.id === "grammar" ? `grammar:${move.topic}` : moveKey(move);
 }
+
+/** The tone dials a suggestion can be labelled with — the first six axes. */
+const LABEL_AXES = ["shorter", "warmer", "firmer", "formal", "casual", "simpler"] as const satisfies readonly RephraseAxis[];
+
+/** Spellings the model uses for the same dial, and rows written before the list was closed. */
+const LABEL_ALIASES: Record<string, (typeof LABEL_AXES)[number]> = {
+  short: "shorter",
+  "more formal": "formal",
+  "more casual": "casual",
+  firm: "firmer",
+  simple: "simpler",
+};
+
+/**
+ * What a suggestion's label should be rendered as.
+ *
+ * The model writes the label, so it arrives in English ("warmer", "shorter")
+ * whatever language the page is in. Mapped here to words the dictionary
+ * already has: a dial becomes that move's label, "neutral" or "warm" become
+ * the tone's name. `hidden` is for "bridge"/"target": the variety badge beside
+ * the label already says that. Anything else is shown as written.
+ */
+export type SuggestionLabel =
+  | { kind: "axis"; axis: (typeof LABEL_AXES)[number] }
+  | { kind: "tone"; tone: "neutral" | "warm" }
+  | { kind: "hidden" }
+  | { kind: "raw"; text: string };
+
+export function suggestionLabel(raw: string): SuggestionLabel {
+  const key = raw.trim().toLowerCase();
+  if (key === "" || key === "bridge" || key === "target") return { kind: "hidden" };
+  if (key === "neutral" || key === "warm") return { kind: "tone", tone: key };
+  const axis = (LABEL_AXES as readonly string[]).includes(key) ? (key as (typeof LABEL_AXES)[number]) : LABEL_ALIASES[key];
+  return axis ? { kind: "axis", axis } : { kind: "raw", text: raw };
+}

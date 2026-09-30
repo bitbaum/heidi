@@ -396,3 +396,22 @@ export const certificates = pgTable(
   },
   (t) => [index("certificates_actor_scene_idx").on(t.actorId, t.sceneId)],
 );
+
+/**
+ * What a signed-in learner chose for themselves, so a new device starts from
+ * it instead of from German.
+ *
+ * Only the site language today. The `heidi_locale` cookie already remembers a
+ * choice per browser; this row is what lets it follow the PERSON — somebody
+ * who reads the site in Züridütsch should not be handed Hochdeutsch again on
+ * every phone they sign in on. Written only when they pick a language while
+ * signed in (or sign in from a page that is not the German default), read
+ * only on the way back from signing in. See `lib/domain/preferences/`.
+ */
+export const preferences = pgTable("preferences", {
+  /** OIDC `sub`. No foreign key: the person lives in OrangeCat, not here. */
+  actorId: text("actor_id").primaryKey(),
+  /** One of `LOCALES`; checked on write and again on read. */
+  locale: text("locale").notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
