@@ -32,14 +32,27 @@ export function PracticeChooser({
   scope,
   t,
   locale,
+  base = href(locale, "practice"),
+  keep,
+  replace = false,
+  available,
+  className = "mb-8",
 }: {
   mode: Mode;
   flow: Flow;
   scope: Scope;
   t: Dictionary["practice"];
   locale: Locale;
+  /** Where the links point: `/practice`, or the session screen itself. */
+  base?: string;
+  /** Parameters every link carries unchanged — the session's way back. */
+  keep?: Record<string, string>;
+  /** Inside the session a choice replaces the sitting rather than adding a step to go back through. */
+  replace?: boolean;
+  /** The choices that have questions in this scope; the rest are not offered. */
+  available?: { modes: readonly Mode[]; test: boolean };
+  className?: string;
 }) {
-  const base = href(locale, "practice");
 
   /**
    * One link's URL: this row's new value, the other row's current value, and
@@ -61,9 +74,14 @@ export function PracticeChooser({
      * why. Dropping the mode makes that press mean the obvious thing instead:
      * the test you can actually take.
      */
-    const query = sittingQuery({ scope, mode: next.mode ?? mode, flow: next.flow ?? flow });
+    const params = new URLSearchParams(sittingQuery({ scope, mode: next.mode ?? mode, flow: next.flow ?? flow }));
+    for (const [key, value] of Object.entries(keep ?? {})) params.set(key, value);
+    const query = params.toString();
     return query ? `${base}?${query}` : base;
   }
+
+  const flows = FLOWS.filter((value) => value !== "test" || (available?.test ?? true));
+  const modes = MODES.filter((value) => available?.modes.includes(value) ?? true);
 
   const modeLabel: Record<Mode, { label: string; note: string }> = {
     mixed: { label: t.modeMixed, note: t.modeMixedNote },
@@ -78,18 +96,21 @@ export function PracticeChooser({
   };
 
   return (
-    <div className="mb-8 flex flex-col gap-6">
+    <div className={`${className} flex flex-col gap-6`}>
+      {flows.length > 1 && (
       <Row title={t.flowTitle}>
-        {FLOWS.map((value) => (
+        {flows.map((value) => (
           <Choice
             key={value}
             href={link({ flow: value })}
+            replace={replace}
             current={value === flow}
             label={flowLabel[value].label}
             note={flowLabel[value].note}
           />
         ))}
       </Row>
+      )}
 
       {/*
         NO MODE ROW IN A TEST, and saying so beats greying four buttons out.
@@ -102,12 +123,13 @@ export function PracticeChooser({
       */}
       {flow === "test" ? (
         <p className="max-w-measure text-sm leading-relaxed text-fg-muted">{t.testOnlyObjective}</p>
-      ) : (
+      ) : modes.length > 1 && (
         <Row title={t.modeTitle}>
-          {MODES.map((value) => (
+          {modes.map((value) => (
             <Choice
               key={value}
               href={link({ mode: value })}
+              replace={replace}
               current={value === mode}
               label={modeLabel[value].label}
               note={modeLabel[value].note}
@@ -132,7 +154,19 @@ function Row({ title, children }: { title: string; children: React.ReactNode }) 
   );
 }
 
-function Choice({ href: to, current, label, note }: { href: string; current: boolean; label: string; note: string }) {
+function Choice({
+  href: to,
+  current,
+  label,
+  note,
+  replace,
+}: {
+  href: string;
+  current: boolean;
+  label: string;
+  note: string;
+  replace?: boolean;
+}) {
   const base =
     "min-w-0 flex-1 basis-[calc(50%-0.25rem)] rounded-control border px-4 py-3 text-left sm:flex-none sm:basis-auto";
   const state = current
@@ -140,7 +174,7 @@ function Choice({ href: to, current, label, note }: { href: string; current: boo
     : "border-border-strong text-fg-primary hover:bg-surface-raised";
 
   return (
-    <Link href={to} aria-current={current ? "page" : undefined} className={`${base} ${state}`}>
+    <Link href={to} replace={replace} aria-current={current ? "page" : undefined} className={`${base} ${state}`}>
       <span className="block font-heading text-base font-semibold tracking-display">{label}</span>
       <span className={`mt-0.5 hidden text-sm leading-snug sm:block ${current ? "opacity-90" : "text-fg-muted"}`}>
         {note}

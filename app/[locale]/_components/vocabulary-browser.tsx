@@ -1,9 +1,9 @@
 "use client";
 
 import { useId, useMemo, useState } from "react";
-import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import { WordList } from "./word-list";
+import { SessionLink } from "./session/links";
 
 export type BrowserWord = {
   target: string;
@@ -62,7 +62,7 @@ export function VocabularyBrowser({
   t,
   chatT,
   persons,
-  practiceHref,
+  locale,
 }: {
   words: readonly BrowserWord[];
   /** Group ids in the order they are worth learning, with their headings. */
@@ -72,8 +72,8 @@ export function VocabularyBrowser({
   t: Dictionary["vocabulary"];
   chatT: Dictionary["chat"];
   persons: Dictionary["practice"]["persons"];
-  /** `/xx/practice`, so the group links can append their own scope. */
-  practiceHref: string;
+  /** For the group links, which open a sitting on the group directly. */
+  locale: string;
 }) {
   const [query, setQuery] = useState("");
   const fieldId = useId();
@@ -161,12 +161,13 @@ export function VocabularyBrowser({
                   <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
                     {group.title}
                   </h2>
-                  <Link
-                    href={`${practiceHref}?group=${encodeURIComponent(group.id)}`}
+                  <SessionLink
+                    locale={locale}
+                    scope={{ kind: "group", id: group.id }}
                     className="text-sm text-link underline underline-offset-4 hover:text-accent"
                   >
                     {t.practiseGroup}
-                  </Link>
+                  </SessionLink>
                 </div>
 
                 <WordList words={inGroup} t={t} chatT={chatT} persons={persons} saidIn={saidIn} />

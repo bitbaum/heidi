@@ -23,6 +23,11 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-09-30
 
+- **Practise in one tap, from any page.** Bottom right, next to "Heidi fragen", there is now "Üben". One tap opens practice for the page you are on: on a situation its sentences and words, on a grammar topic that topic, anywhere else everything mixed. Closing goes back to the same page at the same scroll position. It used to take two taps and two scrolls: the button under a situation, then "Losgehen" below the fold on the practice page.
+  - What and how you practise is changed inside the exercise: its name at the top opens a sheet with the scope, practice or test, and the mode. Choosing keeps the way back.
+  - A situation's sitting now also asks the vocabulary said in it (about 40 to 90 questions per situation), not only its sentences.
+  - Every "practise" link on the site opens the exercise directly. Under an explanation, a link to the sitting already open is no longer shown; tapping it did nothing.
+  - The footer has room at the bottom so its last line is not hidden behind the floating buttons.
 - **Exercises get their own screen, like an app.** Practice, the test and the warm-up no longer run as a box in the middle of a page. "Losgehen" opens a screen with only the exercise: a close button and a progress bar on top, the question in the middle, and the answer buttons in a bar at the bottom where the thumb is. No header, no footer, and nothing above the question that can push it around. The test's clock sits in the top bar.
   - Close it half way and your place is kept: opening the same sitting within 12 hours carries on where you stopped, and the button on the practice page says so ("Weitermachen — Frage 4 von 8"). Stored only in the browser.
   - The practice page is now where you choose what to practise; the warm-up page explains the warm-up and starts it. Links from grammar topics, situations and word groups open the same sittings as before.

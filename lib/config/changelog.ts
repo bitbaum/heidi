@@ -43,6 +43,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-09-30",
       tag: "feature",
+      title: "Üben mit einem Tippen, von jeder Seite",
+      summary:
+        "Unten rechts steht neben «Heidi fragen» jetzt «Üben». Ein Tippen öffnet die Übung zu der Seite, auf der Sie sind: auf «Beim Arzt» die Sätze und Wörter aus dieser Situation, auf einem Grammatikthema dieses Thema, sonst alles gemischt. Schliessen bringt Sie auf dieselbe Seite zurück, an dieselbe Stelle.",
+      items: [
+        "Bisher waren es vier Schritte: bis zum Knopf unter der Situation scrollen, tippen, auf der Übungsseite noch einmal scrollen und «Losgehen» tippen.",
+        "Worüber und wie Sie üben, ändern Sie in der Übung selbst: Tippen Sie oben auf den Namen der Übung. Karten, Schreiben, Test oder alles gemischt, ohne die Übung zu verlassen.",
+        "Eine Situation fragt jetzt auch die Wörter ab, die darin gesagt werden, nicht nur die Sätze.",
+        "Alle «Üben»-Links (Grammatik, Situationen, Wortschatz, Wiederholung, Startseite) öffnen die Übung direkt, statt zuerst die Übungsseite.",
+      ],
+    },
+    {
+      date: "2026-09-30",
+      tag: "feature",
       title: "Übungen bekommen einen eigenen Bildschirm, wie in einer App",
       summary:
         "Übungen, Test und Aufwärmen laufen nicht mehr als Kasten mitten auf einer Seite. «Losgehen» öffnet einen Bildschirm nur mit der Übung: oben Schliessen und ein Fortschrittsbalken, in der Mitte die Frage, unten die Antwortknöpfe, dort wo der Daumen ist. Kein Seitenkopf, keine Fusszeile und nichts über der Frage, das sie verschieben könnte.",
@@ -370,6 +383,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-30",
+      tag: "feature",
+      title: "Practise in one tap, from any page",
+      summary:
+        "Bottom right, next to \u201cHeidi fragen\u201d, there is now \u201c\u00dcben\u201d. One tap opens practice for the page you are on: on \u201cAt the doctor\u201d the sentences and words of that situation, on a grammar topic that topic, anywhere else everything mixed. Closing takes you back to the same page, at the same place.",
+      items: [
+        "It used to take four steps: scroll to the button under the situation, tap, scroll again on the practice page and tap \u201cLosgehen\u201d.",
+        "What and how you practise is changed inside the exercise: tap its name at the top. Cards, writing, the test or everything mixed, without leaving it.",
+        "A situation now also asks the words said in it, not only its sentences.",
+        "Every \u201cpractise\u201d link (grammar, situations, vocabulary, review, home page) opens the exercise directly instead of the practice page first.",
+      ],
+    },
     {
       date: "2026-09-30",
       tag: "feature",

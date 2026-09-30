@@ -160,6 +160,7 @@ export const rm: Dictionary = {
       aiNote: "Questas respostas scriva il model linguistic en il chat, controlladas per las furmas da Turitg.",
     },
     dock: {
+      practise: "Exercitar",
       open: "Dumandar Heidi",
       close: "Serrar",
       title: "Heidi",
@@ -1041,6 +1042,10 @@ export const rm: Dictionary = {
     close: "Serrar l’exercizi",
     finish: "Fatg",
     resume: "Cuntinuar — dumonda {n} da {total}",
+    adjust: "Adattar",
+    adjustTitle: "Tge e co exercitar",
+    what: "Davart tge",
+    everything: "Tut, maschadà",
   },
 
   practice: {

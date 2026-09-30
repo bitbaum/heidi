@@ -104,7 +104,7 @@ export default async function VocabularyPage({ params }: { params: Promise<{ loc
           t={t}
           chatT={dict.chat}
           persons={dict.practice.persons}
-          practiceHref={href(locale, "practice")}
+          locale={locale}
         />
       </div>
       <SourceList title={dict.dialect.sourcesTitle} ids={sources} className="mt-14 border-t border-border-subtle pt-8" />

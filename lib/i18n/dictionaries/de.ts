@@ -177,6 +177,7 @@ export const de = {
      * attached; these three are answerable exactly as written.
      */
     dock: {
+      practise: "Üben",
       open: "Heidi fragen",
       close: "Schliessen",
       title: "Heidi",
@@ -1123,6 +1124,10 @@ export const de = {
     close: "Übung schliessen",
     finish: "Fertig",
     resume: "Weitermachen — Frage {n} von {total}",
+    adjust: "Anpassen",
+    adjustTitle: "Was und wie Sie üben",
+    what: "Worüber",
+    everything: "Alles gemischt",
   },
 
   practice: {

@@ -3,13 +3,13 @@ import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
-import { PACK_ITEMS } from "@/lib/domain/practice/published";
-import { itemsInScope, parseScope, type Scope } from "@/lib/domain/practice/scope";
+import { sittingPool } from "@/lib/domain/practice/pool";
+import { parseScope } from "@/lib/domain/practice/scope";
 import { itemsFor, parseFlow, parseMode } from "@/lib/domain/practice/mode";
 import { sittingKey, sittingQuery } from "@/lib/domain/practice/sitting";
 import { fill } from "@/lib/i18n/fill";
-import type { Dictionary } from "@/lib/i18n/dictionaries/de";
 import { SOURCES, shortCitation } from "@/lib/research/sources";
+import { scopeName } from "./scope-name";
 import { BandHeader, Shell } from "../_components/page-shell";
 import { FocusPanel } from "../_components/focus-panel";
 import { PracticeChooser } from "../_components/practice-chooser";
@@ -39,31 +39,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
  * `/privacy` holding under a feature that would have been easier to build by
  * breaking it.
  */
-/**
- * What to call a scope, in the reader's language.
- *
- * It reads the SAME dictionary entries the pages themselves render — the
- * grammar topic's own title, the scene's own title, the vocabulary group's own
- * heading — rather than a second set of names written for this banner. Two
- * names for one thing is how a product ends up telling somebody they are
- * practising "Verbs" on a page headed "Verben, die ständig vorkommen".
- *
- * An id nothing recognises falls back to the id itself. That is deliberate: a
- * hand-edited URL should show what it asked for, so the person can see their
- * typo, rather than a friendly label that hides it.
- */
-function scopeName(dict: Dictionary, scope: Scope): string {
-  switch (scope.kind) {
-    case "all":
-      return "";
-    case "topic":
-      return dict.grammar.topics[scope.id as keyof typeof dict.grammar.topics]?.title ?? scope.id;
-    case "scene":
-      return dict.situations.scenes[scope.id as keyof typeof dict.situations.scenes]?.title ?? scope.id;
-    case "group":
-      return dict.vocabulary.groups[scope.id as keyof typeof dict.vocabulary.groups] ?? scope.id;
-  }
-}
 
 export default async function PracticePage({
   params,
@@ -102,7 +77,7 @@ export default async function PracticePage({
    */
   const mode = parseMode(query);
   const flow = parseFlow(query);
-  const items = itemsFor(itemsInScope(PACK_ITEMS, scope), mode, flow);
+  const items = itemsFor(sittingPool(scope), mode, flow);
   const named = scopeName(dict, scope);
 
   /**

@@ -7,6 +7,8 @@ import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { DISPLAY } from "@/lib/variety/display";
 import { useGrade, useReview } from "./use-review";
+import { SessionLink } from "./session/links";
+import { ALL } from "@/lib/domain/practice/scope";
 import type { ReviewWord } from "@/lib/domain/saved/review";
 
 /**
@@ -78,18 +80,21 @@ export function ReviewPanel({ t, locale }: { t: Dictionary["review"]; locale: Lo
     return (
       <Empty title={t.none} hint={t.noneFree}>
         <div className="mt-4 flex flex-wrap gap-2">
-          <Link
-            href={href(locale, "practice")}
+          <SessionLink
+            locale={locale}
+            scope={ALL}
             className="inline-flex min-h-11 items-center rounded-control bg-action px-4 text-sm font-medium text-on-action hover:opacity-90"
           >
             {t.nonePractise}
-          </Link>
-          <Link
-            href={`${href(locale, "practice")}?mode=card`}
+          </SessionLink>
+          <SessionLink
+            locale={locale}
+            scope={ALL}
+            mode="card"
             className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-sm font-medium text-fg-primary hover:bg-surface-page"
           >
             {t.noneCards}
-          </Link>
+          </SessionLink>
           <Link
             href={href(locale, "chat")}
             className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-sm font-medium text-fg-primary hover:bg-surface-page"

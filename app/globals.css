@@ -438,9 +438,10 @@ body:has([data-chrome="session"]) > main {
   min-height: 0;
 }
 
-/* The launcher would sit on the answer bar. The dock itself stays: "Heidi
-   fragen" under an explanation opens it from here. */
-body:has([data-chrome="session"]) [data-dock="heidi"] > button {
+/* The launcher pill — Üben and Heidi fragen — would sit on the answer bar,
+   and one of its halves is the screen already open. The dock itself stays:
+   "Heidi fragen" under an explanation opens it from here. */
+body:has([data-chrome="session"]) [data-dock="heidi"] [data-dock-launcher] {
   display: none;
 }
 

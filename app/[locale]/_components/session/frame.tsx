@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import { ActionSlot } from "../exercises/actions";
 import { useKeyboardViewport } from "../use-keyboard-viewport";
+import { CloseLink, SessionBack } from "./links";
 
 /**
  * The screen an exercise session runs in: close, progress, the question, and
@@ -37,6 +37,7 @@ export function SessionFrame({
   closeHref,
   progress,
   aside,
+  about,
   scrollKey,
   children,
 }: {
@@ -47,6 +48,8 @@ export function SessionFrame({
   progress?: { at: number; total: number; label: string };
   /** Beside the progress: a clock, when the learner asked for one. */
   aside?: React.ReactNode;
+  /** Under the bar: what this sitting is about, which opens its choices. */
+  about?: React.ReactNode;
   scrollKey?: string;
   children?: React.ReactNode;
 }) {
@@ -61,16 +64,16 @@ export function SessionFrame({
   const share = progress && progress.total > 0 ? Math.min(1, progress.at / progress.total) : 0;
 
   return (
+    <SessionBack.Provider value={closeHref}>
     <div data-chrome="session" className="flex min-h-0 w-full flex-1 flex-col">
       <div className="mx-auto flex w-full max-w-2xl items-center gap-3 px-2 pb-2 pt-[max(0.5rem,env(safe-area-inset-top))] sm:px-6">
-        <Link
+        <CloseLink
           href={closeHref}
-          replace
           aria-label={t.close}
           className="grid size-11 shrink-0 place-items-center rounded-control text-fg-secondary transition-colors hover:bg-surface-raised hover:text-fg-primary"
         >
           <CloseIcon />
-        </Link>
+        </CloseLink>
         {progress && (
           <>
             <div
@@ -94,6 +97,7 @@ export function SessionFrame({
         {!progress && <div className="flex-1" />}
         {aside}
       </div>
+      {about && <div className="mx-auto w-full max-w-2xl px-4 pb-1 sm:px-6">{about}</div>}
 
       <div ref={scroller} className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
         <div className="mx-auto w-full max-w-2xl px-4 pb-8 pt-2 sm:px-6">
@@ -108,6 +112,7 @@ export function SessionFrame({
         className="border-t border-border-subtle bg-surface-page px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 empty:hidden sm:px-6"
       />
     </div>
+    </SessionBack.Provider>
   );
 }
 

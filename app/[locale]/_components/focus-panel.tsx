@@ -1,11 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
-import { href } from "@/lib/i18n/routes";
 import { weakest } from "@/lib/domain/practice/model";
 import { useModelView } from "./sync-stores";
+import { SessionLink } from "./session/links";
 
 /**
  * What keeps catching this learner out, and a way straight at it.
@@ -97,12 +96,13 @@ export function FocusPanel({
       <ul className="mt-4 flex flex-wrap gap-2">
         {areas.map((area) => (
           <li key={`${area.scope}:${area.id}`}>
-            <Link
-              href={`${href(locale, "practice")}?${area.scope}=${encodeURIComponent(area.id)}`}
+            <SessionLink
+              locale={locale}
+              scope={{ kind: area.scope, id: area.id }}
               className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-sm font-medium text-fg-primary transition-colors hover:bg-surface-page"
             >
               {area.title}
-            </Link>
+            </SessionLink>
           </li>
         ))}
       </ul>

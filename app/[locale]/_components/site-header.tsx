@@ -10,7 +10,9 @@ import { LanguageSwitcher } from "./language-switcher";
 import { CowMark } from "./cow-mark";
 import { NavIcon } from "./nav-icon";
 import { useDismiss } from "./use-dismiss";
+import { SessionLink } from "./session/links";
 import { DISPLAY } from "@/lib/variety/display";
+import { ALL } from "@/lib/domain/practice/scope";
 
 /**
  * The site header: brand, navigation, language, account.
@@ -331,15 +333,15 @@ export function SiteHeader({
                 <NavIcon route="chat" />
                 {dict.nav.quickChat}
               </Link>
-              <Link
-                href={href(locale, "practice")}
-                prefetch={false}
+              <SessionLink
+                locale={locale}
+                scope={ALL}
                 onClick={() => setOpen(false)}
                 className="flex min-h-14 items-center justify-center gap-2 rounded-control border border-border-strong px-3 text-center font-medium text-fg-primary"
               >
                 <NavIcon route="practice" />
                 {dict.nav.quickPractice}
-              </Link>
+              </SessionLink>
             </div>
 
             {groups

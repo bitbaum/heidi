@@ -8,8 +8,8 @@ import { DISPLAY } from "@/lib/variety/display";
 import { useStoreWriter } from "@/lib/browser/store";
 import { recallItems } from "@/lib/domain/practice/generate";
 import { inMode, sessionSize, type Mode } from "@/lib/domain/practice/mode";
-import Link from "next/link";
 import { QuestionCard } from "./exercises/question-card";
+import { CloseLink } from "./session/links";
 import { Actions, PRIMARY, SECONDARY } from "./exercises/actions";
 import { SessionFrame } from "./session/frame";
 import { NO_HISTORY, remember } from "@/lib/domain/practice/history";
@@ -63,6 +63,7 @@ export function PracticeSession({
   learnT,
   sessionT,
   closeHref,
+  about,
   sessionKey,
   locale,
   mode,
@@ -84,6 +85,8 @@ export function PracticeSession({
   sessionT: Dictionary["session"];
   /** Where closing the screen goes. */
   closeHref: string;
+  /** What this sitting is, and its choices (`session/settings.tsx`). */
+  about?: React.ReactNode;
   /** Which sitting this is, for picking it up again — see `resume.ts`. */
   sessionKey: string;
   locale: Locale;
@@ -188,7 +191,7 @@ export function PracticeSession({
   if (!saved.ready || session === null) {
     // Nothing rather than a flash of the signed-out shape at somebody who has
     // forty words waiting.
-    return <SessionFrame t={sessionT} closeHref={closeHref} />;
+    return <SessionFrame t={sessionT} closeHref={closeHref} about={about} />;
   }
 
   const item = session[at];
@@ -284,6 +287,7 @@ export function PracticeSession({
     <SessionFrame
       t={sessionT}
       closeHref={closeHref}
+      about={about}
       progress={item ? { at, total: session.length, label: progress ?? "" } : undefined}
       scrollKey={item ? `${at}:${item.id}` : "done"}
     >
@@ -393,9 +397,9 @@ function Done({
         <button type="button" onClick={onRestart} className={PRIMARY}>
           {t.restart}
         </button>
-        <Link href={closeHref} replace className={`${SECONDARY} inline-flex items-center justify-center`}>
+        <CloseLink href={closeHref} className={`${SECONDARY} inline-flex items-center justify-center`}>
           {sessionT.finish}
-        </Link>
+        </CloseLink>
       </Actions>
     </div>
   );

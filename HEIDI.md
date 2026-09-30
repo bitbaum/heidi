@@ -486,15 +486,28 @@ which of the two it is in, next to the button, in the learner's language. See
   progress bar and — in a timed test — the clock on top; the question in the
   middle, the only part that scrolls; and the answer buttons in a bar at the
   bottom, under the thumb. No site header, no footer, no dock launcher (the
-  dock itself still opens from "Heidi fragen"). Answering inside a page made
+  dock itself still opens from an explanation's "ask Heidi"). Answering inside a page made
   it jump: the streak card and focus panel above the question change height
   with every answer, and iOS Safari has no scroll anchoring. Here nothing
   above can move the question, and each new one starts at the top.
-  - The pages became launchers. `/practice` configures a sitting (scope,
-    mode, test) and offers one button into it; the warm-up page explains
-    itself and starts the screen. Their query strings are the same
-    (`sitting.ts`), so every "practise this" link from grammar, scenes and
-    words opens the same sitting either way.
+  - One tap in, from anywhere. The dock's launcher is split: «Üben» beside
+    «Heidi fragen», bottom right on every page but the session and the chat.
+    «Üben» opens the sitting the page is about (`quickScope` in
+    `sitting.ts`): a situation's, a grammar topic's, otherwise everything
+    mixed. Every other "practise this" link on the site is the same
+    `SessionLink` (`session/links.tsx`) straight into the screen, not to
+    `/practice`, which asked for a second tap below the fold.
+  - Choices come after starting, not before. The sitting's name at the top
+    opens a sheet (`session/settings.tsx`): what (this page's scope, the
+    current one, everything) and how (practice or test, mode). Every choice
+    replaces the sitting in history, so close still goes to where the learner
+    began. `/practice` stays as the full chooser, and the warm-up page
+    explains itself and starts the screen; the query strings are the same
+    (`sitting.ts`).
+  - A situation's sitting is its sentences AND the words said in it
+    (`pool.ts`, `sittingPool`): a word is in the scene when a phrase of it
+    says the word. `PRACTISABLE` lists the scenes and topics with questions,
+    so no page offers an empty sitting.
   - Each view owns its buttons and hands them to the bar (`exercises/
     actions.tsx`); outside a session screen they render in place.
   - Closing keeps the place. The sitting is saved in the browser after every
@@ -503,7 +516,10 @@ which of the two it is in, next to the button, in the learner's language. See
     then reads "Weitermachen — Frage 4 von 8". A finished sitting is cleared,
     and the test never resumes.
   - Close goes back where the learner came from (`?back=`, through the same
-    open-redirect guard as the language switch), otherwise to the launcher.
+    open-redirect guard as the language switch), otherwise to `/practice`.
+    When this tab opened the session from that page, close is a step back in
+    history and the page returns at the same scroll position (`origin.ts`,
+    in memory only; after a reload it is a plain link).
 - **On a phone, the home-page chat takes the screen** once the learner writes
   (`focus-surface.tsx`), with "Minimise" back into the page and "Continue full
   screen" out again; the conversation stays mounted either way. A restored
