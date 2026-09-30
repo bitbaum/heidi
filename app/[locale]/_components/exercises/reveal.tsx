@@ -6,6 +6,7 @@ import type { PracticeItem } from "@/lib/domain/practice/types";
 import type { ExerciseViewProps } from "./view";
 import { PROMPT_TEXT, Trace, ignoreKey } from "./chrome";
 import { Explanation } from "./explanation";
+import { Actions, PRIMARY, QUIET, SECONDARY } from "./actions";
 
 type RevealItem = Extract<PracticeItem, { kind: "cloze" | "recall" }>;
 
@@ -106,43 +107,29 @@ export function RevealView({ item, t, grammarT, situationsT, vocabularyT, learnT
       )}
 
       {shown ? (
-        <div className="mt-5 border-t border-border-subtle pt-4">
-          <div className="flex flex-wrap gap-3">
-            <button
-              type="button"
-              onClick={() => mark(true)}
-              className="min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
-            >
+        <>
+          <div className="mt-2">
+            <Trace item={item} t={t} locale={locale} />
+            <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} />
+          </div>
+          <Actions>
+            <button type="button" onClick={() => mark(true)} className={PRIMARY}>
               {t.knew}
             </button>
-            <button
-              type="button"
-              onClick={() => mark(false)}
-              className="min-h-11 rounded-control border border-border-strong px-4 font-medium text-fg-primary hover:bg-surface-page"
-            >
+            <button type="button" onClick={() => mark(false)} className={SECONDARY}>
               {t.missed}
             </button>
-          </div>
-          <Trace item={item} t={t} locale={locale} />
-          <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} />
-        </div>
+          </Actions>
+        </>
       ) : (
-        <div className="mt-5 flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={() => setShown(true)}
-            className="min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
-          >
+        <Actions>
+          <button type="button" onClick={() => setShown(true)} className={PRIMARY}>
             {t.show}
           </button>
-          <button
-            type="button"
-            onClick={() => onAnswer("skipped")}
-            className="min-h-11 rounded-control px-4 text-sm text-fg-muted hover:text-fg-primary"
-          >
+          <button type="button" onClick={() => onAnswer("skipped")} className={QUIET}>
             {t.skip}
           </button>
-        </div>
+        </Actions>
       )}
     </>
   );

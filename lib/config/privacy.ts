@@ -154,6 +154,16 @@ export const FLOWS: readonly Flow[] = [
     recipients: [],
   },
   {
+    // The sitting in progress — which questions, how far, what was answered —
+    // so closing the exercise screen does not lose it. Replaced by the next
+    // sitting; ignored after twelve hours.
+    id: "practiceSession",
+    place: "device",
+    where: "localStorage · heidi.practice.session.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
+  {
     id: "practiceModel",
     place: "device",
     where: "localStorage · heidi.practice.model.v1",

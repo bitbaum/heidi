@@ -5,6 +5,7 @@ import { DISPLAY } from "@/lib/variety/display";
 import type { PracticeItem } from "@/lib/domain/practice/types";
 import type { ExerciseViewProps } from "./view";
 import { Verdict } from "./chrome";
+import { Actions, PRIMARY } from "./actions";
 
 /**
  * A passage with its words taken out, and the words offered back.
@@ -105,14 +106,14 @@ export function GapTextView({ item, t, grammarT, situationsT, vocabularyT, learn
         </ul>
       )}
 
-      {complete && !checked && (
-        <button
-          type="button"
-          onClick={() => setChecked(true)}
-          className="mt-5 min-h-11 rounded-control bg-action px-5 font-semibold text-on-action hover:opacity-90"
-        >
-          {t.check}
-        </button>
+      {/* Present from the start and enabled once every gap is filled: a
+          button that appears late moves everything under the thumb. */}
+      {!checked && (
+        <Actions>
+          <button type="button" disabled={!complete} onClick={() => setChecked(true)} className={PRIMARY}>
+            {t.check}
+          </button>
+        </Actions>
       )}
 
       {checked && <Verdict right={right} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} item={item} locale={locale} onNext={() => onAnswer(right ? "right" : "wrong")} />}

@@ -6,6 +6,7 @@ import type { TranslateItem } from "@/lib/domain/practice/types";
 import type { ExerciseViewProps } from "./view";
 import { PROMPT_TEXT, Trace, ignoreKey } from "./chrome";
 import { Explanation } from "./explanation";
+import { Actions, PRIMARY, QUIET, SECONDARY } from "./actions";
 import { fill } from "@/lib/i18n/fill";
 import { missingWords } from "@/lib/domain/practice/compare";
 
@@ -125,26 +126,16 @@ export function TranslateView({ item, t, grammarT, situationsT, vocabularyT, lea
           )}
           <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.spellingNote}</p>
 
-          <div className="mt-5 border-t border-border-subtle pt-4">
-            <div className="flex flex-wrap gap-3">
-              <button
-                type="button"
-                onClick={() => onAnswer("right")}
-                className="min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
-              >
-                {t.knew}
-              </button>
-              <button
-                type="button"
-                onClick={() => onAnswer("wrong")}
-                className="min-h-11 rounded-control border border-border-strong px-4 font-medium text-fg-primary hover:bg-surface-page"
-              >
-                {t.missed}
-              </button>
-            </div>
-            <Trace item={item} t={t} locale={locale} />
-            <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} />
-          </div>
+          <Trace item={item} t={t} locale={locale} />
+          <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} />
+          <Actions>
+            <button type="button" onClick={() => onAnswer("right")} className={PRIMARY}>
+              {t.knew}
+            </button>
+            <button type="button" onClick={() => onAnswer("wrong")} className={SECONDARY}>
+              {t.missed}
+            </button>
+          </Actions>
         </div>
       ) : (
         <div className="mt-5">
@@ -182,22 +173,14 @@ export function TranslateView({ item, t, grammarT, situationsT, vocabularyT, lea
             className="w-full max-w-measure resize-y rounded-control border border-border-strong bg-surface-page px-4 py-3 font-heading text-lg leading-snug text-fg-primary placeholder:font-body placeholder:text-base placeholder:text-fg-muted focus-visible:border-accent focus-visible:outline-none"
           />
 
-          <div className="mt-4 flex flex-wrap gap-3">
-            <button
-              type="button"
-              onClick={() => setShown(true)}
-              className="min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
-            >
+          <Actions>
+            <button type="button" onClick={() => setShown(true)} className={PRIMARY}>
               {t.check}
             </button>
-            <button
-              type="button"
-              onClick={() => onAnswer("skipped")}
-              className="min-h-11 rounded-control px-4 text-sm text-fg-muted hover:text-fg-primary"
-            >
+            <button type="button" onClick={() => onAnswer("skipped")} className={QUIET}>
               {t.skip}
             </button>
-          </div>
+          </Actions>
         </div>
       )}
     </>

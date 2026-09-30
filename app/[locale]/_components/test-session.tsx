@@ -11,7 +11,9 @@ import { QuestionCard } from "./exercises/question-card";
 import { answerOf, explainingTopic, Trace } from "./exercises/chrome";
 import { Explanation } from "./exercises/explanation";
 import { recordPractice } from "./streak-store";
-import { FocusSurface } from "./focus-surface";
+import Link from "next/link";
+import { SessionFrame } from "./session/frame";
+import { Actions, PRIMARY, QUIET, SECONDARY } from "./exercises/actions";
 
 /**
  * A run of questions that says nothing until it is over.
@@ -47,7 +49,8 @@ export function TestSession({
   situationsT,
   vocabularyT,
   learnT,
-  focusT,
+  sessionT,
+  closeHref,
   locale,
 }: {
   items: readonly PracticeItem[];
@@ -56,7 +59,9 @@ export function TestSession({
   situationsT: Dictionary["situations"];
   vocabularyT: Dictionary["vocabulary"];
   learnT: Dictionary["chat"]["learn"];
-  focusT: Dictionary["focus"];
+  sessionT: Dictionary["session"];
+  /** Where closing the screen goes. */
+  closeHref: string;
   locale: Locale;
 }) {
   const [run, setRun] = useState<readonly PracticeItem[] | null>(null);
@@ -158,61 +163,61 @@ export function TestSession({
   }
 
   if (run === null) {
-    return <Before total={total} t={t} onStart={start} />;
+    return (
+      <SessionFrame t={sessionT} closeHref={closeHref}>
+        <Before total={total} t={t} onStart={start} />
+      </SessionFrame>
+    );
   }
 
   const item = done ? undefined : run[at];
   if (!done && !item) return null;
   const progress = item ? fill(t.testProgress, { n: String(at + 1), total: String(run.length) }) : undefined;
 
+  /*
+    THE ONLY TWO THINGS ON THE SCREEN BESIDES THE QUESTION: where you are, and
+    how long is left — the bar in the frame and, if asked for, the clock beside
+    it. No running score, and that is the point — a counter saying "4 right" is
+    feedback after each item wearing a different hat, and it would change what
+    the next item measures.
+  */
+  const timer =
+    left !== null && !done ? (
+      <span className="shrink-0 font-mono text-caption tabular-nums text-fg-secondary" aria-label={fill(t.testTimerLeft, { time: clock(left) })}>
+        {clock(left)}
+      </span>
+    ) : undefined;
+
   return (
-    <FocusSurface open title={t.flowTest} progress={progress} t={focusT} scrollKey={item ? item.id : "done"}>
+    <SessionFrame
+      t={sessionT}
+      closeHref={closeHref}
+      progress={item ? { at, total: run.length, label: progress ?? "" } : undefined}
+      aside={timer}
+      scrollKey={item ? item.id : "done"}
+    >
       {done || !item ? (
         <Results
           given={given}
           t={t}
+          sessionT={sessionT}
           grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT}
           locale={locale}
           outOfTime={outOfTime}
+          closeHref={closeHref}
           onAgain={() => setRun(null)}
         />
       ) : (
         <section aria-live="off">
-          {/*
-            THE ONLY TWO THINGS ON THE SCREEN BESIDES THE QUESTION: where you are,
-            and how long is left. No running score, and that is the point — a
-            counter saying "4 right" is feedback after each item wearing a
-            different hat, and it would change what the next item measures.
-          */}
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-              {progress}
-            </p>
-            {left !== null && (
-              <div className="flex items-center gap-3">
-                <p className="font-mono text-caption uppercase tracking-caps text-fg-secondary">
-                  {fill(t.testTimerLeft, { time: clock(left) })}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setDeadline((at) => (at ?? Date.now()) + TEST_EXTEND_MINUTES * 60_000)}
-                  className="min-h-11 rounded-control border border-border-strong px-3 text-sm text-fg-primary hover:bg-surface-raised"
-                >
-                  {fill(t.testTimerAdd, { n: String(TEST_EXTEND_MINUTES) })}
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* A thin bar, because twenty is long enough that a number alone does
-              not tell you whether to keep going. No colour: it reports position,
-              not performance. */}
-          <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-border-subtle">
-            <div
-              className="h-full bg-fg-muted transition-[width] duration-200"
-              style={{ width: `${Math.round((at / run.length) * 100)}%` }}
-            />
-          </div>
+          {left !== null && (
+            <button
+              type="button"
+              onClick={() => setDeadline((at) => (at ?? Date.now()) + TEST_EXTEND_MINUTES * 60_000)}
+              className="min-h-11 rounded-control border border-border-strong px-3 text-sm text-fg-primary hover:bg-surface-raised"
+            >
+              {fill(t.testTimerAdd, { n: String(TEST_EXTEND_MINUTES) })}
+            </button>
+          )}
 
           <QuestionCard
             key={item.id}
@@ -227,16 +232,14 @@ export function TestSession({
             }}
           />
 
-          <button
-            type="button"
-            onClick={() => record(item.id, "skipped")}
-            className="mt-4 min-h-11 rounded-control px-4 text-sm text-fg-muted hover:text-fg-primary"
-          >
-            {t.skip}
-          </button>
+          <Actions>
+            <button type="button" onClick={() => record(item.id, "skipped")} className={QUIET}>
+              {t.skip}
+            </button>
+          </Actions>
         </section>
       )}
-    </FocusSurface>
+    </SessionFrame>
   );
 }
 
@@ -303,22 +306,26 @@ function Before({ total, t, onStart }: { total: number; t: Dictionary["practice"
 function Results({
   given,
   t,
+  sessionT,
   grammarT,
   situationsT,
   vocabularyT,
   learnT,
   locale,
   outOfTime,
+  closeHref,
   onAgain,
 }: {
   given: readonly Given[];
   t: Dictionary["practice"];
+  sessionT: Dictionary["session"];
   grammarT: Dictionary["grammar"];
   situationsT: Dictionary["situations"];
   vocabularyT: Dictionary["vocabulary"];
   learnT: Dictionary["chat"]["learn"];
   locale: Locale;
   outOfTime: boolean;
+  closeHref: string;
   onAgain: () => void;
 }) {
   const right = given.filter((g) => g.outcome === "right").length;
@@ -399,13 +406,14 @@ function Results({
         })}
       </ul>
 
-      <button
-        type="button"
-        onClick={onAgain}
-        className="mt-10 min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
-      >
-        {t.testAgain}
-      </button>
+      <Actions>
+        <button type="button" onClick={onAgain} className={PRIMARY}>
+          {t.testAgain}
+        </button>
+        <Link href={closeHref} replace className={`${SECONDARY} inline-flex items-center justify-center`}>
+          {sessionT.finish}
+        </Link>
+      </Actions>
     </section>
   );
 }

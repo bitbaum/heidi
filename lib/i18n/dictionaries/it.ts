@@ -578,6 +578,7 @@ export const it: Dictionary = {
       progressSync: "Progressi sincronizzati (solo se attivo)",
       certificates: "I suoi attestati",
       warmup: "Il vostro riscaldamento: quali frasi avete capito",
+      practiceSession: "Una serie di esercizi in corso, per riprenderla",
       language: "La lingua scelta (solo con un account)",
       ownKey: "La sua chiave API",
       theme: "Aspetto chiaro o scuro",
@@ -1017,6 +1018,13 @@ export const it: Dictionary = {
   focus: {
     minimize: "Riduci",
     expand: "Continua a schermo intero",
+  },
+
+  /** The exercise screen — see `session/frame.tsx`. */
+  session: {
+    close: "Chiudi l’esercizio",
+    finish: "Fatto",
+    resume: "Riprendi — domanda {n} di {total}",
   },
 
   practice: {

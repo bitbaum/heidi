@@ -23,6 +23,11 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-09-30
 
+- **Exercises get their own screen, like an app.** Practice, the test and the warm-up no longer run as a box in the middle of a page. "Losgehen" opens a screen with only the exercise: a close button and a progress bar on top, the question in the middle, and the answer buttons in a bar at the bottom where the thumb is. No header, no footer, and nothing above the question that can push it around. The test's clock sits in the top bar.
+  - Close it half way and your place is kept: opening the same sitting within 12 hours carries on where you stopped, and the button on the practice page says so ("Weitermachen — Frage 4 von 8"). Stored only in the browser.
+  - The practice page is now where you choose what to practise; the warm-up page explains the warm-up and starts it. Links from grammar topics, situations and word groups open the same sittings as before.
+  - The same screen on a computer, centred, with the buttons along the bottom.
+  - Fixed: "Gewusst" on a card skipped the next question. A card reported its answer twice, so it was counted twice and the sitting jumped two places; one tap is one answer now.
 - **Fixed: on a phone the page jumped after every answer.** The next question landed somewhere else on the screen and you had to scroll back. Above the question, the streak card and "What to work on" grew with each answer, and iOS Safari has no scroll anchoring, so the whole page moved. Practice, the test, the warm-up and the home-page chat now run full screen on a phone, like an app, and each new question starts at the top. "Minimise" puts the task back into the page with its answers or conversation intact; "Continue full screen" reopens it.
   - The chat's message box sits at the bottom of the full-screen view. A conversation restored from storage stays in the page until you write, instead of covering the home page on arrival.
   - On a computer everything stays in the page; a new question that begins above the viewport is scrolled to.

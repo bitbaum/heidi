@@ -6,6 +6,7 @@ import type { CardItem } from "@/lib/domain/practice/types";
 import type { ExerciseViewProps } from "./view";
 import { Trace, ignoreKey } from "./chrome";
 import { Explanation } from "./explanation";
+import { Actions, PRIMARY, SECONDARY } from "./actions";
 
 /**
  * A card, turned over.
@@ -28,7 +29,7 @@ import { Explanation } from "./explanation";
  * grey rectangle on a browser that does not do it. The face changes; the card
  * stays still.
  */
-export function CardView({ item, t, grammarT, situationsT, vocabularyT, learnT, locale, onAnswer, onRecall }: ExerciseViewProps) {
+export function CardView({ item, t, grammarT, situationsT, vocabularyT, learnT, locale, onRecall }: ExerciseViewProps) {
   const card = item as CardItem;
   const [turned, setTurned] = useState(false);
 
@@ -67,13 +68,13 @@ export function CardView({ item, t, grammarT, situationsT, vocabularyT, learnT, 
   /**
    * A card is a word, and a word carries a review schedule.
    *
-   * `onRecall` is what feeds the schedule; every other kind reports through
-   * `onAnswer` alone. Practising a word without telling its schedule would
-   * spend the spacing effect the schedule exists to produce.
+   * `onRecall` is what feeds the schedule, and it IS the answer — the session
+   * records it as one. Calling `onAnswer` as well counted every card twice and
+   * skipped the question after it. Practising a word without telling its
+   * schedule would spend the spacing effect the schedule exists to produce.
    */
   function mark(knew: boolean) {
     onRecall(card.source.kind === "word" ? card.source.word : card.prompt, knew);
-    onAnswer(knew ? "right" : "wrong");
   }
 
   const frontIsDialect = card.direction === "recognise";
@@ -141,27 +142,27 @@ export function CardView({ item, t, grammarT, situationsT, vocabularyT, learnT, 
         </p>
       )}
 
-      {turned && (
-        <div className="mt-5 border-t border-border-subtle pt-4">
-          <div className="flex flex-wrap gap-3">
-            <button
-              type="button"
-              onClick={() => mark(true)}
-              className="min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
-            >
-              {t.knew}
-            </button>
-            <button
-              type="button"
-              onClick={() => mark(false)}
-              className="min-h-11 rounded-control border border-border-strong px-4 font-medium text-fg-primary hover:bg-surface-page"
-            >
-              {t.missed}
-            </button>
-          </div>
+      {turned ? (
+        <>
           <Trace item={item} t={t} locale={locale} />
           <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} />
-        </div>
+          <Actions>
+            <button type="button" onClick={() => mark(true)} className={PRIMARY}>
+              {t.knew}
+            </button>
+            <button type="button" onClick={() => mark(false)} className={SECONDARY}>
+              {t.missed}
+            </button>
+          </Actions>
+        </>
+      ) : (
+        // The card itself turns on a tap too; this is the same action where
+        // the thumb is.
+        <Actions>
+          <button type="button" onClick={() => setTurned(true)} className={PRIMARY}>
+            {t.cardTurn}
+          </button>
+        </Actions>
       )}
     </>
   );

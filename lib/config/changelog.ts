@@ -42,6 +42,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-09-30",
+      tag: "feature",
+      title: "Übungen bekommen einen eigenen Bildschirm, wie in einer App",
+      summary:
+        "Übungen, Test und Aufwärmen laufen nicht mehr als Kasten mitten auf einer Seite. «Losgehen» öffnet einen Bildschirm nur mit der Übung: oben Schliessen und ein Fortschrittsbalken, in der Mitte die Frage, unten die Antwortknöpfe, dort wo der Daumen ist. Kein Seitenkopf, keine Fusszeile und nichts über der Frage, das sie verschieben könnte.",
+      items: [
+        "Wer mittendrin schliesst, verliert nichts: Öffnen Sie dieselbe Übung innerhalb von 12 Stunden wieder, geht es dort weiter, wo Sie aufgehört haben. Der Knopf auf der Übungsseite sagt es («Weitermachen — Frage 4 von 8»). Gespeichert nur im Browser.",
+        "Auf der Übungsseite wählen Sie jetzt, was Sie üben; die Seite zum Aufwärmen erklärt es und startet es. Links von Grammatik, Situationen und Wortgruppen öffnen dieselben Übungen wie bisher.",
+        "Die Uhr des Tests steht oben in der Leiste. Auf dem Computer ist der Bildschirm derselbe, zentriert, mit den Knöpfen unten.",
+        "Behoben: «Gewusst» auf einer Karte übersprang die nächste Frage. Die Karte meldete ihre Antwort doppelt, wurde doppelt gezählt, und die Übung sprang zwei Fragen weiter. Ein Tippen ist jetzt eine Antwort.",
+      ],
+    },
+    {
+      date: "2026-09-30",
       tag: "fix",
       title: "Auf dem Handy springt die Seite beim Antworten nicht mehr",
       summary:
@@ -357,6 +370,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-30",
+      tag: "feature",
+      title: "Exercises get their own screen, like an app",
+      summary:
+        "Practice, the test and the warm-up no longer run as a box in the middle of a page. \u201cLosgehen\u201d opens a screen with only the exercise: a close button and a progress bar on top, the question in the middle, and the answer buttons in a bar at the bottom where your thumb is. No header, no footer, and nothing above the question that could push it around.",
+      items: [
+        "Close it half way and your place is kept: opening the same sitting within 12 hours carries on where you stopped, and the button on the practice page says so. Stored only in the browser.",
+        "The practice page is now where you choose what to practise; the warm-up page explains the warm-up and starts it. Links from grammar topics, situations and word groups open the same sittings as before.",
+        "The test\u2019s clock sits in the top bar. On a computer the screen is the same, centred, with the buttons along the bottom.",
+        "Fixed: \u201cGewusst\u201d on a card skipped the next question. The card reported its answer twice, so it was counted twice and the sitting jumped two places. One tap is one answer now.",
+      ],
+    },
     {
       date: "2026-09-30",
       tag: "fix",

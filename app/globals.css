@@ -416,6 +416,39 @@ body:has([data-chrome="chat"]) > main {
 }
 
 /**
+ * The exercise session screen (`session/frame.tsx`): the whole screen, like
+ * an app. No site header and no footer — the screen has its own close button
+ * — and the body is exactly the visible height, so only the question scrolls
+ * and the answer bar stays under the thumb.
+ */
+body:has([data-chrome="session"]) {
+  height: var(--app-height, 100dvh);
+  min-height: var(--app-height, 100dvh);
+  overflow: hidden;
+}
+
+body:has([data-chrome="session"]) > header,
+body:has([data-chrome="session"]) > footer {
+  display: none;
+}
+
+body:has([data-chrome="session"]) > main {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* The launcher would sit on the answer bar. The dock itself stays: "Heidi
+   fragen" under an explanation opens it from here. */
+body:has([data-chrome="session"]) [data-dock="heidi"] > button {
+  display: none;
+}
+
+body:has([data-chrome="session"]) #loki-feedback-host {
+  display: none;
+}
+
+/**
  * The chat dock is on EVERY page but one.
  *
  * Heidi floats bottom-right on every page, phone and desktop, because chat is

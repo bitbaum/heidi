@@ -8,10 +8,13 @@ import { DISPLAY } from "@/lib/variety/display";
 import { useStoreWriter } from "@/lib/browser/store";
 import { recallItems } from "@/lib/domain/practice/generate";
 import { inMode, sessionSize, type Mode } from "@/lib/domain/practice/mode";
+import Link from "next/link";
 import { QuestionCard } from "./exercises/question-card";
-import { FocusSurface } from "./focus-surface";
+import { Actions, PRIMARY, SECONDARY } from "./exercises/actions";
+import { SessionFrame } from "./session/frame";
 import { NO_HISTORY, remember } from "@/lib/domain/practice/history";
-import { historyStore, modelStore } from "./practice-stores";
+import { restore, type SavedSession } from "@/lib/domain/practice/resume";
+import { historyStore, modelStore, sessionStore } from "./practice-stores";
 import { Trace, answerOf } from "./exercises/chrome";
 import { orderSession, requeue, summarise } from "@/lib/domain/practice/session";
 import { EMPTY_MODEL, observe } from "@/lib/domain/practice/model";
@@ -22,8 +25,8 @@ import { recordPractice } from "./streak-store";
 import { readHistoryView, readModelView, useHistoryView } from "./sync-stores";
 
 /**
- * The exercise page, which is the first place in this product where the
- * learner is asked eight things in a row.
+ * A practice sitting, on the session screen (`session/frame.tsx`) — the first
+ * place in this product where the learner is asked eight things in a row.
  *
  * WHY THE PACK'S ITEMS ARRIVE AS A PROP.
  *
@@ -58,7 +61,9 @@ export function PracticeSession({
   situationsT,
   vocabularyT,
   learnT,
-  focusT,
+  sessionT,
+  closeHref,
+  sessionKey,
   locale,
   mode,
   includeSaved = true,
@@ -76,7 +81,11 @@ export function PracticeSession({
   situationsT: Dictionary["situations"];
   vocabularyT: Dictionary["vocabulary"];
   learnT: Dictionary["chat"]["learn"];
-  focusT: Dictionary["focus"];
+  sessionT: Dictionary["session"];
+  /** Where closing the screen goes. */
+  closeHref: string;
+  /** Which sitting this is, for picking it up again — see `resume.ts`. */
+  sessionKey: string;
   locale: Locale;
   /**
    * Which answering style this sitting is for.
@@ -105,9 +114,8 @@ export function PracticeSession({
 
   const [session, setSession] = useState<PracticeItem[] | null>(null);
   const [at, setAt] = useState(0);
-  const [outcomes, setOutcomes] = useState<{ id: string; outcome: string }[]>([]);
-  /** On a phone the session waits for "Losgehen", then has the screen. */
-  const [started, setStarted] = useState(false);
+  const [outcomes, setOutcomes] = useState<SavedSession["outcomes"]>([]);
+  const writeSaved = useStoreWriter(sessionStore);
 
   /**
    * What this browser has already been asked — STORED, not held in a ref.
@@ -131,11 +139,13 @@ export function PracticeSession({
 
   const writeModel = useStoreWriter(modelStore);
 
-  const build = useCallback(() => {
+  /** `fresh` for "Nochmals"; otherwise a sitting left half way is picked up again. */
+  const build = useCallback((fresh: boolean) => {
     historyAtBuild.current = readHistoryView();
     const own = includeSaved ? recallItems(saved.words).filter((item) => inMode(item, mode)) : [];
-    setSession(
-      orderSession({
+    const back = fresh ? null : restore(sessionStore.read(), sessionKey, [...packItems, ...own], new Date());
+    const next = back ?? {
+      session: orderSession({
         // Read at build rather than subscribed to, for the same reason the
         // history is: writing to it mid-session would rebuild the session
         // under the learner's hands, one question at a time.
@@ -150,21 +160,35 @@ export function PracticeSession({
         // A card run is longer because a card is faster. See `sessionSize`.
         size: sessionSize(mode),
       }),
-    );
-    setAt(0);
-    setOutcomes([]);
-  }, [packItems, saved.words, includeSaved, mode]);
+      at: 0,
+      outcomes: [],
+    };
+    setSession(next.session);
+    setAt(next.at);
+    setOutcomes(next.outcomes);
+  }, [packItems, saved.words, includeSaved, mode, sessionKey]);
 
   // Once storage has been read, and not before: a session built on an empty
   // word list would leave out every word that was actually due.
   useEffect(() => {
-    if (saved.ready && session === null) build();
+    if (saved.ready && session === null) build(false);
   }, [saved.ready, session, build]);
+
+  // Written after every answer, so closing the screen keeps the place. A
+  // finished sitting is cleared: reopening means "again", not the summary.
+  useEffect(() => {
+    if (!session) return;
+    if (at >= session.length) {
+      writeSaved.clear();
+      return;
+    }
+    writeSaved.write({ key: sessionKey, ids: session.map((i) => i.id), at, outcomes, savedAt: new Date().toISOString() });
+  }, [session, at, outcomes, sessionKey, writeSaved]);
 
   if (!saved.ready || session === null) {
     // Nothing rather than a flash of the signed-out shape at somebody who has
     // forty words waiting.
-    return <div className="min-h-64" aria-hidden="true" />;
+    return <SessionFrame t={sessionT} closeHref={closeHref} />;
   }
 
   const item = session[at];
@@ -257,33 +281,20 @@ export function PracticeSession({
   const progress = item ? fill(t.progress, { n: String(at + 1), total: String(session.length) }) : undefined;
 
   return (
-    <FocusSurface
-      open={started}
-      title={t.title}
-      progress={progress}
-      t={focusT}
+    <SessionFrame
+      t={sessionT}
+      closeHref={closeHref}
+      progress={item ? { at, total: session.length, label: progress ?? "" } : undefined}
       scrollKey={item ? `${at}:${item.id}` : "done"}
-      gate={{ label: t.start, onStart: () => setStarted(true) }}
     >
       {!item ? (
-        <div className="max-w-measure">
-          <Done t={t} outcomes={outcomes} session={session} locale={locale} onRestart={build} />
-        </div>
+        <Done t={t} sessionT={sessionT} outcomes={outcomes} session={session} locale={locale} closeHref={closeHref} onRestart={() => build(true)} />
       ) : (
-        /*
-          Held to a reading measure rather than the page width. A question set in a
-          1100px box has its prompt at the far left and its options a hand-span
-          away, and the eye has to travel the whole line between asking and
-          answering — which is the one journey this page exists to make short.
-        */
-        <div className="max-w-measure">
-          <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-            {progress}
-            {/* Said, not hidden. A question the learner already answered arriving
-                again with no explanation reads as a bug; saying it is the second
-                attempt is also the honest reason the total just went up by one. */}
-            {isRepeat && <span className="text-fg-muted"> · {t.secondTry}</span>}
-          </p>
+        <>
+          {/* Said, not hidden. A question the learner already answered arriving
+              again with no explanation reads as a bug; saying it is the second
+              attempt is also the honest reason the total just went up by one. */}
+          {isRepeat && <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.secondTry}</p>}
 
           {/* Keyed on the item so every answer starts a genuinely new card:
               without it, React keeps the previous question's revealed state and
@@ -298,24 +309,28 @@ export function PracticeSession({
             onAnswer={record}
             onRecall={recordRecall}
           />
-        </div>
+        </>
       )}
-    </FocusSurface>
+    </SessionFrame>
   );
 }
 
 function Done({
   t,
+  sessionT,
   outcomes,
   session,
   locale,
+  closeHref,
   onRestart,
 }: {
   t: Dictionary["practice"];
-  outcomes: { id: string; outcome: string }[];
+  sessionT: Dictionary["session"];
+  outcomes: SavedSession["outcomes"];
   /** The items just asked, so the misses can be named rather than counted. */
   session: readonly PracticeItem[];
   locale: Locale;
+  closeHref: string;
   onRestart: () => void;
 }) {
   const summary = summarise(outcomes);
@@ -372,15 +387,16 @@ function Done({
         </div>
       )}
 
-      <button
-        type="button"
-        onClick={onRestart}
-        className="mt-5 min-h-11 rounded-control bg-action px-4 font-medium text-on-action hover:opacity-90"
-      >
-        {t.restart}
-      </button>
+      <p className="mt-5 max-w-measure text-sm leading-relaxed text-fg-muted">{t.savedHint}</p>
 
-      <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{t.savedHint}</p>
+      <Actions>
+        <button type="button" onClick={onRestart} className={PRIMARY}>
+          {t.restart}
+        </button>
+        <Link href={closeHref} replace className={`${SECONDARY} inline-flex items-center justify-center`}>
+          {sessionT.finish}
+        </Link>
+      </Actions>
     </div>
   );
 }
