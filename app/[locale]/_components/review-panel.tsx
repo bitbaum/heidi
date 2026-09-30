@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import { DISPLAY } from "@/lib/variety/display";
 import { useGrade, useReview } from "./use-review";
-import type { ReviewWord } from "@/lib/domain/saved/review";
+import { sentenceFor } from "@/lib/domain/saved/context";
 
 /**
  * The review surface: one word, asked rather than shown.
@@ -156,21 +156,4 @@ function Counts({ t, tomorrow, settled }: { t: Dictionary["review"]; tomorrow: n
       )}
     </p>
   );
-}
-
-/**
- * Which sentence to show under the prompt.
- *
- * Generated examples first, rotating by how many times the word has come back,
- * so the second review is not a re-run of the first. `step` is used rather
- * than a random pick because a card that changes on every re-render is a card
- * that changes while you are reading it.
- */
-function sentenceFor(word: ReviewWord): string | undefined {
-  const examples = word.examples ?? [];
-  if (examples.length > 0) {
-    const seen = typeof word.step === "number" && Number.isFinite(word.step) ? Math.max(0, Math.trunc(word.step)) : 0;
-    return examples[seen % examples.length];
-  }
-  return word.context;
 }

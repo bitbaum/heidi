@@ -76,6 +76,21 @@ test("no component paints a colour outside the palette", () => {
   );
 });
 
+test("nothing dims or floats with a colour that turns white in dark mode", () => {
+  // `fg-primary` is the INK: black on the light page, white on the dark one.
+  // As a translucent backdrop (`bg-fg-primary/30`) it laid a white haze over
+  // every dark page behind a dialog; as the fill of the floating pill it was a
+  // white slab in the corner of every dark screen. `scrim` and `float` are the
+  // tokens that stay dark.
+  const inverted = /\bbg-fg-primary\/\d+|\bfixed\b[^"`]*\bbg-(?:fg-primary|action)\b/g;
+  const offenders: string[] = [];
+  for (const file of FILES) {
+    const body = readFileSync(file, "utf8");
+    for (const hit of body.match(inverted) ?? []) offenders.push(`${shown(file)}: ${hit.slice(0, 80)}`);
+  }
+  assert.deepEqual(offenders, [], `Use bg-scrim for a backdrop and bg-float for floating chrome:\n${offenders.join("\n")}`);
+});
+
 /**
  * The token the sweep moved everything onto has to actually exist, or this
  * whole file passes while the site renders at the browser default.

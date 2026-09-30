@@ -189,12 +189,12 @@ export function ChatDock({
         // `env(safe-area-inset-bottom)` keeps it off the iOS home indicator,
         // which otherwise swallows the bottom third of the button.
         style={{ bottom: "max(1rem, env(safe-area-inset-bottom))" }}
-        className={`fixed right-4 z-40 inline-flex overflow-hidden rounded-control border border-border-strong bg-fg-primary text-surface-page shadow-lg ${ open ? "hidden sm:inline-flex" : "" }`}
+        className={`fixed right-4 z-40 inline-flex overflow-hidden rounded-control border border-border-strong bg-float text-on-float shadow-lg ${ open ? "hidden sm:inline-flex" : "" }`}
       >
       <SessionLink
         locale={locale}
         scope={quickScope(pathname, practisable)}
-        className="inline-flex min-h-12 items-center gap-2 border-r border-surface-page/25 px-4 text-sm font-medium transition-opacity hover:opacity-90"
+        className="inline-flex min-h-12 items-center gap-2 border-r border-on-float/25 px-4 text-sm font-medium transition-opacity hover:opacity-90"
       >
         <PlayIcon />
         {t.dock.practise}

@@ -1,4 +1,5 @@
 import type { SavedWord } from "../../saved/types.ts";
+import { sentenceFor } from "../../saved/context.ts";
 import type { RecallItem } from "../types.ts";
 import type { ExerciseKind, Material } from "./kind.ts";
 
@@ -27,22 +28,6 @@ export function recallItems(saved: readonly SavedWord[]): RecallItem[] {
       ...(sentenceFor(word) ? { context: sentenceFor(word) } : {}),
       source: { kind: "saved" as const },
     }));
-}
-
-/**
- * The sentence a word is shown in — a generated example first, falling back to
- * where it was found.
- *
- * Same rule the review panel uses, and for the same reason: a word met only
- * ever in one sentence is learned attached to that sentence.
- */
-function sentenceFor(word: SavedWord): string | undefined {
-  const examples = word.examples ?? [];
-  if (examples.length > 0) {
-    const seen = typeof word.step === "number" && Number.isFinite(word.step) ? Math.max(0, Math.trunc(word.step)) : 0;
-    return examples[seen % examples.length];
-  }
-  return word.context;
 }
 
 export const RECALL: ExerciseKind = {

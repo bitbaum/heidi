@@ -18,6 +18,9 @@
  *   EMPTY    the panel has no size
  *   COVERED  another element is on top of the panel at one of five points
  *   CLEAR    no background anywhere up the tree: the page shows through
+ *   BRIGHT   in dark mode, a fixed element (floating chrome, a backdrop)
+ *            painted light — the white pill in the corner and the white haze
+ *            behind dialogs both shipped that way
  *
  *   pnpm run build && pnpm start      # in another terminal
  *   pnpm run audit:overlays
@@ -76,6 +79,24 @@ function inspect(trigger) {
   return out;
 }
 
+/** Runs in the page: fixed elements that are light-coloured, for the dark theme. */
+function brightFixed() {
+  const out = [];
+  for (const el of document.querySelectorAll("body *")) {
+    const style = getComputedStyle(el);
+    if (style.position !== "fixed" || style.display === "none" || style.visibility === "hidden") continue;
+    const r = el.getBoundingClientRect();
+    if (r.width * r.height < 1500) continue;
+    const m = style.backgroundColor.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?/);
+    if (!m) continue;
+    const [red, green, blue] = [m[1], m[2], m[3]].map(Number);
+    const alpha = m[4] === undefined ? 1 : Number(m[4]);
+    const light = ((0.2126 * red + 0.7152 * green + 0.0722 * blue) / 255) * alpha;
+    if (light > 0.15) out.push(`BRIGHT <${el.tagName.toLowerCase()} class="${(el.getAttribute("class") ?? "").slice(0, 70)}">`);
+  }
+  return out;
+}
+
 const browser = await chromium.launch(
   process.env.CHROMIUM ? { executablePath: process.env.CHROMIUM } : {},
 );
@@ -95,6 +116,9 @@ for (const theme of THEMES) {
       if (!response?.ok()) {
         problems.push(`${theme} ${width} ${path}: HTTP ${response?.status()}`);
         continue;
+      }
+      if (theme === "dark") {
+        for (const issue of await page.evaluate(brightFixed)) problems.push(`${theme} ${width} ${path}: ${issue}`);
       }
       const triggers = page.locator('[aria-expanded="false"]:visible');
       const count = await triggers.count();
@@ -116,6 +140,9 @@ for (const theme of THEMES) {
           opened++;
           for (const issue of await handle.evaluate(inspect)) {
             problems.push(`${theme} ${width} ${path} «${name}»: ${issue}`);
+          }
+          if (theme === "dark") {
+            for (const issue of await page.evaluate(brightFixed)) problems.push(`${theme} ${width} ${path} «${name}»: ${issue}`);
           }
         }
         await page.keyboard.press("Escape");

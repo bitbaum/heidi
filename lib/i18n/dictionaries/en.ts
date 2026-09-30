@@ -141,6 +141,9 @@ export const en: Dictionary = {
       otherWays: "How else can «{text}» be said in Zurich German?",
       examplesLabel: "In other sentences",
       examples: "Give me three more sentences in Zurich German using «{word}», each with a translation.",
+      explainLabel: "Ask Heidi why",
+      explainMine: "I'm practising Zurich German. Question: “{question}”. I answered “{mine}”, the answer is “{expected}”. Is mine right too? Briefly explain the difference.",
+      explainItem: "I'm practising Zurich German. Question: “{question}”. The answer is “{expected}”. Briefly explain why.",
       aiNote: "The language model writes these answers in the chat, checked for Zurich forms.",
     },
     dock: {
@@ -1049,6 +1052,7 @@ export const en: Dictionary = {
       openScene: "Whole situation",
       practiseScene: "Practise this situation",
       practiseWord: "Practise this word",
+      formDiffers: "Different from the pack: ",
       alsoInPack: "The pack also has: {words}",
       lessonTitle: "Why",
       listenTitle: "Listen for",

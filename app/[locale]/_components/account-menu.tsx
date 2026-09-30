@@ -198,7 +198,7 @@ function Avatar({ name, image }: { name: string; image?: string | null }) {
   return (
     <span
       aria-hidden="true"
-      className="inline-flex h-7 w-7 items-center justify-center rounded-control bg-fg-primary font-mono text-caption font-semibold uppercase text-surface-page"
+      className="inline-flex h-7 w-7 items-center justify-center rounded-control bg-float font-mono text-caption font-semibold uppercase text-on-float"
     >
       {initials(name)}
     </span>

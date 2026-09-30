@@ -141,6 +141,9 @@ export const it: Dictionary = {
       otherWays: "Come si può dire altrimenti «{text}» in zurighese?",
       examplesLabel: "In altre frasi",
       examples: "Dammi altre tre frasi in zurighese con «{word}», ciascuna con traduzione.",
+      explainLabel: "Chiedere a Heidi perché",
+      explainMine: "Mi sto esercitando nello svizzero tedesco di Zurigo. Domanda: «{question}». Ho risposto «{mine}», la risposta è «{expected}». Anche la mia va bene? Spiegami brevemente la differenza.",
+      explainItem: "Mi sto esercitando nello svizzero tedesco di Zurigo. Domanda: «{question}». La risposta è «{expected}». Spiegami brevemente perché.",
       aiNote: "Queste risposte le scrive il modello linguistico nella chat, controllate per le forme zurighesi.",
     },
     dock: {
@@ -1054,6 +1057,7 @@ export const it: Dictionary = {
       openScene: "Tutta la situazione",
       practiseScene: "Esercitare questa situazione",
       practiseWord: "Esercitare questa parola",
+      formDiffers: "Diverso dal pack: ",
       alsoInPack: "Nel pacchetto c'è anche: {words}",
       lessonTitle: "Perché",
       listenTitle: "Da ascoltare",

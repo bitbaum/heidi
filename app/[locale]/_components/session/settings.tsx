@@ -53,7 +53,7 @@ export function SessionSettings({
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-fg-primary/40 sm:items-center sm:p-6">
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-scrim/50 sm:items-center sm:p-6">
           <div
             ref={panel}
             id={id}

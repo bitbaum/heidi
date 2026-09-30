@@ -37,6 +37,7 @@ export function Verdict({
   learnT,
   item,
   locale,
+  mine,
   onNext,
 }: {
   right: boolean;
@@ -47,6 +48,8 @@ export function Verdict({
   learnT: Dictionary["chat"]["learn"];
   item: PracticeItem;
   locale: Locale;
+  /** The option they chose, when it was not the right one. */
+  mine?: string;
   onNext: () => void;
 }) {
   return (
@@ -57,7 +60,7 @@ export function Verdict({
         {item.kind === "pair" && item.origin && (
           <p className="mt-5 text-sm leading-relaxed text-fg-secondary">{fill(t.origin, { origin: item.origin })}</p>
         )}
-        <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} />
+        <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} mine={mine} />
         <Trace item={item} t={t} locale={locale} />
       </div>
 
@@ -190,43 +193,7 @@ export function person(t: Dictionary["practice"], label: string): string {
   return persons[label] ?? label;
 }
 
-/**
- * The right answer, as one printable string, whatever kind of item it was.
- *
- * Used only in the end-of-session list, where the question is gone and the
- * answer is the thing worth carrying away. Every branch returns something the
- * variety actually says — never a paraphrase and never a label — because this
- * line is the last dialect a learner reads before closing the page.
- */
-export function answerOf(item: PracticeItem): string {
-  switch (item.kind) {
-    case "pair":
-    case "article":
-    case "form":
-    case "pick":
-    case "reply":
-    case "gist":
-    case "transform":
-    case "clock":
-    case "meaning":
-      return item.options[item.answer] ?? "";
-    /**
-     * A grid's answer is four answers, so it prints as the pairs themselves.
-     * "1 of 4" is not something anybody can carry away.
-     */
-    case "match":
-      return item.targets.map((target, i) => `${target} — ${item.bridges[item.answer[i]] ?? ""}`).join(" · ");
-    /**
-     * A passage prints as the words that went into it, in gap order. Not the
-     * filled-in passage: four lines would push everything else off the screen,
-     * and what went wrong was a placement rather than a sentence.
-     */
-    case "gaptext":
-      return item.answer.map((bankIndex) => item.bank[bankIndex] ?? "").join(" · ");
-    default:
-      return item.answer;
-  }
-}
+export { answerOf } from "@/lib/domain/practice/answer";
 
 /**
  * The option button's colours, which say three different things.

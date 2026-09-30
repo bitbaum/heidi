@@ -166,6 +166,9 @@ export const de = {
       otherWays: "Wie kann man «{text}» auf Züridütsch noch sagen?",
       examplesLabel: "In anderen Sätzen",
       examples: "Gib mir drei weitere Sätze auf Züridütsch mit «{word}», jeweils mit Übersetzung.",
+      explainLabel: "Heidi fragen, warum",
+      explainMine: "Ich übe Züridütsch. Aufgabe: «{question}». Ich habe «{mine}» geantwortet, richtig ist «{expected}». Stimmt meins auch? Erklär mir kurz den Unterschied.",
+      explainItem: "Ich übe Züridütsch. Aufgabe: «{question}». Die Antwort ist «{expected}». Erklär mir kurz, warum.",
       aiNote: "Diese Antworten schreibt das Sprachmodell im Chat, geprüft auf Zürcher Formen.",
     },
     /**
@@ -1152,6 +1155,7 @@ export const de = {
       openScene: "Ganze Situation",
       practiseScene: "Diese Situation üben",
       practiseWord: "Dieses Wort üben",
+      formDiffers: "Anders als im Pack: ",
       alsoInPack: "Im Pack steht zusätzlich: {words}",
       lessonTitle: "Warum",
       listenTitle: "Hören Sie auf",

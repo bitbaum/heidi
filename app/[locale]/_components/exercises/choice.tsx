@@ -118,6 +118,7 @@ export function ChoiceView({ item, t, grammarT, situationsT, vocabularyT, learnT
           grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT}
           item={item}
           locale={locale}
+          mine={chose === choice.answer ? undefined : choice.options[chose]}
           onNext={() => onAnswer(chose === choice.answer ? "right" : "wrong")}
         />
       )}

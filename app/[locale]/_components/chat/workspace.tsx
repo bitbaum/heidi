@@ -284,7 +284,7 @@ export function ChatWorkspace({
           aria-hidden="true"
           tabIndex={-1}
           onClick={() => setMenuOpen(false)}
-          className="absolute inset-0 z-20 cursor-default bg-fg-primary/20 lg:hidden"
+          className="absolute inset-0 z-20 cursor-default bg-scrim/40 lg:hidden"
         />
       )}
 
