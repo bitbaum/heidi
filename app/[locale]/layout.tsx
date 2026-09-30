@@ -10,6 +10,8 @@ import { SiteHeader } from "./_components/site-header";
 import { AccountControl } from "./_components/account-control";
 import { SiteFooter } from "./_components/site-footer";
 import { ChatDock } from "./_components/chat/dock";
+import { ReturnScroll } from "./_components/session/links";
+import { PRACTISABLE } from "@/lib/domain/practice/pool";
 import { SyncRunner } from "./_components/sync-runner";
 
 /**
@@ -143,7 +145,9 @@ export default async function LocaleLayout({
         <SiteFooter locale={locale} dict={dict} />
 
         {/* Heidi, reachable from every page — see the dock rule in globals.css. */}
-        <ChatDock locale={locale} dict={dict} />
+        <ChatDock locale={locale} dict={dict} practisable={PRACTISABLE} />
+        {/* Where a closed session returns the page to — see `session/origin.ts`. */}
+        <ReturnScroll />
 
         {/* Progress sync between devices. Renders nothing, and does nothing at
             all unless the learner switched it on in settings. */}

@@ -10,6 +10,7 @@ import { DISPLAY } from "@/lib/variety/display";
 import type { LessonId, PracticeItem } from "@/lib/domain/practice/types";
 import { explanationFor } from "@/lib/domain/practice/explanation";
 import type { DisplayPhrase } from "@/lib/situations/display";
+import { SessionLink } from "../session/links";
 
 /**
  * What a learner sees after answering: why, where it lives, and what next.
@@ -67,7 +68,6 @@ export function Explanation({
   const x = t.explain;
   const topic = e.topic ? grammarT.topics[e.topic as keyof typeof grammarT.topics] : undefined;
   const sceneTitle = e.scene ? situationsT.scenes[e.scene.id as keyof typeof situationsT.scenes]?.title : undefined;
-  const practice = href(locale, "practice");
   // Typed as the full record so a lesson id missing from `de.ts` is a type
   // error here rather than an empty paragraph on a French reader's screen.
   const lessons: Record<LessonId, string> = t.lessons;
@@ -110,7 +110,7 @@ export function Explanation({
             {item.source.kind !== "grammar" && (
               <Link href={`${href(locale, "grammar")}/${e.topic}`} className={LINK}>{x.moreOnTopic}</Link>
             )}
-            <Link href={`${practice}?topic=${encodeURIComponent(e.topic)}`} className={LINK}>{x.practiseTopic}</Link>
+            <SessionLink locale={locale} scope={{ kind: "topic", id: e.topic }} className={LINK}>{x.practiseTopic}</SessionLink>
           </Links>
         </Part>
       )}
@@ -127,7 +127,7 @@ export function Explanation({
             {item.source.kind !== "situation" && (
               <Link href={`${href(locale, "situations")}/${e.scene.id}`} className={LINK}>{x.openScene}</Link>
             )}
-            <Link href={`${practice}?scene=${encodeURIComponent(e.scene.id)}`} className={LINK}>{x.practiseScene}</Link>
+            <SessionLink locale={locale} scope={{ kind: "scene", id: e.scene.id }} className={LINK}>{x.practiseScene}</SessionLink>
           </Links>
         </Part>
       )}
@@ -171,7 +171,7 @@ export function Explanation({
             </p>
           )}
           <Links>
-            <Link href={`${practice}?group=${encodeURIComponent(e.word.group)}`} className={LINK}>{x.practiseWord}</Link>
+            <SessionLink locale={locale} scope={{ kind: "group", id: e.word.group }} className={LINK}>{x.practiseWord}</SessionLink>
           </Links>
         </Part>
       )}
@@ -217,7 +217,7 @@ function Part({ title, children }: { title: string; children: React.ReactNode })
 }
 
 function Links({ children }: { children: React.ReactNode }) {
-  return <div className="mt-1 flex flex-wrap gap-x-5">{children}</div>;
+  return <div className="mt-1 flex flex-wrap gap-x-5 empty:hidden">{children}</div>;
 }
 
 function Line({ phrase, quiet = false }: { phrase: DisplayPhrase; quiet?: boolean }) {

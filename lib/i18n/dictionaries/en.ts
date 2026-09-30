@@ -144,6 +144,7 @@ export const en: Dictionary = {
       aiNote: "The language model writes these answers in the chat, checked for Zurich forms.",
     },
     dock: {
+      practise: "Practise",
       open: "Ask Heidi",
       close: "Close",
       title: "Heidi",
@@ -1020,6 +1021,10 @@ export const en: Dictionary = {
     close: "Close exercise",
     finish: "Done",
     resume: "Continue — question {n} of {total}",
+    adjust: "Adjust",
+    adjustTitle: "What and how you practise",
+    what: "About",
+    everything: "Everything, mixed",
   },
 
   practice: {

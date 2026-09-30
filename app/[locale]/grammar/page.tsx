@@ -5,23 +5,9 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { DISPLAY } from "@/lib/variety/display";
 import { href } from "@/lib/i18n/routes";
 import { GRAMMAR_BANDS } from "@/lib/variety/bands";
-import { PACK_ITEMS } from "@/lib/domain/practice/published";
-import { itemsInScope } from "@/lib/domain/practice/scope";
+import { PRACTISABLE } from "@/lib/domain/practice/pool";
 import { BandHeader, Shell } from "../_components/page-shell";
-
-/**
- * Which topics a scoped sitting would actually have questions for.
- *
- * Computed once at module load rather than per render: the answer depends only
- * on the packs, so it is the same for every request and every locale. A topic
- * with no items shows no practise link — a button that opens an empty session
- * is worse than no button.
- */
-const PRACTISABLE = new Set(
-  DISPLAY.grammar
-    .filter((topic) => itemsInScope(PACK_ITEMS, { kind: "topic", id: topic.id }).length > 0)
-    .map((topic) => topic.id),
-);
+import { SessionLink } from "../_components/session/links";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -89,7 +75,7 @@ export default async function GrammarPage({ params }: { params: Promise<{ locale
                   const topicWords = t.topics[topic.id as keyof typeof t.topics];
                   const first = topic.examples[0];
 
-                  const askable = PRACTISABLE.has(topic.id);
+                  const askable = PRACTISABLE.topic.includes(topic.id);
 
                   return (
                     /*
@@ -132,12 +118,13 @@ export default async function GrammarPage({ params }: { params: Promise<{ locale
                           people came to the index to do. */}
                       {askable && (
                         <p className="mt-4">
-                          <Link
-                            href={`${href(locale, "practice")}?topic=${encodeURIComponent(topic.id)}`}
+                          <SessionLink
+                            locale={locale}
+                            scope={{ kind: "topic", id: topic.id }}
                             className="inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
                           >
                             {t.practiseTopic}
-                          </Link>
+                          </SessionLink>
                         </p>
                       )}
                     </li>

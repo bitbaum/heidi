@@ -55,7 +55,10 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
 
   return (
     <footer className="border-t border-border-subtle bg-surface-raised">
-      <div className="mx-auto w-full max-w-shell px-5 py-12 sm:px-8 sm:py-16">
+      {/* `pb-24`: the last thing on every page, under the dock's floating
+          «Üben | Heidi fragen» (about 66px from the bottom edge). Less, and
+          the footer's last line can never scroll out from behind it. */}
+      <div className="mx-auto w-full max-w-shell px-5 pt-12 pb-24 sm:px-8 sm:pt-16">
         {/*
           THE PITCH ROW, above the columns rather than beside them.
 

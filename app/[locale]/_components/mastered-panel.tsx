@@ -8,6 +8,8 @@ import { fill } from "@/lib/i18n/fill";
 import { DISPLAY } from "@/lib/variety/display";
 import { masteredCount, masteredIn } from "@/lib/domain/practice/mastered";
 import { useModelView } from "./sync-stores";
+import { SessionLink } from "./session/links";
+import { ALL } from "@/lib/domain/practice/scope";
 
 /**
  * What you can do now that you could not before.
@@ -68,12 +70,13 @@ export function MasteredPanel({
               here; this is how to start doing it. An empty state that
               explains itself and offers nothing was the pattern the whole
               dashboard audit kept finding. */}
-          <Link
-            href={href(locale, "practice")}
+          <SessionLink
+            locale={locale}
+            scope={ALL}
             className="mt-4 inline-flex min-h-11 items-center rounded-control bg-action px-4 text-sm font-medium text-on-action hover:opacity-90"
           >
             {t.nonePractise}
-          </Link>
+          </SessionLink>
         </div>
       </section>
     );
@@ -124,12 +127,13 @@ export function MasteredPanel({
           <Group title={t.masteredGroups}>
             {mastered.groups.map((id) => (
               <li key={id}>
-                <Link
-                  href={`${href(locale, "practice")}?group=${encodeURIComponent(id)}`}
+                <SessionLink
+                  locale={locale}
+                  scope={{ kind: "group", id }}
                   className="inline-flex min-h-11 items-center wrap-anywhere text-sm text-link underline underline-offset-4 hover:text-accent"
                 >
                   {groupName(id)}
-                </Link>
+                </SessionLink>
               </li>
             ))}
           </Group>

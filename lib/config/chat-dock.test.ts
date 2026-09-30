@@ -19,11 +19,12 @@ test("the dock is hidden only where the page IS the chat window", () => {
     .filter((sel) => !sel.includes(" [role=\"dialog\"]") || !sel.includes("#loki"));
   assert.deepEqual(hiding, [
     /*
-      The exercise session screen. Only the LAUNCHER: it would sit on the
-      answer bar. The dock stays reachable — "Heidi fragen" under an
-      explanation opens its panel from the session screen.
+      The exercise session screen. Only the LAUNCHER pill (Üben | Heidi
+      fragen): it would sit on the answer bar. The dock stays reachable —
+      "Heidi fragen" under an explanation opens its panel from the session
+      screen.
     */
-    'body:has([data-chrome="session"]) [data-dock="heidi"] > button',
+    'body:has([data-chrome="session"]) [data-dock="heidi"] [data-dock-launcher]',
     'body:has([data-chrome="chat"]) [data-dock="heidi"]',
     /*
       The home chat full screen on a phone (`focus-surface.tsx`). Not a page

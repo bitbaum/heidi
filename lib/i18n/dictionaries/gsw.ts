@@ -167,6 +167,7 @@ export const gsw: Dictionary = {
       aiNote: "Die Antworte schriibt s Sprachmodell im Chat, prüeft uf Zürcher Forme.",
     },
     dock: {
+      practise: "Üebe",
       open: "D Heidi frage",
       close: "Zuemache",
       title: "Heidi",
@@ -1045,6 +1046,10 @@ export const gsw: Dictionary = {
     close: "Üebig zuemache",
     finish: "Fertig",
     resume: "Wiitermache — Frag {n} vo {total}",
+    adjust: "Aapasse",
+    adjustTitle: "Was und wie Sie üebed",
+    what: "Wodrüber",
+    everything: "Alles gmischt",
   },
 
   practice: {

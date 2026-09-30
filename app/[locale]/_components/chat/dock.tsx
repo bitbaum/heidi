@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
@@ -17,6 +18,8 @@ import { WordPick } from "./word-pick";
 import { useDraftChat } from "./use-draft-chat";
 import { useKeyboardViewport } from "../use-keyboard-viewport";
 import { NewChatButton } from "./new-chat-button";
+import { SessionLink } from "../session/links";
+import { quickScope } from "@/lib/domain/practice/sitting";
 
 /**
  * The dock's box, which must NOT be `chat-input`.
@@ -59,9 +62,25 @@ function nextAskId(): number {
  * the home page and group pages included — it stays, because a chat that is
  * missing from the page people land on reads as a chat that is gone. See the
  * dock rule in `globals.css`.
+ *
+ * AND "ÜBEN" BESIDE IT, as the other half of one pill. Asking Heidi was one
+ * tap from anywhere; practising was a menu, a page, a scroll and a second
+ * button. Now both are in the same corner, and "Üben" means the page under
+ * it (`quickScope`): the scene on a scene page, the topic on a topic page,
+ * the learner's own mix anywhere else. Closing the session comes back here.
  */
-export function ChatDock({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function ChatDock({
+  locale,
+  dict,
+  practisable,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+  /** Scenes and topics with questions, from `pool.ts` — so "Üben" never opens an empty sitting. */
+  practisable: { scene: readonly string[]; topic: readonly string[] };
+}) {
   const t = dict.chat;
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   /**
    * A question handed in from a page — a word on the vocabulary list, a grammar
@@ -165,16 +184,28 @@ export function ChatDock({ locale, dict }: { locale: Locale; dict: Dictionary })
         On a laptop the panel is a card beside the button, so the button stays
         and doubles as the way to close it.
       */}
+      <div
+        data-dock-launcher
+        // `env(safe-area-inset-bottom)` keeps it off the iOS home indicator,
+        // which otherwise swallows the bottom third of the button.
+        style={{ bottom: "max(1rem, env(safe-area-inset-bottom))" }}
+        className={`fixed right-4 z-40 inline-flex overflow-hidden rounded-control border border-border-strong bg-fg-primary text-surface-page shadow-lg ${ open ? "hidden sm:inline-flex" : "" }`}
+      >
+      <SessionLink
+        locale={locale}
+        scope={quickScope(pathname, practisable)}
+        className="inline-flex min-h-12 items-center gap-2 border-r border-surface-page/25 px-4 text-sm font-medium transition-opacity hover:opacity-90"
+      >
+        <PlayIcon />
+        {t.dock.practise}
+      </SessionLink>
       <button
         ref={launcher}
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}
-        // `env(safe-area-inset-bottom)` keeps it off the iOS home indicator,
-        // which otherwise swallows the bottom third of the button.
-        style={{ bottom: "max(1rem, env(safe-area-inset-bottom))" }}
-        className={`fixed right-4 z-40 inline-flex min-h-12 items-center gap-2 rounded-control border border-border-strong bg-fg-primary px-4 text-surface-page shadow-lg transition-colors hover:opacity-90 ${ open ? "hidden sm:inline-flex" : "" }`}
+        className="inline-flex min-h-12 items-center gap-2 px-4 transition-opacity hover:opacity-90"
       >
         <ChatIcon />
         {/*
@@ -187,6 +218,7 @@ export function ChatDock({ locale, dict }: { locale: Locale; dict: Dictionary })
         */}
         <span className="text-sm font-medium">{t.dock.open}</span>
       </button>
+      </div>
     </div>
   );
 }
@@ -401,6 +433,14 @@ function DockPanel({
         />
       )}
     </div>
+  );
+}
+
+function PlayIcon() {
+  return (
+    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z" />
+    </svg>
   );
 }
 

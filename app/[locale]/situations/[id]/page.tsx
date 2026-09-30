@@ -8,9 +8,10 @@ import { DISPLAY } from "@/lib/variety/display";
 import { SCENES, domainOf, sceneById } from "@/lib/situations/display";
 import { SOURCES, type SourceId } from "@/lib/research/sources";
 import { PACK_ITEMS } from "@/lib/domain/practice/published";
-import { itemsInScope } from "@/lib/domain/practice/scope";
+import { PRACTISABLE } from "@/lib/domain/practice/pool";
 import { askableLines as askableLinesOf } from "@/lib/domain/practice/situation-strength";
 import { SituationStrength } from "../../_components/situation-strength";
+import { SessionLink } from "../../_components/session/links";
 import { PageHeader, Shell } from "../../_components/page-shell";
 import { SourceList } from "../../_components/source-list";
 
@@ -83,11 +84,11 @@ export default async function ScenePage({ params }: { params: Promise<{ locale: 
   /**
    * Whether a scoped sitting on this scene would have anything in it.
    *
-   * Only `hear` lines become practice items — see `situationItems` — so a
-   * scene written mostly as replies can legitimately produce none, and a
-   * button leading to an empty session is worse than no button.
+   * Its `hear` lines become practice items (`situationItems`) and so do the
+   * words said in it (`pool.ts`); a scene with neither would produce none,
+   * and a button leading to an empty session is worse than no button.
    */
-  const askable = itemsInScope(PACK_ITEMS, { kind: "scene", id: scene.id }).length > 0;
+  const askable = PRACTISABLE.scene.includes(scene.id);
 
   /**
    * WHICH lines can be asked, for the strength panel's denominator.
@@ -202,12 +203,13 @@ export default async function ScenePage({ params }: { params: Promise<{ locale: 
             A reader who has just worked through a handover and presses
             "practise" means the handover. */}
         {askable && (
-          <Link
-            href={`${href(locale, "practice")}?scene=${encodeURIComponent(scene.id)}`}
+          <SessionLink
+            locale={locale}
+            scope={{ kind: "scene", id: scene.id }}
             className="inline-flex items-center rounded-control bg-action px-5 py-2.5 text-sm font-semibold text-on-action transition-opacity hover:opacity-90"
           >
             {t.practiseLabel}
-          </Link>
+          </SessionLink>
         )}
         <Link
           href={href(locale, "situations")}

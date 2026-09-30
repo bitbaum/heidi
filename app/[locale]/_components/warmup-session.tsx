@@ -18,7 +18,9 @@ import { recordPractice } from "./streak-store";
 import { warmupStore } from "./warmup-store";
 import { LanguageLink } from "./language-link";
 import { SessionFrame } from "./session/frame";
+import { CloseLink, SessionLink } from "./session/links";
 import { Actions, PRIMARY } from "./exercises/actions";
+import { ALL } from "@/lib/domain/practice/scope";
 
 /**
  * The warm-up, start to portrait. The rules live in `lib/domain/warmup/run.ts`;
@@ -181,9 +183,9 @@ export function WarmupSession({
       {finishedHere && result}
       {finishedHere && result && (
         <Actions>
-          <Link href={closeHref} replace className={`${PRIMARY} inline-flex items-center justify-center`}>
+          <CloseLink href={closeHref} className={`${PRIMARY} inline-flex items-center justify-center`}>
             {sessionT.finish}
-          </Link>
+          </CloseLink>
         </Actions>
       )}
     </SessionFrame>
@@ -272,12 +274,13 @@ function Result({
             <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.startTitle}</p>
             <p className="mt-1 font-heading text-xl font-semibold tracking-display text-fg-primary">{title(p.startAt)}</p>
             <div className="mt-4 flex flex-wrap gap-3">
-              <Link
-                href={`${href(locale, "practice")}?scene=${encodeURIComponent(p.startAt)}`}
+              <SessionLink
+                locale={locale}
+                scope={{ kind: "scene", id: p.startAt }}
                 className="inline-flex min-h-11 items-center rounded-control bg-action px-5 font-medium text-on-action hover:opacity-90"
               >
                 {t.startPractice} →
-              </Link>
+              </SessionLink>
               <Link
                 href={`${href(locale, "situations")}/${p.startAt}`}
                 className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-5 text-fg-primary hover:bg-surface-raised"
@@ -290,12 +293,13 @@ function Result({
           <>
             <p className="font-heading text-xl font-semibold tracking-display text-fg-primary">{t.noMissTitle}</p>
             <p className="mt-2 text-base leading-relaxed text-fg-secondary">{t.noMissBody}</p>
-            <Link
-              href={href(locale, "practice")}
+            <SessionLink
+              locale={locale}
+              scope={ALL}
               className="mt-4 inline-flex min-h-11 items-center rounded-control bg-action px-5 font-medium text-on-action hover:opacity-90"
             >
               {t.practiceAll} →
-            </Link>
+            </SessionLink>
           </>
         )}
       </div>

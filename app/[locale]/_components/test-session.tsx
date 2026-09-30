@@ -11,8 +11,8 @@ import { QuestionCard } from "./exercises/question-card";
 import { answerOf, explainingTopic, Trace } from "./exercises/chrome";
 import { Explanation } from "./exercises/explanation";
 import { recordPractice } from "./streak-store";
-import Link from "next/link";
 import { SessionFrame } from "./session/frame";
+import { CloseLink } from "./session/links";
 import { Actions, PRIMARY, QUIET, SECONDARY } from "./exercises/actions";
 
 /**
@@ -51,6 +51,7 @@ export function TestSession({
   learnT,
   sessionT,
   closeHref,
+  about,
   locale,
 }: {
   items: readonly PracticeItem[];
@@ -62,6 +63,8 @@ export function TestSession({
   sessionT: Dictionary["session"];
   /** Where closing the screen goes. */
   closeHref: string;
+  /** What this sitting is, and its choices — before the run only, never during it. */
+  about?: React.ReactNode;
   locale: Locale;
 }) {
   const [run, setRun] = useState<readonly PracticeItem[] | null>(null);
@@ -164,7 +167,7 @@ export function TestSession({
 
   if (run === null) {
     return (
-      <SessionFrame t={sessionT} closeHref={closeHref}>
+      <SessionFrame t={sessionT} closeHref={closeHref} about={about}>
         <Before total={total} t={t} onStart={start} />
       </SessionFrame>
     );
@@ -410,9 +413,9 @@ function Results({
         <button type="button" onClick={onAgain} className={PRIMARY}>
           {t.testAgain}
         </button>
-        <Link href={closeHref} replace className={`${SECONDARY} inline-flex items-center justify-center`}>
+        <CloseLink href={closeHref} className={`${SECONDARY} inline-flex items-center justify-center`}>
           {sessionT.finish}
-        </Link>
+        </CloseLink>
       </Actions>
     </section>
   );

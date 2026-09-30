@@ -1,15 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
-import { href } from "@/lib/i18n/routes";
 import { fill } from "@/lib/i18n/fill";
 import { DISPLAY } from "@/lib/variety/display";
 import { useStorageReady } from "@/lib/browser/store";
 import { strengthOf, type Standing } from "@/lib/domain/practice/situation-strength";
 import { useModelView } from "./sync-stores";
 import { CertificateButton } from "./certificate-button";
+import { SessionLink } from "./session/links";
 
 /**
  * "You understand Zurich German in this situation."
@@ -63,9 +62,6 @@ export function SituationStrength({
   const ready = useStorageReady();
   const s = strengthOf(scene, model, new Set(askable));
   const words = t.strength;
-
-  const practise = `${href(locale, "practice")}?scene=${encodeURIComponent(scene)}`;
-
   return (
     <section
       aria-labelledby="strength-heading"
@@ -144,12 +140,13 @@ export function SituationStrength({
       )}
 
       {ready && askable.length > 0 && (
-        <Link
-          href={practise}
+        <SessionLink
+          locale={locale}
+          scope={{ kind: "scene", id: scene }}
           className="mt-5 inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-sm font-medium text-fg-primary transition-colors hover:bg-fg-primary hover:text-surface-page"
         >
           {s.standing === "new" ? words.drill : words.drillAgain}
-        </Link>
+        </SessionLink>
       )}
 
       {ready && <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{words.localOnly}</p>}

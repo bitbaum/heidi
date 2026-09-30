@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
-import { href } from "@/lib/i18n/routes";
+import { ALL } from "@/lib/domain/practice/scope";
+import { SessionLink } from "./session/links";
 import { plural } from "@/lib/i18n/plural";
 import { fill } from "@/lib/i18n/fill";
 import { useStorageReady } from "@/lib/browser/store";
@@ -75,12 +75,13 @@ export function StreakCard({
         {v.practisedToday ? (
           <p className="text-sm text-fg-secondary">{t.doneToday}</p>
         ) : (
-          <Link
-            href={href(locale, "practice")}
+          <SessionLink
+            locale={locale}
+            scope={ALL}
             className="inline-flex min-h-11 items-center rounded-control bg-action px-4 text-sm font-medium text-on-action hover:opacity-90"
           >
             {t.practise}
-          </Link>
+          </SessionLink>
         )}
         <label className="inline-flex min-h-11 items-center gap-2 text-sm text-fg-secondary">
           {t.goalLabel}

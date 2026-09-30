@@ -144,6 +144,7 @@ export const fr: Dictionary = {
       aiNote: "Le modèle de langue écrit ces réponses dans le chat, vérifiées pour les formes zurichoises.",
     },
     dock: {
+      practise: "S’exercer",
       open: "Demander à Heidi",
       close: "Fermer",
       title: "Heidi",
@@ -1025,6 +1026,10 @@ export const fr: Dictionary = {
     close: "Fermer l’exercice",
     finish: "Terminé",
     resume: "Reprendre — question {n} sur {total}",
+    adjust: "Ajuster",
+    adjustTitle: "Quoi et comment vous exercer",
+    what: "Sur quoi",
+    everything: "Tout, mélangé",
   },
 
   practice: {

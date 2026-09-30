@@ -6,10 +6,10 @@ import { DEFAULT_LOCALE, LOCALES, isLocale, type Locale } from "@/lib/i18n/local
 import { href } from "@/lib/i18n/routes";
 import { DISPLAY } from "@/lib/variety/display";
 import { scenesUsingTopic } from "@/lib/situations/display";
-import { PACK_ITEMS } from "@/lib/domain/practice/published";
-import { itemsInScope } from "@/lib/domain/practice/scope";
+import { PRACTISABLE } from "@/lib/domain/practice/pool";
 import { fill } from "@/lib/i18n/fill";
 import { PageHeader, Shell } from "../../_components/page-shell";
+import { SessionLink } from "../../_components/session/links";
 import { AskButton } from "../../_components/ask-button";
 
 /** Every topic, in every language, at build time. Eight of them, rarely changed. */
@@ -92,7 +92,7 @@ export default async function GrammarTopicPage({
   const scenes = scenesUsingTopic(topic.id);
   // Whether pressing "practise this" would land on anything. A button that
   // leads to an empty session is worse than no button.
-  const askable = itemsInScope(PACK_ITEMS, { kind: "topic", id: topic.id }).length > 0;
+  const askable = PRACTISABLE.topic.includes(topic.id);
 
   return (
     <Shell>
@@ -130,12 +130,13 @@ export default async function GrammarTopicPage({
 
       <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
         {askable && (
-          <Link
-            href={`${href(locale, "practice")}?topic=${encodeURIComponent(topic.id)}`}
+          <SessionLink
+            locale={locale}
+            scope={{ kind: "topic", id: topic.id }}
             className="inline-flex min-h-11 items-center rounded-control bg-action px-5 text-sm font-semibold text-on-action transition-opacity hover:opacity-90"
           >
             {t.practiseTopic}
-          </Link>
+          </SessionLink>
         )}
         {/* The other way of using a topic, and the one that predates the
             practice link: two sentences on demand, from the assistant, without

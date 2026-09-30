@@ -152,6 +152,7 @@ export const ru: Dictionary = {
       aiNote: "Эти ответы пишет языковая модель в чате, с проверкой на цюрихские формы.",
     },
     dock: {
+      practise: "Упражняться",
       open: "Спросить Хайди",
       close: "Закрыть",
       title: "Heidi",
@@ -1033,6 +1034,10 @@ export const ru: Dictionary = {
     close: "Закрыть упражнение",
     finish: "Готово",
     resume: "Продолжить — вопрос {n} из {total}",
+    adjust: "Настроить",
+    adjustTitle: "Что и как тренировать",
+    what: "О чём",
+    everything: "Всё вперемешку",
   },
 
   practice: {

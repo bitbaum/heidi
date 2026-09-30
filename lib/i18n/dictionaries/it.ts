@@ -144,6 +144,7 @@ export const it: Dictionary = {
       aiNote: "Queste risposte le scrive il modello linguistico nella chat, controllate per le forme zurighesi.",
     },
     dock: {
+      practise: "Esercitati",
       open: "Chiedi a Heidi",
       close: "Chiudi",
       title: "Heidi",
@@ -1025,6 +1026,10 @@ export const it: Dictionary = {
     close: "Chiudi l’esercizio",
     finish: "Fatto",
     resume: "Riprendi — domanda {n} di {total}",
+    adjust: "Adatta",
+    adjustTitle: "Cosa e come esercitarsi",
+    what: "Su cosa",
+    everything: "Tutto, misto",
   },
 
   practice: {
