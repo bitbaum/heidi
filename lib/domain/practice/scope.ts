@@ -35,7 +35,13 @@ export type Scope =
   /** One scene from a situation pack. */
   | { kind: "scene"; id: string }
   /** One group of the vocabulary page. */
-  | { kind: "group"; id: string };
+  | { kind: "group"; id: string }
+  /**
+   * A handful of named words — "the next ten" the vocabulary page picked for
+   * this learner. The id is the words joined by commas, so the URL stays
+   * readable (`?words=nöd,mir,grad`) and shareable like every other scope.
+   */
+  | { kind: "words"; id: string };
 
 export const ALL: Scope = { kind: "all" };
 
@@ -47,7 +53,7 @@ export const ALL: Scope = { kind: "all" };
  * mistyped one degrades to an empty session with an explanation rather than to
  * a parse error.
  */
-export const SCOPE_KEYS = ["topic", "scene", "group"] as const;
+export const SCOPE_KEYS = ["topic", "scene", "group", "words"] as const;
 export type ScopeKey = (typeof SCOPE_KEYS)[number];
 
 /**
@@ -69,6 +75,20 @@ export function parseScope(params: Record<string, string | string[] | undefined>
     if (value) return { kind: key, id: value } as Scope;
   }
   return ALL;
+}
+
+/** More than a sitting could cover; a longer list is cut rather than refused. */
+export const MAX_SCOPE_WORDS = 30;
+
+/** The words a `words` scope names, in order, without blanks or repeats. */
+export function wordsIn(id: string): string[] {
+  const words = id.split(",").map((w) => w.trim()).filter(Boolean);
+  return [...new Set(words)].slice(0, MAX_SCOPE_WORDS);
+}
+
+/** A scope over exactly these words. */
+export function wordsScope(words: readonly string[]): Scope {
+  return { kind: "words", id: wordsIn(words.join(",")).join(",") };
 }
 
 /** The query string for a scope, for a page building a link to one. */
@@ -110,6 +130,8 @@ export function inScope(item: PracticeItem, scope: Scope): boolean {
       return source.kind === "situation" && source.scene === scope.id;
     case "group":
       return source.kind === "word" && source.group === scope.id;
+    case "words":
+      return source.kind === "word" && wordsIn(scope.id).includes(source.word);
   }
 }
 

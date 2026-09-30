@@ -1,303 +1,219 @@
 "use client";
 
+import { useRef } from "react";
 import type { Dictionary } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n/locales";
 import { DISPLAY } from "@/lib/variety/display";
 import { fill } from "@/lib/i18n/fill";
+import { plural } from "@/lib/i18n/plural";
 import { askHeidi } from "@/lib/browser/ask";
+import { wordsScope } from "@/lib/domain/practice/scope";
 import { wordSlug } from "@/lib/domain/practice/slug";
+import type { WordStatus } from "@/lib/domain/vocabulary/rank";
+import { SessionLink } from "./session/links";
 import { useSaved } from "./use-saved";
 import { useByok } from "./use-byok";
+import { useDismiss } from "./use-dismiss";
+import type { VocabRow } from "./vocabulary-browser";
+
+/** Scene links shown before "+ n more": enough to picture it, not a wall. */
+const SCENES_SHOWN = 3;
 
 /**
- * The vocabulary list, as something you can act on.
+ * One word: a line you can scan, and everything else under it on demand.
  *
- * WHAT IT REPLACES. Two columns of text: the dialect word, the German word,
- * sixty times. Everything the product knows how to do with a word — keep it,
- * ask it back at the right moment, meet it in a new sentence — already existed
- * and was reachable only from inside a chat answer. A learner who came to the
- * vocabulary page to learn vocabulary could read it and nothing else. That is
- * the "not developed yet" in the brief, and the fix is not more words: it is
- * connecting this page to the review machinery that was already built.
+ * THE LINE carries what decides whether you know the word — the word, its
+ * meaning, the trap if it has one — and the keep button, because keeping is
+ * the act that puts it into review. A false friend is only dangerous while the
+ * reader is certain, so its correction is on the line, not behind the toggle.
  *
- * TWO ACTIONS, NOT FIVE. Keep it, or ask to see it used. A row of buttons per
- * word would make a reference page look like a toolbar and would bury the one
- * that matters — the `+`, which is what puts the word into review.
+ * UNDER IT, when opened: a sentence it is said in, its forms, where in the
+ * scenes it comes up, and the two ways on — practise just this word, or ask
+ * Heidi to use it. That is the part that used to be printed for every word at
+ * once and made the page twenty-three thousand pixels long.
  *
- * ONE CLIENT COMPONENT FOR THE WHOLE GROUP, not one per row. Sixty islands
- * would each carry their own storage subscription; this way the list reads
- * storage once and every row in it re-renders from the same answer.
+ * THE TOGGLE IS THE WORD ITSELF, a real button with `aria-expanded`, and the
+ * keep button sits beside it rather than inside it: an interactive element
+ * inside another is announced as neither.
  */
-export function WordList({
-  words,
+export function WordRow({
+  row,
+  status,
+  open,
+  onToggle,
+  heading,
   t,
   chatT,
   persons,
-  saidIn,
+  locale,
 }: {
-  words: ReadonlyArray<{
-    target: string;
-    bridge: string;
-    article?: string;
-    /** The meaning a German reader would wrongly assume. See `VocabularyEntry`. */
-    mistakenFor?: string;
-    register?: "casual" | "rude";
-    forms?: ReadonlyArray<{ label: string; target: string; bridge: string }>;
-    example?: { target: string; bridge: string };
-  }>;
+  row: VocabRow;
+  /** Null until storage has been read. */
+  status: WordStatus | null;
+  open: boolean;
+  onToggle: () => void;
+  /** A section heading to print above this row, inside the same list item. */
+  heading: React.ReactNode;
   t: Dictionary["vocabulary"];
   /** `saveWord` / `savedWord` live in the chat dictionary, where the gloss is. */
   chatT: Dictionary["chat"];
-  /** Person labels for a paradigm, from the practice dictionary that owns them. */
   persons: Dictionary["practice"]["persons"];
-  /**
-   * The scenes each word is actually said in, keyed by the dialect form.
-   *
-   * Computed on the server by a whole-word match, because `si` lives inside
-   * `isch` and a substring join would tell a reader this word appears in nine
-   * scenes when it appears in none of them. Absent for most words and that is
-   * the normal case: the pack's function words are general, and a care shift
-   * is one domain. A word with no scenes shows nothing rather than an empty
-   * heading, which is the join declining to pad itself.
-   */
-  saidIn?: Record<string, readonly { id: string; title: string; href: string }[]>;
+  locale: Locale;
 }) {
   const saved = useSaved();
-  // Forwarded so the example sentences are generated on the key they brought,
-  // when they brought one — same model, same quality, their bill.
+  // Forwarded so the example sentences are generated on the key they brought.
   const byok = useByok();
+  // Before storage has been read every word would claim to be unkept, and a
+  // control that flips under the reader's finger is worse than a late one.
+  const kept = saved.ready && saved.isSaved(row.target);
+  const slug = wordSlug(row.target);
+  const panel = `${slug}-detail`;
+  const itemRef = useRef<HTMLLIElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  // Escape folds it back; a click elsewhere does not — this is a row in a
+  // list the reader is comparing against, not a menu over the page.
+  useDismiss({ open, onDismiss: onToggle, containerRef: itemRef, focusRef: toggleRef, onPointerOutside: false });
 
   return (
-    <ul className="mt-5 grid grid-cols-safe gap-x-8 gap-y-px hyphens-auto wrap-anywhere sm:grid-cols-2">
-      {words.map((word) => {
-        // Before storage has been read every word would claim to be unkept, and
-        // a control that flips under the reader's finger is worse than one that
-        // arrives a moment late.
-        const kept = saved.ready && saved.isSaved(word.target);
-
-        return (
-          <li
-            key={word.target}
-            id={wordSlug(word.target)}
-            className="group grid scroll-mt-anchor grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_auto] items-baseline gap-x-3 border-b border-border-subtle py-2.5"
-          >
-            <span
-              lang={DISPLAY.tag}
-              className="font-heading text-base font-semibold leading-snug tracking-display text-dialect"
-            >
-              {/*
-                THE ARTICLE IS PART OF THE WORD, and printed with it for the
-                same reason a German dictionary prints `der`: a noun learned
-                without its gender has to be learned again the first time it
-                needs one. Muted, because the noun is still the entry.
-
-                Absent where nobody has checked — the pack keeps `article`
-                optional precisely so that gap stays visible rather than being
-                filled with a plausible guess.
-              */}
-              {word.article && (
-                <span className="font-normal text-fg-muted">
-                  {word.article}{" "}
-                </span>
-              )}
-              {word.target}
-            </span>
-            <span lang="de" className="text-base leading-snug text-fg-secondary">
-              {word.bridge}
-              {/* How it lands, in the reader's language, on the same line as
-                  the meaning — see `register` on `VocabularyEntry`. Mono caps,
-                  grey, like the other labels here: information, not alarm,
-                  even for `rude`. */}
-              {/* A REAL SPACE, not only a margin. A margin separates pixels; text
-                  copied, searched or read aloud saw "FrankenUMGANGSSPRACHLICH" —
-                  the exact stitched-word fault reported on this page as
-                  "frankenstein words", which the trap line had in #112. */}
-              {word.register && " "}
-              {word.register && (
-                <span className="ml-1 font-mono text-caption uppercase tracking-caps text-fg-muted">
-                  {t.register[word.register]}
-                </span>
-              )}
-              {/*
-                THE TRAP, ON THE SAME LINE AS THE MEANING.
-                A false friend is only dangerous while the reader is certain,
-                so the correction has to arrive in the same glance as the word
-                — a note further down the row is read by somebody who has
-                already decided they knew this one. `lang="de"` because it is
-                the German meaning being ruled out, not a Zurich form.
-              */}
-              {word.mistakenFor && (
-                /* Its OWN line, not an inline tail: inline it rendered as
-                   "DachbodenNicht: Fussbodenbelag" to anything that reads
-                   text rather than pixels — a screen reader, a copy, the
-                   page as it was reported. Grey, because it is a note on the
-                   meaning, not an alarm. */
-                <span className="mt-0.5 block text-sm text-fg-muted">
-                  {fill(t.mistakenForLabel, { assumed: word.mistakenFor })}
-                </span>
-              )}
-            </span>
-
-            <span className="flex shrink-0 items-center gap-1">
-              {/*
-                Shown on hover and focus on a pointer device, always on a
-                phone — where there is no hover and a control that only
-                appears on one does not exist at all.
-
-                `focus-within` on the row is what keeps it reachable by
-                keyboard: without it the button is invisible at the moment it
-                receives focus, which is the standard way this pattern is
-                shipped broken.
-              */}
-              <button
-                type="button"
-                onClick={() => askHeidi(fill(t.askSay, { word: word.target }))}
-                aria-label={`${t.askLabel}: ${word.target}`}
-                title={t.askLabel}
-                /* 28px for a mouse, 44 for a thumb. The two sizes are not a
-                   compromise between devices — on a phone these buttons are
-                   always visible (no hover to reveal them) and are the only
-                   way to act on a word, so they are the target; on a desktop
-                   they appear on hover beside a pointer that can hit 28px. */
-                className="inline-flex h-7 w-7 items-center justify-center rounded-control border border-transparent text-fg-muted transition-colors hover:border-border-strong hover:text-fg-primary focus-visible:border-border-strong max-sm:h-11 max-sm:w-11 max-sm:border-border-subtle sm:opacity-0 sm:group-focus-within:opacity-100 sm:group-hover:opacity-100"
-              >
-                <SpeechIcon />
-              </button>
-
-              {saved.ready && (
-                <button
-                  type="button"
-                  onClick={() =>
-                    kept
-                      ? saved.forget(word.target)
-                      : saved.save({ target: word.target, bridge: word.bridge }, byok.config)
-                  }
-                  aria-pressed={kept}
-                  aria-label={`${kept ? chatT.savedWord : chatT.saveWord}: ${word.target}`}
-                  title={kept ? chatT.savedWord : chatT.saveWord}
-                  className={`inline-flex h-7 w-7 items-center justify-center rounded-control border text-xs transition-colors max-sm:h-11 max-sm:w-11 ${
-                    kept
-                      ? "border-action bg-action text-on-action"
-                      : "border-border-subtle text-fg-muted hover:border-border-strong hover:text-fg-primary"
-                  }`}
-                >
-                  <span aria-hidden="true">{kept ? "✓" : "+"}</span>
-                </button>
-              )}
-            </span>
-
-            {/*
-              WHAT THE WORD DOES, on its own line across the whole row.
-
-              Only for entries that have it, which is currently a handful —
-              and that is the honest state rather than a layout problem. A row
-              with nothing to add stays exactly as tight as it was, so the list
-              does not pay a line of height per word for a feature four words
-              use.
-
-              The paradigm is one line of `du häsch · er hät`, not a table:
-              three forms do not need axes, and a table in the second column of
-              a two-column list is a layout that breaks on a phone for the sake
-              of looking thorough.
-            */}
-            {(word.forms?.length || word.example || saidIn?.[word.target]?.length) && (
-              <div className="col-span-3 mt-1 flex flex-col gap-0.5">
-                {word.forms && word.forms.length > 0 && (
-                  <p className="text-sm leading-relaxed text-fg-secondary">
-                    {word.forms.map((form, i) => (
-                      <span key={form.label}>
-                        {i > 0 && <span aria-hidden="true" className="text-fg-muted"> · </span>}
-                        <span className="text-fg-muted">{persons[form.label as keyof typeof persons] ?? form.label} </span>
-                        <span lang={DISPLAY.tag} className="font-medium text-dialect">
-                          {form.target}
-                        </span>
-                      </span>
-                    ))}
-                  </p>
-                )}
-
-                {word.example && (
-                  <p className="text-sm leading-relaxed text-fg-muted">
-                    <span lang={DISPLAY.tag} className="italic">
-                      «{word.example.target}»
-                    </span>{" "}
-                    <span lang="de">{word.example.bridge}</span>
-                  </p>
-                )}
-
-                {/* Where the word is actually said, when it is.
-
-                    This is the difference between a gloss and a memory: `nöd`
-                    means `nicht` is a fact you read, and `nöd` in four
-                    sentences from a shift is a thing you can picture. The
-                    links are to scenes the reader can open, so the list stops
-                    being a terminus. */}
-                {saidIn?.[word.target]?.length ? (
-                  <p className="flex flex-wrap items-baseline gap-x-2 text-sm leading-relaxed">
-                    <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-                      {t.saidInTitle}
-                    </span>
-                    {saidIn[word.target].map((scene, i) => (
-                      <span key={scene.id}>
-                        {i > 0 && <span aria-hidden="true" className="text-fg-muted">· </span>}
-                        <a
-                          href={scene.href}
-                          className="text-link underline underline-offset-4 hover:text-accent"
-                        >
-                          {scene.title}
-                        </a>
-                      </span>
-                    ))}
-                  </p>
-                ) : null}
-              </div>
+    <li id={slug} ref={itemRef} className="scroll-mt-anchor">
+      {heading}
+      <div className="flex items-center gap-2 border-b border-border-subtle">
+        <button
+          ref={toggleRef}
+          type="button"
+          aria-expanded={open}
+          aria-controls={open ? panel : undefined}
+          onClick={onToggle}
+          className="grid min-h-12 min-w-0 flex-1 grid-cols-[1rem_minmax(0,1fr)_minmax(0,1.3fr)] items-baseline gap-x-3 py-2.5 text-left hover:bg-surface-raised focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
+          <span className="self-center">{status && <StatusMark status={status} label={t.status[status]} />}</span>
+          <span lang={DISPLAY.tag} className="font-heading text-base font-semibold leading-snug tracking-display text-dialect">
+            {/* The article is part of the noun, as `der` is in a German
+                dictionary; muted, because the noun is still the entry. */}
+            {row.article && <span className="font-normal text-fg-muted">{row.article} </span>}
+            {row.target}
+          </span>
+          <span lang="de" className="text-base leading-snug text-fg-secondary">
+            {row.bridge}
+            {/* A real space, not only a margin: copied or read aloud, a margin
+                stitches «Franken» and «umgangssprachlich» into one word. */}
+            {row.register && " "}
+            {row.register && (
+              <span className="ml-1 font-mono text-caption uppercase tracking-caps text-fg-muted">
+                {t.register[row.register]}
+              </span>
             )}
-          </li>
-        );
-      })}
-    </ul>
-  );
-}
+            {row.mistakenFor && (
+              <span className="mt-0.5 block text-sm text-fg-muted">{fill(t.mistakenForLabel, { assumed: row.mistakenFor })}</span>
+            )}
+          </span>
+        </button>
 
-function SpeechIcon() {
-  return (
-    <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path
-        d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+        {saved.ready && (
+          <button
+            type="button"
+            onClick={() =>
+              kept ? saved.forget(row.target) : saved.save({ target: row.target, bridge: row.bridge }, byok.config)
+            }
+            aria-pressed={kept}
+            aria-label={`${kept ? chatT.savedWord : chatT.saveWord}: ${row.target}`}
+            title={kept ? chatT.savedWord : chatT.saveWord}
+            className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-control border text-sm transition-colors max-sm:h-11 max-sm:w-11 ${
+              kept
+                ? "border-action bg-action text-on-action"
+                : "border-border-subtle text-fg-muted hover:border-border-strong hover:text-fg-primary"
+            }`}
+          >
+            <span aria-hidden="true">{kept ? "✓" : "+"}</span>
+          </button>
+        )}
+      </div>
+
+      {open && (
+        <div id={panel} className="flex flex-col gap-3 border-b border-border-subtle py-4 pl-7">
+          {row.example && (
+            <p className="text-base leading-relaxed">
+              <span lang={DISPLAY.tag} className="text-fg-primary">
+                «{row.example.target}»
+              </span>
+              <span lang="de" className="mt-0.5 block text-sm text-fg-secondary">
+                {row.example.bridge}
+                {row.example.scene && (
+                  <>
+                    {" · "}
+                    <a href={row.example.scene.href} className="text-link underline underline-offset-4 hover:text-accent">
+                      {row.example.scene.title}
+                    </a>
+                  </>
+                )}
+              </span>
+            </p>
+          )}
+
+          {row.forms && row.forms.length > 0 && (
+            <p className="text-sm leading-relaxed text-fg-secondary">
+              {row.forms.map((form, i) => (
+                <span key={form.label}>
+                  {i > 0 && <span aria-hidden="true" className="text-fg-muted"> · </span>}
+                  <span className="text-fg-muted">{persons[form.label as keyof typeof persons] ?? form.label} </span>
+                  <span lang={DISPLAY.tag} className="font-medium text-dialect">
+                    {form.target}
+                  </span>
+                </span>
+              ))}
+            </p>
+          )}
+
+          <p className="text-sm leading-relaxed text-fg-muted">
+            {row.heard > 0 ? plural(t.heardIn, row.heard, locale) : t.heardNowhere}
+            {row.scenes.slice(0, SCENES_SHOWN).map((scene, i) => (
+              <span key={scene.id}>
+                {i === 0 ? " " : " · "}
+                <a href={scene.href} className="text-link underline underline-offset-4 hover:text-accent">
+                  {scene.title}
+                </a>
+              </span>
+            ))}
+            {row.scenes.length > SCENES_SHOWN && ` ${fill(t.moreScenes, { count: String(row.scenes.length - SCENES_SHOWN) })}`}
+            {row.guessable && ` ${t.guessableShort}`}
+          </p>
+
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {row.practisable && (
+              <SessionLink
+                locale={locale}
+                scope={wordsScope([row.target])}
+                className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-sm font-medium text-fg-primary hover:bg-surface-page"
+              >
+                {t.practiseWord}
+              </SessionLink>
+            )}
+            <button
+              type="button"
+              onClick={() => askHeidi(fill(t.askSay, { word: row.target }))}
+              className="min-h-11 text-sm text-link underline underline-offset-4 hover:text-accent"
+            >
+              {t.askLabel}
+            </button>
+          </div>
+        </div>
+      )}
+    </li>
   );
 }
 
 /**
- * How many of these the reader is carrying, and a way into reviewing them.
- *
- * A COUNT OF THEIR OWN WORDS, NEVER A SCORE. "12 in review" is a true,
- * checkable fact about what they chose to keep. A streak or a percentage would
- * measure how much Heidi they have consumed while pretending to measure what
- * they have learned, which §8 of HEIDI.md names as the thing this product does
- * not do.
+ * Where the learner stands, as a shape rather than a colour: empty ring for
+ * new, half for learning, full for known — readable in both themes and by
+ * somebody who does not see the difference between two greys.
  */
-export function KeptCount({ t, portalHref }: { t: Dictionary["vocabulary"]; portalHref: string }) {
-  const saved = useSaved();
-
-  // Nothing at all during the server pass, rather than "0 kept" flashing at
-  // somebody who has forty.
-  if (!saved.ready) return <div className="min-h-11" aria-hidden="true" />;
-
-  if (saved.count === 0) {
-    return <p className="max-w-measure text-sm leading-relaxed text-fg-muted">{t.keptNone}</p>;
-  }
-
+export function StatusMark({ status, label, decorative = false }: { status: WordStatus; label: string; decorative?: boolean }) {
   return (
-    <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-fg-secondary">
-      <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-        {saved.count} {t.keptSome}
-      </span>
-      <a href={portalHref} className="text-link underline underline-offset-4 hover:text-accent">
-        {t.practise}
-      </a>
-    </p>
+    <span
+      className={`inline-block h-2.5 w-2.5 shrink-0 rounded-full border border-fg-secondary ${
+        status === "known" ? "bg-fg-secondary" : status === "learning" ? "bg-[linear-gradient(90deg,var(--color-fg-secondary)_50%,transparent_50%)]" : ""
+      }`}
+      {...(decorative ? { "aria-hidden": true } : { role: "img", "aria-label": label, title: label })}
+    />
   );
 }

@@ -1008,6 +1008,53 @@ the transcript as the reader's own message. There is no hidden prompt channel
 anywhere in this product: a turn you cannot see is a conversation you cannot
 re-read.
 
+**Built: `/vocabulary` answers "what do I learn next?" before it is a list.**
+Measured on production before the rewrite: 23,217 px tall on a phone, 226 words
+each printing up to seventeen scene links, and nothing on it said which word to
+learn, or whether the reader already knew any of them. A reference nobody can
+act on is a wall. The page now does three jobs, in this order:
+
+1. *What next.* The ten highest-ranked words the reader does not know yet,
+   and one button that starts a session on exactly those ten.
+2. *Do I know these.* Every row carries a status mark — ring for new, half for
+   learning, full for known — as a shape, not a colour.
+3. *Look one up.* Search across both sides that ignores accents and dialect
+   spelling (`hardopfel` finds «Härdöpfel»), group and status filters, forty
+   rows at a time.
+
+*The order is measured, not curated* (`lib/domain/vocabulary/rank.ts`). A word
+is worth learning early if you will hear it often AND cannot work it out from
+German. "Often" is the number of scene lines that say it. "Cannot work it out"
+is the inverse of `guessable`: a word is guessable when, after the pack's own
+sound correspondences are applied, it is within a quarter of its length of one
+of its German glosses («Huus» → «Haus»). Guessable words sink to the end under
+their own heading, because the learner gets them for free. False friends are
+never guessable, and they come first among equals, because a word you are sure
+you know is the one that misleads you. About a fifth of the pack comes out
+guessable, and a test holds that under a third.
+
+*Status is read, never stored.* `wordStatus` derives it from what already
+exists: the learner model's per-word answers (known once `holds`: at least four
+asks, at most one in five missed) and the kept list (known at `STEADY_STEP`).
+A second store of "known words" would disagree with the first within a week.
+
+*A session on named words is a real scope.* `{kind: "words", id}` joins the
+topic, scene and group scopes (`?words=mir,nöd,…` in the URL, capped at
+`MAX_SCOPE_WORDS` so a link cannot ask for the whole pack). «Learn the next
+ten», «practise this word» and the group button all go through it, so they
+share the session, the review and the scoring every other scope has.
+
+*A row is a line, and the rest is on demand.* The line holds what decides
+whether you know the word: the word with its article, the meaning, the
+register, the false-friend warning, and the keep button. Opening the row shows
+a sentence it is said in (the pack's own example, otherwise the shortest scene
+line that uses it), the verb forms, how many scene lines use it with three
+links, and «practise just this word» / «show it in a sentence» (which asks
+Heidi). Deep links (`#w-<word>`) from
+explanations clear the filters, page far enough down, open the row and scroll
+to it. Escape closes an open row through `useDismiss`; a click elsewhere does
+not, because the reader is comparing rows, not dismissing a menu.
+
 **Built: what a computer can and cannot do with this language, published.**
 §8 is an overclaim register — a list of things this product must not say, the
 largest of which is that it transcribes dialect. The strongest form of that

@@ -959,14 +959,10 @@ export const de = {
      * placeholder sits mid-sentence because that is where it falls in most of
      * these languages, which is the whole reason a placeholder exists here.
      */
-    keptTitle: "Gemerkte Wörter",
-    keptNone: "Tippen Sie auf +, um ein Wort zu behalten. Heidi fragt Sie später danach.",
-    keptSome: "im Wiederholen",
-    practise: "Jetzt wiederholen",
     askLabel: "Im Satz zeigen",
     askSay: "Zeigen Sie mir «{word}» in zwei kurzen Sätzen aus dem Alltag.",
     title: "Die wichtigsten Wörter",
-    lead: "Nicht die Wörter für Touristen, sondern die, an denen ein Satz hängen bleibt: die kurzen, ständigen, für die keine Lautregel hilft.",
+    lead: "Die Wörter, an denen ein Satz hängen bleibt — geordnet danach, wie oft man sie hört und ob man sie vom Deutschen her erraten kann. Lernen Sie sie zehn auf einmal.",
     note: "Richtung: Mundart → Deutsch. Hier geht es ums Verstehen, nicht ums Schreiben — was Sie selbst schreiben sollten, steht bei den Mundarten.",
     groups: {
       function: "Kleine Wörter, grosse Wirkung",
@@ -978,9 +974,6 @@ export const de = {
     },
     register: { casual: "umgangssprachlich", rude: "derb" },
     mistakenForLabel: "Nicht: {assumed}",
-    articleLabel: "Artikel",
-    formsLabel: "Formen",
-    exampleLabel: "Im Satz",
     /**
      * Das Suchfeld, und warum eine Wortliste eines braucht.
      *
@@ -995,8 +988,28 @@ export const de = {
     noMatches: "Dazu passt kein Wort.",
     clearFilter: "Zurücksetzen",
     practiseGroup: "Diese Gruppe üben",
-    jumpLabel: "Direkt zu",
-    saidInTitle: "Gesagt in",
+    nextTitle: "Als Nächstes",
+    progress: "{known} von {total} Wörtern sitzen, {learning} lernen Sie gerade.",
+    progressNone: "Noch kein Wort geübt. Diese zehn bringen am meisten:",
+    allKnown: "Alle Wörter, die sich üben lassen, sitzen. Wiederholen Sie ab und zu, damit es so bleibt.",
+    learnNext: {"one": "Dieses Wort lernen", "few": "Diese {n} Wörter lernen", "many": "Diese {n} Wörter lernen", "other": "Diese {n} Wörter lernen"},
+    learnNextHint: "Eine kurze Übung nur mit diesen Wörtern. Was Sie sicher wissen, wird hier als «sitzt» markiert, und die nächsten rücken nach.",
+    reviewKept: "Gemerkte wiederholen ({count})",
+    allTitle: "Alle {count} Wörter",
+    orderNote: "Zuerst die, die man in den Situationen am häufigsten hört und vom Deutschen her nicht erraten kann.",
+    groupLabel: "Art",
+    statusLabel: "Stand",
+    filterAll: "Alle",
+    status: {"new": "Neu", "learning": "Am Lernen", "known": "Sitzt"},
+    guessableTitle: "Diese verstehen Sie auch so",
+    guessableNote: "Sie klingen fast wie auf Hochdeutsch, oder eine Lautregel wie k → ch führt Sie hin. Lernen müssen Sie diese kaum.",
+    guessableShort: "Vom Deutschen her zu erraten.",
+    showMore: "{count} weitere zeigen",
+    heardIn: {"one": "In 1 Satz der Situationen:", "few": "In {n} Sätzen der Situationen:", "many": "In {n} Sätzen der Situationen:", "other": "In {n} Sätzen der Situationen:"},
+    heardNowhere: "In den Situationen kommt es noch nicht vor.",
+    moreScenes: "und {count} weitere",
+    practiseWord: "Nur dieses Wort üben",
+    wordsScope: "Wörter: {words}",
   },
 
   /**

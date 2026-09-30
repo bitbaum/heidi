@@ -41,6 +41,18 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-10-01",
+      tag: "improvement",
+      title: "Die Wortschatzseite sagt, was als Nächstes dran ist",
+      summary:
+        "Die Seite zeigte alle 226 Wörter mit je bis zu siebzehn Szenenlinks und sagte nie, welches Wort zählt oder ob man es schon kann. Jetzt stehen zuoberst die zehn Wörter, die am meisten bringen, und ein Knopf, der genau diese übt.",
+      items: [
+        "Die Reihenfolge ist gemessen: Zuerst kommen Wörter, die man in den Situationen oft hört und vom Deutschen her nicht erraten kann; Wörter, die fast wie Deutsch klingen, kommen zuletzt; falsche Freunde gehen bei Gleichstand vor.",
+        "Bei jedem Wort steht, ob es neu ist, am Lernen oder sitzt, abgeleitet aus Ihren Übungsantworten und gemerkten Wörtern.",
+        "Einträge öffnen sich auf Wunsch mit Beispielsatz, Formen, den Situationen, in denen das Wort vorkommt, «Nur dieses Wort üben» und «Im Satz zeigen». Die Suche übersieht Akzente und Schreibweisen: hardopfel findet Härdöpfel.",
+      ],
+    },
+    {
       date: "2026-09-30",
       tag: "improvement",
       title: "Tests zu 17 von 19 Grammatikthemen",
@@ -458,6 +470,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-01",
+      tag: "improvement",
+      title: "The vocabulary page says what to learn next",
+      summary:
+        "The page used to print all 226 words, each with up to seventeen scene links, and never said which word mattered or whether you knew it. It now opens with the ten words that pay off most and one button to practise exactly those.",
+      items: [
+        "The order is measured: words you hear most in the scenes and cannot work out from German come first; words that sound almost like German go last; false friends lead among equals.",
+        "Every word shows whether it is new, being learned or known, read from your practice answers and your kept words.",
+        "Rows open on demand, with an example sentence, forms, the scenes it comes up in, \u201cPractise just this word\u201d and \u201cShow it in a sentence\u201d. Search ignores accents and spelling: hardopfel finds H\u00e4rd\u00f6pfel.",
+      ],
+    },
     {
       date: "2026-09-30",
       tag: "improvement",

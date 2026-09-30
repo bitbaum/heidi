@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { saysWord } from "../../text/words.ts";
 import { SCENES } from "../../situations/display.ts";
-import { itemsInScope } from "./scope.ts";
+import { MAX_SCOPE_WORDS, itemsInScope, wordsIn, wordsScope } from "./scope.ts";
 import { PRACTISABLE, sittingPool } from "./pool.ts";
 import { TEST_MIN, itemsFor, testable } from "./mode.ts";
 
@@ -38,6 +38,18 @@ test("a topic's sitting includes the questions the pack says it explains", () =>
   assert.equal(testable(clock), true);
   const words = sittingPool({ kind: "group", id: "everyday" });
   assert.ok(words.every((i) => i.source.kind === "word"), "a group is still only its words");
+});
+
+test("a words sitting asks exactly the words it names", () => {
+  // The vocabulary page's «learn the next ten» and each row's «practise this
+  // word» are this scope; a stray item from another word would break the promise.
+  const pool = sittingPool(wordsScope(["nöd", "mir"]));
+  assert.ok(pool.length > 0);
+  const asked = new Set(pool.map((i) => (i.source.kind === "word" ? i.source.word : "—")));
+  assert.deepEqual([...asked].sort(), ["mir", "nöd"]);
+  assert.deepEqual(wordsIn(" nöd, mir,nöd ,,"), ["nöd", "mir"]);
+  const many = Array.from({ length: MAX_SCOPE_WORDS + 5 }, (_, i) => `w${i}`);
+  assert.equal(wordsIn(many.join(",")).length, MAX_SCOPE_WORDS, "a URL cannot ask for the whole pack");
 });
 
 test("every scene and every listed topic can be practised", () => {

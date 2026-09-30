@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/lib/i18n";
-import type { Scope } from "@/lib/domain/practice/scope";
+import { wordsIn, type Scope } from "@/lib/domain/practice/scope";
+import { fill } from "@/lib/i18n/fill";
 
 /**
  * What to call a scope, in the reader's language. Empty for everything.
@@ -24,5 +25,10 @@ export function scopeName(dict: Dictionary, scope: Scope): string {
       return dict.situations.scenes[scope.id as keyof typeof dict.situations.scenes]?.title ?? scope.id;
     case "group":
       return dict.vocabulary.groups[scope.id as keyof typeof dict.vocabulary.groups] ?? scope.id;
+    case "words": {
+      const words = wordsIn(scope.id);
+      const shown = words.slice(0, 3).join(", ") + (words.length > 3 ? " …" : "");
+      return fill(dict.vocabulary.wordsScope, { words: shown });
+    }
   }
 }
