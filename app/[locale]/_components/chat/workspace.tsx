@@ -342,10 +342,10 @@ export function ChatWorkspace({
             onClick={() => setMenuOpen(true)}
             aria-expanded={menuOpen}
             aria-controls="chat-sidebar"
-            className="inline-flex min-h-11 items-center gap-2 rounded-control px-2 text-sm font-medium text-fg-primary transition-colors hover:bg-surface-raised"
+            className="inline-flex min-h-11 min-w-0 items-center gap-2 rounded-control px-2 text-sm font-medium text-fg-primary transition-colors hover:bg-surface-raised"
           >
             <MenuIcon />
-            {f.menuOpen}
+            <span className="min-w-0 truncate">{f.menuOpen}</span>
           </button>
           {(started || conversationId) && <NewChatButton label={t.newChat} onClick={startNew} />}
         </div>

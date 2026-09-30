@@ -37,10 +37,12 @@ export function NewChatButton({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-control border border-border-strong px-3 text-sm font-medium text-fg-primary transition-colors hover:bg-surface-raised ${className}`}
+      className={`inline-flex min-h-11 min-w-0 items-center justify-center gap-2 whitespace-nowrap rounded-control border border-border-strong px-3 text-sm font-medium text-fg-primary transition-colors hover:bg-surface-raised ${className}`}
     >
       <NewChatIcon />
-      {label}
+      {/* Shrinks to an ellipsis rather than widening the page: «Nouvelle
+          conversation» beside «Conversations» is wider than a 320px phone. */}
+      <span className="min-w-0 truncate">{label}</span>
     </button>
   );
 }
