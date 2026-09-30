@@ -181,7 +181,7 @@ const DE: Paper = {
       title: "Ein Feld, und eine echte Nachricht darin",
       body: [
         "Fügen Sie ein, was Ihnen jemand aus Zürich wirklich geschrieben hat. Heidi erklärt es — was gesagt wurde, welche Wörter die Arbeit tun und warum der Satz so gebaut ist. Danach bietet sie die Wörter an, die zu behalten sich lohnt, und bringt sie später zurück, nach einem Plan aus der Forschung zum verteilten Lernen und nicht aus einem Marketingkalender.",
-        "Darum herum steht, was eine Lernende als Nächstes braucht: neunzehn Grammatikthemen, zweihundertsechsundzwanzig Wörter — ausgewählt, weil sie Sätze blockieren, nicht weil sie häufig sind —, neunzehn Szenen aus dem Alltag und aus einer echten Schicht und 1761 Übungsfragen, gebaut aus genau diesem geprüften Material und vom selben Gate geprüft.",
+        "Darum herum steht, was eine Lernende als Nächstes braucht: neunzehn Grammatikthemen, zweihundertsechsundzwanzig Wörter — ausgewählt, weil sie Sätze blockieren, nicht weil sie häufig sind —, neunzehn Szenen aus dem Alltag und aus einer echten Schicht und 1876 Übungsfragen, gebaut aus genau diesem geprüften Material und vom selben Gate geprüft.",
         "Nichts in diesem Produkt erfindet Sprache. Jede Frage, jedes Beispiel und jede Bedeutung wird aus Material zusammengesetzt, für das das Varietäten-Pack bereits geradesteht. Diese Einschränkung ist es, die den Rest dieses Dokuments überhaupt möglich macht.",
       ],
       check: [

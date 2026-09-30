@@ -42,6 +42,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-09-30",
+      tag: "improvement",
+      title: "Tests zu 17 von 19 Grammatikthemen",
+      summary:
+        "Einen Test gab es bisher nur zum Thema «Kein Präteritum»; bei allen anderen Themen reichten die prüfbaren Fragen nicht. Mit 107 neuen Fragen und den Artikel- und Uhrzeitfragen, die jetzt zu ihrem Thema zählen, lassen sich 17 von 19 Themen testen.",
+      items: [
+        "Neue Fragen «Welcher Satz sagt genau das?» zu Konjunktiv (hett, wär, würd), kurzen Pronomen (en, em, ere), Partizipien, Verbstellung (ha nöd chönne cho), Richtungswörtern (ine, use, ufe, abe), Artikeln vor Namen, «wo»-Sätzen, Besitz (em Peter sis), Befehlsform und Artikeln (en, e, es). Jede falsche Antwort ist richtiges Züridütsch, das etwas anderes sagt.",
+        "«Welcher Artikel?» kennt acht Nomen mehr, deren Zürcher Artikel vom deutschen abweicht: d Glace, s Güetzi, s Rüebli, s Trottoir, de Anke, de Härdöpfel, d Stange, s Zvieri.",
+        "Abtönungswörter (halt, gäll) und Verkleinerungen (-li) haben noch keinen Test: Was sie ändern, ist meist eine Nuance, und geprüft wird nur, was die Bedeutung ändert.",
+      ],
+    },
+    {
+      date: "2026-09-30",
       tag: "fix",
       title: "Heidi fragen, warum — und keine Fragen mehr ohne Züridütsch",
       summary:
@@ -446,6 +458,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-30",
+      tag: "improvement",
+      title: "Tests for 17 of the 19 grammar topics",
+      summary:
+        "Until now only \u201cNo simple past\u201d had a test; every other topic had too few markable questions. With 107 new questions, and the article and clock questions now counted under their topic, 17 of 19 topics can be tested.",
+      items: [
+        "New \u201cWhich sentence says exactly this?\u201d questions on the subjunctive (hett, w\u00e4r, w\u00fcrd), short pronouns (en, em, ere), participles, verb order (ha n\u00f6d ch\u00f6nne cho), direction words (ine, use, ufe, abe), articles before names, \u201cwo\u201d clauses, possession (em Peter sis), the imperative and the indefinite article. Every wrong answer is correct Zurich German that says something else.",
+        "\u201cWhich article?\u201d knows eight more nouns whose Zurich article differs from the German one: d Glace, s G\u00fcetzi, s R\u00fcebli, s Trottoir, de Anke, de H\u00e4rd\u00f6pfel, d Stange, s Zvieri.",
+        "Modal particles (halt, g\u00e4ll) and diminutives (-li) have no test yet: what they change is mostly nuance, and only what changes the meaning is marked.",
+      ],
+    },
     {
       date: "2026-09-30",
       tag: "fix",

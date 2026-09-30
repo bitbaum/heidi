@@ -249,6 +249,7 @@ export function clockItem(t: ClockTemplate, library: Library): QuestionItem | un
     said: said.target,
     ...place(base.id, t.right, t.wrong),
     optionsIn: "plain",
+    ...(library.pack.explains?.clock ? { explains: library.pack.explains.clock } : {}),
     // A time lifted from a real line counts toward that line; a written one
     // belongs to the scene it would be said in, and to no line of it.
     source: isLine(t.said) && t.said.scene === t.scene ? sceneSource(t.said, said) : { kind: "situation", scene: t.scene },

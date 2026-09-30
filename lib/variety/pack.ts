@@ -789,6 +789,8 @@ export type VarietyPack = {
     article?: string;
     /** The topic behind "which form goes with this person". */
     form?: string;
+    /** The topic behind "what time was just said". */
+    clock?: string;
   };
   /**
    * Who vouches for the vocabulary. Ids from `lib/research/sources.ts`.

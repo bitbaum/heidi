@@ -536,8 +536,14 @@ which of the two it is in, next to the button, in the learner's language. See
   - A test needs half a run of markable questions in its scope (`TEST_MIN`,
     ten of `TEST_SIZE`'s twenty). Below that the scope offers practice only,
     and a test link to it opens practice: «Bsitz andersume» had two markable
-    questions and produced a two-tap test under a three-minute clock. Most
-    grammar topics do not qualify yet; the situations and «everything» all do.
+    questions and produced a two-tap test under a three-minute clock. The
+    situations, «everything» and seventeen of the nineteen grammar topics
+    qualify. Modal particles and diminutive -li do not yet: what they add is
+    mostly nuance, and a question's wrong answers must differ in meaning.
+  - A topic's sitting also asks the questions the pack says that topic
+    explains (`pack.explains`, `scope.ts`): every «which article?» belongs to
+    `articles` and every time of day to `clock-time`, although they came from a
+    word and a scene.
   - A situation's sitting is its sentences AND the words said in it
     (`pool.ts`, `sittingPool`): a word is in the scene when a phrase of it
     says the word. `PRACTISABLE` lists the scenes and topics with questions,
@@ -1513,11 +1519,12 @@ comprehension, and they were the least practised thing in the product.
 *The article drill asks only where German misleads.* A noun carries its
 German article too (`bridgeArticle`), and the question «which article?» is
 generated only where the two genders differ: s Tram (die Strassenbahn), s
-Billett, s Grosi, s Säckli, d Chilbi. Where they agree — s Ässe, das Essen —
-the answer needs German and the mapping der→de, die→d, das→s, which the
-articles lesson teaches once; 32 of 37 nouns were that, and a learner reported
-the question as useless. More nouns whose gender differs are the next content
-for it.
+Billett, s Grosi, s Säckli, d Chilbi, d Glace (das Speiseeis), s Güetzi (der
+Keks), s Rüebli (die Karotte), s Trottoir, de Anke (die Butter), de Härdöpfel,
+d Stange, s Zvieri. Where they agree — s Ässe, das Essen — the answer needs
+German and the mapping der→de, die→d, das→s, which the articles lesson teaches
+once; 32 of the 45 nouns with an article are that, and a learner reported the
+question as useless.
 
 `pick` is a real pack sentence with one word cut out and four real words
 offered. What makes it objective is the bridge printed underneath: several

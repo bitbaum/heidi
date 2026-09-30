@@ -90,6 +90,10 @@ export function scopeQuery(scope: Scope): string {
  * So a topic scope unions both, which also means the reference section and the
  * situation packs reinforce each other automatically: every scene written from
  * now on deepens whichever topics it happens to use, with nothing to wire up.
+ *
+ * A question the pack says a topic `explains` (every article question is
+ * `articles`, every time of day `clock-time`) is an instance of it too, even
+ * though it came from a word or a scene.
  */
 export function inScope(item: PracticeItem, scope: Scope): boolean {
   if (scope.kind === "all") return true;
@@ -98,6 +102,7 @@ export function inScope(item: PracticeItem, scope: Scope): boolean {
 
   switch (scope.kind) {
     case "topic":
+      if ("explains" in item && item.explains === scope.id) return true;
       if (source.kind === "grammar") return source.topic === scope.id;
       if (source.kind === "situation") return source.topic === scope.id;
       return false;

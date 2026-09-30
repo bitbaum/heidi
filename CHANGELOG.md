@@ -23,6 +23,10 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-09-30
 
+- **Tests for 17 of the 19 grammar topics.** Before, only «Kein Präteritum» had enough markable questions for a test. 107 new «which sentence says exactly this?» questions cover the subjunctive, short pronouns, participles, verb order, direction words, articles before names, «wo» clauses, possession, the imperative and the indefinite article, each with its own lesson where the existing ones did not fit (wish, clitic, modal-past, direction, name-role). The practice pool grows from 1,761 to 1,876 questions.
+  - A topic's sitting now also includes the questions the pack says it explains: every «which article?» counts for articles, every time of day for clock-time.
+  - «Which article?» gains eight nouns whose gender differs from German: d Glace, s Güetzi, s Rüebli, s Trottoir, de Anke, de Härdöpfel, d Stange, s Zvieri.
+  - Modal particles and diminutive -li stay practice-only: what they add is nuance, and wrong answers must differ in meaning.
 - **Ask Heidi why, from any question.** Under each answer in practice and the warm-up, «Heidi fragen, warum» sends the question, the right answer and your own when it differed, and opens the chat over the exercise. Before, the only buttons there were about the word in general, and asking about your answer meant leaving the exercise.
   - Writing: a word typed as a different form is now named next to the pack's («Anders als im Pack: schlof – schlaft»). Respellings are still never named. «D'Chatz» is read as two words, so «Chatz» is no longer reported missing.
 - **Fixed: questions that needed no Zurich German, and a card in English.** «Which article?» is now asked only where the Zurich article differs from the German one (s Tram, s Billett, s Grosi, s Säckli, d Chilbi); for «s Ässe» it was enough to know «das Essen». The practice pool shrinks from 1,793 to 1,761 questions accordingly.
