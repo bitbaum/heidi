@@ -66,6 +66,7 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "Ein Gespräch folgt der Sprache der Seite, von der aus Sie schreiben — nicht der, in der es begonnen hat.",
         "Die Beschriftungen der Vorschläge («Wärmer», «Chürzer») und der Ton kommen aus dem Wörterbuch, statt als Englisch des Modells zu erscheinen («warmer», «shorter», «bridge»).",
         "Die Übersetzung unter einem Vorschlag steht in Ihrer Sprache; wer Schwiizerdütsch liest, bekommt unter einer Mundartzeile keine. Im Test mit dem echten Modell: vorher englische Übersetzungen in 2 von 2 Antworten mit Übersetzung, nachher in keiner von 4.",
+        "Angemeldet folgt Ihnen die gewählte Sprache auf jedes Gerät: Nach dem Anmelden öffnet sich die Seite in der Sprache, die Sie zuletzt gewählt haben. Deutsch bleibt der Standard für alle anderen.",
       ],
     },
     {
@@ -356,6 +357,7 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "A conversation follows the language of the page you write from, not the one it began in.",
         "Suggestion labels («Wärmer», «Chürzer») and the tone come from the dictionary instead of appearing as the model's English («warmer», «shorter», «bridge»).",
         "The translation under a suggestion is in your language, and a Swiss German reader gets none under a dialect line. Tested against the real model: English translations in 2 of 2 answers that carried translations before, in none of 4 after.",
+        "Signed in, your chosen language follows you to every device: after signing in, the page opens in the language you last picked. German stays the default for everyone else.",
       ],
     },
     {

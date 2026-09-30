@@ -1,6 +1,7 @@
 import { signIn } from "@/lib/auth";
 import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
+import { afterSignIn } from "@/lib/domain/preferences/language";
 
 /**
  * Sign in, and come back here.
@@ -19,7 +20,7 @@ export function SignInToKeep({ locale, label }: { locale: Locale; label: string 
     <form
       action={async () => {
         "use server";
-        await signIn("orangecat", { redirectTo: href(locale, "chat") });
+        await signIn("orangecat", { redirectTo: afterSignIn(href(locale, "chat")) });
       }}
     >
       <button type="submit" className="text-sm text-link underline underline-offset-4 hover:text-accent">

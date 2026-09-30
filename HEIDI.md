@@ -392,6 +392,13 @@ which of the two it is in, next to the button, in the learner's language. See
   the language of the page it is written from, not the language it began in.
   Dialect suggestions come without a translation for that reader, since the
   only possible translation is the line itself (`forReader` in `respond.ts`).
+  A signed-in learner's language follows them to every device: picking one in
+  any language menu saves it (`preferences`, one row per account), and every
+  sign-in returns through `/api/account/language`, which puts the saved
+  language into the page they land on. Signing in from a non-German page with
+  nothing saved yet saves that page's language, since German is where everyone
+  starts and says nothing about a choice. A shared link is never rewritten,
+  and signed out nothing is stored (`lib/domain/preferences/`).
   German is the source dictionary and the others
   are typed against it, so a missing key is a build error. Romansh is unreviewed
   by a native speaker and says so; the assistant answers Romansh readers in
@@ -1502,6 +1509,12 @@ second ago.
 **Your own model key is never stored by us.** A key you bring stays in your
 browser, is forwarded on the request it is for, and is redacted out of every
 log line before anything is written.
+
+**Signed in, your site language is stored, and nothing else about how you
+read.** One row per account in `preferences`: the locale, written when you pick
+a language (or sign in from a page that is not German), read when you sign in
+on another device. Signed out, a language pick is remembered by this browser's
+`heidi_locale` cookie and by nothing on our side.
 
 **Saved words stay on your device.** They need no account, work signed out, and
 keep Heidi from holding a record of what a particular person cannot understand.

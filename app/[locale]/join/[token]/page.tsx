@@ -3,6 +3,7 @@ import { auth, authEnabled, signIn } from "@/lib/auth";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
+import { afterSignIn } from "@/lib/domain/preferences/language";
 import { dbConfigured } from "@/lib/db";
 import { looksLikeToken } from "@/lib/domain/groups/invite";
 import { PageHeader, Section, Shell } from "../../_components/page-shell";
@@ -71,7 +72,7 @@ export default async function JoinPage({
                 "use server";
                 // Back to this page, token intact, so the invitation survives
                 // the round trip through OrangeCat.
-                await signIn("orangecat", { redirectTo: href(locale, `join/${token}`) });
+                await signIn("orangecat", { redirectTo: afterSignIn(href(locale, `join/${token}`)) });
               }}
             >
               <button

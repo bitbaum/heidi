@@ -7,6 +7,7 @@ import { askableLines } from "@/lib/domain/practice/situation-strength";
 import { SituationBoard } from "./situation-board";
 import { type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
+import { afterSignIn } from "@/lib/domain/preferences/language";
 import { Shell } from "./page-shell";
 import { SectionNav, SectionNavLayout, type NavSection } from "./section-nav";
 import { CowMark } from "./cow-mark";
@@ -302,7 +303,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
                   className="mt-4"
                   action={async () => {
                     "use server";
-                    await signIn("orangecat", { redirectTo: href(locale, "portal") });
+                    await signIn("orangecat", { redirectTo: afterSignIn(href(locale, "portal")) });
                   }}
                 >
                   <button

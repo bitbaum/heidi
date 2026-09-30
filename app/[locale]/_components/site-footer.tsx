@@ -4,6 +4,7 @@ import type { Locale } from "@/lib/i18n/locales";
 import { LOCALE_NAMES, MENU_ORDER } from "@/lib/i18n/locales";
 import { href, navGroups, type NavGroup } from "@/lib/i18n/routes";
 import { DISPLAY } from "@/lib/variety/display";
+import { LanguageLink } from "./language-link";
 
 /**
  * The footer, rebuilt around the structure the site already had.
@@ -138,7 +139,8 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                   {/* Seven languages, seven prefetched copies of the home
                       page — for a switch almost nobody touches, and never
                       before they have read anything. */}
-                  <Link
+                  <LanguageLink
+                    language={l}
                     href={href(l, "")}
                     hrefLang={l}
                     /* `lang` as well as `hrefLang`: the link TEXT is the
@@ -155,7 +157,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                     }`}
                   >
                     {LOCALE_NAMES[l]}
-                  </Link>
+                  </LanguageLink>
                 </li>
               ))}
             </ul>

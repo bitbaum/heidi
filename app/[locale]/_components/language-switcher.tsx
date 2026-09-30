@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { useDismiss } from "./use-dismiss";
-import Link from "next/link";
+import { LanguageLink } from "./language-link";
 import {
   GROUP_ORDER,
   LOCALE_NAMES,
@@ -94,7 +94,8 @@ export function LanguageSwitcher({
                   const active = locale === current;
                   return (
                     <li key={locale}>
-                      <Link
+                      <LanguageLink
+                        language={locale}
                         href={rest ? `/${locale}/${rest}` : `/${locale}`}
                         hrefLang={locale}
                         aria-current={active ? "true" : undefined}
@@ -109,7 +110,7 @@ export function LanguageSwitcher({
                         <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">
                           {LOCALE_SHORT[locale]}
                         </span>
-                      </Link>
+                      </LanguageLink>
                     </li>
                   );
                 })}

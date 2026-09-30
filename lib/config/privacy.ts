@@ -196,6 +196,16 @@ export const FLOWS: readonly Flow[] = [
     recipients: [],
   },
   {
+    // Signed in only, and only when they pick a language (or sign in from a
+    // page that is not German): the locale, under the account, so the next
+    // device they sign in on starts from it.
+    id: "language",
+    place: "server",
+    where: "preferences",
+    leavesDevice: true,
+    recipients: [],
+  },
+  {
     id: "ownKey",
     place: "device",
     where: "localStorage · heidi.byok.v1",
