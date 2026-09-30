@@ -145,6 +145,15 @@ export const FLOWS: readonly Flow[] = [
     recipients: [],
   },
   {
+    // Which warm-up lines were understood, and the answer to the offer of the
+    // site in Swiss German. Read only by this browser, to show the result again.
+    id: "warmup",
+    place: "device",
+    where: "localStorage · heidi.warmup.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
+  {
     id: "practiceModel",
     place: "device",
     where: "localStorage · heidi.practice.model.v1",

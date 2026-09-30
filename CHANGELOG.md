@@ -23,6 +23,7 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-09-30
 
+- **Warm-up: how much Zurich German do you already understand?** Eight lines from the everyday situations in two minutes, with no grade and no level. The lines get harder while you keep up and easier after a miss, and after each answer you see the word the line turns on. The result names the situations you already follow and the one worth starting with, and your answers feed practice so the first session starts at the gaps. A reader who also gets the between-the-lines questions is offered the site in Swiss German, once. Offered on the home page, on the dashboard until done and on the practice page; stored only in the browser.
 - **Heidi answers what you wrote last.** After three answers about «Le Bilan», someone asked «Pire» and got a fourth «Le Bilan» sentence, twice: the model was handed the whole conversation as one list with nothing marking the question. The newest message now stands apart from the history, a lone word is a question about that word, and Heidi's past turns carry the sentence she actually wrote. Against the live model: 4 of 6 runs wrong before, none after.
   - The model sees the last 20 messages on every surface; saved conversations used to send all of them.
   - A stored answer in mode «answer» no longer comes back as «understand» after a reload.
