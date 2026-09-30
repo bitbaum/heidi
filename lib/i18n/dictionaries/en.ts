@@ -571,6 +571,7 @@ export const en: Dictionary = {
       savedWords: "Saved words",
       practiceSeen: "Questions already asked",
       practiceModel: "What you are still working on",
+      practiceMemory: "When each question comes back",
       streak: "Your streak and weekly goal",
       roadmapFeedback: "Your votes, comments and suggestions on the roadmap",
       syncSetting: "Whether this browser syncs",
@@ -1184,6 +1185,8 @@ export const en: Dictionary = {
     doneAsked: "asked",
     doneRight: "first time",
     doneAgain: "coming back",
+    dueToday: { one: "1 question is due for review today.", few: "{n} questions are due for review today.", many: "{n} questions are due for review today.", other: "{n} questions are due for review today." },
+    dueTomorrow: { one: "Due again tomorrow: 1 question. Heidi asks just before you would forget.", few: "Due again tomorrow: {n} questions. Heidi asks just before you would forget.", many: "Due again tomorrow: {n} questions. Heidi asks just before you would forget.", other: "Due again tomorrow: {n} questions. Heidi asks just before you would forget." },
     againTitle: "Worth another look",
     whyTitle: "Why the exercises are built this way",
     whyLead:

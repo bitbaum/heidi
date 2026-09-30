@@ -1,10 +1,11 @@
 import { createBrowserStore } from "@/lib/browser/store";
 import { decodeHistory } from "@/lib/domain/practice/history";
+import { decodeMemory } from "@/lib/domain/practice/memory";
 import { decodeModel } from "@/lib/domain/practice/model";
 import { decodeSaved } from "@/lib/domain/practice/resume";
 
 /**
- * The two practice stores, created ONCE.
+ * The practice stores, created ONCE.
  *
  * WHY THEY LEFT THE SESSION COMPONENT. `createBrowserStore` returns an object
  * carrying its own subscriber list, so two modules that each create one for
@@ -26,6 +27,9 @@ export const historyStore = createBrowserStore("heidi.practice.seen.v1", decodeH
  * cannot yet understand. It never leaves the browser.
  */
 export const modelStore = createBrowserStore("heidi.practice.model.v1", decodeModel);
+
+/** When each question is due again — see `memory.ts`. Declared and deletable like the model. */
+export const memoryStore = createBrowserStore("heidi.practice.memory.v1", decodeMemory);
 
 /** The sitting in progress, so closing the screen does not lose it — see `resume.ts`. */
 export const sessionStore = createBrowserStore("heidi.practice.session.v1", decodeSaved);

@@ -588,6 +588,7 @@ export const rm: Dictionary = {
       savedWords: "Pleds tegnids",
       practiceSeen: "Dumondas gia ponidas",
       practiceModel: "Tge che vus exercitais anc",
+      practiceMemory: "Cura che mintga dumonda returna",
       streak: "Vossa seria e Voss finamira da l'emna",
       roadmapFeedback: "Voss vuschs, commentaris e propostas davart il plan",
       syncSetting: "Sch’il navigatur sincronisescha",
@@ -1205,6 +1206,8 @@ export const rm: Dictionary = {
     doneAsked: "dumondas",
     doneRight: "la emprima giada",
     doneAgain: "vegnan puspè",
+    dueToday: { one: "1 dumonda è da repeter oz.", few: "{n} dumondas èn da repeter oz.", many: "{n} dumondas èn da repeter oz.", other: "{n} dumondas èn da repeter oz." },
+    dueTomorrow: { one: "Damaun puspè da repeter: 1 dumonda. Heidi dumonda curt avant che Vus emblidassas.", few: "Damaun puspè da repeter: {n} dumondas. Heidi dumonda curt avant che Vus emblidassas.", many: "Damaun puspè da repeter: {n} dumondas. Heidi dumonda curt avant che Vus emblidassas.", other: "Damaun puspè da repeter: {n} dumondas. Heidi dumonda curt avant che Vus emblidassas." },
     againTitle: "Da vesair anc ina giada",
     whyTitle: "Pertge ch'ils exercizis èn fatgs uschia",
     whyLead:

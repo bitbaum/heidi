@@ -147,6 +147,8 @@ export default async function PracticePage({
             test={flow === "test"}
             t={t}
             sessionT={dict.session}
+            locale={locale}
+            ids={scope.kind === "all" && mode === "mixed" ? undefined : items.map((item) => item.id)}
           />
         )}
 

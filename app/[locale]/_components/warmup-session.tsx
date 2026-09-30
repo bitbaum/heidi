@@ -9,11 +9,12 @@ import { href } from "@/lib/i18n/routes";
 import { useBrowserStore, useStorageReady, useStoreWriter } from "@/lib/browser/store";
 import type { PracticeItem } from "@/lib/domain/practice/types";
 import { EMPTY_MODEL, observe } from "@/lib/domain/practice/model";
+import { NO_MEMORY, scheduleAnswer } from "@/lib/domain/practice/memory";
 import { NO_HISTORY, remember } from "@/lib/domain/practice/history";
 import { OPENER } from "@/lib/domain/warmup/ladder";
 import { LENGTH, nextQuestion, portrait, sceneLookup, type WarmupAnswer, type WarmupRecord } from "@/lib/domain/warmup/run";
 import { QuestionCard } from "./exercises/question-card";
-import { historyStore, modelStore } from "./practice-stores";
+import { historyStore, memoryStore, modelStore } from "./practice-stores";
 import { recordPractice } from "./streak-store";
 import { warmupStore } from "./warmup-store";
 import { LanguageLink } from "./language-link";
@@ -69,6 +70,7 @@ export function WarmupSession({
   const writeRecord = useStoreWriter(warmupStore);
   const writeModel = useStoreWriter(modelStore);
   const writeHistory = useStoreWriter(historyStore);
+  const writeMemory = useStoreWriter(memoryStore);
 
   const byId = useMemo(() => new Map(items.map((i) => [i.id, i])), [items]);
   const sceneOf = useMemo(() => sceneLookup(items), [items]);
@@ -94,6 +96,7 @@ export function WarmupSession({
     if (!item || !answers) return;
     writeHistory.write(remember(historyStore.read() ?? NO_HISTORY, [id]));
     writeModel.write(observe(modelStore.read() ?? EMPTY_MODEL, item, outcome));
+    writeMemory.write(scheduleAnswer(memoryStore.read() ?? NO_MEMORY, item, outcome, new Date()));
 
     const next = [...answers, { id, right: outcome === "right" }];
     const following = nextQuestion(next, sceneOf);

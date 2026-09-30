@@ -624,6 +624,7 @@ export const de = {
       savedWords: "Gemerkte Wörter",
       practiceSeen: "Bereits gestellte Fragen",
       practiceModel: "Woran Sie noch arbeiten",
+      practiceMemory: "Wann welche Frage wiederkommt",
       streak: "Ihre Serie und Ihr Wochenziel",
       roadmapFeedback: "Ihre Stimmen, Kommentare und Vorschläge zum Fahrplan",
       syncSetting: "Ob dieser Browser abgleicht",
@@ -1327,6 +1328,8 @@ export const de = {
     doneAsked: "gefragt",
     doneRight: "auf Anhieb",
     doneAgain: "kommen nochmals",
+    dueToday: { one: "1 Frage ist heute zum Wiederholen fällig.", few: "{n} Fragen sind heute zum Wiederholen fällig.", many: "{n} Fragen sind heute zum Wiederholen fällig.", other: "{n} Fragen sind heute zum Wiederholen fällig." },
+    dueTomorrow: { one: "Morgen wieder fällig: 1 Frage. Heidi fragt, kurz bevor Sie es vergessen würden.", few: "Morgen wieder fällig: {n} Fragen. Heidi fragt, kurz bevor Sie es vergessen würden.", many: "Morgen wieder fällig: {n} Fragen. Heidi fragt, kurz bevor Sie es vergessen würden.", other: "Morgen wieder fällig: {n} Fragen. Heidi fragt, kurz bevor Sie es vergessen würden." },
     againTitle: "Nochmals anschauen",
     whyTitle: "Warum die Übungen so gebaut sind",
     whyLead:

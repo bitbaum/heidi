@@ -42,6 +42,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-09-30",
+      tag: "feature",
+      title: "Fragen kommen wieder, bevor Sie sie vergessen",
+      summary:
+        "Jede Frage hat jetzt ihr eigenes Datum, an dem sie wiederkommt: nach der ersten richtigen Antwort morgen, dann nach 3, 7, 16 und 35 Tagen, nach einem Fehler wieder morgen. Eine Übung beginnt mit den fälligen Fragen und bringt dann neue.",
+      items: [
+        "Bisher kam eine einmal richtig beantwortete Frage nie gezielt wieder; nur Ihre gespeicherten Wörter hatten einen Plan.",
+        "Die Übungsseite sagt, wie viele Fragen heute fällig sind, das Ende einer Übung, wie viele morgen wiederkommen.",
+        "Üben und Aufwärmen zählen, der Test nicht. Es zählt nur die erste Antwort in einer Übung.",
+        "Gespeichert im Browser, auf der Datenschutzseite aufgeführt, in den Einstellungen löschbar und mit Ihren anderen Geräten abgeglichen, wenn der Abgleich eingeschaltet ist.",
+      ],
+    },
+    {
+      date: "2026-09-30",
       tag: "fix",
       title: "Kein Test aus zwei Fragen, keine Fragen ohne Züridütsch",
       summary:
@@ -395,6 +408,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-30",
+      tag: "feature",
+      title: "Questions come back before you forget them",
+      summary:
+        "Every question now has its own date to return: tomorrow after a first right answer, then after 3, 7, 16 and 35 days, and tomorrow again after a miss. A sitting starts with the questions that are due, then brings new ones.",
+      items: [
+        "Before, a question answered right once never came back on purpose; only your saved words had a schedule.",
+        "The practice page says how many questions are due today, and the end of a sitting how many come back tomorrow.",
+        "Practice and the warm-up count; the test does not. Only the first answer in a sitting counts.",
+        "Stored in the browser, listed on the privacy page, deletable in the settings, and synced with your other devices when sync is on.",
+      ],
+    },
     {
       date: "2026-09-30",
       tag: "fix",

@@ -23,6 +23,10 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-09-30
 
+- **Questions come back before you forget them.** Every question now has its own date to return: tomorrow after a first right answer, then after 3, 7, 16 and 35 days, and back to tomorrow after a miss. A sitting starts with the questions that are due, then brings new ones; a question you answered recently waits its turn. Before, a question answered right once never came back on purpose, and only the words you kept had a schedule.
+  - The practice page says how many questions are due today, and the end of a sitting how many come back tomorrow.
+  - Practice and the warm-up count; the test does not (it only measures). Only the first answer in a sitting counts, as before.
+  - Stored in the browser, listed on the privacy page, deletable in the settings, and synced with your other devices when sync is on.
 - **Practise in one tap, from any page.** Bottom right, next to "Heidi fragen", there is now "Üben". One tap opens practice for the page you are on: on a situation its sentences and words, on a grammar topic that topic, anywhere else everything mixed. Closing goes back to the same page at the same scroll position. It used to take two taps and two scrolls: the button under a situation, then "Losgehen" below the fold on the practice page.
   - What and how you practise is changed inside the exercise: its name at the top opens a sheet with the scope, practice or test, and the mode. Choosing keeps the way back.
   - A situation's sitting now also asks the vocabulary said in it (about 40 to 90 questions per situation), not only its sentences.

@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { createBrowserStore, useBrowserStore } from "@/lib/browser/store";
 import { decodeHistory, type History } from "@/lib/domain/practice/history";
+import { NO_MEMORY, combineMemories, decodeMemory, type Memory } from "@/lib/domain/practice/memory";
 import { decodeModel, EMPTY_MODEL, type LearnerModel } from "@/lib/domain/practice/model";
 import { decodeStreak, EMPTY_STREAK, type Streak } from "@/lib/domain/progress/streak";
 import {
@@ -12,7 +13,7 @@ import {
   unionHistory,
   type OtherDevices,
 } from "@/lib/domain/progress/sync";
-import { historyStore, modelStore } from "./practice-stores";
+import { historyStore, memoryStore, modelStore } from "./practice-stores";
 import { streakStore } from "./streak-store";
 
 /**
@@ -28,7 +29,7 @@ import { streakStore } from "./streak-store";
 export const syncSettingStore = createBrowserStore("heidi.sync.v1", decodeSyncSetting);
 
 export const othersStore = createBrowserStore("heidi.sync.others.v1", (raw) =>
-  decodeOthers(raw, { model: decodeModel, history: decodeHistory, streak: decodeStreak }),
+  decodeOthers(raw, { model: decodeModel, history: decodeHistory, memory: decodeMemory, streak: decodeStreak }),
 );
 
 const NO_HISTORY: History = [];
@@ -43,6 +44,11 @@ export function historyView(own: History | null, others: OtherDevices | null): H
   return others && others.history.length > 0 ? unionHistory([mine, ...others.history]) : mine;
 }
 
+export function memoryView(own: Memory | null, others: OtherDevices | null): Memory {
+  const mine = own ?? NO_MEMORY;
+  return others && others.memory.length > 0 ? combineMemories([mine, ...others.memory]) : mine;
+}
+
 export function streakView(own: Streak | null, others: OtherDevices | null): Streak {
   const mine = own ?? EMPTY_STREAK;
   return others && others.streak.length > 0 ? combineStreaks([mine, ...others.streak]) : mine;
@@ -51,6 +57,7 @@ export function streakView(own: Streak | null, others: OtherDevices | null): Str
 /** For code that reads once (building a session), not on every render. */
 export const readModelView = () => modelView(modelStore.read(), othersStore.read());
 export const readHistoryView = () => historyView(historyStore.read(), othersStore.read());
+export const readMemoryView = () => memoryView(memoryStore.read(), othersStore.read());
 
 // Memoised on the two cached references, so a view is one object per change
 // of either store — a fresh object every render would re-render forever.
@@ -64,6 +71,12 @@ export function useHistoryView(): History {
   const own = useBrowserStore(historyStore);
   const others = useBrowserStore(othersStore);
   return useMemo(() => historyView(own, others ?? NO_OTHERS), [own, others]);
+}
+
+export function useMemoryView(): Memory {
+  const own = useBrowserStore(memoryStore);
+  const others = useBrowserStore(othersStore);
+  return useMemo(() => memoryView(own, others ?? NO_OTHERS), [own, others]);
 }
 
 export function useStreakView(): Streak {

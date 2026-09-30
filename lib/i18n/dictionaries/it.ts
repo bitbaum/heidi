@@ -572,6 +572,7 @@ export const it: Dictionary = {
       savedWords: "Parole tenute",
       practiceSeen: "Domande già poste",
       practiceModel: "Su che cosa state ancora lavorando",
+      practiceMemory: "Quando torna ogni domanda",
       streak: "La sua serie e il suo obiettivo settimanale",
       roadmapFeedback: "I suoi voti, commenti e proposte sulla roadmap",
       syncSetting: "Se questo browser si sincronizza",
@@ -1189,6 +1190,8 @@ export const it: Dictionary = {
     doneAsked: "domande",
     doneRight: "al primo colpo",
     doneAgain: "da rivedere",
+    dueToday: { one: "1 domanda è da ripassare oggi.", few: "{n} domande sono da ripassare oggi.", many: "{n} di domande sono da ripassare oggi.", other: "{n} domande sono da ripassare oggi." },
+    dueTomorrow: { one: "Da ripassare domani: 1 domanda. Heidi la ripropone poco prima che la dimentichi.", few: "Da ripassare domani: {n} domande. Heidi le ripropone poco prima che le dimentichi.", many: "Da ripassare domani: {n} di domande. Heidi le ripropone poco prima che le dimentichi.", other: "Da ripassare domani: {n} domande. Heidi le ripropone poco prima che le dimentichi." },
     againTitle: "Da rivedere",
     whyTitle: "Perché gli esercizi sono fatti così",
     whyLead:

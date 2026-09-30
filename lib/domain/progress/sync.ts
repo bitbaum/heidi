@@ -1,5 +1,6 @@
 import { EMPTY_MODEL, type LearnerModel, type Trace } from "../practice/model.ts";
 import type { History } from "../practice/history.ts";
+import type { Memory } from "../practice/memory.ts";
 import { EMPTY_STREAK, type Streak } from "./streak.ts";
 
 /**
@@ -17,6 +18,8 @@ import { EMPTY_STREAK, type Streak } from "./streak.ts";
  *   model     SUM. A trace is counts of questions asked and missed; two
  *             devices answered different questions, so their counts add.
  *   history   UNION. The questions seen recently, to avoid repeats.
+ *   memory    NEWEST PER QUESTION. When each question is due again; the device
+ *             that answered it last knows where it stands (`combineMemories`).
  *   streak    The record with the latest practice day, and the best of all.
  *             A streak stores no list of dates (on purpose — see streak.ts),
  *             so two devices practising on alternate days cannot be stitched
@@ -27,8 +30,8 @@ import { EMPTY_STREAK, type Streak } from "./streak.ts";
  *             that would bring deleted words back.
  */
 
-export type SyncKey = "model" | "history" | "streak" | "saved";
-export const SYNC_KEYS: readonly SyncKey[] = ["model", "history", "streak", "saved"];
+export type SyncKey = "model" | "history" | "memory" | "streak" | "saved";
+export const SYNC_KEYS: readonly SyncKey[] = ["model", "history", "memory", "streak", "saved"];
 
 function addTraces(a: Record<string, Trace>, b: Record<string, Trace>): Record<string, Trace> {
   const out: Record<string, Trace> = { ...a };
@@ -116,19 +119,29 @@ export function isDeviceId(value: unknown): value is string {
  * combined view without waiting for the network, and a reload offline still
  * shows everything. Never merged into this device's own records.
  */
-export type OtherDevices = { model: LearnerModel[]; history: History[]; streak: Streak[] };
-export const NO_OTHERS: OtherDevices = { model: [], history: [], streak: [] };
+export type OtherDevices = { model: LearnerModel[]; history: History[]; memory: Memory[]; streak: Streak[] };
+export const NO_OTHERS: OtherDevices = { model: [], history: [], memory: [], streak: [] };
 
 export function decodeOthers(
   raw: string,
-  decode: { model(raw: string): LearnerModel; history(raw: string): History | null; streak(raw: string): Streak | null },
+  decode: {
+    model(raw: string): LearnerModel;
+    history(raw: string): History | null;
+    memory(raw: string): Memory | null;
+    streak(raw: string): Streak | null;
+  },
 ): OtherDevices | null {
   try {
     const o = JSON.parse(raw) as Record<string, unknown>;
     if (!o || typeof o !== "object") return null;
     const each = <T>(v: unknown, d: (raw: string) => T | null): T[] =>
       Array.isArray(v) ? v.map((x) => d(JSON.stringify(x))).filter((x): x is T => x !== null) : [];
-    return { model: each(o.model, decode.model), history: each(o.history, decode.history), streak: each(o.streak, decode.streak) };
+    return {
+      model: each(o.model, decode.model),
+      history: each(o.history, decode.history),
+      memory: each(o.memory, decode.memory),
+      streak: each(o.streak, decode.streak),
+    };
   } catch {
     return null;
   }

@@ -572,6 +572,7 @@ export const fr: Dictionary = {
       savedWords: "Mots gardés",
       practiceSeen: "Questions déjà posées",
       practiceModel: "Ce que vous travaillez encore",
+      practiceMemory: "Quand chaque question revient",
       streak: "Votre série et votre objectif hebdomadaire",
       roadmapFeedback: "Vos votes, commentaires et suggestions sur la feuille de route",
       syncSetting: "Si ce navigateur se synchronise",
@@ -1189,6 +1190,8 @@ export const fr: Dictionary = {
     doneAsked: "questions",
     doneRight: "du premier coup",
     doneAgain: "à revoir",
+    dueToday: { one: "1 question est à revoir aujourd’hui.", few: "{n} questions sont à revoir aujourd’hui.", many: "{n} de questions sont à revoir aujourd’hui.", other: "{n} questions sont à revoir aujourd’hui." },
+    dueTomorrow: { one: "À revoir demain : 1 question. Heidi la repose juste avant que vous l’oubliiez.", few: "À revoir demain : {n} questions. Heidi les repose juste avant que vous les oubliiez.", many: "À revoir demain : {n} de questions. Heidi les repose juste avant que vous les oubliiez.", other: "À revoir demain : {n} questions. Heidi les repose juste avant que vous les oubliiez." },
     againTitle: "À revoir",
     whyTitle: "Pourquoi les exercices sont faits ainsi",
     whyLead:

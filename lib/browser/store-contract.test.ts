@@ -2,6 +2,7 @@ import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import { decodeHistory, remember, NO_HISTORY } from "../domain/practice/history.ts";
 import { decodeModel, observe, EMPTY_MODEL } from "../domain/practice/model.ts";
+import { decodeMemory, scheduleAnswer, NO_MEMORY } from "../domain/practice/memory.ts";
 import { decodeTakes } from "../domain/speaking/take.ts";
 import { decode as decodeSaved } from "../domain/saved/collection.ts";
 import { add } from "../domain/saved/collection.ts";
@@ -56,6 +57,11 @@ describe("every decoder can read what its store writes", () => {
     assert.ok(Object.keys(back.lines).length > 0, "line evidence was dropped");
   });
 
+  test("the question schedule", () => {
+    const value = scheduleAnswer(NO_MEMORY, { id: "transform:annas-sister", kind: "transform" }, "wrong", new Date("2026-09-25T08:00:00Z"));
+    assert.deepEqual(decodeMemory(JSON.stringify(value)), value);
+  });
+
   test("the kept words", () => {
     const value = add(EMPTY_SAVED, { target: "nöd", bridge: "nicht", savedAt: "2026-09-24T10:00:00Z" } as never);
     const back = decodeSaved(JSON.stringify(value));
@@ -88,8 +94,9 @@ describe("every decoder can read what its store writes", () => {
       bridge: "b",
       source: { kind: "situation", scene: "restaurant", line: 0 },
     } as never, "right");
-    const value = { model: [model], history: [["a"]], streak: [touch(EMPTY_STREAK, "2026-09-25")] };
-    const decoders = { model: decodeModel, history: decodeHistory, streak: decodeStreak };
+    const memory = scheduleAnswer(NO_MEMORY, { id: "i", kind: "cloze" }, "right", new Date("2026-09-25T08:00:00Z"));
+    const value = { model: [model], history: [["a"]], memory: [memory], streak: [touch(EMPTY_STREAK, "2026-09-25")] };
+    const decoders = { model: decodeModel, history: decodeHistory, memory: decodeMemory, streak: decodeStreak };
     assert.deepEqual(decodeOthers(JSON.stringify(value), decoders), value);
   });
 
@@ -100,7 +107,10 @@ describe("every decoder can read what its store writes", () => {
       assert.doesNotThrow(() => decodeTakes(raw));
       assert.doesNotThrow(() => decodeSaved(raw));
       assert.doesNotThrow(() => decodeSyncSetting(raw));
-      assert.doesNotThrow(() => decodeOthers(raw, { model: decodeModel, history: decodeHistory, streak: decodeStreak }));
+      assert.doesNotThrow(() => decodeMemory(raw));
+      assert.doesNotThrow(() =>
+        decodeOthers(raw, { model: decodeModel, history: decodeHistory, memory: decodeMemory, streak: decodeStreak }),
+      );
     }
   });
 });

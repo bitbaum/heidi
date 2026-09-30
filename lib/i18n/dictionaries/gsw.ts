@@ -656,6 +656,7 @@ export const gsw: Dictionary = {
       savedWords: "Gmerkti Wörter",
       practiceSeen: "Scho gstellti Frage",
       practiceModel: "Wo Sie no dra schaffed",
+      practiceMemory: "Wänn weli Frag wieder chunt",
       streak: "Ihri Serie und Ihres Wucheziel",
       roadmapFeedback: "Ihri Stimme, Kommentär und Vorschläg zum Fahrplan",
       syncSetting: "Öb dä Browser abglicht",
@@ -1209,6 +1210,8 @@ export const gsw: Dictionary = {
     doneAsked: "gfragt",
     doneRight: "grad gwüsst",
     doneAgain: "chömed nomal",
+    dueToday: { one: "1 Frag isch hüt zum Wiederhole fällig.", few: "{n} Frage sind hüt zum Wiederhole fällig.", many: "{n} Frage sind hüt zum Wiederhole fällig.", other: "{n} Frage sind hüt zum Wiederhole fällig." },
+    dueTomorrow: { one: "Morn wieder fällig: 1 Frag. D Heidi fragt, churz bevor Sie s vergässe würded.", few: "Morn wieder fällig: {n} Frage. D Heidi fragt, churz bevor Sie s vergässe würded.", many: "Morn wieder fällig: {n} Frage. D Heidi fragt, churz bevor Sie s vergässe würded.", other: "Morn wieder fällig: {n} Frage. D Heidi fragt, churz bevor Sie s vergässe würded." },
     againTitle: "Nomal aaluege",
     whyTitle: "Warum d Übige so bout sind",
     whyLead:
