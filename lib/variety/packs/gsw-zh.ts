@@ -396,7 +396,7 @@ export const ZURICH_GERMAN: VarietyPack = {
    * and would be a wrong explanation over `ich bi`. An absent entry shows no
    * explanation, which is better than a confident irrelevant one.
    */
-  explains: { article: "articles" },
+  explains: { article: "articles", clock: "clock-time" },
 
   subjects: {
     ich: "ich",
@@ -631,7 +631,7 @@ export const ZURICH_GERMAN: VarietyPack = {
       source: "idiotikon",
     },
     { target: "Perron", bridge: "Bahnsteig", group: "helvetisms" },
-    { target: "Glace", bridge: "Speiseeis", group: "helvetisms" },
+    { target: "Glace", bridge: "Speiseeis", group: "helvetisms", article: "d", bridgeArticle: "das", source: "idiotikon" },
     { target: "Coiffeur", bridge: "Friseur", group: "helvetisms" },
     { target: "Güsel", bridge: "Abfall", group: "helvetisms" },
     { target: "Spital", bridge: "Krankenhaus", group: "helvetisms" },
@@ -793,26 +793,26 @@ export const ZURICH_GERMAN: VarietyPack = {
     { target: "Lüüt", bridge: "Leute", group: "everyday" },
     { target: "Velo", bridge: "Fahrrad", group: "helvetisms" },
     { target: "Znüni", bridge: "zweites Frühstück", group: "everyday" },
-    { target: "Zvieri", bridge: "Zwischenmahlzeit am Nachmittag", group: "everyday" },
-    { target: "Güetzi", bridge: "Keks", group: "everyday" },
-    { target: "Rüebli", bridge: "Karotte", group: "everyday" },
+    { target: "Zvieri", bridge: "Zwischenmahlzeit am Nachmittag", group: "everyday", article: "s", bridgeArticle: "die", source: "idiotikon" },
+    { target: "Güetzi", bridge: "Keks", group: "everyday", article: "s", bridgeArticle: "der", source: "idiotikon" },
+    { target: "Rüebli", bridge: "Karotte", group: "everyday", article: "s", bridgeArticle: "die", source: "idiotikon" },
     { target: "Poulet", bridge: "Hähnchen", group: "helvetisms" },
-    { target: "Trottoir", bridge: "Bürgersteig", group: "helvetisms" },
+    { target: "Trottoir", bridge: "Bürgersteig", group: "helvetisms", article: "s", bridgeArticle: "der", source: "idiotikon" },
 
     /**
      * Where the situations are: the table, the kitchen, the staircase, the doctor.
      */
     { target: "Gipfeli", bridge: "Croissant", group: "everyday" },
     { target: "Weggli", bridge: "Brötchen", group: "everyday" },
-    { target: "Härdöpfel", bridge: "Kartoffel", group: "everyday" },
-    { target: "Anke", bridge: "Butter", group: "everyday" },
+    { target: "Härdöpfel", bridge: "Kartoffel", group: "everyday", article: "de", bridgeArticle: "die", source: "idiotikon" },
+    { target: "Anke", bridge: "Butter", group: "everyday", article: "de", bridgeArticle: "die", source: "idiotikon" },
     { target: "Nidle", bridge: "Sahne", group: "everyday" },
     { target: "Chäs", bridge: "Käse", group: "everyday" },
     { target: "Schoggi", bridge: "Schokolade", group: "everyday" },
     { target: "Zibele", bridge: "Zwiebel", group: "everyday" },
     { target: "Kafi", bridge: "Kaffee", group: "everyday" },
     { target: "Beiz", bridge: "Kneipe", group: "everyday" },
-    { target: "Stange", bridge: "kleines Bier", group: "everyday" },
+    { target: "Stange", bridge: "kleines Bier", group: "everyday", article: "d", bridgeArticle: "das", source: "idiotikon" },
     { target: "Waschchuchi", bridge: "Waschküche", group: "everyday" },
     { target: "Stäge", bridge: "Treppe", group: "everyday" },
     { target: "Chopfweh", bridge: "Kopfschmerzen", group: "everyday" },

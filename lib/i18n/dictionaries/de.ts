@@ -1209,6 +1209,11 @@ export const de = {
       "relative": "Züridütsch sagt «wo» für der, die, das im Relativsatz: «De Maa, wo dört staht» ist der Mann, der dort steht. Hier fragt «wo» nicht nach einem Ort. Hören Sie, WER was macht.",
       "thanks-sorry": "Die Antwort reagiert auf das, was passiert ist: auf einen Gefallen folgt ein Dank, auf einen Vorwurf eine Entschuldigung, auf Blumen eine Vase. Das Partizip sagt, was passiert ist: aagnoh, gleert, mitbrocht.",
       "comfort": "Wer Angst hat, Schmerzen hat oder nicht mehr mag, braucht zuerst eine Antwort auf genau das — keine Auskunft über etwas anderes.",
+      "wish": "hett, wär, würd, chönnt, sött, wett heissen hätte, wäre, würde, könnte, sollte, möchte: ein Wunsch, eine höfliche Bitte oder etwas, das nicht so ist. Wer «hett» als «hät» hört, macht aus einem Wunsch eine Tatsache.",
+      "clitic": "Die unbetonten Pronomen schrumpfen: en = ihn, em = ihm, ere = ihr, s = es, mer = mir, der = dir. Sie sehen aus wie Artikel, aber es folgt kein Nomen. Hören Sie darauf, UM WEN es geht.",
+      "modal-past": "Mit einem Modalverb hat die Vergangenheit kein «gekonnt»: «ha nöd chönne cho» heisst «konnte nicht kommen», und das Modalverb steht VOR dem anderen Verb — spiegelverkehrt zum Deutschen. chönne = können, müesse = müssen, dörfe = dürfen, wele = wollen, lah = lassen.",
+      "direction": "Ein kleines Wort trägt die Richtung: ine (hinein), use (hinaus), ufe (hinauf), abe (hinunter), ume (hinüber), zrugg (zurück). Züridütsch trennt nicht zwischen hin- und her-: «ine» ist hinein und herein. Hören Sie darauf, WOHIN es geht.",
+      "name-role": "Ein Vorname hat einen Artikel, und der Artikel zeigt die Rolle: «d Anna», «de Peter» ist, wer etwas tut oder wen es trifft; «de Anna», «em Peter» ist, WEM etwas gegeben, gesagt oder gezeigt wird. Hören Sie darauf, wer was mit wem macht.",
     },
     matchHint: "Tippen Sie ein Wort an, dann seine Bedeutung.",
     gapHint:

@@ -72,8 +72,7 @@ export function topicOf(item: PracticeItem): string | undefined {
   const source = item.source;
   if (source.kind === "grammar") return source.topic;
   if (source.kind === "situation") return source.topic;
-  if (item.kind === "article") return item.explains;
-  return undefined;
+  return "explains" in item ? item.explains : undefined;
 }
 
 /** The word this item is about, if it is about one word. */

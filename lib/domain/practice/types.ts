@@ -486,6 +486,8 @@ export type QuestionItem = {
   listen?: { word: string; means: string };
   /** Values for the lesson's `{placeholders}` — pack strings only. */
   slots?: Readonly<Record<string, string>>;
+  /** As on `ArticleItem`: the topic behind this kind of question, from `pack.explains`. */
+  explains?: string;
   source: ItemSource;
 };
 
@@ -534,6 +536,11 @@ export const LESSON_IDS = [
   "relative",
   "thanks-sorry",
   "comfort",
+  "wish",
+  "clitic",
+  "modal-past",
+  "direction",
+  "name-role",
 ] as const;
 
 export type LessonId = (typeof LESSON_IDS)[number];
