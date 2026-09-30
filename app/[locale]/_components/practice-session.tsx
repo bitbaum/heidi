@@ -9,6 +9,7 @@ import { useStoreWriter } from "@/lib/browser/store";
 import { recallItems } from "@/lib/domain/practice/generate";
 import { inMode, sessionSize, type Mode } from "@/lib/domain/practice/mode";
 import { QuestionCard } from "./exercises/question-card";
+import { FocusSurface } from "./focus-surface";
 import { NO_HISTORY, remember } from "@/lib/domain/practice/history";
 import { historyStore, modelStore } from "./practice-stores";
 import { Trace, answerOf } from "./exercises/chrome";
@@ -57,6 +58,7 @@ export function PracticeSession({
   situationsT,
   vocabularyT,
   learnT,
+  focusT,
   locale,
   mode,
   includeSaved = true,
@@ -74,6 +76,7 @@ export function PracticeSession({
   situationsT: Dictionary["situations"];
   vocabularyT: Dictionary["vocabulary"];
   learnT: Dictionary["chat"]["learn"];
+  focusT: Dictionary["focus"];
   locale: Locale;
   /**
    * Which answering style this sitting is for.
@@ -103,6 +106,8 @@ export function PracticeSession({
   const [session, setSession] = useState<PracticeItem[] | null>(null);
   const [at, setAt] = useState(0);
   const [outcomes, setOutcomes] = useState<{ id: string; outcome: string }[]>([]);
+  /** On a phone the session waits for "Losgehen", then has the screen. */
+  const [started, setStarted] = useState(false);
 
   /**
    * What this browser has already been asked — STORED, not held in a ref.
@@ -249,44 +254,53 @@ export function PracticeSession({
     record(id, knew ? "right" : "wrong");
   }
 
-  if (!item) {
-    return (
-      <div className="max-w-measure">
-        <Done t={t} outcomes={outcomes} session={session} locale={locale} onRestart={build} />
-      </div>
-    );
-  }
+  const progress = item ? fill(t.progress, { n: String(at + 1), total: String(session.length) }) : undefined;
 
   return (
-    /*
-      Held to a reading measure rather than the page width. A question set in a
-      1100px box has its prompt at the far left and its options a hand-span
-      away, and the eye has to travel the whole line between asking and
-      answering — which is the one journey this page exists to make short.
-    */
-    <div className="max-w-measure">
-      <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-        {fill(t.progress, { n: String(at + 1), total: String(session.length) })}
-        {/* Said, not hidden. A question the learner already answered arriving
-            again with no explanation reads as a bug; saying it is the second
-            attempt is also the honest reason the total just went up by one. */}
-        {isRepeat && <span className="text-fg-muted"> · {t.secondTry}</span>}
-      </p>
+    <FocusSurface
+      open={started}
+      title={t.title}
+      progress={progress}
+      t={focusT}
+      scrollKey={item ? `${at}:${item.id}` : "done"}
+      gate={{ label: t.start, onStart: () => setStarted(true) }}
+    >
+      {!item ? (
+        <div className="max-w-measure">
+          <Done t={t} outcomes={outcomes} session={session} locale={locale} onRestart={build} />
+        </div>
+      ) : (
+        /*
+          Held to a reading measure rather than the page width. A question set in a
+          1100px box has its prompt at the far left and its options a hand-span
+          away, and the eye has to travel the whole line between asking and
+          answering — which is the one journey this page exists to make short.
+        */
+        <div className="max-w-measure">
+          <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
+            {progress}
+            {/* Said, not hidden. A question the learner already answered arriving
+                again with no explanation reads as a bug; saying it is the second
+                attempt is also the honest reason the total just went up by one. */}
+            {isRepeat && <span className="text-fg-muted"> · {t.secondTry}</span>}
+          </p>
 
-      {/* Keyed on the item so every answer starts a genuinely new card:
-          without it, React keeps the previous question's revealed state and
-          the next one arrives already answered. */}
-      <QuestionCard
-        key={item.id}
-        item={item}
-        t={t}
-        grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT}
-        locale={locale}
-        reveal="now"
-        onAnswer={record}
-        onRecall={recordRecall}
-      />
-    </div>
+          {/* Keyed on the item so every answer starts a genuinely new card:
+              without it, React keeps the previous question's revealed state and
+              the next one arrives already answered. */}
+          <QuestionCard
+            key={item.id}
+            item={item}
+            t={t}
+            grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT}
+            locale={locale}
+            reveal="now"
+            onAnswer={record}
+            onRecall={recordRecall}
+          />
+        </div>
+      )}
+    </FocusSurface>
   );
 }
 

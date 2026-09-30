@@ -42,6 +42,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-09-30",
+      tag: "fix",
+      title: "Auf dem Handy springt die Seite beim Antworten nicht mehr",
+      summary:
+        "Nach jeder Antwort rutschte die nächste Frage an eine andere Stelle, und man musste zurückscrollen. Über der Frage wuchsen die Serie und «Woran Sie arbeiten» mit jeder Antwort, und das iPhone schiebt dann die ganze Seite. Jetzt läuft eine Übung auf dem Handy im Vollbild, wie in einer App, und jede neue Frage beginnt oben.",
+      items: [
+        "Übungen, Test, Aufwärmen und der Chat auf der Startseite öffnen sich auf dem Handy über den ganzen Bildschirm. «Verkleinern» bringt sie zurück in die Seite, ohne dass Antworten oder Gespräch verloren gehen; «Im Vollbild weiter» öffnet sie wieder.",
+        "Im Chat steht das Eingabefeld unten am Bildschirm. Ein gespeichertes Gespräch öffnet sich erst, wenn Sie schreiben, nicht schon beim Laden der Startseite.",
+        "Auf dem Computer bleibt alles in der Seite. Beginnt eine neue Frage oberhalb des sichtbaren Bereichs, scrollt die Seite zu ihr.",
+        "Die Sprachauswahl zeigt für Schwiizerdütsch «CH» statt «GSW». «GSW» ist der Sprachcode aus der Adresse und sah im Kopf der Seite wie ein Fehler aus.",
+      ],
+    },
+    {
+      date: "2026-09-30",
       tag: "feature",
       title: "Aufwärmen: Wie viel Züridütsch verstehen Sie schon?",
       summary:
@@ -344,6 +357,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-30",
+      tag: "fix",
+      title: "On a phone, the page no longer jumps when you answer",
+      summary:
+        "After every answer the next question landed somewhere else on the screen, and you had to scroll back. Above the question, the streak and \u201cWhat to work on\u201d grew with each answer, and an iPhone then pushes the whole page. Now an exercise on a phone runs full screen, like an app, and every new question starts at the top.",
+      items: [
+        "Practice, the test, the warm-up and the chat on the home page open across the whole screen on a phone. \u201cMinimise\u201d puts them back into the page without losing answers or the conversation; \u201cContinue full screen\u201d opens them again.",
+        "In the chat, the message box sits at the bottom of the screen. A saved conversation opens when you write, not as soon as the home page loads.",
+        "On a computer everything stays in the page. When a new question starts above what is visible, the page scrolls to it.",
+        "The language switcher shows \u201cCH\u201d for Swiss German instead of \u201cGSW\u201d. \u201cGSW\u201d is the language code from the address and looked like a mistake in the page header.",
+      ],
+    },
     {
       date: "2026-09-30",
       tag: "feature",

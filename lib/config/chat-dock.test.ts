@@ -17,7 +17,16 @@ test("the dock is hidden only where the page IS the chat window", () => {
   const hiding = [...css.matchAll(/([^{}]*\[data-dock="heidi"\][^{}]*)\{[^}]*display:\s*none/g)]
     .map((m) => m[1].replace(/\/\*[\s\S]*?\*\//g, "").trim())
     .filter((sel) => !sel.includes(" [role=\"dialog\"]") || !sel.includes("#loki"));
-  assert.deepEqual(hiding, ['body:has([data-chrome="chat"]) [data-dock="heidi"]']);
+  assert.deepEqual(hiding, [
+    'body:has([data-chrome="chat"]) [data-dock="heidi"]',
+    /*
+      A task full screen on a phone (`focus-surface.tsx`). Not a page without
+      the chat: minimising is one tap and the dock is back. While the layer is
+      up, the launcher would sit on the answer buttons and — for the home
+      chat, which is the layer — offer the conversation already on screen.
+    */
+    'body:has([data-focus="open"]) [data-dock="heidi"]',
+  ]);
 });
 
 test("Loki's widget steps aside while the dock is open, not the other way round", () => {

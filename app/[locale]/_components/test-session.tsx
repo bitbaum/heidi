@@ -11,6 +11,7 @@ import { QuestionCard } from "./exercises/question-card";
 import { answerOf, explainingTopic, Trace } from "./exercises/chrome";
 import { Explanation } from "./exercises/explanation";
 import { recordPractice } from "./streak-store";
+import { FocusSurface } from "./focus-surface";
 
 /**
  * A run of questions that says nothing until it is over.
@@ -46,6 +47,7 @@ export function TestSession({
   situationsT,
   vocabularyT,
   learnT,
+  focusT,
   locale,
 }: {
   items: readonly PracticeItem[];
@@ -54,6 +56,7 @@ export function TestSession({
   situationsT: Dictionary["situations"];
   vocabularyT: Dictionary["vocabulary"];
   learnT: Dictionary["chat"]["learn"];
+  focusT: Dictionary["focus"];
   locale: Locale;
 }) {
   const [run, setRun] = useState<readonly PracticeItem[] | null>(null);
@@ -158,81 +161,82 @@ export function TestSession({
     return <Before total={total} t={t} onStart={start} />;
   }
 
-  if (done) {
-    return (
-      <Results
-        given={given}
-        t={t}
-        grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT}
-        locale={locale}
-        outOfTime={outOfTime}
-        onAgain={() => setRun(null)}
-      />
-    );
-  }
-
-  const item = run[at];
-  if (!item) return null;
+  const item = done ? undefined : run[at];
+  if (!done && !item) return null;
+  const progress = item ? fill(t.testProgress, { n: String(at + 1), total: String(run.length) }) : undefined;
 
   return (
-    <section aria-live="off">
-      {/*
-        THE ONLY TWO THINGS ON THE SCREEN BESIDES THE QUESTION: where you are,
-        and how long is left. No running score, and that is the point — a
-        counter saying "4 right" is feedback after each item wearing a
-        different hat, and it would change what the next item measures.
-      */}
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-          {fill(t.testProgress, { n: String(at + 1), total: String(run.length) })}
-        </p>
-        {left !== null && (
-          <div className="flex items-center gap-3">
-            <p className="font-mono text-caption uppercase tracking-caps text-fg-secondary">
-              {fill(t.testTimerLeft, { time: clock(left) })}
-            </p>
-            <button
-              type="button"
-              onClick={() => setDeadline((at) => (at ?? Date.now()) + TEST_EXTEND_MINUTES * 60_000)}
-              className="min-h-11 rounded-control border border-border-strong px-3 text-sm text-fg-primary hover:bg-surface-raised"
-            >
-              {fill(t.testTimerAdd, { n: String(TEST_EXTEND_MINUTES) })}
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* A thin bar, because twenty is long enough that a number alone does
-          not tell you whether to keep going. No colour: it reports position,
-          not performance. */}
-      <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-border-subtle">
-        <div
-          className="h-full bg-fg-muted transition-[width] duration-200"
-          style={{ width: `${Math.round((at / run.length) * 100)}%` }}
+    <FocusSurface open title={t.flowTest} progress={progress} t={focusT} scrollKey={item ? item.id : "done"}>
+      {done || !item ? (
+        <Results
+          given={given}
+          t={t}
+          grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT}
+          locale={locale}
+          outOfTime={outOfTime}
+          onAgain={() => setRun(null)}
         />
-      </div>
+      ) : (
+        <section aria-live="off">
+          {/*
+            THE ONLY TWO THINGS ON THE SCREEN BESIDES THE QUESTION: where you are,
+            and how long is left. No running score, and that is the point — a
+            counter saying "4 right" is feedback after each item wearing a
+            different hat, and it would change what the next item measures.
+          */}
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
+              {progress}
+            </p>
+            {left !== null && (
+              <div className="flex items-center gap-3">
+                <p className="font-mono text-caption uppercase tracking-caps text-fg-secondary">
+                  {fill(t.testTimerLeft, { time: clock(left) })}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setDeadline((at) => (at ?? Date.now()) + TEST_EXTEND_MINUTES * 60_000)}
+                  className="min-h-11 rounded-control border border-border-strong px-3 text-sm text-fg-primary hover:bg-surface-raised"
+                >
+                  {fill(t.testTimerAdd, { n: String(TEST_EXTEND_MINUTES) })}
+                </button>
+              </div>
+            )}
+          </div>
 
-      <QuestionCard
-        key={item.id}
-        item={item}
-        t={t}
-        grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT}
-        locale={locale}
-        reveal="later"
-        onAnswer={record}
-        onRecall={() => {
-          /* A test contains no card and no kept word — see `mode.ts`. */
-        }}
-      />
+          {/* A thin bar, because twenty is long enough that a number alone does
+              not tell you whether to keep going. No colour: it reports position,
+              not performance. */}
+          <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-border-subtle">
+            <div
+              className="h-full bg-fg-muted transition-[width] duration-200"
+              style={{ width: `${Math.round((at / run.length) * 100)}%` }}
+            />
+          </div>
 
-      <button
-        type="button"
-        onClick={() => record(item.id, "skipped")}
-        className="mt-4 min-h-11 rounded-control px-4 text-sm text-fg-muted hover:text-fg-primary"
-      >
-        {t.skip}
-      </button>
-    </section>
+          <QuestionCard
+            key={item.id}
+            item={item}
+            t={t}
+            grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT}
+            locale={locale}
+            reveal="later"
+            onAnswer={record}
+            onRecall={() => {
+              /* A test contains no card and no kept word — see `mode.ts`. */
+            }}
+          />
+
+          <button
+            type="button"
+            onClick={() => record(item.id, "skipped")}
+            className="mt-4 min-h-11 rounded-control px-4 text-sm text-fg-muted hover:text-fg-primary"
+          >
+            {t.skip}
+          </button>
+        </section>
+      )}
+    </FocusSurface>
   );
 }
 

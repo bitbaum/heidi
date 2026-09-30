@@ -1033,6 +1033,12 @@ export const gsw: Dictionary = {
     metaDescription: "Acht Zürcher Sätz, zwei Minute: Finded Si use, was Si scho verstönd und wo sich de Aafang lohnt. Ohni Note, ohni Konto.",
   },
 
+  /** Eine Übung oder ein Gespräch im Vollbild auf dem Handy — siehe `focus-surface.tsx`. */
+  focus: {
+    minimize: "Verchliinere",
+    expand: "Uf ganze Bildschirm",
+  },
+
   practice: {
     title: "Üebige",
     lead: "En churze Satz Frage, i es paar Minute. Us de Regle wo d Heidi sälber aawendet, us de Sätz wo würkli gseit werded — und us de Wörter wo Si behalte händ.",

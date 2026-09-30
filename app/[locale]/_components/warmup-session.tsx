@@ -16,6 +16,7 @@ import { historyStore, modelStore } from "./practice-stores";
 import { recordPractice } from "./streak-store";
 import { warmupStore } from "./warmup-store";
 import { LanguageLink } from "./language-link";
+import { FocusSurface } from "./focus-surface";
 
 /**
  * The warm-up, start to portrait. The rules live in `lib/domain/warmup/run.ts`;
@@ -33,6 +34,7 @@ export function WarmupSession({
   situationsT,
   vocabularyT,
   learnT,
+  focusT,
   locale,
 }: {
   items: readonly PracticeItem[];
@@ -42,6 +44,7 @@ export function WarmupSession({
   situationsT: Dictionary["situations"];
   vocabularyT: Dictionary["vocabulary"];
   learnT: Dictionary["chat"]["learn"];
+  focusT: Dictionary["focus"];
   locale: Locale;
 }) {
   const ready = useStorageReady();
@@ -92,57 +95,54 @@ export function WarmupSession({
   if (!ready) return <div className="min-h-64" aria-hidden="true" />;
 
   const item = current ? byId.get(current) : undefined;
-  if (answers && item) {
-    const n = answers.length + 1;
-    return (
-      <div className="max-w-measure">
-        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-          {n > LENGTH ? t.bonus : fill(t.progress, { n: String(n), total: String(LENGTH) })}
-        </p>
-        <Dots answers={answers} />
-        <QuestionCard
-          key={item.id}
-          item={item}
-          t={practiceT}
-          grammarT={grammarT}
-          situationsT={situationsT}
-          vocabularyT={vocabularyT}
-          learnT={learnT}
-          locale={locale}
-          reveal="now"
-          onAnswer={answer}
-          onRecall={() => {}}
-        />
-      </div>
-    );
-  }
-
-  if (record) {
-    return (
-      <Result
-        record={record}
-        sceneOf={sceneOf}
-        t={t}
-        situationsT={situationsT}
-        locale={locale}
-        onAgain={start}
-        onDecline={() => writeRecord.write({ ...record, dialect: "declined" })}
-        onAccept={() => writeRecord.write({ ...record, dialect: "accepted" })}
-      />
-    );
-  }
+  const running = answers !== null && item !== undefined;
+  const n = (answers?.length ?? 0) + 1;
+  const progress = n > LENGTH ? t.bonus : fill(t.progress, { n: String(n), total: String(LENGTH) });
 
   return (
-    <div className="max-w-measure rounded-control border border-border-strong bg-surface-raised p-5 sm:p-6">
-      <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.facts}</p>
-      <button
-        type="button"
-        onClick={start}
-        className="mt-4 inline-flex min-h-12 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
-      >
-        {t.start} →
-      </button>
-    </div>
+    <FocusSurface open={running} title={t.inviteTitle} progress={running ? progress : undefined} t={focusT} scrollKey={current ?? "rest"}>
+      {answers && item ? (
+        <div className="max-w-measure">
+          <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{progress}</p>
+          <Dots answers={answers} />
+          <QuestionCard
+            key={item.id}
+            item={item}
+            t={practiceT}
+            grammarT={grammarT}
+            situationsT={situationsT}
+            vocabularyT={vocabularyT}
+            learnT={learnT}
+            locale={locale}
+            reveal="now"
+            onAnswer={answer}
+            onRecall={() => {}}
+          />
+        </div>
+      ) : record ? (
+        <Result
+          record={record}
+          sceneOf={sceneOf}
+          t={t}
+          situationsT={situationsT}
+          locale={locale}
+          onAgain={start}
+          onDecline={() => writeRecord.write({ ...record, dialect: "declined" })}
+          onAccept={() => writeRecord.write({ ...record, dialect: "accepted" })}
+        />
+      ) : (
+        <div className="max-w-measure rounded-control border border-border-strong bg-surface-raised p-5 sm:p-6">
+          <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.facts}</p>
+          <button
+            type="button"
+            onClick={start}
+            className="mt-4 inline-flex min-h-12 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
+          >
+            {t.start} →
+          </button>
+        </div>
+      )}
+    </FocusSurface>
   );
 }
 

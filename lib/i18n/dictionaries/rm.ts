@@ -1029,6 +1029,12 @@ export const rm: Dictionary = {
     metaDescription: "Otg frasas en tudestg da Turitg, duas minutas: scuvri tge che Vus chapis gia e nua ch\u2019i vala la paina da cumenzar. Senza nota, senza conto.",
   },
 
+  /** A task full screen on a phone — see `focus-surface.tsx`. */
+  focus: {
+    minimize: "Reducir",
+    expand: "Cuntinuar sin l’entir visur",
+  },
+
   practice: {
     title: "Exercizis",
     lead: "Ina curta seria da dumondas, paucas minutas. Or da las reglas che Heidi applitgescha sezza, or da las frasas che vegnan propi ditgas — ed or dals pleds che Vus avais tegnì.",

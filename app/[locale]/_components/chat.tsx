@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { LEARNER_ID } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
@@ -12,6 +12,7 @@ import { Transcript } from "./chat/transcript";
 import { useDraftChat } from "./chat/use-draft-chat";
 import { WordPick } from "./chat/word-pick";
 import { href } from "@/lib/i18n/routes";
+import { FocusSurface, useCompact } from "./focus-surface";
 
 /**
  * A conversation, not a form.
@@ -48,6 +49,19 @@ export function Chat({
    */
   const { chat, byok, reset, started, modelSheet } = useDraftChat({ locale, dict });
 
+  /**
+   * On a phone the conversation takes the screen when the learner writes, not
+   * when the page loads: a chat restored from last time stays in the page,
+   * behind the bar that opens it, instead of covering the home page on arrival.
+   */
+  const compact = useCompact();
+  const [minimized, setMinimized] = useState(true);
+  const [wasBusy, setWasBusy] = useState(chat.busy);
+  if (chat.busy !== wasBusy) {
+    setWasBusy(chat.busy);
+    if (chat.busy) setMinimized(false);
+  }
+
   // Follow the conversation down, but only once it has started — an empty
   // thread scrolling itself on load would yank the page away from the reader.
   useEffect(() => {
@@ -55,98 +69,20 @@ export function Chat({
   }, [chat.messages]);
 
   return (
-    <section aria-label="Heidi" className="flex w-full flex-col">
-      {/* The instruction used to be the second half of the page subhead, three
-          hundred pixels above the box it describes. It sits on the thing it
-          tells you to use — and it is the box's real `<label>`, not a `<p>`
-          beside a hidden twin, because two labels for one control means a
-          screen reader says the sentence twice. */}
-      <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2 pb-2">
-        {!started && (
-          <label htmlFor="chat-input" className="max-w-measure text-base leading-relaxed text-fg-secondary">
-            {t.placeholder}
-          </label>
-        )}
-        {started && byok.ready && byok.config && (
-          <button
-            type="button"
-            onClick={() => modelSheet.show()}
-            className="inline-flex items-center gap-1.5 font-mono text-caption uppercase tracking-caps text-ok hover:text-fg-primary"
-          >
-            <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ok" />
-            {byok.config.model}
-          </button>
-        )}
-        {started && (
-          <div className="flex items-center gap-4">
-            {/* Offered only once there is something to expand. On an empty box
-                it would be a second front door to the same empty box. */}
-            <Link
-              href={href(locale, "chat")}
-              className="inline-flex items-center gap-1.5 text-sm text-link underline underline-offset-4 hover:text-accent"
-            >
-              {t.full.expand}
-              <ExpandIcon />
-            </Link>
-            <button
-              type="button"
-              onClick={reset}
-              className="min-h-9 text-sm text-link underline underline-offset-4 hover:text-accent"
-            >
-              {t.newChat}
-            </button>
-          </div>
-        )}
-      </div>
-
-      {(started || chat.busy) && (
-        <div ref={transcriptRef}>
-          <Transcript
-            voiceT={dict.voice}
-            messages={chat.messages}
-            me={LEARNER_ID}
-            t={t}
-            busy={chat.busy}
-            streaming={chat.streaming}
-            onRetry={chat.retry}
-            onMove={chat.send}
-            locale={locale}
-            endRef={endRef}
-            className="flex flex-col gap-4 rounded-control border border-border-strong bg-surface-raised p-3 sm:p-4"
-          />
-        </div>
-      )}
-
-      <Composer
-        value={chat.input}
-        onChange={chat.setInput}
-        onSubmit={() => chat.send(chat.input)}
-        busy={chat.busy}
-          onStop={chat.stop}
-        t={t}
-        modelT={dict.model}
-        placeholder={t.composer}
-        locale={locale}
-        sticky={started}
-        className="mt-3"
-        // The visible label above is the box's label while it is on screen.
-        labelledOutside={!started}
-        images={{
-          attached: chat.attached,
-          onAccept: chat.accept,
-          onRemove: chat.removeAttachment,
-          error: chat.attachError,
-          enabled: byok.canSee,
-          onNeedsKey: () => modelSheet.show(),
-        }}
-      />
-
-      {/* A setting, so it sits below the invitation rather than shouting over
-          it — and only before there is a conversation to read. */}
-      {!started && (
-        <div className="mt-2 flex flex-wrap items-center justify-end gap-x-3 gap-y-1">
-          <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>
-          {byok.ready && byok.config && (
+    <FocusSurface open={started} title={t.dock.title} t={dict.focus} minimized={minimized} onMinimizedChange={setMinimized}>
+      <section aria-label="Heidi" className="flex w-full flex-1 flex-col">
+        {/* The instruction used to be the second half of the page subhead, three
+            hundred pixels above the box it describes. It sits on the thing it
+            tells you to use — and it is the box's real `<label>`, not a `<p>`
+            beside a hidden twin, because two labels for one control means a
+            screen reader says the sentence twice. */}
+        <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2 pb-2">
+          {!started && (
+            <label htmlFor="chat-input" className="max-w-measure text-base leading-relaxed text-fg-secondary">
+              {t.placeholder}
+            </label>
+          )}
+          {started && byok.ready && byok.config && (
             <button
               type="button"
               onClick={() => modelSheet.show()}
@@ -156,23 +92,106 @@ export function Chat({
               {byok.config.model}
             </button>
           )}
+          {started && (
+            <div className="flex items-center gap-4">
+              {/* Offered only once there is something to expand. On an empty box
+                  it would be a second front door to the same empty box. On a
+                  phone the focus bar already is the way to full screen. */}
+              {!compact && (
+                <Link
+                  href={href(locale, "chat")}
+                  className="inline-flex items-center gap-1.5 text-sm text-link underline underline-offset-4 hover:text-accent"
+                >
+                  {t.full.expand}
+                  <ExpandIcon />
+                </Link>
+              )}
+              <button
+                type="button"
+                onClick={reset}
+                className="min-h-9 text-sm text-link underline underline-offset-4 hover:text-accent"
+              >
+                {t.newChat}
+              </button>
+            </div>
+          )}
         </div>
-      )}
 
-      {!started && <Examples t={t} dialect={dialect} onPick={chat.send} />}
+        {(started || chat.busy) && (
+          <div ref={transcriptRef} className="mb-2">
+            <Transcript
+              voiceT={dict.voice}
+              messages={chat.messages}
+              me={LEARNER_ID}
+              t={t}
+              busy={chat.busy}
+              streaming={chat.streaming}
+              onRetry={chat.retry}
+              onMove={chat.send}
+              locale={locale}
+              endRef={endRef}
+              className="flex flex-col gap-4 rounded-control border border-border-strong bg-surface-raised p-3 sm:p-4"
+            />
+          </div>
+        )}
 
-      <WordPick containerRef={transcriptRef} t={t} onAsk={chat.send} />
-
-      {modelSheet.open && (
-        <ModelSheet
-          t={dict.model}
-          current={byok.config}
-          onSave={byok.save}
-          onClear={byok.clear}
-          onClose={modelSheet.hide}
+        <Composer
+          value={chat.input}
+          onChange={chat.setInput}
+          onSubmit={() => chat.send(chat.input)}
+          busy={chat.busy}
+            onStop={chat.stop}
+          t={t}
+          modelT={dict.model}
+          placeholder={t.composer}
+          locale={locale}
+          sticky={started}
+          className={started ? "mt-auto" : "mt-3"}
+          // The visible label above is the box's label while it is on screen.
+          labelledOutside={!started}
+          images={{
+            attached: chat.attached,
+            onAccept: chat.accept,
+            onRemove: chat.removeAttachment,
+            error: chat.attachError,
+            enabled: byok.canSee,
+            onNeedsKey: () => modelSheet.show(),
+          }}
         />
-      )}
-    </section>
+
+        {/* A setting, so it sits below the invitation rather than shouting over
+            it — and only before there is a conversation to read. */}
+        {!started && (
+          <div className="mt-2 flex flex-wrap items-center justify-end gap-x-3 gap-y-1">
+            <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>
+            {byok.ready && byok.config && (
+              <button
+                type="button"
+                onClick={() => modelSheet.show()}
+                className="inline-flex items-center gap-1.5 font-mono text-caption uppercase tracking-caps text-ok hover:text-fg-primary"
+              >
+                <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ok" />
+                {byok.config.model}
+              </button>
+            )}
+          </div>
+        )}
+
+        {!started && <Examples t={t} dialect={dialect} onPick={chat.send} />}
+
+        <WordPick containerRef={transcriptRef} t={t} onAsk={chat.send} />
+
+        {modelSheet.open && (
+          <ModelSheet
+            t={dict.model}
+            current={byok.config}
+            onSave={byok.save}
+            onClear={byok.clear}
+            onClose={modelSheet.hide}
+          />
+        )}
+      </section>
+    </FocusSurface>
   );
 }
 
