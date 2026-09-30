@@ -383,8 +383,16 @@ which of the two it is in, next to the button, in the learner's language. See
   what you learn, one per deployment; `locale` is what Heidi speaks to you
   while you learn it, seven of them. Conflating them would make a Lesya
   deployment re-translate the site as well as swap the pack.
-- **German is the default locale**, then the other national languages, Swiss
-  German, English and Russian. German is the source dictionary and the others
+- **German is the default locale; Swiss German comes first in every list of
+  languages.** The switcher, the footer and settings share one order
+  (`MENU_ORDER`): the dialect, then the four national languages, then English
+  and Russian. It is what the site teaches, and a reader who can read it should
+  not have to scan past four other languages to find it. A Swiss German reader
+  gets Heidi's explanations in Züridütsch too. Every saved conversation follows
+  the language of the page it is written from, not the language it began in.
+  Dialect suggestions come without a translation for that reader, since the
+  only possible translation is the line itself (`forReader` in `respond.ts`).
+  German is the source dictionary and the others
   are typed against it, so a missing key is a build error. Romansh is unreviewed
   by a native speaker and says so; the assistant answers Romansh readers in
   German rather than invent low-resource output at an audience that would spot

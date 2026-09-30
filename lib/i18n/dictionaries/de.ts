@@ -210,6 +210,15 @@ export const de = {
      * friend, and no way to tell them apart without this.
      */
     writtenStandard: "Schriftdeutsch",
+    /** The tone the model names, from a closed list — never printed as the model spelled it. */
+    tones: {
+      warm: "herzlich",
+      neutral: "neutral",
+      formal: "förmlich",
+      curt: "knapp",
+      playful: "verspielt",
+      annoyed: "genervt",
+    },
     copy: "Kopieren",
     copied: "Kopiert",
     flagged: "Nicht Zürichdeutsch:",

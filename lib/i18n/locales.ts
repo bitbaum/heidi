@@ -118,11 +118,19 @@ export const LOCALE_GROUP: Record<Locale, LocaleGroup> = {
   ru: "other",
 };
 
-export const GROUP_ORDER: readonly LocaleGroup[] = ["national", "dialect", "other"];
+/**
+ * The dialect first. It is what this site teaches and the one language here a
+ * reader will not find on any other site, so someone who can read it should
+ * not have to scan past four national languages to reach it.
+ */
+export const GROUP_ORDER: readonly LocaleGroup[] = ["dialect", "national", "other"];
 
 export function localesInGroup(group: LocaleGroup): Locale[] {
   return LOCALES.filter((l) => LOCALE_GROUP[l] === group);
 }
+
+/** Every locale in the order the switcher shows them, for any other list of languages. */
+export const MENU_ORDER: readonly Locale[] = GROUP_ORDER.flatMap(localesInGroup);
 
 /** Locales whose assistant output is deliberately not in the site's own language. */
 export const EXPLANATION_FALLBACK: Partial<Record<Locale, Locale>> = { rm: "de" };

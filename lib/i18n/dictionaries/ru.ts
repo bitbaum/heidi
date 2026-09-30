@@ -185,6 +185,14 @@ export const ru: Dictionary = {
      * friend, and no way to tell them apart without this.
      */
     writtenStandard: "письменный немецкий",
+    tones: {
+      warm: "тёплый",
+      neutral: "нейтральный",
+      formal: "официальный",
+      curt: "резкий",
+      playful: "игривый",
+      annoyed: "раздражённый",
+    },
     copy: "Копировать",
     copied: "Скопировано",
     flagged: "Не цюрихский:",

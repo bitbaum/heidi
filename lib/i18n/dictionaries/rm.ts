@@ -193,6 +193,14 @@ export const rm: Dictionary = {
      * friend, and no way to tell them apart without this.
      */
     writtenStandard: "tudestg scrit",
+    tones: {
+      warm: "cordial",
+      neutral: "neutral",
+      formal: "formal",
+      curt: "curt",
+      playful: "legher",
+      annoyed: "irrità",
+    },
     copy: "Copiar",
     copied: "Copià",
     flagged: "Betg tudestg da Turitg:",

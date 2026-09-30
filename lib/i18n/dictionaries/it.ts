@@ -177,6 +177,14 @@ export const it: Dictionary = {
      * friend, and no way to tell them apart without this.
      */
     writtenStandard: "tedesco scritto",
+    tones: {
+      warm: "cordiale",
+      neutral: "neutro",
+      formal: "formale",
+      curt: "brusco",
+      playful: "scherzoso",
+      annoyed: "infastidito",
+    },
     copy: "Copia",
     copied: "Copiato",
     flagged: "Non è zurighese:",

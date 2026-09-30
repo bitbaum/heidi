@@ -1,7 +1,29 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { pastedContext } from "./respond.ts";
+import { forReader, pastedContext } from "./respond.ts";
+import { decodeAnswer } from "./answer.ts";
 import { HEIDI_ID, LEARNER_ID, type ChatMessage } from "./types.ts";
+
+describe("an answer for a reader of the taught variety", () => {
+  const answer = decodeAnswer({
+    text: "Du wotsch, dass mer de Nachbere säged, dass du spöter chunsch.",
+    suggestions: [
+      { label: "neutral", text: "Ja, ich säg ems.", english: "Yes, I'll tell him." },
+      { label: "formal", text: "Ich werde es ihm ausrichten.", english: "I will pass it on.", variety: "bridge" },
+    ],
+  })!;
+  const zurich = { tag: "gsw-u-sd-chzh" };
+
+  test("a dialect line loses the translation it could only repeat — or give in English", () => {
+    const [dialect, bridge] = forReader(answer, "gsw", zurich).suggestions;
+    assert.equal(dialect.english, "");
+    assert.equal(bridge.english, "I will pass it on.", "a Standard German line keeps its note");
+  });
+
+  test("every other reader keeps it", () => {
+    assert.equal(forReader(answer, "de", zurich).suggestions[0].english, "Yes, I'll tell him.");
+  });
+});
 
 /**
  * Which turn the pasted-message note is built from.

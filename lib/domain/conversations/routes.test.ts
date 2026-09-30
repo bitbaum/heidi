@@ -112,6 +112,21 @@ describe("conversation routes", { skip: HAS_DB ? false : "DATABASE_URL unset" },
     assert.equal((await routes.one.GET(send("GET"), at(made.id))).status, 200);
   });
 
+  test("Heidi explains in the language of the page, not the one the thread began in", async () => {
+    // A thread started in German and continued after switching the site to
+    // Züridütsch kept German explanations under a composer promising
+    // "Erklärige uf Züridütsch".
+    const made = await makeConversation("de");
+    const res = await routes.messages.POST(send("POST", { text: "Pire", locale: "gsw" }), at(made.id));
+    assert.equal(res.status, 201);
+    const { conversationById } = await import("./store.ts");
+    assert.equal((await conversationById(made.id))?.locale, "gsw");
+
+    // Something that is not a locale leaves it alone.
+    await routes.messages.POST(send("POST", { text: "Und?", locale: "klingon" }), at(made.id));
+    assert.equal((await conversationById(made.id))?.locale, "gsw");
+  });
+
   test("a made-up id is a 404 and never reaches the database", async () => {
     beCaller("alice", "Alice");
     const res = await routes.one.GET(send("GET"), at("'; drop table conversations; --"));

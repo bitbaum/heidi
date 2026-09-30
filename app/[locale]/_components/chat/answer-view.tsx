@@ -2,9 +2,9 @@
 
 import type { Answer } from "@/lib/domain/chat/types";
 import Link from "next/link";
-import { moveId, moveKey, type NextMove } from "@/lib/domain/chat/moves";
+import { moveId, moveKey, suggestionLabel, type NextMove } from "@/lib/domain/chat/moves";
 import { href } from "@/lib/i18n/routes";
-import type { Locale } from "@/lib/i18n/locales";
+import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
 import { DISPLAY } from "@/lib/variety/display";
 import type { Dictionary } from "@/lib/i18n";
 import { Copy } from "./copy-button";
@@ -59,6 +59,9 @@ export function AnswerView({
   onMove?: (say: string) => void;
 }) {
   const a = answer;
+  // The explanations are written in the reader's language, whatever the
+  // field is called.
+  const readerLang = locale ? LOCALE_TAGS[locale] : undefined;
 
   return (
     <>
@@ -129,7 +132,7 @@ export function AnswerView({
 
       {a.toneNote && (
         <p className="mt-2 text-sm text-fg-secondary">
-          {a.tone && <span className="font-medium text-fg-primary">{a.tone}</span>}
+          {a.tone && <span className="font-medium text-fg-primary">{t.tones[a.tone]}</span>}
           {a.tone ? " — " : ""}
           {a.toneNote}
         </p>
@@ -152,7 +155,7 @@ export function AnswerView({
                     {g.standard}
                   </span>
                 )}
-                <span lang="en" className="text-sm text-fg-secondary">
+                <span lang={readerLang} className="text-sm text-fg-secondary">
                   {g.english}
                 </span>
                 {g.rule && (
@@ -175,14 +178,16 @@ export function AnswerView({
                 {/* The same row as the dialect block's, for the same reasons. */}
                 <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
                   <span className="min-w-0 font-mono text-caption uppercase leading-[1.9] tracking-caps text-fg-muted">
-                    {s.label}
+                    {suggestionLabelText(s.label, t)}
                     {/* Which language this line actually IS. Without it the two
                         sit side by side looking like two moods of one thing,
                         and the person cannot tell which to send to a landlord
                         and which to send to a friend — which is the entire
                         decision the pair exists to help them make. */}
                     {s.variety === "bridge" && (
-                      <span className="ml-2 rounded-sm bg-surface-sunk px-1.5 py-0.5 text-fg-secondary">
+                      <span
+                        className={`${suggestionLabelText(s.label, t) ? "ml-2 " : ""}rounded-sm bg-surface-sunk px-1.5 py-0.5 text-fg-secondary`}
+                      >
                         {t.writtenStandard}
                       </span>
                     )}
@@ -208,7 +213,11 @@ export function AnswerView({
                 >
                   {s.text}
                 </p>
-                {s.english && <p className="text-sm text-fg-secondary">{s.english}</p>}
+                {s.english && (
+                  <p lang={readerLang} className="text-sm text-fg-secondary">
+                    {s.english}
+                  </p>
+                )}
                 {!s.clean && (
                   <p className="mt-1 font-mono text-caption text-danger">
                     {t.flagged} {s.flags.join(", ")}
@@ -236,6 +245,21 @@ export function AnswerView({
       </p>
     </>
   );
+}
+
+/** A suggestion's label in the reader's language — see `suggestionLabel`. */
+function suggestionLabelText(raw: string, t: Dictionary["chat"]): string {
+  const label = suggestionLabel(raw);
+  switch (label.kind) {
+    case "axis":
+      return t.moves[label.axis].label;
+    case "tone":
+      return t.tones[label.tone];
+    case "hidden":
+      return "";
+    case "raw":
+      return label.text;
+  }
 }
 
 /**

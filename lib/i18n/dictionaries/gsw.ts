@@ -200,6 +200,14 @@ export const gsw: Dictionary = {
      * friend, and no way to tell them apart without this.
      */
     writtenStandard: "Schriftdütsch",
+    tones: {
+      warm: "herzlich",
+      neutral: "neutral",
+      formal: "förmlich",
+      curt: "churz aabunde",
+      playful: "verspielt",
+      annoyed: "gnervt",
+    },
     copy: "Kopiere",
     copied: "Kopiert",
     flagged: "Nöd Züridütsch:",

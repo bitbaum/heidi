@@ -56,6 +56,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
       ],
     },
     {
+      date: "2026-09-30",
+      tag: "improvement",
+      title: "Schwiizerdütsch, durchgehend",
+      summary:
+        "Schwiizerdütsch steht jetzt zuoberst in der Sprachauswahl. Wer die Seite auf Schwiizerdütsch liest, bekommt Heidis Erklärungen auch in gespeicherten Gesprächen auf Züridütsch — bisher behielten sie die Sprache, in der sie begonnen hatten.",
+      items: [
+        "Sprachauswahl, Fusszeile und Einstellungen zeigen die Sprachen in derselben Reihenfolge: zuerst die Mundart, dann die vier Landessprachen, dann Englisch und Russisch.",
+        "Ein Gespräch folgt der Sprache der Seite, von der aus Sie schreiben — nicht der, in der es begonnen hat.",
+        "Die Beschriftungen der Vorschläge («Wärmer», «Chürzer») und der Ton kommen aus dem Wörterbuch, statt als Englisch des Modells zu erscheinen («warmer», «shorter», «bridge»).",
+        "Die Übersetzung unter einem Vorschlag steht in Ihrer Sprache; wer Schwiizerdütsch liest, bekommt unter einer Mundartzeile keine. Im Test mit dem echten Modell: vorher englische Übersetzungen in 2 von 2 Antworten mit Übersetzung, nachher in keiner von 4.",
+      ],
+    },
+    {
       date: "2026-09-26",
       tag: "feature",
       title: "Fünf neue Übungsarten — und nach jeder Antwort ein Warum",
@@ -330,6 +343,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "«New conversation» sits right above the chat on a phone instead of only in the side menu, and in the floating chat it is an icon beside expand and close instead of a link that wrapped.",
         "Fixed: with the phone keyboard open, the top of the chat — and «New conversation» in it — slid off the screen. The chat now fits the part of the screen you can see.",
         "Fixed: signed in, «Chat» in the menu showed the conversation you had just left, and the next message went into it. «Chat» now opens an empty conversation.",
+      ],
+    },
+    {
+      date: "2026-09-30",
+      tag: "improvement",
+      title: "Swiss German, all the way through",
+      summary:
+        "Schwiizerdütsch now comes first in the language menu. Reading the site in Swiss German gets you Heidi's explanations in Züridütsch in saved conversations too. They used to keep the language they were started in.",
+      items: [
+        "The language menu, the footer and settings list languages in one order: the dialect first, then the four national languages, then English and Russian.",
+        "A conversation follows the language of the page you write from, not the one it began in.",
+        "Suggestion labels («Wärmer», «Chürzer») and the tone come from the dictionary instead of appearing as the model's English («warmer», «shorter», «bridge»).",
+        "The translation under a suggestion is in your language, and a Swiss German reader gets none under a dialect line. Tested against the real model: English translations in 2 of 2 answers that carried translations before, in none of 4 after.",
       ],
     },
     {

@@ -77,6 +77,24 @@ export function pastedContext(messages: ChatMessage[]): string {
   return "";
 }
 
+/**
+ * Drop what a reader of the taught variety has no use for.
+ *
+ * A reader whose site language IS the variety reads a dialect suggestion
+ * directly, so its translation can only be the same line again, or, as the
+ * model mostly did despite the prompt, English. Stripped here rather than
+ * asked for, because a field named `english` pulls the model towards English
+ * whatever the instruction says. Matched on the language subtag, so no
+ * variety is named.
+ */
+export function forReader(answer: Answer, locale: Locale, pack: { tag: string } = VARIETY): Answer {
+  if (pack.tag.split("-")[0] !== locale) return answer;
+  return {
+    ...answer,
+    suggestions: answer.suggestions.map((s) => (s.variety === "bridge" ? s : { ...s, english: "" })),
+  };
+}
+
 export type RespondResult =
   | { status: "answered"; answer: Answer }
   | { status: "silent"; reason: string }
@@ -219,7 +237,7 @@ export async function respondInThread(args: {
   // spends no model call and is not an error.
   if (turn.status === "skipped") return { status: "silent", reason: turn.reason };
 
-  const answer = parseAnswer(turn.raw, VARIETY, turn.model);
+  const answer = forReader(parseAnswer(turn.raw, VARIETY, turn.model), args.locale);
 
   // The one follow-up we can be sure about without asking a model. See
   // `withReply` for why an instruction in the prompt is not enough.

@@ -275,9 +275,9 @@ export type ConversationSummary = {
  * in-flight promise is the other half of that guard: two sends that arrive
  * together await the same creation instead of racing to make one each.
  *
- * The locale is sent only at CREATION. After that the conversation carries its
- * own, so reopening a thread in a differently negotiated browser cannot switch
- * Heidi mid-way.
+ * The locale goes with EVERY message, not only at creation: it is the page's,
+ * which is in the URL and therefore the reader's choice. Switching the site to
+ * another language switches the language Heidi explains in, in old threads too.
  */
 export function conversationTransport({
   conversationId,
@@ -324,7 +324,7 @@ export function conversationTransport({
       const res = await fetch(`/api/conversations/${target}/messages`, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ text, byok, images }),
+        body: JSON.stringify({ text, byok, images, locale }),
         signal,
       });
 
