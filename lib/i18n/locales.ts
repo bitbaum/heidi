@@ -44,10 +44,16 @@ export const LOCALE_NAMES: Record<Locale, string> = {
   ru: "Русский",
 };
 
-/** Short label for the compact switcher. */
+/**
+ * Short label for the compact switcher.
+ *
+ * Swiss German is "CH", not its ISO code: "GSW" is what the URL says
+ * (`/gsw/`), and in the header it read as an unexplained abbreviation. "CH" is
+ * how this country labels its own things, and the open menu names it in full.
+ */
 export const LOCALE_SHORT: Record<Locale, string> = {
   de: "DE",
-  gsw: "GSW",
+  gsw: "CH",
   fr: "FR",
   it: "IT",
   rm: "RM",

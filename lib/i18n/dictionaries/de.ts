@@ -1111,6 +1111,12 @@ export const de = {
     metaDescription: "Acht Zürcher Sätze, zwei Minuten: Finden Sie heraus, was Sie schon verstehen und wo sich der Anfang lohnt. Ohne Note, ohne Konto.",
   },
 
+  /** Eine Übung oder ein Gespräch im Vollbild auf dem Handy — siehe `focus-surface.tsx`. */
+  focus: {
+    minimize: "Verkleinern",
+    expand: "Im Vollbild weiter",
+  },
+
   practice: {
     title: "Übungen",
     lead: "Ein kurzer Satz Fragen, in ein paar Minuten. Aus den Regeln, die Heidi selbst anwendet, aus den Sätzen, die wirklich gesagt werden — und aus den Wörtern, die Sie behalten haben.",

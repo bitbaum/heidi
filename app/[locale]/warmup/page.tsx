@@ -39,6 +39,7 @@ export default async function WarmupPage({ params }: { params: Promise<{ locale:
           situationsT={dict.situations}
           vocabularyT={dict.vocabulary}
           learnT={dict.chat.learn}
+          focusT={dict.focus}
           locale={locale}
         />
       </div>

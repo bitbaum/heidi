@@ -1008,6 +1008,12 @@ export const en: Dictionary = {
     metaDescription: "Eight Zurich German lines, two minutes: find out what you already understand and where starting pays off. No grade, no account.",
   },
 
+  /** A task full screen on a phone — see `focus-surface.tsx`. */
+  focus: {
+    minimize: "Minimise",
+    expand: "Continue full screen",
+  },
+
   practice: {
     title: "Exercises",
     lead: "A short set of questions, a few minutes. Built from the rules Heidi applies herself, from the lines people actually say — and from the words you kept.",

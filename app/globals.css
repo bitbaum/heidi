@@ -444,3 +444,23 @@ body:has([data-chrome="chat"]) [data-dock="heidi"] {
 body:has([data-dock="heidi"] [role="dialog"]) #loki-feedback-host {
   display: none;
 }
+
+/**
+ * A task in full screen on a phone (`focus-surface.tsx`).
+ *
+ * The page behind stays where it was and does not scroll under the learner's
+ * thumb; minimising returns to it. Heidi's launcher and the feedback pencil
+ * both float bottom-right, exactly where the answer buttons and the chat box
+ * sit, so they step aside until the task is minimised or done.
+ */
+body:has([data-focus="open"]) {
+  overflow: hidden;
+}
+
+body:has([data-focus="open"]) [data-dock="heidi"] {
+  display: none;
+}
+
+body:has([data-focus="open"]) #loki-feedback-host {
+  display: none;
+}

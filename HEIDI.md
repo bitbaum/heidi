@@ -387,7 +387,9 @@ which of the two it is in, next to the button, in the learner's language. See
   languages.** The switcher, the footer and settings share one order
   (`MENU_ORDER`): the dialect, then the four national languages, then English
   and Russian. It is what the site teaches, and a reader who can read it should
-  not have to scan past four other languages to find it. A Swiss German reader
+  not have to scan past four other languages to find it. The closed switcher
+  labels it "CH", not its ISO code "GSW", which read as an unexplained
+  abbreviation (`LOCALE_SHORT`); the URL keeps `/gsw/`. A Swiss German reader
   gets Heidi's explanations in Züridütsch too. Every saved conversation follows
   the language of the page it is written from, not the language it began in.
   Dialect suggestions come without a translation for that reader, since the
@@ -478,6 +480,17 @@ which of the two it is in, next to the button, in the learner's language. See
   for Android, and `use-keyboard-viewport.ts` publishes the visible height as
   `--app-height` for iOS. The full-screen chat focuses its box on load only
   with a fine pointer, so a phone does not open the keyboard over the examples.
+- **On a phone, a task takes the screen.** Practice, the test, the warm-up and
+  the home-page chat open full screen below `lg` (`focus-surface.tsx`), with
+  "Minimise" back into the page and "Continue full screen" out again; the
+  children stay mounted, so nothing is lost either way. Answering in the page
+  made it jump: the streak card and focus panel above the question change
+  height with every answer, and iOS Safari has no scroll anchoring. Inside the
+  layer nothing above can move the question, and each new one starts at the
+  top. Practice is built on load, so on a phone it waits behind a "Losgehen"
+  button instead of opening itself; a restored chat opens when the learner
+  writes, not when the home page loads. On a wide screen tasks stay inline, and
+  a new question that begins above the viewport is scrolled to.
 - **The account is one control, not three.** An avatar menu replaced a gear
   icon beside a pill with a green status dot that nothing measured. What is in
   it comes from `ACCOUNT_MENU_KEYS` in `lib/i18n/routes.ts`, so a menu entry

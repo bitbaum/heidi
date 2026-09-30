@@ -1013,6 +1013,12 @@ export const it: Dictionary = {
     metaDescription: "Otto frasi in zurighese, due minuti: scoprite cosa capite già e da dove conviene cominciare. Senza voto, senza account.",
   },
 
+  /** A task full screen on a phone — see `focus-surface.tsx`. */
+  focus: {
+    minimize: "Riduci",
+    expand: "Continua a schermo intero",
+  },
+
   practice: {
     title: "Esercizi",
     lead: "Una serie breve di domande, pochi minuti. Costruite sulle regole che Heidi stessa applica, sulle frasi che si dicono davvero — e sulle parole che avete tenuto.",

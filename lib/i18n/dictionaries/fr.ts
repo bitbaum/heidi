@@ -1013,6 +1013,12 @@ export const fr: Dictionary = {
     metaDescription: "Huit phrases en zurichois, deux minutes : découvrez ce que vous comprenez déjà et par où commencer. Sans note, sans compte.",
   },
 
+  /** A task full screen on a phone — see `focus-surface.tsx`. */
+  focus: {
+    minimize: "Réduire",
+    expand: "Continuer en plein écran",
+  },
+
   practice: {
     title: "Exercices",
     lead: "Une courte série de questions, quelques minutes. Tirées des règles qu'Heidi applique elle-même, des phrases qu'on dit vraiment — et des mots que vous avez gardés.",
