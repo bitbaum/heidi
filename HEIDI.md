@@ -432,6 +432,19 @@ which of the two it is in, next to the button, in the learner's language. See
 - **Saved vocabulary is device-local.** `lib/browser/store.ts` over
   localStorage, not a table — it needs no account, works signed out, and keeps
   Heidi from holding a record of what a particular person cannot understand.
+- **A newcomer can warm up before anything else: eight lines, no grade.**
+  `/warmup` asks existing «What is meant?» questions from the everyday scenes
+  on an editorial ladder (`lib/domain/warmup/ladder.ts`): concrete first-week
+  lines, then small words and tempo, then between-the-lines. It climbs after a
+  right answer, steps down after a miss, and never ends on a miss. What comes
+  back is a portrait in terms of the material — the scenes already followed and
+  the one worth starting with — never a level or a score (§8). Each answer also
+  feeds the learner model, so the first practice session starts where the
+  warm-up found the gaps. A reader who gets two between-the-lines questions
+  right with at most one miss is offered the site in Swiss German, once;
+  declining is remembered. It is offered on the home page, on the dashboard
+  until done and on the practice page, and never required. Kept in the browser
+  (`heidi.warmup.v1`).
 - **The theme is the reader's.** `globals.css` had carried a full dark palette
   since the retheme, in blocks guarded on `data-theme` — and nothing ever set
   that attribute, so the palette was unreachable. Light, dark or the device's
@@ -1515,6 +1528,10 @@ read.** One row per account in `preferences`: the locale, written when you pick
 a language (or sign in from a page that is not German), read when you sign in
 on another device. Signed out, a language pick is remembered by this browser's
 `heidi_locale` cookie and by nothing on our side.
+
+**The warm-up stays on your device.** Which lines you understood and your
+answer to the Swiss German offer are kept in this browser (`heidi.warmup.v1`)
+to show the result again, and nowhere else.
 
 **Saved words stay on your device.** They need no account, work signed out, and
 keep Heidi from holding a record of what a particular person cannot understand.

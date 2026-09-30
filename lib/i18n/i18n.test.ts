@@ -250,6 +250,10 @@ test("route segments are the same in every language", () => {
       "chat",
       "speaking",
       "practice",
+      // `warmup` is new: eight lines that tell a newcomer where starting pays
+      // off. Out of the menu (it is offered on home, dashboard and practice),
+      // English like every other segment.
+      "warmup",
       "listen",
       // `situations` leads the material group now: it answers "what will
       // actually be said to me", which is the question somebody arrives with,

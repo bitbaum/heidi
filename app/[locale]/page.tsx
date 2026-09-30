@@ -9,6 +9,7 @@ import { CorrespondenceFigure } from "./_components/correspondence-figure";
 import { Shell } from "./_components/page-shell";
 import { Dashboard } from "./_components/dashboard";
 import { SwissScene } from "./_components/swiss-scene";
+import { WarmupInvite } from "./_components/warmup-invite";
 import { auth, authEnabled } from "@/lib/auth";
 
 /**
@@ -112,6 +113,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {t.ctaSituations} →
             </Link>
           </div>
+          {/* The third way in, for somebody who does not have a message to
+              paste yet: find out what already lands. See `warmup-invite.tsx`. */}
+          <WarmupInvite t={dict.warmup} locale={locale} variant="hero" />
           <p className="mt-5 text-sm text-fg-muted">{t.trustLine}</p>
         </div>
         <div className="mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none">

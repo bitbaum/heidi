@@ -15,6 +15,7 @@ import { FocusPanel } from "../_components/focus-panel";
 import { PracticeChooser } from "../_components/practice-chooser";
 import { TestSession } from "../_components/test-session";
 import { StreakCard } from "../_components/streak-card";
+import { WarmupInvite } from "../_components/warmup-invite";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -138,6 +139,8 @@ export default async function PracticePage({
         {/* What kind of sitting this is. Above the questions rather than
             behind a settings link, because it is the first decision and it
             changes every question that follows. */}
+        {scope.kind === "all" && <WarmupInvite t={dict.warmup} locale={locale} variant="line" />}
+
         <PracticeChooser mode={mode} flow={flow} scope={scope} t={t} locale={locale} />
 
         {/* Only on the unscoped page: inside a scoped sitting the learner has
