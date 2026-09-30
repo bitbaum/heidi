@@ -5,7 +5,7 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { PRACTISABLE, sittingPool } from "@/lib/domain/practice/pool";
 import { ALL, includesSaved, parseScope, type Scope } from "@/lib/domain/practice/scope";
-import { MODES, itemsFor, parseFlow, parseMode, type Flow, type Mode } from "@/lib/domain/practice/mode";
+import { MODES, itemsFor, parseFlow, parseMode, testable, type Flow, type Mode } from "@/lib/domain/practice/mode";
 import { BACK_PARAM, closeTarget, quickScope, sessionPath, sittingKey, sittingQuery } from "@/lib/domain/practice/sitting";
 import { PracticeSession } from "../../_components/practice-session";
 import { TestSession } from "../../_components/test-session";
@@ -57,9 +57,11 @@ export default async function PracticeSessionPage({
 
   const sitting = sittingQuery({ scope, mode, flow });
   const hub = sitting ? `${href(locale, "practice")}?${sitting}` : href(locale, "practice");
+  const closeHref = closeTarget(query[BACK_PARAM], hub);
+  // Too few to measure anything: the same scope, practised.
+  if (flow === "test" && !testable(pool)) redirect(sessionPath(locale, { scope }, closeHref));
   // Nothing to ask: the practice page says why, and offers the way out.
   if (items.length === 0) redirect(hub);
-  const closeHref = closeTarget(query[BACK_PARAM], hub);
 
   const about = (
     <SessionSettings label={chipLabel(dict, scope, mode, flow)} scopes={scopeChoices()} t={dict.session}>
@@ -74,7 +76,7 @@ export default async function PracticeSessionPage({
         replace
         available={{
           modes: MODES.filter((m) => itemsFor(pool, m, "practice").length > 0),
-          test: itemsFor(pool, "mixed", "test").length > 0,
+          test: testable(pool),
         }}
         className=""
       />
@@ -92,7 +94,8 @@ export default async function PracticeSessionPage({
       (s, i, all) => all.findIndex((other) => sameScope(other, s)) === i,
     );
     return candidates.map((s) => {
-      const keeps = itemsFor(sittingPool(s), mode, flow).length > 0;
+      const target = sittingPool(s);
+      const keeps = flow === "test" ? testable(target) : itemsFor(target, mode, flow).length > 0;
       return {
         label: scopeName(dict, s) || dict.session.everything,
         href: sessionPath(locale, keeps ? { scope: s, mode, flow } : { scope: s }, closeHref),

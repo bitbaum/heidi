@@ -3,6 +3,7 @@ import { forget, otherDevices, putRecords } from "../../../lib/domain/progress/s
 import { isDeviceId, SYNC_KEYS, type SyncKey } from "../../../lib/domain/progress/sync.ts";
 import { decodeModel } from "../../../lib/domain/practice/model.ts";
 import { decodeHistory } from "../../../lib/domain/practice/history.ts";
+import { decodeMemory } from "../../../lib/domain/practice/memory.ts";
 import { decodeStreak } from "../../../lib/domain/progress/streak.ts";
 import { decode as decodeSaved } from "../../../lib/domain/saved/collection.ts";
 import { callerKey, progressSync, tooMany } from "../../../lib/domain/limits.ts";
@@ -26,6 +27,7 @@ const MAX_BYTES = 256 * 1024;
 const DECODE: Record<SyncKey, (raw: string) => unknown> = {
   model: decodeModel,
   history: decodeHistory,
+  memory: decodeMemory,
   streak: decodeStreak,
   saved: decodeSaved,
 };

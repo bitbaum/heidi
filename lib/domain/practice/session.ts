@@ -3,6 +3,7 @@ import type { SavedWord } from "../saved/types.ts";
 import { due } from "../saved/review.ts";
 import { allItems } from "./generate.ts";
 import { EMPTY_MODEL, pressureOf, type LearnerModel } from "./model.ts";
+import { NO_MEMORY, dueOrder, urgency, type Memory } from "./memory.ts";
 import { SESSION_SIZE, type PracticeItem } from "./types.ts";
 
 /**
@@ -73,6 +74,7 @@ export function orderSession({
   seen = [],
   size = SESSION_SIZE,
   model = EMPTY_MODEL,
+  memory = NO_MEMORY,
 }: {
   items: readonly PracticeItem[];
   saved: readonly SavedWord[];
@@ -85,6 +87,11 @@ export function orderSession({
    * recency ordering as before.
    */
   model?: LearnerModel;
+  /**
+   * When each question is due again (`memory.ts`). Empty by default, which
+   * makes every item "new" and reproduces the ordering without it.
+   */
+  memory?: Memory;
 }): PracticeItem[] {
   const dueIds = new Set(due([...saved], now).map((word) => `recall:${word.target.trim().toLocaleLowerCase()}`));
   const everything = items;
@@ -122,7 +129,20 @@ export function orderSession({
    */
   const band = (item: PracticeItem) => Math.round(pressureOf(model, item) * 4);
 
+  /**
+   * And before either: WHEN. A question whose day has come is asked before
+   * anything new, and one answered recently and not due yet waits until
+   * nothing else is left (`memory.ts`) — asking it early spends the spacing.
+   */
+  const urgent = (item: PracticeItem) => urgency(memory, item.id, now);
+
   const rank = (a: PracticeItem, b: PracticeItem) => {
+    const urgencyGap = urgent(a) - urgent(b);
+    if (urgencyGap !== 0) return urgencyGap;
+    if (urgent(a) !== 1) {
+      const dueGap = dueOrder(memory, a.id, b.id);
+      if (dueGap !== 0) return dueGap;
+    }
     const pressureGap = band(b) - band(a);
     if (pressureGap !== 0) return pressureGap;
     // Whatever has been asked least recently. Never-seen items (-1) come before
@@ -171,6 +191,8 @@ export function orderSession({
     if (kind) lastAsked.set(kind, at);
   }
   const kinds = [...buckets.keys()].sort((a, b) => {
+    const urgencyGap = urgent(buckets.get(a)![0]!) - urgent(buckets.get(b)![0]!);
+    if (urgencyGap !== 0) return urgencyGap;
     const pressureGap = band(buckets.get(b)![0]!) - band(buckets.get(a)![0]!);
     if (pressureGap !== 0) return pressureGap;
     const recencyGap = (lastAsked.get(a) ?? -1) - (lastAsked.get(b) ?? -1);
@@ -178,14 +200,21 @@ export function orderSession({
     return a.localeCompare(b);
   });
   let exhausted = false;
-  while (picked.length < size && !exhausted) {
-    exhausted = true;
-    for (const kind of kinds) {
-      if (picked.length >= size) break;
-      const next = buckets.get(kind)?.shift();
-      if (next) {
-        picked.push(next);
-        exhausted = false;
+  // One pass per urgency: every due question is seated before anything new,
+  // however the due ones are spread across kinds — a plain round-robin gave
+  // ten due questions of one kind a single seat. Within a pass the kinds
+  // still take turns. With no memory everything is "new" and this is one pass.
+  for (const level of [0, 1, 2] as const) {
+    exhausted = false;
+    while (picked.length < size && !exhausted) {
+      exhausted = true;
+      for (const kind of kinds) {
+        if (picked.length >= size) break;
+        const bucket = buckets.get(kind);
+        if (bucket?.[0] && urgent(bucket[0]) === level) {
+          picked.push(bucket.shift()!);
+          exhausted = false;
+        }
       }
     }
   }

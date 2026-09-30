@@ -171,6 +171,15 @@ export const FLOWS: readonly Flow[] = [
     recipients: [],
   },
   {
+    // Per question: when it is due again, when it was last answered, how often
+    // it slipped. No answers, no text — see `lib/domain/practice/memory.ts`.
+    id: "practiceMemory",
+    place: "device",
+    where: "localStorage · heidi.practice.memory.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
+  {
     // The current run only — last day, length, best, freezes, this week's
     // count. Never a list of dates; see `lib/domain/progress/streak.ts`.
     id: "streak",
@@ -197,7 +206,7 @@ export const FLOWS: readonly Flow[] = [
   },
   {
     // Only when switched on: this device's practice record, seen questions,
-    // streak and saved words, under the account. Off deletes this device's
+    // question schedule, streak and saved words, under the account. Off deletes this device's
     // copy; "delete everything synced" deletes all of it.
     id: "progressSync",
     place: "server",

@@ -14,15 +14,17 @@ import { Actions, PRIMARY, SECONDARY } from "./exercises/actions";
 import { SessionFrame } from "./session/frame";
 import { NO_HISTORY, remember } from "@/lib/domain/practice/history";
 import { restore, type SavedSession } from "@/lib/domain/practice/resume";
-import { historyStore, modelStore, sessionStore } from "./practice-stores";
+import { historyStore, memoryStore, modelStore, sessionStore } from "./practice-stores";
 import { Trace, answerOf } from "./exercises/chrome";
 import { orderSession, requeue, summarise } from "@/lib/domain/practice/session";
 import { EMPTY_MODEL, observe } from "@/lib/domain/practice/model";
+import { NO_MEMORY, comingBack, scheduleAnswer } from "@/lib/domain/practice/memory";
+import { plural } from "@/lib/i18n/plural";
 import type { PracticeItem } from "@/lib/domain/practice/types";
 import { useSaved } from "./use-saved";
 import { useGrade } from "./use-review";
 import { recordPractice } from "./streak-store";
-import { readHistoryView, readModelView, useHistoryView } from "./sync-stores";
+import { readHistoryView, readMemoryView, readModelView, useHistoryView, useMemoryView } from "./sync-stores";
 
 /**
  * A practice sitting, on the session screen (`session/frame.tsx`) — the first
@@ -141,6 +143,7 @@ export function PracticeSession({
   const historyAtBuild = useRef(history);
 
   const writeModel = useStoreWriter(modelStore);
+  const writeMemory = useStoreWriter(memoryStore);
 
   /** `fresh` for "Nochmals"; otherwise a sitting left half way is picked up again. */
   const build = useCallback((fresh: boolean) => {
@@ -153,6 +156,7 @@ export function PracticeSession({
         // history is: writing to it mid-session would rebuild the session
         // under the learner's hands, one question at a time.
         model: readModelView(),
+        memory: readMemoryView(),
         items: [...packItems, ...own],
         // Empty in a scoped sitting, so the due-words-first rule has nothing
         // to promote. Passing the full list while withholding the items would
@@ -217,6 +221,7 @@ export function PracticeSession({
     const answered = session?.[at];
     if (answered && !outcomes.some((o) => o.id === id)) {
       writeModel.write(observe(modelStore.read() ?? EMPTY_MODEL, answered, outcome));
+      writeMemory.write(scheduleAnswer(memoryStore.read() ?? NO_MEMORY, answered, outcome, new Date()));
       recordPractice();
     }
 
@@ -338,6 +343,10 @@ function Done({
   onRestart: () => void;
 }) {
   const summary = summarise(outcomes);
+  const memory = useMemoryView();
+  const [now] = useState(() => new Date());
+  /** What comes back tomorrow: the schedule said out loud, as a fact about their own questions. */
+  const tomorrow = comingBack(memory, now, 1);
 
   /**
    * WHICH ones to come back to, not just how many.
@@ -374,6 +383,10 @@ function Done({
           </li>
         )}
       </ul>
+
+      {tomorrow > 0 && (
+        <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-secondary">{plural(t.dueTomorrow, tomorrow, locale)}</p>
+      )}
 
       {missed.length > 0 && (
         <div className="mt-5 border-t border-border-subtle pt-4">

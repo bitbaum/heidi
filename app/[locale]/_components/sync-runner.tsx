@@ -5,9 +5,10 @@ import { useBrowserStore, useStorageReady } from "@/lib/browser/store";
 import { decodeOthers, newestSaved, type SyncKey } from "@/lib/domain/progress/sync";
 import { decodeModel } from "@/lib/domain/practice/model";
 import { decodeHistory } from "@/lib/domain/practice/history";
+import { decodeMemory } from "@/lib/domain/practice/memory";
 import { decodeStreak } from "@/lib/domain/progress/streak";
 import { decode as decodeSaved } from "@/lib/domain/saved/collection";
-import { historyStore, modelStore } from "./practice-stores";
+import { historyStore, memoryStore, modelStore } from "./practice-stores";
 import { streakStore } from "./streak-store";
 import { savedStore } from "./use-saved";
 import { othersStore, syncSettingStore } from "./sync-stores";
@@ -54,6 +55,7 @@ export function SyncRunner() {
       const values = {
         model: modelStore.read(),
         history: historyStore.read(),
+        memory: memoryStore.read(),
         streak: streakStore.read(),
         saved: savedStore.read(),
       };
@@ -85,9 +87,10 @@ export function SyncRunner() {
           JSON.stringify({
             model: devices.flatMap((d) => (d.values.model ? [d.values.model] : [])),
             history: devices.flatMap((d) => (d.values.history ? [d.values.history] : [])),
+            memory: devices.flatMap((d) => (d.values.memory ? [d.values.memory] : [])),
             streak: devices.flatMap((d) => (d.values.streak ? [d.values.streak] : [])),
           }),
-          { model: decodeModel, history: decodeHistory, streak: decodeStreak },
+          { model: decodeModel, history: decodeHistory, memory: decodeMemory, streak: decodeStreak },
         );
         if (others) othersStore.write(others);
 
@@ -120,6 +123,7 @@ export function SyncRunner() {
     const unsubscribe = [
       modelStore.subscribe(schedulePush),
       historyStore.subscribe(schedulePush),
+      memoryStore.subscribe(schedulePush),
       streakStore.subscribe(schedulePush),
       savedStore.subscribe(onSavedChange),
     ];

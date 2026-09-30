@@ -4,9 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import { fill } from "@/lib/i18n/fill";
+import { plural } from "@/lib/i18n/plural";
+import type { Locale } from "@/lib/i18n/locales";
+import { dueCount } from "@/lib/domain/practice/memory";
 import { useBrowserStore } from "@/lib/browser/store";
 import { RESUME_WITHIN_MS } from "@/lib/domain/practice/resume";
 import { sessionStore } from "../practice-stores";
+import { useMemoryView } from "../sync-stores";
 
 /**
  * The way into the session screen from `/practice`: one button, and — when
@@ -23,6 +27,8 @@ export function StartCard({
   test,
   t,
   sessionT,
+  locale,
+  ids,
 }: {
   sessionHref: string;
   sessionKey: string;
@@ -30,9 +36,14 @@ export function StartCard({
   test: boolean;
   t: Dictionary["practice"];
   sessionT: Dictionary["session"];
+  locale: Locale;
+  /** The questions this sitting draws from, for the due count. Absent: all of them. */
+  ids?: readonly string[];
 }) {
   const saved = useBrowserStore(sessionStore);
+  const memory = useMemoryView();
   const [now] = useState(Date.now);
+  const due = test ? 0 : dueCount(memory, new Date(now), ids);
   const resumable =
     !test &&
     saved?.key === sessionKey &&
@@ -54,6 +65,8 @@ export function StartCard({
         {label}
         <span aria-hidden="true">→</span>
       </Link>
+      {/* Why the first questions are ones already seen: they are due. */}
+      {due > 0 && <p className="mt-3 text-sm text-fg-secondary">{plural(t.dueToday, due, locale)}</p>}
     </div>
   );
 }

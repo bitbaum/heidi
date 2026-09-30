@@ -359,7 +359,7 @@ conversations, the speaking rounds people schedule, the votes and comments left 
 roadmap and changelog while those were open (a random browser key, not an
 account; a say now goes through Solon), and — ONLY
 for a learner who switched it on — their synced progress and the certificates
-issued from it. Saved vocabulary, the learner model and recorded takes live in
+issued from it. Saved vocabulary, the learner model, the question schedule and recorded takes live in
 the visitor's own browser by default; see "Progress on more than one device"
 below for what changes when sync is on.
 
@@ -504,6 +504,11 @@ which of the two it is in, next to the button, in the learner's language. See
     began. `/practice` stays as the full chooser, and the warm-up page
     explains itself and starts the screen; the query strings are the same
     (`sitting.ts`).
+  - A test needs half a run of markable questions in its scope (`TEST_MIN`,
+    ten of `TEST_SIZE`'s twenty). Below that the scope offers practice only,
+    and a test link to it opens practice: «Bsitz andersume» had two markable
+    questions and produced a two-tap test under a three-minute clock. Most
+    grammar topics do not qualify yet; the situations and «everything» all do.
   - A situation's sitting is its sentences AND the words said in it
     (`pool.ts`, `sittingPool`): a word is in the scene when a phrase of it
     says the word. `PRACTISABLE` lists the scenes and topics with questions,
@@ -1369,7 +1374,8 @@ place, aimed at the one person who cannot detect it.
 **Built: progress on more than one device, certificates, and teams — all opt-in.**
 Off by default and offered only signed in. When a learner switches sync on,
 each device keeps only what it observed and the server keeps each device's
-record apart; pages show the sum, so nothing is counted twice
+record apart; pages show the sum (for the question schedule, the newest
+answer per question), so nothing is counted twice
 (`lib/domain/progress/sync.ts`). Switching off removes that device's copy; one
 button deletes all of it. A certificate is issued by the SERVER from the synced
 record, by the same rule the situation page shows (`strengthOf`, only at
@@ -1402,6 +1408,24 @@ called. The diagnosis points at the MATERIAL — "these keep catching you out",
 with the topic named and a session offered. Declared on `/privacy` and
 deletable from `/settings`, along with the seen-history, which had been
 undeclared since the exercises shipped.
+
+**Built: questions come back before they are forgotten.** The model knows
+which AREAS are weak and the seen-history knows what was asked lately;
+neither knew TIME, so a question answered right in June never came back, and
+kept words were the only thing on a schedule. Now every question has one
+(`lib/domain/practice/memory.ts`, `heidi.practice.memory.v1`): the same
+expanding steps as kept words (1, 3, 7, 16, 35 days, `REVIEW_STEPS`), a miss
+back to the start, a right answer one step on, and at the last step it keeps
+returning every five weeks rather than vanishing. A sitting seats what is DUE
+first — all of it, however it is spread across kinds — then new questions,
+and a question answered recently and not due yet only when nothing else is
+left, because asking it early spends the spacing. First answer only, like the
+model; practice and the warm-up feed it, the test does not (it measures, and
+reveals nothing until the end). The practice page says how many are due
+today, and the end of a sitting how many come back tomorrow. Synced like the
+rest of progress, newest answer per question winning. Next: «gemeistert»
+that expires when its questions go overdue, and a page showing what is
+solid, fading and due — both need the question-to-area map on the server.
 
 **Built: one module per exercise kind, and a registry.** `lib/domain/practice/
 kinds/` — a file per kind, each declaring its id, its marking, whether the

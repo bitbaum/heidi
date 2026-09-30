@@ -89,6 +89,21 @@ export function isFlow(value: unknown): value is Flow {
  */
 export const TEST_SIZE = 20;
 
+/**
+ * The fewest markable questions a scope needs before it offers a test.
+ *
+ * Half a run. The argument for twenty above is the argument against two: a
+ * topic with two markable questions produced a "test" of two taps under a
+ * three-minute clock, which measures nothing and says it measured something.
+ * Below this the scope is practised, not tested, until it has the material.
+ */
+export const TEST_MIN = TEST_SIZE / 2;
+
+/** Whether this pool holds enough markable questions for a test. */
+export function testable(pool: readonly PracticeItem[]): boolean {
+  return itemsFor(pool, "mixed", "test").length >= TEST_MIN;
+}
+
 /** The lengths offered, in minutes, and what one press of "more time" adds. */
 export const TEST_MINUTES = [3, 5, 10] as const;
 export const TEST_EXTEND_MINUTES = 3;

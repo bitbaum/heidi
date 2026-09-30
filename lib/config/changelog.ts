@@ -43,6 +43,31 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-09-30",
       tag: "feature",
+      title: "Fragen kommen wieder, bevor Sie sie vergessen",
+      summary:
+        "Jede Frage hat jetzt ihr eigenes Datum, an dem sie wiederkommt: nach der ersten richtigen Antwort morgen, dann nach 3, 7, 16 und 35 Tagen, nach einem Fehler wieder morgen. Eine Übung beginnt mit den fälligen Fragen und bringt dann neue.",
+      items: [
+        "Bisher kam eine einmal richtig beantwortete Frage nie gezielt wieder; nur Ihre gespeicherten Wörter hatten einen Plan.",
+        "Die Übungsseite sagt, wie viele Fragen heute fällig sind, das Ende einer Übung, wie viele morgen wiederkommen.",
+        "Üben und Aufwärmen zählen, der Test nicht. Es zählt nur die erste Antwort in einer Übung.",
+        "Gespeichert im Browser, auf der Datenschutzseite aufgeführt, in den Einstellungen löschbar und mit Ihren anderen Geräten abgeglichen, wenn der Abgleich eingeschaltet ist.",
+      ],
+    },
+    {
+      date: "2026-09-30",
+      tag: "fix",
+      title: "Kein Test aus zwei Fragen, keine Fragen ohne Züridütsch",
+      summary:
+        "Ein Test zu «Bsitz andersume» hatte zwei Fragen, egal welche Zeit Sie wählten: Das Thema hat nur zwei Fragen, die sich prüfen lassen. Einen Test gibt es jetzt nur ab zehn solchen Fragen, sonst wird geübt.",
+      items: [
+        "Bei «Annas Schwester kommt auch noch» nannten die falschen Antworten eine andere Person, liessen die Schwester weg oder sagten «nöd». Die richtige fand man, indem man das Deutsche verglich. Jetzt kommen in allen Antworten Anna und ihre Schwester vor, und nur «de Anna ihri» sagt, wer kommt.",
+        "Ebenso bei «Herrn Meiers Zimmer» und den beiden «wo»-Fragen, deren falsche Antworten «wo» jetzt als Frage nach dem Ort lesen.",
+        "Die Erklärung zum Besitz spricht nicht mehr von «wo» im Relativsatz; das ist jetzt eine eigene Erklärung.",
+      ],
+    },
+    {
+      date: "2026-09-30",
+      tag: "feature",
       title: "Üben mit einem Tippen, von jeder Seite",
       summary:
         "Unten rechts steht neben «Heidi fragen» jetzt «Üben». Ein Tippen öffnet die Übung zu der Seite, auf der Sie sind: auf «Beim Arzt» die Sätze und Wörter aus dieser Situation, auf einem Grammatikthema dieses Thema, sonst alles gemischt. Schliessen bringt Sie auf dieselbe Seite zurück, an dieselbe Stelle.",
@@ -383,6 +408,31 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-30",
+      tag: "feature",
+      title: "Questions come back before you forget them",
+      summary:
+        "Every question now has its own date to return: tomorrow after a first right answer, then after 3, 7, 16 and 35 days, and tomorrow again after a miss. A sitting starts with the questions that are due, then brings new ones.",
+      items: [
+        "Before, a question answered right once never came back on purpose; only your saved words had a schedule.",
+        "The practice page says how many questions are due today, and the end of a sitting how many come back tomorrow.",
+        "Practice and the warm-up count; the test does not. Only the first answer in a sitting counts.",
+        "Stored in the browser, listed on the privacy page, deletable in the settings, and synced with your other devices when sync is on.",
+      ],
+    },
+    {
+      date: "2026-09-30",
+      tag: "fix",
+      title: "No two-question tests, no questions that need no Zurich German",
+      summary:
+        "A test on \u201cBsitz andersume\u201d had two questions, whatever time you chose: the topic has only two questions that can be marked. A test is now offered only with at least ten; below that you practise.",
+      items: [
+        "For \u201cAnnas Schwester kommt auch noch\u201d the wrong answers named another person, dropped the sister or said \u201cn\u00f6d\u201d, so comparing the German found the right one. Now every answer has Anna and her sister, and only \u201cde Anna ihri\u201d says who comes.",
+        "The same for \u201cHerrn Meiers Zimmer\u201d and the two \u201cwo\u201d questions, whose wrong answers now read \u201cwo\u201d as \u201cwhere\u201d.",
+        "The explanation for possession no longer talks about \u201cwo\u201d relative clauses; that has its own explanation now.",
+      ],
+    },
     {
       date: "2026-09-30",
       tag: "feature",
