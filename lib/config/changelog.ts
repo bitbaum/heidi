@@ -43,6 +43,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-09-30",
       tag: "fix",
+      title: "Heidi fragen, warum — und keine Fragen mehr ohne Züridütsch",
+      summary:
+        "Unter jeder Antwort beim Üben und Aufwärmen steht jetzt «Heidi fragen, warum»: Die Frage, die richtige Antwort und Ihre eigene gehen an Heidi, und der Chat öffnet sich über der Übung.",
+      items: [
+        "Beim Schreiben wird ein Wort in anderer Form neben dem aus dem Pack genannt («Anders als im Pack: schlof – schlaft»). Andere Schreibweisen werden weiterhin nie genannt. «D'Chatz» gilt als zwei Wörter; «Chatz» wird nicht mehr als fehlend gemeldet.",
+        "«Welcher Artikel?» wird nur noch gefragt, wo der Zürcher Artikel vom deutschen abweicht (s Tram, s Billett, s Grosi, s Säckli, d Chilbi). Bei «s Ässe» genügte es, «das Essen» zu kennen.",
+        "Ein gemerktes Wort kam mit dem Satz wieder, aus dem es stammte, auch wenn das Ihre englische Frage war. Jetzt steht darunter immer ein Satz, der das Wort enthält, auch bei früher gemerkten Wörtern.",
+        "Im dunklen Modus waren der schwebende Knopf «Üben | Heidi fragen» und das Profilbild weiss, und hinter Dialogen und offenen Menüs lag ein weisser Schleier. Beides bleibt jetzt dunkel.",
+      ],
+    },
+    {
+      date: "2026-09-30",
+      tag: "fix",
       title: "Menüs über dem Chat sichtbar, «Mein Bereich» aufgeräumt",
       summary:
         "Auf der Chat-Seite öffneten sich die Menüs im Kopf (Lernen, Üben, Über Heidi) unsichtbar: unter dem unteren Bildschirmrand und hinter der Gesprächsliste, am Computer, hell wie dunkel. Sie liegen jetzt immer obenauf. Die Sprachwahl steht links vom Konto.",
@@ -433,6 +446,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-09-30",
+      tag: "fix",
+      title: "Ask Heidi why, and no more questions that need no Zurich German",
+      summary:
+        "Under each answer in practice and the warm-up there is now \u201cAsk Heidi why\u201d: the question, the right answer and yours go to Heidi, and the chat opens over the exercise.",
+      items: [
+        "When writing, a word typed as a different form is named next to the pack\u2019s (\u201cschlof \u2013 schlaft\u201d). Other spellings are still never named. \u201cD'Chatz\u201d counts as two words, so \u201cChatz\u201d is no longer reported missing.",
+        "\u201cWhich article?\u201d is asked only where the Zurich article differs from the German one (s Tram, s Billett, s Grosi, s S\u00e4ckli, d Chilbi). For \u201cs \u00c4sse\u201d it was enough to know \u201cdas Essen\u201d.",
+        "A kept word came back with the sentence it was kept from, even when that was your English request. Its sentence now always contains it, also for words kept before.",
+        "In dark mode the floating \u201c\u00dcben | Heidi fragen\u201d button and the avatar were white, and a white haze lay behind dialogs and open menus. Both stay dark now.",
+      ],
+    },
     {
       date: "2026-09-30",
       tag: "fix",

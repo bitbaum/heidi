@@ -237,6 +237,12 @@ export type VocabularyGroup = "function" | "verbs" | "everyday" | "greetings" | 
  */
 export type Article = "de" | "d" | "s";
 
+/** The bridge language's article, as a closed set — see `bridgeArticle`. */
+export type BridgeArticle = "der" | "die" | "das";
+
+/** Which Zurich article a bridge article reads as, when the genders agree. */
+export const SAME_GENDER: Readonly<Record<BridgeArticle, Article>> = { der: "de", die: "d", das: "s" };
+
 /**
  * Which form of a word this is.
  *
@@ -271,6 +277,17 @@ export type VocabularyEntry = {
    * guessed one is a confident falsehood aimed at somebody who cannot detect it.
    */
   article?: Article;
+  /**
+   * The article of the BRIDGE noun — `die` for `Strassenbahn` beside `s Tram`.
+   *
+   * What makes an article question worth asking. Where the genders agree
+   * («s Ässe», das Essen) the question is answered by knowing German and the
+   * one mapping der→de, die→d, das→s, which the articles lesson teaches once;
+   * asked noun by noun it was 32 questions nobody could get wrong for a
+   * Zurich reason. So the drill asks only where the two differ, and a noun
+   * whose bridge article nobody declared is not asked at all.
+   */
+  bridgeArticle?: BridgeArticle;
   /**
    * The forms worth knowing, for a word whose forms are the difficulty.
    *
@@ -756,8 +773,8 @@ export type VarietyPack = {
    * the panel could offer the word list and nothing else. But "which article"
    * is not a fact about `Huus`; it is a fact about this variety having three
    * articles that do not line up with the German ones, and there is a page
-   * that says so. Twenty-four of the pack's questions are article questions,
-   * and every one of them was being explained by a link to a glossary.
+   * that says so. Every article question was being explained by a link to a
+   * glossary.
    *
    * IN THE PACK BECAUSE IT IS A FACT ABOUT THE VARIETY. `articles` is the
    * Zurich topic id; another variety's article question is explained by

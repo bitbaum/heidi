@@ -8,7 +8,7 @@ import { PROMPT_TEXT, Trace, ignoreKey } from "./chrome";
 import { Explanation } from "./explanation";
 import { Actions, PRIMARY, QUIET, SECONDARY } from "./actions";
 import { fill } from "@/lib/i18n/fill";
-import { missingWords } from "@/lib/domain/practice/compare";
+import { compareWords } from "@/lib/domain/practice/compare";
 
 /**
  * Write it in Zurich German.
@@ -24,10 +24,12 @@ import { missingWords } from "@/lib/domain/practice/compare";
  * and Enter submits. A learner in this mode is here to write, so nothing
  * should need a tap before they can.
  *
- * NOTHING COMPARES THE TWO STRINGS. §6 — no settled orthography, so an
+ * NO VERDICT ON THE TWO STRINGS. §6 — no settled orthography, so an
  * automatic verdict would eventually tell somebody their spelling is wrong
  * when it is not. What they wrote and what the pack says are set one above the
- * other, in the same size, and the learner decides. The comparison is easy and
+ * other, in the same size, and the learner decides. Underneath, words that are
+ * missing or typed as a different form are named (`compare.ts`), respellings
+ * never. The comparison is easy and
  * it is theirs; a machine placed between them would add only false authority.
  */
 export function TranslateView({ item, t, grammarT, situationsT, vocabularyT, learnT, locale, onAnswer }: ExerciseViewProps) {
@@ -70,7 +72,7 @@ export function TranslateView({ item, t, grammarT, situationsT, vocabularyT, lea
   return () => window.removeEventListener("keydown", onKey);
   });
 
-  const missing = shownMissing(wrote, translate.answer);
+  const { missing, differs } = shownComparison(wrote, translate.answer);
 
   return (
     <>
@@ -124,10 +126,26 @@ export function TranslateView({ item, t, grammarT, situationsT, vocabularyT, lea
               </span>
             </p>
           )}
+          {/* A different FORM, not a different spelling — `compareWords`
+              folds respellings away first. «schlof» for «schlaft» was passed
+              over in silence, and the learner was left asking which one is
+              Zurich German. Said side by side, without a verdict. */}
+          {differs.length > 0 && (
+            <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-primary">
+              {t.explain.formDiffers}
+              {differs.map(([typed, pack], i) => (
+                <span key={pack}>
+                  {i > 0 && ", "}
+                  <span lang={DISPLAY.tag} className="text-fg-secondary">{typed}</span> –{" "}
+                  <span lang={DISPLAY.tag} className="font-medium text-dialect">{pack}</span>
+                </span>
+              ))}
+            </p>
+          )}
           <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.spellingNote}</p>
 
           <Trace item={item} t={t} locale={locale} />
-          <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} />
+          <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} mine={wrote.trim() || undefined} />
           <Actions>
             <button type="button" onClick={() => onAnswer("right")} className={PRIMARY}>
               {t.knew}
@@ -188,6 +206,6 @@ export function TranslateView({ item, t, grammarT, situationsT, vocabularyT, lea
 }
 
 /** Only once something was typed; an empty answer is "not attempted", not "missing everything". */
-function shownMissing(wrote: string, answer: string): string[] {
-  return wrote.trim() ? missingWords(wrote, answer) : [];
+function shownComparison(wrote: string, answer: string) {
+  return wrote.trim() ? compareWords(wrote, answer) : { missing: [], differs: [] };
 }

@@ -9,6 +9,7 @@ import { askHeidi } from "@/lib/browser/ask";
 import { DISPLAY } from "@/lib/variety/display";
 import type { LessonId, PracticeItem } from "@/lib/domain/practice/types";
 import { explanationFor } from "@/lib/domain/practice/explanation";
+import { answerOf, questionOf } from "@/lib/domain/practice/answer";
 import type { DisplayPhrase } from "@/lib/situations/display";
 import { SessionLink } from "../session/links";
 
@@ -51,6 +52,7 @@ export function Explanation({
   situationsT,
   vocabularyT,
   learnT,
+  mine,
   compact = false,
 }: {
   item: PracticeItem;
@@ -61,6 +63,8 @@ export function Explanation({
   vocabularyT: Dictionary["vocabulary"];
   /** The "ask Heidi" sentences — the chat's own, so a tap here and a tap in the chat send the same words. */
   learnT: Dictionary["chat"]["learn"];
+  /** What the learner answered, when it differs from the right answer — quoted to Heidi. */
+  mine?: string;
   /** In a long review list: folded behind one control instead of expanded. */
   compact?: boolean;
 }) {
@@ -176,9 +180,22 @@ export function Explanation({
         </Part>
       )}
 
-      {(e.sentence || e.term) && (
-        <Part title={x.askTitle}>
+      {/* ALWAYS, because every question can be asked about. "Why" is the
+          first thing somebody who just got it wrong wants, and it used to
+          need a screenshot and a trip to the chat: the buttons here were
+          only about the word or sentence in general, never about the
+          answer they had just given. */}
+      <Part title={x.askTitle}>
           <div className="flex flex-wrap gap-2">
+            <Ask
+              primary
+              say={
+                mine
+                  ? fill(learnT.explainMine, { question: questionOf(item), mine, expected: answerOf(item) })
+                  : fill(learnT.explainItem, { question: questionOf(item), expected: answerOf(item) })
+              }
+              label={learnT.explainLabel}
+            />
             {(e.sentence ?? e.term) && (
               <Ask say={fill(learnT.otherWays, { text: (e.sentence ?? e.term)! })} label={learnT.otherWaysLabel} />
             )}
@@ -187,8 +204,7 @@ export function Explanation({
             {e.sentence && <Ask say={fill(learnT.breakdown, { text: e.sentence })} label={learnT.breakdownLabel} />}
           </div>
           <p className="mt-2 max-w-measure text-xs leading-relaxed text-fg-muted">{learnT.aiNote}</p>
-        </Part>
-      )}
+      </Part>
     </div>
   );
 
@@ -232,12 +248,12 @@ function Line({ phrase, quiet = false }: { phrase: DisplayPhrase; quiet?: boolea
 }
 
 /** One tap: the question goes to Heidi as the learner's own visible message. */
-function Ask({ say, label }: { say: string; label: string }) {
+function Ask({ say, label, primary = false }: { say: string; label: string; primary?: boolean }) {
   return (
     <button
       type="button"
       onClick={() => askHeidi(say)}
-      className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-3 text-sm text-fg-primary transition-colors hover:bg-surface-sunk"
+      className={`inline-flex min-h-11 items-center rounded-control border border-border-strong px-3 text-sm text-fg-primary transition-colors hover:bg-surface-sunk ${primary ? "font-medium" : ""}`}
     >
       {label}
     </button>

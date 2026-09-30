@@ -309,7 +309,7 @@ export function SiteHeader({
           <div
             aria-hidden="true"
             onClick={closeMega}
-            className="fixed inset-x-0 bottom-0 top-[var(--header-height)] z-20 hidden bg-fg-primary/20 lg:block"
+            className="fixed inset-x-0 bottom-0 top-[var(--header-height)] z-20 hidden bg-scrim/30 lg:block"
           />
           <div
             id="mega-menu"

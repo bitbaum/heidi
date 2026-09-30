@@ -1,4 +1,4 @@
-import type { VarietyPack } from "../../../variety/pack.ts";
+import { SAME_GENDER, type VarietyPack } from "../../../variety/pack.ts";
 import { ARTICLES, MATCH_SIZE, MIN_FORMS_TO_ASK, type ArticleItem, type FormItem, type MatchItem } from "../types.ts";
 import type { ExerciseKind, Material } from "./kind.ts";
 
@@ -25,13 +25,20 @@ import type { ExerciseKind, Material } from "./kind.ts";
  *
  * Only for entries that actually declare one. A noun whose gender nobody has
  * checked produces no item rather than a guess.
+ *
+ * AND ONLY WHERE THE GERMAN DIFFERS. «Wele Artikel ghört dezue? ___ Ässe
+ * (Essen)» was reported as a bad question, fairly: das Essen, so s Ässe, and
+ * no Zurich German was needed. 32 of 37 nouns were like that. The mapping
+ * der→de, die→d, das→s is the articles lesson; the drill is for s Tram, s
+ * Billett, s Grosi, s Säckli and d Chilbi, where a German reader's instinct
+ * is wrong.
  */
 export function articleItems(pack: VarietyPack): ArticleItem[] {
   const items: ArticleItem[] = [];
 
   for (const entry of pack.vocabulary ?? []) {
     const article = entry.article;
-    if (!article) continue;
+    if (!article || !entry.bridgeArticle || SAME_GENDER[entry.bridgeArticle] === article) continue;
 
     const answer = ARTICLES.indexOf(article);
     if (answer < 0) continue;

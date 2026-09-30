@@ -168,6 +168,17 @@
   /* What you press. Black: a page of red buttons is a page shouting. */
   --color-action: var(--primitive-black);
   --color-on-action: var(--primitive-white);
+  /* What floats over every page — the dock's «Üben | Heidi fragen» pill.
+     Black on the white page, like an action. In dark it does NOT flip to
+     white like an action does: a white slab that never leaves the corner of
+     a dark screen was reported as a bug, and a control that is always there
+     should be the quietest thing on the page, not the loudest. */
+  --color-float: var(--primitive-black);
+  --color-on-float: var(--primitive-white);
+  /* The dimming behind a dialog, a sheet or an open menu. Black in BOTH
+     themes — never flipped. It was `fg-primary` at 20–40%, which in dark mode
+     is white: every dialog laid a white haze over a dark page. */
+  --color-scrim: var(--primitive-black);
   /* Something went wrong — the one place flag red is the right message. */
   --color-danger: var(--primitive-red);
   /* A Swiss flag is white on red in every theme — deliberately not flipped
@@ -201,6 +212,8 @@
     --color-on-accent: var(--primitive-black);
     --color-action: var(--primitive-white);
     --color-on-action: var(--primitive-black);
+    --color-float: #202020;
+    --color-on-float: var(--primitive-white);
     --color-danger: #ff5a5f;
   }
 }
@@ -222,6 +235,8 @@
   --color-on-accent: var(--primitive-black);
   --color-action: var(--primitive-white);
   --color-on-action: var(--primitive-black);
+  --color-float: #202020;
+  --color-on-float: var(--primitive-white);
   --color-danger: #ff5a5f;
 }
 

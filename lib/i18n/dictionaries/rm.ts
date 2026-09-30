@@ -157,6 +157,9 @@ export const rm: Dictionary = {
       otherWays: "Co pon ins dir autramain «{text}» en tudestg da Turitg?",
       examplesLabel: "En autras frasas",
       examples: "Dà a mai trais ulteriuras frasas en tudestg da Turitg cun «{word}», mintgina cun translaziun.",
+      explainLabel: "Dumandar Heidi pertge",
+      explainMine: "Jau exercitesch il tudestg svizzer da Turitg. Dumonda: «{question}». Jau hai respundì «{mine}», la resposta è «{expected}». È mia resposta er correcta? Explitga curt la differenza.",
+      explainItem: "Jau exercitesch il tudestg svizzer da Turitg. Dumonda: «{question}». La resposta è «{expected}». Explitga curt pertge.",
       aiNote: "Questas respostas scriva il model linguistic en il chat, controlladas per las furmas da Turitg.",
     },
     dock: {
@@ -1070,6 +1073,7 @@ export const rm: Dictionary = {
       openScene: "L'entira situaziun",
       practiseScene: "Exercitar questa situaziun",
       practiseWord: "Exercitar quest pled",
+      formDiffers: "Auter che en il pachet: ",
       alsoInPack: "Il pachet cuntegna era: {words}",
       lessonTitle: "Pertge",
       listenTitle: "Tadlai sin",

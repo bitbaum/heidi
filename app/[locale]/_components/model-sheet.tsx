@@ -135,7 +135,7 @@ export function ModelSheet({
   const listed = result.state === "ok" && result.models.length > 0;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-fg-primary/30 p-0 sm:items-center sm:p-6">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-scrim/50 p-0 sm:items-center sm:p-6">
       <div
         ref={dialogRef}
         role="dialog"

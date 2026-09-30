@@ -75,7 +75,7 @@ export const METRICS: readonly Metric[] = [
   { label: "Interface languages", value: "7", verify: "The language switcher." },
   { label: "Situations, with per-situation mastery", value: "19", verify: "/situations" },
   { label: "Vocabulary entries", value: "226", verify: "/vocabulary" },
-  { label: "Practice questions", value: "1793", verify: "/practice" },
+  { label: "Practice questions", value: "1761", verify: "/practice" },
   { label: "Dialect areas mapped", value: "11", verify: "/dialect" },
 ];
 

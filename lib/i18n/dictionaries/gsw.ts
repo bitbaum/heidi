@@ -164,6 +164,9 @@ export const gsw: Dictionary = {
       otherWays: "Wie cha me «{text}» uf Züridütsch no säge?",
       examplesLabel: "I andere Sätz",
       examples: "Gib mer drüü wyteri Sätz uf Züridütsch mit «{word}», jede mit Übersetzig.",
+      explainLabel: "D Heidi fröge, werum",
+      explainMine: "Ich üebe Züridütsch. Ufgab: «{question}». Ich han «{mine}» gantwortet, richtig isch «{expected}». Stimmt mis au? Erklär mer churz de Unterschiid.",
+      explainItem: "Ich üebe Züridütsch. Ufgab: «{question}». D Antwort isch «{expected}». Erklär mer churz, werum.",
       aiNote: "Die Antworte schriibt s Sprachmodell im Chat, prüeft uf Zürcher Forme.",
     },
     dock: {
@@ -1074,6 +1077,7 @@ export const gsw: Dictionary = {
       openScene: "Die ganz Situation",
       practiseScene: "Die Situation üebe",
       practiseWord: "Das Wort üebe",
+      formDiffers: "Anders als im Pack: ",
       alsoInPack: "Im Pack staht zuesätzlich: {words}",
       lessonTitle: "Werum",
       listenTitle: "Lose Si uf",

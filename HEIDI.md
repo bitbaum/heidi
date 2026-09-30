@@ -372,7 +372,15 @@ opens is 45, and only overlays meant to cover it (dialogs, sheets, the open
 chat, a full-screen task) use 50. `lib/config/layers.test.ts` holds the scale
 and forbids unpositioning the header; `pnpm run audit:overlays` opens every
 expandable control in a real browser, light and dark, and fails on a panel
-that is covered, empty or see-through. CI runs it after the layout audit.
+that is covered, empty or see-through, or — in dark — on a fixed element
+painted light. CI runs it after the layout audit.
+
+Dark mode swaps ink and paper, so `fg-primary` and `action` turn white there.
+Two things must not follow: floating chrome (the dock pill, the avatar) uses
+`float`, which stays dark, and every backdrop behind a dialog, sheet or menu
+uses `scrim`, which is black in both themes. Both were white in dark once;
+`tokens.design.test.ts` now refuses `bg-fg-primary/…` and a fixed
+`bg-action`.
 
 There are now accounts and a database. Identity is federated to OrangeCat and
 Heidi holds no users table; Postgres holds study groups (and teams), private
@@ -879,6 +887,12 @@ the lifetime of that word, so a learner who fills the entire 500-word cap costs
 about a quarter of a franc. Gating that would be arbitrary, and people can feel
 arbitrary. Saving never waits for it: the word is written first and the call
 fires after, so a failure costs nothing anybody did.
+
+A kept word's own sentence is only ever one it OCCURS IN (`saved/context.ts`):
+the learner's line if they pasted dialect, otherwise Heidi's line or a
+suggestion that has it. It used to be the learner's line regardless, so a word
+kept from "how do I say…" came back on a card over the English request.
+Checked again at display time, which repairs words kept before.
 
 **And any word is now askable, not just the ones Heidi chose to gloss.** The
 word a learner is stuck on is by definition the one nobody predicted, so a
@@ -1496,6 +1510,15 @@ article and no paradigm, so the only generator that could see them was the
 matching grid. They are the words `/vocabulary` argues buy the most
 comprehension, and they were the least practised thing in the product.
 
+*The article drill asks only where German misleads.* A noun carries its
+German article too (`bridgeArticle`), and the question «which article?» is
+generated only where the two genders differ: s Tram (die Strassenbahn), s
+Billett, s Grosi, s Säckli, d Chilbi. Where they agree — s Ässe, das Essen —
+the answer needs German and the mapping der→de, die→d, das→s, which the
+articles lesson teaches once; 32 of 37 nouns were that, and a learner reported
+the question as useless. More nouns whose gender differs are the next content
+for it.
+
 `pick` is a real pack sentence with one word cut out and four real words
 offered. What makes it objective is the bridge printed underneath: several
 options will produce a perfectly good Zurich sentence — that is what function
@@ -1516,13 +1539,22 @@ it and read the answer without attempting one — the retrieval this page exists
 for, skipped in a keystroke. There is now an optional field to write the answer
 in first.
 
-Nothing compares what they wrote to what the pack says. §6 is why: a machine
-that judges typed dialect eventually tells somebody their spelling is wrong
-when it is not, in a variety where they cannot argue back. What typing adds is
-the COMMITMENT — the answer is out of your head and on the screen before the
-real one appears — and the two are then shown one above the other with no
-verdict between them. That is the same information and none of the false
-authority.
+No verdict compares what they wrote to what the pack says. §6 is why: a
+machine that judges typed dialect eventually tells somebody their spelling is
+wrong when it is not, in a variety where they cannot argue back. What typing
+adds is the COMMITMENT — the answer is out of your head and on the screen
+before the real one appears — and the two are then shown one above the other
+with no verdict between them. Underneath, `compare.ts` names two things and
+nothing else: words of the pack's line that are MISSING, and words typed as a
+DIFFERENT FORM («schlof» – «schlaft»: another vowel, no ending). Respellings
+(«ä»/«e», «sch»/«sh», «ie»/«i», doubled letters, case, accents) fold away
+first and are never named.
+
+**Every question can be asked about.** Under each answer in practice and the
+warm-up, «Heidi fragen, warum» sends the question, the right answer and — when
+it differed — the learner's own, as their visible message in the dock, which
+opens over the session screen. The test has no per-question feedback, so it has
+none until its results.
 
 **What comes next lives in one place: the public roadmap, `lib/config/roadmap.ts`,
 rendered at `/roadmap`.** This section used to hold a second, numbered copy of

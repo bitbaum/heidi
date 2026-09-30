@@ -141,6 +141,9 @@ export const fr: Dictionary = {
       otherWays: "Comment dire autrement «{text}» en suisse allemand de Zurich ?",
       examplesLabel: "Dans d'autres phrases",
       examples: "Donne-moi trois autres phrases en suisse allemand de Zurich avec «{word}», chacune avec sa traduction.",
+      explainLabel: "Demander à Heidi pourquoi",
+      explainMine: "Je m’exerce au suisse allemand de Zurich. Question : « {question} ». J’ai répondu « {mine} », la réponse est « {expected} ». Est-ce que la mienne est juste aussi ? Explique-moi brièvement la différence.",
+      explainItem: "Je m’exerce au suisse allemand de Zurich. Question : « {question} ». La réponse est « {expected} ». Explique-moi brièvement pourquoi.",
       aiNote: "Le modèle de langue écrit ces réponses dans le chat, vérifiées pour les formes zurichoises.",
     },
     dock: {
@@ -1054,6 +1057,7 @@ export const fr: Dictionary = {
       openScene: "Toute la situation",
       practiseScene: "Travailler cette situation",
       practiseWord: "Travailler ce mot",
+      formDiffers: "Autrement que dans le pack : ",
       alsoInPack: "Le pack contient aussi : {words}",
       lessonTitle: "Pourquoi",
       listenTitle: "À écouter",

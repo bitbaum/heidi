@@ -10,6 +10,7 @@ import type { Dictionary } from "@/lib/i18n";
 import { Copy } from "./copy-button";
 import { Speak } from "./speak-button";
 import { KeepWord } from "./keep-word";
+import { sentenceWith } from "@/lib/domain/saved/context";
 import { ChatMarkdown } from "./chat-markdown";
 import { fill } from "@/lib/i18n/fill";
 import { learnMoves, type LearnMove } from "@/lib/domain/chat/learn";
@@ -50,7 +51,10 @@ export function AnswerView({
   voiceT: Dictionary["voice"];
   /** For the grammar link. Absent means grammar chips are not offered. */
   locale?: Locale;
-  /** The learner's line this answers, carried onto any word they keep. */
+  /**
+   * The learner's line this answers. A kept word takes it as its sentence only
+   * if the word is in it; otherwise Heidi's line or a suggestion that has it.
+   */
   context?: string;
   /**
    * Send the follow-up a chip stands for. Absent where the surface cannot send
@@ -144,7 +148,7 @@ export function AnswerView({
           <ul className="mt-2 flex flex-col gap-1.5">
             {a.glosses.map((g) => (
               <li key={g.form} className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                <KeepWord gloss={g} t={t} context={context} />
+                <KeepWord gloss={g} t={t} context={sentenceWith(g.form, [context, a.dialect, ...a.suggestions.map((s) => s.text)])} />
                 {/* Three languages on one row — dialect, German, English —
                     and none of them used to say so. */}
                 <span lang={DISPLAY.tag} className="font-mono text-sm font-medium text-dialect">
