@@ -1191,7 +1191,7 @@ export const fr: Dictionary = {
       ich: "je",
       du: "tu",
       er: "il / elle",
-      mir: "nous",
+      mir: "nous / vous / ils",
       ihr: "vous",
       si: "ils / elles",
       plural: "pluriel",
@@ -1452,6 +1452,11 @@ export const fr: Dictionary = {
         title: "chönne cho — les verbes de fin à l'envers",
         rule: "Quand plusieurs verbes s'accumulent en fin de phrase, l'auxiliaire ou le modal vient d'abord et le verbe porteur de sens en dernier : «Ich ha nöd chönne cho», là où l'allemand dit «… kommen können». De même dans la subordonnée : «…, dass si hät müesse schaffe».",
         watch: "Comprendre est facile — les mots sont les mêmes. Avec l'ordre allemand («cho chönne»), on vous comprend, mais vous sonnez comme de l'allemand standard avec des mots zurichois.",
+      },
+      modals: {
+        title: "cha, mues, wott — les verbes modaux",
+        rule: "Courts, et ich et er partagent une forme, comme en allemand : ich cha, du chasch, er cha, mir chönd (können) · ich mues, du muesch, mir müend (müssen) · ich wott, du wotsch, mir wänd (wollen) · ich darf, mir dörfed (dürfen) · ich söll, mir sölled (sollen). Une seule forme de pluriel sert pour mir, ihr et si. Au passé, le modal reste à l'infinitif : «Ich ha nöd chönne cho».",
+        watch: "«wott» et «wänd» veulent dire wollen (vouloir) — rien n'y rappelle «will». Et «Ich sött» est le «ich sollte» poli qu'on entend sans cesse : «Ich sött no schaffe».",
       },
       directions: {
         title: "ine, use, ufe, abe — sans hin ni her",

@@ -35,6 +35,17 @@ describe("grammar topics", () => {
     }
   });
 
+  test("every word a topic names is a word with forms", () => {
+    // The same silent join: a topic naming `chöne` instead of `chönne` would
+    // simply drill nothing, and its page would look exactly the same.
+    const vocabulary = new Map((ZURICH_GERMAN.vocabulary ?? []).map((w) => [w.target, w]));
+    for (const topic of topics) {
+      for (const word of topic.words ?? []) {
+        assert.ok(vocabulary.get(word)?.forms?.length, `${topic.id} names "${word}", which has no forms in the vocabulary`);
+      }
+    }
+  });
+
   test("the pack has topics at all", () => {
     assert.ok(topics.length >= 4, "the page exists to hold these; an empty one is a promise unkept");
   });

@@ -537,7 +537,7 @@ which of the two it is in, next to the button, in the learner's language. See
     ten of `TEST_SIZE`'s twenty). Below that the scope offers practice only,
     and a test link to it opens practice: «Bsitz andersume» had two markable
     questions and produced a two-tap test under a three-minute clock. The
-    situations, «everything» and seventeen of the nineteen grammar topics
+    situations, «everything» and eighteen of the twenty grammar topics
     qualify. Modal particles and diminutive -li do not yet: what they add is
     mostly nuance, and a question's wrong answers must differ in meaning.
   - A topic's sitting also asks the questions the pack says that topic
@@ -1080,6 +1080,30 @@ Heidi). Deep links (`#w-<word>`) from
 explanations clear the filters, page far enough down, open the row and scroll
 to it. Escape closes an open row through `useDismiss`; a click elsewhere does
 not, because the reader is comparing rows, not dismissing a menu.
+
+*Every verb carries its paradigm* (since 2026-10-01; 87 verbs, 35 of them
+new). A verb is learned by its forms, not its infinitive, so an opened verb
+row shows a small table: person, Zurich form, German form. The rows are
+`ich`, `du`, `er`, ONE plural (`mir/ihr/si` share a form, so the label reads
+«we / you (pl.) / they»), and the past as the er-form of the perfect with its
+auxiliary («isch gange», «hät gmacht»). The auxiliary is in the row because
+it is half of what has to be learned (`hocke` takes `si`), and because a bare
+participle is often the headword itself (`cho`). Modals stop at the present:
+their past is the double infinitive, which `verb-order` teaches.
+
+- Every form faces the variety gate (a test), and spellings follow what the
+  packs already publish (`cha`, `gaasch`, `gää`, `gno`). Like the rest of the
+  pack, none of it has been reviewed by a native Zurich speaker yet.
+- The form drill asks each present row with the verb's own distinct forms as
+  options: `ich cha` and `er cha` are one button, not two. The past row is
+  shown but not asked there, because «hät gmacht» beside four one-word forms is
+  picked by its length. 13 form questions became 348.
+- A grammar topic can name the words whose forms it explains (`words`).
+  `modals` names `chönne`, `müesse`, `wele`, `dörfe` and `sölle`, so a sitting
+  on it drills «ich cha, du chasch, mir chönd» and a wrong answer links to it.
+- The inspiration for doing this properly was a published book of the 100 most
+  useful Swiss German verbs. Nothing was taken from it: the method (forms and
+  past, not lists) is ordinary, and every form here is written for Heidi.
 
 **Built: what a computer can and cannot do with this language, published.**
 §8 is an overclaim register — a list of things this product must not say, the

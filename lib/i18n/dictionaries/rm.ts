@@ -1207,7 +1207,7 @@ export const rm: Dictionary = {
       ich: "jau",
       du: "ti",
       er: "el / ella",
-      mir: "nus",
+      mir: "nus / vus / els",
       ihr: "vus",
       si: "els / ellas",
       plural: "plural",
@@ -1468,6 +1468,11 @@ export const rm: Dictionary = {
         title: "chönne cho — ils verbs a la fin al revers",
         rule: "Sche plirs verbs stattan a la fin da la frasa, vegn il verb auxiliar u modal l'emprim ed il verb cun la muntada l'ultim: «Ich ha nöd chönne cho», nua ch'il tudestg di «… kommen können». Il medem en la frasa subordinada: «…, dass si hät müesse schaffe».",
         watch: "Chapir è facil — ils pleds èn ils medems. Tgi che prenda l'urden tudestg («cho chönne») vegn chapì, ma tuna sco tudestg standard cun pleds turitgais.",
+      },
+      modals: {
+        title: "cha, mues, wott — ils verbs modals",
+        rule: "Curts, ed ich ed er han ina furma cuminaivla, sco en tudestg: ich cha, du chasch, er cha, mir chönd (können) · ich mues, du muesch, mir müend (müssen) · ich wott, du wotsch, mir wänd (wollen) · ich darf, mir dörfed (dürfen) · ich söll, mir sölled (sollen). Ina suletta furma dal plural vala per mir, ihr e si. En il passà resta il verb modal a l'infinitiv: «Ich ha nöd chönne cho».",
+        watch: "«wott» e «wänd» vulan dir wollen (vulair) — nagut na regorda «will». E «Ich sött» è il «ich sollte» curtaschaivel che ins auda adina: «Ich sött no schaffe».",
       },
       directions: {
         title: "ine, use, ufe, abe — senza hin e her",
