@@ -1051,8 +1051,10 @@ shipped first, and two of the ten never came up.
 *A row is a line, and the rest is on demand.* The line holds what decides
 whether you know the word: the word with its article, the meaning, the
 register, the false-friend warning, and the keep button. Opening the row shows
-a sentence it is said in (the pack's own example, otherwise the shortest scene
-line that uses it), the verb forms, how many scene lines use it with three
+a sentence it is said in (the pack's own example, which every word has since
+2026-10-01, written for the product and gated like any generated line; a word
+added without one falls back to the shortest scene line that uses it), the
+verb forms, how many scene lines use it with three
 links, and «practise just this word» / «show it in a sentence» (which asks
 Heidi). Deep links (`#w-<word>`) from
 explanations clear the filters, page far enough down, open the row and scroll
@@ -1399,6 +1401,112 @@ doing:
 3. **The listening lab**, which is where the register and the recordings meet:
    a source a learner can already reach, a measurement of what they caught, and
    the same speaker-change effect the two loops below describe.
+
+### Designed, not built: the listening lab
+
+*Status 2026-10-01: design agreed on paper; blocked on recordings.*
+
+**The exercise.** Watch or listen to one piece, answer questions about what
+was said, then see the transcript, with every question tied to the line that
+answers it. Comprehension is the product's own metric (§1), and this is the
+first exercise that measures it on running speech rather than on one sentence.
+
+**Why it needs a transcript, and why we cannot borrow one.** A question is
+only fair if somebody knows exactly what was said, and a machine cannot be
+that somebody (§8: the recognisers write Standard German, and Zurich spelling
+from them would be the machine's). Searched 2026-10-01, the Swiss German
+audio that HAS a dialect transcript falls into three groups, and none of them
+can be republished here:
+
+- *Research corpora.* ArchiMob (oral-history interviews, utterance-aligned
+  dialect transcripts) is CC BY-NC-SA, non-commercial. SwissDial (about 3 h
+  per dialect, Zurich included, with dialect and Standard German text) is
+  research-only, no redistribution. STT4SG-350 and the Swiss Parliaments
+  Corpus pair dialect speech with STANDARD German text, so they are no
+  transcript at all for this purpose.
+- *Learner podcasts.* «Beyond the Alps» (Züridütsch, hand-written transcript
+  per episode), «Swiss German Storytime» (dialect and Standard German
+  transcripts) and «Easy Swiss German» (workbooks) keep their transcripts
+  behind Patreon or a sign-up: paid work by one person, not ours to copy.
+  «Lose, läse, lafere» (Schweizerdeutsch mit Naira) publishes its texts free,
+  but mostly in Bernese, and still under the author's copyright.
+- *Broadcast.* SRF subtitles, where they exist, are Standard German.
+
+So there are three ways to get content, in order of preference:
+
+1. **Our own recordings of our own text.** The scenes are already written,
+   gated and translated, about 380 lines across 19 scenes. What they are not
+   is dialogue: they are phrase lists. A native Zurich speaker (two for a
+   dialogue) records short scripted conversations built from them, which we
+   own outright. The transcript is exact because it came first. This is the
+   only option that is commercially clean, exactly transcribed AND Zurich.
+2. **A licence from a learner podcast** that already transcribes by hand in
+   Züridütsch: their audio and transcript with attribution, our questions.
+   It adds unscripted speech, which scripted recordings cannot.
+3. **Embed plus our own questions** (YouTube or SRF, never re-hosted). The
+   questions are our writing, and each answer quotes only the line it needs,
+   which Swiss citation right (Art. 25 URG) covers where a full transcript
+   would not. But somebody has to transcribe the passage for us first, by
+   ear, which is the expensive part, and it only scales with a person.
+
+**The flow, and why each step is where it is.** Two passes, gist then
+detail, is the standard shape of listening teaching (Field 2008), and every
+step below answers a specific failure:
+
+1. *Before.* Title, who is talking, where, and at most three words that
+   would otherwise block the whole piece, each linked to `/vocabulary`. No
+   transcript, no questions yet. Context first is what lets a learner use
+   the top-down half of listening; without it, a beginner hears noise.
+2. *First listen, for the gist.* One question is shown BEFORE playing
+   ("What does the caller want?"), so the learner listens for something.
+   The player has play/pause, back 5 seconds (the control learners use most,
+   so it is the biggest one) and 0.75× speed with pitch kept
+   (`preservesPitch`). Subtitles are off.
+3. *Gist answer*, then *second listen* with the detail questions now
+   visible: three to five, multiple choice, in Standard German (the bridge,
+   as every practice question is). They test meaning, never spelling: this
+   is listening, and a typed answer would test the gate rather than the ear.
+4. *Feedback per question.* Right or wrong, then «Hier gesagt:» with the
+   dialect line, its German, and a button that replays exactly that segment.
+   This is the step that teaches: the sound and the text meet at the moment
+   the learner wants to know what they missed.
+5. *Transcript.* Everything, line by line. Tap a line to hear it, show or
+   hide the German per line, and keep any word in it, which puts it into
+   review (`useSaved`). Lines that answered a missed question are marked.
+6. *From the transcript into practice.* Each line becomes items in the
+   existing pool with its own scope (`{kind: "listen", id}`), so a missed
+   line comes back in review like any other.
+
+**Rules the screen keeps.**
+
+- «Transkript jetzt zeigen» is always available. Hiding text from somebody
+  who cannot hear the audio is an accessibility failure, not rigour, and the
+  WebVTT captions built from the same lines are there for the same reason.
+- No score and no percentage, for the reason `summarise` gives: five
+  questions cannot support one. The summary is counts and the lines to
+  replay.
+- On a phone the player sticks to the bottom of the screen while the
+  questions scroll, so replaying never means scrolling back up.
+- Replays are counted per line in the browser only, as a signal for which
+  lines to bring back, and they are never sent anywhere.
+
+**The data, and what the tests hold.** One `ListeningPiece` per recording:
+source (`own`, `licensed` or `embed`), licence and attribution (required,
+like every register row), media (audio or video, duration), speakers, area,
+the `demand()` inputs, `lines` (`start`, `end`, speaker, `target`, `bridge`),
+and `questions` (`stage: "gist" | "detail"`, prompt, options, answer,
+`evidence`: the line ids that answer it). Tests: every line passes the gate;
+times rise, do not overlap and stay inside the duration; every question
+names evidence that exists; no distractor is said in its evidence line; no
+piece without a licence. Audio is self-hosted on the box as Opus with an AAC
+fallback, served with range requests; video is embedded only through a player
+whose API can seek, so segment replay works (the YouTube IFrame API can,
+SRF's embed cannot).
+
+**What unblocks it.** One native Zurich speaker and an afternoon: ten short
+scripted dialogues of about a minute each, written from the scenes, are
+enough to build and test the whole screen. Everything else in this section
+is software we can write.
 
 ### The exercise track, in order
 

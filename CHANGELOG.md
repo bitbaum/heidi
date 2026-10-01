@@ -23,6 +23,8 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-10-01
 
+- **Every word has an example sentence.** 121 of the 226 words opened with no sentence at all; each now has a short one written for Heidi, with its German, passed by the Zurich dialect check. The false friends get sentences that rule out the misleading reading («Mir müend springe, s Tram chunt»). The sentences also feed practice: the pool grows from 1,876 to 2,028 questions (119 more translations, 33 more «pick the sentence»).
+- **Listening lab designed (HEIDI.md), not built.** Swiss German audio with a dialect transcript exists only under research or non-commercial licences, or behind learner podcasts' paywalls. The design records the sources, the watch-then-answer flow and the data model, and names what unblocks it: recordings by a native Zurich speaker of dialogues written from the scenes.
 - **«Learn these 10 words» now asks all ten.** The session held eight questions balanced by kind, so two of the ten named words never came up. A session on named words now seats each word once first and grows to fit (at most 30); the usual mix fills any seats left.
 - **The vocabulary page says what to learn next.** It used to print every word with up to seventeen scene links: 23,217 px on a phone, with no hint which word mattered or whether you knew it. It now opens with the ten words that pay off most and one button to practise exactly those, then the full list in the same order, at 5,532 px on a phone.
   - The order is measured: words you hear most in the scenes and cannot work out from German come first; words that sound almost like German (after the sound rules) go last; false friends lead among equals.
