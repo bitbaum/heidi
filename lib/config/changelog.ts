@@ -42,6 +42,14 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-10-01",
+      tag: "fix",
+      title: "Diktieren geht wieder auf Züridütsch und Rumantsch",
+      summary:
+        "Auf den Seiten in Züridütsch und Rumantsch meldete das Mikrofon «Diktiere funktioniert i dem Browser nöd». Die Spracherkennung kennt für diese Sprachen keinen Code und lehnte jede Aufnahme ab. Jetzt hört sie Züridütsch als Deutsch und erkennt alles andere selbst.",
+      items: [],
+    },
+    {
+      date: "2026-10-01",
       tag: "improvement",
       title: "Heidi gleich auf der Startseite — und ein Mikrofon, das sofort hört",
       summary:
@@ -552,6 +560,14 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-01",
+      tag: "fix",
+      title: "Dictation works again in Swiss German and Romansh",
+      summary:
+        "On the Swiss German and Romansh pages the microphone said dictation did not work in this browser. The transcription model has no code for those languages and refused every recording. It now hears Swiss German as German and detects anything else by itself.",
+      items: [],
+    },
     {
       date: "2026-10-01",
       tag: "improvement",
