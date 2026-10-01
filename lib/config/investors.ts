@@ -43,7 +43,7 @@ export type Metric = {
  *
  * Dated, a stale figure is merely old. Undated, it is false.
  */
-export const METRICS_READ_ON = "25 September 2026";
+export const METRICS_READ_ON = "1 October 2026";
 
 /**
  * The advertised test-file count, as a number the build can check.
@@ -57,14 +57,14 @@ export const METRICS_READ_ON = "25 September 2026";
  * below, where a reference would hit the temporal dead zone — so the string
  * carried its own literal copy of the number, and "said once" was false.
  */
-export const ADVERTISED_TEST_FILES = 103;
+export const ADVERTISED_TEST_FILES = 130;
 
 /** Counts read from the repository, not estimated — each with how to check it. */
 export const METRICS: readonly Metric[] = [
   { label: "Live at", value: "heidi.orangecat.ch", verify: "Open it." },
   { label: "Built since", value: "10 September 2026", verify: "git log" },
-  { label: "Merged pull requests", value: "119", verify: "github.com/bitbaum/heidi/pulls" },
-  { label: "Automated tests", value: `842 across ${ADVERTISED_TEST_FILES} files`, verify: "pnpm verify" },
+  { label: "Merged pull requests", value: "156", verify: "github.com/bitbaum/heidi/pulls" },
+  { label: "Automated tests", value: `1047 across ${ADVERTISED_TEST_FILES} files`, verify: "pnpm verify" },
   // The speech engine moved into its own open-source package, and its tests
   // went with it — counted there rather than quietly dropped from this page.
   {
@@ -74,8 +74,8 @@ export const METRICS: readonly Metric[] = [
   },
   { label: "Interface languages", value: "7", verify: "The language switcher." },
   { label: "Situations, with per-situation mastery", value: "19", verify: "/situations" },
-  { label: "Vocabulary entries", value: "226", verify: "/vocabulary" },
-  { label: "Practice questions", value: "1876", verify: "/practice" },
+  { label: "Vocabulary entries", value: "261", verify: "/vocabulary" },
+  { label: "Practice questions", value: "2482", verify: "/practice" },
   { label: "Dialect areas mapped", value: "11", verify: "/dialect" },
 ];
 
@@ -103,8 +103,9 @@ export const SECTIONS: readonly Section[] = [
     title: "What exists today",
     body: [
       "A working assistant, in seven interface languages, that decodes a real message someone was sent, explains the words that blocked it, and writes a reply the reader can send — then offers, in one tap, what to learn from it next. It reaches every page, streams its answer, and can be stopped mid-sentence.",
-      "A learning system built on situations: nineteen of them, from the tram and the Gemeinde to a care-home handover, each measured line by line, so a learner can say — and check — \"I understand Swiss German at the doctor's\". Practice in fifteen kinds of question, a test mode, spaced review of the learner's own words, and an explanation after every answer.",
-      "Around it: a dialect atlas of eleven areas, a grammar reference, a vocabulary of 226 entries including the false friends a German reader gets wrong and slang marked by register, and study groups.",
+      "A learning system built on situations: nineteen of them, from the tram and the Gemeinde to a care-home handover, each measured line by line, so a learner can say — and check — \"I understand Swiss German at the doctor's\". Practice in fifteen kinds of question on its own session screen, a test mode, an explanation after every answer, and spaced review that brings each question back before it is forgotten.",
+      "What keeps people coming back: a daily streak and a weekly goal the learner sets, progress that follows them across devices, and a certificate per situation that anyone with the link can check.",
+      "Around it: a dialect atlas of eleven areas that also tells you where a message comes from, a grammar reference of twenty topics, a vocabulary of 261 entries ranked by how often each is heard and whether a German reader could guess it, and study groups.",
       "All of it is MIT-licensed and public. An investor can read every line, run the tests, and check every claim on this page without asking us for anything.",
     ],
     links: [
@@ -129,9 +130,9 @@ export const SECTIONS: readonly Section[] = [
     id: "market",
     title: "Two kinds of customer, one product",
     body: [
-      "Individuals: people who moved here and want to follow the conversation around them. Free to start; Heidi Pro adds unlimited chat, certificates and progress on every device.",
-      "Organisations: care homes and home-care services, hospitals recruiting doctors and nurses from Germany, relocation firms, employers of international staff, and cantonal integration programmes. They buy seats, situation packs for their own workplace, and per-situation certificates.",
-      "Why situations sell: an employer cannot judge a language level, but it can judge whether someone can follow a ward round. Heidi's unit of learning — the situation — is the unit an employer already thinks in. The first workplace pack, six care-home situations, is already in the product.",
+      "Individuals: people who moved here and want to follow the conversation around them. Free, with an account for progress across devices and certificates; Heidi Pro, with unlimited chat, is on the roadmap.",
+      "Organisations: care homes and home-care services, hospitals recruiting doctors and nurses from Germany, relocation firms, employers of international staff, and cantonal integration programmes. What they pay for: seats, situation packs for their own workplace, and a team view of who is sure in which situation.",
+      "Why situations sell: an employer cannot judge a language level, but it can judge whether someone can follow a ward round. Heidi's unit of learning — the situation — is the unit an employer already thinks in. The first workplace pack, six care-home situations with 120 lines, is in the product, and Heidi for Teams already shows a lead where the team stands, with each member's consent.",
     ],
     links: [
       { label: "For organisations", href: "/de/organisations" },
@@ -142,7 +143,7 @@ export const SECTIONS: readonly Section[] = [
     id: "speech",
     title: "Speech and the technology position",
     body: [
-      "Dictation is live: a learner says what they want to say and Heidi writes it down. The listening lab — many different Zurich voices, the best-evidenced way to learn to understand a new dialect — is next, built on the newest speech models.",
+      "Dictation is live: a learner says what they want to say and Heidi writes it down. A register of fifty-six Swiss programmes, films and podcasts says for each one whether it is actually dialect. The listening lab — many different Zurich voices, the best-evidenced way to learn to understand a new dialect — is designed and on the roadmap.",
       "Swiss German speech data is scarce, and most of it is licensed for research only. Heidi keeps a public, cited map of which corpora and models can be used commercially — which is exactly the knowledge a competitor would have to rebuild before shipping anything with a voice.",
     ],
     links: [{ label: "What the field can do, with citations", href: "/de/technology" }],
@@ -151,8 +152,8 @@ export const SECTIONS: readonly Section[] = [
     id: "direction",
     title: "Where it goes",
     body: [
-      "Next: streaks and weekly goals, a dialect detector that tells anyone where a sentence comes from, deeper situations and new ones, Heidi for Teams, per-situation certificates, and progress that follows a learner across devices.",
-      "The public roadmap carries the order and the reasoning, and learners can weigh in on it directly.",
+      "Shipped since 25 September: streaks and a weekly goal, a dialect detector that tells anyone where a sentence comes from, five new situations, Heidi for Teams, per-situation certificates, and progress that follows a learner across devices.",
+      "Next, in order: a Zurich lexicon that checks individual meanings, a say in the roadmap through Solon, then the listening lab, more dialects, Heidi Pro and learning together. The public roadmap carries the reasoning.",
     ],
     links: [{ label: "The roadmap", href: "/de/roadmap" }],
   },

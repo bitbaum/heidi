@@ -274,9 +274,9 @@ export const fr: Dictionary = {
     connectTitle: "Connecter votre propre modèle",
     connectLead:
       "Heidi lit les captures d'écran gratuitement. Avec votre propre clé API, les réponses gagnent en précision — surtout sur une image dense — et les appels passent par votre fournisseur plutôt que le nôtre.",
-    whyTitle: "Pourquoi ce n'est pas simplement inclus ?",
+    whyTitle: "Pourquoi apporter votre propre clé ?",
     whyBody:
-      "Parce que lire une image coûte de l'argent, par image. Le payer pour tout le monde signifierait rendre Heidi payant. Ainsi tout le reste demeure gratuit, et qui veut plus apporte sa propre clé.",
+      "Heidi est gratuit, avec des modèles que nous choisissons. Avec votre clé, c'est vous qui choisissez — souvent le plus puissant de votre fournisseur — et la facture vous parvient directement.",
     safetyTitle: "Où va votre clé",
     safetyBody:
       "Elle reste dans ce navigateur. À chaque message elle nous est envoyée par une connexion chiffrée, utilisée une fois chez le fournisseur, puis abandonnée. Nous ne la stockons pas, ne l'écrivons dans aucun journal et ne la renvoyons jamais.",
@@ -577,7 +577,7 @@ export const fr: Dictionary = {
       practiceModel: "Ce que vous travaillez encore",
       practiceMemory: "Quand chaque question revient",
       streak: "Votre série et votre objectif hebdomadaire",
-      roadmapFeedback: "Vos votes, commentaires et suggestions sur la feuille de route",
+      roadmapFeedback: "Anciens votes, commentaires et suggestions sur la feuille de route",
       syncSetting: "Si ce navigateur se synchronise",
       syncOthers: "Vos progrès venant d’autres appareils",
       progressSync: "Progrès synchronisés (seulement si activé)",
@@ -628,7 +628,7 @@ export const fr: Dictionary = {
 
   contribute: {
     title: "Nous cherchons des voix zurichoises",
-    lead: "Chaque seconde de dialecte que vous entendrez chez Heidi vient d'une personne réelle de Zurich. C'est cher et lent, et nous le faisons quand même.",
+    lead: "Les voix zurichoises du laboratoire d'écoute viennent de vraies personnes de Zurich, pas d'une voix de synthèse qui lit du dialecte.",
     whyTitle: "Pourquoi pas simplement des voix synthétiques",
     whyBody:
       "La raison honnête n'est pas qu'il n'existe pas de synthèse vocale suisse allemande — il en existe désormais. La raison est la licence. Chaque corpus de parole zurichoise que nous avons trouvé est publié pour la recherche et non pour un produit. Qui a besoin de vrai zurichois, proprement licencié et consenti, doit l'enregistrer lui-même. S'ajoute ce que les voix synthétiques font mal de toute façon : le rythme, les mots avalés, l'hésitation, la différence entre deux personnes du même quartier.",
@@ -667,11 +667,10 @@ export const fr: Dictionary = {
         body: "Nous avons d'abord lu ce que dit la recherche, et seulement ensuite construit. Trois résultats ont renversé le plan que nous aurions autrement livré. Ce que nous avons appris figure sur la page Recherche — y compris les endroits où nous avons dû nous corriger publiquement.",
       },
       {
-        title: "Ce qui manque encore",
-        body: "Aujourd'hui : comprendre et répondre à du vrai texte, entendre une réponse lue à voix haute, et un registre indiquant où le dialecte est réellement parlé à l'antenne. Ensuite : le laboratoire d'écoute, où vous entendez une voix zurichoise, vous vous y faites, et nous mesurons ce que vous saisissez d'une autre. Cela demande des enregistrements, et ils se font.",
+        title: "Où nous en sommes",
+        body: "Aujourd'hui : comprendre de vrais messages et y répondre, des situations du quotidien et des soins, des exercices qui reviennent avant que vous oubliiez, et Heidi pour les équipes. Ensuite : un lexique zurichois qui vérifie aussi le sens de chaque mot. Puis le laboratoire d'écoute, avec de nombreuses voix zurichoises. L'ordre figure sur la feuille de route.",
       },
     ],
-    stateTitle: "Où nous en sommes",
   },
 
   settings: {
@@ -686,10 +685,10 @@ export const fr: Dictionary = {
     modelBody: "Par défaut Heidi utilise des modèles gratuits, qui savent lire les images. Votre propre clé rend les réponses plus précises.",
     modelNone: "Aucun modèle personnel connecté",
     accountTitle: "Compte",
-    accountBody: "Pour garder vos mots et pour les groupes d'étude. Traduire ne demande aucun compte.",
+    accountBody: "Pour vos progrès sur tous vos appareils, les attestations, les conversations enregistrées et les groupes d'étude. Traduire et s'exercer ne demandent aucun compte.",
     dataTitle: "Ce qui est gardé sur cet appareil",
     dataBody:
-      "Votre conversation reste dans ce navigateur — même après la fermeture de l’onglet — jusqu’à ce que vous appuyiez sur Nouvelle conversation. Connecté, elle est enregistrée sur notre serveur. Pour être traité, chaque message est envoyé à un fournisseur de modèle. Votre clé et vos mots gardés restent ici seulement.",
+      "Votre conversation reste dans ce navigateur — même après la fermeture de l’onglet — jusqu’à ce que vous appuyiez sur Nouvelle conversation. Connecté, elle est enregistrée sur notre serveur. Pour être traité, chaque message est envoyé à un fournisseur de modèle. Votre clé reste ici seulement, vos mots gardés aussi — sauf si vous activez Vos progrès sur tous vos appareils.",
     dataEmpty: "Ce navigateur ne contient rien qui vous appartienne.",
     dataForget: "Supprimer",
     dataExport: "Tout télécharger",
@@ -713,14 +712,10 @@ export const fr: Dictionary = {
     signedInAs: "Connecté en tant que",
     notSignedIn: "Vous n'êtes pas connecté",
     notSignedInBody:
-      "Connectez-vous pour que Heidi puisse retenir ce que vous ne saviez pas encore. Tout le reste continue de fonctionner sans cela — la traduction et la vérification du dialecte ne demandent aucun compte.",
+      "Connectez-vous pour enregistrer vos conversations, retrouver vos progrès sur tous vos appareils et obtenir des attestations. La traduction, les exercices et la vérification du dialecte fonctionnent sans compte.",
     whyTitle: "Pourquoi OrangeCat",
     whyBody:
       "Heidi ne tient aucune base d'utilisateurs. Votre identité vit chez OrangeCat, où les profils et les paiements sont déjà chez eux. Cela veut dire un seul compte pour plusieurs produits, pas de mot de passe supplémentaire — et rien ici qui puisse être volé.",
-    soonTitle: "Ce qui vient ensuite",
-    soonList: [
-      "Des tuteurs — bénévoles, payés, et jamais obligatoires.",
-    ],
     unavailable: "La connexion n'est pas encore configurée sur cette installation.",
     errorTitle: "La connexion n'a pas fonctionné",
     errorBody: "Quelque chose s'est mal passé. Réessayez, ou revenez à l'accueil.",
@@ -1473,7 +1468,7 @@ export const fr: Dictionary = {
 
   saved: {
     title: "Vos mots",
-    lead: "Ce que vous avez cherché et voulu garder. Tout reste dans ce navigateur, sur cet appareil — pas chez nous.",
+    lead: "Ce que vous avez cherché et voulu garder.",
     empty: "Aucun mot gardé pour l'instant.",
     emptyHint: "Demandez une phrase à Heidi. À côté de chaque mot expliqué, un plus vous permet de le garder.",
     countLabel: "gardés",
@@ -1481,7 +1476,6 @@ export const fr: Dictionary = {
     clear: "Tout retirer",
     clearConfirm: "Vraiment tout retirer ?",
     exportLabel: "Enregistrer dans un fichier",
-    onThisDevice: "Uniquement sur cet appareil",
     savedOn: "Gardé le",
     openChat: "Chercher quelque chose",
   },
