@@ -55,6 +55,20 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-10-01",
       tag: "fix",
+      title: "Seiten, die sagen, was heute stimmt",
+      summary:
+        "Mehrere Seiten beschrieben Heidi von vor einer Woche. Sie sind nachgezählt und korrigiert.",
+      items: [
+        "Investoren: neu gezählt am 1. Oktober (155 statt 119 Pull Requests, 1044 Tests in 130 Dateien statt 842 in 103, 2028 statt 1876 Übungsfragen). Serien, Wochenziel, Teams, Nachweise und Abgleich stehen jetzt unter «gebaut», nicht unter «als Nächstes».",
+        "Whitepaper: 2028 Übungsfragen in beiden Sprachen (Englisch sagte 1761, Deutsch 1876). Das Register der Aussagen, die wir nicht machen, steht in den Tests, nicht auf dem Fahrplan.",
+        "Für Organisationen: Die Pflegeszenen haben 120 Sätze, nicht «rund sechzig». Mitmachen: alle 390 Sätze statt «hundertvierzig».",
+        "Einstellungen, Mein Bereich und Über uns sagen, was ein Konto heute bringt, und dass gemerkte Wörter mit dem Abgleich auf andere Geräte gehen. «Nur auf diesem Gerät» stand auch dann da, wenn das nicht stimmte.",
+        "Das Fenster für den eigenen Schlüssel sagte, Bilderlesen sei nicht inklusive. Es ist gratis.",
+      ],
+    },
+    {
+      date: "2026-10-01",
+      tag: "fix",
       title: "Die Dialektprüfung erkennt jetzt Hochdeutsch",
       summary:
         "Die Prüfung kannte nur Formen anderer Dialekte und liess reines Hochdeutsch durch: «Ich habe heute keine Zeit» bestand. Jetzt erkennt sie rund 100 hochdeutsche Wörter, die im Zürichdeutschen nie vorkommen, und die Endung «-ung».",
@@ -523,6 +537,20 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "35 new verbs, among them fahre, wohne, wele, w\u00e4rde, iistiige and ch\u00fcndige.",
         "New grammar topic \u201ccha, mues, wott\u201d on the modal verbs, with its own test.",
         "Form questions: 348 instead of 13. Every form is checked against Zurich forms.",
+      ],
+    },
+    {
+      date: "2026-10-01",
+      tag: "fix",
+      title: "Pages that say what is true today",
+      summary:
+        "Several pages described Heidi as it was a week ago. They have been recounted and corrected.",
+      items: [
+        "Investors: recounted on 1 October (155 merged pull requests, not 119; 1044 tests in 130 files, not 842 in 103; 2028 practice questions, not 1876). Streaks, the weekly goal, Teams, certificates and sync now sit under built, not next.",
+        "White paper: 2,028 practice questions in both languages (the English said 1,761, the German 1876). The register of claims we do not make lives in the tests, not on the roadmap.",
+        "For organisations: the care scenes hold 120 lines, not \u201caround sixty\u201d. Contribute: all 390 lines, not \u201ca hundred and forty\u201d.",
+        "Settings, My space and About say what an account does today, and that saved words follow you to other devices once sync is on. \u201cOn this device only\u201d showed even when that was not true.",
+        "The own-key sheet said reading pictures was not included. It is free.",
       ],
     },
     {
