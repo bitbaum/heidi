@@ -42,6 +42,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-10-01",
+      tag: "feature",
+      title: "Jedes Verb mit seinen Formen, und ein Thema für die Modalverben",
+      summary:
+        "Nur 4 von 48 Verben hatten Formen. Jetzt zeigen 87 Verben eine Tabelle: ich, du, er, eine Pluralform für mir, ihr und si, und die Vergangenheit mit Hilfsverb («isch gange», «hät gmacht»), jeweils neben der deutschen Form.",
+      items: [
+        "35 neue Verben, darunter fahre, wohne, wele, wärde, iistiige und chündige.",
+        "Neues Grammatikthema «cha, mues, wott» zu den Modalverben, mit eigenem Test.",
+        "Formfragen: 348 statt 13. Jede Form ist auf Zürcher Formen geprüft.",
+      ],
+    },
+    {
+      date: "2026-10-01",
       tag: "fix",
       title: "Die Dialektprüfung erkennt jetzt Hochdeutsch",
       summary:
@@ -501,6 +513,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-01",
+      tag: "feature",
+      title: "Every verb with its forms, and a topic for the modal verbs",
+      summary:
+        "Only 4 of 48 verbs had forms. Now 87 verbs show a table: ich, du, er, one plural form for mir, ihr and si, and the past with its auxiliary (\u201cisch gange\u201d, \u201ch\u00e4t gmacht\u201d), each beside the German form.",
+      items: [
+        "35 new verbs, among them fahre, wohne, wele, w\u00e4rde, iistiige and ch\u00fcndige.",
+        "New grammar topic \u201ccha, mues, wott\u201d on the modal verbs, with its own test.",
+        "Form questions: 348 instead of 13. Every form is checked against Zurich forms.",
+      ],
+    },
     {
       date: "2026-10-01",
       tag: "fix",

@@ -231,10 +231,13 @@ describe("what a word says beyond its meaning", () => {
   });
 
   test("a form is not the same string as the headword", () => {
-    // A paradigm row identical to the lemma teaches nothing and usually means
-    // the row was filled in to make the table look complete.
+    // A paradigm row identical to the lemma usually means the row was filled
+    // in to make the table look complete. The exception is `ich`: in this
+    // variety the first person IS the infinitive for most verbs (ich mache),
+    // and a paradigm that hid that row would hide a fact.
     for (const word of words) {
       for (const form of word.forms ?? []) {
+        if (form.label === "ich") continue;
         assert.notEqual(
           form.target.toLowerCase(),
           word.target.toLowerCase(),
@@ -242,6 +245,27 @@ describe("what a word says beyond its meaning", () => {
         );
         assert.ok(form.bridge.trim().length > 0, `${word.target}'s ${form.label} has no bridge form`);
       }
+    }
+  });
+
+  test("every form passes the variety gate", () => {
+    // A paradigm is ninety rows of dialect nobody reading it can check. The
+    // gate is what stops «hört» or «kann» from sitting in a table as Zurich.
+    for (const word of words) {
+      for (const form of word.forms ?? []) {
+        const verdict = check(form.target, PACK, "dispreferred");
+        assert.ok(verdict.ok, `${word.target} ${form.label} «${form.target}»: ${verdict.findings.map((f) => f.form).join(", ")}`);
+      }
+    }
+  });
+
+  test("a verb's paradigm has one plural row, not three", () => {
+    // `mir`, `ihr` and `si` share one form (`unified-plural`). Listing all
+    // three repeats it, and a form drill over the list would have two right
+    // answers.
+    for (const word of words) {
+      const labels = new Set((word.forms ?? []).map((f) => f.label));
+      assert.ok(!labels.has("ihr") && !labels.has("si"), `${word.target} lists a second plural row`);
     }
   });
 

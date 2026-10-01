@@ -519,50 +519,48 @@ export const ZURICH_GERMAN: VarietyPack = {
     { target: "ame", bridge: "normalerweise", group: "function" },
     { target: "sicher", bridge: "bestimmt", group: "function" },
 
+    /**
+     * EVERY VERB CARRIES ITS PARADIGM: ich, du, er, one plural, and the past.
+     *
+     * One plural row because Zurich German has one plural form (`mir/ihr/si
+     * händ`, see `unified-plural`); a separate `ihr` row would repeat it and
+     * turn the form drill into a question with two right answers. The `ich`
+     * row may equal the headword — it does for most verbs, and seeing that is
+     * part of the paradigm.
+     *
+     * The past is the er-form of the perfect, auxiliary included («isch
+     * gange», «hät gmacht»), because there is no other past (`no-preterite`)
+     * and the auxiliary is half of what has to be learned: `hocke` takes
+     * `si`, where a German reader from the north would reach for `haben`.
+     * The bare participle would also often be the headword itself (`cho`).
+     *
+     * Modals stop before the past. Their past is almost always the double
+     * infinitive («ha nöd chönne cho», `verb-order`), not a participle.
+     *
+     * Spellings follow the ones this pack and its scenes already publish
+     * (`cha`, `gaasch`, `gää`, `gno`). As everywhere here, none of it has yet
+     * been reviewed by a native Zurich speaker; every form faces the gate.
+     */
     {
       /**
-       * The second paradigm this pack can fill from its own pages, and the
-       * most valuable one in the language.
-       *
-       * Same standard as `ha` below: every form here already appears in a
-       * sentence this file or the care pack publishes — "Ich bi geschter hei
-       * gange", "Si isch am Znacht choche", "Mir sind scho lang am warte",
-       * "Er isch am Morge scho wach gsi". So the table is a reorganisation of
-       * claims already made, not four new assertions about the language.
-       *
-       * `gsi` earns its row above any second-person form. It is the participle
-       * that carries every past tense of `sein` in a variety with no
-       * preterite — `no-preterite` is the pack's first grammar topic and this
-       * is the word it runs on. A German reader waiting for `war` gets `isch
-       * … gsi` and has nothing to recognise: `gsi` looks like no German word
-       * at all, which is exactly why it has to be learned rather than derived.
+       * The most valuable paradigm in the language. `gsi` carries every past
+       * tense of `sein` in a variety with no preterite; a German reader
+       * waiting for `war` gets `isch … gsi` and has nothing to recognise.
        */
       target: "si",
       bridge: "sein",
       group: "verbs",
       forms: [
         { label: "ich", target: "bi", bridge: "bin" },
+        { label: "du", target: "bisch", bridge: "bist" },
         { label: "er", target: "isch", bridge: "ist" },
         { label: "mir", target: "sind", bridge: "sind" },
-        { label: "past", target: "gsi", bridge: "gewesen" },
+        { label: "past", target: "isch gsi", bridge: "ist gewesen" },
       ],
       source: "idiotikon",
     },
     {
       /**
-       * The only paradigm this pack can already fill from its own pages.
-       *
-       * `häsch`, `hät` and `händ` all appear in sentences this file or its
-       * dictionaries already publish — "Häsch du am Samschtig scho öppis vor?",
-       * "Si hät nüüt gseit", "Mir händ das scho gmacht". So the table is a
-       * reorganisation, not an assertion.
-       *
-       * The first person is deliberately absent. `ha` is the headword here and
-       * a row identical to its own headword teaches nothing — which is exactly
-       * what the vocabulary test refuses. Filling it would need a source, and
-       * the sources that could settle it are the ones listed above as
-       * unusable.
-       *
        * It matters more than any other verb because it carries every compound
        * past in the language: `no-preterite` is the pack's biggest grammar
        * topic and this is the auxiliary it runs on.
@@ -571,54 +569,95 @@ export const ZURICH_GERMAN: VarietyPack = {
       bridge: "haben",
       group: "verbs",
       forms: [
+        { label: "ich", target: "ha", bridge: "habe" },
         { label: "du", target: "häsch", bridge: "hast" },
         { label: "er", target: "hät", bridge: "hat" },
         { label: "mir", target: "händ", bridge: "haben" },
+        { label: "past", target: "hät gha", bridge: "hat gehabt" },
       ],
       source: "idiotikon",
     },
     {
       /**
-       * Attested the same way: "Ich gang go poschte" here, "Wie gaht s ere
-       * hüt?" and "mir gönd zäme zrugg is Zimmer" in the care pack.
-       *
-       * Worth a paradigm because the stem changes in a way a German reader
-       * cannot predict from `gehen`: `gang` and `gönd` share no vowel with it,
-       * so neither is recoverable by the correspondences.
+       * The stem changes in a way a German reader cannot predict from
+       * `gehen`: `gang` and `gönd` share no vowel with it, so neither is
+       * recoverable by the correspondences.
        */
       target: "gah",
       bridge: "gehen",
       group: "verbs",
       forms: [
         { label: "ich", target: "gang", bridge: "gehe" },
+        { label: "du", target: "gaasch", bridge: "gehst" },
         { label: "er", target: "gaht", bridge: "geht" },
         { label: "mir", target: "gönd", bridge: "gehen" },
+        { label: "past", target: "isch gange", bridge: "ist gegangen" },
       ],
       source: "idiotikon",
     },
     {
-      /**
-       * "Chunnsch au no verbi hüt Abig?" is the pack's own showcase line, "De
-       * Dokter chunt am zäh" is in the care pack, and "Chömed er hüt no?" is
-       * the `unified-plural` example two hundred lines below.
-       */
       target: "cho",
       bridge: "kommen",
       group: "verbs",
       forms: [
+        { label: "ich", target: "chume", bridge: "komme" },
         { label: "du", target: "chunnsch", bridge: "kommst" },
         { label: "er", target: "chunt", bridge: "kommt" },
         { label: "mir", target: "chömed", bridge: "kommen" },
+        { label: "past", target: "isch cho", bridge: "ist gekommen" },
       ],
       source: "idiotikon",
     },
-    { target: "mache", bridge: "machen", group: "verbs" },
-    { target: "luege", bridge: "schauen", group: "verbs" },
-    { target: "säge", bridge: "sagen", group: "verbs" },
+    {
+      target: "mache",
+      bridge: "machen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "mache", bridge: "mache" },
+        { label: "du", target: "machsch", bridge: "machst" },
+        { label: "er", target: "macht", bridge: "macht" },
+        { label: "mir", target: "mached", bridge: "machen" },
+        { label: "past", target: "hät gmacht", bridge: "hat gemacht" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "luege",
+      bridge: "schauen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "luege", bridge: "schaue" },
+        { label: "du", target: "luegsch", bridge: "schaust" },
+        { label: "er", target: "luegt", bridge: "schaut" },
+        { label: "mir", target: "lueged", bridge: "schauen" },
+        { label: "past", target: "hät gluegt", bridge: "hat geschaut" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "säge",
+      bridge: "sagen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "säge", bridge: "sage" },
+        { label: "du", target: "seisch", bridge: "sagst" },
+        { label: "er", target: "seit", bridge: "sagt" },
+        { label: "mir", target: "säged", bridge: "sagen" },
+        { label: "past", target: "hät gseit", bridge: "hat gesagt" },
+      ],
+      source: "idiotikon",
+    },
     {
       target: "wüsse",
       bridge: "wissen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "weiss", bridge: "weiss" },
+        { label: "du", target: "weisch", bridge: "weisst" },
+        { label: "er", target: "weiss", bridge: "weiss" },
+        { label: "mir", target: "wüssed", bridge: "wissen" },
+        { label: "past", target: "hät gwüsst", bridge: "hat gewusst" },
+      ],
       example: { target: "Das wott ich wüsse.", bridge: "Das will ich wissen." },
       source: "idiotikon",
     },
@@ -626,6 +665,12 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "chönne",
       bridge: "können",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "cha", bridge: "kann" },
+        { label: "du", target: "chasch", bridge: "kannst" },
+        { label: "er", target: "cha", bridge: "kann" },
+        { label: "mir", target: "chönd", bridge: "können" },
+      ],
       example: { target: "Mir händ nöd chönne cho.", bridge: "Wir haben nicht kommen können." },
       source: "idiotikon",
     },
@@ -633,6 +678,12 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "müesse",
       bridge: "müssen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "mues", bridge: "muss" },
+        { label: "du", target: "muesch", bridge: "musst" },
+        { label: "er", target: "mues", bridge: "muss" },
+        { label: "mir", target: "müend", bridge: "müssen" },
+      ],
       example: { target: "Ich ha hüt lang müesse schaffe.", bridge: "Ich habe heute lange arbeiten müssen." },
       source: "idiotikon",
     },
@@ -642,10 +693,29 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "schaffe",
       bridge: "arbeiten",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "schaffe", bridge: "arbeite" },
+        { label: "du", target: "schaffsch", bridge: "arbeitest" },
+        { label: "er", target: "schafft", bridge: "arbeitet" },
+        { label: "mir", target: "schaffed", bridge: "arbeiten" },
+        { label: "past", target: "hät gschaffet", bridge: "hat gearbeitet" },
+      ],
       example: { target: "Ich gang go schaffe.", bridge: "Ich gehe arbeiten." },
       source: "idiotikon",
     },
-    { target: "poschte", bridge: "einkaufen", group: "verbs" },
+    {
+      target: "poschte",
+      bridge: "einkaufen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "poschte", bridge: "kaufe ein" },
+        { label: "du", target: "poschtisch", bridge: "kaufst ein" },
+        { label: "er", target: "poschtet", bridge: "kauft ein" },
+        { label: "mir", target: "poschted", bridge: "kaufen ein" },
+        { label: "past", target: "hät poschtet", bridge: "hat eingekauft" },
+      ],
+      source: "idiotikon",
+    },
     /**
      * More verbs, by the same test as the two above: each one is a word a
      * German reader either cannot recover at all, or — worse — recovers
@@ -704,6 +774,13 @@ export const ZURICH_GERMAN: VarietyPack = {
       bridge: "riechen",
       group: "helvetisms",
       mistakenFor: "schmecken, mit der Zunge",
+      forms: [
+        { label: "ich", target: "schmöcke", bridge: "rieche" },
+        { label: "du", target: "schmöcksch", bridge: "riechst" },
+        { label: "er", target: "schmöckt", bridge: "riecht" },
+        { label: "mir", target: "schmöcked", bridge: "riechen" },
+        { label: "past", target: "hät gschmöckt", bridge: "hat gerochen" },
+      ],
       example: { target: "Chasch das schmöcke?", bridge: "Kannst du das riechen?" },
       source: "idiotikon",
     },
@@ -712,6 +789,13 @@ export const ZURICH_GERMAN: VarietyPack = {
       bridge: "umziehen",
       group: "helvetisms",
       mistakenFor: "zügeln, im Zaum halten",
+      forms: [
+        { label: "ich", target: "zügle", bridge: "ziehe um" },
+        { label: "du", target: "züglisch", bridge: "ziehst um" },
+        { label: "er", target: "züglet", bridge: "zieht um" },
+        { label: "mir", target: "zügled", bridge: "ziehen um" },
+        { label: "past", target: "isch züglet", bridge: "ist umgezogen" },
+      ],
       example: { target: "Mir zügled im Mai.", bridge: "Wir ziehen im Mai um." },
       source: "idiotikon",
     },
@@ -720,6 +804,13 @@ export const ZURICH_GERMAN: VarietyPack = {
       bridge: "zuhören",
       group: "helvetisms",
       mistakenFor: "losen, das Los ziehen",
+      forms: [
+        { label: "ich", target: "lose", bridge: "höre zu" },
+        { label: "du", target: "losisch", bridge: "hörst zu" },
+        { label: "er", target: "loset", bridge: "hört zu" },
+        { label: "mir", target: "losed", bridge: "hören zu" },
+        { label: "past", target: "hät glost", bridge: "hat zugehört" },
+      ],
       example: { target: "Du muesch guet lose.", bridge: "Du musst gut zuhören." },
       source: "idiotikon",
     },
@@ -872,11 +963,30 @@ export const ZURICH_GERMAN: VarietyPack = {
       source: "idiotikon",
     },
     { target: "wänn", bridge: "wenn", group: "function" },
-    { target: "gseh", bridge: "sehen", group: "verbs" },
+    {
+      target: "gseh",
+      bridge: "sehen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "gseh", bridge: "sehe" },
+        { label: "du", target: "gsehsch", bridge: "siehst" },
+        { label: "er", target: "gseht", bridge: "sieht" },
+        { label: "mir", target: "gsehnd", bridge: "sehen" },
+        { label: "past", target: "hät gseh", bridge: "hat gesehen" },
+      ],
+      source: "idiotikon",
+    },
     {
       target: "ghöre",
       bridge: "hören",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "ghöre", bridge: "höre" },
+        { label: "du", target: "ghörsch", bridge: "hörst" },
+        { label: "er", target: "ghört", bridge: "hört" },
+        { label: "mir", target: "ghöred", bridge: "hören" },
+        { label: "past", target: "hät ghört", bridge: "hat gehört" },
+      ],
       example: { target: "Ich cha dich nöd ghöre.", bridge: "Ich kann dich nicht hören." },
       source: "idiotikon",
     },
@@ -884,14 +994,40 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "gä",
       bridge: "geben",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "gibe", bridge: "gebe" },
+        { label: "du", target: "gisch", bridge: "gibst" },
+        { label: "er", target: "git", bridge: "gibt" },
+        { label: "mir", target: "gänd", bridge: "geben" },
+        { label: "past", target: "hät gää", bridge: "hat gegeben" },
+      ],
       example: { target: "Chasch mer s Salz gä?", bridge: "Kannst du mir das Salz geben?" },
       source: "idiotikon",
     },
-    { target: "neh", bridge: "nehmen", group: "verbs" },
+    {
+      target: "neh",
+      bridge: "nehmen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "nime", bridge: "nehme" },
+        { label: "du", target: "nimmsch", bridge: "nimmst" },
+        { label: "er", target: "nimmt", bridge: "nimmt" },
+        { label: "mir", target: "nämed", bridge: "nehmen" },
+        { label: "past", target: "hät gno", bridge: "hat genommen" },
+      ],
+      source: "idiotikon",
+    },
     {
       target: "tänke",
       bridge: "denken",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "tänke", bridge: "denke" },
+        { label: "du", target: "tänksch", bridge: "denkst" },
+        { label: "er", target: "tänkt", bridge: "denkt" },
+        { label: "mir", target: "tänked", bridge: "denken" },
+        { label: "past", target: "hät tänkt", bridge: "hat gedacht" },
+      ],
       example: { target: "Ich mues zerscht tänke.", bridge: "Ich muss zuerst nachdenken." },
       source: "idiotikon",
     },
@@ -899,6 +1035,12 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "sölle",
       bridge: "sollen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "söll", bridge: "soll" },
+        { label: "du", target: "söllsch", bridge: "sollst" },
+        { label: "er", target: "söll", bridge: "soll" },
+        { label: "mir", target: "sölled", bridge: "sollen" },
+      ],
       example: { target: "Was hett ich sölle mache?", bridge: "Was hätte ich tun sollen?" },
       source: "idiotikon",
     },
@@ -906,6 +1048,12 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "dörfe",
       bridge: "dürfen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "darf", bridge: "darf" },
+        { label: "du", target: "darfsch", bridge: "darfst" },
+        { label: "er", target: "darf", bridge: "darf" },
+        { label: "mir", target: "dörfed", bridge: "dürfen" },
+      ],
       example: { target: "Mir händ nöd dörfe ine.", bridge: "Wir durften nicht hinein." },
       source: "idiotikon",
     },
@@ -913,22 +1061,67 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "chaufe",
       bridge: "kaufen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "chaufe", bridge: "kaufe" },
+        { label: "du", target: "chaufsch", bridge: "kaufst" },
+        { label: "er", target: "chauft", bridge: "kauft" },
+        { label: "mir", target: "chaufed", bridge: "kaufen" },
+        { label: "past", target: "hät kauft", bridge: "hat gekauft" },
+      ],
       example: { target: "Ich wott es nöis Velo chaufe.", bridge: "Ich will ein neues Velo kaufen." },
       source: "idiotikon",
     },
-    { target: "zale", bridge: "zahlen", group: "verbs" },
+    {
+      target: "zale",
+      bridge: "zahlen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "zale", bridge: "zahle" },
+        { label: "du", target: "zalsch", bridge: "zahlst" },
+        { label: "er", target: "zalt", bridge: "zahlt" },
+        { label: "mir", target: "zaled", bridge: "zahlen" },
+        { label: "past", target: "hät zalt", bridge: "hat gezahlt" },
+      ],
+      source: "idiotikon",
+    },
     {
       target: "trinke",
       bridge: "trinken",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "trinke", bridge: "trinke" },
+        { label: "du", target: "trinksch", bridge: "trinkst" },
+        { label: "er", target: "trinkt", bridge: "trinkt" },
+        { label: "mir", target: "trinked", bridge: "trinken" },
+        { label: "past", target: "hät trunke", bridge: "hat getrunken" },
+      ],
       example: { target: "Wänd Sie öppis trinke?", bridge: "Möchten Sie etwas trinken?" },
       source: "idiotikon",
     },
-    { target: "schlafe", bridge: "schlafen", group: "verbs" },
+    {
+      target: "schlafe",
+      bridge: "schlafen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "schlafe", bridge: "schlafe" },
+        { label: "du", target: "schlafsch", bridge: "schläfst" },
+        { label: "er", target: "schlaft", bridge: "schläft" },
+        { label: "mir", target: "schlafed", bridge: "schlafen" },
+        { label: "past", target: "hät gschlafe", bridge: "hat geschlafen" },
+      ],
+      source: "idiotikon",
+    },
     {
       target: "hocke",
       bridge: "sitzen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "hocke", bridge: "sitze" },
+        { label: "du", target: "hocksch", bridge: "sitzt" },
+        { label: "er", target: "hockt", bridge: "sitzt" },
+        { label: "mir", target: "hocked", bridge: "sitzen" },
+        { label: "past", target: "isch ghocket", bridge: "ist gesessen" },
+      ],
       example: { target: "Wo wänd Sie hocke?", bridge: "Wo möchten Sie sitzen?" },
       source: "idiotikon",
     },
@@ -936,30 +1129,135 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "verzelle",
       bridge: "erzählen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "verzelle", bridge: "erzähle" },
+        { label: "du", target: "verzellsch", bridge: "erzählst" },
+        { label: "er", target: "verzellt", bridge: "erzählt" },
+        { label: "mir", target: "verzelled", bridge: "erzählen" },
+        { label: "past", target: "hät verzellt", bridge: "hat erzählt" },
+      ],
       example: { target: "Du muesch mer alles verzelle.", bridge: "Du musst mir alles erzählen." },
       source: "idiotikon",
     },
-    { target: "choche", bridge: "kochen", group: "verbs" },
+    {
+      target: "choche",
+      bridge: "kochen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "choche", bridge: "koche" },
+        { label: "du", target: "chochsch", bridge: "kochst" },
+        { label: "er", target: "chochet", bridge: "kocht" },
+        { label: "mir", target: "choched", bridge: "kochen" },
+        { label: "past", target: "hät kochet", bridge: "hat gekocht" },
+      ],
+      source: "idiotikon",
+    },
     {
       target: "gumpe",
       bridge: "hüpfen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "gumpe", bridge: "hüpfe" },
+        { label: "du", target: "gumpsch", bridge: "hüpfst" },
+        { label: "er", target: "gumpt", bridge: "hüpft" },
+        { label: "mir", target: "gumped", bridge: "hüpfen" },
+        { label: "past", target: "isch gumpet", bridge: "ist gehüpft" },
+      ],
       example: { target: "D Chind gumped im Bett.", bridge: "Die Kinder hüpfen im Bett." },
       source: "idiotikon",
     },
-    { target: "aalüte", bridge: "anrufen", group: "verbs" },
+    {
+      target: "aalüte",
+      bridge: "anrufen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "lüte aa", bridge: "rufe an" },
+        { label: "du", target: "lütisch aa", bridge: "rufst an" },
+        { label: "er", target: "lütet aa", bridge: "ruft an" },
+        { label: "mir", target: "lüted aa", bridge: "rufen an" },
+        { label: "past", target: "hät aaglüte", bridge: "hat angerufen" },
+      ],
+      source: "idiotikon",
+    },
     {
       target: "reklamiere",
       bridge: "sich beschweren",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "reklamiere", bridge: "beschwere mich" },
+        { label: "du", target: "reklamiersch", bridge: "beschwerst dich" },
+        { label: "er", target: "reklamiert", bridge: "beschwert sich" },
+        { label: "mir", target: "reklamiered", bridge: "beschweren uns" },
+        { label: "past", target: "hät reklamiert", bridge: "hat sich beschwert" },
+      ],
       example: { target: "Ich wott reklamiere.", bridge: "Ich möchte mich beschweren." },
       source: "idiotikon",
     },
-    { target: "abmache", bridge: "vereinbaren", group: "verbs" },
-    { target: "bruuche", bridge: "brauchen", group: "verbs" },
-    { target: "hälfe", bridge: "helfen", group: "verbs" },
-    { target: "warte", bridge: "warten", group: "verbs" },
-    { target: "verstah", bridge: "verstehen", group: "verbs" },
+    {
+      target: "abmache",
+      bridge: "vereinbaren",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "mache ab", bridge: "vereinbare" },
+        { label: "du", target: "machsch ab", bridge: "vereinbarst" },
+        { label: "er", target: "macht ab", bridge: "vereinbart" },
+        { label: "mir", target: "mached ab", bridge: "vereinbaren" },
+        { label: "past", target: "hät abgmacht", bridge: "hat vereinbart" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "bruuche",
+      bridge: "brauchen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "bruuche", bridge: "brauche" },
+        { label: "du", target: "bruuchsch", bridge: "brauchst" },
+        { label: "er", target: "bruucht", bridge: "braucht" },
+        { label: "mir", target: "bruuched", bridge: "brauchen" },
+        { label: "past", target: "hät bruucht", bridge: "hat gebraucht" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "hälfe",
+      bridge: "helfen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "hilfe", bridge: "helfe" },
+        { label: "du", target: "hilfsch", bridge: "hilfst" },
+        { label: "er", target: "hilft", bridge: "hilft" },
+        { label: "mir", target: "hälfed", bridge: "helfen" },
+        { label: "past", target: "hät ghulfe", bridge: "hat geholfen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "warte",
+      bridge: "warten",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "warte", bridge: "warte" },
+        { label: "du", target: "wartisch", bridge: "wartest" },
+        { label: "er", target: "wartet", bridge: "wartet" },
+        { label: "mir", target: "warted", bridge: "warten" },
+        { label: "past", target: "hät gwartet", bridge: "hat gewartet" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "verstah",
+      bridge: "verstehen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "verstah", bridge: "verstehe" },
+        { label: "du", target: "verstaasch", bridge: "verstehst" },
+        { label: "er", target: "verstaht", bridge: "versteht" },
+        { label: "mir", target: "verstönd", bridge: "verstehen" },
+        { label: "past", target: "hät verstande", bridge: "hat verstanden" },
+      ],
+      source: "idiotikon",
+    },
 
     /**
      * Three nouns, one per gender, and every string here already appears in
@@ -1503,13 +1801,56 @@ export const ZURICH_GERMAN: VarietyPack = {
       example: { target: "Ich hilf eu.", bridge: "Ich helfe euch." },
       source: "idiotikon",
     },
-    { target: "wäsche", bridge: "waschen", group: "verbs" },
-    { target: "lah", bridge: "lassen", group: "verbs" },
-    { target: "tue", bridge: "tun", group: "verbs" },
+    {
+      target: "wäsche",
+      bridge: "waschen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "wäsche", bridge: "wasche" },
+        { label: "du", target: "wäschsch", bridge: "wäschst" },
+        { label: "er", target: "wäscht", bridge: "wäscht" },
+        { label: "mir", target: "wäsched", bridge: "waschen" },
+        { label: "past", target: "hät gwäsche", bridge: "hat gewaschen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "lah",
+      bridge: "lassen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "lah", bridge: "lasse" },
+        { label: "du", target: "laasch", bridge: "lässt" },
+        { label: "er", target: "laht", bridge: "lässt" },
+        { label: "mir", target: "lönd", bridge: "lassen" },
+        { label: "past", target: "hät glaa", bridge: "hat gelassen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "tue",
+      bridge: "tun",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "tue", bridge: "tue" },
+        { label: "du", target: "tuesch", bridge: "tust" },
+        { label: "er", target: "tuet", bridge: "tut" },
+        { label: "mir", target: "tüend", bridge: "tun" },
+        { label: "past", target: "hät taa", bridge: "hat getan" },
+      ],
+      source: "idiotikon",
+    },
     {
       target: "blibe",
       bridge: "bleiben",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "blibe", bridge: "bleibe" },
+        { label: "du", target: "blibsch", bridge: "bleibst" },
+        { label: "er", target: "blibt", bridge: "bleibt" },
+        { label: "mir", target: "blibed", bridge: "bleiben" },
+        { label: "past", target: "isch blibe", bridge: "ist geblieben" },
+      ],
       example: { target: "Wie lang wänd Sie blibe?", bridge: "Wie lange möchten Sie bleiben?" },
       source: "idiotikon",
     },
@@ -1519,6 +1860,13 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "lauffe",
       bridge: "zu Fuss gehen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "lauffe", bridge: "gehe zu Fuss" },
+        { label: "du", target: "lauffsch", bridge: "gehst zu Fuss" },
+        { label: "er", target: "laufft", bridge: "geht zu Fuss" },
+        { label: "mir", target: "lauffed", bridge: "gehen zu Fuss" },
+        { label: "past", target: "isch gloffe", bridge: "ist zu Fuss gegangen" },
+      ],
       example: { target: "Mir lauffed hei.", bridge: "Wir gehen zu Fuss nach Hause." },
       source: "idiotikon",
     },
@@ -1526,6 +1874,13 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "schriibe",
       bridge: "schreiben",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "schriibe", bridge: "schreibe" },
+        { label: "du", target: "schriibsch", bridge: "schreibst" },
+        { label: "er", target: "schriibt", bridge: "schreibt" },
+        { label: "mir", target: "schriibed", bridge: "schreiben" },
+        { label: "past", target: "hät gschribe", bridge: "hat geschrieben" },
+      ],
       example: { target: "Chasch mer schriibe?", bridge: "Kannst du mir schreiben?" },
       source: "idiotikon",
     },
@@ -1533,6 +1888,13 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "läse",
       bridge: "lesen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "läse", bridge: "lese" },
+        { label: "du", target: "lisisch", bridge: "liest" },
+        { label: "er", target: "list", bridge: "liest" },
+        { label: "mir", target: "läsed", bridge: "lesen" },
+        { label: "past", target: "hät gläse", bridge: "hat gelesen" },
+      ],
       example: { target: "Ich mues das no läse.", bridge: "Ich muss das noch lesen." },
       source: "idiotikon",
     },
@@ -1540,15 +1902,53 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "spile",
       bridge: "spielen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "spile", bridge: "spiele" },
+        { label: "du", target: "spilsch", bridge: "spielst" },
+        { label: "er", target: "spilt", bridge: "spielt" },
+        { label: "mir", target: "spiled", bridge: "spielen" },
+        { label: "past", target: "hät gspilt", bridge: "hat gespielt" },
+      ],
       example: { target: "Wotsch mit eus spile?", bridge: "Willst du mit uns spielen?" },
       source: "idiotikon",
     },
-    { target: "aalege", bridge: "anziehen (Kleider)", group: "verbs" },
-    { target: "ufstah", bridge: "aufstehen", group: "verbs" },
+    {
+      target: "aalege",
+      bridge: "anziehen (Kleider)",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "lege aa", bridge: "ziehe an" },
+        { label: "du", target: "leisch aa", bridge: "ziehst an" },
+        { label: "er", target: "leit aa", bridge: "zieht an" },
+        { label: "mir", target: "leged aa", bridge: "ziehen an" },
+        { label: "past", target: "hät aagleit", bridge: "hat angezogen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "ufstah",
+      bridge: "aufstehen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "stah uf", bridge: "stehe auf" },
+        { label: "du", target: "staasch uf", bridge: "stehst auf" },
+        { label: "er", target: "staht uf", bridge: "steht auf" },
+        { label: "mir", target: "stönd uf", bridge: "stehen auf" },
+        { label: "past", target: "isch ufgstande", bridge: "ist aufgestanden" },
+      ],
+      source: "idiotikon",
+    },
     {
       target: "vergässe",
       bridge: "vergessen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "vergisse", bridge: "vergesse" },
+        { label: "du", target: "vergissisch", bridge: "vergisst" },
+        { label: "er", target: "vergisst", bridge: "vergisst" },
+        { label: "mir", target: "vergässed", bridge: "vergessen" },
+        { label: "past", target: "hät vergässe", bridge: "hat vergessen" },
+      ],
       example: { target: "Ich ha s vergässe.", bridge: "Ich habe es vergessen." },
       source: "idiotikon",
     },
@@ -1556,6 +1956,13 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "iichaufe",
       bridge: "einkaufen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "chaufe ii", bridge: "kaufe ein" },
+        { label: "du", target: "chaufsch ii", bridge: "kaufst ein" },
+        { label: "er", target: "chauft ii", bridge: "kauft ein" },
+        { label: "mir", target: "chaufed ii", bridge: "kaufen ein" },
+        { label: "past", target: "hät iikauft", bridge: "hat eingekauft" },
+      ],
       example: { target: "Ich gang no go iichaufe.", bridge: "Ich gehe noch einkaufen." },
       source: "idiotikon",
     },
@@ -1563,6 +1970,13 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "tschuute",
       bridge: "Fussball spielen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "tschuute", bridge: "spiele Fussball" },
+        { label: "du", target: "tschuutisch", bridge: "spielst Fussball" },
+        { label: "er", target: "tschuutet", bridge: "spielt Fussball" },
+        { label: "mir", target: "tschuuted", bridge: "spielen Fussball" },
+        { label: "past", target: "hät tschuutet", bridge: "hat Fussball gespielt" },
+      ],
       example: { target: "D Buebe gönd go tschuute.", bridge: "Die Jungen gehen Fussball spielen." },
       source: "idiotikon",
     },
@@ -1570,7 +1984,468 @@ export const ZURICH_GERMAN: VarietyPack = {
       target: "verwütsche",
       bridge: "erwischen",
       group: "verbs",
+      forms: [
+        { label: "ich", target: "verwütsche", bridge: "erwische" },
+        { label: "du", target: "verwütschisch", bridge: "erwischst" },
+        { label: "er", target: "verwütscht", bridge: "erwischt" },
+        { label: "mir", target: "verwütsched", bridge: "erwischen" },
+        { label: "past", target: "hät verwütscht", bridge: "hat erwischt" },
+      ],
       example: { target: "Mir müend de Zug no verwütsche.", bridge: "Wir müssen den Zug noch erwischen." },
+      source: "idiotikon",
+    },
+    {
+      target: "wele",
+      bridge: "wollen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "wott", bridge: "will" },
+        { label: "du", target: "wotsch", bridge: "willst" },
+        { label: "er", target: "wott", bridge: "will" },
+        { label: "mir", target: "wänd", bridge: "wollen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "fahre",
+      bridge: "fahren",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "fahre", bridge: "fahre" },
+        { label: "du", target: "fahrsch", bridge: "fährst" },
+        { label: "er", target: "fahrt", bridge: "fährt" },
+        { label: "mir", target: "fahred", bridge: "fahren" },
+        { label: "past", target: "isch gfahre", bridge: "ist gefahren" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "wohne",
+      bridge: "wohnen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "wohne", bridge: "wohne" },
+        { label: "du", target: "wohnsch", bridge: "wohnst" },
+        { label: "er", target: "wohnt", bridge: "wohnt" },
+        { label: "mir", target: "wohned", bridge: "wohnen" },
+        { label: "past", target: "hät gwohnt", bridge: "hat gewohnt" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "lerne",
+      bridge: "lernen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "lerne", bridge: "lerne" },
+        { label: "du", target: "lernsch", bridge: "lernst" },
+        { label: "er", target: "lernt", bridge: "lernt" },
+        { label: "mir", target: "lerned", bridge: "lernen" },
+        { label: "past", target: "hät glernt", bridge: "hat gelernt" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "rede",
+      bridge: "reden",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "rede", bridge: "rede" },
+        { label: "du", target: "redsch", bridge: "redest" },
+        { label: "er", target: "redt", bridge: "redet" },
+        { label: "mir", target: "reded", bridge: "reden" },
+        { label: "past", target: "hät gredt", bridge: "hat geredet" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "frage",
+      bridge: "fragen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "frage", bridge: "frage" },
+        { label: "du", target: "fragsch", bridge: "fragst" },
+        { label: "er", target: "fragt", bridge: "fragt" },
+        { label: "mir", target: "fraged", bridge: "fragen" },
+        { label: "past", target: "hät gfragt", bridge: "hat gefragt" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "finde",
+      bridge: "finden",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "finde", bridge: "finde" },
+        { label: "du", target: "findsch", bridge: "findest" },
+        { label: "er", target: "findet", bridge: "findet" },
+        { label: "mir", target: "finded", bridge: "finden" },
+        { label: "past", target: "hät gfunde", bridge: "hat gefunden" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "bringe",
+      bridge: "bringen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "bringe", bridge: "bringe" },
+        { label: "du", target: "bringsch", bridge: "bringst" },
+        { label: "er", target: "bringt", bridge: "bringt" },
+        { label: "mir", target: "bringed", bridge: "bringen" },
+        { label: "past", target: "hät bracht", bridge: "hat gebracht" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "stah",
+      bridge: "stehen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "stah", bridge: "stehe" },
+        { label: "du", target: "staasch", bridge: "stehst" },
+        { label: "er", target: "staht", bridge: "steht" },
+        { label: "mir", target: "stönd", bridge: "stehen" },
+        { label: "past", target: "isch gstande", bridge: "ist gestanden" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "heisse",
+      bridge: "heissen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "heisse", bridge: "heisse" },
+        { label: "du", target: "heissisch", bridge: "heisst" },
+        { label: "er", target: "heisst", bridge: "heisst" },
+        { label: "mir", target: "heissed", bridge: "heissen" },
+        { label: "past", target: "hät gheisse", bridge: "hat geheissen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "wärde",
+      bridge: "werden",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "wirde", bridge: "werde" },
+        { label: "du", target: "wirsch", bridge: "wirst" },
+        { label: "er", target: "wird", bridge: "wird" },
+        { label: "mir", target: "wärded", bridge: "werden" },
+        { label: "past", target: "isch worde", bridge: "ist geworden" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "schicke",
+      bridge: "schicken",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "schicke", bridge: "schicke" },
+        { label: "du", target: "schicksch", bridge: "schickst" },
+        { label: "er", target: "schickt", bridge: "schickt" },
+        { label: "mir", target: "schicked", bridge: "schicken" },
+        { label: "past", target: "hät gschickt", bridge: "hat geschickt" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "ufmache",
+      bridge: "aufmachen, öffnen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "mache uf", bridge: "mache auf" },
+        { label: "du", target: "machsch uf", bridge: "machst auf" },
+        { label: "er", target: "macht uf", bridge: "macht auf" },
+        { label: "mir", target: "mached uf", bridge: "machen auf" },
+        { label: "past", target: "hät ufgmacht", bridge: "hat aufgemacht" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "zuemache",
+      bridge: "zumachen, schliessen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "mache zue", bridge: "mache zu" },
+        { label: "du", target: "machsch zue", bridge: "machst zu" },
+        { label: "er", target: "macht zue", bridge: "macht zu" },
+        { label: "mir", target: "mached zue", bridge: "machen zu" },
+        { label: "past", target: "hät zuegmacht", bridge: "hat zugemacht" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "aafange",
+      bridge: "anfangen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "fange aa", bridge: "fange an" },
+        { label: "du", target: "fangsch aa", bridge: "fängst an" },
+        { label: "er", target: "fangt aa", bridge: "fängt an" },
+        { label: "mir", target: "fanged aa", bridge: "fangen an" },
+        { label: "past", target: "hät aagfange", bridge: "hat angefangen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "ufhöre",
+      bridge: "aufhören",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "höre uf", bridge: "höre auf" },
+        { label: "du", target: "hörsch uf", bridge: "hörst auf" },
+        { label: "er", target: "hört uf", bridge: "hört auf" },
+        { label: "mir", target: "höred uf", bridge: "hören auf" },
+        { label: "past", target: "hät ufghört", bridge: "hat aufgehört" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "chündige",
+      bridge: "kündigen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "chündige", bridge: "kündige" },
+        { label: "du", target: "chündigsch", bridge: "kündigst" },
+        { label: "er", target: "chündiget", bridge: "kündigt" },
+        { label: "mir", target: "chündiged", bridge: "kündigen" },
+        { label: "past", target: "hät gchündiget", bridge: "hat gekündigt" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "telefoniere",
+      bridge: "telefonieren",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "telefoniere", bridge: "telefoniere" },
+        { label: "du", target: "telefoniersch", bridge: "telefonierst" },
+        { label: "er", target: "telefoniert", bridge: "telefoniert" },
+        { label: "mir", target: "telefoniered", bridge: "telefonieren" },
+        { label: "past", target: "hät telefoniert", bridge: "hat telefoniert" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "probiere",
+      bridge: "versuchen, probieren",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "probiere", bridge: "versuche" },
+        { label: "du", target: "probiersch", bridge: "versuchst" },
+        { label: "er", target: "probiert", bridge: "versucht" },
+        { label: "mir", target: "probiered", bridge: "versuchen" },
+        { label: "past", target: "hät probiert", bridge: "hat versucht" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "gfalle",
+      bridge: "gefallen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "gfalle", bridge: "gefalle" },
+        { label: "du", target: "gfallsch", bridge: "gefällst" },
+        { label: "er", target: "gfallt", bridge: "gefällt" },
+        { label: "mir", target: "gfalled", bridge: "gefallen" },
+        { label: "past", target: "hät gfalle", bridge: "hat gefallen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "sueche",
+      bridge: "suchen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "sueche", bridge: "suche" },
+        { label: "du", target: "suechsch", bridge: "suchst" },
+        { label: "er", target: "suecht", bridge: "sucht" },
+        { label: "mir", target: "sueched", bridge: "suchen" },
+        { label: "past", target: "hät gsuecht", bridge: "hat gesucht" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "dusche",
+      bridge: "duschen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "dusche", bridge: "dusche" },
+        { label: "du", target: "duschisch", bridge: "duschst" },
+        { label: "er", target: "duschet", bridge: "duscht" },
+        { label: "mir", target: "dusched", bridge: "duschen" },
+        { label: "past", target: "hät duschet", bridge: "hat geduscht" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "ufrume",
+      bridge: "aufräumen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "rume uf", bridge: "räume auf" },
+        { label: "du", target: "rumsch uf", bridge: "räumst auf" },
+        { label: "er", target: "rumt uf", bridge: "räumt auf" },
+        { label: "mir", target: "rumed uf", bridge: "räumen auf" },
+        { label: "past", target: "hät ufgrumt", bridge: "hat aufgeräumt" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "verchaufe",
+      bridge: "verkaufen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "verchaufe", bridge: "verkaufe" },
+        { label: "du", target: "verchaufsch", bridge: "verkaufst" },
+        { label: "er", target: "verchauft", bridge: "verkauft" },
+        { label: "mir", target: "verchaufed", bridge: "verkaufen" },
+        { label: "past", target: "hät verchauft", bridge: "hat verkauft" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "bstelle",
+      bridge: "bestellen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "bstelle", bridge: "bestelle" },
+        { label: "du", target: "bstellsch", bridge: "bestellst" },
+        { label: "er", target: "bstellt", bridge: "bestellt" },
+        { label: "mir", target: "bstelled", bridge: "bestellen" },
+        { label: "past", target: "hät bstellt", bridge: "hat bestellt" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "iistiige",
+      bridge: "einsteigen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "stiige ii", bridge: "steige ein" },
+        { label: "du", target: "stiigsch ii", bridge: "steigst ein" },
+        { label: "er", target: "stiigt ii", bridge: "steigt ein" },
+        { label: "mir", target: "stiiged ii", bridge: "steigen ein" },
+        { label: "past", target: "isch iigstige", bridge: "ist eingestiegen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "usstiige",
+      bridge: "aussteigen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "stiige us", bridge: "steige aus" },
+        { label: "du", target: "stiigsch us", bridge: "steigst aus" },
+        { label: "er", target: "stiigt us", bridge: "steigt aus" },
+        { label: "mir", target: "stiiged us", bridge: "steigen aus" },
+        { label: "past", target: "isch usgstige", bridge: "ist ausgestiegen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "umstiige",
+      bridge: "umsteigen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "stiige um", bridge: "steige um" },
+        { label: "du", target: "stiigsch um", bridge: "steigst um" },
+        { label: "er", target: "stiigt um", bridge: "steigt um" },
+        { label: "mir", target: "stiiged um", bridge: "steigen um" },
+        { label: "past", target: "isch umgstige", bridge: "ist umgestiegen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "verpasse",
+      bridge: "verpassen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "verpasse", bridge: "verpasse" },
+        { label: "du", target: "verpassisch", bridge: "verpasst" },
+        { label: "er", target: "verpasst", bridge: "verpasst" },
+        { label: "mir", target: "verpassed", bridge: "verpassen" },
+        { label: "past", target: "hät verpasst", bridge: "hat verpasst" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "flicke",
+      bridge: "reparieren, flicken",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "flicke", bridge: "repariere" },
+        { label: "du", target: "flicksch", bridge: "reparierst" },
+        { label: "er", target: "flickt", bridge: "repariert" },
+        { label: "mir", target: "flicked", bridge: "reparieren" },
+        { label: "past", target: "hät gflickt", bridge: "hat repariert" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "mälde",
+      bridge: "melden",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "mälde", bridge: "melde" },
+        { label: "du", target: "mäldsch", bridge: "meldest" },
+        { label: "er", target: "mäldet", bridge: "meldet" },
+        { label: "mir", target: "mälded", bridge: "melden" },
+        { label: "past", target: "hät gmäldet", bridge: "hat gemeldet" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "gwünne",
+      bridge: "gewinnen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "gwünne", bridge: "gewinne" },
+        { label: "du", target: "gwünnsch", bridge: "gewinnst" },
+        { label: "er", target: "gwünnt", bridge: "gewinnt" },
+        { label: "mir", target: "gwünned", bridge: "gewinnen" },
+        { label: "past", target: "hät gwunne", bridge: "hat gewonnen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "verliere",
+      bridge: "verlieren",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "verliere", bridge: "verliere" },
+        { label: "du", target: "verliersch", bridge: "verlierst" },
+        { label: "er", target: "verliert", bridge: "verliert" },
+        { label: "mir", target: "verliered", bridge: "verlieren" },
+        { label: "past", target: "hät verlore", bridge: "hat verloren" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "träffe",
+      bridge: "treffen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "triffe", bridge: "treffe" },
+        { label: "du", target: "triffsch", bridge: "triffst" },
+        { label: "er", target: "trifft", bridge: "trifft" },
+        { label: "mir", target: "träffed", bridge: "treffen" },
+        { label: "past", target: "hät troffe", bridge: "hat getroffen" },
+      ],
+      source: "idiotikon",
+    },
+    {
+      target: "lache",
+      bridge: "lachen",
+      group: "verbs",
+      forms: [
+        { label: "ich", target: "lache", bridge: "lache" },
+        { label: "du", target: "lachsch", bridge: "lachst" },
+        { label: "er", target: "lacht", bridge: "lacht" },
+        { label: "mir", target: "lached", bridge: "lachen" },
+        { label: "past", target: "hät glachet", bridge: "hat gelacht" },
+      ],
       source: "idiotikon",
     },
     {
@@ -1578,6 +2453,13 @@ export const ZURICH_GERMAN: VarietyPack = {
       bridge: "halten",
       group: "helvetisms",
       mistakenFor: "heben, hochheben",
+      forms: [
+        { label: "ich", target: "hebe", bridge: "halte" },
+        { label: "du", target: "hebsch", bridge: "hältst" },
+        { label: "er", target: "hebt", bridge: "hält" },
+        { label: "mir", target: "hebed", bridge: "halten" },
+        { label: "past", target: "hät ghebt", bridge: "hat gehalten" },
+      ],
       example: { target: "Chasch mer schnäll d Tasche hebe?", bridge: "Kannst du mir kurz die Tasche halten?" },
       source: "idiotikon",
     },
@@ -2094,6 +2976,23 @@ export const ZURICH_GERMAN: VarietyPack = {
         { target: "Ich ha nöd chönne cho.", bridge: "Ich habe nicht kommen können." },
         { target: "Si hät müesse schaffe.", bridge: "Sie hat arbeiten müssen." },
         { target: "Mir händ s Velo lah flicke.", bridge: "Wir haben das Fahrrad flicken lassen." },
+      ],
+    },
+    {
+      /**
+       * The modals, as forms rather than as order. `verb-order` is about where
+       * they stand in the past; this is the present, where `wott` and `wänd`
+       * share nothing a German reader can hold on to and `cha` has lost the
+       * n. Every form here is also a row in the vocabulary's paradigms.
+       */
+      id: "modals",
+      band: "blocks",
+      words: ["chönne", "müesse", "wele", "dörfe", "sölle"],
+      note: "a modal verb — cha, mues, wott, darf, söll, sött, or the plurals chönd, müend, wänd — or somebody reaching for kann, muss or will",
+      examples: [
+        { target: "Ich cha hüt nöd cho.", bridge: "Ich kann heute nicht kommen." },
+        { target: "Mir müend no poschte.", bridge: "Wir müssen noch einkaufen." },
+        { target: "Wänd Sie no öppis trinke?", bridge: "Wollen Sie noch etwas trinken?" },
       ],
     },
     {

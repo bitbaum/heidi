@@ -1211,7 +1211,7 @@ export const gsw: Dictionary = {
       ich: "ich",
       du: "du",
       er: "er / si / es",
-      mir: "mir",
+      mir: "mir / ihr / si",
       ihr: "ihr",
       si: "si",
       plural: "Mehrzahl",
@@ -1472,6 +1472,11 @@ export const gsw: Dictionary = {
         title: "chönne cho — d Verbe am Schluss umgekehrt",
         rule: "Wänn am Satzend mehreri Verbe stönd, chunt s Hilfs- oder Modalverb zerscht und s Verb mit de Bedüütig zletscht: «Ich ha nöd chönne cho», wo s Hochdütsch «… kommen können» seit. Im Nebesatz gliich: «…, dass si hät müesse schaffe».",
         watch: "Verstah isch eifach — d Wörter sind di gliiche. Wer d hochdütschi Reihefolg nimmt («cho chönne»), wird verstande, tönt aber wie Hochdütsch mit Zürcher Wörter.",
+      },
+      modals: {
+        title: "cha, mues, wott — d Modalverbe",
+        rule: "Churz, und ich und er händ di gliichi Form, wie im Hochdütsche: ich cha, du chasch, er cha, mir chönd («können») · ich mues, du muesch, mir müend («müssen») · ich wott, du wotsch, mir wänd («wollen») · ich darf, mir dörfed («dürfen») · ich söll, mir sölled («sollen»). Di gliichi Pluralform gilt für mir, ihr und si. I de Vergangeheit blibt s Modalverb im Infinitiv: «Ich ha nöd chönne cho».",
+        watch: "«wott» und «wänd» heisst «wollen» — nüüt dra erinneret a «will». Und «Ich sött» isch «ich sollte», höflich und überall z ghöre: «Ich sött no schaffe».",
       },
       directions: {
         title: "ine, use, ufe, abe — ohni hin und her",
