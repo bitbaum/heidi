@@ -5,6 +5,7 @@ import type { ExerciseView } from "./view";
 import { ChoiceView } from "./choice";
 import { RevealView } from "./reveal";
 import { MatchView } from "./match";
+import { AuxiliaryView } from "./auxiliary";
 import { GapTextView } from "./gaptext";
 import { CardView } from "./card";
 import { TranslateView } from "./translate";
@@ -38,6 +39,7 @@ export const VIEWS: Record<PracticeItem["kind"], ExerciseView> = {
   cloze: RevealView,
   recall: RevealView,
   match: MatchView,
+  auxiliary: AuxiliaryView,
   gaptext: GapTextView,
   /**
    * These two get their OWN views rather than joining the reveal, and the

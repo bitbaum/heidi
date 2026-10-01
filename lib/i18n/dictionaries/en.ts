@@ -1075,6 +1075,7 @@ export const en: Dictionary = {
       cloze: "Which word is missing?",
       recall: "What does this mean?",
       match: "Which go together?",
+      auxiliary: "Which auxiliary?",
       gaptext: "Which words are missing?",
       pick: "Which word belongs here?",
       translate: "How do you say that in Zurich German?",
@@ -1120,6 +1121,7 @@ export const en: Dictionary = {
       "name-role": "A first name takes an article, and the article shows the role: «d Anna», «de Peter» is who does something or whom it is done to; «de Anna», «em Peter» is TO WHOM something is given, said or shown. Listen for who does what to whom.",
     },
     matchHint: "Tap a word, then its meaning.",
+    auxiliaryHint: "Choose the auxiliary for each verb, then check.",
     gapHint: "Tap a word — it drops into the next gap. Tap a filled gap to take it back.",
     check: "Check",
     typeLabel: "Write it yourself — optional",
@@ -1432,6 +1434,11 @@ export const en: Dictionary = {
         title: "gsi, gha, cho — participles with barely a ge-",
         rule: "ge- becomes g-: gmacht, gseit, gsi (gewesen, been), gha (gehabt, had). Before k/ch, p, t and g it disappears: cho (gekommen), kauft (gekauft), trunke (getrunken), gange (gegangen).",
         watch: "With no simple past, every past tense hangs on a participle like these. «cho» and «gsi» look like no German word — learn the common ones as words, not as a rule.",
+      },
+      "perfect-auxiliary": {
+        title: "isch gange, hät gmacht — which auxiliary",
+        rule: "The past is always auxiliary plus participle, and the auxiliary is si or ha. Movement and change take si: isch gange, isch cho, isch gfahre, isch worde. So do sitting and standing — isch ghocket, isch gstande — where German in Germany says «hat gesessen». Nearly everything else takes ha: hät gmacht, hät gseit, hät gschlafe.",
+        watch: "If you learned German in Germany, sitting and standing are the trap: «Ich bi ghocket», never «Ich ha ghocket». In the vocabulary, each verb's past row shows its auxiliary.",
       },
       "clock-time": {
         title: "am vieri, halbi drüü — telling the time",

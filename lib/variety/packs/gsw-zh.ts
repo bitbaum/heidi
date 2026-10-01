@@ -436,7 +436,7 @@ export const ZURICH_GERMAN: VarietyPack = {
    * and would be a wrong explanation over `ich bi`. An absent entry shows no
    * explanation, which is better than a confident irrelevant one.
    */
-  explains: { article: "articles", clock: "clock-time" },
+  explains: { article: "articles", clock: "clock-time", auxiliary: "perfect-auxiliary" },
 
   subjects: {
     ich: "ich",
@@ -2959,6 +2959,23 @@ export const ZURICH_GERMAN: VarietyPack = {
         { target: "Ich ha kei Ziit gha.", bridge: "Ich hatte keine Zeit." },
         { target: "Er isch geschter cho.", bridge: "Er ist gestern gekommen." },
         { target: "Häsch s Billett scho kauft?", bridge: "Hast du die Fahrkarte schon gekauft?" },
+      ],
+    },
+    {
+      /**
+       * Which auxiliary the perfect takes. Mostly what a German reader
+       * expects, which is why the exceptions hurt: position verbs take `si`
+       * here (`isch ghocket`, `isch gstande`), as in southern German and
+       * Swiss Standard German, where the north says `hat gesessen`. The
+       * auxiliary question drills it across every verb's `past` row.
+       */
+      id: "perfect-auxiliary",
+      band: "marks",
+      note: "the auxiliary of a perfect — isch gange against hät gmacht, or somebody who said ha ghocket because German in Germany says hat gesessen",
+      examples: [
+        { target: "Ich bi im Tram ghocket.", bridge: "Ich bin im Tram gesessen." },
+        { target: "Mir sind uf Bern gfahre.", bridge: "Wir sind nach Bern gefahren." },
+        { target: "Si hät lang gschlafe.", bridge: "Sie hat lange geschlafen." },
       ],
     },
     {

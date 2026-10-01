@@ -1,7 +1,7 @@
 import type { PracticeItem } from "../types.ts";
 import type { ExerciseKind, Material } from "./kind.ts";
 import { PAIR } from "./pair.ts";
-import { ARTICLE, FORM, MATCH } from "./vocabulary.ts";
+import { ARTICLE, AUXILIARY, FORM, MATCH } from "./vocabulary.ts";
 import { CLOZE } from "./cloze.ts";
 import { GAPTEXT } from "./gaptext.ts";
 import { PICK } from "./pick.ts";
@@ -36,6 +36,7 @@ export const KINDS: readonly ExerciseKind[] = [
   ARTICLE,
   FORM,
   MATCH,
+  AUXILIARY,
   GAPTEXT,
   CLOZE,
   CARD,

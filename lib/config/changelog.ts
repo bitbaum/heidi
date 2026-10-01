@@ -43,6 +43,17 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-10-01",
       tag: "feature",
+      title: "Üben fragt: «isch» oder «hät»?",
+      summary:
+        "Eine neue Frageart: vier Verben, und zu jedem das richtige Hilfsverb der Vergangenheit, «er [isch | hät] gange». Dazu ein Grammatikthema «isch gange, hät gmacht».",
+      items: [
+        "Die Falle: Sitzen und Stehen nehmen «si» («Ich bi ghocket»), wo man in Deutschland «hat gesessen» sagt.",
+        "Jede Runde mischt beide Hilfsverben, und nach dem Prüfen steht bei jedem Verb das richtige.",
+      ],
+    },
+    {
+      date: "2026-10-01",
+      tag: "feature",
       title: "Jedes Verb mit seinen Formen, und ein Thema für die Modalverben",
       summary:
         "Nur 4 von 48 Verben hatten Formen. Jetzt zeigen 87 Verben eine Tabelle: ich, du, er, eine Pluralform für mir, ihr und si, und die Vergangenheit mit Hilfsverb («isch gange», «hät gmacht»), jeweils neben der deutschen Form.",
@@ -527,6 +538,17 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-01",
+      tag: "feature",
+      title: "Practice asks: \u201cisch\u201d or \u201ch\u00e4t\u201d?",
+      summary:
+        "A new kind of question: four verbs, each with the right auxiliary for its past, \u201cer [isch | h\u00e4t] gange\u201d. With a grammar topic, \u201cisch gange, h\u00e4t gmacht\u201d.",
+      items: [
+        "The trap: sitting and standing take \u201csi\u201d (\u201cIch bi ghocket\u201d), where German in Germany says \u201chat gesessen\u201d.",
+        "Every board mixes both auxiliaries, and after checking each verb shows the right one.",
+      ],
+    },
     {
       date: "2026-10-01",
       tag: "feature",

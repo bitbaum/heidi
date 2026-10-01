@@ -537,9 +537,11 @@ which of the two it is in, next to the button, in the learner's language. See
     ten of `TEST_SIZE`'s twenty). Below that the scope offers practice only,
     and a test link to it opens practice: «Bsitz andersume» had two markable
     questions and produced a two-tap test under a three-minute clock. The
-    situations, «everything» and eighteen of the twenty grammar topics
+    situations, «everything» and eighteen of the twenty-one grammar topics
     qualify. Modal particles and diminutive -li do not yet: what they add is
     mostly nuance, and a question's wrong answers must differ in meaning.
+    `perfect-auxiliary` is drilled by the auxiliary boards, which are several
+    decisions at once, and a test takes single-tap questions only.
   - A topic's sitting also asks the questions the pack says that topic
     explains (`pack.explains`, `scope.ts`): every «which article?» belongs to
     `articles` and every time of day to `clock-time`, although they came from a
@@ -1098,6 +1100,13 @@ their past is the double infinitive, which `verb-order` teaches.
   options: `ich cha` and `er cha` are one button, not two. The past row is
   shown but not asked there, because «hät gmacht» beside four one-word forms is
   picked by its length. 13 form questions became 348.
+- The past row is drilled on its own, as the auxiliary board (`auxiliary`
+  kind): four verbs, each «er [isch | hät] gange». One verb alone would be a
+  coin toss; four are one chance in sixteen, and side by side they show the
+  rule (movement, change and position take `si`). Each board mixes both
+  auxiliaries, the German shown is the infinitive only (the participle in
+  German would give most answers away), and a wrong board explains itself
+  with `perfect-auxiliary`. Ten boards from the 87 past rows.
 - A grammar topic can name the words whose forms it explains (`words`).
   `modals` names `chönne`, `müesse`, `wele`, `dörfe` and `sölle`, so a sitting
   on it drills «ich cha, du chasch, mir chönd» and a wrong answer links to it.

@@ -26,6 +26,8 @@ export function answerOf(item: PracticeItem): string {
      */
     case "match":
       return item.targets.map((target, i) => `${target} — ${item.bridges[item.answer[i]] ?? ""}`).join(" · ");
+    case "auxiliary":
+      return item.verbs.map((verb, i) => `${item.options[item.answer[i]] ?? ""} ${verb.participle}`).join(" · ");
     /**
      * A passage prints as the words that went into it, in gap order. Not the
      * filled-in passage: four lines would push everything else off the screen,
@@ -60,6 +62,8 @@ export function questionOf(item: PracticeItem): string {
       return `${item.subject ?? item.label} ___ (${item.word}, ${item.bridge})`;
     case "match":
       return item.targets.join(", ");
+    case "auxiliary":
+      return item.verbs.map((verb) => `${item.subject ?? ""} ___ ${verb.participle}`.trim()).join(", ");
     case "gaptext":
       return item.lines.map((line) => line.prompt).join(" ");
     case "recall":
