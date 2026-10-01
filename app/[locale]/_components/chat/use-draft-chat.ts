@@ -53,7 +53,6 @@ export function useDraftChat({ locale, dict }: { locale: Locale; dict: Dictionar
     transport: streamingDraftTransport(),
     locale,
     t: dict.chat,
-    imageTooBig: dict.model.imageTooBig,
     byok: byok.config,
     me: LEARNER_ID,
   });

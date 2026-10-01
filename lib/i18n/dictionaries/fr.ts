@@ -109,16 +109,11 @@ export const fr: Dictionary = {
     methodLink: "Toute la méthode",
     researchLink: "Ce que dit la recherche",
     contributeTitle: "Nous cherchons des voix zurichoises",
-    contributeBody:
-      "Chaque seconde de dialecte que vous entendrez chez Heidi vient d'une personne réelle de Zurich. Si vous acceptez que nous vous enregistrions, écrivez-nous.",
     contributeCta: "Participer",
     eyebrow: "Zurichois · pour qui parle déjà allemand",
-    ctaTry: "Essayer tout de suite",
     ctaSituations: "Découvrir les situations",
     trustLine: "Gratuit, sans compte — chaque ligne vérifiée selon les formes zurichoises.",
     illustration: "Une vache avec sa cloche devant les Alpes dit « Grüezi mitenand! »",
-    tryTitle: "Essayez",
-    tryLead: "Collez un message reçu — ou touchez un exemple.",
     stepsTitle: "Comment avancer",
     steps: [{"title": "Comprendre", "body": "De vraies phrases du quotidien, du travail et des soins — situation par situation.", "cta": "Vers les situations"}, {"title": "S’exercer", "body": "Quelques minutes par jour, avec des explications qui restent.", "cta": "Vers les exercices"}, {"title": "Écrire soi-même", "body": "Heidi vous aide à répondre comme quelqu’un d’ici.", "cta": "Écrire avec Heidi"}],
     dialectLead: "Le zurichois d’abord — et Heidi reconnaît déjà d’où vient un message.",
@@ -203,6 +198,18 @@ export const fr: Dictionary = {
       silence: "Rien entendu. Appuyez à nouveau sur le micro et parlez tout de suite.",
       unavailable: "La dictée ne fonctionne pas dans ce navigateur. Vous pouvez toujours taper.",
     },
+    micCancel: "Annuler l’enregistrement",
+    micDone: "Terminé — utiliser ce que j’ai dit",
+    dismiss: "Fermer",
+    removeNamed: "Retirer {name}",
+    /** Why a file did not attach. {name}, {mb} and {max} are filled in. */
+    attachNotes: {
+      wrongType: "{name} : utilisez PNG, JPEG, GIF ou WebP.",
+      imageTooLarge: "{name} est trop volumineux (max. {mb} Mo).",
+      textTooLarge: "{name} est trop long.",
+      unreadable: "Impossible de lire {name}.",
+      tooMany: "{max} images au plus par message.",
+    },
     newChat: "Nouvelle conversation",
     explanationsIn: "Explications en français",
     notConfigured: "Le modèle de langue n'est pas encore configuré sur cette installation.",
@@ -269,7 +276,6 @@ export const fr: Dictionary = {
 
   model: {
     attach: "Joindre une image",
-    attachNeedsKey: "Le modèle connecté ne sait pas lire les images",
     remove: "Retirer",
     connectTitle: "Connecter votre propre modèle",
     connectLead:
@@ -296,8 +302,6 @@ export const fr: Dictionary = {
     unreachable: "Le fournisseur n’a pas pu être joint. Votre clé est peut-être correcte — réessayez dans un instant.",
     disconnect: "Retirer la clé",
     open: "Votre propre modèle",
-    imageTooBig: "Cette image ne peut pas être utilisée.",
-    imagesLabel: "Joint",
   },
 
   pillars: [

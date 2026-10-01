@@ -21,14 +21,6 @@ import { NewChatButton } from "./new-chat-button";
 import { SessionLink } from "../session/links";
 import { quickScope } from "@/lib/domain/practice/sitting";
 
-/**
- * The dock's box, which must NOT be `chat-input`.
- *
- * `htmlFor` and `getElementById` both resolve to the first match in the
- * document, and the dock floats over pages that have a composer of their own.
- * A shared id hands one box's label to the other.
- */
-const DOCK_INPUT_ID = "heidi-dock-input";
 
 /** Ids for asks. A counter cannot collide; a clock can, and text repeats. */
 let askCounter = 0;
@@ -283,6 +275,10 @@ function DockPanel({
     if (chat.messages.length > 0) endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [chat.messages]);
 
+  // A ref, not an id: the dock floats over pages with a composer of their own,
+  // and an id lookup finds whichever box comes first in the document.
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
   /**
    * Focus the box.
    *
@@ -291,7 +287,7 @@ function DockPanel({
    * mount precisely because the panel mounts on that press.
    */
   useEffect(() => {
-    document.getElementById(DOCK_INPUT_ID)?.focus();
+    inputRef.current?.focus();
   }, []);
 
   return (
@@ -400,24 +396,17 @@ function DockPanel({
 
       <div className="border-t border-border-subtle px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3">
         <Composer
-          id={DOCK_INPUT_ID}
+          inputRef={inputRef}
           value={chat.input}
           onChange={chat.setInput}
-          onSubmit={() => chat.send(chat.input)}
+          onSend={chat.send}
           busy={chat.busy}
           onStop={chat.stop}
           t={t}
           modelT={dict.model}
           placeholder={t.composer}
           locale={locale}
-          images={{
-            attached: chat.attached,
-            onAccept: chat.accept,
-            onRemove: chat.removeAttachment,
-            error: chat.attachError,
-            enabled: byok.canSee,
-            onNeedsKey: modelSheet.show,
-          }}
+          images
         />
       </div>
 

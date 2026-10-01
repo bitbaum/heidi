@@ -42,6 +42,20 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-10-01",
+      tag: "improvement",
+      title: "Heidi gleich auf der Startseite — und ein Mikrofon, das sofort hört",
+      summary:
+        "Die Startseite hat Heidi jetzt in der zweiten Spalte: ein Beispiel antippen oder etwas schreiben, und mit einem Druck geht es auf den ganzen Bildschirm — dasselbe Gespräch.",
+      items: [
+        "Das Mikrofon schickt die Aufnahme direkt an die Spracherkennung, statt zuerst die des Browsers zu probieren. Die stummen Sekunden, in denen ein Druck nichts tat, sind weg.",
+        "Behoben: Ein Screenshot blieb unbeantwortet, wenn das eine Gratismodell für Bilder gerade ausgelastet war. Jetzt liest ein zweites Gratismodell mit.",
+        "Screenshots werden im Browser auf 1024 Pixel verkleinert, bevor sie hochgeladen werden — das ganze Handybild verlässt das Gerät nie.",
+        "«Nochmals» nach einem Fehler schickt das Bild wieder mit, nicht nur den Text.",
+        "Auf dem Handy steht Heidi direkt unter der Überschrift.",
+      ],
+    },
+    {
+      date: "2026-10-01",
       tag: "fix",
       title: "Die Dialektprüfung erkennt jetzt Hochdeutsch",
       summary:
@@ -501,6 +515,20 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-01",
+      tag: "improvement",
+      title: "Heidi right on the home page — and a microphone that listens at once",
+      summary:
+        "The home page now has Heidi in its second column: tap an example or type, and one press takes it full screen — the same conversation.",
+      items: [
+        "The microphone sends the recording straight to transcription instead of trying the browser's recogniser first. The silent seconds in which a press did nothing are gone.",
+        "Fixed: a screenshot went unanswered whenever the one free model for pictures was busy. A second free model now reads them too.",
+        "Screenshots are shrunk to 1024 pixels in the browser before they are uploaded — the full phone screenshot never leaves the device.",
+        "“Again” after a failure sends the picture again, not just the text.",
+        "On a phone, Heidi sits right under the headline.",
+      ],
+    },
     {
       date: "2026-10-01",
       tag: "fix",

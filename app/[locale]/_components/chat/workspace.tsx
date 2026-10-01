@@ -139,7 +139,6 @@ export function ChatWorkspace({
     transport,
     locale,
     t,
-    imageTooBig: dict.model.imageTooBig,
     byok: byok.config,
     initial: initialMessages,
     me: LEARNER_ID,
@@ -187,10 +186,12 @@ export function ChatWorkspace({
     if (messages.length > 0) endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages]);
 
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
   // Ready to type on a laptop. Not on a phone: focusing there opens the
   // keyboard over the examples before the reader has decided anything.
   useEffect(() => {
-    if (window.matchMedia("(pointer: fine)").matches) document.getElementById("chat-input")?.focus();
+    if (window.matchMedia("(pointer: fine)").matches) inputRef.current?.focus();
   }, []);
 
   const openConversation = useCallback(
@@ -290,7 +291,6 @@ export function ChatWorkspace({
 
       <aside
         ref={sidebarRef}
-        id="chat-sidebar"
         // Off-canvas below `lg`, where a permanent sidebar would eat the half
         // of a phone screen the conversation needs.
         className={`${
@@ -393,23 +393,17 @@ export function ChatWorkspace({
         <div className="border-t border-border-subtle px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3">
           <div className="mx-auto w-full max-w-3xl">
             <Composer
+              inputRef={inputRef}
               value={chat.input}
               onChange={chat.setInput}
-              onSubmit={() => chat.send(chat.input)}
+              onSend={chat.send}
               busy={chat.busy}
           onStop={chat.stop}
               t={t}
               modelT={dict.model}
               placeholder={t.composer}
               locale={locale}
-              images={{
-                attached: chat.attached,
-                onAccept: chat.accept,
-                onRemove: chat.removeAttachment,
-                error: chat.attachError,
-                enabled: byok.canSee,
-                onNeedsKey: () => setSheetOpen(true),
-              }}
+              images
             />
             <div className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
               <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>

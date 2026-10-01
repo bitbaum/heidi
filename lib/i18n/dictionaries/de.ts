@@ -134,16 +134,11 @@ export const de = {
     methodLink: "Die ganze Methode",
     researchLink: "Was die Forschung sagt",
     contributeTitle: "Wir suchen Zürcher Stimmen",
-    contributeBody:
-      "Jede Sekunde Dialekt, die Sie bei Heidi hören werden, stammt von einem echten Menschen aus Zürich. Wenn Sie uns beim Sprechen aufnehmen lassen würden, melden Sie sich.",
     contributeCta: "Mitmachen",
     eyebrow: "Züridütsch · für alle, die schon Deutsch können",
-    ctaTry: "Gleich ausprobieren",
     ctaSituations: "Situationen entdecken",
     trustLine: "Gratis, ohne Konto — jede Zeile auf Zürcher Formen geprüft.",
     illustration: "Eine Kuh mit Glocke vor den Alpen sagt «Grüezi mitenand!»",
-    tryTitle: "Probieren Sie es aus",
-    tryLead: "Fügen Sie eine Nachricht ein, die Sie bekommen haben — oder tippen Sie auf ein Beispiel.",
     stepsTitle: "So kommen Sie weiter",
     steps: [{"title": "Verstehen", "body": "Echte Sätze aus Alltag, Arbeit und Pflege — Situation für Situation.", "cta": "Zu den Situationen"}, {"title": "Üben", "body": "Ein paar Minuten am Tag, mit Erklärungen, die hängen bleiben.", "cta": "Zu den Übungen"}, {"title": "Selber schreiben", "body": "Heidi hilft Ihnen, zu antworten wie jemand von hier.", "cta": "Mit Heidi schreiben"}],
     dialectLead: "Zürichdeutsch zuerst — und Heidi erkennt schon heute, woher eine Nachricht kommt.",
@@ -237,6 +232,18 @@ export const de = {
       silence: "Nichts gehört. Drücken Sie nochmals aufs Mikrofon und sprechen Sie gleich los.",
       unavailable: "Diktieren funktioniert in diesem Browser nicht. Sie können weiterhin tippen.",
     },
+    micCancel: "Aufnahme verwerfen",
+    micDone: "Fertig — übernehmen",
+    dismiss: "Schliessen",
+    removeNamed: "{name} entfernen",
+    /** Why a file did not attach. {name}, {mb} and {max} are filled in. */
+    attachNotes: {
+      wrongType: "{name}: bitte PNG, JPEG, GIF oder WebP.",
+      imageTooLarge: "{name} ist zu gross (höchstens {mb} MB).",
+      textTooLarge: "{name} ist zu lang.",
+      unreadable: "{name} liess sich nicht lesen.",
+      tooMany: "Höchstens {max} Bilder pro Nachricht.",
+    },
     newChat: "Neues Gespräch",
     explanationsIn: "Erklärungen auf Deutsch",
     notConfigured: "Das Sprachmodell ist auf dieser Installation noch nicht eingerichtet.",
@@ -303,7 +310,6 @@ export const de = {
 
   model: {
     attach: "Bild anhängen",
-    attachNeedsKey: "Ihr verbundenes Modell kann keine Bilder lesen",
     remove: "Entfernen",
     connectTitle: "Ihr eigenes Modell verbinden",
     connectLead:
@@ -330,8 +336,6 @@ export const de = {
     unreachable: "Der Anbieter war gerade nicht erreichbar. Ihr Schlüssel kann trotzdem stimmen — bitte gleich nochmals versuchen.",
     disconnect: "Schlüssel entfernen",
     open: "Eigenes Modell",
-    imageTooBig: "Dieses Bild lässt sich nicht verwenden.",
-    imagesLabel: "Angehängt",
   },
 
   pillars: [

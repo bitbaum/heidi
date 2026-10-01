@@ -6,7 +6,6 @@ import { HEIDI_ID } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { MAX_IMAGES } from "@/lib/domain/chat/image";
-import { downscale } from "../downscale";
 import { localId, type Transport } from "./transports";
 
 /**
@@ -22,7 +21,6 @@ export function useConversation({
   transport,
   locale,
   t,
-  imageTooBig,
   byok,
   initial = [],
   me,
@@ -30,8 +28,6 @@ export function useConversation({
   transport: Transport;
   locale: Locale;
   t: Dictionary["chat"];
-  /** From `dict.model`, which is where the image strings live. */
-  imageTooBig: string;
   /** The visitor's own key, forwarded untouched. Never read here. */
   byok: unknown;
   initial?: ChatMessage[];
@@ -50,8 +46,12 @@ export function useConversation({
    * slow answer feel broken" (fleet `SHARED.md`, from loki `Composer.tsx`).
    */
   const inFlight = useRef<AbortController | null>(null);
-  const [attached, setAttached] = useState<string[]>([]);
-  const [attachError, setAttachError] = useState<string | null>(null);
+  /**
+   * The pictures that went with the last question, so Retry re-asks THAT
+   * question. Before, a retried screenshot question went out as words only —
+   * the picture had already been cleared — and came back about nothing.
+   */
+  const lastImages = useRef<string[]>([]);
   /**
    * The explanation as it arrives, for the surfaces whose transport streams.
    *
@@ -62,38 +62,14 @@ export function useConversation({
    */
   const [streaming, setStreaming] = useState("");
 
-  const accept = useCallback(
-    async (files: File[]) => {
-      if (files.length === 0) return;
-      setAttachError(null);
-      // Capped by the updater, not by a count read here: downscaling is async,
-      // so a length captured now is already stale by the time the picture is
-      // ready. Only the count inside `prev` is true at the moment of the write.
-      for (const file of files.slice(0, MAX_IMAGES)) {
-        try {
-          const prepared = await downscale(file);
-          setAttached((prev) => (prev.length >= MAX_IMAGES ? prev : [...prev, prepared.dataUrl]));
-        } catch {
-          setAttachError(imageTooBig);
-        }
-      }
-    },
-    [imageTooBig],
-  );
-
-  const removeAttachment = useCallback((index: number) => {
-    setAttached((prev) => prev.filter((_, i) => i !== index));
-  }, []);
-
   const run = useCallback(
-    async (text: string, retry = false) => {
+    async (text: string, pictures: string[], retry = false) => {
       const trimmed = text.trim();
       if (!trimmed || busy) return;
 
-      // Taken before the optimistic update so a failure could put them back.
-      const images = attached;
-      setAttached([]);
-      setAttachError(null);
+      // Staged and shrunk by the composer (chatkit); this only carries them.
+      const images = pictures.slice(0, MAX_IMAGES);
+      lastImages.current = images;
 
       // On a retry the question is already on screen and the failed reply is
       // dropped, so it replaces that turn rather than stacking under it.
@@ -170,14 +146,14 @@ export function useConversation({
         { id: localId("err"), authorId: HEIDI_ID, body: "", createdAt: new Date().toISOString(), error: message },
       ]);
     },
-    [attached, busy, byok, locale, me, messages, t.cannotSeePicture, t.failed, t.notConfigured, t.stopped, t.unreachable, transport],
+    [busy, byok, locale, me, messages, t.cannotSeePicture, t.failed, t.notConfigured, t.stopped, t.unreachable, transport],
   );
 
-  const send = useCallback((text: string) => void run(text), [run]);
+  const send = useCallback((text: string, images: string[] = []) => void run(text, images), [run]);
 
   const retry = useCallback(() => {
     const last = lastOwn(messages, me);
-    if (last) void run(last, true);
+    if (last) void run(last, lastImages.current, true);
   }, [messages, me, run]);
 
   /** Abandon the turn in flight. A no-op when nothing is. */
@@ -202,10 +178,6 @@ export function useConversation({
     retry,
     stop,
     reset,
-    attached,
-    attachError,
-    accept,
-    removeAttachment,
   };
 }
 

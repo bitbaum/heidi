@@ -109,16 +109,11 @@ export const it: Dictionary = {
     methodLink: "Tutto il metodo",
     researchLink: "Che cosa dice la ricerca",
     contributeTitle: "Cerchiamo voci zurighesi",
-    contributeBody:
-      "Ogni secondo di dialetto che sentirete su Heidi viene da una persona reale di Zurigo. Se ci lasciate registrare la vostra voce, scriveteci.",
     contributeCta: "Partecipare",
     eyebrow: "Zurighese · per chi sa già il tedesco",
-    ctaTry: "Provare subito",
     ctaSituations: "Scoprire le situazioni",
     trustLine: "Gratis, senza account — ogni frase verificata sulle forme zurighesi.",
     illustration: "Una mucca con il campanaccio davanti alle Alpi dice «Grüezi mitenand!»",
-    tryTitle: "Lo provi",
-    tryLead: "Incolli un messaggio ricevuto — o tocchi un esempio.",
     stepsTitle: "Come andare avanti",
     steps: [{"title": "Capire", "body": "Frasi vere dalla vita quotidiana, dal lavoro e dalla cura — situazione per situazione.", "cta": "Alle situazioni"}, {"title": "Esercitarsi", "body": "Pochi minuti al giorno, con spiegazioni che restano.", "cta": "Agli esercizi"}, {"title": "Scrivere da sé", "body": "Heidi l’aiuta a rispondere come qualcuno di qui.", "cta": "Scrivere con Heidi"}],
     dialectLead: "Prima lo zurighese — e Heidi riconosce già da dove viene un messaggio.",
@@ -203,6 +198,18 @@ export const it: Dictionary = {
       silence: "Non ho sentito nulla. Premete di nuovo il microfono e parlate subito.",
       unavailable: "La dettatura non funziona in questo browser. Potete comunque scrivere.",
     },
+    micCancel: "Annulla la registrazione",
+    micDone: "Fatto — usa quello che ho detto",
+    dismiss: "Chiudi",
+    removeNamed: "Rimuovi {name}",
+    /** Why a file did not attach. {name}, {mb} and {max} are filled in. */
+    attachNotes: {
+      wrongType: "{name}: usa PNG, JPEG, GIF o WebP.",
+      imageTooLarge: "{name} è troppo grande (max {mb} MB).",
+      textTooLarge: "{name} è troppo lungo.",
+      unreadable: "Impossibile leggere {name}.",
+      tooMany: "Al massimo {max} immagini per messaggio.",
+    },
     newChat: "Nuova conversazione",
     explanationsIn: "Spiegazioni in italiano",
     notConfigured: "Il modello linguistico non è ancora configurato su questa installazione.",
@@ -269,7 +276,6 @@ export const it: Dictionary = {
 
   model: {
     attach: "Allegare un'immagine",
-    attachNeedsKey: "Il modello collegato non sa leggere le immagini",
     remove: "Rimuovere",
     connectTitle: "Collegare il vostro modello",
     connectLead:
@@ -296,8 +302,6 @@ export const it: Dictionary = {
     unreachable: "Il fornitore non era raggiungibile. La sua chiave può essere corretta — riprovi tra un momento.",
     disconnect: "Rimuovere la chiave",
     open: "Il vostro modello",
-    imageTooBig: "Questa immagine non può essere usata.",
-    imagesLabel: "Allegato",
   },
 
   pillars: [

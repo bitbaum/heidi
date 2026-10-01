@@ -68,7 +68,6 @@ export function GroupChat({
     transport: groupTransport(groupId),
     locale,
     t: chatT,
-    imageTooBig: modelT.imageTooBig,
     byok: byok.config,
     initial: initialMessages,
     me,
@@ -125,7 +124,7 @@ export function GroupChat({
       <Composer
         value={chat.input}
         onChange={chat.setInput}
-        onSubmit={() => chat.send(chat.input)}
+        onSend={chat.send}
         busy={chat.busy}
         t={chatT}
         modelT={modelT}

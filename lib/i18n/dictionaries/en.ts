@@ -109,16 +109,11 @@ export const en: Dictionary = {
     methodLink: "The full method",
     researchLink: "What the research says",
     contributeTitle: "We are looking for Zurich voices",
-    contributeBody:
-      "Every second of dialect you will hear in Heidi comes from a real person in Zurich. If you would let us record you speaking, get in touch.",
     contributeCta: "Take part",
     eyebrow: "Zurich German · for people who already know German",
-    ctaTry: "Try it now",
     ctaSituations: "Explore the situations",
     trustLine: "Free, no account — every line checked against Zurich forms.",
     illustration: "A cow with a bell in front of the Alps says «Grüezi mitenand!»",
-    tryTitle: "Try it",
-    tryLead: "Paste a message you received — or tap an example.",
     stepsTitle: "How you get further",
     steps: [{"title": "Understand", "body": "Real sentences from everyday life, work and care — one situation at a time.", "cta": "To the situations"}, {"title": "Practise", "body": "A few minutes a day, with explanations that stick.", "cta": "To the exercises"}, {"title": "Write it yourself", "body": "Heidi helps you reply like someone from here.", "cta": "Write with Heidi"}],
     dialectLead: "Zurich German first — and Heidi can already tell where a message comes from.",
@@ -203,6 +198,18 @@ export const en: Dictionary = {
       silence: "Nothing heard. Press the microphone again and start speaking right away.",
       unavailable: "Dictation does not work in this browser. You can still type.",
     },
+    micCancel: "Discard recording",
+    micDone: "Done — use what I said",
+    dismiss: "Close",
+    removeNamed: "Remove {name}",
+    /** Why a file did not attach. {name}, {mb} and {max} are filled in. */
+    attachNotes: {
+      wrongType: "{name}: use PNG, JPEG, GIF or WebP.",
+      imageTooLarge: "{name} is too large (max {mb} MB).",
+      textTooLarge: "{name} is too long.",
+      unreadable: "Could not read {name}.",
+      tooMany: "Up to {max} pictures per message.",
+    },
     newChat: "New conversation",
     explanationsIn: "Explanations in English",
     notConfigured: "The language model is not configured on this deployment yet.",
@@ -269,7 +276,6 @@ export const en: Dictionary = {
 
   model: {
     attach: "Attach a picture",
-    attachNeedsKey: "Your connected model cannot read pictures",
     remove: "Remove",
     connectTitle: "Connect your own model",
     connectLead:
@@ -296,8 +302,6 @@ export const en: Dictionary = {
     unreachable: "The provider could not be reached just now. Your key may well be fine — please try again in a moment.",
     disconnect: "Remove key",
     open: "Your own model",
-    imageTooBig: "That picture cannot be used.",
-    imagesLabel: "Attached",
   },
 
   pillars: [

@@ -38,7 +38,7 @@ export function Examples({
   return (
     <div className="mt-4">
       <h2 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.suggestionsTitle}</h2>
-      <ul className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+      <ul className="mt-2 grid gap-2 sm:grid-cols-2">
         {entries.map((ex) => (
           <li key={ex.text}>
             <button
