@@ -1191,7 +1191,7 @@ export const it: Dictionary = {
       ich: "io",
       du: "tu",
       er: "lui / lei",
-      mir: "noi",
+      mir: "noi / voi / loro",
       ihr: "voi",
       si: "loro",
       plural: "plurale",
@@ -1452,6 +1452,11 @@ export const it: Dictionary = {
         title: "chönne cho — i verbi finali al contrario",
         rule: "Quando più verbi si accumulano alla fine, l'ausiliare o il modale viene prima e il verbo che porta il significato per ultimo: «Ich ha nöd chönne cho», dove il tedesco dice «… kommen können». Lo stesso nella subordinata: «…, dass si hät müesse schaffe».",
         watch: "Capire è facile — le parole sono le stesse. Con l'ordine tedesco («cho chönne») vi capiranno, ma suonerete come tedesco standard con parole zurighesi.",
+      },
+      modals: {
+        title: "cha, mues, wott — i verbi modali",
+        rule: "Brevi, e ich ed er condividono una forma, come in tedesco: ich cha, du chasch, er cha, mir chönd (können) · ich mues, du muesch, mir müend (müssen) · ich wott, du wotsch, mir wänd (wollen) · ich darf, mir dörfed (dürfen) · ich söll, mir sölled (sollen). Un'unica forma plurale vale per mir, ihr e si. Al passato il modale resta all'infinito: «Ich ha nöd chönne cho».",
+        watch: "«wott» e «wänd» significano wollen (volere) — niente ricorda «will». E «Ich sött» è il cortese «ich sollte» che si sente di continuo: «Ich sött no schaffe».",
       },
       directions: {
         title: "ine, use, ufe, abe — senza hin e her",

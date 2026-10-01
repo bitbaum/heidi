@@ -1329,7 +1329,7 @@ export const de = {
       ich: "ich",
       du: "du",
       er: "er / sie / es",
-      mir: "wir",
+      mir: "wir / ihr / sie",
       ihr: "ihr",
       si: "sie",
       plural: "Mehrzahl",
@@ -1611,6 +1611,11 @@ export const de = {
         title: "chönne cho — die Verben am Ende andersherum",
         rule: "Stehen am Satzende mehrere Verben, kommt das Hilfs- oder Modalverb zuerst und das Verb mit der Bedeutung zuletzt: «Ich ha nöd chönne cho», wo das Deutsche «… kommen können» sagt. Im Nebensatz ebenso: «…, dass si hät müesse schaffe».",
         watch: "Verstehen ist leicht — die Wörter sind dieselben. Wer die deutsche Reihenfolge nimmt («cho chönne»), wird verstanden, klingt aber nach Hochdeutsch mit Zürcher Wörtern.",
+      },
+      modals: {
+        title: "cha, mues, wott — die Modalverben",
+        rule: "Kurz, und ich und er teilen sich eine Form, wie im Deutschen: ich cha, du chasch, er cha, mir chönd (können) · ich mues, du muesch, mir müend (müssen) · ich wott, du wotsch, mir wänd (wollen) · ich darf, mir dörfed (dürfen) · ich söll, mir sölled (sollen). Eine Pluralform gilt für mir, ihr und si. In der Vergangenheit bleibt das Modalverb im Infinitiv: «Ich ha nöd chönne cho».",
+        watch: "«wott» und «wänd» heissen wollen — nichts daran erinnert an «will». Und «Ich sött» ist das höfliche «ich sollte», das man ständig hört: «Ich sött no schaffe».",
       },
       directions: {
         title: "ine, use, ufe, abe — ohne hin und her",

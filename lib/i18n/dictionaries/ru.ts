@@ -1200,7 +1200,7 @@ export const ru: Dictionary = {
       ich: "я",
       du: "ты",
       er: "он / она / оно",
-      mir: "мы",
+      mir: "мы / вы / они",
       ihr: "вы",
       si: "они",
       plural: "множественное число",
@@ -1461,6 +1461,11 @@ export const ru: Dictionary = {
         title: "chönne cho — глаголы в конце наоборот",
         rule: "Когда в конце предложения стоят несколько глаголов, вспомогательный или модальный идёт первым, а смысловой — последним: «Ich ha nöd chönne cho», где по-немецки «… kommen können». То же в придаточном: «…, dass si hät müesse schaffe».",
         watch: "Понять легко — слова те же. С немецким порядком («cho chönne») вас поймут, но звучать вы будете как литературный немецкий с цюрихскими словами.",
+      },
+      modals: {
+        title: "cha, mues, wott — модальные глаголы",
+        rule: "Короткие, и у ich и er одна форма, как в немецком: ich cha, du chasch, er cha, mir chönd (können) · ich mues, du muesch, mir müend (müssen) · ich wott, du wotsch, mir wänd (wollen) · ich darf, mir dörfed (dürfen) · ich söll, mir sölled (sollen). Одна форма множественного числа служит для mir, ihr и si. В прошедшем времени модальный глагол остаётся в инфинитиве: «Ich ha nöd chönne cho».",
+        watch: "«wott» и «wänd» значат wollen (хотеть) — ничто в них не напоминает «will». А «Ich sött» — это вежливое «ich sollte», которое слышно постоянно: «Ich sött no schaffe».",
       },
       directions: {
         title: "ine, use, ufe, abe — без hin и her",

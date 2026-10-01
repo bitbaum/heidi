@@ -1186,7 +1186,7 @@ export const en: Dictionary = {
       ich: "I",
       du: "you",
       er: "he / she / it",
-      mir: "we",
+      mir: "we / you (pl.) / they",
       ihr: "you (plural)",
       si: "they",
       plural: "plural",
@@ -1447,6 +1447,11 @@ export const en: Dictionary = {
         title: "chönne cho — the final verbs the other way round",
         rule: "When several verbs stack up at the end, the auxiliary or modal comes first and the verb carrying the meaning comes last: «Ich ha nöd chönne cho», where German says «… kommen können». The same in a subordinate clause: «…, dass si hät müesse schaffe».",
         watch: "Understanding it is easy — the words are the same. Use the German order («cho chönne») and you will be understood, but you will sound like Standard German with Zurich words in it.",
+      },
+      modals: {
+        title: "cha, mues, wott — the modal verbs",
+        rule: "Short, and ich and er share one form, as in German: ich cha, du chasch, er cha, mir chönd (können) · ich mues, du muesch, mir müend (müssen) · ich wott, du wotsch, mir wänd (wollen) · ich darf, mir dörfed (dürfen) · ich söll, mir sölled (sollen). One plural form serves mir, ihr and si. In the past the modal stays an infinitive: «Ich ha nöd chönne cho».",
+        watch: "«wott» and «wänd» are wollen — nothing in them looks like «will». And «Ich sött» is the polite «ich sollte» you will hear constantly: «Ich sött no schaffe».",
       },
       directions: {
         title: "ine, use, ufe, abe — no hin or her",

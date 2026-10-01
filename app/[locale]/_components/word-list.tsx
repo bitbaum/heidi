@@ -151,17 +151,19 @@ export function WordRow({
           )}
 
           {row.forms && row.forms.length > 0 && (
-            <p className="text-sm leading-relaxed text-fg-secondary">
-              {row.forms.map((form, i) => (
-                <span key={form.label}>
-                  {i > 0 && <span aria-hidden="true" className="text-fg-muted"> · </span>}
-                  <span className="text-fg-muted">{persons[form.label as keyof typeof persons] ?? form.label} </span>
-                  <span lang={DISPLAY.tag} className="font-medium text-dialect">
+            <dl className="grid grid-cols-[auto_auto_1fr] gap-x-4 gap-y-1 text-sm leading-snug">
+              {row.forms.map((form) => (
+                <div key={form.label} className="contents">
+                  <dt className="text-fg-muted">{persons[form.label as keyof typeof persons] ?? form.label}</dt>
+                  <dd lang={DISPLAY.tag} className="font-medium text-dialect">
                     {form.target}
-                  </span>
-                </span>
+                  </dd>
+                  <dd lang="de" className="text-fg-secondary">
+                    {form.bridge}
+                  </dd>
+                </div>
               ))}
-            </p>
+            </dl>
           )}
 
           <p className="text-sm leading-relaxed text-fg-muted">

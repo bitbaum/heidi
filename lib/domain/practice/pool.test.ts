@@ -38,6 +38,9 @@ test("a topic's sitting includes the questions the pack says it explains", () =>
   const clock = sittingPool({ kind: "topic", id: "clock-time" });
   assert.ok(clock.some((i) => i.kind === "clock"), "clock-time drills the clock questions");
   assert.equal(testable(clock), true);
+  const modals = sittingPool({ kind: "topic", id: "modals" });
+  assert.ok(modals.some((i) => i.kind === "form" && i.word === "chönne"), "modals drills «ich cha, du chasch»");
+  assert.equal(testable(modals), true);
   const words = sittingPool({ kind: "group", id: "everyday" });
   assert.ok(words.every((i) => i.source.kind === "word"), "a group is still only its words");
 });

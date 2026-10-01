@@ -198,6 +198,13 @@ export type GrammarTopic = {
    * them to the right place" and "send them somewhere plausible".
    */
   note?: string;
+  /**
+   * Vocabulary headwords whose FORMS this topic explains — `modals` names
+   * `chönne`, `müesse` and the rest. Their form questions carry the topic, so
+   * a sitting on it drills «ich cha, du chasch» and a wrong answer links to
+   * the page. Checked against the vocabulary by a test.
+   */
+  words?: readonly string[];
 };
 
 /**
@@ -252,8 +259,9 @@ export const SAME_GENDER: Readonly<Record<BridgeArticle, Article>> = { der: "de"
  * interface is not a translation, it is German leaking.
  *
  * Person labels use the pronoun a paradigm is usually printed with. `plural`
- * is for nouns; `past` is the participle, which in this variety is the only
- * past there is — §9's `no-preterite` topic is about precisely that.
+ * is for nouns; `past` is the third-person perfect with its auxiliary («isch
+ * gange», «hät gmacht»), which in this variety is the only past there is —
+ * §9's `no-preterite` topic is about precisely that.
  */
 export type FormLabel = "ich" | "du" | "er" | "mir" | "ihr" | "si" | "plural" | "past";
 
@@ -291,9 +299,10 @@ export type VocabularyEntry = {
   /**
    * The forms worth knowing, for a word whose forms are the difficulty.
    *
-   * Not a full paradigm for its own sake. `si` and `ha` earn one because they
-   * carry every compound past in the language; a noun earns a plural when the
-   * plural is not what a German reader would produce.
+   * A verb carries its paradigm, because a verb is learned by its forms and
+   * the forms are where a German reader goes wrong (`gang`, `seit`, `isch
+   * ghocket`). A noun earns a plural when the plural is not what a German
+   * reader would produce.
    */
   forms?: readonly WordForm[];
   /**

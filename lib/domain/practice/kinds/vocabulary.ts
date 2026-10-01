@@ -71,18 +71,24 @@ export function articleItems(pack: VarietyPack): ArticleItem[] {
  * One item per form, so a verb with four forms is four questions rather than
  * one: the paradigm is the thing being learned, and asking only about its
  * first row teaches the first row.
+ *
+ * Each distinct form is offered once. `ich cha` and `er cha` are the same
+ * string, and offering it twice would make one of two identical buttons wrong.
+ * The `past` row is not asked here: «hät gmacht» beside four one-word present
+ * forms is picked by its length, not by knowing the verb.
  */
 export function formItems(pack: VarietyPack): FormItem[] {
   const items: FormItem[] = [];
+  const topicOf = new Map((pack.grammar ?? []).flatMap((t) => (t.words ?? []).map((w) => [w, t.id] as const)));
 
   for (const entry of pack.vocabulary ?? []) {
-    const forms = entry.forms ?? [];
+    const explains = topicOf.get(entry.target);
+    const forms = (entry.forms ?? []).filter((f) => f.label !== "past");
+    const options = [...new Set(forms.map((f) => f.target))];
     // Two options is a coin toss and one is not a question.
-    if (forms.length < MIN_FORMS_TO_ASK) continue;
+    if (options.length < MIN_FORMS_TO_ASK) continue;
 
-    const options = forms.map((f) => f.target);
-
-    for (const [index, form] of forms.entries()) {
+    for (const form of forms) {
       items.push({
         id: `form:${entry.target.toLowerCase()}:${form.label}`,
         kind: "form",
@@ -91,8 +97,9 @@ export function formItems(pack: VarietyPack): FormItem[] {
         bridge: entry.bridge,
         label: form.label,
         subject: pack.subjects?.[form.label],
+        ...(explains ? { explains } : {}),
         options,
-        answer: index,
+        answer: options.indexOf(form.target),
         source: { kind: "word", word: entry.target, group: entry.group },
       });
     }
