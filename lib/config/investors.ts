@@ -57,14 +57,14 @@ export const METRICS_READ_ON = "1 October 2026";
  * below, where a reference would hit the temporal dead zone — so the string
  * carried its own literal copy of the number, and "said once" was false.
  */
-export const ADVERTISED_TEST_FILES = 130;
+export const ADVERTISED_TEST_FILES = 129;
 
 /** Counts read from the repository, not estimated — each with how to check it. */
 export const METRICS: readonly Metric[] = [
   { label: "Live at", value: "heidi.orangecat.ch", verify: "Open it." },
   { label: "Built since", value: "10 September 2026", verify: "git log" },
   { label: "Merged pull requests", value: "156", verify: "github.com/bitbaum/heidi/pulls" },
-  { label: "Automated tests", value: `1047 across ${ADVERTISED_TEST_FILES} files`, verify: "pnpm verify" },
+  { label: "Automated tests", value: `1036 across ${ADVERTISED_TEST_FILES} files`, verify: "pnpm verify" },
   // The speech engine moved into its own open-source package, and its tests
   // went with it — counted there rather than quietly dropped from this page.
   {

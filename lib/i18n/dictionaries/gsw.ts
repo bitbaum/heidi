@@ -27,7 +27,7 @@ export const gsw: Dictionary = {
   meta: {
     title: "Heidi — Schwiizerdütsch verstaa",
     description:
-      "Verstaa, was um Si ume würklich gredt wird. Heidi übersetzt echti Nachrichte, erklärt d Wörter wo Si na nöd kenned, und prüeft jedi Antwort uf echti Dialektforme. Mir foönd a mit Züridütsch.",
+      "Verstaa, was um Si ume würklich gredt wird. Heidi übersetzt echti Nachrichte, erklärt d Wörter wo Si na nöd kenned, und prüeft jedi Antwort uf echti Dialektforme. Mir fönd aa mit Züridütsch.",
   },
 
   language: {
@@ -118,7 +118,7 @@ export const gsw: Dictionary = {
   home: {
     headline: "Schwiizerdütsch verstaa. Dänn schriibe wie öpper vo do.",
     sub: "Für alli wo Dütsch chönd und am Mittagstisch trotzdem nüüt verstönd.",
-    dialectTitle: "Mir foönd a mit Züri",
+    dialectTitle: "Mir fönd aa mit Züri",
     dialectBody:
       "Schwiizerdütsch isch kei Sprach, sondern e Familie. Heidi cha hüt Züridütsch würklich guet und seit Ihne das lieber, als so z tue, als ob si alles chönnti. Grad drum wiist d Prüefig Berner Forme zrugg: nöd wil Bärndütsch falsch wär, sondern wil mir grad Züri unterrichted. Wiiteri Dialekt chömed dezue — jede mit eigene Stimme und eigener Prüefig.",
     dialectPlanned: "Planet",
@@ -132,16 +132,11 @@ export const gsw: Dictionary = {
     methodLink: "Di ganz Methode",
     researchLink: "Was d Forschig seit",
     contributeTitle: "Mir suechet Zürcher Stimme",
-    contributeBody:
-      "Jedi Sekunde Dialekt, wo Si bi Heidi ghöred, chunt vo mene echte Mensch us Züri. Wänn Si öis bim Rede würded ufnäh la, mälded Si sich.",
     contributeCta: "Mitmache",
     eyebrow: "Züridütsch · für alli, wo scho Dütsch chönd",
-    ctaTry: "Grad uusprobiere",
     ctaSituations: "Situatione entdecke",
     trustLine: "Gratis, ohni Konto — jedi Zile uf Zürcher Forme prüeft.",
     illustration: "E Chue mit Glogge vor de Alpe seit «Grüezi mitenand!»",
-    tryTitle: "Probiered Sie s uus",
-    tryLead: "Füeged Sie e Nachricht ii, wo Sie übercho händ — oder tippe Sie uf es Bischpil.",
     stepsTitle: "So chömed Sie wiiter",
     steps: [{"title": "Verstah", "body": "Echti Sätz us em Alltag, vo de Arbet und us de Pflege — Situation für Situation.", "cta": "Zu de Situatione"}, {"title": "Üebe", "body": "Es paar Minute am Tag, mit Erchlärige, wo hanged bliibed.", "cta": "Zu de Üebige"}, {"title": "Sälber schriibe", "body": "Heidi hilft Ihne, z antworte wie öpper vo da.", "cta": "Mit Heidi schriibe"}],
     dialectLead: "Züridütsch zerscht — und Heidi merkt scho hüt, vo wo e Nachricht chunt.",
@@ -226,6 +221,18 @@ export const gsw: Dictionary = {
       silence: "Nüüt ghört. Drucked Si nomal ufs Mikrofon und redet Si grad los.",
       unavailable: "Diktiere funktioniert i dem Browser nöd. Si chönd wiiterhin tippe.",
     },
+    micCancel: "Ufnahm verwärfe",
+    micDone: "Fertig — das übernäh",
+    dismiss: "Zuemache",
+    removeNamed: "{name} entfärne",
+    /** Why a file did not attach. {name}, {mb} and {max} are filled in. */
+    attachNotes: {
+      wrongType: "{name}: bitte PNG, JPEG, GIF oder WebP.",
+      imageTooLarge: "{name} isch z gross (höchschtens {mb} MB).",
+      textTooLarge: "{name} isch z lang.",
+      unreadable: "{name} cha mer nöd läse.",
+      tooMany: "Höchschtens {max} Bilder pro Nachricht.",
+    },
     newChat: "Neus Gspröch",
     explanationsIn: "Erklärige uf Züridütsch",
     notConfigured: "S Sprachmodell isch uf dere Installation na nöd iigrichtet.",
@@ -292,7 +299,6 @@ export const gsw: Dictionary = {
 
   model: {
     attach: "Bild aahänke",
-    attachNeedsKey: "Ihres verbundene Modell cha kei Bilder läse",
     remove: "Ewägnäh",
     connectTitle: "Ihres eigene Modell verbinde",
     connectLead:
@@ -319,8 +325,6 @@ export const gsw: Dictionary = {
     unreachable: "De Aabieter isch grad nöd erreichbar gsi. Ihre Schlüssel chan trotzdem stimme — bitte gli nomal probiere.",
     disconnect: "Schlüssel ewägnäh",
     open: "Eigens Modell",
-    imageTooBig: "Das Bild laht sich nöd bruuche.",
-    imagesLabel: "Aaghänkt",
   },
 
   settings: {

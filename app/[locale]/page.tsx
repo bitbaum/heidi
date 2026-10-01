@@ -85,12 +85,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <Shell>
-      {/* THE FOLD, in two columns: what Heidi is and the two ways in on the
-          left, a picture on the right. It used to be a headline over a
-          full-width chat box and then 440 words of argument; the argument now
-          lives on /method, where a reader who wants it goes looking. */}
-      <section className="grid grid-cols-safe items-center gap-8 pb-10 pt-8 sm:pb-14 sm:pt-12 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
-        <div>
+      {/* THE FOLD, in two columns: what Heidi is on the left, Heidi herself on
+          the right — a small chat to try with a tap or a sentence, one press
+          from full screen. The argument lives on /method, where a reader who
+          wants it goes looking.
+
+          Three blocks, in PHONE order: what it is, Heidi, the other ways in.
+          On a phone the chat must come right after the headline — trying it is
+          the point, and a whole screen of buttons above it hid it. On a wide
+          screen the grid puts the chat in the second column across both rows. */}
+      <section className="grid grid-cols-safe items-start gap-x-12 gap-y-8 pb-10 pt-8 sm:pb-14 sm:pt-12 lg:grid-cols-[1fr_1.05fr] lg:grid-rows-[auto_1fr]">
+        <div className="lg:col-start-1 lg:row-start-1">
           <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.eyebrow}</p>
           <h1
             id="headline"
@@ -99,18 +104,27 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             {t.headline}
           </h1>
           <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.sub}</p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <a
-              href="#try"
-              className="inline-flex min-h-12 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
-            >
-              {t.ctaTry} ↓
-            </a>
+        </div>
+        <div id="try" className="scroll-mt-24 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+          <Chat
+            locale={locale}
+            dict={dict}
+            dialect={{ tag: DISPLAY.tag, showcase: DISPLAY.showcase?.line }}
+          />
+        </div>
+        <div className="lg:col-start-1 lg:row-start-2">
+          <div className="flex flex-wrap gap-3">
             <Link
               href={href(locale, "situations")}
-              className="inline-flex min-h-12 items-center rounded-control border border-border-strong px-6 font-medium text-fg-primary hover:bg-surface-raised"
+              className="inline-flex min-h-12 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
             >
               {t.ctaSituations} →
+            </Link>
+            <Link
+              href={href(locale, "practice")}
+              className="inline-flex min-h-12 items-center rounded-control border border-border-strong px-6 font-medium text-fg-primary hover:bg-surface-raised"
+            >
+              {dict.nav.practice} →
             </Link>
           </div>
           {/* The third way in, for somebody who does not have a message to
@@ -118,40 +132,39 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <WarmupInvite t={dict.warmup} locale={locale} variant="hero" />
           <p className="mt-5 text-sm text-fg-muted">{t.trustLine}</p>
         </div>
+      </section>
+
+      {/* The three ways in, beside the cow — the picture moved here when the
+          chat took the fold's second column, so the page keeps its Swiss face. */}
+      <section
+        className="grid grid-cols-safe items-center gap-8 border-t border-border-subtle py-10 sm:py-14 lg:grid-cols-[1.2fr_1fr] lg:gap-12"
+        aria-labelledby="steps"
+      >
+        <div>
+          <h2 id="steps" className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
+            {t.stepsTitle}
+          </h2>
+          <ol className="mt-6 grid grid-cols-safe gap-3">
+            {steps.map((step) => (
+              <li key={step.n}>
+                <Link
+                  href={step.href}
+                  className="group flex h-full flex-col rounded-control border border-border-subtle p-5 transition-colors hover:border-border-strong"
+                >
+                  <span className="font-mono text-caption uppercase tracking-caps text-accent">{step.n}</span>
+                  <span className="mt-2 font-heading text-xl font-semibold tracking-display text-fg-primary">{step.title}</span>
+                  <span className="mt-2 flex-1 text-base leading-relaxed text-fg-secondary">{step.body}</span>
+                  <span className="mt-4 text-sm font-medium text-fg-primary underline underline-offset-4 group-hover:text-accent">
+                    {step.cta} →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </div>
         <div className="mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none">
           <SwissScene label={t.illustration} bubble={t.bubble} />
         </div>
-      </section>
-
-      <section id="try" aria-labelledby="try-title" className="scroll-mt-24 border-t border-border-subtle pb-12 pt-10 sm:pb-16">
-        <h2 id="try-title" className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
-          {t.tryTitle}
-        </h2>
-        <div className="mt-4" />
-        <Chat locale={locale} dict={dict} dialect={{ tag: DISPLAY.tag, showcase: DISPLAY.showcase?.line }} />
-      </section>
-
-      <section className="border-t border-border-subtle py-10 sm:py-14" aria-labelledby="steps">
-        <h2 id="steps" className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
-          {t.stepsTitle}
-        </h2>
-        <ol className="mt-6 grid grid-cols-safe gap-3 sm:grid-cols-3">
-          {steps.map((step) => (
-            <li key={step.n}>
-              <Link
-                href={step.href}
-                className="group flex h-full flex-col rounded-control border border-border-subtle p-5 transition-colors hover:border-border-strong"
-              >
-                <span className="font-mono text-caption uppercase tracking-caps text-accent">{step.n}</span>
-                <span className="mt-2 font-heading text-xl font-semibold tracking-display text-fg-primary">{step.title}</span>
-                <span className="mt-2 flex-1 text-base leading-relaxed text-fg-secondary">{step.body}</span>
-                <span className="mt-4 text-sm font-medium text-fg-primary underline underline-offset-4 group-hover:text-accent">
-                  {step.cta} →
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ol>
       </section>
 
       <section className="border-t border-border-subtle py-10 sm:py-12" aria-labelledby="rules">

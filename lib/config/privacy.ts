@@ -252,7 +252,8 @@ export const FLOWS: readonly Flow[] = [
   /**
    * THE ONE THAT WAS MISSING, found by an audit rather than by this file.
    *
-   * `use-dictation.ts` remembers, per browser, that the speech recogniser
+   * The microphone (chatkit, keyed by `chat/composer.tsx`) remembers, per
+   * browser, that the speech recogniser
    * accepted `start()` and then never fired an event — so the next dictation
    * does not wait four seconds to rediscover it. It is one timestamp with a
    * thirty-day life, which is why nobody thought of it as data.

@@ -1,304 +1,167 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import type { RefObject } from "react";
+import {
+  Composer as ChatkitComposer,
+  type ComposerLabelOverrides,
+} from "@bitbaum/chatkit/react";
+import type { Attachment } from "@bitbaum/chatkit";
 import type { Locale } from "@/lib/i18n/locales";
 import { LOCALE_TAGS } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n";
-import { useDictation } from "../use-dictation";
-import { imagesFromClipboard } from "../downscale";
-import { ClipIcon, MicIcon, SendIcon } from "./icons";
+import { MAX_BYTES, MAX_EDGE, MAX_IMAGES } from "@/lib/domain/chat/image";
+
+/** Heidi's server leg for the microphone: one model, behind the dictation limit. */
+const TRANSCRIBE_URL = "/api/transcribe";
+
+/** Where chatkit remembers a dead speech recogniser — listed in `lib/config/privacy.ts`. */
+const DICTATION_VERDICT_KEY = "heidi.dictation.recogniser-dead.v1";
 
 /**
- * The box you type in.
+ * THE composer — now the fleet's: `@bitbaum/chatkit`'s Composer, with Heidi's
+ * words in its labels and Heidi's transcription route as the microphone's
+ * server leg. Every surface (the page, the dock, the full-screen chat, a
+ * group) keeps this one API.
  *
- * Every surface had its own before this. The group's was a bare `<input>`: no
- * auto-grow, no Enter/Shift-Enter handling, no paste-an-image, no dictation —
- * not because a group wants less, but because the second copy was written from
- * scratch and stopped earlier.
+ * Until 2026-10-01 this file WAS a composer — its own textarea, its own
+ * dictation hook, its own screenshot handling — and the microphone was the
+ * part that kept failing: browser recogniser first, so on a browser whose
+ * recogniser accepts `start()` and then says nothing, a press did nothing for
+ * seconds before falling back. A fix to composing belongs in bitbaum/chatkit,
+ * where every product gets it, never here. Only Heidi's wiring lives here.
  *
- * Capability is passed in rather than assumed. Omit `images` and there is no
- * clip button; omit `dictation` and there is no microphone. That is how one
- * component serves a surface that takes pictures and one that does not, without
- * either of them growing a fork.
+ * Voice PREFERS THE SERVER, like Loki: one transcription model everywhere, no
+ * dead seconds on a silent recogniser. chatkit still falls back to the
+ * browser's recogniser, and says why in words when neither can work.
+ *
+ * Pictures are shrunk to MAX_EDGE in the browser by chatkit (its
+ * `maxImageEdge`, which came from Heidi's own downscale) and reach the caller
+ * as data URLs, the shape `/api/chat` validates. A dropped text file is not
+ * lost: its words are added to the message.
  */
 export function Composer({
   value,
   onChange,
-  onSubmit,
+  onSend,
   busy,
   onStop,
   t,
   modelT,
   placeholder,
   locale,
-  id = "chat-input",
-  images,
-  dictation: dictationEnabled = true,
+  images = false,
+  dictation = true,
   footer,
   className,
   sticky,
-  labelledOutside,
+  inputRef,
+  autoFocus,
 }: {
   value: string;
   onChange: (next: string) => void;
-  onSubmit: () => void;
+  /** What was written, and the pictures with it as data URLs. */
+  onSend: (text: string, images: string[]) => void;
   busy: boolean;
-  /**
-   * Abandon the turn in flight. When given, the send slot becomes Stop while
-   * `busy` — the reference's arrangement (loki `Composer.tsx`): the control is
-   * where the eye already is, not a second button somewhere else.
-   */
+  /** Given, the send slot becomes Stop while `busy`. */
   onStop?: () => void;
   t: Dictionary["chat"];
   modelT: Dictionary["model"];
   placeholder: string;
   locale: Locale;
-  /**
-   * The id the box claims, and the one its label points at.
-   *
-   * A prop rather than a constant because two composers can now be in one
-   * document: the dock floats over the home page, which has its own. `htmlFor`
-   * resolves to the FIRST match in the document, so a duplicate id silently
-   * hands the dock's label to the page's box — the reader tabs into one
-   * control and hears the name of another.
-   *
-   * Defaulted, not required, so the surfaces that were here first keep the id
-   * their visible labels already reference.
-   */
-  id?: string;
-  /** Absent means this surface takes no pictures. */
-  images?: {
-    attached: string[];
-    onAccept: (files: File[]) => void;
-    onRemove: (index: number) => void;
-    error: string | null;
-    /** False when no connected model can see — the button explains rather than greys out. */
-    enabled: boolean;
-    onNeedsKey: () => void;
-  };
+  /** This surface takes screenshots. */
+  images?: boolean;
   dictation?: boolean;
   /** A line under the box: the group's "write Heidi's name" hint lives here. */
   footer?: React.ReactNode;
   className?: string;
   sticky?: boolean;
-  /**
-   * The caller renders its own visible `<label htmlFor="chat-input">`.
-   *
-   * Two labels for one control is a bug, not redundancy: a screen reader
-   * announces the sentence, then announces it again. The home page shows the
-   * invitation as a real label before a conversation starts, so the sr-only
-   * one here must stand down while that is on screen.
-   */
-  labelledOutside?: boolean;
+  inputRef?: RefObject<HTMLTextAreaElement | null>;
+  autoFocus?: boolean;
 }) {
-  const areaRef = useRef<HTMLTextAreaElement>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
+  const fill = (template: string, values: Record<string, string | number>) =>
+    template.replace(/\{(\w+)\}/g, (_, key: string) =>
+      String(values[key] ?? ""),
+    );
 
-  const speech = useDictation(LOCALE_TAGS[locale], (heard) => {
-    onChange(value ? `${value} ${heard}` : heard);
-    areaRef.current?.focus();
-  });
-
-  const grow = useCallback(() => {
-    const el = areaRef.current;
-    if (!el) return;
-    el.style.height = "auto";
-    // Capped so a pasted conversation cannot eat the whole screen and push the
-    // send button out of reach on a phone.
-    el.style.height = `${Math.min(el.scrollHeight, 200)}px`;
-  }, []);
-
-  useEffect(grow, [value, grow]);
-
-  const submit = () => {
-    if (busy || !value.trim()) return;
-    onSubmit();
-  };
-
-  const accept = (files: File[]) => {
-    if (!images) return;
-    if (!images.enabled) {
-      images.onNeedsKey();
-      return;
-    }
-    images.onAccept(files);
+  const labels: ComposerLabelOverrides = {
+    send: t.send,
+    stop: t.stop,
+    voice: t.mic,
+    voiceStop: t.micStop,
+    cancelRecording: t.micCancel,
+    confirmRecording: t.micDone,
+    listening: t.micListening,
+    transcribing: t.micTranscribing,
+    attach: modelT.attach,
+    remove: (name) => fill(t.removeNamed, { name }),
+    dismiss: t.dismiss,
+    dictation: t.micProblem,
+    attachNotes: {
+      wrongType: (name) => fill(t.attachNotes.wrongType, { name }),
+      imageTooLarge: (name, mb) =>
+        fill(t.attachNotes.imageTooLarge, { name, mb }),
+      textTooLarge: (name) => fill(t.attachNotes.textTooLarge, { name }),
+      unreadable: (name) => fill(t.attachNotes.unreadable, { name }),
+      tooMany: (max) => fill(t.attachNotes.tooMany, { max }),
+    },
   };
 
   return (
-    <form
+    <div
       // Sticky only where there IS something to scroll past. In an empty
       // thread it pinned the composer over the panel above and clipped it.
       className={`z-10 bg-surface-page pb-1 pt-1 ${sticky ? "sticky bottom-0" : ""} ${className ?? ""}`}
-      onSubmit={(e) => {
-        e.preventDefault();
-        submit();
-      }}
     >
-      {images && images.attached.length > 0 && (
-        <ul className="mb-2 flex flex-wrap gap-2" aria-label={modelT.imagesLabel}>
-          {images.attached.map((src, i) => (
-            <li key={src.slice(-24)} className="relative">
-              {/* eslint-disable-next-line @next/next/no-img-element -- a
-                  client-side data URL; next/image optimises remote files and
-                  would only add a round trip here. */}
-              <img src={src} alt="" className="h-16 w-16 rounded-control border border-border-strong object-cover" />
-              <button
-                type="button"
-                onClick={() => images.onRemove(i)}
-                aria-label={modelT.remove}
-                className="absolute -right-1.5 -top-1.5 inline-flex h-6 w-6 max-sm:h-11 max-sm:w-11 items-center justify-center rounded-full border border-border-strong bg-surface-raised text-xs text-fg-secondary hover:text-accent"
-              >
-                ✕
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {images?.error && (
-        <p role="alert" className="mb-2 px-1 text-sm text-danger">
-          {images.error}
-        </p>
-      )}
-
-      <div
-        className="flex items-end gap-2 rounded-control border border-border-strong bg-surface-raised p-2 focus-within:border-fg-primary"
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={(e) => {
-          const files = imagesFromClipboard(e.dataTransfer);
-          if (files.length > 0) {
-            e.preventDefault();
-            accept(files);
-          }
-        }}
-      >
-        {!labelledOutside && (
-          <label htmlFor={id} className="sr-only">
-            {t.placeholder}
-          </label>
-        )}
-        <textarea
-          id={id}
-          ref={areaRef}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          onKeyDown={(e) => {
-            // Enter sends on a keyboard; Shift+Enter is a newline. On a phone
-            // there is no Shift, so the button is the only send — which is why
-            // it is always visible rather than appearing on input.
-            if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
-              e.preventDefault();
-              submit();
-            }
-          }}
-          onPaste={(e) => {
-            // How a screenshot actually arrives: Cmd+V straight into the box.
-            const files = imagesFromClipboard(e.clipboardData);
-            if (files.length > 0) {
-              e.preventDefault();
-              accept(files);
-            }
-          }}
-          rows={1}
-          maxLength={2000}
-          // Short and visible; the full sentence is the accessible label above.
-          placeholder={placeholder}
-          // `min-w-0`: a flex item refuses to shrink below its min-content
-          // width, and a textarea's is its `cols` — twenty characters it has
-          // never been told it does not have. On a 320px phone that plus three
-          // 44px buttons is wider than the row, and the send button goes off
-          // the edge. The same defect the transcript had, one element down.
-          className="max-h-[200px] min-h-11 min-w-0 flex-1 resize-none bg-transparent px-2 py-2 text-base leading-relaxed text-fg-primary placeholder:text-fg-muted focus:outline-none"
-        />
-
-        {images && (
-          <>
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/png,image/jpeg,image/webp,image/gif"
-              multiple
-              className="hidden"
-              onChange={(e) => {
-                accept(Array.from(e.target.files ?? []));
-                e.target.value = "";
-              }}
-            />
-            {/* Always visible, never disabled. Without a vision model it opens
-                the explanation instead of doing nothing — a greyed-out button
-                with a tooltip teaches nobody why. */}
-            <button
-              type="button"
-              onClick={() => (images.enabled ? fileRef.current?.click() : images.onNeedsKey())}
-              aria-label={images.enabled ? modelT.attach : modelT.attachNeedsKey}
-              title={images.enabled ? modelT.attach : modelT.attachNeedsKey}
-              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control border border-border-strong text-fg-secondary transition-colors hover:text-fg-primary"
-            >
-              <ClipIcon />
-            </button>
-          </>
-        )}
-
-        {dictationEnabled && speech.supported && (
-          <button
-            type="button"
-            onClick={speech.toggle}
-            disabled={speech.transcribing}
-            aria-label={speech.listening ? t.micStop : t.mic}
-            aria-pressed={speech.listening}
-            aria-busy={speech.transcribing}
-            className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control border transition-colors disabled:opacity-50 ${
-              speech.listening
-                ? "border-action bg-action text-on-action"
-                : "border-border-strong text-fg-secondary hover:text-fg-primary"
-            }`}
-          >
-            <MicIcon />
-          </button>
-        )}
-
-        {busy && onStop ? (
-          <button
-            type="button"
-            onClick={onStop}
-            aria-label={t.stop}
-            title={t.stop}
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control border border-border-strong bg-surface-page text-fg-primary transition-colors hover:bg-surface-sunk"
-          >
-            <StopIcon />
-          </button>
-        ) : (
-          <button
-            type="submit"
-            disabled={busy || !value.trim()}
-            aria-label={t.send}
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control bg-action text-on-action transition-colors disabled:bg-surface-sunk disabled:text-fg-muted"
-          >
-            <SendIcon />
-          </button>
-        )}
-      </div>
-
-      {dictationEnabled && (speech.listening || speech.transcribing) && (
-        <p role="status" className="mt-1 px-1 font-mono text-caption uppercase tracking-caps text-fg-muted">
-          {speech.transcribing ? t.micTranscribing : t.micListening}
-        </p>
-      )}
-      {dictationEnabled && speech.problem && (
-        <p role="alert" className="mt-1 px-1 text-sm text-fg-muted">
-          {t.micProblem[speech.problem]}
-        </p>
-      )}
-
-      {footer}
-    </form>
+      <ChatkitComposer
+        value={value}
+        onValueChange={onChange}
+        onSend={(text, attachments) => onSend(...fromWire(text, attachments))}
+        placeholder={placeholder}
+        ariaLabel={t.placeholder}
+        sending={busy}
+        onStop={onStop}
+        attach={
+          images
+            ? {
+                maxFiles: MAX_IMAGES,
+                maxImageEdge: MAX_EDGE,
+                maxImageBytes: MAX_BYTES,
+              }
+            : false
+        }
+        // A screenshot alone is the commonest question there is.
+        attachmentOnlyText={images ? t.exampleUnderstand : undefined}
+        voice={
+          dictation
+            ? {
+                transcribeUrl: TRANSCRIBE_URL,
+                prefer: "server",
+                lang: LOCALE_TAGS[locale],
+                // The key the privacy page names and "delete everything" clears.
+                rememberKey: DICTATION_VERDICT_KEY,
+              }
+            : false
+        }
+        footer={footer}
+        labels={labels}
+        inputRef={inputRef}
+        autoFocus={autoFocus}
+      />
+    </div>
   );
 }
 
-function StopIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-      <rect x="2" y="2" width="10" height="10" rx="1" fill="currentColor" />
-    </svg>
-  );
+/** chatkit's wire shape → what Heidi's conversation sends. */
+export function fromWire(
+  text: string,
+  attachments: Attachment[],
+): [string, string[]] {
+  const pictures: string[] = [];
+  const words = [text];
+  for (const a of attachments) {
+    if (a.kind === "image")
+      pictures.push(`data:${a.mimeType};base64,${a.dataBase64}`);
+    else words.push(a.content);
+  }
+  return [words.filter((w) => w.trim()).join("\n\n"), pictures];
 }

@@ -11,6 +11,9 @@ importers:
       '@bitbaum/ai-kit':
         specifier: ^1.18.0
         version: 1.18.0(react@19.2.4)
+      '@bitbaum/chatkit':
+        specifier: github:bitbaum/chatkit#v0.2.0
+        version: https://codeload.github.com/bitbaum/chatkit/tar.gz/76935480b9c1352120f67b24de04477c5529660b(react@19.2.4)
       '@bitbaum/speechkit':
         specifier: ^1.0.0
         version: 1.0.0
@@ -171,6 +174,13 @@ packages:
     peerDependenciesMeta:
       react:
         optional: true
+
+  '@bitbaum/chatkit@https://codeload.github.com/bitbaum/chatkit/tar.gz/76935480b9c1352120f67b24de04477c5529660b':
+    resolution: {gitHosted: true, integrity: sha512-k74cgbALi0LoqU+WSNAklrwZpTm+sMLg8OUQJEhQtIj+cAk3+fG0Y09lCs2QIVt9peIA0aLCsOpVYmSngwbM2Q==, tarball: https://codeload.github.com/bitbaum/chatkit/tar.gz/76935480b9c1352120f67b24de04477c5529660b}
+    version: 0.2.0
+    engines: {node: '>=20'}
+    peerDependencies:
+      react: '>=18'
 
   '@bitbaum/speechkit@1.0.0':
     resolution: {integrity: sha512-ZxfXP5sdPGgD4QsjmzIOr+OIBmZseFAXu0lGR42nisavNFrkoSEcwUbi3X2fr10aT3PlsbStSnkIYoVw09CtRA==}
@@ -2901,6 +2911,10 @@ snapshots:
     dependencies:
       ai-forms: 0.1.2(react@19.2.4)
     optionalDependencies:
+      react: 19.2.4
+
+  '@bitbaum/chatkit@https://codeload.github.com/bitbaum/chatkit/tar.gz/76935480b9c1352120f67b24de04477c5529660b(react@19.2.4)':
+    dependencies:
       react: 19.2.4
 
   '@bitbaum/speechkit@1.0.0': {}

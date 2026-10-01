@@ -11,6 +11,7 @@ import { Composer } from "./chat/composer";
 import { Transcript } from "./chat/transcript";
 import { useDraftChat } from "./chat/use-draft-chat";
 import { WordPick } from "./chat/word-pick";
+import { NewChatButton } from "./chat/new-chat-button";
 import { href } from "@/lib/i18n/routes";
 import { FocusSurface, useCompact } from "./focus-surface";
 
@@ -70,114 +71,90 @@ export function Chat({
 
   return (
     <FocusSurface open={started} title={t.dock.title} t={dict.focus} minimized={minimized} onMinimizedChange={setMinimized}>
-      <section aria-label="Heidi" className="flex w-full flex-1 flex-col">
-        {/* The instruction used to be the second half of the page subhead, three
-            hundred pixels above the box it describes. It sits on the thing it
-            tells you to use — and it is the box's real `<label>`, not a `<p>`
-            beside a hidden twin, because two labels for one control means a
-            screen reader says the sentence twice. */}
-        <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2 pb-2">
-          {!started && (
-            <label htmlFor="chat-input" className="max-w-measure text-base leading-relaxed text-fg-secondary">
-              {t.placeholder}
-            </label>
-          )}
-          {started && byok.ready && byok.config && (
-            <button
-              type="button"
-              onClick={() => modelSheet.show()}
-              className="inline-flex items-center gap-1.5 font-mono text-caption uppercase tracking-caps text-ok hover:text-fg-primary"
-            >
-              <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ok" />
-              {byok.config.model}
-            </button>
-          )}
-          {started && (
-            <div className="flex items-center gap-4">
-              {/* Offered only once there is something to expand. On an empty box
-                  it would be a second front door to the same empty box. On a
-                  phone the focus bar already is the way to full screen. */}
-              {!compact && (
-                <Link
-                  href={href(locale, "chat")}
-                  className="inline-flex items-center gap-1.5 text-sm text-link underline underline-offset-4 hover:text-accent"
-                >
-                  {t.full.expand}
-                  <ExpandIcon />
-                </Link>
-              )}
-              <button
-                type="button"
-                onClick={reset}
-                className="min-h-9 text-sm text-link underline underline-offset-4 hover:text-accent"
-              >
-                {t.newChat}
-              </button>
-            </div>
-          )}
-        </div>
-
-        {(started || chat.busy) && (
-          <div ref={transcriptRef} className="mb-2">
-            <Transcript
-              voiceT={dict.voice}
-              messages={chat.messages}
-              me={LEARNER_ID}
-              t={t}
-              busy={chat.busy}
-              streaming={chat.streaming}
-              onRetry={chat.retry}
-              onMove={chat.send}
-              locale={locale}
-              endRef={endRef}
-              className="flex flex-col gap-4 rounded-control border border-border-strong bg-surface-raised p-3 sm:p-4"
-            />
-          </div>
-        )}
-
-        <Composer
-          value={chat.input}
-          onChange={chat.setInput}
-          onSubmit={() => chat.send(chat.input)}
-          busy={chat.busy}
-            onStop={chat.stop}
-          t={t}
-          modelT={dict.model}
-          placeholder={t.composer}
-          locale={locale}
-          sticky={started}
-          className={started ? "mt-auto" : "mt-3"}
-          // The visible label above is the box's label while it is on screen.
-          labelledOutside={!started}
-          images={{
-            attached: chat.attached,
-            onAccept: chat.accept,
-            onRemove: chat.removeAttachment,
-            error: chat.attachError,
-            enabled: byok.canSee,
-            onNeedsKey: () => modelSheet.show(),
-          }}
-        />
-
-        {/* A setting, so it sits below the invitation rather than shouting over
-            it — and only before there is a conversation to read. */}
-        {!started && (
-          <div className="mt-2 flex flex-wrap items-center justify-end gap-x-3 gap-y-1">
-            <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>
-            {byok.ready && byok.config && (
+      {/* A small Heidi, the home page's second column: tap an example or type,
+          and the full screen is one press away — the same conversation, since
+          /chat reads the same draft. */}
+      <section
+        aria-label="Heidi"
+        className="flex w-full flex-1 flex-col rounded-control border border-border-strong bg-surface-page"
+      >
+        <div className="flex items-center justify-between gap-3 border-b border-border-subtle py-1.5 pl-4 pr-1.5">
+          <p className="flex items-center gap-2">
+            <span aria-hidden="true" className="inline-block h-2 w-2 shrink-0 rounded-full bg-accent" />
+            <span className="font-heading text-lg font-semibold tracking-display text-fg-primary">Heidi</span>{" "}
+            {byok.ready && byok.config ? (
               <button
                 type="button"
                 onClick={() => modelSheet.show()}
-                className="inline-flex items-center gap-1.5 font-mono text-caption uppercase tracking-caps text-ok hover:text-fg-primary"
+                className="truncate font-mono text-caption uppercase tracking-caps text-fg-muted hover:text-fg-primary"
               >
-                <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ok" />
                 {byok.config.model}
               </button>
+            ) : (
+              // A setting, not news: on the narrowest phones it would only be
+              // clipped, so it waits for the room to be read in full.
+              <span className="hidden truncate font-mono text-caption uppercase tracking-caps text-fg-muted sm:inline">
+                {t.explanationsIn}
+              </span>
             )}
+          </p>
+          <div className="flex shrink-0 items-center">
+            {started && <NewChatButton label={t.newChat} onClick={reset} variant="icon" />}
+            <Link
+              href={href(locale, "chat")}
+              aria-label={t.full.expand}
+              title={t.full.expand}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-control text-fg-secondary hover:bg-surface-raised hover:text-fg-primary"
+            >
+              <ExpandIcon />
+            </Link>
           </div>
-        )}
+        </div>
 
-        {!started && <Examples t={t} dialect={dialect} onPick={chat.send} />}
+        <div className="flex flex-1 flex-col px-3 pb-2 pt-3 sm:px-4">
+          {!started && (
+            <>
+              <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.placeholder}</p>
+              <Examples t={t} dialect={dialect} onPick={chat.send} />
+            </>
+          )}
+
+          {(started || chat.busy) && (
+            // Inside the card on a wide screen the conversation scrolls in its
+            // own box, so an answer never pushes the page. On a phone it is the
+            // focus surface's whole screen and simply flows.
+            <div ref={transcriptRef} className="mb-2 lg:max-h-[28rem] lg:overflow-y-auto lg:pr-1">
+              <Transcript
+                voiceT={dict.voice}
+                messages={chat.messages}
+                me={LEARNER_ID}
+                t={t}
+                busy={chat.busy}
+                streaming={chat.streaming}
+                onRetry={chat.retry}
+                onMove={chat.send}
+                locale={locale}
+                endRef={endRef}
+                className="flex flex-col gap-4"
+              />
+            </div>
+          )}
+
+          <Composer
+            value={chat.input}
+            onChange={chat.setInput}
+            onSend={chat.send}
+            busy={chat.busy}
+            onStop={chat.stop}
+            t={t}
+            modelT={dict.model}
+            placeholder={t.composer}
+            locale={locale}
+            sticky={started}
+            className="mt-auto pt-3"
+            images
+          />
+        </div>
 
         <WordPick containerRef={transcriptRef} t={t} onAsk={chat.send} />
 
@@ -197,7 +174,7 @@ export function Chat({
 
 function ExpandIcon() {
   return (
-    <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );

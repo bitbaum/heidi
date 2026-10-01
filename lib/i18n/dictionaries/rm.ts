@@ -125,16 +125,11 @@ export const rm: Dictionary = {
     methodLink: "Tut la metoda",
     researchLink: "Tge che di la perscrutaziun",
     contributeTitle: "Nus tschertgain vuschs turitgaisas",
-    contributeBody:
-      "Mintga secunda da dialect che Vus vegnis a udir tar Heidi vegn d'ina persuna reala da Turitg. Sche Vus ans laschais registrar Vossa vusch, scrivai a nus.",
     contributeCta: "Far part",
     eyebrow: "Tudestg da Turitg · per tuts che san gia tudestg",
-    ctaTry: "Empruvar dalunga",
     ctaSituations: "Scuvrir las situaziuns",
     trustLine: "Gratuit, senza conto — mintga lingia controllada tenor las furmas da Turitg.",
     illustration: "Ina vatga cun zampogna davant las Alps di «Grüezi mitenand!»",
-    tryTitle: "Empruvai",
-    tryLead: "Tschentai en in messadi che Vus avais survegnì — u tutgai in exempel.",
     stepsTitle: "Uschia avanzais Vus",
     steps: [{"title": "Chapir", "body": "Frasas vairas dal mintgadi, da la lavur e da la tgira — situaziun per situaziun.", "cta": "A las situaziuns"}, {"title": "Exercitar", "body": "Paucas minutas al di, cun explicaziuns che restan.", "cta": "Als exercizis"}, {"title": "Scriver sez", "body": "Heidi As gida a respunder sco insatgi da qua.", "cta": "Scriver cun Heidi"}],
     dialectLead: "L’emprim il tudestg da Turitg — e Heidi enconuscha gia oz danunder ch’in messadi vegn.",
@@ -219,6 +214,18 @@ export const rm: Dictionary = {
       silence: "Nagut udì. Smatgai anc ina giada sin il microfon e discurri immediatamain.",
       unavailable: "Il dictat na funcziuna betg en quest navigatur. Vus pudais adina tippar.",
     },
+    micCancel: "Interrumper la registraziun",
+    micDone: "Fatg — utilisar quai che jau hai ditg",
+    dismiss: "Serrar",
+    removeNamed: "Allontanar {name}",
+    /** Why a file did not attach. {name}, {mb} and {max} are filled in. */
+    attachNotes: {
+      wrongType: "{name}: duvrai PNG, JPEG, GIF u WebP.",
+      imageTooLarge: "{name} è memia grond (max. {mb} MB).",
+      textTooLarge: "{name} è memia lung.",
+      unreadable: "Impussibel da leger {name}.",
+      tooMany: "Maximalmain {max} maletgs per messadi.",
+    },
     newChat: "Nova conversaziun",
     explanationsIn: "Decleraziuns per tudestg",
     notConfigured: "Il model da lingua n'è anc betg configurà sin questa installaziun.",
@@ -285,7 +292,6 @@ export const rm: Dictionary = {
 
   model: {
     attach: "Agiuntar ina maletg",
-    attachNeedsKey: "Il model collià na sa betg leger maletgs",
     remove: "Allontanar",
     connectTitle: "Colliar Voss agen model",
     connectLead:
@@ -312,8 +318,6 @@ export const rm: Dictionary = {
     unreachable: "Il purschider n’era betg cuntanschibel. Vossa clav po tuttina esser endretg — empruvai anc ina giada en in mument.",
     disconnect: "Allontanar la clav",
     open: "Voss agen model",
-    imageTooBig: "Questa maletg na sa betg vegnir duvrada.",
-    imagesLabel: "Agiuntà",
   },
 
   pillars: [
