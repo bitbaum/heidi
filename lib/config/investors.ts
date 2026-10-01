@@ -63,8 +63,8 @@ export const ADVERTISED_TEST_FILES = 130;
 export const METRICS: readonly Metric[] = [
   { label: "Live at", value: "heidi.orangecat.ch", verify: "Open it." },
   { label: "Built since", value: "10 September 2026", verify: "git log" },
-  { label: "Merged pull requests", value: "155", verify: "github.com/bitbaum/heidi/pulls" },
-  { label: "Automated tests", value: `1044 across ${ADVERTISED_TEST_FILES} files`, verify: "pnpm verify" },
+  { label: "Merged pull requests", value: "156", verify: "github.com/bitbaum/heidi/pulls" },
+  { label: "Automated tests", value: `1047 across ${ADVERTISED_TEST_FILES} files`, verify: "pnpm verify" },
   // The speech engine moved into its own open-source package, and its tests
   // went with it — counted there rather than quietly dropped from this page.
   {
@@ -74,8 +74,8 @@ export const METRICS: readonly Metric[] = [
   },
   { label: "Interface languages", value: "7", verify: "The language switcher." },
   { label: "Situations, with per-situation mastery", value: "19", verify: "/situations" },
-  { label: "Vocabulary entries", value: "226", verify: "/vocabulary" },
-  { label: "Practice questions", value: "2028", verify: "/practice" },
+  { label: "Vocabulary entries", value: "261", verify: "/vocabulary" },
+  { label: "Practice questions", value: "2482", verify: "/practice" },
   { label: "Dialect areas mapped", value: "11", verify: "/dialect" },
 ];
 
@@ -105,7 +105,7 @@ export const SECTIONS: readonly Section[] = [
       "A working assistant, in seven interface languages, that decodes a real message someone was sent, explains the words that blocked it, and writes a reply the reader can send — then offers, in one tap, what to learn from it next. It reaches every page, streams its answer, and can be stopped mid-sentence.",
       "A learning system built on situations: nineteen of them, from the tram and the Gemeinde to a care-home handover, each measured line by line, so a learner can say — and check — \"I understand Swiss German at the doctor's\". Practice in fifteen kinds of question on its own session screen, a test mode, an explanation after every answer, and spaced review that brings each question back before it is forgotten.",
       "What keeps people coming back: a daily streak and a weekly goal the learner sets, progress that follows them across devices, and a certificate per situation that anyone with the link can check.",
-      "Around it: a dialect atlas of eleven areas that also tells you where a message comes from, a grammar reference of nineteen topics, a vocabulary of 226 entries ranked by how often each is heard and whether a German reader could guess it, and study groups.",
+      "Around it: a dialect atlas of eleven areas that also tells you where a message comes from, a grammar reference of twenty topics, a vocabulary of 261 entries ranked by how often each is heard and whether a German reader could guess it, and study groups.",
       "All of it is MIT-licensed and public. An investor can read every line, run the tests, and check every claim on this page without asking us for anything.",
     ],
     links: [
