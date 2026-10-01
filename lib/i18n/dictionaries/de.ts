@@ -308,9 +308,9 @@ export const de = {
     connectTitle: "Ihr eigenes Modell verbinden",
     connectLead:
       "Heidi liest Screenshots gratis. Mit einem eigenen API-Schlüssel werden die Antworten schärfer — besonders bei einem dicht beschriebenen Bild — und die Anfragen laufen über Ihren Anbieter statt über unseren.",
-    whyTitle: "Warum nicht einfach inklusive?",
+    whyTitle: "Wozu ein eigener Schlüssel?",
     whyBody:
-      "Weil Bilderkennung pro Bild kostet. Würden wir das für alle bezahlen, müssten wir Heidi kostenpflichtig machen. So bleibt alles andere gratis, und wer mehr will, bringt seinen eigenen Schlüssel mit.",
+      "Heidi ist gratis, mit Modellen, die wir auswählen. Mit Ihrem Schlüssel wählen Sie selbst — meist das stärkste, das Ihr Anbieter hat —, und abgerechnet wird direkt bei Ihnen.",
     safetyTitle: "Wohin Ihr Schlüssel geht",
     safetyBody:
       "Er bleibt in diesem Browser. Bei jeder Nachricht wird er verschlüsselt an uns geschickt, einmal beim Anbieter verwendet und sofort verworfen. Wir speichern ihn nicht, schreiben ihn in kein Log und geben ihn nie zurück.",
@@ -629,7 +629,7 @@ export const de = {
       practiceModel: "Woran Sie noch arbeiten",
       practiceMemory: "Wann welche Frage wiederkommt",
       streak: "Ihre Serie und Ihr Wochenziel",
-      roadmapFeedback: "Ihre Stimmen, Kommentare und Vorschläge zum Fahrplan",
+      roadmapFeedback: "Frühere Stimmen, Kommentare und Vorschläge zum Fahrplan",
       syncSetting: "Ob dieser Browser abgleicht",
       syncOthers: "Ihr Fortschritt von anderen Geräten",
       progressSync: "Abgeglichener Fortschritt (nur wenn eingeschaltet)",
@@ -719,11 +719,10 @@ export const de = {
         body: "Wir haben zuerst gelesen, was die Forschung sagt, und erst danach gebaut. Drei Befunde haben den Plan umgeworfen, den wir sonst umgesetzt hätten. Was wir dabei gelernt haben, steht auf der Forschungsseite — samt den Stellen, an denen wir uns öffentlich korrigieren mussten.",
       },
       {
-        title: "Was noch fehlt",
-        body: "Heute: Verstehen und Antworten auf echten Text, eine Antwort vorgelesen bekommen, und ein Verzeichnis, wo am Radio und am Fernsehen wirklich Mundart gesprochen wird. Als Nächstes: das Hörlabor, in dem Sie eine Zürcher Stimme hören, sich eingewöhnen und wir messen, wie viel Sie von einer anderen verstehen. Das braucht Aufnahmen, und die entstehen gerade.",
+        title: "Wo es steht",
+        body: "Heute: echte Nachrichten verstehen und beantworten, Situationen aus Alltag und Pflege, Übungen, die zurückkommen, bevor Sie vergessen, und Heidi für Teams. Als Nächstes: ein Zürcher Lexikon, das auch einzelne Bedeutungen prüft. Danach das Hörlabor mit vielen Zürcher Stimmen. Die Reihenfolge steht auf dem Fahrplan.",
       },
     ],
-    stateTitle: "Stand heute",
   },
 
   settings: {
@@ -746,10 +745,10 @@ export const de = {
     modelBody: "Standardmässig benutzt Heidi kostenlose Modelle, die Bilder lesen können. Ein eigener Schlüssel macht die Antworten schärfer.",
     modelNone: "Kein eigenes Modell verbunden",
     accountTitle: "Konto",
-    accountBody: "Zum Speichern Ihrer Wörter und für Lerngruppen. Zum Übersetzen brauchen Sie kein Konto.",
+    accountBody: "Für Ihren Fortschritt auf allen Geräten, Nachweise, gespeicherte Gespräche und Lerngruppen. Zum Übersetzen und Üben brauchen Sie kein Konto.",
     dataTitle: "Was auf diesem Gerät liegt",
     dataBody:
-      "Ihr Gespräch bleibt in diesem Browser — auch wenn Sie den Tab schliessen — bis Sie «Neues Gespräch» drücken. Angemeldet wird es stattdessen auf unserem Server gespeichert. Um beantwortet zu werden, geht jede Nachricht an einen Modellanbieter. Ein eigener Schlüssel und gemerkte Wörter liegen nur hier.",
+      "Ihr Gespräch bleibt in diesem Browser — auch wenn Sie den Tab schliessen — bis Sie «Neues Gespräch» drücken. Angemeldet wird es stattdessen auf unserem Server gespeichert. Um beantwortet zu werden, geht jede Nachricht an einen Modellanbieter. Ein eigener Schlüssel liegt nur hier, gemerkte Wörter auch — ausser Sie schalten «Fortschritt auf allen Geräten» ein.",
     dataEmpty: "In diesem Browser liegt nichts von Ihnen.",
     dataForget: "Löschen",
     dataExport: "Alles herunterladen",
@@ -780,14 +779,10 @@ export const de = {
     signedInAs: "Angemeldet als",
     notSignedIn: "Sie sind nicht angemeldet",
     notSignedInBody:
-      "Melden Sie sich an, damit Heidi sich merken kann, was Sie noch nicht konnten. Ohne Anmeldung funktioniert alles andere weiterhin — das Übersetzen und die Dialektprüfung brauchen kein Konto.",
+      "Melden Sie sich an, um Gespräche zu speichern, Ihren Fortschritt auf jedes Gerät mitzunehmen und Nachweise zu holen. Übersetzen, Üben und die Dialektprüfung gehen auch ohne Konto.",
     whyTitle: "Warum OrangeCat",
     whyBody:
       "Heidi führt keine eigene Benutzerdatenbank. Ihre Identität liegt bei OrangeCat, wo auch Profile und Bezahlung schon zuhause sind. Das heisst: ein Konto für mehrere Produkte, kein weiteres Passwort — und bei uns liegt nichts, was gestohlen werden könnte.",
-    soonTitle: "Was als Nächstes kommt",
-    soonList: [
-      "Tutorinnen und Tutoren — freiwillig, bezahlt, und nie Pflicht.",
-    ],
     unavailable: "Die Anmeldung ist auf dieser Installation noch nicht eingerichtet.",
     errorTitle: "Die Anmeldung hat nicht geklappt",
     errorBody: "Da ist etwas schiefgelaufen. Versuchen Sie es nochmals, oder gehen Sie zurück zum Start.",
@@ -1632,7 +1627,7 @@ export const de = {
 
   saved: {
     title: "Ihre Wörter",
-    lead: "Was Sie nachgeschlagen und behalten wollten. Alles liegt in diesem Browser, auf diesem Gerät — nicht bei uns.",
+    lead: "Was Sie nachgeschlagen und behalten wollten.",
     empty: "Noch keine Wörter gemerkt.",
     emptyHint: "Fragen Sie Heidi nach einem Satz. Neben jedem erklärten Wort steht ein Plus — damit merken Sie es sich.",
     countLabel: "gemerkt",
@@ -1640,7 +1635,6 @@ export const de = {
     clear: "Alle entfernen",
     clearConfirm: "Wirklich alle entfernen?",
     exportLabel: "Als Datei sichern",
-    onThisDevice: "Nur auf diesem Gerät",
     savedOn: "Gemerkt",
     openChat: "Etwas nachschlagen",
   },
