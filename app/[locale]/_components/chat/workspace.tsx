@@ -291,6 +291,7 @@ export function ChatWorkspace({
 
       <aside
         ref={sidebarRef}
+        id="chat-sidebar"
         // Off-canvas below `lg`, where a permanent sidebar would eat the half
         // of a phone screen the conversation needs.
         className={`${
