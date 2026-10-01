@@ -11,6 +11,7 @@ import { Composer } from "./chat/composer";
 import { Transcript } from "./chat/transcript";
 import { useDraftChat } from "./chat/use-draft-chat";
 import { WordPick } from "./chat/word-pick";
+import { NewChatButton } from "./chat/new-chat-button";
 import { href } from "@/lib/i18n/routes";
 import { FocusSurface, useCompact } from "./focus-surface";
 
@@ -78,7 +79,7 @@ export function Chat({
         className="flex w-full flex-1 flex-col rounded-control border border-border-strong bg-surface-page"
       >
         <div className="flex items-center justify-between gap-3 border-b border-border-subtle py-1.5 pl-4 pr-1.5">
-          <p className="flex min-w-0 items-center gap-2">
+          <p className="flex items-center gap-2">
             <span aria-hidden="true" className="inline-block h-2 w-2 shrink-0 rounded-full bg-accent" />
             <span className="font-heading text-lg font-semibold tracking-display text-fg-primary">Heidi</span>{" "}
             {byok.ready && byok.config ? (
@@ -98,15 +99,7 @@ export function Chat({
             )}
           </p>
           <div className="flex shrink-0 items-center">
-            {started && (
-              <button
-                type="button"
-                onClick={reset}
-                className="inline-flex min-h-11 items-center px-3 text-sm text-link underline underline-offset-4 hover:text-accent"
-              >
-                {t.newChat}
-              </button>
-            )}
+            {started && <NewChatButton label={t.newChat} onClick={reset} variant="icon" />}
             <Link
               href={href(locale, "chat")}
               aria-label={t.full.expand}

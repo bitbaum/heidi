@@ -56,6 +56,32 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     },
     {
       date: "2026-10-01",
+      tag: "feature",
+      title: "Jedes Verb mit seinen Formen, und ein Thema für die Modalverben",
+      summary:
+        "Nur 4 von 48 Verben hatten Formen. Jetzt zeigen 87 Verben eine Tabelle: ich, du, er, eine Pluralform für mir, ihr und si, und die Vergangenheit mit Hilfsverb («isch gange», «hät gmacht»), jeweils neben der deutschen Form.",
+      items: [
+        "35 neue Verben, darunter fahre, wohne, wele, wärde, iistiige und chündige.",
+        "Neues Grammatikthema «cha, mues, wott» zu den Modalverben, mit eigenem Test.",
+        "Formfragen: 348 statt 13. Jede Form ist auf Zürcher Formen geprüft.",
+      ],
+    },
+    {
+      date: "2026-10-01",
+      tag: "fix",
+      title: "Seiten, die sagen, was heute stimmt",
+      summary:
+        "Mehrere Seiten beschrieben Heidi von vor einer Woche. Sie sind nachgezählt und korrigiert.",
+      items: [
+        "Investoren: neu gezählt am 1. Oktober (156 statt 119 Pull Requests, 1047 Tests in 130 Dateien statt 842 in 103, 2482 statt 1876 Übungsfragen, 261 statt 226 Wörter). Serien, Wochenziel, Teams, Nachweise und Abgleich stehen jetzt unter «gebaut», nicht unter «als Nächstes».",
+        "Whitepaper: 2482 Übungsfragen in beiden Sprachen (Englisch sagte 1761, Deutsch 1876), 261 Wörter, 20 Grammatikthemen. Das Register der Aussagen, die wir nicht machen, steht in den Tests, nicht auf dem Fahrplan.",
+        "Für Organisationen: Die Pflegeszenen haben 120 Sätze, nicht «rund sechzig». Mitmachen: alle 390 Sätze statt «hundertvierzig».",
+        "Einstellungen, Mein Bereich und Über uns sagen, was ein Konto heute bringt, und dass gemerkte Wörter mit dem Abgleich auf andere Geräte gehen. «Nur auf diesem Gerät» stand auch dann da, wenn das nicht stimmte.",
+        "Das Fenster für den eigenen Schlüssel sagte, Bilderlesen sei nicht inklusive. Es ist gratis.",
+      ],
+    },
+    {
+      date: "2026-10-01",
       tag: "fix",
       title: "Die Dialektprüfung erkennt jetzt Hochdeutsch",
       summary:
@@ -527,6 +553,32 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "Screenshots are shrunk to 1024 pixels in the browser before they are uploaded — the full phone screenshot never leaves the device.",
         "“Again” after a failure sends the picture again, not just the text.",
         "On a phone, Heidi sits right under the headline.",
+      ],
+    },
+    {
+      date: "2026-10-01",
+      tag: "feature",
+      title: "Every verb with its forms, and a topic for the modal verbs",
+      summary:
+        "Only 4 of 48 verbs had forms. Now 87 verbs show a table: ich, du, er, one plural form for mir, ihr and si, and the past with its auxiliary (\u201cisch gange\u201d, \u201ch\u00e4t gmacht\u201d), each beside the German form.",
+      items: [
+        "35 new verbs, among them fahre, wohne, wele, w\u00e4rde, iistiige and ch\u00fcndige.",
+        "New grammar topic \u201ccha, mues, wott\u201d on the modal verbs, with its own test.",
+        "Form questions: 348 instead of 13. Every form is checked against Zurich forms.",
+      ],
+    },
+    {
+      date: "2026-10-01",
+      tag: "fix",
+      title: "Pages that say what is true today",
+      summary:
+        "Several pages described Heidi as it was a week ago. They have been recounted and corrected.",
+      items: [
+        "Investors: recounted on 1 October (156 merged pull requests, not 119; 1047 tests in 130 files, not 842 in 103; 2482 practice questions, not 1876; 261 words, not 226). Streaks, the weekly goal, Teams, certificates and sync now sit under built, not next.",
+        "White paper: 2,482 practice questions in both languages (the English said 1,761, the German 1876), 261 words, 20 grammar topics. The register of claims we do not make lives in the tests, not on the roadmap.",
+        "For organisations: the care scenes hold 120 lines, not \u201caround sixty\u201d. Contribute: all 390 lines, not \u201ca hundred and forty\u201d.",
+        "Settings, My space and About say what an account does today, and that saved words follow you to other devices once sync is on. \u201cOn this device only\u201d showed even when that was not true.",
+        "The own-key sheet said reading pictures was not included. It is free.",
       ],
     },
     {

@@ -19,8 +19,8 @@ import { DISPLAY } from "@/lib/variety/display";
  * thing that did not teach anyone anything.
  *
  * No account is involved. This reads the same browser storage the chat writes
- * to, so it works signed out, and it says so rather than letting someone
- * assume their words are following them to a second device.
+ * to, so it works signed out; with "progress on every device" switched on, the
+ * same words follow the learner to their other devices.
  */
 export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: Locale }) {
   const saved = useSaved();
@@ -51,7 +51,7 @@ export function SavedWords({ t, locale }: { t: Dictionary["saved"]; locale: Loca
     <div>
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-          {saved.count} {t.countLabel} · {t.onThisDevice}
+          {saved.count} {t.countLabel}
         </p>
         <div className="flex items-center gap-4">
           <button

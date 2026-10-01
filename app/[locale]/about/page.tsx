@@ -3,7 +3,6 @@ import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
-import { DISPLAY } from "@/lib/variety/display";
 import { NumberedList, PageHeader, Section, Shell } from "../_components/page-shell";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -44,26 +43,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <p className="mt-8 max-w-measure border-l-2 border-accent pl-4 text-base leading-relaxed text-fg-primary">
           {dict.vision.closing}
         </p>
-      </Section>
-
-      <Section title={t.stateTitle}>
-        <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
-          {[
-            /* The endonym renders anywhere — it is what the speakers call
-               it, in every language. The reader-facing NAME and PLACE come
-               from the dictionary, because "Zurich German" and "Canton of
-               Zürich, Switzerland" are English sentences and used to be
-               printed as such to a German reader. See `display.ts`. */
-            [dict.footer.varietyName, DISPLAY.endonym],
-            [dict.nav.language, dict.footer.place],
-            [dict.check.title, DISPLAY.orthography.convention],
-          ].map(([term, value]) => (
-            <div key={term} className="border-b border-border-subtle pb-3">
-              <dt className="font-mono text-caption uppercase tracking-caps text-fg-muted">{term}</dt>
-              <dd className="mt-1 text-base text-fg-primary">{value}</dd>
-            </div>
-          ))}
-        </dl>
       </Section>
 
       <Section>

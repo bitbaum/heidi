@@ -30,9 +30,9 @@ import type { SectorLocale } from "./sectors.ts";
  * capability is a boundary; the same sentence first is an apology.
  *
  * That is not a licence to soften. `/organisations` still says there are no
- * customers, the situations pages still say no native speaker has read them,
- * and §8's register is still published in full on the roadmap. Confidence and
- * honesty are not in tension here — leading with the weakness was never more
+ * customers, the situations pages say their lines are machine-checked, and
+ * §8's register is enforced by the test suite. Confidence and honesty are not
+ * in tension here — leading with the weakness was never more
  * honest, only less useful.
  *
  * WHY IT IS NOT A PDF. A snapshot drifts from the product the day it is
@@ -78,7 +78,7 @@ const EN: Paper = {
       title: "One field, and a real message in it",
       body: [
         "Paste something a Zurich speaker actually sent you. Heidi explains it — what was said, which words did the work, and why the sentence is shaped the way it is. Then it offers the words worth keeping, and brings them back later on a schedule built from the spacing research rather than from a marketing calendar.",
-        "Around that sit the things a learner needs next: a grammar section of nineteen topics, two hundred and twenty-six words chosen because they block sentences rather than because they are common, nineteen scenes of what is actually said — at the Gemeinde, in the laundry room, at the doctor's and during a working shift — and 1,761 practice questions built from that same checked material and held to the same gate.",
+        "Around that sit the things a learner needs next: a grammar section of twenty topics, two hundred and sixty-one words chosen because they block sentences rather than because they are common, nineteen scenes of what is actually said — at the Gemeinde, in the laundry room, at the doctor's and during a working shift — and 2,482 practice questions built from that same checked material and held to the same gate.",
         "Nothing in the product invents language. Every question, every example and every gloss is assembled from material the variety pack already vouches for, which is the constraint that makes the rest of this document possible.",
       ],
       check: [
@@ -110,7 +110,7 @@ const EN: Paper = {
         "That is what makes the product reviewable by the people qualified to review it. A native speaker can read the whole of what Heidi asserts about Zurich German in an afternoon and mark what is wrong, without reading a line of code. A linguist can check a rule against an atlas. Neither has to take our word for anything.",
         "It is also what makes a second dialect a pack rather than a rewrite. The proof that the seam is real is that a Ukrainian pack sits in the same repository and nothing about it is Swiss.",
       ],
-      check: [{ label: "The nineteen grammar topics", segment: "grammar" }],
+      check: [{ label: "The twenty grammar topics", segment: "grammar" }],
     },
     {
       id: "gate",
@@ -133,10 +133,10 @@ const EN: Paper = {
       body: [
         "The specification carries a list of sentences this product may not say, and it is enforced by tests rather than remembered by people. No promise to transcribe dialect. No score for pronunciation. No measurement of learning that is really a measurement of usage.",
         "Each is refused because it cannot be made honestly today. Nothing transcribes this dialect reliably, so dictation writes what you want to SAY in a language you already have, and says so. Nobody can assess pronunciation in a variety with no standard, so the speaking page reports how long you spoke and where the pauses fell — facts about a recording rather than a verdict about a person.",
-        "Publishing that list is the point. It is the part of a product that is cheapest to write and most expensive to keep, so it is kept where it costs something: on the public roadmap, beside the plans.",
+        "Writing that list down is the point. It is the part of a product that is cheapest to write and most expensive to keep, so it is kept where it costs something: in the test suite, which fails the build the day a sentence on this site makes one of these claims.",
       ],
       check: [
-        { label: "The register, in full", segment: "roadmap" },
+        { label: "What is measured, and what is refused", segment: "technology" },
         { label: "Record yourself and see what is measured", segment: "speaking" },
       ],
     },
@@ -156,9 +156,9 @@ const EN: Paper = {
       short: "How to check us",
       title: "How to check all of this in an afternoon",
       body: [
-        "Read the variety pack — one file, and the whole of what we assert about Zurich German. Compare the technology page against the published word error rates; the best verifiable figure in the field is 12.1 %, and those weights are not released. Run the test suite: eight hundred and twenty-two tests, and the command is in the readme.",
+        "Read the variety pack — one file, and the whole of what we assert about Zurich German. Compare the technology page against the published word error rates; the best verifiable figure in the field is 12.1 %, and those weights are not released. Run the test suite; the command is in the readme.",
         "Then use it against something we do not control. Paste a message from a real Zurich speaker and see whether the explanation holds. That is the measurement that matters and the one we cannot stage.",
-        "If a line is wrong, tell us. The situation packs were written for this product and machine-checked for Zurich forms; the pages say plainly which of them a native speaker has reviewed. A correction from somebody who grew up with this language is worth more to us than any feature on the roadmap.",
+        "If a line is wrong, tell us — the feedback window is on every page. The situation lines were written for this product and machine-checked for Zurich forms, and a correction from somebody who grew up with this language is worth more to us than any feature on the roadmap.",
       ],
       check: [
         { label: "What changed, and when", segment: "changelog" },
@@ -181,7 +181,7 @@ const DE: Paper = {
       title: "Ein Feld, und eine echte Nachricht darin",
       body: [
         "Fügen Sie ein, was Ihnen jemand aus Zürich wirklich geschrieben hat. Heidi erklärt es — was gesagt wurde, welche Wörter die Arbeit tun und warum der Satz so gebaut ist. Danach bietet sie die Wörter an, die zu behalten sich lohnt, und bringt sie später zurück, nach einem Plan aus der Forschung zum verteilten Lernen und nicht aus einem Marketingkalender.",
-        "Darum herum steht, was eine Lernende als Nächstes braucht: neunzehn Grammatikthemen, zweihundertsechsundzwanzig Wörter — ausgewählt, weil sie Sätze blockieren, nicht weil sie häufig sind —, neunzehn Szenen aus dem Alltag und aus einer echten Schicht und 1876 Übungsfragen, gebaut aus genau diesem geprüften Material und vom selben Gate geprüft.",
+        "Darum herum steht, was eine Lernende als Nächstes braucht: zwanzig Grammatikthemen, zweihunderteinundsechzig Wörter — ausgewählt, weil sie Sätze blockieren, nicht weil sie häufig sind —, neunzehn Szenen aus dem Alltag und aus einer echten Schicht und 2482 Übungsfragen, gebaut aus genau diesem geprüften Material und vom selben Gate geprüft.",
         "Nichts in diesem Produkt erfindet Sprache. Jede Frage, jedes Beispiel und jede Bedeutung wird aus Material zusammengesetzt, für das das Varietäten-Pack bereits geradesteht. Diese Einschränkung ist es, die den Rest dieses Dokuments überhaupt möglich macht.",
       ],
       check: [
@@ -213,7 +213,7 @@ const DE: Paper = {
         "Genau das macht das Produkt für die Leute prüfbar, die es prüfen können. Eine Muttersprachlerin liest an einem Nachmittag alles, was Heidi über Zürichdeutsch behauptet, und streicht an, was nicht stimmt — ohne eine Zeile Code zu lesen. Eine Linguistin hält eine Regel gegen einen Atlas. Keine von beiden muss uns etwas glauben.",
         "Und es macht eine zweite Mundart zu einem Pack statt zu einem Umbau. Der Beweis, dass die Naht echt ist: Im selben Repository liegt ein ukrainisches Pack, und nichts daran ist schweizerisch.",
       ],
-      check: [{ label: "Die neunzehn Grammatikthemen", segment: "grammar" }],
+      check: [{ label: "Die zwanzig Grammatikthemen", segment: "grammar" }],
     },
     {
       id: "gate",
@@ -236,10 +236,10 @@ const DE: Paper = {
       body: [
         "Die Spezifikation führt eine Liste von Sätzen, die dieses Produkt nicht sagen darf, und Tests setzen sie durch, statt dass Menschen sich an sie erinnern. Kein Versprechen, Mundart zu transkribieren. Keine Note für die Aussprache. Kein Mass für Gelerntes, das in Wahrheit ein Mass für Nutzung ist.",
         "Jede Ablehnung steht da, weil sich die Sache heute nicht ehrlich machen lässt. Nichts schreibt diese Mundart zuverlässig auf — also schreibt die Diktierfunktion das mit, was Sie SAGEN wollen, in einer Sprache, die Sie schon haben, und sagt das auch. Niemand kann Aussprache in einer Varietät ohne Norm beurteilen — also zeigt die Sprechseite, wie lange Sie gesprochen haben und wo die Pausen lagen. Tatsachen über eine Aufnahme statt eines Urteils über einen Menschen.",
-        "Diese Liste zu veröffentlichen ist der Punkt. Sie ist der Teil eines Produkts, der am billigsten zu schreiben und am teuersten zu halten ist — darum steht sie dort, wo sie etwas kostet: auf dem öffentlichen Fahrplan, neben den Plänen.",
+        "Diese Liste aufzuschreiben ist der Punkt. Sie ist der Teil eines Produkts, der am billigsten zu schreiben und am teuersten zu halten ist — darum steht sie dort, wo sie etwas kostet: in der Testsuite, die den Build anhält, sobald ein Satz auf dieser Website eine dieser Aussagen macht.",
       ],
       check: [
-        { label: "Das Register, vollständig", segment: "roadmap" },
+        { label: "Was gemessen wird, und was nicht", segment: "technology" },
         { label: "Sich aufnehmen und sehen, was gemessen wird", segment: "speaking" },
       ],
     },
@@ -259,9 +259,9 @@ const DE: Paper = {
       short: "Wie Sie uns prüfen",
       title: "Wie man das alles an einem Nachmittag prüft",
       body: [
-        "Lesen Sie das Varietäten-Pack — eine Datei, und darin alles, was wir über Zürichdeutsch behaupten. Halten Sie die Technikseite gegen die veröffentlichten Wortfehlerraten; die beste nachprüfbare Zahl im Feld liegt bei 12,1 %, und diese Gewichte sind nicht veröffentlicht. Lassen Sie die Testsuite laufen: 822 Tests, der Befehl steht im Readme.",
+        "Lesen Sie das Varietäten-Pack — eine Datei, und darin alles, was wir über Zürichdeutsch behaupten. Halten Sie die Technikseite gegen die veröffentlichten Wortfehlerraten; die beste nachprüfbare Zahl im Feld liegt bei 12,1 %, und diese Gewichte sind nicht veröffentlicht. Lassen Sie die Testsuite laufen; der Befehl steht im Readme.",
         "Und dann benutzen Sie es an etwas, das wir nicht kontrollieren. Fügen Sie eine Nachricht einer echten Zürcher Sprecherin ein und sehen Sie, ob die Erklärung trägt. Das ist die Messung, auf die es ankommt, und die einzige, die wir nicht inszenieren können.",
-        "Wenn eine Zeile falsch ist, sagen Sie es uns. Die Situationspacks wurden für dieses Produkt geschrieben und maschinell auf Zürcher Formen geprüft; die Seiten schreiben klar hin, welche davon eine Muttersprachlerin durchgesehen hat. Eine Korrektur von jemandem, der mit dieser Sprache aufgewachsen ist, ist uns mehr wert als jede Funktion auf dem Fahrplan.",
+        "Wenn eine Zeile falsch ist, sagen Sie es uns — das Rückmelde-Fenster ist auf jeder Seite. Die Sätze der Situationen wurden für dieses Produkt geschrieben und maschinell auf Zürcher Formen geprüft, und eine Korrektur von jemandem, der mit dieser Sprache aufgewachsen ist, ist uns mehr wert als jede Funktion auf dem Fahrplan.",
       ],
       check: [
         { label: "Was sich geändert hat, und wann", segment: "changelog" },

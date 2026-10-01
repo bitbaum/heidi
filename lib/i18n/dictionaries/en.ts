@@ -280,9 +280,9 @@ export const en: Dictionary = {
     connectTitle: "Connect your own model",
     connectLead:
       "Heidi reads screenshots for free. Add your own API key and the answers get sharper — especially on a dense picture — and the calls run on your vendor rather than ours.",
-    whyTitle: "Why is that not just included?",
+    whyTitle: "Why bring your own key?",
     whyBody:
-      "Because reading a picture costs money per picture. Paying that for everyone would mean charging for Heidi. This way everything else stays free, and whoever wants more brings their own key.",
+      "Heidi is free, on models we choose. With your key you choose — usually the strongest your provider has — and you are billed directly.",
     safetyTitle: "Where your key goes",
     safetyBody:
       "It stays in this browser. With each message it is sent to us over an encrypted connection, used once at the provider, and dropped. We do not store it, never write it to a log, and never send it back.",
@@ -580,7 +580,7 @@ export const en: Dictionary = {
       practiceModel: "What you are still working on",
       practiceMemory: "When each question comes back",
       streak: "Your streak and weekly goal",
-      roadmapFeedback: "Your votes, comments and suggestions on the roadmap",
+      roadmapFeedback: "Earlier votes, comments and suggestions on the roadmap",
       syncSetting: "Whether this browser syncs",
       syncOthers: "Your progress from other devices",
       progressSync: "Synced progress (only when switched on)",
@@ -631,7 +631,7 @@ export const en: Dictionary = {
 
   contribute: {
     title: "We are looking for Zurich voices",
-    lead: "Every second of dialect you will hear in Heidi comes from a real person in Zurich. That is expensive and slow, and we are doing it anyway.",
+    lead: "The Zurich voices in the listening lab come from real people from Zurich, not from a computer voice reading dialect.",
     whyTitle: "Why not just synthetic voices",
     whyBody:
       "The honest reason is not that Swiss German speech synthesis does not exist — by now it does. The reason is licensing. Every Zurich speech corpus we found is released for research and not for a product. Anyone who needs real, cleanly licensed, consented Zurich German has to record it themselves. On top of that there is what synthetic voices are bad at anyway: pace, mumbling, hesitation, the difference between two people from the same neighbourhood.",
@@ -670,11 +670,10 @@ export const en: Dictionary = {
         body: "We read what the research says first, and only then built. Three findings overturned the plan we would otherwise have shipped. What we learned is on the research page — including the places where we had to correct ourselves in public.",
       },
       {
-        title: "What is still missing",
-        body: "Today: understanding and replying to real text, hearing an answer read aloud, and a register of where dialect is actually spoken on air. Next: the listening lab, where you hear one Zurich voice, tune in, and we measure how much you catch of another. That needs recordings, and they are being made.",
+        title: "Where it stands",
+        body: "Today: understanding and answering real messages, situations from everyday life and care, practice that comes back before you forget, and Heidi for Teams. Next: a Zurich lexicon that checks individual meanings too. After that, the listening lab, with many Zurich voices. The order is on the roadmap.",
       },
     ],
-    stateTitle: "Where things stand",
   },
 
   settings: {
@@ -689,10 +688,10 @@ export const en: Dictionary = {
     modelBody: "By default Heidi uses free models, which can read pictures. Your own key makes the answers sharper.",
     modelNone: "No model of your own connected",
     accountTitle: "Account",
-    accountBody: "For saving your words and for study groups. Translating needs no account.",
+    accountBody: "For progress on every device, certificates, saved conversations and study groups. Translating and practising need no account.",
     dataTitle: "What is held on this device",
     dataBody:
-      "Your conversation stays in this browser — including after you close the tab — until you press New chat. Signed in, it is stored on our server instead. To be answered, every message goes to a model vendor. Your own key and saved words stay here only.",
+      "Your conversation stays in this browser — including after you close the tab — until you press New chat. Signed in, it is stored on our server instead. To be answered, every message goes to a model vendor. Your own key stays here only, and so do saved words — unless you turn on Progress on every device.",
     dataEmpty: "This browser holds nothing of yours.",
     dataForget: "Delete",
     dataExport: "Download everything",
@@ -716,14 +715,10 @@ export const en: Dictionary = {
     signedInAs: "Signed in as",
     notSignedIn: "You are not signed in",
     notSignedInBody:
-      "Sign in so Heidi can remember what you did not know yet. Everything else keeps working without it — translating and the dialect check need no account.",
+      "Sign in to save conversations, take your progress to every device and get certificates. Translating, practising and the dialect check work without an account.",
     whyTitle: "Why OrangeCat",
     whyBody:
       "Heidi keeps no user database of its own. Your identity lives at OrangeCat, where profiles and payment are already at home. That means one account across several products, no further password — and nothing here that could be stolen.",
-    soonTitle: "What comes next",
-    soonList: [
-      "Tutors — voluntary, paid, and never required.",
-    ],
     unavailable: "Signing in is not configured on this deployment yet.",
     errorTitle: "Signing in did not work",
     errorBody: "Something went wrong. Try again, or go back to the start.",
@@ -1190,7 +1185,7 @@ export const en: Dictionary = {
       ich: "I",
       du: "you",
       er: "he / she / it",
-      mir: "we",
+      mir: "we / you (pl.) / they",
       ihr: "you (plural)",
       si: "they",
       plural: "plural",
@@ -1452,6 +1447,11 @@ export const en: Dictionary = {
         rule: "When several verbs stack up at the end, the auxiliary or modal comes first and the verb carrying the meaning comes last: «Ich ha nöd chönne cho», where German says «… kommen können». The same in a subordinate clause: «…, dass si hät müesse schaffe».",
         watch: "Understanding it is easy — the words are the same. Use the German order («cho chönne») and you will be understood, but you will sound like Standard German with Zurich words in it.",
       },
+      modals: {
+        title: "cha, mues, wott — the modal verbs",
+        rule: "Short, and ich and er share one form, as in German: ich cha, du chasch, er cha, mir chönd (können) · ich mues, du muesch, mir müend (müssen) · ich wott, du wotsch, mir wänd (wollen) · ich darf, mir dörfed (dürfen) · ich söll, mir sölled (sollen). One plural form serves mir, ihr and si. In the past the modal stays an infinitive: «Ich ha nöd chönne cho».",
+        watch: "«wott» and «wänd» are wollen — nothing in them looks like «will». And «Ich sött» is the polite «ich sollte» you will hear constantly: «Ich sött no schaffe».",
+      },
       directions: {
         title: "ine, use, ufe, abe — no hin or her",
         rule: "Direction words end in -e: ine (in), use (out), ufe (up), abe (down), ume (over, around). One word serves both directions.",
@@ -1467,7 +1467,7 @@ export const en: Dictionary = {
 
   saved: {
     title: "Your words",
-    lead: "What you looked up and wanted to keep. It all lives in this browser, on this device — not with us.",
+    lead: "What you looked up and wanted to keep.",
     empty: "Nothing kept yet.",
     emptyHint: "Ask Heidi about a sentence. Next to every explained word there is a plus that keeps it.",
     countLabel: "kept",
@@ -1475,7 +1475,6 @@ export const en: Dictionary = {
     clear: "Remove all",
     clearConfirm: "Really remove all?",
     exportLabel: "Save to a file",
-    onThisDevice: "On this device only",
     savedOn: "Kept",
     openChat: "Look something up",
   },

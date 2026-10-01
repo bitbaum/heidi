@@ -303,9 +303,9 @@ export const gsw: Dictionary = {
     connectTitle: "Ihres eigene Modell verbinde",
     connectLead:
       "Heidi liist Screenshots gratis. Mit eme eigene API-Schlüssel wärded d Antworte schärfer — bsunders bi eme Bild mit vil Text — und d Aafrage laufed über Ihre Aabieter statt über eusere.",
-    whyTitle: "Werum nöd eifach debii?",
+    whyTitle: "Für was en eigne Schlüssel?",
     whyBody:
-      "Wil Bilder läse pro Bild chostet. Wänn mir das für alli würded zahle, müesstet mir Heidi chostepflichtig mache. So bliibt alles andere gratis, und wer meh wott, bringt sin eigene Schlüssel mit.",
+      "Heidi isch gratis, mit Modell, wo mir uussueched. Mit Ihrem Schlüssel wähled Si sälber — meischt s stärchscht, wo Ihre Aabieter hät — und zahlt wird diräkt bi Ihne.",
     safetyTitle: "Wo Ihre Schlüssel ane gaht",
     safetyBody:
       "Er bliibt i dem Browser. Bi jeder Nachricht wird er verschlüsselt zu öis gschickt, eimal bim Aabieter bruucht und grad wieder verworfe. Mir speichered en nöd, schriibed en i kei Log und gänd en nie zrugg.",
@@ -340,10 +340,10 @@ export const gsw: Dictionary = {
       "Standardmässig bruucht Heidi gratis Modell, wo Bilder chönd läse. En eigene Schlüssel macht d Antworte schärfer.",
     modelNone: "Kei eigens Modell verbunde",
     accountTitle: "Konto",
-    accountBody: "Zum Spichere vo Ihrne Wörter und für Lerngruppe. Zum Übersetze bruuched Si kei Konto.",
+    accountBody: "Für Ihre Fortschritt uf allne Grät, Nachwiis, gspeichereti Gspräch und Lerngruppe. Zum Übersetze und Üebe bruuched Si kei Konto.",
     dataTitle: "Was uf dem Grät liit",
     dataBody:
-      "Ihres Gspräch bliibt i dem Browser — au wänn Si de Tab zuemached — bis Si «Neus Gspräch» drücked. Aagmäldet wird s statt dem uf eusem Server gspeicheret. Zum beantwortet wärde, gaht jedi Nachricht an en Modällaabieter. En eigne Schlüssel und gmerkti Wörter liged nur da.",
+      "Ihres Gspräch bliibt i dem Browser — au wänn Si de Tab zuemached — bis Si «Neus Gspräch» drücked. Aagmäldet wird s statt dem uf eusem Server gspeicheret. Zum beantwortet wärde, gaht jedi Nachricht an en Modällaabieter. En eigne Schlüssel liit nur da, gmerkti Wörter au — usser Si schalted «Fortschritt uf allne Grät» ii.",
     dataEmpty: "I dem Browser liit nüt vo Ihne.",
     dataForget: "Lösche",
     dataExport: "Alles abelade",
@@ -367,14 +367,10 @@ export const gsw: Dictionary = {
     signedInAs: "Aagmäldet als",
     notSignedIn: "Si sind nöd aagmäldet",
     notSignedInBody:
-      "Mälded Si sich a, damit Heidi sich cha merke, was Si na nöd chönnt händ. Ohni Aamäldig funktioniert alles andere wiiterhin — s Übersetze und d Dialektprüefig bruuched kei Konto.",
+      "Mälded Si sich a, zum Gspräch spichere, Ihre Fortschritt uf jedes Grät mitnää und Nachwiis hole. Übersetze, Üebe und d Dialektprüefig gönd au ohni Konto.",
     whyTitle: "Werum OrangeCat",
     whyBody:
       "Heidi füehrt kei eigeni Benutzerdatebank. Ihri Identität liit bi OrangeCat, wo au Profil und Zahlig scho dihei sind. Das heisst: es Konto für mehreri Produkt, kei wiiters Passwort — und bi öis liit nüüt, wo mer chönnti stähle.",
-    soonTitle: "Was als nächts chunt",
-    soonList: [
-      "Tutorinne und Tutore — freiwillig, zahlt, und nie Pflicht.",
-    ],
     unavailable: "D Aamäldig isch uf dere Installation na nöd iigrichtet.",
     errorTitle: "D Aamäldig hät nöd klappet",
     errorBody: "Do isch öppis schief gange. Probiered Si s nomal, oder gönd Si zrugg zum Afang.",
@@ -658,7 +654,7 @@ export const gsw: Dictionary = {
       practiceModel: "Wo Sie no dra schaffed",
       practiceMemory: "Wänn weli Frag wieder chunt",
       streak: "Ihri Serie und Ihres Wucheziel",
-      roadmapFeedback: "Ihri Stimme, Kommentär und Vorschläg zum Fahrplan",
+      roadmapFeedback: "Früeneri Stimme, Kommentär und Vorschläg zum Fahrplan",
       syncSetting: "Öb dä Browser abglicht",
       syncOthers: "Ihre Fortschritt vo andere Grät",
       progressSync: "Abglichene Fortschritt (nur wänn iigschaltet)",
@@ -709,7 +705,7 @@ export const gsw: Dictionary = {
 
   contribute: {
     title: "Mir suechet Zürcher Stimme",
-    lead: "Jedi Sekunde Dialekt, wo Si bi Heidi ghöred, chunt vo mene echte Mensch us Züri. Das isch tüür und langsam, und mir mached s trotzdem.",
+    lead: "D Zürcher Stimme im Hörlabor chömed vo echte Mensche us Züri, nöd vo nere Computerstimm, wo Mundart vorlist.",
     whyTitle: "Werum nöd eifach synthetischi Stimme",
     whyBody:
       "De ehrlich Grund isch nöd, dass es kei Schwiizerdütsch-Sprachsynthese gäbti — es git inzwüsche weli. De Grund isch d Lizänz. Jedes Zürcher Sprachkorpus wo mir gfunde händ, isch für d Forschig freigäh und nöd für es Produkt. Wer echts, suuber lizenzierts Züridütsch mit Iiverständnis bruucht, mues es sälber ufnäh. Dezue chunt, was synthetischi Stimme sowieso schlächt chönd: Tempo, Nuschle, Zögere, de Unterschied zwüsche zwei Mensche us em gliiche Quartier.",
@@ -748,11 +744,10 @@ export const gsw: Dictionary = {
         body: "Mir händ zerscht gläse, was d Forschig seit, und erscht nachher baut. Drüü Befund händ de Plan umgworfe, wo mir süscht umgsetzt hättet. Was mir debii glernt händ, staht uf de Forschigssiite — samt de Stelle, wo mir öis öffentlich händ müesse korrigiere.",
       },
       {
-        title: "Was na fählt",
-        body: "Hüt: Verstaa und Antworte uf echte Text, e Antwort vorgläse übercho, und es Verzeichnis, wo am Radio und am Färnseh würklich Mundart gredt wird. Als nächts: s Hörlabor, wo Si e Zürcher Stimm ghöred, sich iigwöhned und mir mässed, wie vill Si vo ere andere verstönd. Das bruucht Ufnahme, und die entstönd grad.",
+        title: "Wo s staht",
+        body: "Hüt: echti Nachrichte verstaa und beantworte, Situatione us em Alltag und us de Pfleg, Üebige, wo zrugg chömed, bevor Si s vergässed, und Heidi für Teams. Als nächts: es Zürcher Lexikon, wo au einzelni Bedüütige prüeft. Dänn s Hörlabor mit vilne Zürcher Stimme. D Reihefolg staht uf em Fahrplan.",
       },
     ],
-    stateTitle: "Stand hüt",
   },
 
   vision: {
@@ -1215,7 +1210,7 @@ export const gsw: Dictionary = {
       ich: "ich",
       du: "du",
       er: "er / si / es",
-      mir: "mir",
+      mir: "mir / ihr / si",
       ihr: "ihr",
       si: "si",
       plural: "Mehrzahl",
@@ -1477,6 +1472,11 @@ export const gsw: Dictionary = {
         rule: "Wänn am Satzend mehreri Verbe stönd, chunt s Hilfs- oder Modalverb zerscht und s Verb mit de Bedüütig zletscht: «Ich ha nöd chönne cho», wo s Hochdütsch «… kommen können» seit. Im Nebesatz gliich: «…, dass si hät müesse schaffe».",
         watch: "Verstah isch eifach — d Wörter sind di gliiche. Wer d hochdütschi Reihefolg nimmt («cho chönne»), wird verstande, tönt aber wie Hochdütsch mit Zürcher Wörter.",
       },
+      modals: {
+        title: "cha, mues, wott — d Modalverbe",
+        rule: "Churz, und ich und er händ di gliichi Form, wie im Hochdütsche: ich cha, du chasch, er cha, mir chönd («können») · ich mues, du muesch, mir müend («müssen») · ich wott, du wotsch, mir wänd («wollen») · ich darf, mir dörfed («dürfen») · ich söll, mir sölled («sollen»). Di gliichi Pluralform gilt für mir, ihr und si. I de Vergangeheit blibt s Modalverb im Infinitiv: «Ich ha nöd chönne cho».",
+        watch: "«wott» und «wänd» heisst «wollen» — nüüt dra erinneret a «will». Und «Ich sött» isch «ich sollte», höflich und überall z ghöre: «Ich sött no schaffe».",
+      },
       directions: {
         title: "ine, use, ufe, abe — ohni hin und her",
         rule: "D Richtigswörter änded uf -e: ine, use, ufe, abe, ume. Eis Wort für beidi Richtige.",
@@ -1492,7 +1492,7 @@ export const gsw: Dictionary = {
 
   saved: {
     title: "Dini Wörter",
-    lead: "Was du naagschlage und bhalte wottsch. Alles liit i dem Browser, uf dem Grät — und nöd bi eus.",
+    lead: "Was Si naagschlage händ und bhalte wänd.",
     empty: "No kei Wörter gmerkt.",
     emptyHint: "Frag d Heidi nach eme Satz. Näbet jedem erklärte Wort staat es Plus — so merksch der s.",
     countLabel: "gmerkt",
@@ -1500,7 +1500,6 @@ export const gsw: Dictionary = {
     clear: "Alli lösche",
     clearConfirm: "Wirkli alli lösche?",
     exportLabel: "Als Datei sichere",
-    onThisDevice: "Nume uf dem Grät",
     savedOn: "Gmerkt",
     openChat: "Öppis naaschlaa",
   },

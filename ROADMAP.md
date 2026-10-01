@@ -27,7 +27,7 @@ Bern, Basel, eastern Switzerland and more — with contrasts that show what chan
 From meaning to dialect, for words you already understand with confidence.
 
 ### Heidi Pro
-Unlimited chat, certificates and more, for anyone who wants to move faster.
+Unlimited chat and more, for anyone who wants to move faster.
 
 ### Learning together
 See how your progress compares, and talk with others practising the same situations.

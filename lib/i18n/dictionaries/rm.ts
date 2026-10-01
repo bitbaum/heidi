@@ -296,9 +296,9 @@ export const rm: Dictionary = {
     connectTitle: "Colliar Voss agen model",
     connectLead:
       "Heidi legia gratuitamain fotografias dal visur. Cun ina atgna clav API vegnan las respostas pli precisas — surtut tar in maletg cun bler text — e las dumondas van tras Voss purschider e betg tras il nos.",
-    whyTitle: "Pertge n'è quai betg simplamain include?",
+    whyTitle: "Pertge purtar l'atgna clav?",
     whyBody:
-      "Perquai che leger ina maletg custa, per mintga maletg. Pajar quai per tuts vuless dir far pajar Heidi. Uschia resta tut il rest gratuit, e tgi che vul dapli porta sia atgna clav.",
+      "Heidi è gratuit, cun models che nus tschernin. Cun Vossa clav tschernis Vus — savens il pli ferm da Voss purschider — e Vus pajais directamain.",
     safetyTitle: "Nua che Vossa clav va",
     safetyBody:
       "Ella resta en quest navigatur. Cun mintga messadi vegn ella tramessa a nus sur ina connexiun criptada, duvrada ina giada tar il purschider e lura abandunada. Nus n'la memorisain betg, nus n'la scrivain en nagin protocol e nus n'la returnain mai.",
@@ -597,7 +597,7 @@ export const rm: Dictionary = {
       practiceModel: "Tge che vus exercitais anc",
       practiceMemory: "Cura che mintga dumonda returna",
       streak: "Vossa seria e Voss finamira da l'emna",
-      roadmapFeedback: "Voss vuschs, commentaris e propostas davart il plan",
+      roadmapFeedback: "Vuschs, commentaris e propostas pli veglias davart il plan",
       syncSetting: "Sch’il navigatur sincronisescha",
       syncOthers: "Voss progress d’auters apparats",
       progressSync: "Progress sincronisà (mo sch’activà)",
@@ -648,7 +648,7 @@ export const rm: Dictionary = {
 
   contribute: {
     title: "Nus tschertgain vuschs turitgaisas",
-    lead: "Mintga secunda da dialect che Vus vegnis a udir tar Heidi vegn d'ina persuna reala da Turitg. Quai è char e plaun, e nus al fain tuttina.",
+    lead: "Las vuschs turitgaisas en il laboratori da tadlar vegnan da persunas veras da Turitg, betg d'ina vusch da computer che legia dialect.",
     whyTitle: "Pertge betg simplamain vuschs sinteticas",
     whyBody:
       "La raschun onesta n'è betg ch'i na dettia nagina sintesa vocala tudestg-svizra — ussa i dat. La raschun è la licenza. Mintga corpus da lingua turitgaisa che nus avain chattà è publitgà per la perscrutaziun e betg per in product. Tgi che ha basegns da ver tudestg da Turitg, licenzià net e cun consentiment, sto al registrar sez. Plinavant vegn quai che vuschs sinteticas fan mal tuttina: il ritmus, ils pleds mangiads, l'exitaziun, la differenza tranter duas persunas dal medem quartier.",
@@ -687,11 +687,10 @@ export const rm: Dictionary = {
         body: "Nus avain l'emprim legì tge che di la perscrutaziun, e mo lura construì. Trais resultats han ruinà il plan che nus avessan uschiglio realisà. Quai che nus avain emprendì sa chatta sin la pagina da perscrutaziun — cumpigliads ils lieus nua che nus ans avain stuì curreger publicamain.",
       },
       {
-        title: "Tge che manca anc",
-        body: "Oz: chapir e respunder a text ver, udir ina resposta legida ad auta vusch, ed in register da nua ch'il dialect vegn propi discurrì en radio e televisiun. Lura: il laboratori da tadlar, nua che Vus udis ina vusch turitgaisa, Vus Vus adattais, e nus mesirain quant che Vus chapis d'ina autra. Quai dumonda registraziuns, ed ellas vegnan fatgas.",
+        title: "Nua che nus essan",
+        body: "Oz: chapir messadis vers e respunder, situaziuns da la vita quotidiana e da la tgira, exercizis che returnan avant che Vus emblidais, e Heidi per teams. Lura: in lexicon turitgais che controlla er la muntada da singuls pleds. Suenter il laboratori da tadlar, cun bleras vuschs turitgaisas. La successiun stat en il plan.",
       },
     ],
-    stateTitle: "Nua che nus essan",
   },
 
   settings: {
@@ -706,10 +705,10 @@ export const rm: Dictionary = {
     modelBody: "Da standard dovra Heidi models gratuits che san leger maletgs. Ina atgna clav renda las respostas pli precisas.",
     modelNone: "Nagin agen model collià",
     accountTitle: "Conto",
-    accountBody: "Per tegnair Voss pleds e per gruppas da studi. Per translatar na dovrais Vus nagin conto.",
+    accountBody: "Per il progress sin tut ils apparats, attestats, conversaziuns memorisadas e gruppas da studi. Per translatar ed exercitar na dovrais Vus nagin conto.",
     dataTitle: "Tge che resta sin quest apparat",
     dataBody:
-      "Vossa conversaziun resta en quest navigatur — era suenter avair serrà il tab — fin che Vus smatgais Nova conversaziun. Cun conto vegn ella memorisada sin noss server. Per vegnir respundì va mintga messadi ad in purschider da models. Vossa clav ed ils pleds tegnids restan mo qua.",
+      "Vossa conversaziun resta en quest navigatur — era suenter avair serrà il tab — fin che Vus smatgais Nova conversaziun. Cun conto vegn ella memorisada sin noss server. Per vegnir respundì va mintga messadi ad in purschider da models. Vossa clav resta mo qua, ils pleds tegnids era — nun che Vus activeschias Il progress sin tut ils apparats.",
     dataEmpty: "Quest navigatur na cuntegna nagut da Vus.",
     dataForget: "Stizzar",
     dataExport: "Telechargiar tut",
@@ -733,14 +732,10 @@ export const rm: Dictionary = {
     signedInAs: "Annunzià sco",
     notSignedIn: "Vus n'essas betg annunzià",
     notSignedInBody:
-      "Annunziai Vus, uschè che Heidi po sa regurdar da quai che Vus n'avais anc betg savì. Tut il rest funcziunescha vinavant senza — la translaziun e la controlla dal dialect na dumondan nagin conto.",
+      "Annunziai Vus per memorisar conversaziuns, prender Voss progress sin mintga apparat e retschaiver attestats. La translaziun, ils exercizis e la controlla dal dialect funcziunan er senza conto.",
     whyTitle: "Pertge OrangeCat",
     whyBody:
       "Heidi na tegna nagina atgna banca da datas d'utilisaders. Vossa identitad viva tar OrangeCat, nua che profils e pajaments èn gia a chasa. Quai vul dir in sulet conto per plirs products, nagin pled-clav supplementar — e qua nagut che pudess vegnir engulà.",
-    soonTitle: "Tge che vegn suenter",
-    soonList: [
-      "Tutuors — voluntaris, pajads, e mai obligatoris.",
-    ],
     unavailable: "L'annunzia n'è anc betg configurada sin questa installaziun.",
     errorTitle: "L'annunzia n'ha betg funcziunà",
     errorBody: "Insatge è ì mal. Empruvai danovamain, u turnai al cumenzament.",
@@ -1211,7 +1206,7 @@ export const rm: Dictionary = {
       ich: "jau",
       du: "ti",
       er: "el / ella",
-      mir: "nus",
+      mir: "nus / vus / els",
       ihr: "vus",
       si: "els / ellas",
       plural: "plural",
@@ -1473,6 +1468,11 @@ export const rm: Dictionary = {
         rule: "Sche plirs verbs stattan a la fin da la frasa, vegn il verb auxiliar u modal l'emprim ed il verb cun la muntada l'ultim: «Ich ha nöd chönne cho», nua ch'il tudestg di «… kommen können». Il medem en la frasa subordinada: «…, dass si hät müesse schaffe».",
         watch: "Chapir è facil — ils pleds èn ils medems. Tgi che prenda l'urden tudestg («cho chönne») vegn chapì, ma tuna sco tudestg standard cun pleds turitgais.",
       },
+      modals: {
+        title: "cha, mues, wott — ils verbs modals",
+        rule: "Curts, ed ich ed er han ina furma cuminaivla, sco en tudestg: ich cha, du chasch, er cha, mir chönd (können) · ich mues, du muesch, mir müend (müssen) · ich wott, du wotsch, mir wänd (wollen) · ich darf, mir dörfed (dürfen) · ich söll, mir sölled (sollen). Ina suletta furma dal plural vala per mir, ihr e si. En il passà resta il verb modal a l'infinitiv: «Ich ha nöd chönne cho».",
+        watch: "«wott» e «wänd» vulan dir wollen (vulair) — nagut na regorda «will». E «Ich sött» è il «ich sollte» curtaschaivel che ins auda adina: «Ich sött no schaffe».",
+      },
       directions: {
         title: "ine, use, ufe, abe — senza hin e her",
         rule: "Ils pleds da direcziun finan sin -e: ine (en), use (or), ufe (si), abe (giu), ume (sur, enturn). In pled per omaduas direcziuns.",
@@ -1488,7 +1488,7 @@ export const rm: Dictionary = {
 
   saved: {
     title: "Voss pleds",
-    lead: "Quai ch'Els han tschertgà e vulì tegnair. Tut resta en quest navigatur, sin quest apparat — betg tar nus.",
+    lead: "Quai ch'Els han tschertgà e vulì tegnair.",
     empty: "Anc nagins pleds tegnids.",
     emptyHint: "Dumandai Heidi per ina frasa. Sper mintga pled declerà stat in plus per al tegnair.",
     countLabel: "tegnids",
@@ -1496,7 +1496,6 @@ export const rm: Dictionary = {
     clear: "Allontanar tuts",
     clearConfirm: "Propi allontanar tuts?",
     exportLabel: "Memorisar sco datoteca",
-    onThisDevice: "Mo sin quest apparat",
     savedOn: "Tegnì ils",
     openChat: "Tschertgar insatge",
   },

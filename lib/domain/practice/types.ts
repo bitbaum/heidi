@@ -242,7 +242,9 @@ export type FormItem = {
    * falls back to the reader-language label for those, which is correct.
    */
   subject?: string;
-  /** The verb's own forms, in pack order. */
+  /** As on `ArticleItem`: the topic that names this verb in its `words`. */
+  explains?: string;
+  /** The verb's own distinct forms, in pack order. */
   options: readonly string[];
   answer: number;
   source: ItemSource;
