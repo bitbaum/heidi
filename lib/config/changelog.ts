@@ -42,6 +42,14 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-10-01",
+      tag: "fix",
+      title: "«Die 10 Wörter lernen» fragt alle zehn",
+      summary:
+        "Die Übung hatte acht Plätze, verteilt nach Fragetyp, und so kamen zwei der zehn Wörter nie dran. Jetzt bekommt jedes genannte Wort zuerst einen Platz, und die Übung wird so lang wie nötig.",
+      items: [],
+    },
+    {
+      date: "2026-10-01",
       tag: "improvement",
       title: "Die Wortschatzseite sagt, was als Nächstes dran ist",
       summary:
@@ -470,6 +478,14 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-01",
+      tag: "fix",
+      title: "\u201cLearn these 10 words\u201d asks all ten",
+      summary:
+        "The session had eight seats, shared out by question type, so two of the ten words never came up. Each named word now gets a seat first, and the session grows as long as it needs to.",
+      items: [],
+    },
     {
       date: "2026-10-01",
       tag: "improvement",

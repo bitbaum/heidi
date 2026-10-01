@@ -56,6 +56,10 @@ import { readHistoryView, readMemoryView, readModelView, useHistoryView, useMemo
 // creating one for the same key get two subscriber lists over one piece of
 // storage, and a write through one notifies nobody watching the other.
 
+// One empty list for every sitting without one: a fresh `[]` default would be
+// a new dependency each render and rebuild the session under the learner.
+const NOTHING: readonly string[] = [];
+
 export function PracticeSession({
   packItems,
   t,
@@ -70,6 +74,7 @@ export function PracticeSession({
   locale,
   mode,
   includeSaved = true,
+  cover = NOTHING,
 }: {
   /**
    * What the pack can ask, generated on the server — already NARROWED to the
@@ -113,6 +118,8 @@ export function PracticeSession({
    * wearing the topic's name.
    */
   includeSaved?: boolean;
+  /** Words this sitting promised to ask, each at least once. See `orderSession`. */
+  cover?: readonly string[];
 }) {
   const saved = useSaved();
   const grade = useGrade();
@@ -166,6 +173,7 @@ export function PracticeSession({
         seen: historyAtBuild.current,
         // A card run is longer because a card is faster. See `sessionSize`.
         size: sessionSize(mode),
+        cover,
       }),
       at: 0,
       outcomes: [],
@@ -173,7 +181,7 @@ export function PracticeSession({
     setSession(next.session);
     setAt(next.at);
     setOutcomes(next.outcomes);
-  }, [packItems, saved.words, includeSaved, mode, sessionKey]);
+  }, [packItems, saved.words, includeSaved, mode, sessionKey, cover]);
 
   // Once storage has been read, and not before: a session built on an empty
   // word list would leave out every word that was actually due.

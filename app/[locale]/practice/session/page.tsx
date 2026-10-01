@@ -4,7 +4,7 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { PRACTISABLE, sittingPool } from "@/lib/domain/practice/pool";
-import { ALL, includesSaved, parseScope, type Scope } from "@/lib/domain/practice/scope";
+import { ALL, coveredWords, includesSaved, parseScope, type Scope } from "@/lib/domain/practice/scope";
 import { MODES, itemsFor, parseFlow, parseMode, testable, type Flow, type Mode } from "@/lib/domain/practice/mode";
 import { BACK_PARAM, closeTarget, quickScope, sessionPath, sittingKey, sittingQuery } from "@/lib/domain/practice/sitting";
 import { PracticeSession } from "../../_components/practice-session";
@@ -132,6 +132,7 @@ export default async function PracticeSessionPage({
       locale={locale}
       mode={mode}
       includeSaved={includesSaved(scope)}
+      cover={coveredWords(scope)}
     />
   );
 }

@@ -91,6 +91,11 @@ export function wordsScope(words: readonly string[]): Scope {
   return { kind: "words", id: wordsIn(words.join(",")).join(",") };
 }
 
+/** The words a sitting on this scope must each ask once; none for other scopes. */
+export function coveredWords(scope: Scope): string[] {
+  return scope.kind === "words" ? wordsIn(scope.id) : [];
+}
+
 /** The query string for a scope, for a page building a link to one. */
 export function scopeQuery(scope: Scope): string {
   return scope.kind === "all" ? "" : `?${scope.kind}=${encodeURIComponent(scope.id)}`;

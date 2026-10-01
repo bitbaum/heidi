@@ -1042,7 +1042,11 @@ A second store of "known words" would disagree with the first within a week.
 topic, scene and group scopes (`?words=mir,nöd,…` in the URL, capped at
 `MAX_SCOPE_WORDS` so a link cannot ask for the whole pack). «Learn the next
 ten», «practise this word» and the group button all go through it, so they
-share the session, the review and the scoring every other scope has.
+share the session, the review and the scoring every other scope has. A
+sitting on named words asks EVERY one of them (`orderSession`'s `cover`):
+each gets a seat first, of whichever question kind the sitting has least of,
+and the sitting grows past eight when it must. Eight seats for ten named words
+shipped first, and two of the ten never came up.
 
 *A row is a line, and the rest is on demand.* The line holds what decides
 whether you know the word: the word with its article, the meaning, the
