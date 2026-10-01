@@ -6,6 +6,7 @@ import { bridgeRules } from "../../variety/bridge.ts";
 import { allItems, articleItems, clozeItems, formItems, pairItems, recallItems } from "./generate.ts";
 import { RELEARN_GAP, buildSession, orderSession, requeue, summarise } from "./session.ts";
 import { PACK_KINDS } from "./kinds/registry.ts";
+import { auxiliaryItems } from "./kinds/vocabulary.ts";
 import { PACK_ITEMS } from "./published.ts";
 import { MIN_FORMS_TO_ASK, SESSION_SIZE, type PracticeItem } from "./types.ts";
 import { LIMIT, NO_HISTORY, decodeHistory, remember } from "./history.ts";
@@ -324,6 +325,19 @@ describe("article and form items", () => {
         item.options[item.answer],
         entry?.forms?.find((f) => f.label === item.label)?.target,
       );
+    }
+  });
+
+  test("an auxiliary question is a split of the verbs' own past forms", () => {
+    const items = auxiliaryItems(VARIETY);
+    assert.ok(items.length >= 5, "the verbs' past rows should give several boards");
+    for (const item of items) {
+      assert.equal(item.verbs.length, 4);
+      assert.equal(new Set(item.answer).size, 2, `${item.id} has one right answer for every row`);
+      for (const [i, verb] of item.verbs.entries()) {
+        const past = VARIETY.vocabulary?.find((w) => w.target === verb.word)?.forms?.find((f) => f.label === "past")?.target;
+        assert.equal(`${item.options[item.answer[i]]} ${verb.participle}`, past, `${item.id}: ${verb.word}`);
+      }
     }
   });
 

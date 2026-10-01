@@ -70,7 +70,7 @@ describe("the data room", () => {
     // "Five exercise forms" stood in this file while the registry held ten.
     // Prose cannot be derived, so it is pinned: adding a kind turns this red
     // and the sentence gets rewritten in the same commit.
-    const words: Record<number, string> = { 15: "fifteen" };
+    const words: Record<number, string> = { 16: "sixteen" };
     const said = words[KINDS.length];
     assert.ok(said, `the registry has ${KINDS.length} kinds; teach this test the word and fix the sentence`);
     assert.ok(

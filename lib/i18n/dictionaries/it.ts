@@ -1080,6 +1080,7 @@ export const it: Dictionary = {
       cloze: "Quale parola manca?",
       recall: "Che cosa vuol dire?",
       match: "Che cosa va insieme?",
+      auxiliary: "Quale ausiliare?",
       gaptext: "Quali parole mancano?",
       pick: "Quale parola va qui?",
       translate: "Come si dice in zurighese?",
@@ -1125,6 +1126,7 @@ export const it: Dictionary = {
       "name-role": "Un nome proprio prende l'articolo, e l'articolo mostra il ruolo: «d Anna», «de Peter» è chi fa qualcosa o chi la subisce; «de Anna», «em Peter» è A CHI si dà, si dice o si mostra qualcosa. Ascolti chi fa cosa a chi.",
     },
     matchHint: "Toccate una parola, poi il suo significato.",
+    auxiliaryHint: "Scegli l'ausiliare per ogni verbo, poi controlla.",
     gapHint: "Toccate una parola — entra nel buco successivo. Toccate un buco pieno per riprenderla.",
     check: "Verificare",
     typeLabel: "Scrivetelo voi — facoltativo",
@@ -1437,6 +1439,11 @@ export const it: Dictionary = {
         title: "gsi, gha, cho — participi quasi senza ge-",
         rule: "ge- diventa g-: gmacht, gseit, gsi (gewesen, stato), gha (gehabt, avuto). Davanti a k/ch, p, t e g sparisce: cho (gekommen), kauft (gekauft), trunke (getrunken), gange (gegangen).",
         watch: "Senza passato semplice, ogni passato si regge su un participio come questi. «cho» e «gsi» non somigliano a nessuna parola tedesca — imparate i più frequenti come parole, non come regola.",
+      },
+      "perfect-auxiliary": {
+        title: "isch gange, hät gmacht — quale ausiliare",
+        rule: "Il passato è sempre ausiliare più participio, e l'ausiliare è si o ha. Movimento e cambiamento prendono si: isch gange, isch cho, isch gfahre, isch worde. Così anche stare seduti e in piedi — isch ghocket, isch gstande —, dove il tedesco di Germania dice «hat gesessen». Quasi tutto il resto prende ha: hät gmacht, hät gseit, hät gschlafe.",
+        watch: "Chi ha imparato il tedesco in Germania inciampa su stare seduti e in piedi: «Ich bi ghocket», mai «Ich ha ghocket». Nel vocabolario la riga del passato di ogni verbo mostra il suo ausiliare.",
       },
       "clock-time": {
         title: "am vieri, halbi drüü — l'ora",

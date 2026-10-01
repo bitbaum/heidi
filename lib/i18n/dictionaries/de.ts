@@ -1178,6 +1178,7 @@ export const de = {
       cloze: "Welches Wort fehlt?",
       recall: "Was heisst das?",
       match: "Was gehört zusammen?",
+      auxiliary: "Welches Hilfsverb?",
       gaptext: "Welche Wörter fehlen?",
       pick: "Welches Wort passt hier?",
       translate: "Wie sagt man das auf Züridütsch?",
@@ -1224,6 +1225,7 @@ export const de = {
       "name-role": "Ein Vorname hat einen Artikel, und der Artikel zeigt die Rolle: «d Anna», «de Peter» ist, wer etwas tut oder wen es trifft; «de Anna», «em Peter» ist, WEM etwas gegeben, gesagt oder gezeigt wird. Hören Sie darauf, wer was mit wem macht.",
     },
     matchHint: "Tippen Sie ein Wort an, dann seine Bedeutung.",
+    auxiliaryHint: "Wähle für jedes Verb das Hilfsverb, dann prüfen.",
     gapHint:
       "Tippen Sie ein Wort an — es rutscht in die nächste Lücke. Auf eine gefüllte Lücke tippen nimmt es zurück.",
     check: "Prüfen",
@@ -1596,6 +1598,11 @@ export const de = {
         title: "gsi, gha, cho — Partizipien fast ohne ge-",
         rule: "Aus ge- wird g-: gmacht, gseit, gsi (gewesen), gha (gehabt). Vor k/ch, p, t und g fällt es ganz weg: cho (gekommen), kauft (gekauft), trunke (getrunken), gange (gegangen).",
         watch: "Weil es kein Präteritum gibt, hängt jede Vergangenheit an so einem Partizip. «cho» und «gsi» sehen nach keinem deutschen Wort aus — lernen Sie die häufigsten als Wörter, nicht als Regel.",
+      },
+      "perfect-auxiliary": {
+        title: "isch gange, hät gmacht — welches Hilfsverb",
+        rule: "Die Vergangenheit ist immer Hilfsverb plus Partizip, und das Hilfsverb ist si oder ha. Bewegung und Veränderung nehmen si: isch gange, isch cho, isch gfahre, isch worde. Ebenso sitzen und stehen — isch ghocket, isch gstande —, wo das Deutsche in Deutschland «hat gesessen» sagt. Fast alles andere nimmt ha: hät gmacht, hät gseit, hät gschlafe.",
+        watch: "Wer Deutsch in Deutschland gelernt hat, stolpert über Sitzen und Stehen: «Ich bi ghocket», nie «Ich ha ghocket». Im Wortschatz zeigt die Vergangenheitszeile jedes Verbs sein Hilfsverb.",
       },
       "clock-time": {
         title: "am vieri, halbi drüü — die Uhrzeit",

@@ -1,12 +1,21 @@
 import { SAME_GENDER, type VarietyPack } from "../../../variety/pack.ts";
-import { ARTICLES, MATCH_SIZE, MIN_FORMS_TO_ASK, type ArticleItem, type FormItem, type MatchItem } from "../types.ts";
+import {
+  ARTICLES,
+  AUXILIARY_SIZE,
+  MATCH_SIZE,
+  MIN_FORMS_TO_ASK,
+  type ArticleItem,
+  type AuxiliaryItem,
+  type FormItem,
+  type MatchItem,
+} from "../types.ts";
 import type { ExerciseKind, Material } from "./kind.ts";
 
 /**
- * The three kinds the word list can ask, in one module.
+ * The four kinds the word list can ask, in one module.
  *
- * TOGETHER RATHER THAN THREE FILES, and the rule is worth stating because the
- * registry makes one-file-per-kind cheap enough to overdo: these three read
+ * TOGETHER RATHER THAN FOUR FILES, and the rule is worth stating because the
+ * registry makes one-file-per-kind cheap enough to overdo: these four read
  * the SAME field of the SAME entries, and a change to what a vocabulary entry
  * is touches all three at once. Splitting them would mean three files that can
  * only ever be edited together, which is the copy-paste failure wearing the
@@ -169,6 +178,65 @@ export function matchItems(pack: VarietyPack): MatchItem[] {
   return items;
 }
 
+/**
+ * Four verbs, each sorted into `isch` or `hät` — see `AuxiliaryItem`.
+ *
+ * The rows come from the `past` forms, which carry the auxiliary first
+ * («isch gange»), so the answer key is a split of pack data.
+ *
+ * EVERY FOUR MIXES BOTH. Taken in pack order the fours would be mostly all
+ * `hät`, because most verbs are, and a board with one right answer for every
+ * row teaches nothing about the choice. So each four takes one or two verbs of
+ * the rarer auxiliary (alternating) and fills up from the commoner one; the
+ * rows are rotated by a content-derived amount so the rare one does not always
+ * sit on top. Commoner verbs left over when the rarer list runs out are not
+ * asked here — the form row in the vocabulary still shows them.
+ */
+export function auxiliaryItems(pack: VarietyPack): AuxiliaryItem[] {
+  const byAux = new Map<string, { word: string; bridge: string; participle: string; group: string }[]>();
+  for (const entry of pack.vocabulary ?? []) {
+    const past = entry.forms?.find((f) => f.label === "past")?.target.trim();
+    const space = past?.indexOf(" ") ?? -1;
+    if (!past || space < 1) continue;
+    const aux = past.slice(0, space);
+    const list = byAux.get(aux) ?? [];
+    list.push({ word: entry.target, bridge: entry.bridge, participle: past.slice(space + 1), group: entry.group });
+    byAux.set(aux, list);
+  }
+
+  const options = [...byAux.keys()].sort((a, b) => a.localeCompare(b));
+  if (options.length !== 2) return [];
+  const [rare, common] = [...options].sort((a, b) => byAux.get(a)!.length - byAux.get(b)!.length);
+  const rareVerbs = [...byAux.get(rare)!];
+  const commonVerbs = [...byAux.get(common)!];
+
+  const items: AuxiliaryItem[] = [];
+  for (let n = 0; rareVerbs.length > 0; n++) {
+    const take = Math.min(n % 2 === 0 ? 1 : 2, rareVerbs.length);
+    if (commonVerbs.length < AUXILIARY_SIZE - take) break;
+    const four = [
+      ...rareVerbs.splice(0, take).map((v) => ({ ...v, aux: rare })),
+      ...commonVerbs.splice(0, AUXILIARY_SIZE - take).map((v) => ({ ...v, aux: common })),
+    ];
+    const shift = four.map((v) => v.word).join("").length % AUXILIARY_SIZE;
+    const rows = four.map((_, i) => four[(i + shift) % AUXILIARY_SIZE]);
+
+    items.push({
+      id: `auxiliary:${rows.map((v) => v.word.toLowerCase()).join("-")}`,
+      kind: "auxiliary",
+      marking: "objective",
+      subject: pack.subjects?.er,
+      verbs: rows.map(({ word, bridge, participle }) => ({ word, bridge, participle })),
+      options,
+      answer: rows.map((v) => options.indexOf(v.aux)),
+      ...(pack.explains?.auxiliary ? { explains: pack.explains.auxiliary } : {}),
+      source: { kind: "word", word: rows[0].word, group: rows[0].group },
+    });
+  }
+
+  return items;
+}
+
 export const ARTICLE: ExerciseKind = {
   id: "article",
   answering: "tap",
@@ -194,4 +262,13 @@ export const MATCH: ExerciseKind = {
   marking: "objective",
   fromPack: true,
   generate: (material: Material) => matchItems(material.pack),
+};
+
+export const AUXILIARY: ExerciseKind = {
+  id: "auxiliary",
+  answering: "tap",
+  decisions: "several",
+  marking: "objective",
+  fromPack: true,
+  generate: (material: Material) => auxiliaryItems(material.pack),
 };

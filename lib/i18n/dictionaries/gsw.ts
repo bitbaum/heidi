@@ -1100,6 +1100,7 @@ export const gsw: Dictionary = {
       cloze: "Wele Wort fählt?",
       recall: "Was heisst das?",
       match: "Was ghört zäme?",
+      auxiliary: "Weles Hilfsverb?",
       gaptext: "Weli Wörter fähled?",
       pick: "Welles Wort ghört da ane?",
       translate: "Wie seit mer das uf Züridütsch?",
@@ -1145,6 +1146,7 @@ export const gsw: Dictionary = {
       "name-role": "En Vorname hät en Artikel, und de Artikel zeigt d Rolle: «d Anna», «de Peter» isch, wer öppis macht oder wän s trifft; «de Anna», «em Peter» isch, WÄM öppis ggä, gseit oder zeigt wird. Lose Si druf, wer was mit wäm macht.",
     },
     matchHint: "Tippet es Wort aa, dänn si Bedütig.",
+    auxiliaryHint: "Wähl für jedes Verb s Hilfsverb, dänn prüefe.",
     gapHint: "Tippet es Wort aa — es rutscht i di nächscht Lugge. Uf e gfülti Lugge tippe nimmt s zrugg.",
     check: "Prüefe",
     typeLabel: "Sälber schriibe — friiwillig",
@@ -1457,6 +1459,11 @@ export const gsw: Dictionary = {
         title: "gsi, gha, cho — Partizip fascht ohni ge-",
         rule: "Us ge- wird g-: gmacht, gseit, gsi («gewesen»), gha («gehabt»). Vor k/ch, p, t und g fallt s ganz wäg: cho («gekommen»), kauft («gekauft»), trunke («getrunken»), gange («gegangen»).",
         watch: "Will s kei Präteritum git, hanget jedi Vergangeheit a somene Partizip. «cho» und «gsi» gsehnd nach keim hochdütsche Wort uus — lärned Sie di hüüfigste als Wörter, nöd als Regle.",
+      },
+      "perfect-auxiliary": {
+        title: "isch gange, hät gmacht — weles Hilfsverb",
+        rule: "D Vergangeheit isch immer Hilfsverb plus Partizip, und s Hilfsverb isch si oder ha. Bewegig und Veränderig nämed si: isch gange, isch cho, isch gfahre, isch worde. Gliich bi hocke und stah — isch ghocket, isch gstande —, wo mer in Dütschland «hat gesessen» seit. Fascht alles anderi nimmt ha: hät gmacht, hät gseit, hät gschlafe.",
+        watch: "Wer Dütsch in Dütschland glernt hät, stolperet über hocke und stah: «Ich bi ghocket», nie «Ich ha ghocket». Im Wortschatz zeigt d Vergangeheitszile vo jedem Verb sis Hilfsverb.",
       },
       "clock-time": {
         title: "am vieri, halbi drüü — d Uhrziit",

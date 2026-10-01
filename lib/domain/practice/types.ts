@@ -291,6 +291,34 @@ export type MatchItem = {
 };
 
 /**
+ * Four verbs, each sorted into its auxiliary: «er ___ gange», «er ___ gmacht».
+ *
+ * FOUR AT ONCE, because one verb alone is two options — a coin toss. Four
+ * decisions together are one chance in sixteen of a lucky guess, and the four
+ * side by side invite the comparison that teaches the rule: movement and
+ * position (`gange`, `ghocket`) take `si`, nearly everything else `ha`.
+ *
+ * Everything shown is pack data: the participle and the auxiliary are the two
+ * halves of the verb's `past` form, and the options are the auxiliaries that
+ * occur there. Nothing is invented to distract with.
+ */
+export type AuxiliaryItem = {
+  id: string;
+  kind: "auxiliary";
+  marking: "objective";
+  /** The subject the rows are printed with, from the pack (`er`). */
+  subject?: string;
+  verbs: readonly { word: string; bridge: string; participle: string }[];
+  /** The auxiliaries in the er-form, alphabetical: `hät`, `isch`. */
+  options: readonly string[];
+  /** `answer[i]` is the index in `options` that `verbs[i]` takes. */
+  answer: readonly number[];
+  /** As on `ArticleItem`: the topic behind this kind of question. */
+  explains?: string;
+  source: ItemSource;
+};
+
+/**
  * A short passage with several words taken out, and the words offered back.
  *
  * WHY A PASSAGE AND NOT A SENTENCE, when `cloze` already exists. Because a
@@ -500,6 +528,7 @@ export type PracticeItem =
   | ArticleItem
   | FormItem
   | MatchItem
+  | AuxiliaryItem
   | GapTextItem
   | PickItem
   | TranslateItem
@@ -577,6 +606,9 @@ export const PASSAGE_GAPS = 3;
  * How many pairs a matching grid holds. See `MatchItem` — four is one glance.
  */
 export const MATCH_SIZE = 4;
+
+/** How many verbs an auxiliary question sorts. See `AuxiliaryItem`. */
+export const AUXILIARY_SIZE = 4;
 
 /**
  * The three articles, in the order they are always shown.

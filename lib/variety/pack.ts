@@ -798,6 +798,8 @@ export type VarietyPack = {
     article?: string;
     /** The topic behind "which form goes with this person". */
     form?: string;
+    /** The topic behind "which auxiliary does this verb's past take". */
+    auxiliary?: string;
     /** The topic behind "what time was just said". */
     clock?: string;
   };

@@ -1080,6 +1080,7 @@ export const fr: Dictionary = {
       cloze: "Quel mot manque ?",
       recall: "Qu'est-ce que cela veut dire ?",
       match: "Qu'est-ce qui va ensemble ?",
+      auxiliary: "Quel auxiliaire ?",
       gaptext: "Quels mots manquent ?",
       pick: "Quel mot va ici ?",
       translate: "Comment dit-on cela en zurichois ?",
@@ -1125,6 +1126,7 @@ export const fr: Dictionary = {
       "name-role": "Un prénom prend un article, et l'article montre le rôle : « d Anna », « de Peter » est celui qui agit ou que l'action touche ; « de Anna », « em Peter » est celui À QUI l'on donne, dit ou montre quelque chose. Écoutez qui fait quoi à qui.",
     },
     matchHint: "Touchez un mot, puis sa signification.",
+    auxiliaryHint: "Choisissez l'auxiliaire de chaque verbe, puis vérifiez.",
     gapHint: "Touchez un mot — il se place dans le trou suivant. Touchez un trou rempli pour le reprendre.",
     check: "Vérifier",
     typeLabel: "Écrivez-le vous-même — facultatif",
@@ -1437,6 +1439,11 @@ export const fr: Dictionary = {
         title: "gsi, gha, cho — des participes presque sans ge-",
         rule: "ge- devient g- : gmacht, gseit, gsi (gewesen, été), gha (gehabt, eu). Devant k/ch, p, t et g, il disparaît : cho (gekommen), kauft (gekauft), trunke (getrunken), gange (gegangen).",
         watch: "Sans passé simple, tout le passé repose sur un participe de ce genre. «cho» et «gsi» ne ressemblent à aucun mot allemand — apprenez les plus fréquents comme des mots, pas comme une règle.",
+      },
+      "perfect-auxiliary": {
+        title: "isch gange, hät gmacht — quel auxiliaire",
+        rule: "Le passé est toujours auxiliaire plus participe, et l'auxiliaire est si ou ha. Le mouvement et le changement prennent si : isch gange, isch cho, isch gfahre, isch worde. De même être assis et debout — isch ghocket, isch gstande —, là où l'allemand d'Allemagne dit «hat gesessen». Presque tout le reste prend ha : hät gmacht, hät gseit, hät gschlafe.",
+        watch: "Si vous avez appris l'allemand en Allemagne, être assis et debout sont le piège : «Ich bi ghocket», jamais «Ich ha ghocket». Dans le vocabulaire, la ligne du passé de chaque verbe montre son auxiliaire.",
       },
       "clock-time": {
         title: "am vieri, halbi drüü — l'heure",

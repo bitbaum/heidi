@@ -1096,6 +1096,7 @@ export const rm: Dictionary = {
       cloze: "Tge pled manca?",
       recall: "Tge vul quai dir?",
       match: "Tge va ensemen?",
+      auxiliary: "Tge verb auxiliar?",
       gaptext: "Tge pleds mancan?",
       pick: "Tge pled va qua?",
       translate: "Co di’ins quai en turitgais?",
@@ -1141,6 +1142,7 @@ export const rm: Dictionary = {
       "name-role": "In prenum ha in artitgel, e l'artitgel mussa la rolla: «d Anna», «de Peter» è tgi che fa insatge u tgi che vegn tutgà; «de Anna», «em Peter» è A TGI ch'ins dat, di u mussa insatge. Tadlai tgi che fa tge a tgi.",
     },
     matchHint: "Tutgai in pled, lura sia significaziun.",
+    auxiliaryHint: "Tscherna il verb auxiliar per mintga verb, lura controllescha.",
     gapHint: "Tutgai in pled — el va en il proxim vid. Tutgai in vid emplenì per al reprender.",
     check: "Controllar",
     typeLabel: "Scrivai sez — facultativ",
@@ -1453,6 +1455,11 @@ export const rm: Dictionary = {
         title: "gsi, gha, cho — participis quasi senza ge-",
         rule: "Ord ge- daventa g-: gmacht, gseit, gsi (gewesen, stà), gha (gehabt, gì). Avant k/ch, p, t e g croda el davent: cho (gekommen), kauft (gekauft), trunke (getrunken), gange (gegangen).",
         watch: "Perquai ch'i na dat nagin preterit, penda mintga passà vi d'in tal participi. «cho» e «gsi» na sumeglian a nagin pled tudestg — emprendai ils pli frequents sco pleds, betg sco regla.",
+      },
+      "perfect-auxiliary": {
+        title: "isch gange, hät gmacht — tge verb auxiliar",
+        rule: "Il passà è adina verb auxiliar plus participi, e l'auxiliar è si u ha. Moviment e midada prendan si: isch gange, isch cho, isch gfahre, isch worde. Uschia er seser e star — isch ghocket, isch gstande —, nua ch'il tudestg da la Germania di «hat gesessen». Quasi tut il rest prenda ha: hät gmacht, hät gseit, hät gschlafe.",
+        watch: "Tgi ch'ha emprendì tudestg en Germania stgarpitscha sur seser e star: «Ich bi ghocket», mai «Ich ha ghocket». En il vocabulari mussa la lingia dal passà da mintga verb ses auxiliar.",
       },
       "clock-time": {
         title: "am vieri, halbi drüü — l'ura",
