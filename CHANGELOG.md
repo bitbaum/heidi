@@ -23,6 +23,7 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-10-01
 
+- **«Learn these 10 words» now asks all ten.** The session held eight questions balanced by kind, so two of the ten named words never came up. A session on named words now seats each word once first and grows to fit (at most 30); the usual mix fills any seats left.
 - **The vocabulary page says what to learn next.** It used to print every word with up to seventeen scene links: 23,217 px on a phone, with no hint which word mattered or whether you knew it. It now opens with the ten words that pay off most and one button to practise exactly those, then the full list in the same order, at 5,532 px on a phone.
   - The order is measured: words you hear most in the scenes and cannot work out from German come first; words that sound almost like German (after the sound rules) go last; false friends lead among equals.
   - Each word shows whether it is new, being learned or known, read from your practice answers and kept words, with nothing new stored.

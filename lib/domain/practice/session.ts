@@ -75,12 +75,19 @@ export function orderSession({
   size = SESSION_SIZE,
   model = EMPTY_MODEL,
   memory = NO_MEMORY,
+  cover = [],
 }: {
   items: readonly PracticeItem[];
   saved: readonly SavedWord[];
   now: Date;
   seen?: readonly string[];
   size?: number;
+  /**
+   * Words this sitting promised to ask — «learn these ten» on /vocabulary.
+   * Each gets a seat before the mix is filled, and the sitting grows to hold
+   * them all: eight seats for ten named words broke the promise on its face.
+   */
+  cover?: readonly string[];
   /**
    * What this learner keeps getting wrong. Empty by default, which reproduces
    * the old behaviour exactly — a new learner has no model and gets the same
@@ -174,6 +181,23 @@ export function orderSession({
   // Due words lead: they are the only items with a deadline.
   const picked: PracticeItem[] = dueRecalls.slice(0, size);
 
+  // Then one question per promised word, of whichever kind the sitting has
+  // least of so far, so ten named words do not become ten cards in a row.
+  const used = (kind: string) => picked.filter((item) => item.kind === kind).length;
+  for (const word of cover) {
+    const options = [...buckets.values()]
+      .map((bucket) => bucket.find((item) => item.source.kind === "word" && item.source.word === word))
+      .filter((item): item is PracticeItem => item !== undefined)
+      .sort((a, b) => used(a.kind) - used(b.kind) || rank(a, b));
+    const choice = options[0];
+    if (!choice) continue;
+    picked.push(choice);
+    const bucket = buckets.get(choice.kind)!;
+    bucket.splice(bucket.indexOf(choice), 1);
+    if (bucket.length === 0) buckets.delete(choice.kind);
+  }
+  const seats = Math.max(size, picked.length);
+
   // Then round-robin across the remaining kinds, in an order that is fixed for
   // the same inputs and still MOVES between sittings.
   //
@@ -206,10 +230,10 @@ export function orderSession({
   // still take turns. With no memory everything is "new" and this is one pass.
   for (const level of [0, 1, 2] as const) {
     exhausted = false;
-    while (picked.length < size && !exhausted) {
+    while (picked.length < seats && !exhausted) {
       exhausted = true;
       for (const kind of kinds) {
-        if (picked.length >= size) break;
+        if (picked.length >= seats) break;
         const bucket = buckets.get(kind);
         if (bucket?.[0] && urgent(bucket[0]) === level) {
           picked.push(bucket.shift()!);
