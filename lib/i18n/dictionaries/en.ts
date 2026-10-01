@@ -627,7 +627,7 @@ export const en: Dictionary = {
 
   contribute: {
     title: "We are looking for Zurich voices",
-    lead: "Every second of dialect you will hear in Heidi comes from a real person in Zurich. That is expensive and slow, and we are doing it anyway.",
+    lead: "The Zurich voices in the listening lab come from real people from Zurich, not from a computer voice reading dialect.",
     whyTitle: "Why not just synthetic voices",
     whyBody:
       "The honest reason is not that Swiss German speech synthesis does not exist — by now it does. The reason is licensing. Every Zurich speech corpus we found is released for research and not for a product. Anyone who needs real, cleanly licensed, consented Zurich German has to record it themselves. On top of that there is what synthetic voices are bad at anyway: pace, mumbling, hesitation, the difference between two people from the same neighbourhood.",

@@ -628,7 +628,7 @@ export const fr: Dictionary = {
 
   contribute: {
     title: "Nous cherchons des voix zurichoises",
-    lead: "Chaque seconde de dialecte que vous entendrez chez Heidi vient d'une personne réelle de Zurich. C'est cher et lent, et nous le faisons quand même.",
+    lead: "Les voix zurichoises du laboratoire d'écoute viennent de vraies personnes de Zurich, pas d'une voix de synthèse qui lit du dialecte.",
     whyTitle: "Pourquoi pas simplement des voix synthétiques",
     whyBody:
       "La raison honnête n'est pas qu'il n'existe pas de synthèse vocale suisse allemande — il en existe désormais. La raison est la licence. Chaque corpus de parole zurichoise que nous avons trouvé est publié pour la recherche et non pour un produit. Qui a besoin de vrai zurichois, proprement licencié et consenti, doit l'enregistrer lui-même. S'ajoute ce que les voix synthétiques font mal de toute façon : le rythme, les mots avalés, l'hésitation, la différence entre deux personnes du même quartier.",

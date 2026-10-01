@@ -644,7 +644,7 @@ export const rm: Dictionary = {
 
   contribute: {
     title: "Nus tschertgain vuschs turitgaisas",
-    lead: "Mintga secunda da dialect che Vus vegnis a udir tar Heidi vegn d'ina persuna reala da Turitg. Quai è char e plaun, e nus al fain tuttina.",
+    lead: "Las vuschs turitgaisas en il laboratori da tadlar vegnan da persunas veras da Turitg, betg d'ina vusch da computer che legia dialect.",
     whyTitle: "Pertge betg simplamain vuschs sinteticas",
     whyBody:
       "La raschun onesta n'è betg ch'i na dettia nagina sintesa vocala tudestg-svizra — ussa i dat. La raschun è la licenza. Mintga corpus da lingua turitgaisa che nus avain chattà è publitgà per la perscrutaziun e betg per in product. Tgi che ha basegns da ver tudestg da Turitg, licenzià net e cun consentiment, sto al registrar sez. Plinavant vegn quai che vuschs sinteticas fan mal tuttina: il ritmus, ils pleds mangiads, l'exitaziun, la differenza tranter duas persunas dal medem quartier.",

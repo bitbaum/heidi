@@ -19,9 +19,8 @@ import { CONTACT_EMAIL } from "./site.ts";
  * WHY THIS IS NOT A TUTOR MARKETPLACE, and the distinction is the whole design.
  * A generic directory of paid tutors is a crowded business that Heidi has no
  * advantage in and no users for. What Heidi uniquely has is a QUALITY PROBLEM
- * that only a Zurich native can solve — a hundred and forty lines nobody from
- * here has read, which is the first blocked item on the roadmap — and that
- * makes the learner ↔ native relationship the one worth building around,
+ * that only a Zurich ear can solve — lines that pass every rule and still
+ * sound wrong — and that makes the learner ↔ native relationship the one worth building around,
  * because it pays twice:
  *
  *   the learner gets the thing no software provides — somebody who actually
@@ -31,8 +30,7 @@ import { CONTACT_EMAIL } from "./site.ts";
  *     written)
  *
  * SO THE ROLES ARE ORDERED BY COMMITMENT, smallest first, and the smallest one
- * is the most valuable to us. Reading twenty lines over coffee unblocks a
- * roadmap item. That is a better first ask than "become a tutor", and a person
+ * is the most valuable to us: pointing at one wrong line. That is a better first ask than "become a tutor", and a person
  * who does it once is the person who later does the next thing.
  *
  * WHAT EACH ROW MUST SAY. `today` is the honest state of that role in the
@@ -58,9 +56,9 @@ export type Role = {
   /**
    * What exists in the product for this role TODAY.
    *
-   * The field that keeps the page honest. Two of these are "the machinery is
-   * there and empty", one is "not built", and saying so is what separates a
-   * register from a promise.
+   * The field that keeps the page honest: what is built, said as built, and
+   * what is not, said as not. That is what separates a register from a
+   * promise.
    */
   today: Copy;
   /** Where to go and see it, when there is somewhere. A route segment. */
@@ -80,12 +78,12 @@ export const ROLES: readonly Role[] = [
       en: "You read sentences we wrote and say, for each one: that is how it is said, that is not, or nobody says that at all.",
     },
     why: {
-      de: "Hundertvierzig Zeilen aus Pflege- und Alltagssituationen haben die maschinelle Prüfung bestanden und noch niemand von hier hat sie gelesen. Die Seiten schreiben das selbst hin. Es sind Sätze, die jemand um halb sieben morgens zu einer verängstigten Person sagt — die wollen wir nicht erraten haben.",
-      en: "A hundred and forty lines from care and everyday scenes passed the machine check and nobody from here has read them. The pages say so themselves. These are sentences somebody says to a frightened person at half past six in the morning — we would rather not have guessed them.",
+      de: "Alle 390 Sätze aus Alltag und Pflege sind maschinell auf Zürcher Formen geprüft. Ein Ohr von hier hört, was keine Regel hört: einen Satz, der stimmt und den trotzdem niemand so sagt. Und das sind Sätze, die jemand um halb sieben morgens zu einer verängstigten Person sagt.",
+      en: "All 390 lines from everyday and care scenes are machine-checked for Zurich forms. An ear from here hears what no rule can: a sentence that is correct and that still nobody says. And these are sentences somebody says to a frightened person at half past six in the morning.",
     },
     today: {
-      de: "Das ist die erste blockierte Sache auf unserem Fahrplan. Wer gegenliest, wird auf der Seite genannt, die er geprüft hat — wenn er das möchte.",
-      en: "This is the first blocked item on our roadmap. Whoever reviews a set is named on the page they checked — if they want to be.",
+      de: "Jede Situation ist offen zum Lesen. Zeigen Sie über das Rückmelde-Fenster auf den Satz, der nicht stimmt.",
+      en: "Every situation is open to read. Point at the line that is wrong through the feedback window on the page.",
     },
     segment: "situations",
   },
@@ -101,12 +99,12 @@ export const ROLES: readonly Role[] = [
       en: "A few minutes of speech on topics we suggest, with a consent form you read before you agree to anything.",
     },
     why: {
-      de: "Training mit vielen verschiedenen Sprechenden ist die am besten belegte Hörmethode, die es gibt — und sie lässt sich nicht aus einer hochdeutschen Computerstimme bauen, die Mundart vorliest. Genau daran hängt das Hörlabor.",
-      en: "Training on many different speakers is the best-evidenced listening method there is — and it cannot be built out of a Standard German computer voice reading dialect. This is exactly what the listening lab is blocked on.",
+      de: "Training mit vielen verschiedenen Sprechenden ist die am besten belegte Hörmethode, die es gibt — und sie lässt sich nicht aus einer hochdeutschen Computerstimme bauen, die Mundart vorliest. Darauf baut das Hörlabor.",
+      en: "Training on many different speakers is the best-evidenced listening method there is — and it cannot be built out of a Standard German computer voice reading dialect. The listening lab is built on exactly this.",
     },
     today: {
-      de: "Noch keine Aufnahmen. Die Einwilligung und der Ablauf stehen; es fehlen Stimmen.",
-      en: "No recordings yet. The consent and the process exist; what is missing is voices.",
+      de: "Wie die Einwilligung aussieht, steht weiter unten auf dieser Seite. Die ersten Stimmen kommen ins Hörlabor.",
+      en: "What the consent looks like is further down this page. The first voices go into the listening lab.",
     },
     segment: "listen",
   },
@@ -126,8 +124,8 @@ export const ROLES: readonly Role[] = [
       en: "The speaking loop in Heidi deliberately ends not in a score but in a room with other people — because that is where a language is spoken. A score is what a product offers instead of that.",
     },
     today: {
-      de: "Gebaut und leer: Runden, Themen, Anmeldungen und Anwesenheit gibt es. Was fehlt, sind Leute — angefangen bei Ihnen.",
-      en: "Built and empty: rounds, topics, sign-ups and attendance all exist. What is missing is people — starting with you.",
+      de: "Gebaut: Runden, Themen, Anmeldungen und Anwesenheit. Eröffnen Sie eine Runde oder tragen Sie sich ein.",
+      en: "Built: rounds, topics, sign-ups and attendance. Open a round or sign up for one.",
     },
     segment: "speaking",
   },
@@ -143,12 +141,12 @@ export const ROLES: readonly Role[] = [
       en: "Tell us what you offer and what your learners would need here. We are not building a marketplace against you — we are building the material underneath.",
     },
     why: {
-      de: "Eine Sprachschule hat das, was uns fehlt: Menschen im Raum und eine Vorstellung davon, woran Lernende wirklich scheitern. Wir haben, was einer Schule fehlt: geprüftes Mundartmaterial und Übungen, die daraus entstehen.",
-      en: "A language school has what we lack: people in a room, and a real sense of where learners actually fail. We have what a school lacks: checked dialect material and exercises generated from it.",
+      de: "Eine Sprachschule hat Menschen im Raum und weiss, woran Lernende wirklich scheitern. Heidi hat geprüftes Mundartmaterial und die Übungen, die daraus entstehen. Das passt zusammen.",
+      en: "A language school has people in a room and knows where learners actually fail. Heidi has checked dialect material and the exercises generated from it. The two fit together.",
     },
     today: {
-      de: "Nicht gebaut. Es gibt keine Tutorenprofile, keine Vermittlung und keine Bezahlung — und wir behaupten auch nichts anderes. Was es gibt, ist ein Gespräch.",
-      en: "Not built. There are no tutor profiles, no matching and no payments — and we are not pretending otherwise. What there is, is a conversation.",
+      de: "Noch keine Tutorenprofile und keine Vermittlung. Was es gibt, ist ein Gespräch.",
+      en: "No tutor profiles or matching yet. What there is, is a conversation.",
     },
   },
 ];

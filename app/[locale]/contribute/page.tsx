@@ -98,8 +98,7 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
               <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary">{role.why[lang]}</p>
 
               {/* WHAT EXISTS TODAY, set apart in the accent — the one line on
-                  each row that keeps a register from becoming a promise. Two
-                  of these say "built and empty" and one says "not built". */}
+                  each row that keeps a register from becoming a promise. */}
               <div className="mt-4 border-l-2 border-accent pl-4">
                 <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.todayLabel}</p>
                 <p className="mt-1 max-w-measure text-sm leading-relaxed text-fg-secondary">{role.today[lang]}</p>

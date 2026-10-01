@@ -705,7 +705,7 @@ export const gsw: Dictionary = {
 
   contribute: {
     title: "Mir suechet Zürcher Stimme",
-    lead: "Jedi Sekunde Dialekt, wo Si bi Heidi ghöred, chunt vo mene echte Mensch us Züri. Das isch tüür und langsam, und mir mached s trotzdem.",
+    lead: "D Zürcher Stimme im Hörlabor chömed vo echte Mensche us Züri, nöd vo nere Computerstimm, wo Mundart vorlist.",
     whyTitle: "Werum nöd eifach synthetischi Stimme",
     whyBody:
       "De ehrlich Grund isch nöd, dass es kei Schwiizerdütsch-Sprachsynthese gäbti — es git inzwüsche weli. De Grund isch d Lizänz. Jedes Zürcher Sprachkorpus wo mir gfunde händ, isch für d Forschig freigäh und nöd für es Produkt. Wer echts, suuber lizenzierts Züridütsch mit Iiverständnis bruucht, mues es sälber ufnäh. Dezue chunt, was synthetischi Stimme sowieso schlächt chönd: Tempo, Nuschle, Zögere, de Unterschied zwüsche zwei Mensche us em gliiche Quartier.",

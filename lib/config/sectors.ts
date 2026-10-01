@@ -101,8 +101,8 @@ export const SECTORS: readonly Sector[] = [
      * recording: "sie übt genau die Sätze, die auf Ihrer Abteilung wirklich
      * fallen" — practises the sentences actually said on your ward. That was
      * false in two ways at once. There were no ward sentences in the product
-     * at all, and even now that there are sixty, they are lines we WROTE for
-     * six scenes of a shift, checked by the dialect gate, not lines anybody
+     * at all, and even now that there are a hundred and twenty, they are lines
+     * we WROTE for six scenes of a shift, checked by the dialect gate, not lines anybody
      * recorded on your corridor.
      *
      * What replaces it says what is there, names the number, and sends the
@@ -110,16 +110,16 @@ export const SECTORS: readonly Sector[] = [
      * minutes, which is a better argument than any sentence here could be.
      */
     offer: {
-      de: "Heidi übersetzt und erklärt Mundart — auf dem Handy, im Gang, in Sekunden. Dazu sechs Szenen aus einer Schicht — Übergabe, Morgen, Schmerz, Essen, Abend, Besuch — mit rund sechzig Sätzen, maschinell auf Zürcher Formen geprüft. Lesen Sie sie, bevor Sie mit uns reden.",
-      en: "Heidi translates and explains dialect — on a phone, in the corridor, in seconds. Plus six scenes from a shift — handover, the morning, pain, meals, the evening, visitors — around sixty lines, machine-checked for Zurich forms. Read them before you talk to us.",
+      de: "Heidi übersetzt und erklärt Mundart — auf dem Handy, im Gang, in Sekunden. Dazu sechs Szenen aus einer Schicht — Übergabe, Morgen, Schmerz, Essen, Abend, Besuch — mit 120 Sätzen, maschinell auf Zürcher Formen geprüft. Lesen Sie sie, bevor Sie mit uns reden.",
+      en: "Heidi translates and explains dialect — on a phone, in the corridor, in seconds. Plus six scenes from a shift — handover, the morning, pain, meals, the evening, visitors — 120 lines, machine-checked for Zurich forms. Read them before you talk to us.",
     },
     proof: {
       segment: "situations",
       label: { de: "Die sechs Szenen ansehen", en: "Read the six scenes" },
     },
     unknown: {
-      de: "Wir wissen nicht, ob Ihr Personal in diesem Moment ein Handy in der Hand haben darf. Das entscheidet alles am Ablauf. Und keine dieser Zeilen ist bisher von einer Muttersprachlerin gegengelesen — das steht auch auf der Seite selbst.",
-      en: "We do not know whether your staff may hold a phone at that moment. That decides everything about how this would work. And no native speaker has yet read those lines — which the page itself also says.",
+      de: "Wir wissen nicht, ob Ihr Personal in diesem Moment ein Handy in der Hand haben darf. Das entscheidet alles am Ablauf.",
+      en: "We do not know whether your staff may hold a phone at that moment. That decides everything about how this would work.",
     },
   },
   {
@@ -237,8 +237,8 @@ export const SECTORS: readonly Sector[] = [
       en: "Somebody who cannot follow that part is present without taking part. That is a question of promotion and retention, not of wellbeing.",
     },
     offer: {
-      de: "Verstehen, ohne dass der Raum auf Hochdeutsch wechseln muss — genau die Rücksicht, die §2 als Falle beschreibt.",
-      en: "Understanding without the room having to switch to Standard German — the very courtesy §2 describes as the trap.",
+      de: "Verstehen, ohne dass der Raum auf Hochdeutsch wechseln muss. Genau diese Rücksicht nimmt Ihre Leute sonst aus dem Gespräch.",
+      en: "Understanding without the room having to switch to Standard German — the courtesy that otherwise takes your people out of the conversation.",
     },
     unknown: {
       de: "Ob das HR kauft oder ein Team. Wir haben beides noch nie gefragt.",
@@ -309,8 +309,8 @@ export const HOW_IT_STARTS: readonly { step: Copy; detail: Copy }[] = [
   {
     step: { de: "Wir bauen Ihre Szenen — oder sagen ab", en: "We build your scenes — or say no" },
     detail: {
-      de: "Wenn es taugt, schreiben wir die Sätze für Ihren Betrieb und lassen sie von einer Zürcher Muttersprachlerin gegenlesen. Wenn nicht, sagen wir das. Preise stehen hier keine, weil wir noch nie einen verlangt haben — eine erfundene Zahl wäre schlechter als gar keine.",
-      en: "If it holds up, we write the lines for your setting and have a Zurich native speaker read them. If it does not, we say so. There are no prices here because we have never charged one — an invented number would be worse than none.",
+      de: "Wenn es taugt, schreiben wir die Sätze für Ihren Betrieb, geprüft auf Zürcher Formen wie alle anderen, und Ihr Team übt sie als eigene Situationen. Wenn nicht, sagen wir das. Preise stehen hier keine, weil wir noch nie einen verlangt haben — eine erfundene Zahl wäre schlechter als gar keine.",
+      en: "If it holds up, we write the lines for your setting, checked for Zurich forms like every other, and your team practises them as its own situations. If it does not, we say so. There are no prices here because we have never charged one — an invented number would be worse than none.",
     },
   },
 ];

@@ -628,7 +628,7 @@ export const it: Dictionary = {
 
   contribute: {
     title: "Cerchiamo voci zurighesi",
-    lead: "Ogni secondo di dialetto che sentirete su Heidi viene da una persona reale di Zurigo. È costoso e lento, e lo facciamo lo stesso.",
+    lead: "Le voci zurighesi del laboratorio di ascolto vengono da persone vere di Zurigo, non da una voce sintetica che legge il dialetto.",
     whyTitle: "Perché non semplicemente voci sintetiche",
     whyBody:
       "La ragione onesta non è che non esista una sintesi vocale svizzero-tedesca — ormai esiste. La ragione è la licenza. Ogni corpus di parlato zurighese che abbiamo trovato è pubblicato per la ricerca e non per un prodotto. Chi ha bisogno di zurighese vero, con licenza pulita e consenso, deve registrarlo da sé. A questo si aggiunge ciò che le voci sintetiche fanno male comunque: il ritmo, le parole mangiate, l'esitazione, la differenza fra due persone dello stesso quartiere.",

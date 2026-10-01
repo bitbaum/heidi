@@ -680,7 +680,7 @@ export const de = {
 
   contribute: {
     title: "Wir suchen Zürcher Stimmen",
-    lead: "Jede Sekunde Dialekt, die Sie bei Heidi hören werden, kommt von einem echten Menschen aus Zürich. Das ist teuer und langsam, und wir machen es trotzdem.",
+    lead: "Die Zürcher Stimmen im Hörlabor kommen von echten Menschen aus Zürich, nicht von einer Computerstimme, die Mundart vorliest.",
     whyTitle: "Warum nicht einfach synthetische Stimmen",
     whyBody:
       "Der ehrliche Grund ist nicht, dass es keine Schweizerdeutsch-Sprachsynthese gäbe — es gibt inzwischen welche. Der Grund ist die Lizenz. Jedes Zürcher Sprachkorpus, das wir gefunden haben, ist für die Forschung freigegeben und nicht für ein Produkt. Wer echtes, sauber lizenziertes Zürichdeutsch mit Einwilligung braucht, muss es selbst aufnehmen. Dazu kommt, was synthetische Stimmen ohnehin schlecht können: Tempo, Nuscheln, Zögern, der Unterschied zwischen zwei Menschen aus demselben Quartier.",
