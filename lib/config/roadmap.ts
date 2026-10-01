@@ -44,7 +44,7 @@ import type { SectorLocale } from "./sectors.ts";
  */
 export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
   de: {
-    eyebrow: "Stand 25. September 2026",
+    eyebrow: "Stand 1. Oktober 2026",
     title: "Was als Nächstes kommt",
     lede:
       "Heidi macht Zürichdeutsch verständlich — Situation für Situation, für Einzelne und für Organisationen, deren Leute hier leben und arbeiten. Hier steht, in welcher Reihenfolge wir das ausbauen, und warum.",
@@ -97,7 +97,7 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
           {
             id: "pro",
             title: "Heidi Pro",
-            line: "Unbegrenzter Chat, Zertifikate und mehr für alle, die schneller vorankommen wollen.",
+            line: "Unbegrenzter Chat und mehr für alle, die schneller vorankommen wollen.",
           },
           {
             id: "learning-together",
@@ -109,7 +109,7 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
     ],
   },
   en: {
-    eyebrow: "As of 25 September 2026",
+    eyebrow: "As of 1 October 2026",
     title: "What comes next",
     lede:
       "Heidi makes Zurich German understandable — situation by situation, for individuals and for organisations whose people live and work here. This is the order we are building it in, and why.",
@@ -162,7 +162,7 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
           {
             id: "pro",
             title: "Heidi Pro",
-            line: "Unlimited chat, certificates and more, for anyone who wants to move faster.",
+            line: "Unlimited chat and more, for anyone who wants to move faster.",
           },
           {
             id: "learning-together",
