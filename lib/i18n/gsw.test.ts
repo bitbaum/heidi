@@ -32,9 +32,14 @@ test("Heidi's own Swiss German passes Heidi's own dialect gate", () => {
     // so a reader can watch the checker catch something.
     if (path.startsWith("check.placeholder")) continue;
 
-    const verdict = check(text, ZURICH_GERMAN, "dispreferred");
-    if (!verdict.ok) {
-      failures.push(`${path}: ${verdict.findings.map((f) => f.form).join(", ")} — ${text.slice(0, 70)}`);
+    // A Standard German word inside «…» is a gloss — «war» heisst «isch gsi» —
+    // and explaining the dialect needs it. Outside the quotes it is a leak.
+    const quoted = [...text.matchAll(/«[^»]*»/g)].map((m) => [m.index, m.index + m[0].length]);
+    const findings = check(text, ZURICH_GERMAN, "dispreferred").findings.filter(
+      (f) => f.origin !== "Standard German" || !quoted.some(([from, to]) => f.index > from && f.index < to),
+    );
+    if (findings.length > 0) {
+      failures.push(`${path}: ${findings.map((f) => f.form).join(", ")} — ${text.slice(0, 70)}`);
     }
   }
 

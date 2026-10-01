@@ -145,7 +145,7 @@ export const CARE: SituationPack = {
         { target: "Es zieht mer im Rugge.", bridge: "Es zieht mir im Rücken.", direction: "hear", source: "idiotikon" },
         { target: "Ich mag nüme.", bridge: "Ich kann nicht mehr.", direction: "hear", source: "idiotikon" },
         { target: "Isch Ihne schwindlig?", bridge: "Ist Ihnen schwindlig?", direction: "say", source: "idiotikon" },
-        { target: "Sit wenn isch das so?", bridge: "Seit wann ist das so?", direction: "say", source: "idiotikon" },
+        { target: "Sit wänn isch das so?", bridge: "Seit wann ist das so?", direction: "say", source: "idiotikon" },
         { target: "Sit geschter Aabig scho.", bridge: "Seit gestern Abend schon.", direction: "hear", source: "idiotikon" },
         { target: "Ich hol Ihne öppis degege.", bridge: "Ich hole Ihnen etwas dagegen.", direction: "say", source: "idiotikon" },
         { target: "Jetz isch es nüme so schlimm.", bridge: "Jetzt ist es nicht mehr so schlimm.", direction: "hear", source: "idiotikon" },

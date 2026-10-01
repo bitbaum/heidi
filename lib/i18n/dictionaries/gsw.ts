@@ -103,7 +103,7 @@ export const gsw: Dictionary = {
   },
 
   footer: {
-    tagline: "Züridütsch verstaa, und denn mitrede.",
+    tagline: "Züridütsch verstaa, und dänn mitrede.",
     place: "Kanton Züri, Schwiiz",
     varietyName: "Züridütsch",
     builtOn: "Gmacht i Züri.",
@@ -339,7 +339,7 @@ export const gsw: Dictionary = {
     accountBody: "Zum Spichere vo Ihrne Wörter und für Lerngruppe. Zum Übersetze bruuched Si kei Konto.",
     dataTitle: "Was uf dem Grät liit",
     dataBody:
-      "Ihres Gspräch bliibt i dem Browser — au wenn Si de Tab zuemached — bis Si «Neus Gspräch» drücked. Aagmäldet wird s statt dem uf eusem Server gspeicheret. Zum beantwortet wärde, gaht jedi Nachricht an en Modällaabieter. En eigne Schlüssel und gmerkti Wörter liged nur da.",
+      "Ihres Gspräch bliibt i dem Browser — au wänn Si de Tab zuemached — bis Si «Neus Gspräch» drücked. Aagmäldet wird s statt dem uf eusem Server gspeicheret. Zum beantwortet wärde, gaht jedi Nachricht an en Modällaabieter. En eigne Schlüssel und gmerkti Wörter liged nur da.",
     dataEmpty: "I dem Browser liit nüt vo Ihne.",
     dataForget: "Lösche",
     dataExport: "Alles abelade",
@@ -432,13 +432,13 @@ export const gsw: Dictionary = {
 
   research: {
     title: "Was d Forschig seit",
-    lead: "Sprachlernprodukt sammled Pseudowüsseschaft a, wil us «es git e Studie» sehr schnell «das isch bewise» wird und drus es ganzes Produkt. Mir haltet drei Sache useinand: was beleit isch, was mir vermuetet, und was eifach en Entscheid isch.",
+    lead: "Sprachlernprodukt sammled Pseudowüsseschaft a, wil us «es git e Studie» sehr schnell «das isch bewise» wird und drus es ganzes Produkt. Mir haltet drüü Sache useinand: was beleit isch, was mir vermuetet, und was eifach en Entscheid isch.",
     factTitle: "Beleit",
     factNote: "Druf stützed mir öis.",
     hypothesisTitle: "Vermuetig",
     hypothesisNote: "Plausibel, ungeteschtet — und Heidi isch s Messgrät.",
     decisionTitle: "Entscheid",
-    decisionNote: "Produktentscheid wo au denn richtig bliibed, wänn sich d Vermuetig nöd bestätiget.",
+    decisionNote: "Produktentscheid wo au dänn richtig bliibed, wänn sich d Vermuetig nöd bestätiget.",
     facts: [
       {
         claim: "Kontakt schlaht sprachlichi Distanz.",
@@ -538,9 +538,9 @@ export const gsw: Dictionary = {
   technology: {
     title: "Was en Computer mit Schwiizerdütsch cha",
     lead: "Und was er nöd cha. Da staht, was i dem Feld würklich gmässe worde isch — mit Zahle und Quelle, damit Si eusi Uussage chönd nachepüefe.",
-    hardTitle: "Warum s schwierig isch",
+    hardTitle: "Worum s schwierig isch",
     hardBody: [
-      "Es git kei offiziälli Rächtschriibig. Es git Empfählige vo 1938, wo i de Dialektforschig brucht wärded — aber sogar gschuelti Lüüt bruuched si unterschiedlich, und fascht niemert schriibt so, wenn er ere Fründin schriibt.",
+      "Es git kei offiziälli Rächtschriibig. Es git Empfählige vo 1938, wo i de Dialektforschig brucht wärded — aber sogar gschuelti Lüüt bruuched si unterschiedlich, und fascht niemert schriibt so, wänn er ere Fründin schriibt.",
       "Gredt wird Mundart, gschriebe wird Hochdütsch. Drum isch «uufschriibe, was gseit worde isch» da kei Transkription, sondern e Übersetzig — und genau eso isch fascht jedes System baut, wo s git.",
       "Und es isch e chliini Sprach, was Date aagaht: di grösste öffentliche Sammlige sind es paar hundert Stund, und fascht alli sind nur für d Forschig lizenziert.",
     ],
@@ -597,7 +597,7 @@ export const gsw: Dictionary = {
     statusResearch: "Forschig",
     statusService: "Dienscht",
     statusClosed: "iigstellt",
-    evalTitle: "Was d Heidi misst, wenn Si redet",
+    evalTitle: "Was d Heidi misst, wänn Si redet",
     evalLead:
       "D Sprächüebig nimmt Si uf und meldet, was sich würkli mässe laat — und seit derzue, i welere Sprach gmässe worde isch. Nienert e Note vo hundert.",
     evalNames: {
@@ -708,7 +708,7 @@ export const gsw: Dictionary = {
     lead: "Jedi Sekunde Dialekt, wo Si bi Heidi ghöred, chunt vo mene echte Mensch us Züri. Das isch tüür und langsam, und mir mached s trotzdem.",
     whyTitle: "Werum nöd eifach synthetischi Stimme",
     whyBody:
-      "De ehrlich Grund isch nöd, dass es kei Schwiizerdütsch-Sprachsynthese gäbti — es git inzwüsche weli. De Grund isch d Lizänz. Jedes Zürcher Sprachkorpus wo mir gfunde händ, isch für d Forschig freigäh und nöd für es Produkt. Wer echts, suuber lizenzierts Züridütsch mit Iiwilligung bruucht, mues es sälber ufnäh. Dezue chunt, was synthetischi Stimme sowieso schlächt chönd: Tempo, Nuschle, Zögere, de Unterschied zwüsche zwei Mensche us em gliiche Quartier.",
+      "De ehrlich Grund isch nöd, dass es kei Schwiizerdütsch-Sprachsynthese gäbti — es git inzwüsche weli. De Grund isch d Lizänz. Jedes Zürcher Sprachkorpus wo mir gfunde händ, isch für d Forschig freigäh und nöd für es Produkt. Wer echts, suuber lizenzierts Züridütsch mit Iiverständnis bruucht, mues es sälber ufnäh. Dezue chunt, was synthetischi Stimme sowieso schlächt chönd: Tempo, Nuschle, Zögere, de Unterschied zwüsche zwei Mensche us em gliiche Quartier.",
     needTitle: "Was mir bruuched",
     needList: [
       "Lüüt wo im Kanton Züri ufgwachse sind oder lang do läbed.",
@@ -725,7 +725,7 @@ export const gsw: Dictionary = {
     learnerTitle: "Und wänn Sie lerned",
     consentTitle: "Was mit de Ufnahm passiert",
     consentBody:
-      "Si behaltet d Kontrolle. Mir säged Ihne vorher, wofür d Ufnahm bruucht wird, Si chönd si zrugzieh, und d Iiwilligung fürs Produkt isch nöd diselb wie eini für d Forschig. Mir gönd dervo us, dass Si s Letschte nöd wänd, solang Si s nöd uusdrücklich säged.",
+      "Si behaltet d Kontrolle. Mir säged Ihne vorher, wofür d Ufnahm bruucht wird, Si chönd si zrugzieh, und s Iiverständnis fürs Produkt isch nöd s gliiche wie das für d Forschig. Mir gönd dervo us, dass Si s Letschte nöd wänd, solang Si s nöd uusdrücklich säged.",
     ctaTitle: "Mälded Si sich",
     ctaBody: "E churzi Nachricht längt. Schriibed Si öis, us welem Teil vom Kanton Si chömed.",
     ctaButton: "E-Mail schriibe",
@@ -737,11 +737,11 @@ export const gsw: Dictionary = {
     sections: [
       {
         title: "Werum es das git",
-        body: "Wil sehr vill Mensche do de gliich Wäg gönd: Dütsch lerne, häre zügle, und denn feschtstelle, dass de entscheidend Teil vo de Sprach gar nöd gschribe wird. Das isch kei Nischeproblem, sondern d Standarderfahrig i dere Stadt.",
+        body: "Wil sehr vill Mensche do de gliich Wäg gönd: Dütsch lerne, häre zügle, und dänn feschtstelle, dass de entscheidend Teil vo de Sprach gar nöd gschribe wird. Das isch kei Nischeproblem, sondern d Standarderfahrig i dere Stadt.",
       },
       {
         title: "Wie mir schaffed",
-        body: "Mir händ zerscht gläse, was d Forschig seit, und erscht nachher baut. Drei Befund händ de Plan umgworfe, wo mir süscht umgsetzt hättet. Was mir debii glernt händ, staht uf de Forschigssiite — samt de Stelle, wo mir öis öffentlich händ müesse korrigiere.",
+        body: "Mir händ zerscht gläse, was d Forschig seit, und erscht nachher baut. Drüü Befund händ de Plan umgworfe, wo mir süscht umgsetzt hättet. Was mir debii glernt händ, staht uf de Forschigssiite — samt de Stelle, wo mir öis öffentlich händ müesse korrigiere.",
       },
       {
         title: "Was na fählt",
@@ -765,11 +765,11 @@ export const gsw: Dictionary = {
       },
       {
         title: "D Methode isch übertragbar",
-        body: "Erwachseni wo e verwandti Sprach scho chönd, müend nöd neu aafange — si müend umlerne, was si scho händ. Das gilt für Hochdütsch und Züridütsch grad so wie für vill anderi Paar. Drum isch bi Heidi di unterrichteti Sprach uustuuschbari Konfiguration und nöd i de Code gschribe.",
+        body: "Erwachseni wo e verwandti Sprach scho chönd, müend nöd nöi aafange — si müend umlerne, was si scho händ. Das gilt für Hochdütsch und Züridütsch grad so wie für vill anderi Paar. Drum isch bi Heidi di unterrichteti Sprach uustuuschbari Konfiguration und nöd i de Code gschribe.",
       },
     ],
     closing:
-      "Konkret heisst das: zerscht wiiteri Dütschschwiizer Dialekt, denn e Sprach usserhalb vo de Schwiiz — diselb Maschine, en andere Sprachsatz. D gredti Helfti reist mit: Jedi vo dene Sprache wird viel öfter ghört als gschribe, und für jedi gits Medie, wo niemert na Mundart und Hochsprach sortiert hät. Was mir debii lerned, schriibed mir uf.",
+      "Konkret heisst das: zerscht wiiteri Dütschschwiizer Dialekt, dänn e Sprach usserhalb vo de Schwiiz — diselb Maschine, en andere Sprachsatz. D gredti Helfti reist mit: Jedi vo dene Sprache wird vill öfter ghört als gschribe, und für jedi gits Medie, wo niemert na Mundart und Hochsprach sortiert hät. Was mir debii lerned, schriibed mir uf.",
   },
 
   voice: {
@@ -790,7 +790,7 @@ export const gsw: Dictionary = {
     rate: "Tempo",
     correctionTitle: "Korrekture",
     correctionBody:
-      "Wie viel d Heidi zu de Wörter vonere Sprächübig seit, nachdem Sie ufgschribe händ, was Sie gseit händ. Nie zu Ihrer Schriibwiis: Züridütsch hät kei richtigi Schriibig, da cha me nüt falsch mache — und nie zu dem, wo Sie im Chat tippet, well e Nachricht, wo Ihne öpper gschickt hät, gnau so uusgseht wie eini vo Ihne.",
+      "Wie vill d Heidi zu de Wörter vonere Sprächübig seit, nachdem Sie ufgschribe händ, was Sie gseit händ. Nie zu Ihrer Schriibwiis: Züridütsch hät kei richtigi Schriibig, da cha me nüt falsch mache — und nie zu dem, wo Sie im Chat tippet, well e Nachricht, wo Ihne öpper gschickt hät, gnau so uusgseht wie eini vo Ihne.",
     correctionLevels: {
       off: "Nüt säge",
       blocking: "Nur, was gar kein Schwiizerdütsch isch",
@@ -813,7 +813,7 @@ export const gsw: Dictionary = {
 
   listening: {
     title: "Wo Sie s ghöred",
-    lead: "D Schwiiz macht sehr viel Radio, Färnseh und Film uf Mundart, s meischte gratis. Nur seit niemert eim, was devo überhaupt Mundart isch — drum staht das da bi jedem Iitrag zerscht.",
+    lead: "D Schwiiz macht sehr vill Radio, Färnseh und Film uf Mundart, s meischte gratis. Nur seit niemert eim, was devo überhaupt Mundart isch — drum staht das da bi jedem Iitrag zerscht.",
     todayTitle: "Wänn Sie zwänzg Minute händ",
     todayBody:
       "Drü zum Aafange, morn anderi. Vo jedere Sorte eis, s sanfteschte zerscht, und alli laufed au usserhalb vo de Schwiiz — es Verzeichnis seit Ihne, was es git, und das isch nöd s gliiche wie z säge, was Sie jetzt sölled mache.",
@@ -940,7 +940,7 @@ export const gsw: Dictionary = {
     groupLabel: "Art",
     statusLabel: "Stand",
     filterAll: "Alli",
-    status: {"new": "Neu", "learning": "Am Lerne", "known": "Sitzt"},
+    status: {"new": "Nöi", "learning": "Am Lerne", "known": "Sitzt"},
     guessableTitle: "Die verstönd Si au eso",
     guessableNote: "Si tönd fascht wie uf Hochdüütsch, oder e Lutregel wie k → ch füert Si häre. Lerne müend Si die chuum.",
     guessableShort: "Vom Düütsche här z errate.",
@@ -955,7 +955,7 @@ export const gsw: Dictionary = {
   sync: {
     title: "Fortschritt uf allne Grät",
     body: "Ihri Üebige, Ihri Serie und Ihri gmerkte Wörter werded zwüsche Ihrne aagmäldete Grät abgliche. Uusgschaltet bliibt alles nur i dem Browser.",
-    signInFirst: "Mälded Sie sich aa, dann händ Sie Ihre Fortschritt uf allne Grät.",
+    signInFirst: "Mälded Sie sich aa, dänn händ Sie Ihre Fortschritt uf allne Grät.",
     turnOn: "Iischalte",
     turnOff: "Uusschalte",
     on: "Iigschaltet — dä Browser glicht mit Ihrne andere Grät ab.",
@@ -992,7 +992,7 @@ export const gsw: Dictionary = {
     noSync: "teilt, hät aber «Fortschritt uf allne Grät» nöd iigschaltet — no nüüt z gseh",
     ready: "{n} vo {total} Situatione sicher",
     certificates: "Nachwiis: {n}",
-    new: "neu",
+    new: "nöi",
     met: "aagfange",
     steady: "meistens",
     sure: "sicher",
@@ -1123,7 +1123,7 @@ export const gsw: Dictionary = {
     lessons: {
       "false-friend": "«{word}» gseht us wie es dütsches Wort, wo Si kenned — aber es heisst nöd «{trap}», sondern «{means}». Genau settigi Wörter verstaht mer falsch, ohni s z merke.",
       "word": "«{word}» heisst «{means}». Merked Si s Wort im Satz, nöd elei: es Wort, wo mer im Zämehang erkännt hät, erkännt mer au im Gspröch wider.",
-      "clock-half": "«halbi drüü» isch halb drei: di halb Stund VOR de gnannte Stund, also 2:30 — nöd halbi nach drüü wie im Änglische. D Stund überchunt oft es -i: vieri, achti, zwölfi.",
+      "clock-half": "«halbi drüü» isch halb drüü: di halb Stund VOR de gnannte Stund, also 2:30 — nöd halbi nach drüü wie im Änglische. D Stund überchunt oft es -i: vieri, achti, zwölfi.",
       "clock-quarter": "Bi de Ziit heisst «ab» «nach»: Viertel ab drüü isch 3:15. «vor» bliibt «vor»: Viertel vor drüü isch 2:45.",
       "price": "Zerscht d Franke, dänn d Rappe, ohni «und» dezwüsche: drüü Franke zwänzg isch 3.20. D Zähner höred uf -zg uf: zwänzg, drissg, vierzg, füfzg.",
       "either-or": "E Frag mit «oder» wott eini vo de zwei Möglichkeite zrugg — nöd Ja oder Nei.",
@@ -1136,16 +1136,16 @@ export const gsw: Dictionary = {
       "indirect-no": "Z Züri seit mer sälte direkt Nei. «Mer luegt dänn», «Das müesst mer no aaluege» oder «Villicht es anders Mal» sind meischtens scho d Antwort — höflich iipackt.",
       "mag": "«möge» heisst uf Züridütsch oft «d Chraft ha» oder «sich derna füele», nöd nur «gern ha». «Ich mag nüme» heisst: Ich cha nüme.",
       "es-haet": "«Es hät» heisst oft «es gibt»: Es hät Lüüs — es git Lüüs. Wer «es hat» ghört, suecht vergäbe dä, wo öppis hät.",
-      "person": "Lose Si uf d Person: mir = wir, Chömed er = kommt ihr, si = sie, mer = man oder wir, Ihne = Ihnen. Im Plural hät s Verb für alli drei Persone di glich Form — d Person steckt nur im Pronome. D Höflichkeitsform hört uf -ed mit Sie uf (Blibed Sie), d du-Form nöd (Blib).",
+      "person": "Lose Si uf d Person: mir = «wir», Chömed er = «kommt ihr», si = «sie», mer = «man» oder «wir», Ihne = «Ihnen». Im Plural hät s Verb für alli drüü Persone di glich Form — d Person steckt nur im Pronome. D Höflichkeitsform hört uf -ed mit Sie uf (Blibed Sie), d du-Form nöd (Blib).",
       "verb-frame": "D Form um s Verb ume treit d Bedütig: «isch am warte» isch jetzt, «go» heisst ane gah, «cho» här cho, «hät gwartet» isch verbii.",
       "small-word": "Es einzigs chliises Wort entscheidet de ganz Satz — es staht obe. Genau settigi Wörter überhört mer, will s uf Hochdütsch andersch tönd oder s es gar nöd git.",
       "whose": "Züridütsch hät kei Genitiv: «em Herr Meier sis Zimmer» isch Herrn Meiers Zimmer, «de Anna ihri Schwöschter» Annas Schwester. Zerscht, wem s ghört, dänn d Sach. Lose Si, WEM s ghört.",
-      "relative": "Züridütsch seit «wo» für der, die, das im Relativsatz: «De Maa, wo dört staht» heisst: der Mann, der dort steht. Da fragt «wo» nöd nach emne Ort. Lose Si, WER was macht.",
+      "relative": "Züridütsch seit «wo» für der, die, das im Relativsatz: «De Maa, wo dört staht» heisst: «der Mann, der dort steht». Da fragt «wo» nöd nach emne Ort. Lose Si, WER was macht.",
       "thanks-sorry": "D Antwort reagiert uf das, wo passiert isch: uf en Gfalle chunt es Merci, uf en Vorwurf e Entschuldigung, uf Blueme e Vase. S Partizip seit, was passiert isch: aagnoh, gleert, mitbrocht.",
       "comfort": "Wer Angscht hät, Schmerze hät oder nüme mag, bruucht zerscht e Antwort genau uf das — nöd e Uskunft über öppis anders.",
-      "wish": "hett, wär, würd, chönnt, sött, wett heissed hätte, wäre, würde, könnte, sollte, möchte: en Wunsch, e höflichi Bitt oder öppis, wo nöd eso isch. Wer «hett» als «hät» ghört, macht us eme Wunsch e Tatsach.",
+      "wish": "hett, wär, würd, chönnt, sött, wett heissed «hätte», «wäre», «würde», «könnte», «sollte», «möchte»: en Wunsch, e höflichi Bitt oder öppis, wo nöd eso isch. Wer «hett» als «hät» ghört, macht us eme Wunsch e Tatsach.",
       "clitic": "Di unbetonte Pronome schrumpfed: en = ihn, em = ihm, ere = ihr, s = es, mer = mir, der = dir. Si gsehnd us wie Artikel, aber es chunt kei Nomen. Lose Si druf, UM WÄR s gaht.",
-      "modal-past": "Mit eme Modalverb hät d Vergangeheit kei «gekonnt»: «ha nöd chönne cho» heisst «konnte nicht kommen», und s Modalverb staht VOR em andere Verb — umgchehrt als im Hochdüütsche. chönne = können, müesse = müssen, dörfe = dürfen, wele = wollen, lah = lassen.",
+      "modal-past": "Mit eme Modalverb hät d Vergangeheit kei «gekonnt»: «ha nöd chönne cho» heisst «konnte nicht kommen», und s Modalverb staht VOR em andere Verb — umgchehrt als im Hochdüütsche. chönne = «können», müesse = «müssen», dörfe = «dürfen», wele = «wollen», lah = «lassen».",
       "direction": "Es chliises Wort treit d Richtig: ine (hinein), use (hinaus), ufe (hinauf), abe (hinunter), ume (hinüber), zrugg (zurück). Züridütsch unterscheidet nöd zwüsche hin- und her-: «ine» isch hinein und herein. Lose Si druf, WOHÄRE s gaht.",
       "name-role": "En Vorname hät en Artikel, und de Artikel zeigt d Rolle: «d Anna», «de Peter» isch, wer öppis macht oder wän s trifft; «de Anna», «em Peter» isch, WÄM öppis ggä, gseit oder zeigt wird. Lose Si druf, wer was mit wäm macht.",
     },
@@ -1228,7 +1228,7 @@ export const gsw: Dictionary = {
     dueToday: { one: "1 Frag isch hüt zum Wiederhole fällig.", few: "{n} Frage sind hüt zum Wiederhole fällig.", many: "{n} Frage sind hüt zum Wiederhole fällig.", other: "{n} Frage sind hüt zum Wiederhole fällig." },
     dueTomorrow: { one: "Morn wieder fällig: 1 Frag. D Heidi fragt, churz bevor Sie s vergässe würded.", few: "Morn wieder fällig: {n} Frage. D Heidi fragt, churz bevor Sie s vergässe würded.", many: "Morn wieder fällig: {n} Frage. D Heidi fragt, churz bevor Sie s vergässe würded.", other: "Morn wieder fällig: {n} Frage. D Heidi fragt, churz bevor Sie s vergässe würded." },
     againTitle: "Nomal aaluege",
-    whyTitle: "Warum d Übige so bout sind",
+    whyTitle: "Worum d Übige so bout sind",
     whyLead:
       "Jedi Entscheidig da chame nochelääse. Wo d Forschig e Richtig git und kei Zahl, staht d Zahl als öises Ermässe da — nöd als Befund.",
     why: [
@@ -1247,7 +1247,7 @@ export const gsw: Dictionary = {
       {
         claim: "Eimol richtig isch z wenig; zweimol richtig, mit Abstand, isch de Punkt.",
         detail:
-          "Drum chunnt e verpassti Frog no i de gliiche Sitzig zrugg — drei Froge spöter, nöd sofort. De Abstand vo drei isch öisi Schätzig: d Studie git d Richtig, nöd d Zahl.",
+          "Drum chunnt e verpassti Frog no i de gliiche Sitzig zrugg — drüü Froge spöter, nöd sofort. De Abstand vo drüü isch öisi Schätzig: d Studie git d Richtig, nöd d Zahl.",
         source: ["rawson-dunlosky-2011"],
       },
       {
@@ -1271,17 +1271,17 @@ export const gsw: Dictionary = {
       {
         claim: "Kei Pünkt, kei Prozentzahl — und e Serie ohni Vorwurf.",
         detail:
-          "Pünkt mässed, wie viel Heidi Si konsumiert händ, und gsehnd dobii us wie es Mass fürs Lerne. D Serie zellt nur Täg, wo Si güebt händ, und hört nie mit «verlore» uuf. Was da staht, sind Zahle über das, wo Si gmacht händ.",
+          "Pünkt mässed, wie vill Heidi Si konsumiert händ, und gsehnd dobii us wie es Mass fürs Lerne. D Serie zellt nur Täg, wo Si güebt händ, und hört nie mit «verlore» uuf. Was da staht, sind Zahle über das, wo Si gmacht händ.",
         source: ["yang-2021"],
       },
     ],
     whyMore: "Di ganz Methode",
-    savedHint: "Im Chat mörked Si sich es Wort mit +. Das chunnt denn da zrugg, wenn's so wiit isch.",
+    savedHint: "Im Chat mörked Si sich es Wort mit +. Das chunnt dänn da zrugg, wänn's so wiit isch.",
   },
 
   essays: {
     title: "Blog",
-    lead: "Warum d Dütschschwiiz so redt, wie si redt. Längeri Täxt mit Quelle — für d Frooge, wo uf e Charte nöd passed.",
+    lead: "Worum d Dütschschwiiz so redt, wie si redt. Längeri Täxt mit Quelle — für d Frooge, wo uf e Charte nöd passed.",
     none: "Da staht no nüt.",
     backToAll: "Alli Täxt",
     notTranslated: "De Täxt gits no nöd uf Schwiizerdütsch. Si läsed en uf",
@@ -1304,9 +1304,9 @@ export const gsw: Dictionary = {
     marksNone: "D Heidi cha die Mundart na nöd a einzelne Forme erkenne. Da staht nüüt, statt öppis Plausibels.",
     taught: "Das lernet Si da",
     sourcesTitle: "Quelle",
-    groupsTitle: "Di drei Zwiig",
+    groupsTitle: "Di drüü Zwiig",
     groupsLead:
-      "D alemannische Mundarte teiled sich i drei Gruppe. D Gränze sind kei Kantonsgränze, sondern Lutwandel, wo a verschidene Ort stoh blibe sind.",
+      "D alemannische Mundarte teiled sich i drüü Gruppe. D Gränze sind kei Kantonsgränze, sondern Lutwandel, wo a verschidene Ort stoh blibe sind.",
     groups: {
       low: {
         name: "Niederalemannisch",
@@ -1314,7 +1314,7 @@ export const gsw: Dictionary = {
       },
       high: {
         name: "Hochalemannisch",
-        body: "Mittelland und Oste: Züri, Bärn, Aargau, Solothurn, St. Galle. Di gröschti Gruppe — und die, wo mer meint, wenn mer «Schwiizerdütsch» seit.",
+        body: "Mittelland und Oste: Züri, Bärn, Aargau, Solothurn, St. Galle. Di gröschti Gruppe — und die, wo mer meint, wänn mer «Schwiizerdütsch» seit.",
       },
       highest: {
         name: "Höchstalemannisch",
@@ -1350,7 +1350,7 @@ export const gsw: Dictionary = {
       outsideName: "Dütschland",
       note: "Heidi ordnet nur Forme ii, wo sie sicher kännt, und d Lischte wachst. Ihre Text wird nöd gspeicheret.",
     },
-    whyManyTitle: "Warum so viili?",
+    whyManyTitle: "Worum so viili?",
     whyManyBody:
       "D Schwiiz hät ihri Mundarte bhalte, während Dütschland sini grösstenteils verlore hät. Das isch kein Zuefall und kei Frog vo de Bärge — es hät mit Staatsbildig, Schuel und Radio z tue.",
     whyManyLink: "Di ganz Gschicht",
@@ -1368,7 +1368,7 @@ export const gsw: Dictionary = {
     practiseLabel: "Meh Bispil",
     practiseSay: "Gäbed mer zwei Sätz zum Üebe vo «{word}» — und fraged mi dänn eine ab.",
     title: "Grammatik",
-    lead: "Was Züridütsch schwer verständlich macht für öpper, wo scho Dütsch liest — zerscht das, wo en Satz ganz dra scheiteret, denn das, wo Si zwar verstönd, aber nie sälber sege würded.",
+    lead: "Was Züridütsch schwer verständlich macht für öpper, wo scho Dütsch liest — zerscht das, wo en Satz ganz dra scheiteret, dänn das, wo Si zwar verstönd, aber nie sälber sege würded.",
     ruleLabel: "D Regle",
     watchLabel: "Wo's hakt",
     bands: {
@@ -1410,7 +1410,7 @@ export const gsw: Dictionary = {
       },
       articles: {
         title: "de, d, s — meh Artikel git's nöd",
-        rule: "Drei Artikel für alles: «de» bim männliche, «d» bim wibliche, «s» bim sächliche Wort. «der», «die» und «das» chömed nöd vor.",
+        rule: "Drüü Artikel für alles: «de» bim männliche, «d» bim wibliche, «s» bim sächliche Wort. «der», «die» und «das» chömed nöd vor.",
         watch: "Si gsehnd us wie verschluckti dütschi — sind aber di ganz Form, nöd e bequemi Churzfassig. Und s Gschlächt stimmt nöd immer mit em dütsche überii: «s Rüebli» isch sächlich, d Karotte nöd.",
       },
       "wo-relative": {
@@ -1446,11 +1446,11 @@ export const gsw: Dictionary = {
       "modal-particles": {
         title: "«gäll», «halt», «äbe» — d Haltig im Satz",
         rule: "Die chliine Wörtli änderet kei Tatsach, nume d Haltig dehinter: «gäll» suecht Zuestimmig, «halt» heisst «da chasch nüt mache», «äbe» bestätigt gnau de Punkt.",
-        watch: "Hochdütsch hät «eben», und im Süde läbt «gell» — nöi isch vor allem, wie oft si chömed, und «dänk», wo s uf Hochdütsch kei Wort derfür git. De Satz verstönd Sie au ohni. Sie ghöred denn nume nöd, öb me Ihne rächt git oder Sie öppis fragt.",
+        watch: "Hochdütsch hät «eben», und im Süde läbt «gell» — nöi isch vor allem, wie oft si chömed, und «dänk», wo s uf Hochdütsch kei Wort derfür git. De Satz verstönd Sie au ohni. Sie ghöred dänn nume nöd, öb me Ihne rächt git oder Sie öppis fragt.",
       },
       subjunctive: {
         title: "hett, wär, chönnt — de Konjunktiv läbt",
-        rule: "Wünsch, höflichi Bitte und alles, wo nume möglich isch, stönd im Konjunktiv: hett (hätte), wär (wäre), chönnt (könnte), sött (sollte), wett (möchte) — oder würd plus Grundform. Mer ghört si au mit -i: hetti, wäri.",
+        rule: "Wünsch, höflichi Bitte und alles, wo nume möglich isch, stönd im Konjunktiv: hett («hätte»), wär («wäre»), chönnt («könnte»), sött («sollte»), wett («möchte») — oder würd plus Grundform. Mer ghört si au mit -i: hetti, wäri.",
         watch: "En einzige Vokal trännt «hätte» vo «hat»: «Er hett Ziit» heisst «er hätte Zeit», «er hät Ziit» heisst «er hat Zeit». Und «Ich wett» isch kei Wette, sondern «ich möchte».",
       },
       "pronoun-clitics": {
@@ -1460,12 +1460,12 @@ export const gsw: Dictionary = {
       },
       participles: {
         title: "gsi, gha, cho — Partizip fascht ohni ge-",
-        rule: "Us ge- wird g-: gmacht, gseit, gsi (gewesen), gha (gehabt). Vor k/ch, p, t und g fallt s ganz wäg: cho (gekommen), kauft (gekauft), trunke (getrunken), gange (gegangen).",
+        rule: "Us ge- wird g-: gmacht, gseit, gsi («gewesen»), gha («gehabt»). Vor k/ch, p, t und g fallt s ganz wäg: cho («gekommen»), kauft («gekauft»), trunke («getrunken»), gange («gegangen»).",
         watch: "Will s kei Präteritum git, hanget jedi Vergangeheit a somene Partizip. «cho» und «gsi» gsehnd nach keim hochdütsche Wort uus — lärned Sie di hüüfigste als Wörter, nöd als Regle.",
       },
       "clock-time": {
         title: "am vieri, halbi drüü — d Uhrziit",
-        rule: "«am» heisst «um», «ab» heisst «nach»: am viertel ab achti = um Viertel nach acht. Di voll Stund überchunt meistens es -i: am vieri, am achti, am zwölfi. «Halbi drüü» isch halb drei, also 2:30 — wie im Hochdütsche.",
+        rule: "«am» heisst «um», «ab» heisst «nach»: am viertel ab achti = um Viertel nach acht. Di voll Stund überchunt meistens es -i: am vieri, am achti, am zwölfi. «Halbi drüü» isch halb drüü, also 2:30 — wie im Hochdütsche.",
         watch: "Alli drüü chliine Wörtli bedüüted im Hochdütsche öppis anders: «am» tönt wie «am Montag», «ab» wie «ab acht Uhr». «Viertel ab achti» isch aber 8:15, nöd «ab 7:45».",
       },
       "verb-order": {
@@ -1508,7 +1508,7 @@ export const gsw: Dictionary = {
    */
   review: {
     title: "Zum Wiederhole",
-    lead: "Wörter, wo Si händ wele bhalte, chömed da zrugg — zerscht nach eim Tag, denn nach drü, denn nach ere Wuche. Spöter frage bringt meh als öfters frage.",
+    lead: "Wörter, wo Si händ wele bhalte, chömed da zrugg — zerscht nach eim Tag, dänn nach drü, dänn nach ere Wuche. Spöter frage bringt meh als öfters frage.",
     due: "fällig",
     noneHint: "Chömed morn wieder — oder schlaged öppis Neus nache.",
     tomorrow: "morn fällig",
@@ -1538,7 +1538,7 @@ export const gsw: Dictionary = {
   },
   groups: {
     title: "Lerngruppe",
-    lead: "Üeb mit andere — d Heidi isch debii. Schriib ere im Gspräch mit Name, wenn du öppis wüsse wottsch.",
+    lead: "Üeb mit andere — d Heidi isch debii. Schriib ere im Gspräch mit Name, wänn du öppis wüsse wottsch.",
     empty: "Du bisch no i kerne Gruppe.",
     createTitle: "Gruppe uftue",
     createHint: "Gib ere en Name. Nachher überchunnsch en Link zum Wiitergäh.",
@@ -1548,7 +1548,7 @@ export const gsw: Dictionary = {
     open: "Ufmache",
     members: "Mitglieder",
     inviteTitle: "Zum Mitmache iilade",
-    inviteHint: "Wer de Link hät, chunt ine. Gib en nume wiiter, wenn du das wottsch.",
+    inviteHint: "Wer de Link hät, chunt ine. Gib en nume wiiter, wänn du das wottsch.",
     copyLink: "Link kopiere",
     copied: "Kopiert",
     rotate: "Nöie Link mache",
@@ -1562,7 +1562,7 @@ export const gsw: Dictionary = {
     signInFirst: "Mäld di aa, zum Lerngruppe bruuche.",
     composer: "Nachricht a d Gruppe",
     send: "Schicke",
-    heidiHint: "Schriib «Heidi», wenn si antworte söll.",
+    heidiHint: "Schriib «Heidi», wänn si antworte söll.",
     notConfigured: "Lerngruppe sind uf dere Installation no nöd iigrichtet.",
     failed: "Das hät grad nöd klappet. Bitte nomal probiere.",
     back: "Zrugg zu Mim Bereich",
@@ -1766,7 +1766,7 @@ export const gsw: Dictionary = {
       remainingTitle: "Die fähled na",
       drill: "Die Situation üebe",
       drillAgain: "Wyter üebe",
-      noneYet: "Üebed Sie die Situation — denn staht da, wie wyt Sie sind.",
+      noneYet: "Üebed Sie die Situation — dänn staht da, wie wyt Sie sind.",
       localOnly: "Das rechnet Ihre Browser us. Es gaht nöd vo dem Grät ewegg.",
       boardTitle: "Wo Sie stark sind",
       boardLead: "Situation für Situation. Me cha im Altersheim sicher sy und im Restaurant nöd — das isch kein Widerspruch, das isch de Punkt.",
@@ -1824,7 +1824,7 @@ export const gsw: Dictionary = {
         scene: "Churzi Sätz, während beidi Händ bschäftigt sind. Da isch Hochdüütsch nöd di neutrali Variante: Wer mitten i de Pflege d Sprooch wächslet, wirkt wie en anderi Person.",
       },
       pain: {
-        title: "Wenn öppis weh tuet",
+        title: "Wänn öppis weh tuet",
         scene: "Schmerz redt kei Zweitsprooch. Wer en meldet, formuliert nöd — und wer en falsch verstaht, haltet Schmerz für Unruä.",
       },
       meals: {
