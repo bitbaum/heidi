@@ -42,6 +42,17 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-10-01",
+      tag: "improvement",
+      title: "Jedes Wort hat einen Beispielsatz",
+      summary:
+        "121 der 226 Wörter im Wortschatz öffneten sich ohne einen einzigen Satz. Jetzt hat jedes einen kurzen, für Heidi geschriebenen Satz mit Übersetzung, geprüft auf Zürcher Formen.",
+      items: [
+        "Die falschen Freunde bekommen Sätze, die die irreführende Lesart ausschliessen: «Mir müend springe, s Tram chunt» heisst rennen, nicht hüpfen.",
+        "Die Sätze fliessen ins Üben ein: 2028 statt 1876 Fragen, davon 119 neue Übersetzungen.",
+      ],
+    },
+    {
+      date: "2026-10-01",
       tag: "fix",
       title: "«Die 10 Wörter lernen» fragt alle zehn",
       summary:
@@ -478,6 +489,17 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-01",
+      tag: "improvement",
+      title: "Every word has an example sentence",
+      summary:
+        "121 of the 226 words in the vocabulary opened without a single sentence. Each now has a short one written for Heidi, with its translation, checked for Zurich forms.",
+      items: [
+        "The false friends get sentences that rule out the misleading reading: \u201cMir m\u00fcend springe, s Tram chunt\u201d means running, not jumping.",
+        "The sentences feed practice too: 2,028 questions instead of 1,876, including 119 new translations.",
+      ],
+    },
     {
       date: "2026-10-01",
       tag: "fix",
