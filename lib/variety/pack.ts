@@ -812,6 +812,22 @@ export type VarietyPack = {
    */
   showcase?: { line: string };
   rules: readonly VarietyRule[];
+  /**
+   * Bridge words that never occur in the target: «ist», «nicht», «Übung» in
+   * a text claiming to be Zurich German.
+   *
+   * `rules` names NEIGHBOURING dialects, and a model asked for Zurich German
+   * drifts that way; it drifts the other way too, back into the Standard
+   * German it was mostly trained on, and «Mir händ hüt e Übung» passed the
+   * gate clean. Kept apart from `rules` because it is a different kind of
+   * claim (one word list per bridge rather than a dialect map) and a hundred
+   * of them would bury the regional rules on `/method`. `check` applies both.
+   *
+   * ONLY words the target never uses. A word both varieties share («und»,
+   * «Sie», «immer») or one the target uses in another sense does not belong
+   * here, however German it looks.
+   */
+  leaks?: readonly VarietyRule[];
   orthography: Orthography;
   capabilities: Capabilities;
   /**

@@ -71,7 +71,7 @@ export function readDialect(text: string, pack: VarietyPack): Reading {
   // "this reads like somebody from Germany" is as real an answer to the reader
   // as a canton. Only findings with an origin count, so the rest are inert.
   const bridgeRules = pack.bridges.flatMap((b) => b.rules ?? []);
-  for (const f of checkAgainst(text, [...pack.rules, ...bridgeRules]).findings) {
+  for (const f of checkAgainst(text, [...pack.rules, ...(pack.leaks ?? []), ...bridgeRules]).findings) {
     if (!f.origin) continue;
     const entry = byOrigin.get(f.origin) ?? {
       origin: f.origin,

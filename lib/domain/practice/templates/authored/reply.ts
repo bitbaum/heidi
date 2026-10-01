@@ -79,7 +79,7 @@ export const REPLY: readonly ReplyTemplate[] = [
     right: L("pain", 6),
     wrong: [L("doctor", 18), L("restaurant", 8), L("morning-care", 15)],
     lesson: "since",
-    listen: { word: "Sit wenn", means: "Seit wann" },
+    listen: { word: "Sit wänn", means: "Seit wann" },
   },
   {
     id: "allergic",

@@ -10,7 +10,47 @@
  * unchanged and still await a native Zurich reviewer — see docs/LINGUISTICS.md.
  */
 
-import type { VarietyPack } from "../pack.ts";
+import type { VarietyPack, VarietyRule } from "../pack.ts";
+
+/**
+ * Standard German words that never occur in a Zurich German sentence, with
+ * the Zurich form. See `VarietyPack.leaks`: a word both varieties use («und»,
+ * «Sie», «immer», «sehr», «zu») is not here, however German it looks.
+ */
+const STANDARD_ONLY: readonly (readonly [string, string])[] = [
+  // Verbs: the forms in every sentence, and the past tense Zurich does not have.
+  ["ist", "isch"], ["habe", "ha"], ["haben", "händ"], ["hast", "häsch"], ["hat", "hät"],
+  ["hatte", "ha gha"], ["hatten", "händ gha"], ["war", "isch gsi"], ["waren", "sind gsi"],
+  ["wäre", "wär"], ["hätte", "hett"], ["würde", "würd"],
+  ["gehen", "gah"], ["gehe", "gang"], ["geht", "gaht"], ["gegangen", "gange"],
+  ["kommen", "cho"], ["komme", "chume"], ["kommt", "chunt"], ["gekommen", "cho"],
+  ["können", "chönne"], ["kann", "cha"], ["kannst", "chasch"],
+  ["müssen", "müesse"], ["muss", "mues"], ["musst", "muesch"],
+  ["willst", "wotsch"], ["wollen", "wele"],
+  ["sagen", "säge"], ["sagt", "seit"], ["gesagt", "gseit"],
+  ["hören", "ghöre"], ["gehört", "ghört"],
+  ["sehen", "gseh"], ["sieht", "gseht"], ["gesehen", "gseh"],
+  ["kaufen", "chaufe"], ["einkaufen", "iichaufe"], ["schreiben", "schriibe"], ["bleiben", "bliibe"],
+  ["lesen", "läse"], ["essen", "ässe"], ["arbeiten", "schaffe"], ["wissen", "wüsse"],
+  ["geben", "gä"], ["gegeben", "gä"],
+  // Pronouns and articles.
+  ["wir", "mir"], ["uns", "eus"], ["euch", "eu"], ["mein", "min"], ["meine", "mini"],
+  ["dein", "din"], ["deine", "dini"], ["einen", "en"],
+  // The small words.
+  ["nicht", "nöd"], ["nichts", "nüt"], ["auch", "au"], ["schon", "scho"], ["noch", "no"],
+  ["etwas", "öppis"], ["jemand", "öpper"], ["niemand", "niemer"], ["nirgends", "niene"],
+  ["hier", "do"], ["zusammen", "zäme"], ["ohne", "ohni"], ["bei", "bi"], ["auf", "uf"], ["aus", "us"],
+  ["warum", "worum"], ["wann", "wänn"], ["wenn", "wänn"], ["dann", "dänn"], ["denn", "dänn"],
+  ["heute", "hüt"], ["morgen", "morn"], ["gestern", "geschter"],
+  ["gut", "guet"], ["klein", "chli"], ["kalt", "chalt"], ["krank", "chrank"], ["kurz", "churz"],
+  ["viel", "vill"], ["viele", "vill"], ["mehr", "meh"], ["gerne", "gärn"],
+  ["drei", "drüü"], ["neu", "nöi"],
+  // Nouns whose Zurich shape is fixed.
+  ["Zeit", "Ziit"], ["Haus", "Huus"], ["Hause", "deheim"], ["Leute", "Lüüt"], ["Kind", "Chind"],
+  ["Kinder", "Chind"], ["Kopf", "Chopf"], ["Küche", "Chuchi"], ["Käse", "Chäs"], ["Geld", "Gäld"],
+  ["Arbeit", "Arbet"], ["Abend", "Aabig"], ["Woche", "Wuche"], ["Mutter", "Mueter"],
+  ["Strasse", "Stross"], ["Mann", "Maa"], ["Freund", "Fründ"],
+];
 
 export const ZURICH_GERMAN: VarietyPack = {
   tag: "gsw-u-sd-chzh",
@@ -2182,6 +2222,32 @@ export const ZURICH_GERMAN: VarietyPack = {
       severity: "unattested",
       reason: "ß is not used anywhere in Switzerland — write ss",
       suggest: "ss",
+    },
+  ],
+
+  leaks: [
+    ...STANDARD_ONLY.map(
+      ([standard, zurich]): VarietyRule => ({
+        match: standard,
+        severity: "foreign",
+        origin: "Standard German",
+        reason: `Standard German. Zurich German says «${zurich}».`,
+        suggest: zurich,
+      }),
+    ),
+    {
+      /**
+       * Standard German «-ung» is Zurich «-ig»: Üebig, Wohnig, Ziitig,
+       * Umleitig. Capitalised and with a letter before it, so «jung» and
+       * «Zunge» stay out. «Achtung» and «Entschuldigung» the dialect uses
+       * whole, and «Sprung» and «Schwung» are not the suffix at all.
+       */
+      match: /(?<!\p{L})(?!(?:Achtung|Entschuldigung)(?!\p{L}))\p{Lu}\p{Ll}+(?<![Ss]pr|[Ss]chw)ung(?:en)?(?!\p{L})/gu,
+      display: "-ung",
+      severity: "foreign",
+      origin: "Standard German",
+      reason: "Standard German «-ung». Zurich German says «-ig»: Üebig, Wohnig, Ziitig.",
+      suggest: "-ig",
     },
   ],
 

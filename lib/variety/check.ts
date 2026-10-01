@@ -57,7 +57,7 @@ function patternOf(rule: VarietyRule): RegExp {
 }
 
 export function check(text: string, pack: VarietyPack, threshold: Threshold = "foreign"): CheckResult {
-  return checkAgainst(text, pack.rules, threshold);
+  return checkAgainst(text, [...pack.rules, ...(pack.leaks ?? [])], threshold);
 }
 
 /**

@@ -42,6 +42,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-10-01",
+      tag: "fix",
+      title: "Die Dialektprüfung erkennt jetzt Hochdeutsch",
+      summary:
+        "Die Prüfung kannte nur Formen anderer Dialekte und liess reines Hochdeutsch durch: «Ich habe heute keine Zeit» bestand. Jetzt erkennt sie rund 100 hochdeutsche Wörter, die im Zürichdeutschen nie vorkommen, und die Endung «-ung».",
+      items: [
+        "Beispiele: «hören» statt «ghöre», «nicht» statt «nöd», «Übung» statt «Üebig», «wenn» statt «wänn». Zu jedem Fund nennt sie die Zürcher Form.",
+        "Sie hat Fehler auf der Seite selbst gefunden, die jetzt korrigiert sind: «Sit wänn händ Sie das?», «Bis morn dänn», «drüü», «vill», «nöi».",
+        "Wörter, die auch zürichdeutsch sind, bleiben erlaubt: «will» (weil), «gern», «Achtung», «Entschuldigung».",
+      ],
+    },
+    {
+      date: "2026-10-01",
       tag: "improvement",
       title: "Jedes Wort hat einen Beispielsatz",
       summary:
@@ -489,6 +501,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-01",
+      tag: "fix",
+      title: "The dialect check now catches Standard German",
+      summary:
+        "The check only knew other dialects' forms and let plain Standard German through: \u201cIch habe heute keine Zeit\u201d passed. It now recognises about 100 Standard German words that never occur in Zurich German, plus the \u201c-ung\u201d ending.",
+      items: [
+        "For example \u201ch\u00f6ren\u201d for \u201cgh\u00f6re\u201d, \u201cnicht\u201d for \u201cn\u00f6d\u201d, \u201c\u00dcbung\u201d for \u201c\u00dcebig\u201d, \u201cwenn\u201d for \u201cw\u00e4nn\u201d. Each finding names the Zurich form.",
+        "It found mistakes on the site itself, now fixed: \u201cSit w\u00e4nn h\u00e4nd Sie das?\u201d, \u201cBis morn d\u00e4nn\u201d, \u201cdr\u00fc\u00fc\u201d, \u201cvill\u201d, \u201cn\u00f6i\u201d.",
+        "Words that are also Zurich German stay allowed: \u201cwill\u201d (because), \u201cgern\u201d, \u201cAchtung\u201d, \u201cEntschuldigung\u201d.",
+      ],
+    },
     {
       date: "2026-10-01",
       tag: "improvement",

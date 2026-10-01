@@ -603,6 +603,26 @@ own writing is checked at `foreign` too** — telling someone their spelling is
 wrong in a variety with no standard spelling is the one thing this product must
 never do.
 
+**Standard German leaking in is the commonest error, so the gate checks for it
+too.** The rules above name neighbouring dialects; on their own they let pure
+Standard German through («Ich habe heute keine Zeit» passed). The pack's
+`leaks` list names Standard German words Zurich German never uses (`ist`,
+`habe`, `hören`, `gehen`, `nicht`, `auch`, `wenn`, `heute`, `Zeit`, and so on),
+each with the Zurich form as the suggestion, plus the `-ung` ending (`Übung` →
+`Üebig`, `Wohnung` → `Wohnig`). `check` applies both lists at `foreign`, so the
+same rejection covers our copy, the scenes, the example sentences and anything
+generated. Two policies keep it honest:
+
+- **Only words Zurich German never says.** A word that is also a Zurich form
+  stays off the list, however German it looks: `will` (Zurich «weil»), `gern`,
+  and `höre`/`hört` (they sit inside «ufhöre»). `Achtung`, `Entschuldigung` and
+  words ending in `-sprung`/`-schwung` are exempt from the `-ung` rule. A false
+  alarm teaches the wrong thing, so a doubtful word is left out rather than
+  added.
+- **Quoted German is allowed in our own copy.** A grammar note has to say «gehen»
+  to explain «gah». The site-copy test ignores Standard German findings inside
+  «…»; dialect findings inside quotes still fail.
+
 Known limit: the regional judgements in `gsw-zh.ts` are inherited and have not
 been reviewed by a native Zurich speaker. An LLM must not be the sole grader of
 another LLM's dialect. A native panel is required before any generated dialect
