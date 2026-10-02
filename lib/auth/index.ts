@@ -1,11 +1,5 @@
 import NextAuth from "next-auth";
-import {
-  applyOcRefresh,
-  bindOcTokens,
-  ocRefreshDue,
-  refreshOcTokens,
-} from "./oc-session.ts";
-import { orangecatIssuer, orangecatProvider } from "./provider.ts";
+import { orangecatClient, orangecatProvider, syncOcSession } from "@bitbaum/accountkit/orangecat";
 
 /**
  * "Sign in with OrangeCat" — the only login Heidi will ever have.
@@ -23,16 +17,13 @@ import { orangecatIssuer, orangecatProvider } from "./provider.ts";
  * Heidi would be the same mistake in a different repo — and a users table you
  * do not have is a users table that cannot leak.
  *
- * The provider config mirrors Solon's, which mirrors Loki's, because
- * OrangeCat's authorization server has two quirks that cost a debugging cycle
- * to find the first time: its token endpoint accepts ONLY client_secret_post
- * (Auth.js defaults to client_secret_basic, which OC rejects with a 400
- * "client_id is required" at the code exchange), and it requires PKCE even for
- * confidential clients.
+ * The provider, the session refresh and their contract tests live once, in
+ * @bitbaum/accountkit/orangecat — every bitbaum app signs in through the same
+ * copy (client_secret_post, PKCE, a profile without email, and a session that
+ * ends when OrangeCat revokes the grant).
  */
 
-const clientId = process.env.ORANGECAT_OAUTH_CLIENT_ID;
-const clientSecret = process.env.ORANGECAT_OAUTH_CLIENT_SECRET;
+const orangecat = orangecatClient();
 
 /**
  * True only when the OrangeCat pair is configured. The UI hides the sign-in
@@ -40,7 +31,7 @@ const clientSecret = process.env.ORANGECAT_OAUTH_CLIENT_SECRET;
  * exchange — a half-configured provider that looks present is worse than an
  * absent one, because the failure surfaces to the visitor as a dead button.
  */
-export const authEnabled = Boolean(clientId && clientSecret);
+export const authEnabled = orangecat !== null;
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   // Behind Caddy the app never sees its own public URL. `trustHost` lets
@@ -52,34 +43,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
   pages: { error: "/auth/error" },
 
-  providers: authEnabled ? [orangecatProvider(clientId!, clientSecret!)] : [],
+  providers: orangecat ? [orangecatProvider(orangecat)] : [],
 
   callbacks: {
-    async jwt({ token, profile, account }) {
-      if (profile?.sub) {
-        // id_token.sub is the OrangeCat actor id. It — never the email — is
-        // the cross-product identity boundary: two accounts can share an
-        // email string and must not thereby become the same person.
-        token.actorId = profile.sub;
-      }
-      if (account?.provider === "orangecat") {
-        return bindOcTokens(token, account);
-      }
-      // The session lives only as long as OrangeCat lets it: once the access
-      // token expires, refresh; a refusal (Disconnect on OrangeCat, Sign out
-      // everywhere, account deleted) ends the session. See oc-session.ts.
-      const nowSeconds = Math.floor(Date.now() / 1000);
-      if (clientId && clientSecret && ocRefreshDue(token, nowSeconds)) {
-        const result = await refreshOcTokens(token.ocRefreshToken as string, {
-          issuer: orangecatIssuer(),
-          clientId,
-          clientSecret,
-          fetch,
-          nowSeconds,
-        });
-        return applyOcRefresh(token, result, nowSeconds);
-      }
-      return token;
+    // Identity is id_token.sub (the OrangeCat actor id), never the email. The
+    // session lives only as long as OrangeCat lets it: once the access token
+    // expires it refreshes, and a refusal (Disconnect on OrangeCat, Sign out
+    // everywhere, account deleted) ends the session.
+    jwt({ token, profile, account }) {
+      return syncOcSession({ token, profile, account }, orangecat);
     },
     session({ session, token }) {
       if (typeof token.actorId === "string") session.actorId = token.actorId;

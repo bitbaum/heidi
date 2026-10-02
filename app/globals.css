@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@bitbaum/chatkit/styles.css";
+@import "@bitbaum/accountkit/styles.css";
 
 /**
  * Heidi — design tokens. The only place a colour, font or radius is defined.
@@ -189,6 +190,21 @@
 
   /* Hard edges. A cow's patches have no corner radius. */
   --radius-control: 2px;
+}
+
+/* The sign-in error screen is @bitbaum/accountkit's SignInError; it takes
+   its look from these, the same way the chat does. */
+:root {
+  --acct-fg: var(--color-fg-primary);
+  --acct-fg-2: var(--color-fg-secondary);
+  --acct-fg-3: var(--color-fg-muted);
+  --acct-line: var(--color-border-subtle);
+  --acct-line-2: var(--color-border-strong);
+  --acct-action: var(--color-action);
+  --acct-on-action: var(--color-on-action);
+  --acct-focus: var(--color-action);
+  --acct-radius-sm: var(--radius-control);
+  --acct-font: var(--font-sans);
 }
 
 /* The chat is @bitbaum/chatkit; it takes its look from these. Each points at

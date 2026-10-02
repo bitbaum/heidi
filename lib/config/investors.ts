@@ -57,7 +57,7 @@ export const METRICS_READ_ON = "1 October 2026";
  * below, where a reference would hit the temporal dead zone — so the string
  * carried its own literal copy of the number, and "said once" was false.
  */
-export const ADVERTISED_TEST_FILES = 129;
+export const ADVERTISED_TEST_FILES = 127;
 
 /** Counts read from the repository, not estimated — each with how to check it. */
 export const METRICS: readonly Metric[] = [
