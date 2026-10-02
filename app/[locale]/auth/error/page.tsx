@@ -1,5 +1,6 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import { SignInError } from "@bitbaum/accountkit";
+import { signIn } from "@/lib/auth";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
@@ -8,41 +9,47 @@ import { Shell } from "../../_components/page-shell";
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 /**
- * Where Auth.js sends a failed sign-in.
- *
- * It deliberately does not print the provider's error code: the codes are
- * useless to a visitor and a gift to anyone probing the endpoint. The
- * operator's copy of the failure is in the server log, which is where a
- * forensic detail belongs.
+ * Where Auth.js sends a failed sign-in. "Try again" starts the sign-in again
+ * — it used to go to the home page, which is not trying again. The screen is
+ * @bitbaum/accountkit's SignInError, shared by every app; it never prints the
+ * provider's error code (useless to a visitor, a gift to anyone probing).
  */
-export default async function AuthErrorPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function AuthErrorPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  // Auth.js's ?error= code: classified by SignInError, never shown.
+  searchParams: Promise<Record<string, string | undefined>>;
+}) {
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
+  const home = href(locale, "");
+
+  async function retry() {
+    "use server";
+    await signIn("orangecat", { redirectTo: home });
+  }
 
   return (
     <Shell>
-      <div className="py-20 sm:py-28">
-        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{dict.auth.signIn}</p>
-        <h1 className="mt-3 max-w-[20ch] font-heading text-3xl font-semibold leading-tight tracking-display text-fg-primary sm:text-4xl">
-          {dict.auth.errorTitle}
-        </h1>
-        <p className="mt-4 max-w-measure text-lg leading-relaxed text-fg-secondary">{dict.auth.errorBody}</p>
-        <div className="mt-8 flex flex-wrap gap-4">
-          <Link
-            href={href(locale, "")}
-            className="inline-flex min-h-11 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
-          >
-            {dict.auth.tryAgain}
-          </Link>
-          <Link
-            href={href(locale, "")}
-            className="inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
-          >
-            {dict.errors.backHome}
-          </Link>
-        </div>
-      </div>
+      <SignInError
+        error={(await searchParams).error}
+        retry={retry}
+        home={home}
+        labels={{
+          kicker: dict.auth.signIn,
+          failedTitle: dict.auth.errorTitle,
+          failedBody: dict.auth.errorBody,
+          deniedTitle: dict.auth.errorTitle,
+          deniedBody: dict.auth.errorBody,
+          configurationTitle: dict.auth.errorTitle,
+          configurationBody: dict.auth.errorBody,
+          tryAgain: dict.auth.tryAgain,
+          home: dict.errors.backHome,
+        }}
+      />
     </Shell>
   );
 }
