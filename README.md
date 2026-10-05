@@ -2,8 +2,7 @@
 
 Helps adults who already speak German understand the Zurich German actually
 spoken around them. Live at [heidi.orangecat.ch](https://heidi.orangecat.ch).
-The product is
-defined in [HEIDI.md](HEIDI.md); how to work in the repo is in
+The product is defined in [HEIDI.md](HEIDI.md); how to work in the repo is in
 [AGENTS.md](AGENTS.md).
 
 ## Development
