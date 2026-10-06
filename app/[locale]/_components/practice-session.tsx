@@ -368,10 +368,12 @@ function Done({
    * list of the specific things that went wrong, which is the opposite —
    * §8 objects to measuring consumption and dressing it as learning, not to
    * telling somebody what they missed.
+   *
+   * Once each: a question missed on both attempts left two `wrong` outcomes
+   * and was listed twice — the same count bug `summarise` had, in the list.
    */
-  const missed = outcomes
-    .filter((o) => o.outcome === "wrong")
-    .map((o) => session.find((item) => item.id === o.id))
+  const missed = [...new Set(outcomes.filter((o) => o.outcome === "wrong").map((o) => o.id))]
+    .map((id) => session.find((item) => item.id === id))
     .filter((item): item is PracticeItem => Boolean(item));
 
   return (

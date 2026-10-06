@@ -350,6 +350,14 @@ export function requeue({
  * percentage, because eight items cannot support one; no streak, because §8
  * forbids measuring consumption; no "level", because the product's own metric
  * is how much of an unfamiliar speaker you understand and this is not that.
+ *
+ * PER QUESTION, NOT PER ANSWER. A missed question comes back for a second
+ * attempt (`requeue`), so one question can leave two outcomes. Counted per
+ * answer, a sitting where seven questions were each missed twice said
+ * "15 asked, 14 coming back" — twice the real work, shown to exactly the
+ * learner who was struggling — and "first time" counted a right answer on the
+ * second attempt. So: `asked` is distinct questions, `right` is questions whose
+ * FIRST answer was right, `again` is questions missed at least once.
  */
 export function summarise(outcomes: readonly { id: string; outcome: string }[]): {
   asked: number;
@@ -357,9 +365,15 @@ export function summarise(outcomes: readonly { id: string; outcome: string }[]):
   /** Items the learner asked to see again — a choice, not a failure. */
   again: number;
 } {
+  const first = new Map<string, string>();
+  const missed = new Set<string>();
+  for (const { id, outcome } of outcomes) {
+    if (!first.has(id)) first.set(id, outcome);
+    if (outcome === "wrong") missed.add(id);
+  }
   return {
-    asked: outcomes.length,
-    right: outcomes.filter((o) => o.outcome === "right").length,
-    again: outcomes.filter((o) => o.outcome === "wrong").length,
+    asked: first.size,
+    right: [...first.values()].filter((outcome) => outcome === "right").length,
+    again: missed.size,
   };
 }
