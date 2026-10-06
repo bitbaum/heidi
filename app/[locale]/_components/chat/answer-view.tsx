@@ -66,10 +66,26 @@ export function AnswerView({
   // The explanations are written in the reader's language, whatever the
   // field is called.
   const readerLang = locale ? LOCALE_TAGS[locale] : undefined;
+  /**
+   * A reader on the variety's own site reads a dialect suggestion directly, so
+   * its translation is noise — `forReader` strips it when the answer is made.
+   * But a stored answer keeps whatever language it was made in: a conversation
+   * started on /en and continued on /gsw showed English under some lines and
+   * German under others. Applied again here, by the page being read.
+   */
+  const readsVariety = locale !== undefined && DISPLAY.tag.split("-")[0] === locale;
+  /** The footer may say "checked" only when everything it checked passed. */
+  const allClean =
+    a.dialectClean !== false && a.textClean !== false && a.suggestions.every((s) => s.variety === "bridge" || s.clean);
 
   return (
     <>
       <ChatMarkdown text={a.text} className="text-base leading-relaxed text-fg-primary" />
+      {a.textClean === false && (
+        <p className="mt-1 font-mono text-caption text-danger">
+          {t.flagged} {a.textFlags?.join(", ")}
+        </p>
+      )}
 
       {/*
         The explanation itself can be heard, and that is not a nicety — it is
@@ -108,12 +124,18 @@ export function AnswerView({
             their tops, and they now agree about being 44px.
           */}
           <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
-            <span className="min-w-0 font-mono text-caption uppercase leading-[1.9] tracking-caps text-fg-muted">
-              {t.sendThis}
+            {/* A line the gate refused is shown — drift stays visible — but it
+                is never offered as the thing to send, and it gets no Copy. */}
+            <span
+              className={`min-w-0 font-mono text-caption uppercase leading-[1.9] tracking-caps ${
+                a.dialectClean === false ? "text-danger" : "text-fg-muted"
+              }`}
+            >
+              {a.dialectClean === false ? t.notSendable : t.sendThis}
             </span>
             <span className="flex min-w-0 items-start gap-3">
               <Speak text={a.dialect} t={voiceT} dialect />
-              <Copy text={a.dialect} t={t} />
+              {a.dialectClean !== false && <Copy text={a.dialect} t={t} />}
             </span>
           </div>
           {/* `lang` on the dialect line. This is the most-read surface in
@@ -198,7 +220,7 @@ export function AnswerView({
                   </span>
                   <span className="flex min-w-0 items-start gap-3">
                     <Speak text={s.text} t={voiceT} dialect={s.variety !== "bridge"} />
-                    <Copy text={s.text} t={t} />
+                    {s.clean && <Copy text={s.text} t={t} />}
                   </span>
                 </div>
                 {/* A bridge line is not dialect, so it is not coloured or
@@ -217,7 +239,7 @@ export function AnswerView({
                 >
                   {s.text}
                 </p>
-                {s.english && (
+                {s.english && !(readsVariety && s.variety !== "bridge") && (
                   <p lang={readerLang} className="text-sm text-fg-secondary">
                     {s.english}
                   </p>
@@ -245,7 +267,7 @@ export function AnswerView({
 
       {/* Provenance. An answer with no model attached is a rumour. */}
       <p className="mt-3 border-t border-border-subtle pt-2 font-mono text-caption text-fg-muted">
-        {t.checkedNote} · {a.model}
+        {allClean ? t.checkedNote : t.checkedFlagged} · {a.model}
       </p>
     </>
   );

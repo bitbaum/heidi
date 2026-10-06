@@ -196,7 +196,31 @@ export function looksDegenerate(text: string): boolean {
   return [...counts.values()].some((n) => n >= 5);
 }
 
-export function parseAnswer(raw: string, pack: VarietyPack, model: string): Answer {
+/**
+ * The explanation, judged — for a reader whose site language IS the variety.
+ *
+ * There the explanation is Heidi speaking Zurich German, so it is held to the
+ * HOUSE standard ("dispreferred"), not just the generation gate: it is our own
+ * copy, and «Züritüütsch» in it was found live (2026-10-02) because nothing
+ * checked it. Quoted material is lifted out first — an explanation quotes the
+ * word it explains («Pire», «die Bilanz») and that word is supposed to be
+ * foreign. Exported for the tests.
+ */
+export function checkExplanation(text: string, pack: VarietyPack): { ok: boolean; flags: string[] } {
+  const unquoted = text.replace(/«[^»]*»|„[^“”]*[“”]|“[^”]*”|"[^"]*"|‹[^›]*›/g, " ");
+  const verdict = check(unquoted, pack, "dispreferred");
+  return {
+    ok: verdict.ok,
+    flags: verdict.findings.map((f) => (f.suggest ? `${f.form} → ${f.suggest}` : f.form)),
+  };
+}
+
+export function parseAnswer(
+  raw: string,
+  pack: VarietyPack,
+  model: string,
+  opts: { explainInVariety?: boolean } = {},
+): Answer {
   const data = extractJson(raw) as Record<string, unknown>;
 
   const text = str(data.text);
@@ -230,6 +254,9 @@ export function parseAnswer(raw: string, pack: VarietyPack, model: string): Answ
   // it would flag ordinary words and refuse a correct answer. Only `dialect`
   // claims to be the target variety, so only `dialect` is checked.
   const verdict = dialect ? check(dialect, pack) : null;
+  // …except on the variety's own site, where `text` IS the variety. See
+  // `checkExplanation`.
+  const explained = opts.explainInVariety && text ? checkExplanation(text, pack) : null;
 
   return {
     mode,
@@ -241,6 +268,7 @@ export function parseAnswer(raw: string, pack: VarietyPack, model: string): Answ
           dialectFlags: verdict.findings.map((f) => (f.suggest ? `${f.form} → ${f.suggest}` : f.form)),
         }
       : {}),
+    ...(explained ? { textClean: explained.ok, ...(explained.ok ? {} : { textFlags: explained.flags }) } : {}),
     ...(toTone(data.tone) ? { tone: toTone(data.tone) } : {}),
     ...(str(data.toneNote) ? { toneNote: str(data.toneNote) } : {}),
     glosses: arr(data.glosses)

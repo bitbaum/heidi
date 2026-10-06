@@ -223,6 +223,8 @@ export const de = {
     copied: "Kopiert",
     flagged: "Nicht Zürichdeutsch:",
     checkedNote: "Keine fremden Dialektformen gefunden",
+    checkedFlagged: "Nicht alles ist Zürichdeutsch — markiert",
+    notSendable: "Nicht sicher Zürichdeutsch — so nicht schicken",
     mic: "Diktieren",
     micStop: "Aufnahme beenden",
     micListening: "Ich höre …",

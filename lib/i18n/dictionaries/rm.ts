@@ -205,6 +205,8 @@ export const rm: Dictionary = {
     copied: "Copià",
     flagged: "Betg tudestg da Turitg:",
     checkedNote: "Naginas furmas dialectalas estras chattadas",
+    checkedFlagged: "Betg tut è tudestg da Turitg — marcà",
+    notSendable: "Betg segir tudestg da Turitg — betg trametter uschia",
     mic: "Dictar",
     micStop: "Finir la registraziun",
     micListening: "Jau taidel …",

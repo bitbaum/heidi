@@ -80,6 +80,16 @@ export function decodeAnswer(value: unknown): Answer | null {
     dialectFlags: Array.isArray(a.dialectFlags)
       ? a.dialectFlags.filter((f): f is string => typeof f === "string")
       : [],
+    // Absent on every row written before explanations were judged — read as
+    // unjudged, never as flagged.
+    ...(a.textClean === false
+      ? {
+          textClean: false,
+          textFlags: Array.isArray(a.textFlags) ? a.textFlags.filter((f): f is string => typeof f === "string") : [],
+        }
+      : a.textClean === true
+        ? { textClean: true }
+        : {}),
     // A closed union, checked against the list rather than trusted. An older
     // row carrying a tone we no longer recognise loses the label and keeps the
     // note — better a sentence with no heading than a heading that is not a

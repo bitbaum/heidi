@@ -189,6 +189,8 @@ export const en: Dictionary = {
     copied: "Copied",
     flagged: "Not Zurich German:",
     checkedNote: "No foreign dialect forms found",
+    checkedFlagged: "Not everything is Zurich German — marked",
+    notSendable: "Not safely Zurich German — don't send as is",
     mic: "Dictate",
     micStop: "Stop recording",
     micListening: "Listening …",

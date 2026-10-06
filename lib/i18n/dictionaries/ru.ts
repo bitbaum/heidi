@@ -197,6 +197,8 @@ export const ru: Dictionary = {
     copied: "Скопировано",
     flagged: "Не цюрихский:",
     checkedNote: "Чужих диалектных форм не найдено",
+    checkedFlagged: "Не всё на цюрихском — отмечено",
+    notSendable: "Не точно цюрихский — не отправляйте так",
     mic: "Диктовать",
     micStop: "Остановить запись",
     micListening: "Слушаю …",

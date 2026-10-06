@@ -5,6 +5,7 @@ import {
   freeChain,
   usableChain,
   type HealthTracker,
+  type Link,
 } from "@bitbaum/ai-kit";
 import type { Thread } from "threadkit";
 import { VARIETY } from "../../variety/active.ts";
@@ -95,6 +96,62 @@ export function forReader(answer: Answer, locale: Locale, pack: { tag: string } 
   };
 }
 
+/**
+ * Gemini first, for this product only.
+ *
+ * ai-kit orders the free chain by SCARCITY (drain the scarcest last), which is
+ * right for a chain whose links are interchangeable. For writing Zurich German
+ * they are not. Measured 2026-10-06 on Heidi's own prompts and gate: Groq's
+ * gpt-oss-120b wrote «Züritüütsch», «Frànzöösisch» and «Züri‑Dütsch» in its
+ * explanations, answered «Häsch du am Samschtig…» as «Sie fragen, ob ich…»
+ * (the wrong person), and turned a question about the conversation into
+ * vocabulary cards; Gemini Flash did none of it. The reorder is Heidi's
+ * adapter decision; the chain itself stays ai-kit's. Stable, so the rest keeps
+ * ai-kit's order.
+ */
+export function dialectFirst(links: Link[]): Link[] {
+  const rank = (l: Link) => (l.provider.id === "google" ? 0 : 1);
+  return [...links].sort((a, b) => rank(a) - rank(b));
+}
+
+/**
+ * Everything Heidi wrote IN the variety that the gate refused, as
+ * "form → replacement" — the dialect line, the target-variety suggestions, and
+ * the explanation when it was written in the variety.
+ */
+export function gateProblems(answer: Answer): string[] {
+  const out: string[] = [];
+  if (answer.dialect && answer.dialectClean === false) out.push(...(answer.dialectFlags ?? []));
+  for (const s of answer.suggestions) if (s.variety !== "bridge" && !s.clean) out.push(...s.flags);
+  if (answer.textClean === false) out.push(...(answer.textFlags ?? []));
+  return [...new Set(out)];
+}
+
+/** The second request after a refused answer: what to write instead, by name. */
+export function correction(problems: string[], explainIn: string, variety: string): string {
+  return [
+    "YOUR PREVIOUS ANSWER TO THIS SAME MESSAGE WAS REFUSED by the dialect check.",
+    `It used forms that are not ${variety}: ${problems.join("; ")}.`,
+    `Write the whole answer again — same meaning, same JSON — without them. Explanations stay in ${explainIn}.`,
+  ].join("\n");
+}
+
+/**
+ * Words the learner wrote themselves are not vocabulary to learn.
+ *
+ * "Warum hast du mir die Translation gegeben?" came back with a card for
+ * «Translation» (2026-10-02): the gloss list was filled from the QUESTION. A
+ * word typed in the latest message is dropped from the glosses — unless that
+ * message is a lookup (one to three words), where the word IS the subject.
+ */
+export function withoutEchoedGlosses(answer: Answer, latest: string): Answer {
+  const words = latest.trim().split(/\s+/).filter(Boolean);
+  if (words.length <= 3) return answer;
+  const said = new Set((latest.toLowerCase().match(/\p{L}+/gu) ?? []));
+  const glosses = answer.glosses.filter((g) => !said.has(g.form.toLowerCase()));
+  return glosses.length === answer.glosses.length ? answer : { ...answer, glosses };
+}
+
 export type RespondResult =
   | { status: "answered"; answer: Answer }
   | { status: "silent"; reason: string }
@@ -147,7 +204,7 @@ export async function respondInThread(args: {
   // on vision now and will not hand a picture to a blind link, ours or
   // theirs. The rule survives on the budget argument alone, which was always
   // the stronger half.
-  const chain = byokLinks ? byokLinks.chain : usableChain(freeChain("HEIDI"), process.env);
+  const chain = byokLinks ? byokLinks.chain : dialectFirst(usableChain(freeChain("HEIDI"), process.env));
   const env = byokLinks ? { ...process.env, ...byokLinks.env } : process.env;
   if (chain.length === 0) return { status: "unconfigured" };
 
@@ -167,13 +224,21 @@ export async function respondInThread(args: {
    * Narrow on purpose. Every other failure stays a failure — a chain that
    * genuinely died must not be reported to a learner as "bring your own key".
    */
-  let turn;
-  try {
-    turn = await heidiTurn(args.thread, args.messages, {
+  const explainIn = EXPLANATION_LANGUAGE[args.locale];
+  const explainInVariety = VARIETY.tag.split("-")[0] === args.locale;
+  /**
+   * Which link actually answered. The footer used to print `chain[0].model` —
+   * the FIRST link, whoever served — so a screenshot read by a vision model
+   * was signed by a text model that cannot see.
+   */
+  let served = "";
+
+  const ask = (extra: string, onText?: (soFar: string) => void) =>
+    heidiTurn(args.thread, args.messages, {
       // The pasted-message note is appended HERE rather than by each caller, so
       // every surface that can hold a conversation gets it without having to
       // remember. That is the whole reason this function exists.
-      systemPrompt: [systemPrompt(VARIETY, EXPLANATION_LANGUAGE[args.locale]), pasted].filter(Boolean).join("\n\n"),
+      systemPrompt: [systemPrompt(VARIETY, explainIn), pasted, extra].filter(Boolean).join("\n\n"),
       model: chain[0]?.model ?? "unknown",
       complete: async ({ system, prompt, maxTokens, temperature }) => {
         const call = {
@@ -195,8 +260,9 @@ export async function respondInThread(args: {
           ],
         };
 
-        if (!args.onText) {
-          const { text: raw } = await complete(call);
+        if (!onText) {
+          const { text: raw, id } = await complete(call);
+          served = id;
           return raw;
         }
 
@@ -219,14 +285,19 @@ export async function respondInThread(args: {
         for await (const delta of completeStream(call)) {
           if (delta.type === "text") {
             raw += delta.text;
-            args.onText(partialField(raw));
+            onText(partialField(raw));
           } else if (delta.type === "end") {
             raw = delta.text;
+            served = delta.id;
           }
         }
         return raw;
       },
     });
+
+  let turn;
+  try {
+    turn = await ask("", args.onText);
   } catch (error) {
     if (error instanceof NoVisionLinkError) return { status: "blind" };
     throw error;
@@ -237,7 +308,32 @@ export async function respondInThread(args: {
   // spends no model call and is not an error.
   if (turn.status === "skipped") return { status: "silent", reason: turn.reason };
 
-  const answer = forReader(parseAnswer(turn.raw, VARIETY, turn.model), args.locale);
+  const parse = (raw: string, model: string) =>
+    forReader(parseAnswer(raw, VARIETY, served || model, { explainInVariety }), args.locale);
+  let answer = parse(turn.raw, turn.model);
+
+  /**
+   * One second chance. A refused line used to reach the reader marked but
+   * otherwise intact — «jetzt weiß mir» under "you can send this". Now the
+   * model is told exactly which forms were refused and asked once more; the
+   * cleaner of the two answers is kept. Once, not in a loop: the free tier is
+   * rationed, and whatever still fails stays visibly marked.
+   */
+  const problems = gateProblems(answer);
+  if (problems.length > 0) {
+    try {
+      const again = await ask(correction(problems, explainIn, VARIETY.name));
+      if (again.status === "responded") {
+        const second = parse(again.raw, again.model);
+        if (gateProblems(second).length < problems.length) answer = second;
+      }
+    } catch {
+      // The first answer stands, marked. A failed retry is not a failed turn.
+    }
+  }
+
+  const latest = [...args.messages].reverse().find((m) => m.authorId !== HEIDI_ID)?.body ?? "";
+  answer = withoutEchoedGlosses(answer, latest);
 
   // The one follow-up we can be sure about without asking a model. See
   // `withReply` for why an instruction in the prompt is not enough.
