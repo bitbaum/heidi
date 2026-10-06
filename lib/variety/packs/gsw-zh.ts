@@ -3086,6 +3086,8 @@ export const ZURICH_GERMAN: VarietyPack = {
       suggest: "Dütsch",
     },
     { match: "het", severity: "dispreferred", reason: "House form is hät (Zurich city, SDS 3/48)", suggest: "hät" },
+    // Same verb, second person. Heidi wrote «Hesch öppis anders welle wüsse?» live on 2026-10-06.
+    { match: "hesch", severity: "dispreferred", reason: "House form is häsch, like hät (SDS 3/48)", suggest: "häsch" },
     { match: "goht", severity: "dispreferred", reason: "House form is gaht (SDS 3/57)", suggest: "gaht" },
     { match: "stoht", severity: "dispreferred", reason: "House form is staht", suggest: "staht" },
     { match: "nid", severity: "dispreferred", reason: "House form is nöd (Zurich city, SDS 4/167)", suggest: "nöd" },
