@@ -21,6 +21,11 @@ describe("an explanation written in Zurich German is judged too", () => {
     assert.equal(checkExplanation("«Pire» isch Französisch und heisst uf Züritüütsch «schlechter».", ZURICH_GERMAN).ok, false);
   });
 
+  test("«hesch» in Heidi's own voice is rewritten to the house «häsch»", () => {
+    assert.equal(checkExplanation("Hesch öppis anders welle wüsse?", ZURICH_GERMAN).ok, false);
+    assert.equal(checkExplanation("Häsch öppis anders welle wüsse?", ZURICH_GERMAN).ok, true);
+  });
+
   test("a quoted word is the subject, not a mistake", () => {
     const v = checkExplanation("«Le Bilan» isch Französisch und heisst «die Bilanz».", ZURICH_GERMAN);
     assert.equal(v.ok, true, v.flags.join(", "));
