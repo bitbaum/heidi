@@ -212,6 +212,8 @@ export const gsw: Dictionary = {
     copied: "Kopiert",
     flagged: "Nöd Züridütsch:",
     checkedNote: "Kei fremdi Dialektforme gfunde",
+    checkedFlagged: "Nöd alles isch Züridütsch — markiert",
+    notSendable: "Nöd sicher Züridütsch — so nöd schicke",
     mic: "Diktiere",
     micStop: "Ufnahm beände",
     micListening: "Ich lose …",

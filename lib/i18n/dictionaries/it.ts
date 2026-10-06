@@ -189,6 +189,8 @@ export const it: Dictionary = {
     copied: "Copiato",
     flagged: "Non è zurighese:",
     checkedNote: "Nessuna forma dialettale estranea trovata",
+    checkedFlagged: "Non tutto è zurighese — segnalato",
+    notSendable: "Non sicuramente zurighese — non inviare così",
     mic: "Dettare",
     micStop: "Ferma la registrazione",
     micListening: "Sto ascoltando …",

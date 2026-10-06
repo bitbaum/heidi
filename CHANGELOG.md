@@ -21,6 +21,15 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-10-06
+
+- Heidi's Zurich German is checked end to end: on the Swiss German site the explanation is judged too, not only the line to send.
+- A refused answer is retried once with the refused forms named, and the cleaner answer is kept; a line that still fails is never offered as sendable and has no Copy button.
+- The gate knows «stöh» and «göh» (Bern's plurals; Zurich says stönd, gönd) and double articles such as «d'Le Bilan».
+- The model named under an answer is the one that served it, not the first link in the chain.
+- Words from the learner's own question are no longer handed back as vocabulary.
+- Heidi asks Gemini first for Zurich German, measured on Heidi's own prompts against the previous first model.
+
 ## 2026-10-01
 
 - **Practice asks «isch or hät?»** A new question kind sorts four verbs by their auxiliary in the past («er [isch | hät] gange»), with a new grammar topic «isch gange, hät gmacht» in all seven languages. The trap it targets: sitting and standing take «si» («Ich bi ghocket»), where German in Germany says «hat gesessen». Ten boards, each mixing both auxiliaries; the investor page now says sixteen kinds of question.

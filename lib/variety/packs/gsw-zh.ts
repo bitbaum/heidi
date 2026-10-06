@@ -3108,6 +3108,23 @@ export const ZURICH_GERMAN: VarietyPack = {
     { match: "Miuch", severity: "foreign", origin: "Bern", reason: "l-vocalisation (Bern, Luzern, Solothurn, Aargau), SDS 1/165", suggest: "Milch", sources: ["sds-atlas"] },
     { match: "Meitschi", severity: "foreign", origin: "Bern", reason: "Bern, Luzern, Solothurn: «Meitschi» for Mädchen, SDS 4/146", suggest: "Meitli", sources: ["sds-atlas"] },
     { match: "Hung", severity: "foreign", origin: "Bern", reason: "nd as ng (Bern, Solothurn), SDS 2/120", suggest: "Hund", sources: ["sds-atlas"] },
+    // The Bernese plural of stah/gah. Heidi's chat wrote «wo mir grad stöh» on
+    // 2026-10-02 and the gate let it through; this pack's own conjugation
+    // tables give Zurich's forms (mir stönd, mir gönd).
+    { match: "stöh", severity: "foreign", origin: "Bern", reason: "Bern-type plural of stehen («mir stöh») — Zurich says «mir stönd»", suggest: "stönd", sources: ["sds-atlas"] },
+    { match: "göh", severity: "foreign", origin: "Bern", reason: "Bern-type plural of gehen («mir göh») — Zurich says «mir gönd»", suggest: "gönd", sources: ["sds-atlas"] },
+    /*
+     * Two articles on one noun: the Swiss «d'» in front of a word that already
+     * carries its own article («d'Le Bilan», «d'La Poste»). Heidi's chat wrote it
+     * three times in one conversation. Not a regional form — a grammar slip — but
+     * it is exactly as invisible to a learner, so it is held to the same gate.
+     */
+    {
+      match: /(?<!\p{L})[ds]['’]\s?(?:Le|La|Les|L['’]|The|Der|Die|Das|El|Il|Lo)(?!\p{L})/gu,
+      display: "d'Le …",
+      severity: "unattested",
+      reason: "Two articles on one noun: drop «d'» in front of a name that already has its own («Le Bilan», not «d'Le Bilan»)",
+    },
     {
       match: /\p{L}*öu\p{L}*/giu,
       display: "…öu…",

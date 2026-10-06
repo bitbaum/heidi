@@ -41,6 +41,22 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-10-06",
+      tag: "fix",
+      title: "Heidis Zürichdeutsch wird jetzt ganz geprüft — und nochmals geschrieben, wenn es nicht stimmt",
+      summary:
+        "In echten Gesprächen schrieb Heidi auf der Züridütsch-Seite Erklärungen auf Hochdeutsch, bot «jetzt weiß mir» als sendbaren Satz an und liess «wo mir grad stöh» durch. Das ist behoben.",
+      items: [
+        "Auf der Züridütsch-Seite wird jetzt auch die Erklärung geprüft, nicht nur der Satz zum Schicken.",
+        "Fällt eine Antwort durch, fragt Heidi einmal nach — mit den beanstandeten Formen beim Namen — und nimmt die sauberere Antwort.",
+        "Ein beanstandeter Satz steht nicht mehr unter «Das können Sie schicken» und hat keinen Kopieren-Knopf.",
+        "Die Prüfung erkennt neu «stöh» und «göh» (Berner Mehrzahl; Zürich sagt stönd, gönd) und doppelte Artikel wie «d'Le Bilan».",
+        "Unter der Antwort steht das Modell, das wirklich geantwortet hat — nicht das erste in der Liste.",
+        "Wörter aus Ihrer eigenen Frage werden nicht mehr als Vokabeln zurückgegeben.",
+        "Heidi fragt für Zürichdeutsch zuerst Gemini: Im Vergleich auf Heidis eigenen Fragen schrieb das bisher erste Modell den Namen der Mundart falsch und verwechselte, wer wen fragt.",
+      ],
+    },
+    {
       date: "2026-10-01",
       tag: "fix",
       title: "Diktieren geht wieder auf Züridütsch und Rumantsch",
@@ -560,6 +576,22 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-06",
+      tag: "fix",
+      title: "Heidi's Zurich German is now checked end to end — and written again when it fails",
+      summary:
+        "In real conversations Heidi wrote Standard German explanations on the Swiss German site, offered «jetzt weiß mir» as a line to send, and let «wo mir grad stöh» through. Fixed.",
+      items: [
+        "On the Swiss German site the explanation is now checked too, not only the line to send.",
+        "When an answer fails, Heidi asks once more — naming the refused forms — and keeps the cleaner answer.",
+        "A refused line is no longer shown under \u201cyou can send this\u201d and has no Copy button.",
+        "The check now knows «stöh» and «göh» (Bern's plurals; Zurich says stönd, gönd) and double articles such as «d'Le Bilan».",
+        "The model named under an answer is the one that actually answered — not the first in the list.",
+        "Words from your own question are no longer handed back as vocabulary.",
+        "Heidi asks Gemini first for Zurich German: compared on Heidi's own prompts, the previous first model misspelled the dialect's own name and mixed up who was asking whom.",
+      ],
+    },
     {
       date: "2026-10-01",
       tag: "fix",

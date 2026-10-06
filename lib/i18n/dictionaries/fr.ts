@@ -189,6 +189,8 @@ export const fr: Dictionary = {
     copied: "Copié",
     flagged: "Pas du zurichois :",
     checkedNote: "Aucune forme dialectale étrangère trouvée",
+    checkedFlagged: "Tout n'est pas du zurichois — c'est signalé",
+    notSendable: "Pas sûrement du zurichois — ne pas envoyer tel quel",
     mic: "Dicter",
     micStop: "Arrêter l'enregistrement",
     micListening: "J'écoute …",

@@ -80,6 +80,13 @@ export type Answer = {
   /** The gate's verdict on `dialect`, when there is one. */
   dialectClean?: boolean;
   dialectFlags?: string[];
+  /**
+   * The explanation's own verdict — set only when the explanation was written
+   * IN the variety (a reader on the variety's own site). Elsewhere it is prose
+   * in the reader's language and is not the gate's business.
+   */
+  textClean?: boolean;
+  textFlags?: string[];
   tone?: Tone;
   toneNote?: string;
   glosses: Gloss[];
