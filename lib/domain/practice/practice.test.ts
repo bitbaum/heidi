@@ -232,6 +232,20 @@ describe("the summary invents nothing", () => {
     // and dressing it as learning.
     assert.deepEqual(Object.keys(summary).sort(), ["again", "asked", "right"]);
   });
+
+  test("a second attempt is the same question, not another one", () => {
+    // `a` missed twice, `b` missed then right, `c` right first time. Counted
+    // per answer this was "6 asked, 2 first time, 3 coming back" — the live
+    // site said "15 asked, 14 coming back" for seven questions.
+    const summary = summarise([
+      { id: "a", outcome: "wrong" },
+      { id: "b", outcome: "wrong" },
+      { id: "c", outcome: "right" },
+      { id: "a", outcome: "wrong" },
+      { id: "b", outcome: "right" },
+    ]);
+    assert.deepEqual(summary, { asked: 3, right: 1, again: 2 });
+  });
 });
 
 describe("nothing is invented", () => {
