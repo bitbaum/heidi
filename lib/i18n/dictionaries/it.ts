@@ -260,6 +260,11 @@ export const it: Dictionary = {
     micDone: "Fatto — usa quello che ho detto",
     dismiss: "Chiudi",
     removeNamed: "Rimuovi {name}",
+    attachMenu: {
+      title: "Aggiungi al messaggio",
+      close: "Chiudi",
+      sources: { camera: "Fotocamera", photos: "Foto", files: "File" },
+    },
     /** Why a file did not attach. {name}, {mb} and {max} are filled in. */
     attachNotes: {
       wrongType: "{name}: usa PNG, JPEG, GIF o WebP.",

@@ -283,6 +283,11 @@ export const gsw: Dictionary = {
     micDone: "Fertig — das übernäh",
     dismiss: "Zuemache",
     removeNamed: "{name} entfärne",
+    attachMenu: {
+      title: "Zur Nachricht dezuetue",
+      close: "Zuemache",
+      sources: { camera: "Kamera", photos: "Fotos", files: "Dateie" },
+    },
     /** Why a file did not attach. {name}, {mb} and {max} are filled in. */
     attachNotes: {
       wrongType: "{name}: bitte PNG, JPEG, GIF oder WebP.",

@@ -1,0 +1,23 @@
+# Dependency updates, weekly. heidi had no watcher, which is how it stayed on
+# chatkit v0.2.0 — and the broken Android paperclip — for days after the fix
+# merged: nothing ever opened the bump PR.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      # The fleet's own packages get their own PR, so a fix made once in a kit
+      # is not stuck behind a third-party bump. First matching group wins.
+      bitbaum:
+        patterns: ["@bitbaum/*"]
+      minor-and-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3

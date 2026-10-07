@@ -300,6 +300,12 @@ export const de = {
     micDone: "Fertig — übernehmen",
     dismiss: "Schliessen",
     removeNamed: "{name} entfernen",
+    /** The Camera / Photos / Files sheet the paperclip opens on a phone. */
+    attachMenu: {
+      title: "Zur Nachricht hinzufügen",
+      close: "Schliessen",
+      sources: { camera: "Kamera", photos: "Fotos", files: "Dateien" },
+    },
     /** Why a file did not attach. {name}, {mb} and {max} are filled in. */
     attachNotes: {
       wrongType: "{name}: bitte PNG, JPEG, GIF oder WebP.",
