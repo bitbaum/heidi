@@ -137,6 +137,62 @@ export const rm: Dictionary = {
     orgBody: "Chasas da tgira, ospitals, patruns: voss team exercitescha las situaziuns ch’el dovra.",
     orgCta: "Dapli",
     bubble: "Grüezi mitenand!",
+    problems: {
+      title: "Tge che Heidi schliia",
+      sub: "Mumaints concrets, nua ch’il tudestg na basta betg a Turitg — l’emprim ils Voss, lura quels d’ina citad entira. Tar mintgin: tge che Heidi fa oz, e nua.",
+      scales: {
+        people: { title: "Per Vus", sub: "Mumaints, en ils quals Vus pudessas sa chattar questa emna." },
+        society: { title: "Per tuts", sub: "Problems pli gronds ch’ina suletta persuna — e la part da quels che Heidi po surpigliar." },
+      },
+      items: {
+        message: {
+          problem: "«En il chat da gruppa scrivan tuts en dialect, e jau na sai gnanc tge ch’ins ma dumonda.»",
+          solution: "Encollai il messadi en il chat, u in maletg dal visur. Heidi explitga tge ch’i stat là — sche Vus vulais, pled per pled — e scriva cun Vus la resposta, controllada tenor las furmas da Turitg avant che Vus la vesais.",
+        },
+        lunchTable: {
+          problem: "«A la maisa da mezdi rin tuts, e jau sun adina ina frasa enavos.»",
+          solution: "La situaziun a la maisa da mezdi rimna quai ch’ins di là propi, mintga lingia sper il tudestg dal qual ella deriva. Ils exercizis mussan suenter danovamain quai che na tegna anc betg.",
+        },
+        kindergarten: {
+          problem: "«En la scolina da mes uffant discurran ins dialect, e la saira da geniturs passa sper mai vi.»",
+          solution: "Legi la situaziun en la scolina avant la saira: quai ch’ins As di là, en l’urden ch’i vegn — e las paucas frasas che Vus dissas sez, marcadas.",
+        },
+        doctor: {
+          problem: "«Tar il medi accenn jau cun il chau e na sai betg, sch’jau hai chapì la dumonda.»",
+          solution: "La situaziun tar il medi maina da la recepziun fin en la stanza da consultaziun. Emprendai l’emprim a renconuscher las dumondas da là — uschia savais Vus, sin tge che Vus respundais.",
+        },
+        gemeinde: {
+          problem: "«Jau stoss m’annunziar sin la vischnanca, e la persuna davos il fanestrigl discurra spert.»",
+          solution: "La situaziun sin la vischnanca cuntegna las dumondas ch’ins fa là mintga di, cun il tudestg sper ellas. Exercitai ellas en paucas minutas sin il telefonin, senza conto.",
+        },
+        indirectNo: {
+          problem: "«Mes collega ha ditg “Das isch ächli schwierig”, ed jau hai spetgà in gea.»",
+          solution: "A Turitg di ins darar na directamain. Questa situaziun rimna las expressiuns pulitas, davos las qualas sa zuppa savens in na — uschia udis Vus, cura che la resposta è forsa gia vegnida dada.",
+        },
+        theSwitch: {
+          problem: "Umans vivan onns ora qua e chapeschan tuttina pauc, perquai ch’il discurs mida en tudestg standard uschespert ch’insatgi ha difficultads.",
+          solution: "Qua na mida il tudestg turitgais betg en tudestg standard, cura che Vus avais difficultads. In curt scaldar mussa tge situaziuns che Vus chapis gia e nua ch’i vala la paina da cumenzar — senza nivel, senza nota.",
+        },
+        care: {
+          problem: "En las chasas da tgira perdan abitants cun demenza savens l’emprim lur segundas linguas, e bleras persunas da tgira han emprendì mo tudestg standard.",
+          solution: "Las situaziuns da tgira cumpiglian la surdada, la damaun, las dolurs, ils pasts e las sairas inquietas: las frasas ch’ins auda là, cun il tudestg sper ellas, per exercitar en paucas minutas tranter dus servetschs.",
+        },
+        work: {
+          problem: "Patruns engaschan persunas che discurran tudestg — e lura van il corridor, la surdada e la maschina da café en dialect.",
+          solution: "In team tscherna las situaziuns ch’el dovra, e mintgin exercitescha sin ses agen apparat. Mintga persuna decida sezza, sch’ella mussa nua ch’ella stat — mai tge frasas u tge sbagls — e tgi che chapescha segir ina situaziun po survegnir in certificat che mintgin po controllar cun ses link.",
+        },
+        media: {
+          problem: "La mesadad dals medias svizzers è en tudestg standard, e nagin na di a quels ch’emprendan tge mesadad.",
+          solution: "La pagina da tadlar designescha mintga emissiun sco dialect u tudestg standard, di sin tge che l’indicaziun sa basa e propona cun tge cumenzar oz.",
+        },
+        trust: {
+          problem: "Tgi ch’emprenda na po betg controllar tge ch’ins al mussa: ina IA ch’ins dumonda per tudestg svizzer furnescha gugent bernais, e tgi ch’emprenda na s’accorscha betg.",
+          solution: "Tar Heidi decida ina controlla cun reglas fixas, e betg il model, tge che vala sco tudestg turitgais. La pagina da la metoda la mussa avertamain, e las situaziuns din cleramain ch’anc nagin pledader da lingua materna n’ha legì ellas.",
+        },
+      },
+      closing: "Voss mument n’è betg qua? Descrivai el a Heidi, u encollai quai ch’è vegnì ditg — Heidi As l’explitga.",
+      closingCta: "Dumandar Heidi",
+    },
   },
 
   chat: {

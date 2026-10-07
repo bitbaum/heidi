@@ -121,6 +121,62 @@ export const fr: Dictionary = {
     orgBody: "EMS, hôpitaux, employeurs : votre équipe s’exerce aux situations dont elle a besoin.",
     orgCta: "En savoir plus",
     bubble: "Grüezi mitenand!",
+    problems: {
+      title: "Ce que Heidi résout",
+      sub: "Des moments concrets où l’allemand ne suffit pas à Zurich — les vôtres d’abord, puis ceux de toute une ville. Pour chacun : ce que Heidi fait aujourd’hui, et où.",
+      scales: {
+        people: { title: "Pour vous", sub: "Des moments que vous vivrez peut-être cette semaine." },
+        society: { title: "Pour tout le monde", sub: "Des problèmes plus grands qu’une seule personne, et la part que Heidi peut en prendre." },
+      },
+      items: {
+        message: {
+          problem: "« Dans le chat de groupe, tout le monde écrit en dialecte, et je ne sais même pas ce qu’on me demande. »",
+          solution: "Collez le message dans le chat, ou une capture d’écran. Heidi explique ce qu’il dit — mot à mot si vous le souhaitez — et rédige votre réponse avec vous, vérifiée selon les formes zurichoises avant que vous la voyiez.",
+        },
+        lunchTable: {
+          problem: "« À table, tout le monde rit, et j’ai toujours une phrase de retard. »",
+          solution: "La scène de la table de midi rassemble ce qui s’y dit vraiment, chaque ligne à côté de l’allemand dont elle vient. Les exercices ramènent ensuite ce qui n’est pas encore acquis.",
+        },
+        kindergarten: {
+          problem: "« À l’école enfantine de mon enfant, on parle dialecte, et la soirée de parents me passe à côté. »",
+          solution: "Lisez la scène de l’école enfantine avant la soirée : ce qu’on vous y dit, dans l’ordre où cela vient, avec les quelques phrases que vous diriez vous-même signalées.",
+        },
+        doctor: {
+          problem: "« Chez le médecin, je hoche la tête sans savoir si j’ai compris la question. »",
+          solution: "La scène chez le médecin va de la réception au cabinet de consultation. Apprenez d’abord à y reconnaître les questions, pour savoir à quoi vous répondez.",
+        },
+        gemeinde: {
+          problem: "« Je dois m’annoncer à la commune, et la personne au guichet parle vite. »",
+          solution: "La scène à la commune réunit les questions qu’on y pose chaque jour, avec l’allemand à côté. Exercez-les en quelques minutes sur votre téléphone, sans compte.",
+        },
+        indirectNo: {
+          problem: "« Mon collègue a dit “Das isch ächli schwierig”, et j’ai attendu un oui. »",
+          solution: "À Zurich, on dit rarement non franchement. Cette scène rassemble les tournures polies qui en cachent souvent un, pour que vous entendiez quand la réponse a peut-être déjà été donnée.",
+        },
+        theSwitch: {
+          problem: "Des gens vivent ici depuis des années et comprennent toujours peu, parce que la conversation passe à l’allemand standard dès que quelqu’un peine.",
+          solution: "Ici, le zurichois ne passe pas à l’allemand standard quand vous peinez. Un court échauffement montre quelles scènes vous suivez déjà et par où il vaut la peine de commencer — sans niveau, sans note.",
+        },
+        care: {
+          problem: "Dans les EMS, les résidents atteints de démence perdent souvent d’abord leurs langues secondes, et beaucoup de soignants n’ont appris que l’allemand standard.",
+          solution: "Les scènes de soins couvrent la transmission, le matin, la douleur, les repas et les soirées agitées : les phrases qu’on y entend, avec l’allemand à côté, à exercer en quelques minutes entre deux services.",
+        },
+        work: {
+          problem: "Les employeurs engagent des gens qui parlent allemand — puis le couloir, la transmission et la machine à café se passent en dialecte.",
+          solution: "Une équipe choisit les situations dont elle a besoin, et chacun s’exerce sur son propre appareil. Chaque personne décide si elle montre où elle en est — jamais quelles phrases ni quelles erreurs — et qui maîtrise une situation peut obtenir une attestation que chacun peut vérifier par son lien.",
+        },
+        media: {
+          problem: "La moitié des médias suisses est en allemand standard, et personne ne dit à un apprenant laquelle.",
+          solution: "La page d’écoute indique pour chaque émission si elle est en dialecte ou en allemand standard, dit sur quoi repose cette indication et propose par où commencer aujourd’hui.",
+        },
+        trust: {
+          problem: "Un apprenant ne peut pas vérifier ce qu’on lui enseigne : une IA à qui l’on demande du suisse allemand fournit volontiers du bernois, et qui apprend ne s’en aperçoit pas.",
+          solution: "Chez Heidi, c’est un contrôle à règles fixes, et non le modèle, qui décide de ce qui compte comme zurichois. La page Méthode le montre ouvertement, et les scènes disent clairement qu’aucun locuteur natif ne les a encore relues.",
+        },
+      },
+      closing: "Votre moment n’y est pas ? Décrivez-le à Heidi, ou collez ce qui a été dit : Heidi vous l’explique.",
+      closingCta: "Demander à Heidi",
+    },
   },
 
   chat: {

@@ -144,6 +144,62 @@ export const gsw: Dictionary = {
     orgBody: "Pflegheim, Spitäler, Arbeitgäber: Ihres Team üebt genau die Situatione, wo s bruucht.",
     orgCta: "Meh erfahre",
     bubble: "Grüezi mitenand!",
+    problems: {
+      title: "Was Heidi löst",
+      sub: "Ganz konkreti Momänt, wo Dütsch in Züri nöd länget — zerscht Ihri, dänn die vonere ganze Stadt. Bi jedem staht, was Heidi hüt degäge macht und wo.",
+      scales: {
+        people: { title: "Für Si", sub: "Momänt, wo Si die Wuche chönnted erläbe." },
+        society: { title: "Für alli", sub: "Problem, wo grösser sind als en einzelne Mänsch — und de Teil devo, wo Heidi cha übernäh." },
+      },
+      items: {
+        message: {
+          problem: "«Im Gruppechat schriibed alli Mundart, und ich weiss nöd emal, was mer mich fröget.»",
+          solution: "Fueged Si d Nachricht in Chat ii, oder es Bildschirmfoti devo. Heidi erchläärt, was det staht — wänn Si wänd, Wort für Wort — und schriibt Ihri Antwort mit Ihne, uf Zürcher Forme prüeft, bevor Si si gsehnd.",
+        },
+        lunchTable: {
+          problem: "«Am Mittagstisch lached alli, und ich bin immer en Satz hindedri.»",
+          solution: "D Situation am Mittagstisch sammlet, was det würklich gseit wird, jedi Zile näbem Dütsch, wo si herchunt. D Üebige bringed dänn das zrugg, wo no nöd sitzt.",
+        },
+        kindergarten: {
+          problem: "«Im Kindsgi vo mim Chind redt mer Mundart, und de Elterenaabig gaht a mir verbii.»",
+          solution: "Läsed Si d Kindsgi-Situation vor em Aabig: was mer det zu Ihne seit, i de Reihefolg, wo s chunt — und di paar Sätz, wo Si sälber säged, markiert.",
+        },
+        doctor: {
+          problem: "«I de Arztpraxis nick ich und bin nöd sicher, öb ich d Frag verstande ha.»",
+          solution: "D Situation i de Arztpraxis gaht vom Empfang bis is Sprechzimmer. Lärned Si zerscht, d Frage det z erchänne — dänn wüssed Si, uf was Si antworted.",
+        },
+        gemeinde: {
+          problem: "«Ich mues mich uf de Gmeind aamälde, und hinderem Schalter redt mer schnäll.»",
+          solution: "D Situation uf de Gmeind hät d Frage, wo det jede Tag gstellt wärded, mit em Dütsch denäbe. Üebed Si s i es paar Minute am Handy, ohni Konto.",
+        },
+        indirectNo: {
+          problem: "«Min Kolleg hät gseit ‹Das isch ächli schwierig›, und ich ha uf es Ja gwartet.»",
+          solution: "Züri seit sälte grad usä Nei. Die Situation sammlet di höfliche Wändige, wo oft eis dehinder steckt — dass Si ghöred, wänn d Antwort vilicht scho gää isch.",
+        },
+        theSwitch: {
+          problem: "Lüüt wohned jahrelang da und verstönd trotzdem wenig, wil s Gspröch is Hochdütsch wächslet, sobald öpper Mühe hät.",
+          solution: "Da wächslet s Züridütsch nöd is Hochdütsch, wänn Si Mühe händ. Es churzes Iiwärme zeigt, weli Situatione Si scho verstönd und wo sich de Aafang lohnt — ohni Niveau, ohni Note.",
+        },
+        care: {
+          problem: "Im Pflegheim verlüüred Bewohnerinne und Bewohner mit Demenz oft zerscht iri Zweitsprache, und vili Pflegendi händ nur Hochdütsch glernt.",
+          solution: "D Pflege-Situatione decked d Übergab, de Morge, Schmärze, s Ässe und unruehigi Äbig ab: d Sätz, wo det gseit wärded, mit em Dütsch denäbe, zum Üebe i es paar Minute zwüsche zwei Schichte.",
+        },
+        work: {
+          problem: "Arbeitgäber stelled Lüüt aa, wo Dütsch chönd — und dänn lauft im Gang, a de Übergab und bi de Kafimaschine alles uf Mundart.",
+          solution: "Es Team wählt d Situatione, wo s bruucht, und alli üebed uf em eigete Gerät. Jedi Person entscheidet sälber, öb si ihre Stand zeigt — nie weli Sätz oder Fähler —, und wer e Situation sicher verstaht, cha en Nachwiis übercho, wo mer über sin Link cha prüefe.",
+        },
+        media: {
+          problem: "D Hälfti vo de Schwiizer Medie isch Hochdütsch, und niemer seit de Lernende, weli Hälfti.",
+          solution: "D Siite zum Ghöre bezeichnet jedi Sendig als Mundart oder Hochdütsch, seit, uf was d Aagab beruet, und schlaat vor, mit was Si hüt chönd aafange.",
+        },
+        trust: {
+          problem: "Wer lärnt, cha nöd prüefe, was mer ihm biibringt: E KI, wo mer um Schwiizerdütsch bittet, liferet bereitwillig Bärndütsch, und wer lärnt, merkt s nöd.",
+          solution: "Bi Heidi entscheidet e feschti Regelprüefig, nöd s Modell, was als Züridütsch gilt. D Methode zeigt si offe, und d Situatione säged klar, dass si no niemer mit Züridütsch als Muetersprach gläse hät.",
+        },
+      },
+      closing: "Ihre Momänt isch nöd debii? Beschriibed Si en Heidi, oder fueged Si ii, was gseit worde isch — si erchläärt s Ihne.",
+      closingCta: "Heidi frage",
+    },
   },
 
   chat: {

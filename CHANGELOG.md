@@ -21,6 +21,11 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-10-07
+
+- The home page has a «What Heidi solves» section: concrete moments for one person (group chat, lunch table, kindergarten, doctor, Gemeinde, the indirect no) and for a city (the switch to Standard German, care homes, workplaces, media, learners who cannot check what they are taught), each with what Heidi does today and a link to the page that does it.
+- Every card's link is a route or a scene id, never a string; `lib/config/problems.test.ts` fails on a link to a page that does not exist or on copy missing in any of the seven languages.
+
 ## 2026-10-06
 
 - Heidi's Zurich German is checked end to end: on the Swiss German site the explanation is judged too, not only the line to send.
