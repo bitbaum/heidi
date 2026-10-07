@@ -268,6 +268,11 @@ export const ru: Dictionary = {
     micDone: "Готово — вставить сказанное",
     dismiss: "Закрыть",
     removeNamed: "Убрать {name}",
+    attachMenu: {
+      title: "Добавить к сообщению",
+      close: "Закрыть",
+      sources: { camera: "Камера", photos: "Фото", files: "Файлы" },
+    },
     /** Why a file did not attach. {name}, {mb} and {max} are filled in. */
     attachNotes: {
       wrongType: "{name}: используйте PNG, JPEG, GIF или WebP.",

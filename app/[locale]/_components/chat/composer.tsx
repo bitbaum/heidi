@@ -93,6 +93,7 @@ export function Composer({
     listening: t.micListening,
     transcribing: t.micTranscribing,
     attach: modelT.attach,
+    attachMenu: t.attachMenu,
     remove: (name) => fill(t.removeNamed, { name }),
     dismiss: t.dismiss,
     dictation: t.micProblem,

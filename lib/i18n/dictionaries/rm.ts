@@ -276,6 +276,11 @@ export const rm: Dictionary = {
     micDone: "Fatg — utilisar quai che jau hai ditg",
     dismiss: "Serrar",
     removeNamed: "Allontanar {name}",
+    attachMenu: {
+      title: "Agiuntar al messadi",
+      close: "Serrar",
+      sources: { camera: "Camera", photos: "Fotografias", files: "Datotecas" },
+    },
     /** Why a file did not attach. {name}, {mb} and {max} are filled in. */
     attachNotes: {
       wrongType: "{name}: duvrai PNG, JPEG, GIF u WebP.",

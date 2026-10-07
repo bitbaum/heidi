@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
-    "verify": "pnpm run type-check && pnpm run lint && pnpm run test",
+    "check:file-inputs": "chatkit-check-file-inputs app lib",
+    "verify": "pnpm run type-check && pnpm run lint && pnpm run check:file-inputs && pnpm run test",
     "test": "node --no-warnings --experimental-strip-types --experimental-test-module-mocks --test-concurrency=1 --test 'app/**/*.test.ts' 'lib/**/*.test.ts'",
     "db:generate": "drizzle-kit generate",
     "audit:responsive": "node scripts/audit/responsive.mjs",
@@ -20,7 +21,7 @@
   "dependencies": {
     "@bitbaum/accountkit": "github:bitbaum/accountkit#v0.2.0",
     "@bitbaum/ai-kit": "^1.19.0",
-    "@bitbaum/chatkit": "github:bitbaum/chatkit#v0.2.0",
+    "@bitbaum/chatkit": "github:bitbaum/chatkit#70824785e86189704aeb7cc92c33bc198ad17cda",
     "@bitbaum/speechkit": "^1.0.0",
     "bip-kit": "^0.4.0",
     "drizzle-orm": "^0.45.2",
