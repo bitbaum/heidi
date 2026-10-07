@@ -146,6 +146,68 @@ export const de = {
     orgBody: "Pflegeheime, Spitäler, Arbeitgeber: Ihr Team übt genau die Situationen, die es braucht.",
     orgCta: "Mehr erfahren",
     bubble: "Grüezi mitenand!",
+    /**
+     * «Was Heidi löst»: konkrete Momente, zuerst die einer Person, dann die
+     * einer Stadt. Die Struktur (Reihenfolge, Ziel jedes Links) steht in
+     * `lib/config/problems.ts`; hier stehen nur die Sätze, nach `id` gepaart.
+     * Jede `solution` beschreibt, was heute funktioniert — nichts vom Fahrplan.
+     */
+    problems: {
+      title: "Was Heidi löst",
+      sub: "Ganz konkrete Momente, in denen Deutsch in Zürich nicht reicht — zuerst Ihre, dann die einer ganzen Stadt. Bei jedem steht, was Heidi heute dagegen tut und wo.",
+      scales: {
+        people: { title: "Für Sie", sub: "Momente, in denen Sie diese Woche stehen könnten." },
+        society: { title: "Für alle", sub: "Probleme, die grösser sind als ein einzelner Mensch — und der Teil davon, den Heidi übernehmen kann." },
+      },
+      items: {
+        message: {
+          problem: "«Im Gruppenchat schreiben alle Mundart, und ich weiss nicht einmal, was man mich fragt.»",
+          solution: "Fügen Sie die Nachricht in den Chat ein, oder ein Bildschirmfoto davon. Heidi erklärt, was dasteht — auf Wunsch Wort für Wort — und schreibt Ihre Antwort mit Ihnen, auf Zürcher Formen geprüft, bevor Sie sie sehen.",
+        },
+        lunchTable: {
+          problem: "«Am Mittagstisch lachen alle, und ich bin immer einen Satz zu spät.»",
+          solution: "Die Situation am Mittagstisch sammelt, was dort wirklich gesagt wird, jede Zeile neben dem Deutsch, aus dem sie kommt. Die Übungen bringen danach zurück, was noch nicht sitzt.",
+        },
+        kindergarten: {
+          problem: "«Im Kindsgi meines Kindes wird Mundart gesprochen, und der Elternabend geht an mir vorbei.»",
+          solution: "Lesen Sie die Kindsgi-Situation vor dem Abend: was dort zu Ihnen gesagt wird, in der Reihenfolge, in der es kommt — und die wenigen Sätze, die Sie selbst sagen, markiert.",
+        },
+        doctor: {
+          problem: "«In der Arztpraxis nicke ich und bin nicht sicher, ob ich die Frage verstanden habe.»",
+          solution: "Die Situation in der Arztpraxis führt vom Empfang bis ins Sprechzimmer. Lernen Sie zuerst, die Fragen dort zu erkennen — dann wissen Sie, worauf Sie antworten.",
+        },
+        gemeinde: {
+          problem: "«Ich muss mich auf der Gemeinde anmelden, und hinter dem Schalter wird schnell gesprochen.»",
+          solution: "Die Situation auf der Gemeinde enthält die Fragen, die dort jeden Tag gestellt werden, mit dem Deutsch daneben. Üben Sie sie in ein paar Minuten auf dem Handy, ohne Konto.",
+        },
+        indirectNo: {
+          problem: "«Mein Kollege sagte ‹Das isch ächli schwierig›, und ich habe auf ein Ja gewartet.»",
+          solution: "Zürich sagt selten geradeheraus Nein. Diese Situation sammelt die höflichen Wendungen, hinter denen oft eines steckt — damit Sie hören, wann die Antwort vielleicht schon gegeben ist.",
+        },
+        theSwitch: {
+          problem: "Menschen leben jahrelang hier und verstehen trotzdem wenig, weil das Gespräch ins Hochdeutsche wechselt, sobald jemand Mühe hat.",
+          solution: "Hier wechselt das Züridütsch nicht ins Hochdeutsche, wenn Sie Mühe haben. Ein kurzes Aufwärmen zeigt, welche Situationen Sie schon verstehen und wo sich der Anfang lohnt — ohne Niveau, ohne Note.",
+        },
+        care: {
+          problem: "Im Pflegeheim verlieren Bewohnerinnen und Bewohner mit Demenz oft zuerst ihre Zweitsprachen — und viele Pflegende haben nur Hochdeutsch gelernt.",
+          solution: "Die Pflege-Situationen decken Übergabe, Morgen, Schmerzen, Essen und unruhige Abende ab: die Sätze, die dort fallen, mit dem Deutsch daneben, in ein paar Minuten zwischen zwei Schichten zu üben.",
+        },
+        work: {
+          problem: "Arbeitgeber stellen Leute ein, die Deutsch können — und dann laufen Gang, Übergabe und Kaffeemaschine in Mundart.",
+          solution: "Ein Team wählt die Situationen, die es braucht, und alle üben auf dem eigenen Gerät. Jede Person entscheidet selbst, ob sie ihren Stand zeigt — nie welche Sätze oder Fehler —, und wer eine Situation sicher versteht, kann einen Nachweis erhalten, den man über seinen Link prüft.",
+        },
+        media: {
+          problem: "Die Hälfte der Schweizer Medien ist Hochdeutsch, und niemand sagt Lernenden, welche Hälfte.",
+          solution: "Die Seite zum Hören bezeichnet jede Sendung als Mundart oder Hochdeutsch, sagt, worauf die Angabe beruht, und schlägt vor, womit Sie heute anfangen.",
+        },
+        trust: {
+          problem: "Lernende können nicht prüfen, was man ihnen beibringt: Eine KI, die man um Schweizerdeutsch bittet, liefert bereitwillig Berndeutsch, und wer lernt, merkt es nicht.",
+          solution: "Bei Heidi entscheidet eine feste Regelprüfung, nicht das Modell, was als Zürichdeutsch gilt. Die Methode zeigt sie offen, und die Situationen sagen klar, dass sie noch niemand mit Zürichdeutsch als Muttersprache gelesen hat.",
+        },
+      },
+      closing: "Ihr Moment ist nicht dabei? Beschreiben Sie ihn Heidi, oder fügen Sie ein, was gesagt wurde — sie erklärt es Ihnen.",
+      closingCta: "Heidi fragen",
+    },
   },
 
   chat: {

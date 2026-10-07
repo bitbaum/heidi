@@ -10,6 +10,7 @@ import { Shell } from "./_components/page-shell";
 import { Dashboard } from "./_components/dashboard";
 import { SwissScene } from "./_components/swiss-scene";
 import { WarmupInvite } from "./_components/warmup-invite";
+import { ProblemsSection } from "./_components/problems-section";
 import { auth, authEnabled } from "@/lib/auth";
 
 /**
@@ -133,6 +134,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <p className="mt-5 text-sm text-fg-muted">{t.trustLine}</p>
         </div>
       </section>
+
+      {/* What it is FOR, straight under the fold: concrete moments a reader
+          recognises, each answered by a page that exists today. Before the
+          three ways in, because "which way in" assumes you already know why
+          you would come. See `problems-section.tsx`. */}
+      <ProblemsSection locale={locale} dict={dict} />
 
       {/* The three ways in, beside the cow — the picture moved here when the
           chat took the fold's second column, so the page keeps its Swiss face. */}

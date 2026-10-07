@@ -41,6 +41,18 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-10-07",
+      tag: "feature",
+      title: "Die Startseite sagt, wofür Heidi da ist",
+      summary:
+        "Unter dem Chat steht neu «Was Heidi löst»: konkrete Momente, zuerst die einer Person, dann die einer Stadt — jeder mit dem, was Heidi heute dagegen tut, und einem Link auf die Seite, die es tut.",
+      items: [
+        "Für Sie: der Gruppenchat in Mundart, der Mittagstisch, der Kindsgi, die Arztpraxis, die Gemeinde und das Nein, das nicht Nein heisst.",
+        "Für alle: das Gespräch, das ins Hochdeutsche wechselt, Pflegeheime, Arbeitsplätze, Medien, die niemand als Mundart oder Hochdeutsch bezeichnet, und Lernende, die nicht prüfen können, was man ihnen beibringt.",
+        "Jeder Link führt auf eine Seite, die es gibt; ein Test hält das fest, in allen sieben Sprachen.",
+      ],
+    },
+    {
       date: "2026-10-06",
       tag: "fix",
       title: "Heidis Zürichdeutsch wird jetzt ganz geprüft — und nochmals geschrieben, wenn es nicht stimmt",
@@ -576,6 +588,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-07",
+      tag: "feature",
+      title: "The home page says what Heidi is for",
+      summary:
+        "Below the chat there is now «What Heidi solves»: concrete moments, one person's first, then a city's — each with what Heidi does about it today and a link to the page that does it.",
+      items: [
+        "For you: the group chat in dialect, the lunch table, the kindergarten, the doctor's, the Gemeinde, and the no that does not sound like no.",
+        "For everyone: the conversation that switches to Standard German, care homes, workplaces, media nobody labels as dialect or Standard German, and learners who cannot check what they are taught.",
+        "Every link lands on a page that exists; a test holds that, in all seven languages.",
+      ],
+    },
     {
       date: "2026-10-06",
       tag: "fix",

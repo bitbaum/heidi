@@ -121,6 +121,62 @@ export const it: Dictionary = {
     orgBody: "Case di cura, ospedali, datori di lavoro: il suo team si esercita proprio sulle situazioni che servono.",
     orgCta: "Saperne di più",
     bubble: "Grüezi mitenand!",
+    problems: {
+      title: "Che cosa risolve Heidi",
+      sub: "Momenti concreti in cui a Zurigo il tedesco non basta — prima i suoi, poi quelli di un’intera città. Per ognuno: che cosa fa Heidi oggi, e dove.",
+      scales: {
+        people: { title: "Per lei", sub: "Momenti in cui potrebbe trovarsi questa settimana." },
+        society: { title: "Per tutti", sub: "Problemi più grandi di una sola persona, e la parte che Heidi può prendersi." },
+      },
+      items: {
+        message: {
+          problem: "«Nella chat di gruppo tutti scrivono in dialetto, e non capisco nemmeno che cosa mi chiedono.»",
+          solution: "Incolli il messaggio nella chat, o uno screenshot. Heidi spiega che cosa dice — parola per parola, se vuole — e scrive con lei la risposta, verificata sulle forme zurighesi prima che lei la veda.",
+        },
+        lunchTable: {
+          problem: "«A tavola ridono tutti, e io resto sempre una frase indietro.»",
+          solution: "La scena della tavola a mezzogiorno raccoglie ciò che vi si dice davvero, ogni frase accanto al tedesco da cui viene. Gli esercizi poi ripropongono ciò che non è ancora fissato.",
+        },
+        kindergarten: {
+          problem: "«All’asilo di mio figlio si parla dialetto, e la serata dei genitori mi scivola addosso.»",
+          solution: "Legga la scena dell’asilo prima della serata: ciò che le viene detto lì, nell’ordine in cui arriva, con le poche frasi che direbbe lei segnalate.",
+        },
+        doctor: {
+          problem: "«Dal medico annuisco, e non so se ho capito la domanda.»",
+          solution: "La scena dal medico va dall’accettazione all’ambulatorio. Impari prima a riconoscere le domande che si fanno lì, così sa a che cosa sta rispondendo.",
+        },
+        gemeinde: {
+          problem: "«Devo annunciarmi in Comune, e la persona allo sportello parla veloce.»",
+          solution: "La scena in Comune raccoglie le domande che vi si fanno ogni giorno, con il tedesco accanto. Le eserciti in pochi minuti sul telefono, senza account.",
+        },
+        indirectNo: {
+          problem: "«Il mio collega ha detto “Das isch ächli schwierig”, e io ho aspettato un sì.»",
+          solution: "A Zurigo raramente si dice no apertamente. Questa scena raccoglie le formule cortesi dietro cui spesso se ne nasconde uno, perché lei senta quando la risposta forse è già stata data.",
+        },
+        theSwitch: {
+          problem: "C’è chi vive qui da anni e capisce ancora poco, perché la conversazione passa al tedesco standard appena qualcuno fa fatica.",
+          solution: "Qui lo zurighese non passa al tedesco standard quando lei fa fatica. Un breve riscaldamento mostra quali scene segue già e da dove conviene cominciare — senza livello, senza voto.",
+        },
+        care: {
+          problem: "Nelle case di cura, chi ha la demenza spesso perde per prime le lingue imparate da adulto, e molti curanti hanno imparato solo il tedesco standard.",
+          solution: "Le scene di cura coprono le consegne, il mattino, il dolore, i pasti e le sere inquiete: le frasi che vi si sentono, con il tedesco accanto, da esercitare in pochi minuti tra un turno e l’altro.",
+        },
+        work: {
+          problem: "I datori di lavoro assumono persone che parlano tedesco, e poi il corridoio, le consegne e la macchinetta del caffè vanno in dialetto.",
+          solution: "Un team sceglie le situazioni che gli servono e ognuno si esercita sul proprio dispositivo. Ogni persona decide se mostrare a che punto è — mai quali frasi né quali errori — e chi padroneggia una situazione può ottenere un attestato che chiunque può verificare dal suo link.",
+        },
+        media: {
+          problem: "Metà dei media svizzeri è in tedesco standard, e nessuno dice a chi impara quale metà.",
+          solution: "La pagina d’ascolto indica per ogni programma se è in dialetto o in tedesco standard, dice su che cosa si basa l’indicazione e propone da dove cominciare oggi.",
+        },
+        trust: {
+          problem: "Chi impara non può verificare ciò che gli viene insegnato: un’IA a cui si chiede svizzero tedesco fornisce volentieri bernese, e chi impara non se ne accorge.",
+          solution: "Da Heidi è un controllo a regole fisse, non il modello, a decidere che cosa conta come zurighese. La pagina del metodo lo mostra apertamente, e le scene dicono chiaramente che nessun madrelingua le ha ancora rilette.",
+        },
+      },
+      closing: "Il suo momento non c’è? Lo descriva a Heidi, o incolli ciò che è stato detto: Heidi glielo spiega.",
+      closingCta: "Chiedere a Heidi",
+    },
   },
 
   chat: {

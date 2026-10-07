@@ -121,6 +121,62 @@ export const en: Dictionary = {
     orgBody: "Care homes, hospitals, employers: your team practises exactly the situations it needs.",
     orgCta: "Learn more",
     bubble: "Grüezi mitenand!",
+    problems: {
+      title: "What Heidi solves",
+      sub: "Concrete moments when German is not enough in Zurich — yours first, then the ones a whole city has. Each says what Heidi does about it today, and where.",
+      scales: {
+        people: { title: "For you", sub: "Moments you may find yourself in this week." },
+        society: { title: "For everyone", sub: "Problems bigger than one person, and the part of them Heidi can take on." },
+      },
+      items: {
+        message: {
+          problem: "“The group chat is all in dialect, and I can’t even tell what I’m being asked.”",
+          solution: "Paste the message into the chat, or a screenshot of it. Heidi explains what it says — word by word if you like — and writes your reply with you, checked against Zurich forms before you see it.",
+        },
+        lunchTable: {
+          problem: "“At the lunch table everyone laughs, and I’m always a sentence behind.”",
+          solution: "The lunch-table scene collects what is actually said there, each line beside the German it comes from. The exercises then bring back whatever has not stuck yet.",
+        },
+        kindergarten: {
+          problem: "“My child’s kindergarten runs in dialect, and the parents’ evening goes straight past me.”",
+          solution: "Read the kindergarten scene before the evening: what is said to you there, in the order it comes, with the few lines you would say yourself marked.",
+        },
+        doctor: {
+          problem: "“At the doctor’s I nod, and I’m not sure I understood the question.”",
+          solution: "The doctor’s scene runs from the front desk to the consulting room. Learn to recognise the questions there first, so you know what you are answering.",
+        },
+        gemeinde: {
+          problem: "“I have to register at the Gemeinde, and the person behind the glass talks fast.”",
+          solution: "The Gemeinde scene holds the questions asked there every day, with the German beside them. Practise them in a few minutes on your phone, no account needed.",
+        },
+        indirectNo: {
+          problem: "“My colleague said «Das isch ächli schwierig», and I kept waiting for a yes.”",
+          solution: "Zurich rarely says no outright. This scene gathers the polite turns that often carry one, so you can hear when the answer may already have been given.",
+        },
+        theSwitch: {
+          problem: "People live here for years and still follow little, because the conversation switches to Standard German the moment someone struggles.",
+          solution: "Here the Zurich German does not switch when you struggle. A short warm-up shows which scenes you already follow and where starting pays off — no level, no grade.",
+        },
+        care: {
+          problem: "In care homes, residents with dementia often lose their second languages first, and many carers learned only Standard German.",
+          solution: "The care scenes cover the handover, the morning, pain, meals and restless evenings: the lines said there, with the German beside them, to practise in a few minutes between shifts.",
+        },
+        work: {
+          problem: "Employers hire people who speak German, and then the corridor, the handover and the coffee machine run in dialect.",
+          solution: "A team picks the situations it needs and everyone practises on their own device. Each person decides whether to show their progress — never which lines or what they got wrong — and whoever is secure in a situation can get a certificate anyone can check by its link.",
+        },
+        media: {
+          problem: "Half of Swiss media is in Standard German, and nobody tells a learner which half.",
+          solution: "The listening page labels every programme as dialect or Standard German, says what each label rests on, and suggests where to start today.",
+        },
+        trust: {
+          problem: "A learner cannot check what they are taught: an AI asked for Swiss German readily produces Bernese, and someone still learning cannot tell.",
+          solution: "At Heidi a fixed rule check, not the model, decides what counts as Zurich German. The method page shows it openly, and the scenes say plainly that no native speaker has reviewed them yet.",
+        },
+      },
+      closing: "Your moment isn’t here? Describe it to Heidi, or paste what was said, and she will explain it.",
+      closingCta: "Ask Heidi",
+    },
   },
 
   chat: {

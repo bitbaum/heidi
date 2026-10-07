@@ -578,6 +578,16 @@ which of the two it is in, next to the button, in the learner's language. See
   document. The mobile menu had neither, and no way to close at all short of
   pressing the button again — found by the test that asserts every
   `aria-expanded` control uses the hook.
+- **The signed-out home page says what Heidi is for**, straight under the
+  fold: «What Heidi solves», one person's moments (the group chat, the lunch
+  table, the Kindsgi, the doctor, the Gemeinde, the indirect no) and then a
+  city's (the switch to Standard German, care homes, workplaces, media, the
+  learner who cannot audit what they are sold). Each card is the problem, what
+  Heidi does about it TODAY, and a link that is a route key or a scene id in
+  `lib/config/problems.ts` — never a string — labelled with that page's own
+  name. A card describes only what works now; nothing from §9's "next", and
+  nothing §8 forbids. `problems.test.ts` holds the links and the seven
+  languages.
 
 ---
 
