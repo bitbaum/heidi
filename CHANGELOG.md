@@ -21,6 +21,10 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-10-08
+
+- The investor page is the door to Heidi's investor room on OrangeCat: the password leads into the room, where each investor can also have a link of their own. Its text and numbers are still written, and checked, in `investors.ts`, and the room is filled from it.
+
 ## 2026-10-07
 
 - The home page has a «What Heidi solves» section: concrete moments for one person (group chat, lunch table, kindergarten, doctor, Gemeinde, the indirect no) and for a city (the switch to Standard German, care homes, workplaces, media, learners who cannot check what they are taught), each with what Heidi does today and a link to the page that does it.

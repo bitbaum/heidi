@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { investorPasswordConfigured, isInvestorPassword } from "./investor-gate.ts";
+import { investorPasswordConfigured, investorRoomUrl, isInvestorPassword } from "./investor-gate.ts";
 
 const ROOT = fileURLToPath(new URL("../../", import.meta.url));
 
@@ -18,6 +18,16 @@ describe("the data room's lock", () => {
     assert.equal(isInvestorPassword("anything", {}), false);
     assert.equal(isInvestorPassword("", {}), false);
     assert.equal(isInvestorPassword("aaaaaa11", {}), false);
+  });
+
+  test("the door leads only to an OrangeCat room", () => {
+    const room = "https://orangecat.ch/room/0b1c2d3e-4f50-4617-8a9b-0c1d2e3f4a5b";
+    assert.equal(investorRoomUrl({ HEIDI_INVESTOR_ROOM_URL: room }), room);
+    assert.equal(investorRoomUrl({ HEIDI_INVESTOR_ROOM_URL: ` ${room} ` }), room);
+    assert.equal(investorRoomUrl({}), null);
+    assert.equal(investorRoomUrl({ HEIDI_INVESTOR_ROOM_URL: "http://orangecat.ch/room/0b1c2d3e-4f50-4617-8a9b-0c1d2e3f4a5b" }), null);
+    assert.equal(investorRoomUrl({ HEIDI_INVESTOR_ROOM_URL: "https://evil.example/room/0b1c2d3e-4f50-4617-8a9b-0c1d2e3f4a5b" }), null);
+    assert.equal(investorRoomUrl({ HEIDI_INVESTOR_ROOM_URL: "https://orangecat.ch.evil.example/room/x" }), null);
   });
 
   test("it accepts the configured password and nothing else", () => {
