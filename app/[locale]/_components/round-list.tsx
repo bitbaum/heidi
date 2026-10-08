@@ -9,6 +9,7 @@ import { DEFAULT_TIME_ZONE } from "@/lib/domain/speaking/schedule";
 import { DisclosureForm, FIELD, LABEL } from "./disclosure-form";
 import { apiErrorMessage } from "./api-error";
 import { intlDate } from "@/lib/i18n/dates";
+import { DateInput } from "./date-input";
 
 type T = Dictionary["speaking"];
 
@@ -311,7 +312,7 @@ function OpenRound({
             <label className={LABEL} htmlFor="round-when">
               {t.whenLabel}
             </label>
-            <input
+            <DateInput
               id="round-when"
               type="datetime-local"
               value={when}

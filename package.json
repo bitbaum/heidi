@@ -23,6 +23,7 @@
     "@bitbaum/ai-kit": "^1.19.0",
     "@bitbaum/chatkit": "github:bitbaum/chatkit#70824785e86189704aeb7cc92c33bc198ad17cda",
     "@bitbaum/speechkit": "^1.0.0",
+    "@bitbaum/whenkit": "github:bitbaum/whenkit#v0.3.2",
     "bip-kit": "^0.4.0",
     "drizzle-orm": "^0.45.2",
     "limitkit": "^0.2.0",
