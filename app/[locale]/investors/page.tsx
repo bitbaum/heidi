@@ -6,7 +6,12 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { CONTACT_EMAIL } from "@/lib/config/site";
 import { METRICS, METRICS_READ_ON, SECTIONS } from "@/lib/config/investors";
-import { INVESTOR_COOKIE, investorPasswordConfigured, isInvestorPassword } from "@/lib/config/investor-gate";
+import {
+  INVESTOR_COOKIE,
+  investorPasswordConfigured,
+  investorRoomUrl,
+  isInvestorPassword,
+} from "@/lib/config/investor-gate";
 import { Shell } from "../_components/page-shell";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -36,6 +41,12 @@ export default async function InvestorsPage({ params }: { params: Promise<{ loca
 
   const jar = await cookies();
   const open = jar.get(INVESTOR_COOKIE)?.value === "1";
+
+  // Someone already through the door goes straight to the room.
+  const room = investorRoomUrl();
+  if (open && room) {
+    redirect(room);
+  }
 
   if (!open) {
     return (
@@ -208,5 +219,6 @@ async function unlock(formData: FormData) {
     maxAge: 60 * 60 * 24 * 7,
   });
 
-  redirect(href(target, "investors"));
+  // Through the door and into the room, when Heidi has one on OrangeCat.
+  redirect(investorRoomUrl() ?? href(target, "investors"));
 }

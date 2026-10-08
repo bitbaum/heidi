@@ -41,6 +41,16 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-10-08",
+      tag: "feature",
+      title: "Die Investorenseite führt in Heidis Investorenraum auf OrangeCat",
+      summary:
+        "Das Passwort öffnet jetzt den Investorenraum auf OrangeCat, wo jede Investorin und jeder Investor auch einen eigenen Link bekommen kann.",
+      items: [
+        "Text und Zahlen stehen weiterhin in investors.ts, wo Tests sie prüfen; der Raum wird daraus gefüllt.",
+      ],
+    },
+    {
       date: "2026-10-07",
       tag: "feature",
       title: "Die Startseite sagt, wofür Heidi da ist",
@@ -588,6 +598,16 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-08",
+      tag: "feature",
+      title: "The investor page leads into Heidi's investor room on OrangeCat",
+      summary:
+        "The password now opens Heidi's investor room on OrangeCat, where each investor can also be given a link of their own.",
+      items: [
+        "The text and the numbers are still written in investors.ts, where tests check them; the room is filled from it.",
+      ],
+    },
     {
       date: "2026-10-07",
       tag: "feature",
