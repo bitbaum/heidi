@@ -197,7 +197,6 @@ export const rm: Dictionary = {
 
   chat: {
     learn: {
-      title: "Emprender da quai",
       breakdownLabel: "Pled per pled",
       breakdown: "Explitgescha a mai «{text}» pled per pled.",
       similarLabel: "Sumegliant e cuntrari",
@@ -242,7 +241,6 @@ export const rm: Dictionary = {
     ],
     glossTitle: "Pleds da tegnair",
     suggestionsTitle: "Per empruvar",
-    replies: "Propostas da resposta",
     sendThis: "Quai pudais Vus trametter",
     /**
      * The badge on a sendable line that is the WRITTEN standard rather than

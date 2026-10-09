@@ -204,7 +204,6 @@ export const gsw: Dictionary = {
 
   chat: {
     learn: {
-      title: "Dervo lehre",
       breakdownLabel: "Wort für Wort",
       breakdown: "Erklär mer «{text}» Wort für Wort.",
       similarLabel: "Ähnlich und Gägeteil",
@@ -249,7 +248,6 @@ export const gsw: Dictionary = {
     ],
     glossTitle: "Wörter wo sölled bliibe",
     suggestionsTitle: "Zum Uusprobiere",
-    replies: "Vorschläg zum Antworte",
     sendThis: "Das chönd Si schicke",
     /**
      * The badge on a sendable line that is the WRITTEN standard rather than

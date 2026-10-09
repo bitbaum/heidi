@@ -128,7 +128,11 @@ const ANSWER = {
     { label: "WÄRMER UND VIEL LÄNGER ALS ÜBLICH", text: LINK, english: "Ein sehr langer Link", variety: "bridge", clean: false, flags: ["flag-eins-sehr-lang", "flag-zwei"] },
     { label: "KÜRZER", text: "Guet, danke!", english: "Gut, danke!", clean: true, flags: [] },
   ],
-  next: [{ id: "reply" }, { id: "rephrase", axis: "warmer" }],
+  next: [{ id: "reply" }, { id: "rephrase", axis: "warmer" }, { id: "grammar", topic: "no-preterite" }],
+  // The ONE row under the latest answer (`answerRow`): replies first, then
+  // the moves and learn chips, capped — so a full row, with the longest reply
+  // chatkit keeps (48 characters) and the grammar link that must survive it.
+  replies: ["Ja, gern", "Wie säg ich das förmlicher für d Verwaltig?", "Wie antworte ich darauf?", "Nein danke"],
   model: "openai/gpt-oss-120b-instruct-turbo-preview-2026",
 };
 

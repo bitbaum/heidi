@@ -181,7 +181,6 @@ export const fr: Dictionary = {
 
   chat: {
     learn: {
-      title: "En tirer une leçon",
       breakdownLabel: "Mot à mot",
       breakdown: "Explique-moi «{text}» mot à mot.",
       similarLabel: "Proche et contraire",
@@ -226,7 +225,6 @@ export const fr: Dictionary = {
     ],
     glossTitle: "Mots à retenir",
     suggestionsTitle: "À essayer",
-    replies: "Réponses suggérées",
     sendThis: "Vous pouvez envoyer ceci",
     /**
      * The badge on a sendable line that is the WRITTEN standard rather than

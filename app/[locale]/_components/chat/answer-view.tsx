@@ -2,7 +2,8 @@
 
 import type { Answer } from "@/lib/domain/chat/types";
 import Link from "next/link";
-import { moveId, moveKey, suggestionLabel, type NextMove } from "@/lib/domain/chat/moves";
+import { moveKey, suggestionLabel } from "@/lib/domain/chat/moves";
+import { answerRow, type RowItem } from "@/lib/domain/chat/row";
 import { href } from "@/lib/i18n/routes";
 import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
 import { DISPLAY } from "@/lib/variety/display";
@@ -13,8 +14,7 @@ import { KeepWord } from "./keep-word";
 import { sentenceWith } from "@/lib/domain/saved/context";
 import { ChatMarkdown } from "./chat-markdown";
 import { fill } from "@/lib/i18n/fill";
-import { learnMoves, type LearnMove } from "@/lib/domain/chat/learn";
-import { ChatReplies } from "@bitbaum/chatkit/react";
+import { learnMoves } from "@/lib/domain/chat/learn";
 
 /**
  * Everything Heidi found, rendered.
@@ -265,21 +265,12 @@ export function AnswerView({
 
       {a.note && <p className="mt-3 text-sm text-fg-muted">{a.note}</p>}
 
-      {/* What they would most likely say next, in their own words — chatkit's
-          buttons, so they look and behave as in every product of the fleet.
-          Above the move rows: those are things to DO with the answer, these
-          are the conversation continuing. */}
-      {onReply && a.replies && a.replies.length > 0 && (
-        <ChatReplies replies={a.replies} onPick={onReply} label={t.replies} />
+      {/* ONE row of one-tap buttons: the model's suggested replies first
+          (latest answer only), then what to DO with the answer, then what to
+          LEARN from it — de-duplicated and capped by `answerRow`. */}
+      {onMove && (
+        <AnswerRow answer={a} t={t} onMove={onMove} replies={onReply ? a.replies : undefined} onReply={onReply} locale={locale} />
       )}
-
-      {onMove && a.next && a.next.length > 0 && (
-        <NextMoves moves={a.next} t={t} onMove={onMove} locale={locale} />
-      )}
-
-      {/* What to LEARN from this answer, beside what to DO with it. Decided
-          from the answer's structure, not by the model — see `learn.ts`. */}
-      {onMove && <LearnRow answer={a} t={t} onMove={onMove} />}
 
       {/* Provenance. An answer with no model attached is a rumour. */}
       <p className="mt-3 border-t border-border-subtle pt-2 font-mono text-caption text-fg-muted">
@@ -305,124 +296,120 @@ function suggestionLabelText(raw: string, t: Dictionary["chat"]): string {
 }
 
 /**
- * The two or three things worth doing next, each one tap.
+ * Everything worth one tap under an answer, as ONE row.
  *
- * Pressing one sends an ordinary message — the sentence the person would
- * otherwise have had to compose. It appears in the transcript as that
- * sentence, because a follow-up you cannot see is a conversation you cannot
- * re-read, and the thread is the product.
+ * It used to be three: chatkit's suggested replies, "What now?" and "Learn
+ * from this", each under its own caption — up to ten buttons on the latest
+ * answer. Now replies come first, then the moves, then the learn chips, and
+ * `answerRow` (lib/domain/chat/row.ts) removes repeats and caps the row.
  *
- * The wording is ours, in the reader's language, looked up by id. The model
- * chooses WHICH to offer and never what they say: a label it wrote itself
- * would arrive in whatever language it felt like and could promise something
- * pressing it does not do.
+ * Every button but one sends an ordinary visible message — the sentence the
+ * person would otherwise have had to compose — through the same `send` the
+ * composer uses. It appears in the transcript as that sentence, because a
+ * follow-up you cannot see is a conversation you cannot re-read.
+ *
+ * The move and learn wording is ours, in the reader's language, looked up by
+ * id. The model chooses WHICH to offer and never what they say: a label it
+ * wrote itself would arrive in whatever language it felt like and could
+ * promise something pressing it does not do. The replies are the exception by
+ * design — they are the reader's own next line, and the model writes them in
+ * the reader's language.
+ *
+ * Styled as chatkit's reply buttons (`ck-replies` / `ck-reply`, themed by the
+ * `--ck-*` tokens in globals.css), so the row looks as it does in every
+ * product of the fleet. Not `<ChatReplies>` itself, because one button here
+ * NAVIGATES: grammar opens the explanation page, a link that can open in a new
+ * tab, and chatkit's row only sends text.
  */
-function NextMoves({
-  moves,
+function AnswerRow({
+  answer,
   t,
   onMove,
+  replies,
+  onReply,
   locale,
 }: {
-  moves: NextMove[];
+  answer: Answer;
   t: Dictionary["chat"];
   onMove: (say: string) => void;
+  /** Present only under the latest answer while the reader could send. */
+  replies?: string[];
+  onReply?: (say: string) => void;
   locale?: Locale;
 }) {
-  return (
-    <div className="mt-4 border-t border-border-subtle pt-3">
-      <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.moves.title}</p>
-      <div className="mt-2 flex flex-wrap gap-2">
-        {moves.map((move) => {
-          const wording = t.moves[moveKey(move) as keyof typeof t.moves];
-          // A move with no wording cannot be rendered as a button — it would
-          // be blank. `decodeMoves` already drops unknown ids, so this is the
-          // belt to that braces rather than an expected branch.
-          if (!wording || typeof wording === "string") return null;
+  const own: RowItem[] = [];
 
-          const style =
-            "inline-flex min-h-9 items-center rounded-control border border-border-subtle px-3 text-sm text-fg-secondary transition-colors hover:border-accent hover:text-fg-primary";
+  for (const move of answer.next ?? []) {
+    const wording = t.moves[moveKey(move) as keyof typeof t.moves];
+    // A move with no wording cannot be rendered as a button — it would be
+    // blank. `decodeMoves` already drops unknown ids, so this is the belt to
+    // that braces rather than an expected branch.
+    if (!wording || typeof wording === "string") continue;
+    if (move.id === "grammar") {
+      /**
+       * Grammar is the one move that NAVIGATES rather than asks. The
+       * explanation already exists, written once and translated, and it is
+       * better than anything the model would improvise for the fourth time
+       * this week.
+       *
+       * The topic must exist: `decodeMoves` checked the shape; only here can
+       * the words be checked, and a chip pointing at an anchor nothing
+       * renders would scroll to the top of the page and look broken.
+       * `DISPLAY.grammar` rather than the dictionary: a test asserts the two
+       * agree in every locale.
+       */
+      const known = locale && DISPLAY.grammar.some((topic) => topic.id === move.topic);
+      if (known) own.push({ kind: "link", label: wording.label, href: `${href(locale, "grammar")}/${move.topic}` });
+      continue;
+    }
+    own.push({ kind: "send", label: wording.label, say: wording.say });
+  }
 
-          /**
-           * Grammar is the one move that NAVIGATES rather than asks.
-           *
-           * The explanation already exists, written once and translated, and
-           * it is better than anything the model would improvise for the
-           * fourth time this week — which is the whole reason the page is
-           * there. So it is a link, which also means it opens in a new tab if
-           * the person wants to keep the conversation.
-           *
-           * The topic must exist in THIS locale's dictionary. `decodeMoves`
-           * checked the shape; only the renderer can check that the words are
-           * there, and a chip pointing at an anchor nothing renders would
-           * scroll to the top of the page and look broken.
-           */
-          if (move.id === "grammar") {
-            // `DISPLAY.grammar` rather than the dictionary: a test asserts the
-            // two agree in every locale, and this component is only handed
-            // `dict.chat`, which does not carry the topics.
-            const known = locale && DISPLAY.grammar.some((topic) => topic.id === move.topic);
-            if (!known) return null;
-            return (
-              <Link key={moveId(move)} href={`${href(locale, "grammar")}/${move.topic}`} className={style}>
-                {wording.label}
-              </Link>
-            );
-          }
-
-          return (
-            <button key={moveId(move)} type="button" onClick={() => onMove(wording.say)} className={style}>
-              {wording.label}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-/**
- * One tap on what a learner most likely asks next about THIS answer.
- *
- * The same chips, the same send path (`onMove` is the conversation's own
- * `send`), the same visible-message rule as the move row above — only the
- * question is different: not "what do I do with this message" but "what do I
- * learn from it". Renders nothing when the answer holds no Zurich line and no
- * word worth asking about.
- */
-function LearnRow({ answer, t, onMove }: { answer: Answer; t: Dictionary["chat"]; onMove: (say: string) => void }) {
-  const moves = learnMoves(answer);
-  if (moves.length === 0) return null;
+  // What to LEARN from this answer, decided from its structure — `learn.ts`.
   const l = t.learn;
-  const say = (m: LearnMove): { label: string; text: string } => {
+  for (const m of learnMoves(answer)) {
     switch (m.id) {
       case "breakdown":
-        return { label: l.breakdownLabel, text: fill(l.breakdown, { text: m.text }) };
+        own.push({ kind: "send", label: l.breakdownLabel, say: fill(l.breakdown, { text: m.text }) });
+        break;
       case "similar":
-        return { label: l.similarLabel, text: fill(l.similar, { word: m.word }) };
+        own.push({ kind: "send", label: l.similarLabel, say: fill(l.similar, { word: m.word }) });
+        break;
       case "story":
-        return { label: l.storyLabel, text: fill(l.story, { word: m.word }) };
+        own.push({ kind: "send", label: l.storyLabel, say: fill(l.story, { word: m.word }) });
+        break;
       case "examples":
-        return { label: l.examplesLabel, text: fill(l.examples, { word: m.word }) };
+        own.push({ kind: "send", label: l.examplesLabel, say: fill(l.examples, { word: m.word }) });
+        break;
     }
-  };
+  }
+
+  const replyItems = onReply ? (replies ?? []) : [];
+  const fromReplies = new Set(replyItems);
+  const row = answerRow(replyItems, own);
+  if (row.length === 0) return null;
+
   return (
-    <div className="mt-3 border-t border-border-subtle pt-3">
-      <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{l.title}</p>
-      <div className="mt-2 flex flex-wrap gap-2">
-        {moves.map((m) => {
-          const { label, text } = say(m);
-          return (
-            <button
-              key={m.id}
-              type="button"
-              onClick={() => onMove(text)}
-              className="inline-flex min-h-9 items-center rounded-control border border-border-subtle px-3 text-sm text-fg-secondary transition-colors hover:border-border-strong hover:text-fg-primary"
-            >
-              {label}
-            </button>
-          );
-        })}
-      </div>
+    <div className="ck-replies" role="group" aria-label={t.moves.title}>
+      {row.map((item, i) =>
+        item.kind === "link" ? (
+          <Link key={`link:${item.href}`} href={item.href} className="ck-reply inline-flex items-center no-underline">
+            {item.label}
+          </Link>
+        ) : (
+          <button
+            key={`${i}:${item.say}`}
+            type="button"
+            className="ck-reply"
+            // A reply goes through `onReply`, a move or learn chip through
+            // `onMove`. Today both are the conversation's own `send`; kept
+            // apart so a surface may treat them differently.
+            onClick={() => (fromReplies.has(item.say) && onReply ? onReply(item.say) : onMove(item.say))}
+          >
+            {item.label}
+          </button>
+        ),
+      )}
     </div>
   );
 }
