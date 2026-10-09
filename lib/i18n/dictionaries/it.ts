@@ -226,6 +226,7 @@ export const it: Dictionary = {
     ],
     glossTitle: "Parole da tenere",
     suggestionsTitle: "Da provare",
+    replies: "Risposte suggerite",
     sendThis: "Potete mandare questo",
     /**
      * The badge on a sendable line that is the WRITTEN standard rather than

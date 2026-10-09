@@ -98,6 +98,14 @@ export type Answer = {
    */
   next?: NextMove[];
   note?: string;
+  /**
+   * What the person is likely to say next, written by the model in their own
+   * language — one tap sends it as their message. Unlike `next`, these are
+   * conversational (an answer to a question Heidi asked), so the model writes
+   * the words; chatkit's `extractReplies` has already bounded them. Absent
+   * when no reply is likely, and on every old row.
+   */
+  replies?: string[];
   /** Which model answered. An answer with no provenance is a rumour. */
   model: string;
 };

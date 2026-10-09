@@ -242,6 +242,7 @@ export const rm: Dictionary = {
     ],
     glossTitle: "Pleds da tegnair",
     suggestionsTitle: "Per empruvar",
+    replies: "Propostas da resposta",
     sendThis: "Quai pudais Vus trametter",
     /**
      * The badge on a sendable line that is the WRITTEN standard rather than

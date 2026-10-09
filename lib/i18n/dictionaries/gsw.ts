@@ -249,6 +249,7 @@ export const gsw: Dictionary = {
     ],
     glossTitle: "Wörter wo sölled bliibe",
     suggestionsTitle: "Zum Uusprobiere",
+    replies: "Vorschläg zum Antworte",
     sendThis: "Das chönd Si schicke",
     /**
      * The badge on a sendable line that is the WRITTEN standard rather than

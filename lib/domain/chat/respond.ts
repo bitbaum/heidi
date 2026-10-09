@@ -20,6 +20,7 @@ import { describeMessage, parseMessage } from "./email.ts";
 import { partialField } from "./partial.ts";
 import { withReply } from "./moves.ts";
 import { HEIDI_ID } from "./types.ts";
+import { REPLIES_INSTRUCTION } from "@bitbaum/chatkit";
 
 /**
  * Ask Heidi to take a turn in a thread — ANY thread.
@@ -40,6 +41,21 @@ import { HEIDI_ID } from "./types.ts";
  * wiring, and the second one already drifted (see the cast `/api/chat` was
  * still carrying).
  */
+
+/**
+ * The fleet's suggested-replies request, fitted to an answer that is JSON.
+ *
+ * chatkit's instruction asks for a fenced block at the end of the answer; here
+ * the answer is a JSON object, so the block goes after its closing brace and
+ * `parseAnswer` takes it back out before the JSON is read. The second line is
+ * Heidi's own: `next` already offers the actions (shorter, warmer, reply),
+ * with our wording — these are only what the person would SAY.
+ */
+export const REPLIES_PROMPT = [
+  REPLIES_INSTRUCTION,
+  "Here the block comes AFTER the closing brace of the JSON object — the one thing allowed outside it.",
+  'Never restate a move already offered in "next" (shorter, warmer, write a reply…) as a reply.',
+].join("\n");
 
 /** Per link, not shared — a shared deadline is spent by the first vendor. */
 const TIMEOUT_MS = 25_000;
@@ -190,6 +206,11 @@ export async function respondInThread(args: {
    * Absent means the old request/response path, unchanged.
    */
   onText?: (soFar: string) => void;
+  /**
+   * Ask for suggested replies (`REPLIES_PROMPT`). Default on; a group turns
+   * it off, since a reply in "the person's voice" has no one person there.
+   */
+  suggestReplies?: boolean;
 }): Promise<RespondResult> {
   const own = readByok(args.byok);
   const byokLinks = own.ok ? byokChain(own.config) : null;
@@ -238,7 +259,7 @@ export async function respondInThread(args: {
       // The pasted-message note is appended HERE rather than by each caller, so
       // every surface that can hold a conversation gets it without having to
       // remember. That is the whole reason this function exists.
-      systemPrompt: [systemPrompt(VARIETY, explainIn), pasted, extra].filter(Boolean).join("\n\n"),
+      systemPrompt: [systemPrompt(VARIETY, explainIn), pasted, args.suggestReplies === false ? "" : REPLIES_PROMPT, extra].filter(Boolean).join("\n\n"),
       model: chain[0]?.model ?? "unknown",
       complete: async ({ system, prompt, maxTokens, temperature }) => {
         const call = {

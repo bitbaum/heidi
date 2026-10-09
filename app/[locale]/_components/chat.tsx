@@ -13,7 +13,7 @@ import { useDraftChat } from "./chat/use-draft-chat";
 import { WordPick } from "./chat/word-pick";
 import { NewChatButton } from "./chat/new-chat-button";
 import { href } from "@/lib/i18n/routes";
-import { FocusSurface, useCompact } from "./focus-surface";
+import { FocusSurface } from "./focus-surface";
 
 /**
  * A conversation, not a form.
@@ -55,7 +55,6 @@ export function Chat({
    * when the page loads: a chat restored from last time stays in the page,
    * behind the bar that opens it, instead of covering the home page on arrival.
    */
-  const compact = useCompact();
   const [minimized, setMinimized] = useState(true);
   const [wasBusy, setWasBusy] = useState(chat.busy);
   if (chat.busy !== wasBusy) {

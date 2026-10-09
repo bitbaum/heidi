@@ -265,6 +265,12 @@ export const de = {
     ],
     glossTitle: "Wörter, die bleiben sollten",
     suggestionsTitle: "Zum Ausprobieren",
+    /**
+     * The name of the row of suggested replies under the latest answer — read
+     * by a screen reader as the group's label. The replies themselves are the
+     * model's, written in the reader's language; only this name is ours.
+     */
+    replies: "Antwortvorschläge",
     sendThis: "Das können Sie schicken",
     /**
      * The badge on a sendable line that is the WRITTEN standard rather than

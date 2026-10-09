@@ -226,6 +226,7 @@ export const fr: Dictionary = {
     ],
     glossTitle: "Mots à retenir",
     suggestionsTitle: "À essayer",
+    replies: "Réponses suggérées",
     sendThis: "Vous pouvez envoyer ceci",
     /**
      * The badge on a sendable line that is the WRITTEN standard rather than
