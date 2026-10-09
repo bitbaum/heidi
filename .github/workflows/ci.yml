@@ -65,7 +65,7 @@ jobs:
       DATABASE_URL: postgresql://heidi:heidi@localhost:5432/heidi_test
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: pnpm/action-setup@v4
 
