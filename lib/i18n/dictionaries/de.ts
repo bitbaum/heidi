@@ -212,7 +212,6 @@ export const de = {
 
   chat: {
     learn: {
-      title: "Daraus lernen",
       breakdownLabel: "Wort für Wort",
       breakdown: "Erklär mir «{text}» Wort für Wort.",
       similarLabel: "Ähnlich und Gegenteil",
@@ -265,12 +264,6 @@ export const de = {
     ],
     glossTitle: "Wörter, die bleiben sollten",
     suggestionsTitle: "Zum Ausprobieren",
-    /**
-     * The name of the row of suggested replies under the latest answer — read
-     * by a screen reader as the group's label. The replies themselves are the
-     * model's, written in the reader's language; only this name is ours.
-     */
-    replies: "Antwortvorschläge",
     sendThis: "Das können Sie schicken",
     /**
      * The badge on a sendable line that is the WRITTEN standard rather than
@@ -367,6 +360,8 @@ export const de = {
      * can promise something pressing it does not do.
      */
     moves: {
+      /** The accessible name of the ONE button row under an answer — the
+          suggested replies, these moves and the learn chips (`answerRow`). */
       title: "Und jetzt?",
       reply: { label: "Antwort schreiben", say: "Wie antworte ich darauf?" },
       grammar: { label: "Die Grammatik dazu", say: "Erklären Sie mir die Grammatik dahinter." },

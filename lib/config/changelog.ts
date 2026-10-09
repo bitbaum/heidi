@@ -48,6 +48,7 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "Fragt Heidi etwas zurück oder liegt der nächste Schritt auf der Hand, stehen unter der letzten Antwort zwei bis vier Antworten zum Antippen — in deiner Sprache, ein Tipp schickt sie ab wie getippt.",
       items: [
         "Sie erscheinen nur unter der neuesten Antwort und nie, während Heidi noch schreibt; auf Züridütsch prüft sie dieselbe Prüfung wie Heidis Erklärung.",
+        "Eine Reihe statt drei: Antwortvorschläge zuerst, dann «Und jetzt?» und «Daraus lernen», ohne Doppeltes und höchstens fünf Knöpfe. Der Link zur Grammatik behält seinen Platz, auch wenn die Vorschläge die Reihe füllen.",
       ],
     },
     {
@@ -627,6 +628,7 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "When Heidi asks you something back, or the next step is obvious, two to four replies appear under the latest answer — in your language, and one tap sends it exactly as if you had typed it.",
       items: [
         "They appear under the newest answer only, never while Heidi is still writing; in Zurich German they face the same gate as Heidi's explanation.",
+        "One row instead of three: the replies first, then «What now?» and «Learn from this», with nothing offered twice and at most five buttons. The grammar link keeps its place even when the replies fill the row.",
       ],
     },
     {

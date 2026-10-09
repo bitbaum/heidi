@@ -189,7 +189,6 @@ export const ru: Dictionary = {
 
   chat: {
     learn: {
-      title: "Чему это учит",
       breakdownLabel: "Слово за словом",
       breakdown: "Объясни мне «{text}» слово за словом.",
       similarLabel: "Близкие и противоположные",
@@ -234,7 +233,6 @@ export const ru: Dictionary = {
     ],
     glossTitle: "Слова, которые стоит запомнить",
     suggestionsTitle: "Попробуйте",
-    replies: "Варианты ответа",
     sendThis: "Это можно отправить",
     /**
      * The badge on a sendable line that is the WRITTEN standard rather than
