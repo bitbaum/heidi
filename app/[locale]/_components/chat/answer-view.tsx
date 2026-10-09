@@ -14,6 +14,7 @@ import { sentenceWith } from "@/lib/domain/saved/context";
 import { ChatMarkdown } from "./chat-markdown";
 import { fill } from "@/lib/i18n/fill";
 import { learnMoves, type LearnMove } from "@/lib/domain/chat/learn";
+import { ChatReplies } from "@bitbaum/chatkit/react";
 
 /**
  * Everything Heidi found, rendered.
@@ -40,6 +41,7 @@ export function AnswerView({
   voiceT,
   context,
   onMove,
+  onReply,
   locale,
 }: {
   answer: Answer;
@@ -61,6 +63,12 @@ export function AnswerView({
    * — a read-only transcript shows no chips rather than dead ones.
    */
   onMove?: (say: string) => void;
+  /**
+   * Send one of the answer's suggested replies as the reader's message. Given
+   * only to the LATEST answer, and only while no turn is running — a reply to
+   * an answer three turns up would arrive as a non sequitur.
+   */
+  onReply?: (say: string) => void;
 }) {
   const a = answer;
   // The explanations are written in the reader's language, whatever the
@@ -256,6 +264,14 @@ export function AnswerView({
       )}
 
       {a.note && <p className="mt-3 text-sm text-fg-muted">{a.note}</p>}
+
+      {/* What they would most likely say next, in their own words — chatkit's
+          buttons, so they look and behave as in every product of the fleet.
+          Above the move rows: those are things to DO with the answer, these
+          are the conversation continuing. */}
+      {onReply && a.replies && a.replies.length > 0 && (
+        <ChatReplies replies={a.replies} onPick={onReply} label={t.replies} />
+      )}
 
       {onMove && a.next && a.next.length > 0 && (
         <NextMoves moves={a.next} t={t} onMove={onMove} locale={locale} />

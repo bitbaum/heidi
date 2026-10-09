@@ -105,3 +105,8 @@ describe("why extractJson is not used for this", () => {
     assert.equal(partialField(midway), "Sie fragen, ob");
   });
 });
+
+test("the suggested-replies block after the object never reaches the preview", () => {
+  const raw = '{"mode":"answer","text":"Gut so."}\n```quick_replies\n["text", "Ja"';
+  assert.equal(partialField(raw), "Gut so.");
+});

@@ -43,6 +43,16 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-10-09",
       tag: "feature",
+      title: "Antworten mit einem Tipp",
+      summary:
+        "Fragt Heidi etwas zurück oder liegt der nächste Schritt auf der Hand, stehen unter der letzten Antwort zwei bis vier Antworten zum Antippen — in deiner Sprache, ein Tipp schickt sie ab wie getippt.",
+      items: [
+        "Sie erscheinen nur unter der neuesten Antwort und nie, während Heidi noch schreibt; auf Züridütsch prüft sie dieselbe Prüfung wie Heidis Erklärung.",
+      ],
+    },
+    {
+      date: "2026-10-09",
+      tag: "feature",
       title: "Eine Situation für ein Wort: der Bünzli",
       summary:
         "Unter «Alltag i Züri» gibt es neu «Mit einem Bünzli»: fünfzehn Sätze, die man zu hören bekommt — die Regel, das «hät mer scho immer so gmacht», die Warnung, und was man über einen Bünzli sagt — und sieben, die den Streit beenden, statt ihn zu beginnen.",
@@ -609,6 +619,16 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-09",
+      tag: "feature",
+      title: "Replies in one tap",
+      summary:
+        "When Heidi asks you something back, or the next step is obvious, two to four replies appear under the latest answer — in your language, and one tap sends it exactly as if you had typed it.",
+      items: [
+        "They appear under the newest answer only, never while Heidi is still writing; in Zurich German they face the same gate as Heidi's explanation.",
+      ],
+    },
     {
       date: "2026-10-09",
       tag: "feature",

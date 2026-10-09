@@ -121,3 +121,12 @@ test("an answer written before moves existed simply has none", () => {
   const a = decodeAnswer({ text: "x", glosses: [], suggestions: [] });
   assert.equal(a?.next, undefined);
 });
+
+test("stored replies are re-bounded: strings only, short, distinct, at most four", () => {
+  const a = decodeAnswer({
+    text: "Gut.",
+    replies: ["Ja", 3, "ja", "x".repeat(80), "B", "C", "D", "E"],
+  })!;
+  assert.deepEqual(a.replies, ["Ja", "B", "C", "D"]);
+  assert.equal("replies" in decodeAnswer({ text: "Gut.", replies: "Ja" })!, false);
+});

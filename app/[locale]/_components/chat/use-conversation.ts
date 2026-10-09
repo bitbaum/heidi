@@ -83,7 +83,10 @@ export function useConversation({
       const history = retry ? base.slice(0, -1) : base;
 
       setMessages(retry ? base : [...base, mine]);
-      setInput("");
+      // The box is NOT cleared here. chatkit's Composer clears its own draft
+      // after a send — and only what it sent. Clearing it here as well meant a
+      // tapped chip or suggested reply threw away whatever the reader was
+      // halfway through typing.
       setBusy(true);
       setStreaming("");
 

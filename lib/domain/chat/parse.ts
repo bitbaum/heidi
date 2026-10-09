@@ -20,6 +20,7 @@ import { bridgeRules, canWriteBridge } from "../../variety/bridge.ts";
 import type { VarietyPack } from "../../variety/pack.ts";
 import { type Answer, type Gloss, type Mode, MODES, type Suggestion, TONES, type Tone } from "./types.ts";
 import { decodeMoves } from "./moves.ts";
+import { extractReplies } from "@bitbaum/chatkit";
 
 /** `k → ch`, `k -> ch` and `K  →  CH` are the same claim. */
 function normaliseRule(rule: string): string {
@@ -221,7 +222,13 @@ export function parseAnswer(
   model: string,
   opts: { explainInVariety?: boolean } = {},
 ): Answer {
-  const data = extractJson(raw) as Record<string, unknown>;
+  // The suggested replies ride AFTER the JSON, in chatkit's `quick_replies`
+  // block (see `REPLIES_INSTRUCTION` in respond.ts). Taken out here, before
+  // the JSON is read, so the block can never reach `text`, storage, history,
+  // a copy button or the speaker — the answer object is the only thing that
+  // leaves this function, and the replies travel in it as data.
+  const split = extractReplies(raw);
+  const data = extractJson(split.text) as Record<string, unknown>;
 
   const text = str(data.text);
   if (looksDegenerate(text)) throw new Error("the model looped instead of answering");
@@ -258,6 +265,14 @@ export function parseAnswer(
   // `checkExplanation`.
   const explained = opts.explainInVariety && text ? checkExplanation(text, pack) : null;
 
+  // On the variety's own site the reader's voice IS the variety, so a reply
+  // the model wrote for them faces the same gate as the explanation. One that
+  // fails is dropped, not marked: a button is something they would send, and
+  // a learner cannot tell a flagged button from a good one.
+  const replies = opts.explainInVariety
+    ? split.replies.filter((r) => checkExplanation(r, pack).ok)
+    : split.replies;
+
   return {
     mode,
     text: text || dialect,
@@ -280,6 +295,7 @@ export function parseAnswer(
     // move the model invented never reaches storage in the first place.
     ...(decodeMoves(data.next).length ? { next: decodeMoves(data.next) } : {}),
     ...(str(data.note) ? { note: str(data.note) } : {}),
+    ...(replies.length ? { replies } : {}),
     model,
   };
 }

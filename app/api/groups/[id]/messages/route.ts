@@ -131,6 +131,9 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       locale: reader,
       byok,
       signal: request.signal,
+      // Nobody in particular would tap them: a reply "in the person's voice"
+      // has no one person in a room, and the group renders no chips.
+      suggestReplies: false,
     });
 
     if (turn.status === "answered") {

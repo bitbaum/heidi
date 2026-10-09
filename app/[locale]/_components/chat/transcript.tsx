@@ -72,6 +72,11 @@ export function Transcript({
   // can arrive, and a rule about what happens when one does belongs with the
   // component that renders them all.
   useSpokenAnswers(messages);
+  // Suggested replies belong to the conversation's last word, and only while
+  // the reader could actually send: never during a turn, never on a surface
+  // that cannot send, never under an older answer.
+  const last = messages.length - 1;
+  const replyable = !busy && onMove ? onMove : undefined;
 
   return (
     /**
@@ -121,6 +126,7 @@ export function Transcript({
                   voiceT={voiceT}
                   context={askedBefore(messages, i, me)}
                   onMove={onMove}
+                  onReply={i === last ? replyable : undefined}
                   locale={locale}
                 />
               ) : (

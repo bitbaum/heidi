@@ -244,3 +244,41 @@ test("the model that answered is always recorded", () => {
   // An answer with no provenance is a rumour.
   assert.equal(parse({ text: "x" }).model, "test/model");
 });
+
+// ---------------------------------------------------------------------------
+// Suggested replies ride after the JSON, in chatkit's block, and never leak.
+// ---------------------------------------------------------------------------
+
+const withBlock = (o: unknown, block: string) => `${JSON.stringify(o)}\n\`\`\`quick_replies\n${block}\n\`\`\``;
+
+test("the replies block after the JSON becomes `replies`, and nothing else sees it", () => {
+  const a = parseAnswer(
+    withBlock({ mode: "answer", text: "Willst du zusagen?" }, '["Ja, schreib zu", "Lieber absagen"]'),
+    ZH,
+    "m",
+  );
+  assert.deepEqual(a.replies, ["Ja, schreib zu", "Lieber absagen"]);
+  assert.equal(a.text, "Willst du zusagen?");
+  assert.doesNotMatch(JSON.stringify({ ...a, replies: undefined }), /quick_replies/);
+});
+
+test("an answer cut off inside the replies block still parses, with no replies", () => {
+  const raw = `${JSON.stringify({ mode: "answer", text: "Gut." })}\n\`\`\`quick_replies\n["Ja", "Ne`;
+  const a = parseAnswer(raw, ZH, "m");
+  assert.equal(a.text, "Gut.");
+  assert.equal(a.replies, undefined);
+});
+
+test("no block, no `replies` field — an old-shaped answer stays old-shaped", () => {
+  assert.equal("replies" in parse({ mode: "answer", text: "Gut." }), false);
+});
+
+test("on the variety's own site a reply the gate refuses is dropped, not offered", () => {
+  const a = parseAnswer(
+    withBlock({ mode: "answer", text: "Gaht's?" }, '["Hesch no öppis?", "Häsch no öppis?"]'),
+    ZH,
+    "m",
+    { explainInVariety: true },
+  );
+  assert.deepEqual(a.replies, ["Häsch no öppis?"]);
+});

@@ -1,6 +1,7 @@
 import type { Answer, Gloss, Mode, Suggestion, Tone } from "./types.ts";
 import { MODES, TONES } from "./types.ts";
 import { decodeMoves } from "./moves.ts";
+import { REPLIES_FENCE, extractReplies } from "@bitbaum/chatkit";
 
 /**
  * An `Answer` read back out of storage, checked rather than asserted.
@@ -105,8 +106,20 @@ export function decodeAnswer(value: unknown): Answer | null {
     // button that does nothing when pressed.
     ...(decodeMoves(a.next).length ? { next: decodeMoves(a.next) } : {}),
     ...(str(a.note) ? { note: a.note as string } : {}),
+    // Stored data a reader can edit (the draft lives in localStorage), so it
+    // is re-bounded exactly like a model's output rather than trusted.
+    ...(storedReplies(a.replies).length ? { replies: storedReplies(a.replies) } : {}),
     // Provenance. An answer with no model attached is a rumour, so an old row
     // missing it says so rather than borrowing today's model's name.
     model: typeof a.model === "string" && a.model ? a.model : "unknown",
   };
+}
+
+/**
+ * Re-bounded by chatkit's own rule (at most four, short, distinct) rather than
+ * a copy of it, so a stored row and a fresh answer can never disagree.
+ */
+function storedReplies(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return extractReplies("```" + REPLIES_FENCE + "\n" + JSON.stringify(value) + "\n```").replies;
 }

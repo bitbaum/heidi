@@ -234,6 +234,7 @@ export const ru: Dictionary = {
     ],
     glossTitle: "Слова, которые стоит запомнить",
     suggestionsTitle: "Попробуйте",
+    replies: "Варианты ответа",
     sendThis: "Это можно отправить",
     /**
      * The badge on a sendable line that is the WRITTEN standard rather than

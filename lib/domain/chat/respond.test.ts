@@ -97,3 +97,12 @@ describe("the pasted-message note", () => {
     assert.equal(pastedContext([said(LEARNER_ID, "Ja gern.\n\n> Chunnsch du?")]), "");
   });
 });
+
+describe("suggested replies", () => {
+  test("the prompt carries chatkit's instruction verbatim, placed after the JSON", async () => {
+    const { REPLIES_PROMPT } = await import("./respond.ts");
+    const { REPLIES_INSTRUCTION } = await import("@bitbaum/chatkit");
+    assert.ok(REPLIES_PROMPT.startsWith(REPLIES_INSTRUCTION));
+    assert.match(REPLIES_PROMPT, /AFTER the closing brace/);
+  });
+});
