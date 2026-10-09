@@ -1584,6 +1584,22 @@ export const ZURICH_GERMAN: VarietyPack = {
       example: { target: "Mir händ de ganz Tag müesse chrampfe.", bridge: "Wir mussten den ganzen Tag hart arbeiten." },
       source: "idiotikon",
     },
+    /**
+     * The person, not the money: Zurich's name for whoever enforces the
+     * house rules. Asked for by name, and it carries a register because it
+     * is affectionate about a third party and an insult to somebody's face.
+     * The scene `buenzli` is the whole encounter.
+     */
+    {
+      target: "Bünzli",
+      bridge: "Spiesser",
+      group: "slang",
+      register: "casual",
+      article: "de",
+      bridgeArticle: "der",
+      example: { target: "Lueg, dä isch en richtige Bünzli.", bridge: "Schau, der ist ein richtiger Spiesser." },
+      source: "idiotikon",
+    },
     {
       target: "Seich",
       bridge: "Unsinn",

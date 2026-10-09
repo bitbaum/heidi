@@ -2103,6 +2103,10 @@ export const de = {
         title: "Wenn Nein nicht Nein heisst",
         scene: "In Zürich wird selten direkt abgelehnt. «Das isch ächli schwierig» oder «Mer chönnt sich das überlegge» ist oft schon die Antwort, höflich verpackt — wer es wörtlich nimmt, wartet auf etwas, das längst gesagt wurde.",
       },
+      buenzli: {
+        title: "Mit einem Bünzli",
+        scene: "«Bünzli» ist das Zürcher Wort für den Nachbarn, der die Hausordnung kennt und sie durchsetzt — Waschtag, Nachtruhe, Karton. Er meint es selten böse. Wer sich rechtfertigt, verliert; wer sich bedankt und fragt, wo es steht, hat Ruhe.",
+      },
     },
   },
 

@@ -1928,6 +1928,10 @@ export const rm: Dictionary = {
         title: "Cura che na na tuna betg sco na",
         scene: "A Turitg refusan ins darar directamain. «Das isch ächli schwierig» u «Mer chönnt sich das überlegge» è savens gia la resposta, pachetada cun curtaschia — tgi che la prenda a la lettra spetga insatge ch'è gia vegnì ditg.",
       },
+      buenzli: {
+        title: "Cun in Bünzli",
+        scene: "«Bünzli» è il pled turitgais per il vischin che enconuscha las reglas da chasa e las fa valair — di da lavar, quietezza da notg, cartun. El al manegia darar mal. Tgi che sa giustifitgescha perda; tgi che engrazia e dumonda nua che quai è scrit ha pasch.",
+      },
     },
   },
 

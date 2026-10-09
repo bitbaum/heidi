@@ -1932,6 +1932,10 @@ export const gsw: Dictionary = {
         title: "Wänn Nei nöd Nei heisst",
         scene: "Z Züri seit mer sälte diräkt Nei. «Das isch ächli schwierig» oder «Mer chönnt sich das überlegge» isch mängisch scho d Antwort, höflich verpackt — wer s wörtlich nimmt, wartet uf öppis, wo längscht gseit worde isch.",
       },
+      buenzli: {
+        title: "Mit eme Bünzli",
+        scene: "«Bünzli» isch s Zürcher Wort für de Nachbar, wo d Husordnig kännt und sie durchsetzt — Wöschtag, Nachtrueh, Karton. Er meint s sälte bös. Wer sich rechtfertigt, verlüürt; wer merci seit und fragt, wo s staht, hät Rueh.",
+      },
     },
   },
 

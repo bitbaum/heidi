@@ -1907,6 +1907,10 @@ export const en: Dictionary = {
         title: "When no does not sound like no",
         scene: "Zurich rarely refuses outright. «Das isch ächli schwierig» or «Mer chönnt sich das überlegge» is often already the answer, politely wrapped — and whoever takes it literally waits for something that has already been said.",
       },
+      buenzli: {
+        title: "Dealing with a Bünzli",
+        scene: "«Bünzli» is Zurich's word for the neighbour who knows the house rules and enforces them — laundry day, quiet hours, the cardboard. It is rarely meant badly. Argue and you lose; thank them and ask where it is written, and you have peace.",
+      },
     },
   },
 

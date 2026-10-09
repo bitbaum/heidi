@@ -493,5 +493,58 @@ export const EVERYDAY: SituationPack = {
         { target: "Mer chönd s ja emal probiere.", bridge: "Wir können es ja einmal versuchen.", direction: "hear", source: "idiotikon" },
       ],
     },
+    {
+      /**
+       * The Bünzli — the word, and the person it names.
+       *
+       * Asked for by name, and it earns a scene rather than a vocabulary
+       * entry because the word is the easy half. «Bünzli» is Zurich's name
+       * for the neighbour who knows the house rules and enforces them: the
+       * washing day, the quiet hours, the cardboard on the wrong evening. A
+       * learner meets one within a month of arriving, usually on the stairs,
+       * and nothing in the sentence warns them what kind of exchange it is.
+       *
+       * THE ORDER IS THE ENCOUNTER. It opens with what a Bünzli says to you —
+       * the rule, the precedent, the warning — then with what people say
+       * ABOUT one, which is how the learner finds out the word is not neutral,
+       * and ends with the replies that actually end the exchange. Those are
+       * the `say` lines, and there are more of them than most scenes carry,
+       * because here the alternative to a short dialect reply is not Standard
+       * German; it is an argument. The convention the German reader lacks is
+       * the same one `indirect-no` teaches from the other side: a Bünzli is
+       * rarely malicious, is nearly always right about the rule, and wants
+       * the rule acknowledged, not explained. Thank them, ask where it is
+       * written, say it will not recur — and the stairwell is quiet again.
+       *
+       * The bridge for «Bünzli» itself is «Bünzli»: the word is Swiss
+       * Standard German too, and «Spiesser» is kept for the adjective, where
+       * a German reader needs the anchor.
+       */
+      id: "buenzli",
+      phrases: [
+        { target: "Sie, das dörf mer da nöd.", bridge: "Sie, das darf man hier nicht.", direction: "hear", source: "idiotikon" },
+        { target: "Das staht so i de Husordnig.", bridge: "Das steht so in der Hausordnung.", direction: "hear", grammar: "articles", source: "idiotikon" },
+        { target: "Am Sunntig wird nöd gwäsche.", bridge: "Am Sonntag wird nicht gewaschen.", direction: "hear", source: "idiotikon" },
+        { target: "Ab zähni isch Nachtrueh.", bridge: "Ab zehn Uhr ist Nachtruhe.", direction: "hear", grammar: "clock-time", source: "idiotikon" },
+        { target: "Das hät mer scho immer so gmacht.", bridge: "Das hat man schon immer so gemacht.", direction: "hear", grammar: "no-preterite", source: "idiotikon" },
+        { target: "Bi üs macht mer das halt so.", bridge: "Bei uns macht man das halt so.", direction: "hear", grammar: "modal-particles", source: "idiotikon" },
+        { target: "Mir händ da Regle, gäll.", bridge: "Wir haben hier Regeln, nicht wahr.", direction: "hear", grammar: "unified-plural", source: "idiotikon" },
+        { target: "D Schue ghöred nöd vor d Tür.", bridge: "Die Schuhe gehören nicht vor die Tür.", direction: "hear", grammar: "articles", source: "idiotikon" },
+        { target: "Ich säg s Ihne jetzt zum letschte Mal.", bridge: "Ich sage es Ihnen jetzt zum letzten Mal.", direction: "hear", source: "idiotikon" },
+        { target: "Susch mues ich das de Verwaltig mälde.", bridge: "Sonst muss ich das der Verwaltung melden.", direction: "hear", grammar: "articles", source: "idiotikon" },
+        { target: "Das isch nöd mis Problem.", bridge: "Das ist nicht mein Problem.", direction: "hear", source: "idiotikon" },
+        { target: "Lueg, dä isch en richtige Bünzli.", bridge: "Schau, der ist ein richtiger Bünzli.", direction: "hear", grammar: "indefinite-article", source: "idiotikon" },
+        { target: "Das isch mir ächli z bünzlig.", bridge: "Das ist mir etwas zu spiessig.", direction: "hear", source: "idiotikon" },
+        { target: "Bis doch nöd so en Bünzli!", bridge: "Sei doch nicht so ein Spiesser!", direction: "hear", grammar: "imperative", source: "idiotikon" },
+        { target: "Er isch halt gnau, aber er meint s guet.", bridge: "Er ist halt genau, aber er meint es gut.", direction: "hear", grammar: "modal-particles", source: "idiotikon" },
+        { target: "Merci für de Hiiwiis, das han ich nöd gwüsst.", bridge: "Danke für den Hinweis, das habe ich nicht gewusst.", direction: "say", grammar: "no-preterite", source: "idiotikon" },
+        { target: "Sie händ rächt, ich mach s grad weg.", bridge: "Sie haben recht, ich mache es gleich weg.", direction: "say", source: "idiotikon" },
+        { target: "Ich lueg, dass es nüme vorchunt.", bridge: "Ich schaue, dass es nicht mehr vorkommt.", direction: "say", source: "idiotikon" },
+        { target: "Wo chan ich das naaläse?", bridge: "Wo kann ich das nachlesen?", direction: "say", grammar: "question-words", source: "idiotikon" },
+        { target: "Das isch nöd bös gmeint gsi.", bridge: "Das war nicht böse gemeint.", direction: "say", grammar: "no-preterite", source: "idiotikon" },
+        { target: "Chönd mer das in Rueh aaluege?", bridge: "Können wir das in Ruhe anschauen?", direction: "say", source: "idiotikon" },
+        { target: "Ich wett kei Striit mit de Nachbare.", bridge: "Ich möchte keinen Streit mit den Nachbarn.", direction: "say", source: "idiotikon" },
+      ],
+    },
   ],
 };

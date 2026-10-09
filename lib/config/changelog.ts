@@ -41,6 +41,17 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-10-09",
+      tag: "feature",
+      title: "Eine Situation für ein Wort: der Bünzli",
+      summary:
+        "Unter «Alltag i Züri» gibt es neu «Mit einem Bünzli»: fünfzehn Sätze, die man zu hören bekommt — die Regel, das «hät mer scho immer so gmacht», die Warnung, und was man über einen Bünzli sagt — und sieben, die den Streit beenden, statt ihn zu beginnen.",
+      items: [
+        "Jede Zeile besteht die Zürcher Prüfung; gelesen hat sie noch niemand, der Züridütsch spricht, und die Seite sagt das.",
+        "«Bünzli» steht im Wortschatz als Umgangssprache mit Register: über Dritte herzlich, ins Gesicht eine Beleidigung.",
+      ],
+    },
+    {
       date: "2026-10-08",
       tag: "feature",
       title: "Die Investorenseite führt in Heidis Investorenraum auf OrangeCat",
@@ -598,6 +609,17 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-09",
+      tag: "feature",
+      title: "A scene for one word: the Bünzli",
+      summary:
+        "Under «Alltag i Züri» there is now «Dealing with a Bünzli»: fifteen lines you hear — the rule, the «we have always done it this way», the warning, and what people say about a Bünzli — and seven that end the exchange instead of starting it.",
+      items: [
+        "Every line passes the Zurich gate; nobody who speaks Zurich German has read it yet, and the page says so.",
+        "«Bünzli» is in the vocabulary as casual slang, with its register: warm about a third party, an insult to someone's face.",
+      ],
+    },
     {
       date: "2026-10-08",
       tag: "feature",
