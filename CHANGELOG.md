@@ -21,6 +21,11 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-10-09
+
+- A new scene under «Alltag i Züri»: «Mit einem Bünzli» — the word, and the neighbour it names. Fifteen lines you hear (the rule, the precedent, the warning, and what people say about a Bünzli) and seven you say back, in the order that actually ends the exchange: thank them, ask where it is written, say it will not happen again. Every line passes the Zurich gate; no native speaker has read it yet, and the page says so.
+- «Bünzli» is in the vocabulary as casual slang, with its register, so a learner finds out it is affectionate about a third party and an insult to somebody's face.
+
 ## 2026-10-08
 
 - The investor page is the door to Heidi's investor room on OrangeCat: the password leads into the room, where each investor can also have a link of their own. Its text and numbers are still written, and checked, in `investors.ts`, and the room is filled from it.

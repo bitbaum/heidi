@@ -1912,6 +1912,10 @@ export const it: Dictionary = {
         title: "Quando no non suona come no",
         scene: "A Zurigo si rifiuta di rado in modo diretto. «Das isch ächli schwierig» o «Mer chönnt sich das überlegge» spesso è già la risposta, confezionata con cortesia — chi la prende alla lettera aspetta qualcosa che è già stato detto.",
       },
+      buenzli: {
+        title: "Con un Bünzli",
+        scene: "«Bünzli» è la parola zurighese per il vicino che conosce il regolamento della casa e lo fa rispettare — giorno del bucato, silenzio notturno, cartone. Raramente è cattiveria. Chi si giustifica perde; chi ringrazia e chiede dove sta scritto ha pace.",
+      },
     },
   },
 

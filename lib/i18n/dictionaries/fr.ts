@@ -1912,6 +1912,10 @@ export const fr: Dictionary = {
         title: "Quand non ne sonne pas comme non",
         scene: "À Zurich, on refuse rarement de front. «Das isch ächli schwierig» ou «Mer chönnt sich das überlegge» est souvent déjà la réponse, emballée poliment — qui le prend au pied de la lettre attend quelque chose qui a déjà été dit.",
       },
+      buenzli: {
+        title: "Face à un Bünzli",
+        scene: "« Bünzli », c'est le mot zurichois pour le voisin qui connaît le règlement de l'immeuble et le fait respecter — jour de lessive, repos nocturne, carton. Rarement méchant. Qui se justifie perd ; qui remercie et demande où c'est écrit a la paix.",
+      },
     },
   },
 
