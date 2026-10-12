@@ -21,6 +21,11 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-10-12
+
+- The vocabulary search runs on `@bitbaum/searchkit`, the fleet's one search, instead of a hand-rolled substring match: one slip forgiven from four letters, two from eight, the start of a word while typing, accents and umlauts folded, both the dialect word and its German meaning searched. Results come best match first (the learning order breaks ties) with what matched marked; the «guessable» heading is not drawn while a query reorders the list.
+- The dialect spelling rule stays ours, as searchkit's `normalize`: `ie` read as `i`, doubled letters as one (`lib/domain/vocabulary/search.ts`). On another writer's spelling plus one slip (`schribe` for `schriibe`, slipped) it is the difference between 0.24 and 0.91 found first. `search.test.ts` runs every generated one-slip misspelling of every word (~9,700) and holds success@1 ≥ 0.90, success@3 ≥ 0.96; the misses are short words the rule leaves at three letters (`vill` → `vil`) and slips that land on another listed word (`cho` for `scho`).
+
 ## 2026-10-09
 
 - One row of buttons under an answer instead of three: suggested replies first, then the «What now?» moves and the «Learn from this» chips, de-duplicated and capped at five (`lib/domain/chat/row.ts`). The grammar link — the one button that opens a page instead of sending a message — keeps its place when the replies fill the row. Styled as chatkit's reply buttons; one `role="group"` named by `chat.moves.title`.
