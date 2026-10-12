@@ -8,7 +8,7 @@ import { plural } from "@/lib/i18n/plural";
 import { wordsScope } from "@/lib/domain/practice/scope";
 import { wordSlug } from "@/lib/domain/practice/slug";
 import { NEXT_BATCH, nextWords, wordStatus, type WordStatus } from "@/lib/domain/vocabulary/rank";
-import { matchesQuery } from "@/lib/domain/vocabulary/search";
+import { findWords, vocabularySearch } from "@/lib/domain/vocabulary/search";
 import { DISPLAY } from "@/lib/variety/display";
 import { SessionLink } from "./session/links";
 import { useModelView } from "./sync-stores";
@@ -54,6 +54,10 @@ const STATUSES: readonly WordStatus[] = ["new", "learning", "known"];
  * THE FILTERS ARE LOCAL AND UNSTORED. They are a way of looking at the page,
  * not a preference: nobody wants yesterday's search still applied when they
  * come back.
+ *
+ * A TYPED QUERY REORDERS the list, best match first (`vocabulary/search.ts`),
+ * with the learning order breaking ties. The guessable heading belongs to the
+ * learning order, so it is not drawn while the list answers a query.
  */
 export function VocabularyBrowser({
   rows,
@@ -85,17 +89,17 @@ export function VocabularyBrowser({
   const [open, setOpen] = useState<string | null>(null);
   const fieldId = useId();
 
-  const filtering = query.trim().length > 0 || group !== null || only !== null;
+  const searching = query.trim().length > 0;
+  const filtering = searching || group !== null || only !== null;
 
+  const searcher = useMemo(() => vocabularySearch(rows), [rows]);
   const shown = useMemo(
     () =>
-      rows.filter(
-        (row) =>
-          matchesQuery(row, query) &&
-          (group === null || row.group === group) &&
-          (only === null || (ready && status(row.target) === only)),
+      findWords(searcher, rows, query).filter(
+        ({ word: row }) =>
+          (group === null || row.group === group) && (only === null || (ready && status(row.target) === only)),
       ),
-    [rows, query, group, only, ready, status],
+    [searcher, rows, query, group, only, ready, status],
   );
 
   /**
@@ -121,7 +125,7 @@ export function VocabularyBrowser({
   }, [rows]);
 
   const visible = shown.slice(0, filtering ? Math.max(limit, PAGE) : limit);
-  const firstGuessable = visible.findIndex((row) => row.guessable);
+  const firstGuessable = searching ? -1 : visible.findIndex(({ word }) => word.guessable);
 
   return (
     <div className="flex flex-col gap-12">
@@ -212,10 +216,11 @@ export function VocabularyBrowser({
           <p className="mt-10 max-w-measure text-base leading-relaxed text-fg-secondary">{t.noMatches}</p>
         ) : (
           <ul className="mt-6 hyphens-auto wrap-anywhere">
-            {visible.map((row, i) => (
+            {visible.map(({ word: row, match }, i) => (
               <WordRow
                 key={row.target}
                 row={row}
+                match={match}
                 status={ready ? status(row.target) : null}
                 open={open === row.target}
                 onToggle={() => setOpen(open === row.target ? null : row.target)}

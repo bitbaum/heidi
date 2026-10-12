@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { Highlight } from "@bitbaum/searchkit/react";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { DISPLAY } from "@/lib/variety/display";
@@ -10,6 +11,7 @@ import { askHeidi } from "@/lib/browser/ask";
 import { wordsScope } from "@/lib/domain/practice/scope";
 import { wordSlug } from "@/lib/domain/practice/slug";
 import type { WordStatus } from "@/lib/domain/vocabulary/rank";
+import type { WordMatch } from "@/lib/domain/vocabulary/search";
 import { SessionLink } from "./session/links";
 import { useSaved } from "./use-saved";
 import { useByok } from "./use-byok";
@@ -18,6 +20,9 @@ import type { VocabRow } from "./vocabulary-browser";
 
 /** Scene links shown before "+ n more": enough to picture it, not a wall. */
 const SCENES_SHOWN = 3;
+
+/** What a typed query matched: a tint, no padding, so the row does not move. */
+const MATCH_MARK = "rounded-sm bg-surface-sunk text-inherit";
 
 /**
  * One word: a line you can scan, and everything else under it on demand.
@@ -38,6 +43,7 @@ const SCENES_SHOWN = 3;
  */
 export function WordRow({
   row,
+  match,
   status,
   open,
   onToggle,
@@ -48,6 +54,8 @@ export function WordRow({
   locale,
 }: {
   row: VocabRow;
+  /** Where a typed query landed in this word; null when nothing was typed. */
+  match: WordMatch | null;
   /** Null until storage has been read. */
   status: WordStatus | null;
   open: boolean;
@@ -91,10 +99,10 @@ export function WordRow({
             {/* The article is part of the noun, as `der` is in a German
                 dictionary; muted, because the noun is still the entry. */}
             {row.article && <span className="font-normal text-fg-muted">{row.article} </span>}
-            {row.target}
+            <Highlight text={row.target} ranges={match?.target ?? []} markClassName={MATCH_MARK} />
           </span>
           <span lang="de" className="text-base leading-snug text-fg-secondary">
-            {row.bridge}
+            <Highlight text={row.bridge} ranges={match?.bridge ?? []} markClassName={MATCH_MARK} />
             {/* A real space, not only a margin: copied or read aloud, a margin
                 stitches «Franken» and «umgangssprachlich» into one word. */}
             {row.register && " "}

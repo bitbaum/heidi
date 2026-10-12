@@ -41,6 +41,17 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-10-12",
+      tag: "improvement",
+      title: "Die Wortsuche verzeiht einen Tippfehler",
+      summary:
+        "Im Wortschatz findet «schwöchter» jetzt «Schwöschter», «gipfleli» «Gipfeli» und «kartofel» «Härdöpfel»: ein falscher, fehlender, doppelter oder vertauschter Buchstabe kostet das Wort nicht mehr. Das beste Wort steht zuoberst, und was gepasst hat, ist markiert.",
+      items: [
+        "Wie Züridütsch geschrieben wird, zählt nicht als Fehler: «schribe» findet «schriibe», «Hus» «Huus», «spiele» «spile» — auch mit einem Tippfehler dazu. Vorher fand das in einem Viertel der Fälle das Wort, jetzt in neun von zehn.",
+        "Gemessen an jedem einzelnen Tippfehler jedes Worts der Liste, rund 9700: in neun von zehn Fällen steht das gemeinte Wort zuoberst, in 97 von hundert unter den ersten drei. Kurze Wörter wie «gäll» sind die Ausnahme — mit drei Buchstaben ist ein Tippfehler schon ein anderes Wort.",
+      ],
+    },
+    {
       date: "2026-10-09",
       tag: "feature",
       title: "Antworten mit einem Tipp",
@@ -620,6 +631,17 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-12",
+      tag: "improvement",
+      title: "The word search forgives a slip",
+      summary:
+        "In the vocabulary, «schwöchter» now finds «Schwöschter», «gipfleli» «Gipfeli» and «kartofel» «Härdöpfel»: one wrong, missing, doubled or swapped letter no longer loses the word. The best match comes first, and what matched is marked.",
+      items: [
+        "How Zurich German is written does not count as a mistake: «schribe» finds «schriibe», «Hus» «Huus», «spiele» «spile» — with a slip on top as well. That used to find the word a quarter of the time; now it is nine in ten.",
+        "Measured on every single slip of every word in the list, about 9,700: nine times in ten the word meant is first, 97 in a hundred it is in the top three. Short words like «gäll» are the exception — at three letters, one slip is already another word.",
+      ],
+    },
     {
       date: "2026-10-09",
       tag: "feature",
