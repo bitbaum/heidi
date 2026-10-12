@@ -18,8 +18,8 @@ importers:
         specifier: github:bitbaum/chatkit#163c879163d22c6eb633314b3bd4e25712a01899
         version: https://codeload.github.com/bitbaum/chatkit/tar.gz/163c879163d22c6eb633314b3bd4e25712a01899(react@19.2.4)
       '@bitbaum/searchkit':
-        specifier: github:bitbaum/orangecat#a868c0a98e91df1075404d0c5f27a7846eb08d97&path:packages/searchkit
-        version: https://codeload.github.com/bitbaum/orangecat/tar.gz/a868c0a98e91df1075404d0c5f27a7846eb08d97#path:packages/searchkit(react@19.2.4)
+        specifier: github:bitbaum/orangecat#e6cda794af7eb8da0e88602bdce2c26283616498&path:packages/searchkit
+        version: https://codeload.github.com/bitbaum/orangecat/tar.gz/e6cda794af7eb8da0e88602bdce2c26283616498#path:packages/searchkit(react@19.2.4)
       '@bitbaum/speechkit':
         specifier: ^1.0.0
         version: 1.0.0
@@ -199,9 +199,9 @@ packages:
     peerDependencies:
       react: '>=18'
 
-  '@bitbaum/searchkit@https://codeload.github.com/bitbaum/orangecat/tar.gz/a868c0a98e91df1075404d0c5f27a7846eb08d97#path:packages/searchkit':
-    resolution: {gitHosted: true, integrity: sha512-1JO7yBdII7Lo4/8kvcfCfr954HEVYCtuBvV3YxjMJMiBxfmtDn98X1K4Yp0p95zyTSFBgMqJRf6Nyuw71ptHcQ==, path: packages/searchkit, tarball: https://codeload.github.com/bitbaum/orangecat/tar.gz/a868c0a98e91df1075404d0c5f27a7846eb08d97}
-    version: 0.2.0
+  '@bitbaum/searchkit@https://codeload.github.com/bitbaum/orangecat/tar.gz/e6cda794af7eb8da0e88602bdce2c26283616498#path:packages/searchkit':
+    resolution: {gitHosted: true, integrity: sha512-0dlR7+JG/7Hh4WlJzP6zLl+OloAE9G86WQmYxrFAJqYBezTLqi7sI4QDb80Qmtd/0RSc1smpMv1oDdTxDYzxsg==, path: packages/searchkit, tarball: https://codeload.github.com/bitbaum/orangecat/tar.gz/e6cda794af7eb8da0e88602bdce2c26283616498}
+    version: 0.2.2
     peerDependencies:
       react: '>=18'
     peerDependenciesMeta:
@@ -2954,7 +2954,7 @@ snapshots:
     dependencies:
       react: 19.2.4
 
-  '@bitbaum/searchkit@https://codeload.github.com/bitbaum/orangecat/tar.gz/a868c0a98e91df1075404d0c5f27a7846eb08d97#path:packages/searchkit(react@19.2.4)':
+  '@bitbaum/searchkit@https://codeload.github.com/bitbaum/orangecat/tar.gz/e6cda794af7eb8da0e88602bdce2c26283616498#path:packages/searchkit(react@19.2.4)':
     optionalDependencies:
       react: 19.2.4
 
