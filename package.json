@@ -22,7 +22,7 @@
     "@bitbaum/accountkit": "github:bitbaum/accountkit#v0.2.0",
     "@bitbaum/ai-kit": "^1.19.0",
     "@bitbaum/chatkit": "github:bitbaum/chatkit#163c879163d22c6eb633314b3bd4e25712a01899",
-    "@bitbaum/searchkit": "github:bitbaum/orangecat#a868c0a98e91df1075404d0c5f27a7846eb08d97&path:packages/searchkit",
+    "@bitbaum/searchkit": "github:bitbaum/orangecat#e6cda794af7eb8da0e88602bdce2c26283616498&path:packages/searchkit",
     "@bitbaum/speechkit": "^1.0.0",
     "@bitbaum/whenkit": "github:bitbaum/whenkit#v0.3.2",
     "bip-kit": "^0.4.0",
