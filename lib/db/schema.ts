@@ -1,16 +1,16 @@
+// Accounts: the same tables in every fleet product (@bitbaum/accountkit/auth).
+export * from "@bitbaum/accountkit/auth/schema";
 import { boolean, index, integer, jsonb, pgTable, primaryKey, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 /**
  * Study groups — the first thing in Heidi that outlives a browser tab.
  *
- * THERE IS NO USERS TABLE, AND THAT IS DELIBERATE.
- *
- * Identity is federated to OrangeCat; the OIDC `sub` claim is the actor id and
- * the only thing we hold. So `created_by`, `actor_id` and `author_id` are that
- * claim, stored as text, with no foreign key to anywhere — because the row
- * they would point at lives in another product. A `users` table here would be
- * a second copy of an identity we do not own, and the copy is the thing that
- * goes stale.
+ * WHO A ROW BELONGS TO. `created_by`, `actor_id` and `author_id` hold the
+ * person's actor id, as text, with no foreign key: the account id for someone
+ * who registered here, or the OrangeCat actor id for someone whose first way
+ * in was OrangeCat (lib/auth — that keeps every row written before Heidi had
+ * accounts theirs). The account tables themselves come from
+ * @bitbaum/accountkit/auth, re-exported above.
  *
  * The consequence is that a display name has to be DENORMALISED onto the
  * membership row. There is nothing to join to. It is captured at join time

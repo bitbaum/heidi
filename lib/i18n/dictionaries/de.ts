@@ -846,7 +846,7 @@ export const de = {
     },
     signIn: "Anmelden",
     signOut: "Abmelden",
-    signInWith: "Mit OrangeCat anmelden",
+    signInWith: "Anmelden oder Konto erstellen",
     account: "Konto",
     portalTitle: "Mein Bereich",
     portalLead:
@@ -855,9 +855,9 @@ export const de = {
     notSignedIn: "Sie sind nicht angemeldet",
     notSignedInBody:
       "Melden Sie sich an, um Gespräche zu speichern, Ihren Fortschritt auf jedes Gerät mitzunehmen und Nachweise zu holen. Übersetzen, Üben und die Dialektprüfung gehen auch ohne Konto.",
-    whyTitle: "Warum OrangeCat",
+    whyTitle: "Ihr Konto",
     whyBody:
-      "Heidi führt keine eigene Benutzerdatenbank. Ihre Identität liegt bei OrangeCat, wo auch Profile und Bezahlung schon zuhause sind. Das heisst: ein Konto für mehrere Produkte, kein weiteres Passwort — und bei uns liegt nichts, was gestohlen werden könnte.",
+      "Ein Konto bei Heidi braucht nur eine E-Mail-Adresse und ein Passwort oder einen Passkey — keinen echten Namen und kein anderes Produkt. Wer schon ein OrangeCat-Konto hat, meldet sich mit einem Klick an.",
     unavailable: "Die Anmeldung ist auf dieser Installation noch nicht eingerichtet.",
     errorTitle: "Die Anmeldung hat nicht geklappt",
     errorBody: "Da ist etwas schiefgelaufen. Versuchen Sie es nochmals, oder gehen Sie zurück zum Start.",

@@ -769,7 +769,7 @@ export const en: Dictionary = {
     },
     signIn: "Sign in",
     signOut: "Sign out",
-    signInWith: "Sign in with OrangeCat",
+    signInWith: "Sign in or create an account",
     account: "Account",
     portalTitle: "My space",
     portalLead:
@@ -778,9 +778,9 @@ export const en: Dictionary = {
     notSignedIn: "You are not signed in",
     notSignedInBody:
       "Sign in to save conversations, take your progress to every device and get certificates. Translating, practising and the dialect check work without an account.",
-    whyTitle: "Why OrangeCat",
+    whyTitle: "Your account",
     whyBody:
-      "Heidi keeps no user database of its own. Your identity lives at OrangeCat, where profiles and payment are already at home. That means one account across several products, no further password — and nothing here that could be stolen.",
+      "A Heidi account needs only an email address and a password, or a passkey — no real name and no other product. If you already have OrangeCat, one click signs you in.",
     unavailable: "Signing in is not configured on this deployment yet.",
     errorTitle: "Signing in did not work",
     errorBody: "Something went wrong. Try again, or go back to the start.",

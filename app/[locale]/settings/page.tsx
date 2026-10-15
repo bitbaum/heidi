@@ -137,6 +137,13 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
               <span className="font-mono text-sm text-fg-primary">
                 {session.user?.name || session.user?.email || session.actorId}
               </span>
+              <Link
+                prefetch={false}
+                href={href(locale, "account")}
+                className="inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
+              >
+                {dict.auth.account}
+              </Link>
               <SignOutButton locale={locale} dict={dict} />
             </div>
           ) : (
