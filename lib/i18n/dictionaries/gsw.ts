@@ -421,7 +421,7 @@ export const gsw: Dictionary = {
     },
     signIn: "Aamälde",
     signOut: "Abmälde",
-    signInWith: "Mit OrangeCat aamälde",
+    signInWith: "Aamälde oder Konto mache",
     account: "Konto",
     portalTitle: "Min Bereich",
     portalLead:
@@ -430,9 +430,9 @@ export const gsw: Dictionary = {
     notSignedIn: "Si sind nöd aagmäldet",
     notSignedInBody:
       "Mälded Si sich a, zum Gspräch spichere, Ihre Fortschritt uf jedes Grät mitnää und Nachwiis hole. Übersetze, Üebe und d Dialektprüefig gönd au ohni Konto.",
-    whyTitle: "Werum OrangeCat",
+    whyTitle: "Dis Konto",
     whyBody:
-      "Heidi füehrt kei eigeni Benutzerdatebank. Ihri Identität liit bi OrangeCat, wo au Profil und Zahlig scho dihei sind. Das heisst: es Konto für mehreri Produkt, kei wiiters Passwort — und bi öis liit nüüt, wo mer chönnti stähle.",
+      "Es Konto bi de Heidi bruucht nume e E-Mail-Adrässe und es Passwort oder en Passkey — kei richtige Name und kes anders Produkt. Wär scho es OrangeCat-Konto hät, meldet sich mit eim Klick aa.",
     unavailable: "D Aamäldig isch uf dere Installation na nöd iigrichtet.",
     errorTitle: "D Aamäldig hät nöd klappet",
     errorBody: "Do isch öppis schief gange. Probiered Si s nomal, oder gönd Si zrugg zum Afang.",

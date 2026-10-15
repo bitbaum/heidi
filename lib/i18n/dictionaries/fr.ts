@@ -770,7 +770,7 @@ export const fr: Dictionary = {
     },
     signIn: "Se connecter",
     signOut: "Se déconnecter",
-    signInWith: "Se connecter avec OrangeCat",
+    signInWith: "Se connecter ou créer un compte",
     account: "Compte",
     portalTitle: "Mon espace",
     portalLead:
@@ -779,9 +779,9 @@ export const fr: Dictionary = {
     notSignedIn: "Vous n'êtes pas connecté",
     notSignedInBody:
       "Connectez-vous pour enregistrer vos conversations, retrouver vos progrès sur tous vos appareils et obtenir des attestations. La traduction, les exercices et la vérification du dialecte fonctionnent sans compte.",
-    whyTitle: "Pourquoi OrangeCat",
+    whyTitle: "Votre compte",
     whyBody:
-      "Heidi ne tient aucune base d'utilisateurs. Votre identité vit chez OrangeCat, où les profils et les paiements sont déjà chez eux. Cela veut dire un seul compte pour plusieurs produits, pas de mot de passe supplémentaire — et rien ici qui puisse être volé.",
+      "Un compte Heidi ne demande qu'une adresse e-mail et un mot de passe, ou une clé d'accès — ni vrai nom, ni autre produit. Si vous avez déjà OrangeCat, un clic suffit pour vous connecter.",
     unavailable: "La connexion n'est pas encore configurée sur cette installation.",
     errorTitle: "La connexion n'a pas fonctionné",
     errorBody: "Quelque chose s'est mal passé. Réessayez, ou revenez à l'accueil.",

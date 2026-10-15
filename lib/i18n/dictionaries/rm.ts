@@ -786,7 +786,7 @@ export const rm: Dictionary = {
     },
     signIn: "S'annunziar",
     signOut: "Sa deconnectar",
-    signInWith: "S'annunziar cun OrangeCat",
+    signInWith: "S'annunziar u crear in conto",
     account: "Conto",
     portalTitle: "Mes intschess",
     portalLead:
@@ -795,9 +795,9 @@ export const rm: Dictionary = {
     notSignedIn: "Vus n'essas betg annunzià",
     notSignedInBody:
       "Annunziai Vus per memorisar conversaziuns, prender Voss progress sin mintga apparat e retschaiver attestats. La translaziun, ils exercizis e la controlla dal dialect funcziunan er senza conto.",
-    whyTitle: "Pertge OrangeCat",
+    whyTitle: "Voss conto",
     whyBody:
-      "Heidi na tegna nagina atgna banca da datas d'utilisaders. Vossa identitad viva tar OrangeCat, nua che profils e pajaments èn gia a chasa. Quai vul dir in sulet conto per plirs products, nagin pled-clav supplementar — e qua nagut che pudess vegnir engulà.",
+      "In conto tar Heidi dovra mo ina adressa d'e-mail ed in pled-clav u ina passkey — nagin num vair e nagin auter product. Tgi che ha gia in conto OrangeCat, s'annunzia cun in clic.",
     unavailable: "L'annunzia n'è anc betg configurada sin questa installaziun.",
     errorTitle: "L'annunzia n'ha betg funcziunà",
     errorBody: "Insatge è ì mal. Empruvai danovamain, u turnai al cumenzament.",

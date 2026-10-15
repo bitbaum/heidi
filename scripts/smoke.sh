@@ -26,7 +26,7 @@ set -uo pipefail
 BASE="${1:-https://heidi.orangecat.ch}"
 # Any non-empty value. Deliberately not a real token: this must be safe to
 # commit, safe to log, and safe to run against production.
-SESSION="__Secure-authjs.session-token=smoke; authjs.session-token=smoke"
+SESSION="__Secure-heidi.session_token=smoke; heidi.session_token=smoke; __Secure-authjs.session-token=smoke"
 
 fail=0
 

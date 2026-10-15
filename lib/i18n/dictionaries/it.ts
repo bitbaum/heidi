@@ -770,7 +770,7 @@ export const it: Dictionary = {
     },
     signIn: "Accedi",
     signOut: "Esci",
-    signInWith: "Accedi con OrangeCat",
+    signInWith: "Accedi o crea un account",
     account: "Account",
     portalTitle: "Il mio spazio",
     portalLead:
@@ -779,9 +779,9 @@ export const it: Dictionary = {
     notSignedIn: "Non avete effettuato l'accesso",
     notSignedInBody:
       "Acceda per salvare le conversazioni, portare i progressi su ogni dispositivo e ottenere attestati. Traduzione, esercizi e verifica del dialetto funzionano anche senza account.",
-    whyTitle: "Perché OrangeCat",
+    whyTitle: "Il tuo account",
     whyBody:
-      "Heidi non tiene un proprio archivio di utenti. La vostra identità vive su OrangeCat, dove profili e pagamenti sono già di casa. Significa un solo account per più prodotti, nessuna password in più — e qui niente che possa essere rubato.",
+      "Un account Heidi richiede solo un indirizzo e-mail e una password, o una passkey — nessun vero nome e nessun altro prodotto. Se hai già OrangeCat, ti basta un clic per accedere.",
     unavailable: "L'accesso non è ancora configurato su questa installazione.",
     errorTitle: "L'accesso non ha funzionato",
     errorBody: "Qualcosa è andato storto. Riprovate, oppure tornate all'inizio.",
