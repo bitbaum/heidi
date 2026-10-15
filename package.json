@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@better-auth/passkey": "^1.7.7",
-    "@bitbaum/accountkit": "link:/home/user/accountkit",
+    "@bitbaum/accountkit": "github:bitbaum/accountkit#7a41667ab0b2537395e4deef2a26a08f3b2bae44",
     "@bitbaum/ai-kit": "^1.19.0",
     "@bitbaum/chatkit": "git+https://github.com/bitbaum/chatkit.git#163c879163d22c6eb633314b3bd4e25712a01899",
     "@bitbaum/searchkit": "git+https://github.com/bitbaum/searchkit.git#v0.2.2",

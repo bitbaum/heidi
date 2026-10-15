@@ -41,6 +41,17 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-10-15",
+      tag: "feature",
+      title: "Ein Konto bei Heidi, ohne OrangeCat",
+      summary:
+        "Wer Gespräche speichern oder in einer Gruppe mitmachen will, braucht kein OrangeCat-Konto mehr: E-Mail-Adresse und Passwort genügen, ein Passkey und die Anmeldung in zwei Schritten lassen sich dazunehmen. «Weiter mit OrangeCat» bleibt als ein Knopf unter mehreren.",
+      items: [
+        "Wer bisher mit OrangeCat angemeldet war, meldet sich gleich an wie vorher und findet Gruppen, Gespräche und Fortschritt unverändert. Einmal neu anmelden muss man sich trotzdem.",
+        "Die Anmelde-, Registrier- und Kontoseiten sind dieselben wie bei den anderen Produkten der Flotte, in Heidis Sprachen.",
+      ],
+    },
+    {
       date: "2026-10-12",
       tag: "improvement",
       title: "Die Wortsuche verzeiht einen Tippfehler",
@@ -631,6 +642,17 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-15",
+      tag: "feature",
+      title: "A Heidi account, without OrangeCat",
+      summary:
+        "Saving conversations or joining a group no longer needs an OrangeCat account: an email address and a password are enough, and a passkey and two-step sign-in can be added. «Continue with OrangeCat» stays as one button among several.",
+      items: [
+        "Anyone who signed in with OrangeCat before signs in the same way and finds their groups, conversations and progress as they were. Everyone has to sign in once more.",
+        "The sign-in, sign-up and account pages are the same as in the other fleet products, in Heidi's languages.",
+      ],
+    },
     {
       date: "2026-10-12",
       tag: "improvement",

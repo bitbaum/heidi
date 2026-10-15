@@ -382,8 +382,9 @@ uses `scrim`, which is black in both themes. Both were white in dark once;
 `tokens.design.test.ts` now refuses `bg-fg-primary/…` and a fixed
 `bg-action`.
 
-There are now accounts and a database. Identity is federated to OrangeCat and
-Heidi holds no users table; Postgres holds study groups (and teams), private
+There are now accounts and a database. Heidi has its own accounts
+(`@bitbaum/accountkit/auth`: email and password, passkeys, two-step codes, and
+OrangeCat as one option); Postgres holds study groups (and teams), private
 conversations, the speaking rounds people schedule, the votes and comments left on the
 roadmap and changelog while those were open (a random browser key, not an
 account; a say now goes through Solon), and — ONLY
@@ -437,11 +438,12 @@ which of the two it is in, next to the button, in the learner's language. See
   it instantly. Swiss German is offered as a *dialect*, deliberately not filed
   with the four national languages — Switzerland has four and this is not one
   of them.
-- **Identity is federated, and Heidi keeps no users table.** The OIDC `sub` from
-  OrangeCat is the actor id, stored as bare text with no foreign key, because
-  the row it would point at lives in another product. The cost is a denormalised
-  display name on a membership row; the benefit is that Heidi holds nothing that
-  can be stolen from it.
+- **Heidi has its own accounts; the actor id is bare text.** Since 2026-10-15
+  a learner registers here (email and password, passkeys, two-step codes) or
+  continues with OrangeCat. The actor id on every row is the account id — or
+  the OrangeCat `sub` for someone whose first way in was OrangeCat, which keeps
+  every row written before accounts existed theirs. Stored as bare text with no
+  foreign key; the display name is still denormalised onto membership rows.
 - **Postgres holds groups and private conversations.** `study_groups`,
   `group_members`, `group_messages`, `conversations`, `conversation_messages`.
   The two families are deliberately not one family. A group's `invite_token` is

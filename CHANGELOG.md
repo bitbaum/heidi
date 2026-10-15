@@ -21,6 +21,10 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-10-15
+
+- Heidi has its own accounts on `@bitbaum/accountkit/auth` (better-auth): email and password, passkeys and two-step codes, with «Continue with OrangeCat» as one option rather than the only way in. People whose first way in was OrangeCat keep the OrangeCat actor id as their id (`legacyIdentityProvider`), so every existing group, conversation and certificate stays theirs without a data migration. next-auth is gone; existing sessions end once.
+
 ## 2026-10-12
 
 - The vocabulary search runs on `@bitbaum/searchkit`, the fleet's one search, instead of a hand-rolled substring match: one slip forgiven from four letters, two from eight, the start of a word while typing, accents and umlauts folded, both the dialect word and its German meaning searched. Results come best match first (the learning order breaks ties) with what matched marked; the «guessable» heading is not drawn while a query reorders the list.
