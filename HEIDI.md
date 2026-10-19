@@ -17,7 +17,7 @@ needs one page that cannot drift from itself.
 > an unfamiliar Zurich speaker they understand, not by how much Heidi they have
 > consumed.
 
-Live at `heidi.orangecat.ch`. An OrangeCat property, built and dispatched
+Runs at `heidi.orangecat.ch` (beta). An OrangeCat property, built and dispatched
 through Loki.
 
 **The channel is spoken, and the product had better be too.** Zurich German is

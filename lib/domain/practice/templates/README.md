@@ -9,7 +9,7 @@ A new question is a record, not a feature. The full contract is the header of
 | `gist`      | `authored/gist.ts`      | a heard line                           | 4 German readings |
 | `transform` | `authored/transform.ts` | a German sentence                      | 4 Zurich sentences, each meaning something else |
 | `clock`     | `authored/clock.ts`     | a time or price said in Zurich German  | 4 numbers        |
-| `meaning`   | generated (`kinds/question.ts`) | a word in its sentence         | 4 glosses, the false friend's trap among them |
+| `meaning`   | generated (`../kinds/question.ts`) | a word in its sentence         | 4 glosses, the false friend's trap among them |
 
 ## Adding a question
 
