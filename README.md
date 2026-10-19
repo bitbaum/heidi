@@ -1,7 +1,7 @@
 # Heidi
 
 Helps adults who already speak German understand the Zurich German actually
-spoken around them. Live at [heidi.orangecat.ch](https://heidi.orangecat.ch).
+spoken around them. Runs at [heidi.orangecat.ch](https://heidi.orangecat.ch) (beta).
 The product is defined in [HEIDI.md](HEIDI.md); how to work in the repo is in
 [AGENTS.md](AGENTS.md).
 
