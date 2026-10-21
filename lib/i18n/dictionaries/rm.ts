@@ -128,6 +128,7 @@ export const rm: Dictionary = {
     contributeCta: "Far part",
     eyebrow: "Tudestg da Turitg · per tuts che san gia tudestg",
     ctaSituations: "Scuvrir las situaziuns",
+    ctaTry: "Empruvar ussa",
     trustLine: "Gratuit, senza conto — mintga lingia controllada tenor las furmas da Turitg.",
     illustration: "Ina vatga cun zampogna davant las Alps di «Grüezi mitenand!»",
     stepsTitle: "Uschia avanzais Vus",

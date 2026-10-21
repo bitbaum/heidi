@@ -112,6 +112,7 @@ export const fr: Dictionary = {
     contributeCta: "Participer",
     eyebrow: "Zurichois · pour qui parle déjà allemand",
     ctaSituations: "Découvrir les situations",
+    ctaTry: "Essayer maintenant",
     trustLine: "Gratuit, sans compte — chaque ligne vérifiée selon les formes zurichoises.",
     illustration: "Une vache avec sa cloche devant les Alpes dit « Grüezi mitenand! »",
     stepsTitle: "Comment avancer",

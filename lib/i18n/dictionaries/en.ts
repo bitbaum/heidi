@@ -112,6 +112,7 @@ export const en: Dictionary = {
     contributeCta: "Take part",
     eyebrow: "Zurich German · for people who already know German",
     ctaSituations: "Explore the situations",
+    ctaTry: "Try it now",
     trustLine: "Free, no account — every line checked against Zurich forms.",
     illustration: "A cow with a bell in front of the Alps says «Grüezi mitenand!»",
     stepsTitle: "How you get further",

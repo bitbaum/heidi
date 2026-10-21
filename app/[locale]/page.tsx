@@ -84,6 +84,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     { ...t.steps[2], href: href(locale, "chat"), n: "03" },
   ];
 
+  // The headline is two sentences on purpose — understand, then write — but
+  // they are not one heading. The first is the title. The second is the line
+  // under it. Joined, the title wrapped into a paragraph and nothing to press
+  // sat next to it.
+  const [headline, ...headlineRest] = t.headline.split(/(?<=\.)\s+/);
+  const subheadline = headlineRest.join(" ");
+
   return (
     <Shell>
       {/* THE FOLD, in two columns: what Heidi is on the left, Heidi herself on
@@ -92,18 +99,31 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           wants it goes looking.
 
           Three blocks, in PHONE order: what it is, Heidi, the other ways in.
-          On a phone the chat must come right after the headline — trying it is
-          the point, and a whole screen of buttons above it hid it. On a wide
-          screen the grid puts the chat in the second column across both rows. */}
+          The headline block carries one button, "try it", which jumps to the
+          chat. The other ways in stay in the third block, under the chat on
+          a phone: a whole screen of buttons above it hid the thing the page
+          is for. On a wide screen the grid puts the chat in the second column
+          across both rows. */}
       <section className="grid grid-cols-safe items-start gap-x-12 gap-y-8 pb-10 pt-8 sm:pb-14 sm:pt-12 lg:grid-cols-[1fr_1.05fr] lg:grid-rows-[auto_1fr]">
-        <div className="lg:col-start-1 lg:row-start-1">
+        <div className="min-w-0 lg:col-start-1 lg:row-start-1">
           <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.eyebrow}</p>
           <h1
             id="headline"
-            className="mt-3 max-w-[22ch] font-heading text-title font-bold leading-[1.04] tracking-display text-fg-primary"
+            className="mt-3 max-w-measure font-heading text-3xl font-bold leading-tight tracking-display text-fg-primary sm:text-4xl lg:text-3xl"
           >
-            {t.headline}
+            {headline}
           </h1>
+          {subheadline ? (
+            <p className="mt-3 max-w-measure font-heading text-section font-semibold leading-snug tracking-display text-fg-secondary">
+              {subheadline}
+            </p>
+          ) : null}
+          <a
+            href="#try"
+            className="mt-6 inline-flex min-h-12 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
+          >
+            {t.ctaTry}
+          </a>
           <p className="mt-4 max-w-measure text-lead leading-relaxed text-fg-secondary">{t.sub}</p>
         </div>
         <div id="try" className="scroll-mt-24 lg:col-start-2 lg:row-span-2 lg:row-start-1">
