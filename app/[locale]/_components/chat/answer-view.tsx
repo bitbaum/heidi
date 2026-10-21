@@ -1,6 +1,5 @@
 "use client";
 
-import { plainTextForSpeech } from "@bitbaum/chatkit";
 import type { Answer } from "@/lib/domain/chat/types";
 import Link from "next/link";
 import { moveKey, suggestionLabel } from "@/lib/domain/chat/moves";
@@ -114,7 +113,7 @@ export function AnswerView({
         mistakes Heidi's German explanation for a model of Zurich phonology.
       */}
       <div className="mt-2">
-        <Speak text={plainTextForSpeech(a.text)} t={voiceT} />
+        <Speak text={a.text} t={voiceT} />
       </div>
 
       {a.dialect && (
