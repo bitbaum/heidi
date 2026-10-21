@@ -1,5 +1,6 @@
 "use client";
 
+import { plainTextForSpeech } from "@bitbaum/chatkit";
 import type { Dictionary } from "@/lib/i18n";
 import { useSpeech } from "../use-speech";
 import { useVoiceSettings } from "../use-voice-settings";
@@ -46,7 +47,8 @@ export function Speak({ text, t, dialect = false }: { text: string; t: Dictionar
    * Enough of the line to tell two buttons apart, and no more: a screen reader
    * announcing a whole paragraph before the word "button" is its own defect.
    */
-  const preview = text.length > 60 ? `${text.slice(0, 60).trimEnd()}…` : text;
+  const spoken = plainTextForSpeech(text);
+  const preview = spoken.length > 60 ? `${spoken.slice(0, 60).trimEnd()}…` : spoken;
 
   return (
     /*
@@ -62,7 +64,7 @@ export function Speak({ text, t, dialect = false }: { text: string; t: Dictionar
     <span className="inline-flex min-w-0 flex-col items-start gap-0.5">
       <button
         type="button"
-        onClick={() => (speaking ? speech.stop() : speech.speak(text))}
+        onClick={() => (speaking ? speech.stop() : speech.speak(spoken))}
         aria-live="off"
         /*
          * NAMED BY WHAT IT WILL READ. An answer carries up to seven of these —

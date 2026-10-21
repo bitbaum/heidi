@@ -88,7 +88,7 @@ export function AnswerView({
 
   return (
     <>
-      <ChatMarkdown text={a.text} className="text-base leading-relaxed text-fg-primary" />
+      <ChatMarkdown onReply={onReply} text={a.text} className="text-base leading-relaxed text-fg-primary" />
       {a.textClean === false && (
         <p className="mt-1 font-mono text-caption text-danger">
           {t.flagged} {a.textFlags?.join(", ")}

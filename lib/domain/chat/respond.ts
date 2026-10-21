@@ -20,7 +20,7 @@ import { describeMessage, parseMessage } from "./email.ts";
 import { partialField } from "./partial.ts";
 import { withReply } from "./moves.ts";
 import { HEIDI_ID } from "./types.ts";
-import { REPLIES_INSTRUCTION } from "@bitbaum/chatkit";
+import { RICH_ANSWERS_INSTRUCTION, REPLIES_INSTRUCTION } from "@bitbaum/chatkit";
 
 /**
  * Ask Heidi to take a turn in a thread — ANY thread.
@@ -259,7 +259,7 @@ export async function respondInThread(args: {
       // The pasted-message note is appended HERE rather than by each caller, so
       // every surface that can hold a conversation gets it without having to
       // remember. That is the whole reason this function exists.
-      systemPrompt: [systemPrompt(VARIETY, explainIn), pasted, args.suggestReplies === false ? "" : REPLIES_PROMPT, extra].filter(Boolean).join("\n\n"),
+      systemPrompt: [systemPrompt(VARIETY, explainIn), RICH_ANSWERS_INSTRUCTION, 'Put any chat_ui blocks ONLY inside the free-text "text" string of the existing answer JSON, escaped as JSON string content. Keep all dialect, gloss, translation and move fields unchanged. Never put visual blocks outside the JSON envelope.', pasted, args.suggestReplies === false ? "" : REPLIES_PROMPT, extra].filter(Boolean).join("\n\n"),
       model: chain[0]?.model ?? "unknown",
       complete: async ({ system, prompt, maxTokens, temperature }) => {
         const call = {

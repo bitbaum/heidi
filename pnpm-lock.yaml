@@ -18,8 +18,8 @@ importers:
         specifier: ^1.21.0
         version: 1.21.0(react@19.3.1)
       '@bitbaum/chatkit':
-        specifier: git+https://github.com/bitbaum/chatkit.git#163c879163d22c6eb633314b3bd4e25712a01899
-        version: git+https://github.com/bitbaum/chatkit.git#163c879163d22c6eb633314b3bd4e25712a01899(react@19.3.1)
+        specifier: ^0.11.0
+        version: 0.11.0(react@19.3.1)
       '@bitbaum/searchkit':
         specifier: git+https://github.com/bitbaum/searchkit.git#v0.2.2
         version: git+https://github.com/bitbaum/searchkit.git#09532b1974c7cb92f38c98decaeed334f3ffea72(react@19.3.1)
@@ -282,9 +282,8 @@ packages:
       react:
         optional: true
 
-  '@bitbaum/chatkit@git+https://github.com/bitbaum/chatkit.git#163c879163d22c6eb633314b3bd4e25712a01899':
-    resolution: {commit: 163c879163d22c6eb633314b3bd4e25712a01899, repo: https://github.com/bitbaum/chatkit.git, type: git}
-    version: 0.6.0
+  '@bitbaum/chatkit@0.11.0':
+    resolution: {integrity: sha512-GEYaxT/ibM8qPDL9XlecgEkiv6x16y1DIl/FqqSG/4WLwHkUwjYbCGxw9EPT/r6xzZah9cRTYm6bYJd8XH3dZQ==}
     engines: {node: '>=20'}
     hasBin: true
     peerDependencies:
@@ -3273,7 +3272,7 @@ snapshots:
     optionalDependencies:
       react: 19.3.1
 
-  '@bitbaum/chatkit@git+https://github.com/bitbaum/chatkit.git#163c879163d22c6eb633314b3bd4e25712a01899(react@19.3.1)':
+  '@bitbaum/chatkit@0.11.0(react@19.3.1)':
     dependencies:
       react: 19.3.1
 
