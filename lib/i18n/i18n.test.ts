@@ -1,5 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { getDictionary } from "./index.ts";
 import {
   DEFAULT_LOCALE,
@@ -395,7 +396,24 @@ test("the headline promises an order, not a pair of features", () => {
       sequence[locale].some((word) => second.startsWith(word)),
       `${locale}: second sentence opens "${second.slice(0, 12)}…" — it must state a sequence (${sequence[locale].join(" / ")}), not join two claims`,
     );
+    assert.ok(getDictionary(locale).home.ctaTry.trim(), `${locale}: the hero has no button`);
   }
+});
+
+test("the home page shows one sentence as the title and a button under it", () => {
+  // The two sentences stay one promise in the dictionary. On the page they are
+  // not one heading: the first is the title, the second the line under it, and
+  // a button sits there because the title used to be the only thing in that
+  // column you could not press.
+  const page = readFileSync(new URL("../../app/[locale]/page.tsx", import.meta.url), "utf8");
+  assert.match(page, /t\.headline\.split\(\/\(\?<=\\\.\)\\s\+\/\)/);
+  assert.match(page, /\{headline\}/);
+  assert.match(page, /\{subheadline\}/);
+  assert.match(page, /href="#try"/);
+  assert.match(page, /\{t\.ctaTry\}/);
+  assert.equal(getDictionary("de").home.ctaTry, "Jetzt testen");
+  assert.equal(getDictionary("de").home.headline.split(/(?<=\.)\s+/)[0], "Schweizerdeutsch verstehen.");
+  assert.equal(getDictionary("de").home.headline.split(/(?<=\.)\s+/)[1], "Dann schreiben wie jemand von hier.");
 });
 
 test("every next-move has wording in every language", () => {

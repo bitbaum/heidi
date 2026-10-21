@@ -137,6 +137,7 @@ export const de = {
     contributeCta: "Mitmachen",
     eyebrow: "Züridütsch · für alle, die schon Deutsch können",
     ctaSituations: "Situationen entdecken",
+    ctaTry: "Jetzt testen",
     trustLine: "Gratis, ohne Konto — jede Zeile auf Zürcher Formen geprüft.",
     illustration: "Eine Kuh mit Glocke vor den Alpen sagt «Grüezi mitenand!»",
     stepsTitle: "So kommen Sie weiter",

@@ -49,6 +49,7 @@ export function Speak({ text, t, dialect = false }: { text: string; t: Dictionar
    */
   const spoken = plainTextForSpeech(text);
   const preview = spoken.length > 60 ? `${spoken.slice(0, 60).trimEnd()}…` : spoken;
+  const label = speaking ? t.stop : t.speak;
 
   return (
     /*
@@ -73,16 +74,20 @@ export function Speak({ text, t, dialect = false }: { text: string; t: Dictionar
          * screen reader gave seven identical names and no way to tell which
          * button read which line. Measured on the live site.
          *
-         * The label BEGINS with the visible word, which is the shape
+         * The name BEGINS with the visible word, which is the shape
          * `keep-word.tsx` already uses ("Wort merken: nöd"): a voice-control
-         * user saying "click Vorlesen" still matches, so this is not the
-         * visible-label-and-hidden-twin that #46 removed.
+         * user saying "click Vorlesen" still matches.
+         *
+         * The visible word is aria-hidden. It used to sit in the button as
+         * text AND at the start of this name, so a reader announced it twice
+         * — "Vorlesen, Vorlesen: …". Reported on the German home page. The
+         * eye still sees the word; a reader hears it once.
          */
-        aria-label={`${speaking ? t.stop : t.speak}: ${preview}`}
+        aria-label={preview ? `${label}: ${preview}` : label}
         // min-h-11 and the flex centring are #79's tap-target fix, kept.
         className="inline-flex min-h-11 shrink-0 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
       >
-        {speaking ? t.stop : t.speak}
+        <span aria-hidden="true">{label}</span>
       </button>
       {/* While speaking: what you are hearing. After a refusal or a failure:
           why you are not. All three are the same sentence from the same

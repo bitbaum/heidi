@@ -73,16 +73,27 @@ test("a repeated control names the line it acts on", () => {
   // eleven controls with two names between them and no way to tell which
   // acted on which line.
   //
-  // The fix is the shape `keep-word.tsx` already used ("Wort merken: nöd"):
-  // the label BEGINS with the visible word, so a voice-control user saying
-  // "click Vorlesen" still matches and this is not the visible-label-plus-
-  // hidden-twin that this file's other test exists to forbid.
+  // The name BEGINS with the visible word, so a voice-control user saying
+  // "click Vorlesen" still matches. That word is not also a text node the
+  // reader can see: the name and the visible label used to both say it, and
+  // the button was announced "Vorlesen, Vorlesen: …".
   const here = (rel: string) => readFileSync(fileURLToPath(new URL(rel, import.meta.url)), "utf8");
 
+  const speak = here("./speak-button.tsx");
   assert.match(
-    here("./speak-button.tsx"),
-    /aria-label=\{`\$\{speaking \? t\.stop : t\.speak\}: \$\{preview\}`\}/,
+    speak,
+    /aria-label=\{preview \? `\$\{label\}: \$\{preview\}` : label\}/,
     "the speak control does not say which line it reads",
+  );
+  assert.match(
+    speak,
+    /<span aria-hidden="true">\{label\}<\/span>/,
+    "the visible word must be hidden from the reader, or Vorlesen is announced twice",
+  );
+  assert.doesNotMatch(
+    speak,
+    /\{speaking \? t\.stop : t\.speak\}/,
+    "the visible word is still a second text node beside the name",
   );
   assert.match(
     here("./copy-button.tsx"),

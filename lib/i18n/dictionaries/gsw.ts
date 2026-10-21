@@ -135,6 +135,7 @@ export const gsw: Dictionary = {
     contributeCta: "Mitmache",
     eyebrow: "Züridütsch · für alli, wo scho Dütsch chönd",
     ctaSituations: "Situatione entdecke",
+    ctaTry: "Jetzt probiere",
     trustLine: "Gratis, ohni Konto — jedi Zile uf Zürcher Forme prüeft.",
     illustration: "E Chue mit Glogge vor de Alpe seit «Grüezi mitenand!»",
     stepsTitle: "So chömed Sie wiiter",

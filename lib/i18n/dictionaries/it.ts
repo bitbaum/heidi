@@ -112,6 +112,7 @@ export const it: Dictionary = {
     contributeCta: "Partecipare",
     eyebrow: "Zurighese · per chi sa già il tedesco",
     ctaSituations: "Scoprire le situazioni",
+    ctaTry: "Provare ora",
     trustLine: "Gratis, senza account — ogni frase verificata sulle forme zurighesi.",
     illustration: "Una mucca con il campanaccio davanti alle Alpi dice «Grüezi mitenand!»",
     stepsTitle: "Come andare avanti",
