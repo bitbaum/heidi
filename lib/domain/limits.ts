@@ -158,3 +158,30 @@ export const progressSync = slidingWindow({ limit: 60, windowMs: 5 * 60_000 });
  * changes language thirty times in ten minutes on purpose.
  */
 export const preferenceWrite = slidingWindow({ limit: 30, windowMs: 10 * 60_000 });
+
+/**
+ * Following a channel. One follow resolves a handle against YouTube and reads
+ * a feed — two outside requests on our behalf — so it is rationed per person
+ * like every signed-in write. Twenty in ten minutes is a whole afternoon of
+ * curating; a script hits it in a second.
+ */
+export const channelWrite = slidingWindow({ limit: 20, windowMs: 10 * 60_000 });
+
+/**
+ * Fetching or pasting a video's transcript. A fetch is two requests to
+ * YouTube; a paste is a few kilobytes written once per video. Shared by the
+ * people following the channel, so one person doing it is enough for all.
+ */
+export const videoTranscript = slidingWindow({ limit: 20, windowMs: 10 * 60_000 });
+
+/**
+ * Writing the questions for a video SPENDS A MODEL CALL from the shared free
+ * pool — the same pool the chat draws on. It happens once per video for
+ * everybody who follows the channel, on the first learner's request, so the
+ * ceiling is low on purpose: ten new videos in ten minutes is not a person
+ * learning, it is a loop.
+ */
+export const videoQuestions = slidingWindow({ limit: 10, windowMs: 10 * 60_000 });
+
+/** Turning notifications on or off in a browser. A handful per device. */
+export const pushWrite = slidingWindow({ limit: 20, windowMs: 10 * 60_000 });

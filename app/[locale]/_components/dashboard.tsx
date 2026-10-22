@@ -21,6 +21,8 @@ import { groupsFor } from "@/lib/domain/groups/store";
 import { conversationsFor } from "@/lib/domain/conversations/store";
 import { TodayPanel } from "./today-panel";
 import { WarmupInvite } from "./warmup-invite";
+import { ChannelsPanel } from "./channels-panel";
+import { recentVideosFor } from "@/lib/channels/store";
 
 /**
  * The learner's own page, wherever it is rendered.
@@ -56,9 +58,9 @@ export async function Dashboard({ locale }: { locale: Locale }) {
   // session, and a signed-out visitor costs no query at all. In parallel,
   // because neither answer depends on the other and this page is now the
   // signed-in landing surface — two round trips in series would be felt.
-  const [groups, conversations] = signedIn && dbConfigured()
-    ? await Promise.all([groupsFor(session!.actorId!), conversationsFor(session!.actorId!)])
-    : [[], []];
+  const [groups, conversations, videos] = signedIn && dbConfigured()
+    ? await Promise.all([groupsFor(session!.actorId!), conversationsFor(session!.actorId!), recentVideosFor(session!.actorId!, 8)])
+    : [[], [], []];
 
   return (
     <Shell>
@@ -102,6 +104,10 @@ export async function Dashboard({ locale }: { locale: Locale }) {
         <SituationBoard scenes={scenes} askable={askableByScene} t={dict.situations} locale={locale} />
         <MasteredPanel t={dict.review} grammarT={dict.grammar} vocabularyT={dict.vocabulary} locale={locale} />
         <PatternsPanel t={dict.review} />
+
+        {/* The channels they follow, once they follow one: the newest videos,
+            the new ones marked. Server-rendered, like the groups. */}
+        <ChannelsPanel t={dict.channels} locale={locale} videos={videos} />
 
         {/* THEIR WORDS, one section: the ones due are asked first, then the
             whole list. It works signed out — it all lives in this browser. */}

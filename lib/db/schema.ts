@@ -415,3 +415,101 @@ export const preferences = pgTable("preferences", {
   locale: text("locale").notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
+
+/**
+ * Channels a learner follows, and what came out on them.
+ *
+ * WHY THIS IS ON THE SERVER AT ALL, when the learner model, the saved words
+ * and the streak are deliberately in the browser. Following a channel means
+ * being told when it publishes, and a browser that is closed cannot poll
+ * YouTube. So the follow is a row, the sweep that reads the feeds runs here,
+ * and the thing we keep about the person is exactly one fact: which channels.
+ * What they answered about a video stays in their browser
+ * (`heidi.videos.v1`), like every other measurement of them.
+ *
+ * `channels.id` is the platform's own channel id (the `UC…` string), so two
+ * learners following the same channel share one row and one feed read. The
+ * transcript and the questions are per VIDEO and shared the same way: a
+ * transcript is the publisher's text and the questions are ours about it —
+ * neither is about a learner.
+ */
+export const channels = pgTable("channels", {
+  /** The platform's channel id — `UC…` on YouTube. */
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  /** The `@handle`, when the channel was added by one; for the link we show. */
+  handle: text("handle"),
+  url: text("url").notNull(),
+  /** When the feed was last read. Null until the first sweep. */
+  checkedAt: timestamp("checked_at", { withTimezone: true }),
+  /** Why the last read failed, in a word; null after a good one. */
+  lastError: text("last_error"),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const channelVideos = pgTable(
+  "channel_videos",
+  {
+    /** The platform's video id. */
+    id: text("id").primaryKey(),
+    channelId: text("channel_id")
+      .notNull()
+      .references(() => channels.id, { onDelete: "cascade" }),
+    title: text("title").notNull(),
+    publishedAt: timestamp("published_at", { withTimezone: true }).notNull(),
+    thumbnailUrl: text("thumbnail_url"),
+    description: text("description"),
+    /**
+     * `{ lines, source, lang }` — see `lib/channels/transcript.ts`. Null until
+     * somebody opened the video and it could be fetched or was pasted.
+     */
+    transcript: jsonb("transcript"),
+    /**
+     * `unknown` | `ready` | `none` | `blocked`. `none` is the platform saying
+     * there are no captions; `blocked` is the platform refusing to tell us —
+     * which is what sends the learner to the paste path.
+     */
+    transcriptState: text("transcript_state").notNull().default("unknown"),
+    /** The generated question set, once a learner asked for one. */
+    questions: jsonb("questions"),
+    /** When followers were told about it. Null until the sweep sends. */
+    notifiedAt: timestamp("notified_at", { withTimezone: true }),
+    fetchedAt: timestamp("fetched_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("channel_videos_channel_published_idx").on(t.channelId, t.publishedAt)],
+);
+
+export const channelFollows = pgTable(
+  "channel_follows",
+  {
+    actorId: text("actor_id").notNull(),
+    channelId: text("channel_id")
+      .notNull()
+      .references(() => channels.id, { onDelete: "cascade" }),
+    followedAt: timestamp("followed_at", { withTimezone: true }).notNull().defaultNow(),
+    /** The last time this learner looked at the channel's videos — what "new" means. */
+    seenAt: timestamp("seen_at", { withTimezone: true }),
+  },
+  (t) => [primaryKey({ columns: [t.actorId, t.channelId] }), index("channel_follows_channel_idx").on(t.channelId)],
+);
+
+/**
+ * A browser that asked to be told. The endpoint is the push service's URL for
+ * that one browser and is the identity: re-subscribing from the same browser
+ * replaces the row rather than adding one. Deleted when the push service
+ * answers 404 or 410, which is how a browser that forgot us tells us so.
+ */
+export const pushSubscriptions = pgTable(
+  "push_subscriptions",
+  {
+    endpoint: text("endpoint").primaryKey(),
+    actorId: text("actor_id").notNull(),
+    p256dh: text("p256dh").notNull(),
+    auth: text("auth").notNull(),
+    /** The site language the browser was in, so the notification is in it. */
+    locale: text("locale").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    lastSeenAt: timestamp("last_seen_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("push_subscriptions_actor_idx").on(t.actorId)],
+);

@@ -13,6 +13,7 @@ import { ModelSection } from "./model-section";
 import { VoiceSection } from "./voice-section";
 import { ThemeControl } from "../_components/theme-control";
 import { LanguageLink } from "../_components/language-link";
+import { PushCard } from "../_components/push-card";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -58,6 +59,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
     appearance: t.appearanceTitle,
     voice: dict.voice.settingsTitle,
     model: t.modelTitle,
+    notifications: dict.channels.notifications.title,
     account: t.accountTitle,
     data: t.dataTitle,
   } as const;
@@ -125,6 +127,13 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
 
       <Section id="model" title={sections.model}>
         <ModelSection t={t} model={dict.model} />
+      </Section>
+
+      {/* Between the model and the account: the one setting that reaches a
+          phone when Heidi is closed, and the only thing it ever says is that
+          a followed channel has a new video. */}
+      <Section id="notifications" title={sections.notifications}>
+        <PushCard t={dict.channels.notifications} locale={locale} signedIn={Boolean(session?.actorId)} hasChannels />
       </Section>
 
       <Section id="account" title={sections.account}>

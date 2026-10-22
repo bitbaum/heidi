@@ -30,6 +30,7 @@ const FILES = [
   "situation-board.tsx",
   "recent-conversations.tsx",
   "group-list.tsx",
+  "channels-panel.tsx",
 ];
 
 describe("the personal page", () => {
