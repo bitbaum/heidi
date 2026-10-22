@@ -8,10 +8,9 @@ const request = (authorization?: string) =>
   });
 
 /**
- * The route guards the one door a day of conversations can leave by. No
- * database is configured in this run, which is itself one of the cases: a
- * caller with the right token on a deployment with nothing behind it is told
- * so, not handed an empty array that looks like a quiet night.
+ * The route guards the one door a day of conversations can leave by. One of
+ * the cases is the deployment with no database: a caller with the right token
+ * is told so, not handed an empty array that looks like a quiet night.
  */
 describe("the review export", () => {
   const was = process.env.CHAT_REVIEW_TOKEN;
@@ -35,9 +34,16 @@ describe("the review export", () => {
 
   test("with the right token and no database, says so rather than answering empty", async () => {
     process.env.CHAT_REVIEW_TOKEN = "night-secret";
-    const res = await GET(request("Bearer night-secret"));
-    assert.equal(res.status, 503);
-    const body = (await res.json()) as { error: string };
-    assert.match(body.error, /database/i);
+    // CI runs with a database; this case is the deployment without one.
+    const hadDb = process.env.DATABASE_URL;
+    delete process.env.DATABASE_URL;
+    try {
+      const res = await GET(request("Bearer night-secret"));
+      assert.equal(res.status, 503);
+      const body = (await res.json()) as { error: string };
+      assert.match(body.error, /database/i);
+    } finally {
+      if (hadDb !== undefined) process.env.DATABASE_URL = hadDb;
+    }
   });
 });
