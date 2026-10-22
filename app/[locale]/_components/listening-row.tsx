@@ -70,13 +70,17 @@ export function ListeningRow({
           to nothing. */}
       {/* Two columns, not one wrapping row: the name and publisher take
           what is left and wrap inside it, the button keeps the right edge —
-          so a long title never pushes «Folgen» onto a line of its own. */}
+          so a long title never pushes «Folgen» onto a line of its own. The
+          name may break inside a word, but only when the word alone is wider
+          than the column («Wissenschaftsmagazin» beside «Подписаться» at
+          320px): `break-words` leaves a flex item's minimum at the whole
+          word and the word runs under the button. */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-3 gap-y-1">
           <a
             href={source.url}
             rel="noreferrer"
-            className="inline-flex min-h-11 items-center text-base font-medium leading-snug text-link underline underline-offset-4 hover:text-accent"
+            className="inline-flex min-h-11 min-w-0 items-center text-base font-medium leading-snug wrap-anywhere text-link underline underline-offset-4 hover:text-accent"
           >
             {source.name}
           </a>
