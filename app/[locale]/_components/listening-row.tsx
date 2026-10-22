@@ -1,6 +1,8 @@
 import type { Dictionary } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n/locales";
 import type { ListeningSource } from "@/lib/listening/sources";
 import { DISPLAY } from "@/lib/variety/display";
+import { FollowButton } from "./follow-button";
 
 type T = Dictionary["listening"];
 
@@ -30,7 +32,22 @@ type T = Dictionary["listening"];
  * number would turn a derivation into a claim, and there is no scale behind it
  * to defend. A test in `sources.test.ts` keeps the data side of that promise.
  */
-export function ListeningRow({ source, t, areaNames }: { source: ListeningSource; t: T; areaNames: Map<string, string> }) {
+export function ListeningRow({
+  source,
+  t,
+  areaNames,
+  follow,
+}: {
+  source: ListeningSource;
+  t: T;
+  areaNames: Map<string, string>;
+  /**
+   * The «Folgen» button, for a row with a feed of episodes (a podcast or a
+   * YouTube channel). Absent on the dialect pages, which list by area and
+   * are not where somebody decides what to keep up with.
+   */
+  follow?: { t: Dictionary["channels"]; locale: Locale };
+}) {
   const chips = [
     t.voices[source.voices],
     source.scripted ? t.scripted : t.spontaneous,
@@ -51,15 +68,31 @@ export function ListeningRow({ source, t, areaNames }: { source: ListeningSource
           right of the page. Right-aligned, it drifted an inch of empty space
           away from the thing it names at desktop width, and read as belonging
           to nothing. */}
-      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <a
-          href={source.url}
-          rel="noreferrer"
-          className="inline-flex min-h-11 items-center text-base font-medium leading-snug text-link underline underline-offset-4 hover:text-accent"
-        >
-          {source.name}
-        </a>
-        <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{source.publisher}</span>
+      {/* Two columns, not one wrapping row: the name and publisher take
+          what is left and wrap inside it, the button keeps the right edge —
+          so a long title never pushes «Folgen» onto a line of its own. The
+          name may break inside a word, but only when the word alone is wider
+          than the column («Wissenschaftsmagazin» beside «Подписаться» at
+          320px): `break-words` leaves a flex item's minimum at the whole
+          word and the word runs under the button. */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-3 gap-y-1">
+          <a
+            href={source.url}
+            rel="noreferrer"
+            className="inline-flex min-h-11 min-w-0 items-center text-base font-medium leading-snug wrap-anywhere text-link underline underline-offset-4 hover:text-accent"
+          >
+            {source.name}
+          </a>
+          <span className="font-mono text-caption uppercase tracking-caps text-fg-muted">{source.publisher}</span>
+        </div>
+        {/* The one action, at the end of the row: only where there is a feed
+            to follow, so «Folgen» never promises what a film cannot keep. */}
+        {follow && (source.medium === "podcast" || source.medium === "youtube") && source.linkKind === "play" && (
+          <span className="shrink-0">
+            <FollowButton input={source.url} register={source.id} t={follow.t} locale={follow.locale} />
+          </span>
+        )}
       </div>
 
       <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">

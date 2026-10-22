@@ -49,6 +49,8 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
       items: [
         "Das Transkript sind die Untertitel der Plattform — und es steht jedes Mal dabei, ob vom Sender, automatisch («bei Mundart oft falsch») oder von Hand eingefügt. Gibt YouTube einem Server das Transkript nicht heraus, zeigt der Bildschirm die drei Schritte zum Kopieren aus YouTubes eigenem Transkript-Fenster.",
         "Die Fragen schreibt das Modell einmal pro Video aus dem Transkript; jede wird gegen das Transkript geprüft, bevor jemand sie sieht, und alle, die dem Kanal folgen, bekommen dieselben. Keine Note: eine Zahl mit Nenner und die Stellen zum Nachhören.",
+        "Podcasts gehören dazu: Der Feed eines Podcasts wird gelesen wie der eines Kanals, die Seite des Senders oder ein Apple-Podcasts-Link führt dorthin, und unter «Hören» hat jeder Podcast und jeder YouTube-Kanal einen Knopf «Folgen». Eine Folge läuft im Player des Browsers, mit fünf Sekunden zurück und 0,75×. Gibt der Sender kein Transkript mit, hört Heidi die ersten Minuten selbst mit — gekennzeichnet als automatisch, und nie bei Mundart, wo die Erkennung übersetzen statt mitschreiben würde.",
+        "Behoben, gefunden beim angemeldeten Durchgang: Jede angemeldete Seite zeigte den abgemeldeten Zustand — das Konto-Paket gab Seiten den Nutzer ohne die Kennung, an der sie hängen, den API-Routen aber mit. Deshalb baten «Mein Bereich» und «Ihre Kanäle» ums Anmelden, während das Folgen selbst funktionierte. Ein Leser für beide (accountkit 0.5.2).",
         "Folgen läutet beim nächsten Video, nie bei den letzten fünfzehn, und nichts hier mahnt ans Üben. Was Sie geantwortet haben, bleibt in Ihrem Browser; auf dem Server liegt nur, welchen Kanälen Sie folgen — nachlesbar unter «Datenschutz».",
       ],
     },
@@ -663,6 +665,8 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
       items: [
         "The transcript is the platform's captions — and it always says whether they are the publisher's, automatic («often wrong on dialect») or pasted by hand. When YouTube refuses a server the transcript, the screen shows the three steps to copy it from YouTube's own transcript panel.",
         "The model writes the questions once per video from the transcript; each is checked against the transcript before anyone sees it, and everyone following the channel gets the same ones. No grade: a count with its denominator, and the parts to replay.",
+        "Podcasts belong: a podcast's feed is read like a channel's, the publisher's page or an Apple Podcasts link leads to it, and every podcast and YouTube channel under «Listen» has a «Follow» button. An episode plays in the browser's own player, with back five seconds and 0.75×. Where the publisher gives no transcript, Heidi listens to the first minutes herself — labelled as automatic, and never on dialect, where recognition would translate rather than transcribe.",
+        "Fixed, found on the signed-in walkthrough: every signed-in page drew the signed-out state — the accounts package gave pages the user without the id they key on, and API routes the user with it. So the dashboard and «Your channels» asked you to sign in while following itself worked. One reader for both (accountkit 0.5.2).",
         "Following rings for the next video, never the last fifteen, and nothing here nags you to practise. What you answered stays in your browser; the server holds only which channels you follow — readable under «Privacy».",
       ],
     },

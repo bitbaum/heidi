@@ -6,7 +6,7 @@ import { sendPush } from "../push/send.ts";
 import { readFeed } from "./remote.ts";
 import { sweep, type DueChannel, type PushPayload, type SweepOptions, type SweepReport } from "./sweep.ts";
 import * as store from "./store.ts";
-import type { FeedVideo } from "./youtube.ts";
+import type { Item } from "./source.ts";
 
 /**
  * The sweep, wired to the real database, the real YouTube and the real push
@@ -20,7 +20,7 @@ import type { FeedVideo } from "./youtube.ts";
  */
 
 /** The notification's words, in the browser's own language. */
-export function notificationFor(video: FeedVideo, channel: DueChannel, rawLocale: string): PushPayload {
+export function notificationFor(video: Item, channel: DueChannel, rawLocale: string): PushPayload {
   const locale = isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
   const t = getDictionary(locale).channels.push;
   return {
@@ -45,7 +45,7 @@ export function sweepFor(actorId: string, options: SweepOptions = {}): Promise<S
 function deps() {
   return {
     due: (olderThan: Date, limit: number) => store.dueChannels(olderThan, limit),
-    readFeed: (channelId: string) => readFeed(channelId, fetch),
+    readFeed: (channel: DueChannel) => readFeed(channel, fetch),
     record: store.recordVideos,
     followersOf: store.followersOf,
     subscriptionsFor: store.subscriptionsFor,

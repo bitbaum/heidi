@@ -1,7 +1,7 @@
 import { requireActor } from "../../../../lib/domain/actor.ts";
 import { actorKey, channelWrite, tooMany } from "../../../../lib/domain/limits.ts";
 import { unfollow } from "../../../../lib/channels/store.ts";
-import { isChannelId } from "../../../../lib/channels/youtube.ts";
+import { isSourceId } from "../../../../lib/channels/rss.ts";
 import { FEATURE } from "../route.ts";
 
 export const dynamic = "force-dynamic";
@@ -14,7 +14,7 @@ export async function DELETE(_request: Request, context: { params: Promise<{ id:
   if (!allowed.allowed) return tooMany(allowed);
 
   const { id } = await context.params;
-  if (!isChannelId(id)) return Response.json({ error: "invalid" }, { status: 400 });
+  if (!isSourceId(id)) return Response.json({ error: "invalid" }, { status: 400 });
   await unfollow(who.actorId, id);
   return new Response(null, { status: 204 });
 }

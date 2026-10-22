@@ -185,3 +185,10 @@ export const videoQuestions = slidingWindow({ limit: 10, windowMs: 10 * 60_000 }
 
 /** Turning notifications on or off in a browser. A handful per device. */
 export const pushWrite = slidingWindow({ limit: 20, windowMs: 10 * 60_000 });
+
+/**
+ * Heidi listening to a podcast's opening minutes herself. Audio seconds on
+ * the shared speech tier, once per episode for everybody who follows the
+ * show — six in ten minutes is a person opening episodes, not a loop.
+ */
+export const episodeTranscribe = slidingWindow({ limit: 6, windowMs: 10 * 60_000 });

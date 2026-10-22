@@ -17,6 +17,9 @@ Votes on roadmap items and new proposals — on an auditable record, signed with
 
 ## Later
 
+### The same for French
+The same build, another language pack and another name — for everyone who works in Romandie. Ukrainian after that.
+
 ### The listening lab
 Many different Zurich voices — people who hear several speakers understand the next one better.
 
