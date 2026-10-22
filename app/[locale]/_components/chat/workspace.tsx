@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import type { AnswerFeedback } from "@bitbaum/chatkit";
 import { ChatScreen } from "@bitbaum/chatkit/react";
 import { LEARNER_ID, type ChatMessage } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
@@ -20,6 +21,7 @@ import { conversationTransport, streamingDraftTransport, type ConversationSummar
 import { ConversationList } from "./conversation-list";
 import { WordPick } from "./word-pick";
 import { NewChatButton } from "./new-chat-button";
+import { postFeedback } from "./feedback";
 import { MenuIcon } from "./icons";
 import { useKeyboardViewport } from "../use-keyboard-viewport";
 import { useDismiss } from "../use-dismiss";
@@ -251,6 +253,17 @@ export function ChatWorkspace({
     }
   }, [draft, locale, router]);
 
+  /**
+   * A thumb goes to the conversation on screen — or to `draft` while the
+   * thread lives only in this browser. Built from the state for the reason
+   * `transport` is: "new chat" nulls the id, and a thumb must not be filed
+   * under the thread the person just walked away from.
+   */
+  const feedback = useCallback(
+    (f: AnswerFeedback) => postFeedback(signedIn ? conversationId : null, f),
+    [signedIn, conversationId],
+  );
+
   const started = messages.length > 0;
   /**
    * What the learner actually wrote before signing in — the FIRST turn of
@@ -424,7 +437,8 @@ export function ChatWorkspace({
                 streaming={chat.streaming}
                 onRetry={chat.retry}
                 onMove={chat.send}
-            locale={locale}
+                onFeedback={feedback}
+                locale={locale}
                 endRef={endRef}
                 className="flex flex-col gap-4"
               />

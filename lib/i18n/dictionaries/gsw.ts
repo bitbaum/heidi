@@ -307,6 +307,23 @@ export const gsw: Dictionary = {
     cannotSeePicture:
       "Heidi cha grad kei Bilder läse. Schickid de Text, oder verbindid es eigens Modell, wo Bilder liist.",
     retry: "Nomal",
+    feedback: {
+      good: "Gueti Antwort",
+      bad: "Schlächti Antwort",
+      title: "Was isch nöd guet gsi?",
+      reasons: {
+        wrong: "Es stimmt nöd",
+        dead_end: "Hät ufggä statt nacheluege",
+        vague: "Z vag",
+        misread: "Frag falsch verstande",
+        too_long: "Z lang",
+        format: "Schwär z läse",
+        other: "Öppis anders",
+      },
+      more: "Wänd Si na öppis ergänze?",
+      send: "Schicke",
+      thanks: "Merci, notiert.",
+    },
     /**
      * The full-screen chat. Its own object so the homepage box — which shares
      * every other string in here — does not have to carry strings it never

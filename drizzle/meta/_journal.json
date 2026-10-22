@@ -64,6 +64,13 @@
       "when": 1792658532103,
       "tag": "0008_channels",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1792687703240,
+      "tag": "0009_chat_feedback",
+      "breakpoints": true
     }
   ]
 }

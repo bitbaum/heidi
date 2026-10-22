@@ -185,3 +185,12 @@ export const videoQuestions = slidingWindow({ limit: 10, windowMs: 10 * 60_000 }
 
 /** Turning notifications on or off in a browser. A handful per device. */
 export const pushWrite = slidingWindow({ limit: 20, windowMs: 10 * 60_000 });
+
+/**
+ * A thumb under an answer.
+ *
+ * Chat rates, keyed by caller: it writes one small row per press and needs no
+ * account, like the chat it sits under. Thirty in five minutes is somebody
+ * rating every answer of a long conversation; a script hits it in a second.
+ */
+export const chatFeedback = slidingWindow({ limit: 30, windowMs: 5 * 60_000 });

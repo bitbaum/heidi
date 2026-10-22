@@ -9,6 +9,7 @@ import type { Locale } from "@/lib/i18n/locales";
 import { ModelSheet } from "./model-sheet";
 import { Composer } from "./chat/composer";
 import { Transcript } from "./chat/transcript";
+import { draftFeedback } from "./chat/feedback";
 import { useDraftChat } from "./chat/use-draft-chat";
 import { WordPick } from "./chat/word-pick";
 import { NewChatButton } from "./chat/new-chat-button";
@@ -132,6 +133,7 @@ export function Chat({
                 streaming={chat.streaming}
                 onRetry={chat.retry}
                 onMove={chat.send}
+                onFeedback={draftFeedback}
                 locale={locale}
                 endRef={endRef}
                 className="flex flex-col gap-4"

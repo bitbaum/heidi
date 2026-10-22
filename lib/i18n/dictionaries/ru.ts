@@ -292,6 +292,23 @@ export const ru: Dictionary = {
     cannotSeePicture:
       "Heidi сейчас не может читать изображения. Пришлите текст или подключите свою модель, которая читает изображения.",
     retry: "Ещё раз",
+    feedback: {
+      good: "Хороший ответ",
+      bad: "Плохой ответ",
+      title: "Что было не так?",
+      reasons: {
+        wrong: "Это неверно",
+        dead_end: "Сдалась, вместо того чтобы поискать",
+        vague: "Слишком расплывчато",
+        misread: "Неправильно поняла вопрос",
+        too_long: "Слишком длинно",
+        format: "Трудно читать",
+        other: "Другое",
+      },
+      more: "Хотите что-то добавить?",
+      send: "Отправить",
+      thanks: "Спасибо, записано.",
+    },
     /**
      * The full-screen chat. Its own object so the homepage box — which shares
      * every other string in here — does not have to carry strings it never

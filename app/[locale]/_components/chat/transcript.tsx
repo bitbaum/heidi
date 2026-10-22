@@ -1,6 +1,8 @@
 "use client";
 
 import type { RefObject } from "react";
+import type { AnswerFeedback } from "@bitbaum/chatkit";
+import { AnswerActions } from "@bitbaum/chatkit/react";
 import type { ChatMessage } from "@/lib/domain/chat/types";
 import { HEIDI_ID } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
@@ -36,6 +38,7 @@ export function Transcript({
   nameFor,
   onRetry,
   onMove,
+  onFeedback,
   locale,
   endRef,
   className,
@@ -63,6 +66,12 @@ export function Transcript({
    * Absent on a surface that cannot send, where chips would be dead buttons.
    */
   onMove?: (say: string) => void;
+  /**
+   * A thumb under an answer (chatkit's feedback loop). The surface says where
+   * it goes — a saved conversation or the browser-only draft — and this only
+   * draws the row. Absent on a surface that cannot file one.
+   */
+  onFeedback?: (feedback: AnswerFeedback) => void;
   /** For the grammar link on a chip. Absent means no grammar chips. */
   locale?: Locale;
   endRef?: RefObject<HTMLDivElement | null>;
@@ -120,15 +129,41 @@ export function Transcript({
                 // from THIS message rather than from the end matters: taking
                 // the last question would tag every kept word in a long thread
                 // with whatever was asked most recently.
-                <AnswerView
-                  answer={m.answer}
-                  t={t}
-                  voiceT={voiceT}
-                  context={askedBefore(messages, i, me)}
-                  onMove={onMove}
-                  onReply={i === last ? replyable : undefined}
-                  locale={locale}
-                />
+                <>
+                  <AnswerView
+                    answer={m.answer}
+                    t={t}
+                    voiceT={voiceT}
+                    context={askedBefore(messages, i, me)}
+                    onMove={onMove}
+                    onReply={i === last ? replyable : undefined}
+                    locale={locale}
+                  />
+                  {/* The fleet's one row under an answer: Copy, Listen (the
+                      explanation, in the reader's language — the dialect
+                      lines keep Heidi's own Speak and its caveat), and the
+                      thumbs. Share is off: a private answer has no URL. */}
+                  <AnswerActions
+                    text={m.answer.text}
+                    messageId={m.id}
+                    onFeedback={onFeedback}
+                    share={false}
+                    labels={{
+                      copy: t.copy,
+                      copied: t.copied,
+                      listen: voiceT.speak,
+                      stop: voiceT.stop,
+                      retry: t.retry,
+                      good: t.feedback.good,
+                      bad: t.feedback.bad,
+                      feedbackTitle: t.feedback.title,
+                      feedbackReasons: t.feedback.reasons,
+                      feedbackMore: t.feedback.more,
+                      feedbackSend: t.feedback.send,
+                      feedbackThanks: t.feedback.thanks,
+                    }}
+                  />
+                </>
               ) : (
                 <p className="whitespace-pre-wrap text-base leading-relaxed text-fg-primary">{m.body}</p>
               )}
