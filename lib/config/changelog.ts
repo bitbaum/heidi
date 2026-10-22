@@ -41,6 +41,18 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-10-22",
+      tag: "feature",
+      title: "Ihre Kanäle: YouTube schauen, verstehen, gefragt werden",
+      summary:
+        "Unter «Ihre Kanäle» folgen Sie YouTube-Kanälen, die Sie ohnehin schauen — per Link, Video-Link oder @Name, oder aus dem Verzeichnis unter «Hören». Heidi liest die Kanäle stündlich, zeigt, was seit Ihrem letzten Besuch neu ist, und sagt Ihrem Telefon Bescheid, wenn Sie Benachrichtigungen einschalten. Zu jedem Video gibt es dann Fragen: eine vor dem ersten Hören, drei bis fünf danach, jede falsche Antwort mit der Stelle, an der es gesagt wurde.",
+      items: [
+        "Das Transkript sind die Untertitel der Plattform — und es steht jedes Mal dabei, ob vom Sender, automatisch («bei Mundart oft falsch») oder von Hand eingefügt. Gibt YouTube einem Server das Transkript nicht heraus, zeigt der Bildschirm die drei Schritte zum Kopieren aus YouTubes eigenem Transkript-Fenster.",
+        "Die Fragen schreibt das Modell einmal pro Video aus dem Transkript; jede wird gegen das Transkript geprüft, bevor jemand sie sieht, und alle, die dem Kanal folgen, bekommen dieselben. Keine Note: eine Zahl mit Nenner und die Stellen zum Nachhören.",
+        "Folgen läutet beim nächsten Video, nie bei den letzten fünfzehn, und nichts hier mahnt ans Üben. Was Sie geantwortet haben, bleibt in Ihrem Browser; auf dem Server liegt nur, welchen Kanälen Sie folgen — nachlesbar unter «Datenschutz».",
+      ],
+    },
+    {
       date: "2026-10-15",
       tag: "feature",
       title: "Ein Konto bei Heidi, ohne OrangeCat",
@@ -642,6 +654,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-22",
+      tag: "feature",
+      title: "Your channels: watch YouTube, understand it, be asked about it",
+      summary:
+        "Under «Your channels» you follow YouTube channels you watch anyway — by link, video link or @name, or from the register under «Listen». Heidi reads the channels hourly, shows what is new since your last visit, and tells your phone when you turn notifications on. Every video then comes with questions: one before the first listen, three to five after it, every wrong answer with the moment it was said.",
+      items: [
+        "The transcript is the platform's captions — and it always says whether they are the publisher's, automatic («often wrong on dialect») or pasted by hand. When YouTube refuses a server the transcript, the screen shows the three steps to copy it from YouTube's own transcript panel.",
+        "The model writes the questions once per video from the transcript; each is checked against the transcript before anyone sees it, and everyone following the channel gets the same ones. No grade: a count with its denominator, and the parts to replay.",
+        "Following rings for the next video, never the last fifteen, and nothing here nags you to practise. What you answered stays in your browser; the server holds only which channels you follow — readable under «Privacy».",
+      ],
+    },
     {
       date: "2026-10-15",
       tag: "feature",

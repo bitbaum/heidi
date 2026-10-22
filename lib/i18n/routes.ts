@@ -22,6 +22,7 @@ export type RouteKey =
   | "practice"
   | "warmup"
   | "listen"
+  | "channels"
   | "dialect"
   | "essays"
   | "vocabulary"
@@ -142,6 +143,10 @@ export const ROUTES: readonly Route[] = [
   // mid-sentence. Indexed and high, because "Swiss German podcasts" is a real
   // search whose unanswered half is which programmes are actually dialect.
   { key: "listen", segment: "listen", group: "practise", indexed: true, priority: 0.85 },
+  // The channels a person follows — a personal page, so out of the menu like
+  // the dashboard and settings, and reached from `/listen`, the dashboard and
+  // a notification. Not indexed: it is nobody's page but theirs.
+  { key: "channels", segment: "channels", indexed: false, priority: 0.3 },
   // FIRST in `learn`, above grammar and the word list, because it is the one
   // that answers "what will actually be said to me" rather than "what is this
   // language like". The scene is the material; the DOING is `/practice`, which

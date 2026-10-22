@@ -214,6 +214,52 @@ export const FLOWS: readonly Flow[] = [
     leavesDevice: true,
     recipients: [],
   },
+  /**
+   * Channels. The follow is the one fact about the person that has to be on
+   * the server — a closed browser cannot poll YouTube — and it is the only
+   * one: what they watched and answered stays in their browser, under
+   * `heidi.videos.v1`. The transcript is the publisher's text, shared per
+   * video; it goes to a model vendor once, to write the questions.
+   */
+  {
+    id: "channelFollows",
+    place: "server",
+    where: "channels · channel_follows",
+    leavesDevice: true,
+    recipients: [],
+  },
+  {
+    // Only when switched on, per browser. The push service is the browser
+    // vendor's; it carries the channel's name and the video's title.
+    id: "pushSubscriptions",
+    place: "server",
+    where: "push_subscriptions",
+    leavesDevice: true,
+    recipients: ["Apple", "Google", "Mozilla"],
+  },
+  {
+    id: "videoTranscripts",
+    place: "server",
+    where: "channel_videos",
+    leavesDevice: true,
+    recipients: [...MODEL_VENDORS],
+  },
+  {
+    id: "videoAnswers",
+    place: "device",
+    where: "localStorage · heidi.videos.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
+  {
+    // The IFrame player on the privacy-enhanced host. Like any embed, the
+    // viewer's address reaches the platform the moment it plays.
+    id: "videoEmbed",
+    place: "vendor",
+    where: "youtube-nocookie.com · iframe_api",
+    leavesDevice: true,
+    recipients: ["YouTube"],
+  },
   {
     // Issued on request from synced progress: the situation, when, and what was
     // measured. No name — the certificate's page is public.

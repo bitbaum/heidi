@@ -5,6 +5,7 @@ import { byMedium, flow } from "@/lib/listening/flow";
 import { dayCursor } from "@/lib/listening/today";
 import { DISPLAY } from "@/lib/variety/display";
 import { ListeningRow } from "../_components/listening-row";
+import { ChannelsInvite } from "../_components/channels-invite";
 import { BandHeader, Shell } from "../_components/page-shell";
 import { SectionNav, SectionNavLayout } from "../_components/section-nav";
 
@@ -104,6 +105,11 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
           <p className="mt-3 text-base leading-relaxed text-fg-secondary">{t.diglossiaBody}</p>
           <p className="mt-3 text-sm leading-relaxed text-fg-muted">{t.basisNote}</p>
         </section>
+
+        {/* The one thing on this page that is yours: channels Heidi watches
+            for you. Between the warning and the picks, because it is what
+            turns a catalogue into a habit. */}
+        <ChannelsInvite t={dictionary.channels.invite} locale={locale} />
 
         {/* After the warning and before the catalogue: the trap first, then
             what to do about it today, then everything there is. */}

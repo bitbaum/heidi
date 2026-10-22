@@ -21,6 +21,12 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-10-22
+
+- Your channels (`/channels`): follow YouTube channels you already watch — a channel link, a video link or the `@handle`, or one of the register's rows with what is spoken beside it. Heidi reads each channel's public feed hourly (no API key; loki's app-cron timer calls `/api/cron/channels`) and inline when you open the page, lists what is new since your last visit, and tells your phone about a new video if you turned notifications on (Web Push, per browser, from settings or the channels page). Following rings for the next video, never the back catalogue; nothing here ever reminds you to practise.
+- One video (`/channels/<id>`): the listening lab's exercise on real media — a gist question before the first listen, three to five detail questions in Standard German after it, every wrong answer answered with the line that was said and a button that plays that second, then the transcript, tap a line to hear it. A count with its denominator, no score. The transcript is the platform's captions, labelled as the publisher's, as automatic («bei Mundart oft falsch») or as pasted; the questions are written by the model from it once per video, checked against the transcript before anybody sees them, and shared with every follower.
+- Said plainly where it bites: YouTube often refuses a server the captions. The screen then shows the three steps to copy the transcript from YouTube's own panel and paste it, and the result is labelled as pasted. What you answered stays in your browser (`heidi.videos.v1`); the follow is the one thing on the server, and all of it is on `/privacy`.
+
 ## 2026-10-15
 
 - Heidi has its own accounts on `@bitbaum/accountkit/auth` (better-auth): email and password, passkeys and two-step codes, with «Continue with OrangeCat» as one option rather than the only way in. People whose first way in was OrangeCat keep the OrangeCat actor id as their id (`legacyIdentityProvider`), so every existing group, conversation and certificate stays theirs without a data migration. next-auth is gone; existing sessions end once.

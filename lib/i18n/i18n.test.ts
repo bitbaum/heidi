@@ -193,7 +193,7 @@ test("nothing private is in the sitemap", () => {
   // page's own robots meta, and search engines distrust both signals when they
   // disagree. The portal and settings are personal; the investor room is
   // password-gated, and listing it would be a sign on the door.
-  const PRIVATE = ["portal", "settings", "investors"] as const;
+  const PRIVATE = ["portal", "settings", "investors", "channels"] as const;
   for (const key of PRIVATE) {
     assert.ok(!INDEXED_ROUTES.some((r) => r.key === key), `${key} must not be indexed`);
   }
@@ -256,6 +256,9 @@ test("route segments are the same in every language", () => {
       // English like every other segment.
       "warmup",
       "listen",
+      // `channels` is personal — the YouTube channels one learner follows —
+      // and out of the menu like the dashboard; reached from `listen`.
+      "channels",
       // `situations` leads the material group now: it answers "what will
       // actually be said to me", which is the question somebody arrives with,
       // where grammar and the word list answer "what is this language like".

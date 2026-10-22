@@ -47,6 +47,10 @@ export const APP_TABLES = [
   "feedback_support",
   "progress_devices",
   "certificates",
+  "channels",
+  "channel_videos",
+  "channel_follows",
+  "push_subscriptions",
 ] as const;
 
 export type SchemaProblem = { table: string; problem: string };

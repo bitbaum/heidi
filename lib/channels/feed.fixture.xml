@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns:media="http://search.yahoo.com/mrss/" xmlns="http://www.w3.org/2005/Atom">
+ <link rel="self" href="http://www.youtube.com/feeds/videos.xml?channel_id=UCqdXpIZSamBceDmH8uOoTHA"/>
+ <id>yt:channel:qdXpIZSamBceDmH8uOoTHA</id>
+ <yt:channelId>qdXpIZSamBceDmH8uOoTHA</yt:channelId>
+ <title>SRF News &amp; Hintergründe</title>
+ <link rel="alternate" href="https://www.youtube.com/channel/UCqdXpIZSamBceDmH8uOoTHA"/>
+ <author>
+  <name>SRF News &amp; Hintergründe</name>
+  <uri>https://www.youtube.com/channel/UCqdXpIZSamBceDmH8uOoTHA</uri>
+ </author>
+ <published>2018-06-05T15:37:45+00:00</published>
+ <entry>
+  <id>yt:video:aUvUmnzEpyU</id>
+  <yt:videoId>aUvUmnzEpyU</yt:videoId>
+  <yt:channelId>UCqdXpIZSamBceDmH8uOoTHA</yt:channelId>
+  <title>Epsteins Netz 4/4: Survivor Sister</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=aUvUmnzEpyU"/>
+  <author>
+   <name>SRF News &amp; Hintergründe</name>
+   <uri>https://www.youtube.com/channel/UCqdXpIZSamBceDmH8uOoTHA</uri>
+  </author>
+  <published>2026-10-21T23:17:04+00:00</published>
+  <updated>2026-10-22T07:41:06+00:00</updated>
+  <media:group>
+   <media:title>Epsteins Netz 4/4: Survivor Sister</media:title>
+   <media:content url="https://www.youtube.com/v/aUvUmnzEpyU?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/aUvUmnzEpyU/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Sie nennen sich «Survivor Sisters» und sprechen öffentlich über sexuellen Missbrauch durch Jeffrey Epstein und andere mächtige Männer. In Folge 4 von «Epsteins Netz – bis in die Sc…</media:description>
+   <media:community>
+    <media:starRating count="40" average="5.00" min="1" max="5"/>
+    <media:statistics views="1093"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:F-HDWrd2WbA</id>
+  <yt:videoId>F-HDWrd2WbA</yt:videoId>
+  <yt:channelId>UCqdXpIZSamBceDmH8uOoTHA</yt:channelId>
+  <title>Orangensaft im Test: Lohnt sich teurer Orangensaft aus dem Kühlregal? | 2026 | Kassensturz | SRF</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=F-HDWrd2WbA"/>
+  <author>
+   <name>SRF News &amp; Hintergründe</name>
+   <uri>https://www.youtube.com/channel/UCqdXpIZSamBceDmH8uOoTHA</uri>
+  </author>
+  <published>2026-10-21T15:15:33+00:00</published>
+  <updated>2026-10-22T08:24:36+00:00</updated>
+  <media:group>
+   <media:title>Orangensaft im Test: Lohnt sich teurer Orangensaft aus dem Kühlregal? | 2026 | Kassensturz | SRF</media:title>
+   <media:content url="https://www.youtube.com/v/F-HDWrd2WbA?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i3.ytimg.com/vi/F-HDWrd2WbA/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Orangensäfte aus dem Kühlregal können im Detailhandel doppelt so viel kosten wie die ungekühlten Säfte. «Kassensturz» will wissen: Lohnt sich der Aufpreis? Und welcher Orangensaft …</media:description>
+   <media:community>
+    <media:starRating count="67" average="5.00" min="1" max="5"/>
+    <media:statistics views="9066"/>
+   </media:community>
+  </media:group>
+ </entry>
+</feed>

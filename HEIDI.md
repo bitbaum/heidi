@@ -1467,9 +1467,97 @@ doing:
    a source a learner can already reach, a measurement of what they caught, and
    the same speaker-change effect the two loops below describe.
 
+**Built: your channels — the listening lab, on the media that already exist.**
+*2026-10-22.* The lab waited on recordings nobody had made. The largest
+source of exposure in the world does not: the YouTube channels a learner
+already watches. So the exercise below ships on those first, in the order the
+owner asked for it — understanding first, Standard German first, dialect when
+the transcript question is solved — and the register (`/listen`) is where the
+channels come from.
+
+What it is, concretely (`lib/channels/`, `/channels`, `/channels/<video>`):
+
+- **Follow a channel.** Paste a channel link, a video link or an `@handle`; the
+  register's YouTube rows are offered with their `spoken` label beside them.
+  No API key: the channel's public Atom feed is read (`youtube.ts`,
+  `parseFeed`), the page behind a handle names its id, oEmbed names a video's
+  channel. A channel is followed only once its feed has answered, and its
+  back catalogue arrives marked as dealt with — following rings for the
+  NEXT video, never the last fifteen (`sweep.ts`, `recipients`).
+- **The sweep.** Hourly on the box (loki `install-app-crons.sh` →
+  `/api/cron/channels`, bearer `CRON_SECRET`), and inline for a learner's own
+  stale channels when they open the page, so the page is right on a box where
+  the timer was never installed. It reads XML and sends pushes. **It calls no
+  model** — the fleet's rule (2026-09-25) that nothing in the background
+  spends the free pool.
+- **The notification.** Web Push, per browser, VAPID keys from the
+  environment (`lib/push/send.ts`, after Loki's). It says one thing, in the
+  browser's own language: «\<channel\>: neues Video», the title, a link. Never
+  a reminder to practise — §3's rule about loss framing, kept here where a
+  phone's lock screen is the most tempting place to break it. The dashboard
+  shows the same videos with the new ones marked, for everybody who did not
+  turn the push on.
+- **The exercise** is the design below, unchanged in its order: a gist
+  question shown BEFORE the first listen; three to five detail questions,
+  multiple choice, in the bridge, testing meaning; each wrong answer answered
+  with «Hier gesagt:» and the line, with a button that plays exactly that
+  segment (the IFrame API can seek); then the transcript, tap a line to hear
+  it, the lines that answered a missed question marked. The summary is a
+  count with a denominator and the lines to replay. No score.
+- **The transcript, and the honest part.** It is the platform's captions —
+  the publisher's where they exist, the automatic ones where the pack says
+  automatic recognition in that language is worth trusting
+  (`accepted.ts`: the target and its sibling/roof bridges; never a gloss
+  language, never automatic captions in the target variety when the
+  recogniser translates it away). Its source is printed above every
+  transcript and every question set: «Untertitel des Senders», «Automatische
+  Untertitel — maschinell erstellt, bei Mundart oft falsch», or «von Hand
+  eingefügt». That is §8's rule carried to the one place a learner would take
+  a recogniser's guess for a fact.
+- **The questions** are written by the model from the transcript, once per
+  video on the first follower's request, and shared (`questions.ts`). What
+  comes back is refused unless every detail question cites a line that
+  exists, the answer index is in range and the options are distinct — a
+  learner told «wrong» by a question whose answer is not in the video is §8's
+  failure one level down. Two attempts, then «Heidi konnte keine brauchbaren
+  Fragen schreiben» and the transcript alone.
+
+**The thing that does not work from a server, said plainly.** YouTube answers
+a data-centre address with «sign in to confirm you are not a bot» for the
+caption tracks (checked 2026-10-22 from a sandbox: feed 200, handle page 200,
+watch page 429 via Google's interstitial, every InnerTube client
+`LOGIN_REQUIRED`). The box may or may not be refused on a given day; the code
+assumes nothing and the refusal is a first-class state (`blocked`), not an
+error. The screen then shows the way through on the same screen, per the
+no-dead-ends rule: open the video on YouTube, «… mehr» → «Transkript
+anzeigen», copy, paste. `parsePasted` reads the panel's format, SRT and
+WebVTT, and the result is labelled as pasted. A server-side transcription of
+the audio (`yt-dlp` + the bridge recogniser) was considered and not built:
+the download meets the same block, and it would put a machine transcript of
+dialect on the screen, which §8 forbids.
+
+**Where the learner's data sits.** The follow is the one fact that has to be
+on the server — a closed browser cannot poll — and it is the only one:
+`channel_follows` holds the channel id and when. What they answered is in
+their browser (`heidi.videos.v1`), like every other measurement of them, and
+feeds the streak. The transcript and the questions are per video and shared,
+because neither is about a person. All of it is on `/privacy`, by table and
+key, including the embed itself (the player is YouTube's; it sees an IP the
+moment it plays — the `youtube-nocookie.com` host, so no advertising cookie
+before that).
+
+**What this is not yet.** Dialect videos with no publisher captions get no
+questions, and the page says so rather than guessing. Keeping a word from a
+transcript line into review, and the transcript's lines becoming practice
+items with a `listen` scope, are the next two steps of the design below and
+are not built. The speaker-change measurement the lab was designed for needs
+the unheard test speaker, which a learner's own channel is not.
+
 ### Designed, not built: the listening lab
 
-*Status 2026-10-01: design agreed on paper; blocked on recordings.*
+*Status 2026-10-01: design agreed on paper; blocked on recordings. 2026-10-22:
+built on followed YouTube channels first — see «Built: your channels» above;
+the recordings remain the way to a Zurich transcript that is exact.*
 
 **The exercise.** Watch or listen to one piece, answer questions about what
 was said, then see the transcript, with every question tied to the line that
