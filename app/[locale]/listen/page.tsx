@@ -124,7 +124,7 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
             <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{t.todayBody}</p>
             <ul className="mt-4 flex flex-col">
               {today.map((source) => (
-                <ListeningRow key={source.id} source={source} t={t} areaNames={areaNames} />
+                <ListeningRow key={source.id} source={source} t={t} areaNames={areaNames} follow={{ t: dictionary.channels, locale }} />
               ))}
             </ul>
           </section>
@@ -138,7 +138,7 @@ export default async function ListenPage({ params }: { params: Promise<{ locale:
               </h2>
               <ul className="mt-4 flex flex-col">
                 {group.sources.map((source) => (
-                  <ListeningRow key={source.id} source={source} t={t} areaNames={areaNames} />
+                  <ListeningRow key={source.id} source={source} t={t} areaNames={areaNames} follow={{ t: dictionary.channels, locale }} />
                 ))}
               </ul>
               {/* Said where it is useful — beside the films — rather than in

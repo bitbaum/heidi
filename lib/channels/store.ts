@@ -2,18 +2,22 @@ import { and, asc, desc, eq, gt, inArray, isNull, lt, or, sql } from "drizzle-or
 import { db } from "../db/index.ts";
 import { channelFollows, channelVideos, channels, pushSubscriptions } from "../db/schema.ts";
 import { decodeQuestionSet, type QuestionSet } from "./questions.ts";
+import { isSpoken, type Item, type Source, type SourceKind, type Spoken } from "./source.ts";
 import { decodeTranscript, type Transcript } from "./transcript.ts";
 import type { DueChannel, Follower, Subscription } from "./sweep.ts";
-import type { FeedVideo } from "./youtube.ts";
 
 /**
- * Every query following a channel needs, and nothing else. Decisions live
+ * Every query following a source needs, and nothing else. Decisions live
  * in `sweep.ts`; this file is plumbing and is tested by using it.
+ *
+ * The tables are still called `channels` and `channel_videos` from the day
+ * only YouTube was followed; a row is any source with a feed (`source.ts`),
+ * and an item is a video or an episode.
  */
 
 const iso = (d: Date | string): string => (d instanceof Date ? d.toISOString() : d);
 
-export type Channel = { id: string; name: string; handle: string | null; url: string; checkedAt: string | null; lastError: string | null };
+export type Channel = Source & { spoken: Spoken | null; checkedAt: string | null; lastError: string | null };
 
 export type FollowedChannel = Channel & { followedAt: string; seenAt: string | null; newCount: number; videoCount: number };
 
@@ -21,31 +25,53 @@ export type TranscriptState = "unknown" | "ready" | "none" | "blocked";
 
 export type Video = {
   id: string;
+  kind: SourceKind;
   channelId: string;
   channelName: string;
+  channelUrl: string;
+  channelImageUrl: string | null;
+  channelSpoken: Spoken | null;
   title: string;
   publishedAt: string;
   thumbnailUrl: string | null;
   description: string | null;
+  mediaUrl: string | null;
+  mediaType: string | null;
+  durationSeconds: number | null;
   transcriptState: TranscriptState;
 };
 
-export type VideoDetail = Video & { transcript: Transcript | null; questions: QuestionSet | null };
+export type VideoDetail = Video & {
+  transcript: Transcript | null;
+  transcriptLink: { url: string; type: string } | null;
+  questions: QuestionSet | null;
+};
 
-/** The follow, creating the channel row if nobody followed it before. */
-export async function follow(actorId: string, channel: { id: string; name: string; handle: string | null; url: string }, videos: readonly FeedVideo[]): Promise<void> {
+/** The follow, creating the source row if nobody followed it before. */
+export async function follow(actorId: string, source: Source, items: readonly Item[], spoken: Spoken | null): Promise<void> {
   await db.transaction(async (tx) => {
     await tx
       .insert(channels)
-      .values({ id: channel.id, name: channel.name, handle: channel.handle, url: channel.url, checkedAt: new Date() })
-      .onConflictDoUpdate({ target: channels.id, set: { name: channel.name, handle: channel.handle, url: channel.url } });
-    if (videos.length > 0) {
+      .values({ id: source.id, kind: source.kind, name: source.name, handle: source.handle, url: source.url, feedUrl: source.feedUrl, imageUrl: source.imageUrl, spoken, checkedAt: new Date() })
+      .onConflictDoUpdate({
+        target: channels.id,
+        set: {
+          name: source.name,
+          handle: source.handle,
+          url: source.url,
+          feedUrl: source.feedUrl,
+          imageUrl: source.imageUrl,
+          // The register's word wins over nothing; never over an earlier answer.
+          spoken: sql`coalesce(${channels.spoken}, ${spoken})`,
+        },
+      });
+    if (items.length > 0) {
       await tx
         .insert(channelVideos)
-        .values(videos.map((v) => ({ ...rowOf(channel.id, v), notifiedAt: new Date() })))
+        .values(items.map((v) => ({ ...rowOf(source.id, v), notifiedAt: new Date() })))
         .onConflictDoNothing();
     }
-    await tx.insert(channelFollows).values({ actorId, channelId: channel.id }).onConflictDoNothing();
+    await tx.insert(channelFollows).values({ actorId, channelId: source.id }).onConflictDoNothing();
   });
 }
 
@@ -62,14 +88,18 @@ export async function isFollowing(actorId: string, channelId: string): Promise<b
   return Boolean(row);
 }
 
-/** This learner's channels, with how many videos arrived since they last looked. */
+/** This learner's sources, with how many items arrived since they last looked. */
 export async function followsFor(actorId: string): Promise<FollowedChannel[]> {
   const rows = await db
     .select({
       id: channels.id,
+      kind: channels.kind,
       name: channels.name,
       handle: channels.handle,
       url: channels.url,
+      feedUrl: channels.feedUrl,
+      imageUrl: channels.imageUrl,
+      spoken: channels.spoken,
       checkedAt: channels.checkedAt,
       lastError: channels.lastError,
       followedAt: channelFollows.followedAt,
@@ -86,10 +116,8 @@ export async function followsFor(actorId: string): Promise<FollowedChannel[]> {
     .where(eq(channelFollows.actorId, actorId))
     .orderBy(asc(channelFollows.followedAt));
   return rows.map((r) => ({
-    id: r.id,
-    name: r.name,
-    handle: r.handle,
-    url: r.url,
+    ...sourceOf(r),
+    spoken: isSpoken(r.spoken) ? r.spoken : null,
     checkedAt: r.checkedAt ? iso(r.checkedAt) : null,
     lastError: r.lastError,
     followedAt: iso(r.followedAt),
@@ -99,18 +127,29 @@ export async function followsFor(actorId: string): Promise<FollowedChannel[]> {
   }));
 }
 
-/** The newest videos across everything this learner follows, newest first, each saying whether it is new to them. */
+const VIDEO_COLUMNS = {
+  id: channelVideos.id,
+  kind: channels.kind,
+  channelId: channelVideos.channelId,
+  channelName: channels.name,
+  channelUrl: channels.url,
+  channelImageUrl: channels.imageUrl,
+  channelSpoken: channels.spoken,
+  title: channelVideos.title,
+  publishedAt: channelVideos.publishedAt,
+  thumbnailUrl: channelVideos.thumbnailUrl,
+  description: channelVideos.description,
+  mediaUrl: channelVideos.mediaUrl,
+  mediaType: channelVideos.mediaType,
+  durationSeconds: channelVideos.durationSeconds,
+  transcriptState: channelVideos.transcriptState,
+};
+
+/** The newest items across everything this learner follows, newest first, each saying whether it is new to them. */
 export async function recentVideosFor(actorId: string, limit = 30): Promise<Array<Video & { isNew: boolean }>> {
   const rows = await db
     .select({
-      id: channelVideos.id,
-      channelId: channelVideos.channelId,
-      channelName: channels.name,
-      title: channelVideos.title,
-      publishedAt: channelVideos.publishedAt,
-      thumbnailUrl: channelVideos.thumbnailUrl,
-      description: channelVideos.description,
-      transcriptState: channelVideos.transcriptState,
+      ...VIDEO_COLUMNS,
       isNew: sql<boolean>`${channelVideos.publishedAt} > coalesce(${channelFollows.seenAt}, ${channelFollows.followedAt})`,
     })
     .from(channelFollows)
@@ -130,15 +169,10 @@ export async function markSeen(actorId: string, at: Date = new Date()): Promise<
 export async function videoById(videoId: string): Promise<VideoDetail | null> {
   const [r] = await db
     .select({
-      id: channelVideos.id,
-      channelId: channelVideos.channelId,
-      channelName: channels.name,
-      title: channelVideos.title,
-      publishedAt: channelVideos.publishedAt,
-      thumbnailUrl: channelVideos.thumbnailUrl,
-      description: channelVideos.description,
-      transcriptState: channelVideos.transcriptState,
+      ...VIDEO_COLUMNS,
       transcript: channelVideos.transcript,
+      transcriptUrl: channelVideos.transcriptUrl,
+      transcriptType: channelVideos.transcriptType,
       questions: channelVideos.questions,
     })
     .from(channelVideos)
@@ -150,6 +184,7 @@ export async function videoById(videoId: string): Promise<VideoDetail | null> {
   return {
     ...videoOf(r),
     transcript,
+    transcriptLink: r.transcriptUrl ? { url: r.transcriptUrl, type: r.transcriptType ?? "" } : null,
     questions: transcript ? decodeQuestionSet(r.questions, transcript.lines.length) : null,
   };
 }
@@ -165,27 +200,29 @@ export async function saveQuestions(videoId: string, questions: QuestionSet): Pr
   await db.update(channelVideos).set({ questions }).where(eq(channelVideos.id, videoId));
 }
 
-/** Channels not read since `olderThan`, never-read first, then the stalest. Optionally only one learner's. */
+/** Sources not read since `olderThan`, never-read first, then the stalest. Optionally only one learner's. */
 export async function dueChannels(olderThan: Date, limit: number, actorId?: string): Promise<DueChannel[]> {
   const stale = or(isNull(channels.checkedAt), lt(channels.checkedAt, olderThan));
+  const columns = { id: channels.id, kind: channels.kind, name: channels.name, feedUrl: channels.feedUrl, handle: channels.handle };
   const query = actorId
     ? db
-        .select({ id: channels.id, name: channels.name })
+        .select(columns)
         .from(channels)
         .innerJoin(channelFollows, and(eq(channelFollows.channelId, channels.id), eq(channelFollows.actorId, actorId)))
         .where(stale)
-    : db.select({ id: channels.id, name: channels.name }).from(channels).where(stale);
-  return query.orderBy(sql`${channels.checkedAt} asc nulls first`).limit(limit);
+    : db.select(columns).from(channels).where(stale);
+  const rows = await query.orderBy(sql`${channels.checkedAt} asc nulls first`).limit(limit);
+  return rows.map((r) => ({ id: r.id, kind: r.kind === "podcast" ? "podcast" : "youtube", name: r.name, feedUrl: r.feedUrl, handle: r.handle }));
 }
 
-/** The feed's videos, written down; the ids that were not there before come back. */
-export async function recordVideos(channelId: string, videos: readonly FeedVideo[], checkedAt: Date, error: string | null): Promise<string[]> {
+/** The feed's items, written down; the ids that were not there before come back. */
+export async function recordVideos(channelId: string, items: readonly Item[], checkedAt: Date, error: string | null): Promise<string[]> {
   return db.transaction(async (tx) => {
     await tx.update(channels).set({ checkedAt, lastError: error }).where(eq(channels.id, channelId));
-    if (videos.length === 0) return [];
+    if (items.length === 0) return [];
     const inserted = await tx
       .insert(channelVideos)
-      .values(videos.map((v) => rowOf(channelId, v)))
+      .values(items.map((v) => rowOf(channelId, v)))
       .onConflictDoNothing()
       .returning({ id: channelVideos.id });
     return inserted.map((r) => r.id);
@@ -205,7 +242,7 @@ export async function markNotified(videoIds: readonly string[], at: Date): Promi
   await db.update(channelVideos).set({ notifiedAt: at }).where(and(inArray(channelVideos.id, [...videoIds]), isNull(channelVideos.notifiedAt)));
 }
 
-/** Videos newer than `since`, for the page's "new since you were here" line. */
+/** Items newer than `since`, for the page's "new since you were here" line. */
 export async function countNewSince(actorId: string, since: Date): Promise<number> {
   const [row] = await db
     .select({ n: sql<number>`count(*)::int` })
@@ -250,7 +287,7 @@ export async function dropSubscriptions(endpoints: readonly string[]): Promise<v
 
 // ─── Shapes ──────────────────────────────────────────────────────────────
 
-function rowOf(channelId: string, v: FeedVideo) {
+function rowOf(channelId: string, v: Item) {
   return {
     id: v.id,
     channelId,
@@ -258,28 +295,55 @@ function rowOf(channelId: string, v: FeedVideo) {
     publishedAt: new Date(v.publishedAt),
     thumbnailUrl: v.thumbnailUrl,
     description: v.description,
+    mediaUrl: v.mediaUrl,
+    mediaType: v.mediaType,
+    durationSeconds: v.durationSeconds,
+    transcriptUrl: v.transcript?.url ?? null,
+    transcriptType: v.transcript?.type ?? null,
   };
+}
+
+function kindOf(value: string): SourceKind {
+  return value === "podcast" ? "podcast" : "youtube";
+}
+
+function sourceOf(r: { id: string; kind: string; name: string; handle: string | null; url: string; feedUrl: string; imageUrl: string | null }): Source {
+  return { id: r.id, kind: kindOf(r.kind), name: r.name, handle: r.handle, url: r.url, feedUrl: r.feedUrl, imageUrl: r.imageUrl };
 }
 
 function videoOf(r: {
   id: string;
+  kind: string;
   channelId: string;
   channelName: string;
+  channelUrl: string;
+  channelImageUrl: string | null;
+  channelSpoken: string | null;
   title: string;
   publishedAt: Date | string;
   thumbnailUrl: string | null;
   description: string | null;
+  mediaUrl: string | null;
+  mediaType: string | null;
+  durationSeconds: number | null;
   transcriptState: string;
 }): Video {
   const state = r.transcriptState;
   return {
     id: r.id,
+    kind: kindOf(r.kind),
     channelId: r.channelId,
     channelName: r.channelName,
+    channelUrl: r.channelUrl,
+    channelImageUrl: r.channelImageUrl,
+    channelSpoken: isSpoken(r.channelSpoken) ? r.channelSpoken : null,
     title: r.title,
     publishedAt: iso(r.publishedAt),
     thumbnailUrl: r.thumbnailUrl,
     description: r.description,
+    mediaUrl: r.mediaUrl,
+    mediaType: r.mediaType,
+    durationSeconds: r.durationSeconds,
     transcriptState: state === "ready" || state === "none" || state === "blocked" ? state : "unknown",
   };
 }

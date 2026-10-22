@@ -82,13 +82,12 @@ export default async function ChannelsPage({ params }: { params: Promise<{ local
 
   // The register's YouTube rows, as suggestions — each with what is spoken,
   // which is the one fact a learner cannot check for themselves.
-  const suggestions: Suggestion[] = LISTENING_SOURCES.filter((s) => s.medium === "youtube" && s.linkKind === "play").map((s) => ({
-    id: s.id,
-    name: s.name,
-    publisher: s.publisher,
-    url: s.url,
-    spoken: s.spoken,
-  }));
+  // Podcasts first — they are what most people already listen to — then the
+  // YouTube channels; both are feeds the sweep can read. Radio, television
+  // and film have no feed of episodes and stay on `/listen`.
+  const suggestions: Suggestion[] = LISTENING_SOURCES.filter((s) => (s.medium === "podcast" || s.medium === "youtube") && s.linkKind === "play")
+    .sort((a, b) => (a.medium === b.medium ? 0 : a.medium === "podcast" ? -1 : 1))
+    .map((s) => ({ id: s.id, name: s.name, publisher: s.publisher, url: s.url, spoken: s.spoken, medium: s.medium }));
 
   return (
     <Shell>

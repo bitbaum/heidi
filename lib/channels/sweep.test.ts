@@ -1,11 +1,22 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import { recipients, sweep, type SweepDeps } from "./sweep.ts";
-import type { FeedVideo } from "./youtube.ts";
+import type { Item } from "./source.ts";
 
 const NOW = new Date("2026-10-22T12:00:00Z");
 
-const video = (id: string, publishedAt: string): FeedVideo => ({ id, title: `Video ${id}`, publishedAt, thumbnailUrl: null, description: null });
+const video = (id: string, publishedAt: string): Item => ({
+  id,
+  title: `Video ${id}`,
+  publishedAt,
+  thumbnailUrl: null,
+  description: null,
+  mediaUrl: null,
+  mediaType: null,
+  durationSeconds: null,
+  transcript: null,
+});
+const channel = (id: string, name: string) => ({ id, kind: "youtube" as const, name, feedUrl: `https://feeds.test/${id}`, handle: null });
 
 /** A fake world: two channels, one of them already read this hour. */
 function world(overrides: Partial<SweepDeps> = {}) {
@@ -15,19 +26,15 @@ function world(overrides: Partial<SweepDeps> = {}) {
   const dropped: string[] = [];
   const known = new Set(["old1"]);
   const deps: SweepDeps = {
-    due: async () => [
-      { id: "UC_a", name: "Channel A" },
-      { id: "UC_b", name: "Channel B" },
-    ],
-    readFeed: async (channelId) =>
-      channelId === "UC_b"
+    due: async () => [channel("UC_a", "Channel A"), channel("UC_b", "Channel B")],
+    readFeed: async (ch) =>
+      ch.id === "UC_b"
         ? { ok: false, reason: "unreachable" }
         : {
             ok: true,
             feed: {
-              channelId,
-              title: "Channel A",
-              videos: [
+              source: { ...channel(ch.id, "Channel A"), url: "https://x", imageUrl: null },
+              items: [
                 video("new1", "2026-10-22T10:00:00Z"),
                 video("old1", "2026-10-20T10:00:00Z"),
                 video("stale1", "2026-09-01T10:00:00Z"),

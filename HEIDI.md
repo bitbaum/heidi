@@ -222,24 +222,86 @@ lib/variety/
   check.ts       the deterministic gate, generic over packs
   active.ts      THE SEAM — one line saying which variety this build teaches
   packs/gsw-zh.ts  Zurich German   (Heidi)
-  packs/uk.ts      Ukrainian       (Lesya)
+  packs/uk.ts      Ukrainian       (the contract's second instance)
 ```
 
 **The house rule that keeps it honest:** nothing outside `lib/variety/packs/`
 may name a Zurich form, a German word or a Swiss fact. If swapping the pack
-would not swap the product, something has leaked.
+would not swap the product, something has leaked. Since 2026-10-22 the rule
+has a gate: `lib/variety/leak.test.ts` reads every string literal in `lib/`
+outside the packs (and the seams, the dictionaries, the register and the
+deployment's own config) and pins the count per file to a baseline that may
+only fall. The baseline IS the to-do list for the next product: each row is a
+file that still knows which language it teaches.
+
+### Which product is next, and in what order
+
+*Decided 2026-10-22.* **French first, Ukrainian after.** French because it is
+what somebody needs to work in the French-speaking part of the country, which
+is the same person Heidi already serves on the other side of the Sarine; the
+Ukrainian pack stays as the proof the contract holds across a genuinely
+different case (a production gap, a standardised orthography) and ships
+second. The French product is **not called Heidi**; its name is chosen when
+it is built. What is decided now is only that it is the same build.
+
+**"The same build" is a claim with a test behind it, not a hope.** The
+French product is a second deployment of this repository with a different
+pack, not a fork and not a rewrite, and the day the owner says "now" the work
+is the list below and nothing that is not on it. If building it needs a
+change outside this list, that change belongs HERE first, as a generalisation
+every product gets, and the list grows by one line so the next one does not.
+
+1. **A pack.** `lib/variety/packs/fr-ch.ts`, by the contract in `pack.ts`:
+   identity, bridges (the learner's German or English as `gloss`, French
+   from France as the `sibling`), the learner profile (`priority` first —
+   HEIDI.md §4 already made the front door read it), correspondences,
+   contamination rules, orthography (`standardised: true`), vocabulary,
+   grammar, situations' lines, capabilities (recognition and synthesis for
+   French are off the shelf). The contract suite runs over it on day one and
+   is red until it is whole. The speech, listening and question machinery
+   reads the pack and needs no edit: `accepted.ts` already takes the caption
+   languages from `bridges`, the question language from the sibling, the
+   recogniser's tag from the sibling.
+2. **Two seams.** `lib/variety/active.ts` names the pack; `lib/situations/
+   active.ts` keeps only the scenes that declare its tag.
+3. **UI languages.** `lib/i18n/locales.ts` says which languages the product
+   speaks to the learner in — for Romandie: French, German, English, and
+   whichever a learner there arrives with. The dictionaries are UI copy and
+   are translated per product; a dictionary line that names the VARIETY (the
+   dialect toggle, «Züridütsch» in a settings sentence) is found by the
+   `i18n` tests, which compare every locale to the first.
+4. **The deployment's own facts.** `lib/config/site.ts` (name, address,
+   assistant's name), the register in `lib/listening/sources.ts` (French
+   Swiss media, with `spoken` per row as here), `lib/research/*` and the
+   essays, which are about THIS language and are replaced rather than
+   translated.
+5. **The leak baseline to zero** — or at least to the files in step 4. What
+   is in it today (the authored practice templates that name Bern and
+   Hochdeutsch, the voice-variety ids, two lines of the prompt) is the real
+   remaining coupling, and it is small.
+6. **A repo, a box row, a domain.** Loki provisions the repository and the
+   `apps.conf` row (loki `scripts/hetzner/new-site.sh`); the name picked in
+   step 0 decides the host. The database is new and empty; the migrations
+   here apply as they are, because no table knows the language.
+
+What is deliberately NOT on the list: a shared package. Per the fleet's own
+rule the package is extracted at the second consumer, and the French product
+is that consumer — the extraction happens as part of building it, from a
+list that already says which files are the engine and which are the pack.
 
 A pack declares identity, bridges, the learner profile, correspondences,
 contamination rules, orthography policy, and capabilities. It is enforced by a
-contract test suite that runs over *every* pack, so a half-finished Lesya turns
+contract test suite that runs over *every* pack, so a half-finished pack turns
 the build red rather than shipping.
 
-### What writing the second pack actually proved
+### What writing the Ukrainian pack actually proved
 
 Writing `uk.ts` was the point — an abstraction with one instance is a guess.
-It held, and it cost two fields:
+(It was called Lesya in the owner's original framing; the name of any second
+product is decided when it ships, and the first to ship is French.) It held,
+and it cost two fields:
 
-| | Heidi (Zurich German) | Lesya (Ukrainian) |
+| | Heidi (Zurich German) | the Ukrainian pack |
 |---|---|---|
 | Contamination threat | Bernese / Basel / Ostschweiz forms | Russian calques, surzhyk |
 | Orthography | **none** — spelling is convention | **state standard** — spelling can be wrong |
@@ -263,7 +325,7 @@ and the pipeline shape. Two broke the contract and forced new fields:
 
 `capabilities` earns its place for the same reason: it declares which surfaces
 can exist at all, so the engine degrades rather than assumes. Heidi cannot offer
-pronunciation feedback; Lesya could on day one.
+pronunciation feedback; a Ukrainian or a French product could on day one.
 
 **Extraction:** this stays inside Heidi until a second instance exists. Per the
 fleet's own rule, the shared package is created at the second consumer, not the
@@ -290,8 +352,8 @@ lib/situations/
 Unlike the variety, a domain is **not** one per deployment. One Heidi serves a
 care assistant, a relocating doctor and somebody who has just moved into a
 shared flat, and those are not three deployments. So packs are a list, filtered
-at module load by the variety they declare — a Lesya build that inherited this
-folder offers no Zurich sentences rather than offering them in the wrong
+at module load by the variety they declare — a French build that inherited
+this folder offers no Zurich sentences rather than offering them in the wrong
 language, which is §2's failure with the packaging changed.
 
 **Why it is not simply more vocabulary.** The word list is organised by what
@@ -411,7 +473,7 @@ which of the two it is in, next to the button, in the learner's language. See
   so no language is named in prose anywhere in the engine.
 - **The UI language and the taught variety are separate axes.** `VARIETY` is
   what you learn, one per deployment; `locale` is what Heidi speaks to you
-  while you learn it, seven of them. Conflating them would make a Lesya
+  while you learn it, seven of them. Conflating them would make a second
   deployment re-translate the site as well as swap the pack.
 - **German is the default locale; Swiss German comes first in every list of
   languages.** The switcher, the footer and settings share one order
@@ -1521,6 +1583,27 @@ What it is, concretely (`lib/channels/`, `/channels`, `/channels/<video>`):
   learner told «wrong» by a question whose answer is not in the video is §8's
   failure one level down. Two attempts, then «Heidi konnte keine brauchbaren
   Fragen schreiben» and the transcript alone.
+
+**Podcasts are feeds too, and from 2026-10-22 they are in the same loop.** The
+register's podcasts are what most learners already listen to, and a podcast
+is RSS with an audio enclosure per episode — the same shape as a channel's
+Atom feed, read by the same sweep (`lib/channels/rss.ts`, `source.ts`). A
+pasted publisher page is resolved to its feed through the page's own
+autodiscovery link, an Apple Podcasts link through Apple's keyless lookup;
+Spotify publishes no feed and the form says so. Every podcast and YouTube
+row on `/listen` carries «Folgen». An episode plays in the browser's own
+`<audio>` element — seek, back five seconds, 0.75× with the pitch kept — which
+is the whole of the player the lab design asked for. Its transcript is the
+publisher's where the feed links one (`<podcast:transcript>`, SRT, WebVTT or
+the namespace's JSON); otherwise **Heidi listens to the opening minutes
+herself** with the bridge recogniser the speaking surface already uses (the
+first six megabytes of the enclosure by a Range request, once per episode,
+shared), labelled as automatic WITH how far it reaches, and only when the
+pack trusts a recogniser for the bridge and the register does not say the
+source is dialect: a recogniser translates dialect away, and a text that is
+not what was said is not a transcript (§8). A dialect podcast with no
+publisher transcript plays without questions, and the screen says exactly
+why.
 
 **The thing that does not work from a server, said plainly.** YouTube answers
 a data-centre address with «sign in to confirm you are not a bot» for the

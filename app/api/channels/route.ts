@@ -3,6 +3,8 @@ import { actorKey, channelWrite, tooMany } from "../../../lib/domain/limits.ts";
 import { resolveChannel } from "../../../lib/channels/remote.ts";
 import { sweepFor } from "../../../lib/channels/service.ts";
 import { follow, followsFor, recentVideosFor } from "../../../lib/channels/store.ts";
+import { LISTENING_SOURCES } from "../../../lib/listening/sources.ts";
+import type { Spoken } from "../../../lib/channels/source.ts";
 
 // Relative `.ts` imports, not the `@/*` alias: node's test runner exercises
 // these handlers directly, and the alias only resolves inside Next's build.
@@ -57,18 +59,29 @@ export async function POST(request: Request) {
   }
   const input = typeof (body as { input?: unknown })?.input === "string" ? (body as { input: string }).input.trim().slice(0, 300) : "";
   if (!input) return Response.json({ error: "invalid", reason: "invalid" }, { status: 400 });
+  // A row of the register, when the button was on one: it carries what is
+  // spoken, which is the fact that decides whether Heidi may transcribe it.
+  const register = typeof (body as { register?: unknown })?.register === "string" ? (body as { register: string }).register : null;
 
   const existing = await followsFor(who.actorId);
   if (existing.length >= MAX_FOLLOWS) return Response.json({ error: "too-many", reason: "too-many" }, { status: 409 });
 
   const resolved = await resolveChannel(input, fetch);
   if (!resolved.ok) {
-    const status = resolved.reason === "invalid" ? 400 : resolved.reason === "not-found" ? 404 : 502;
+    const status = resolved.reason === "invalid" || resolved.reason === "spotify" ? 400 : resolved.reason === "not-found" ? 404 : 502;
     // `reason` is a code the page maps to the reader's language; `error` is
     // the shape every other route answers with, for a caller that only reads that.
     return Response.json({ error: resolved.reason, reason: resolved.reason }, { status });
   }
 
-  await follow(who.actorId, resolved.channel, resolved.feed.videos);
-  return Response.json({ channel: resolved.channel, videos: resolved.feed.videos.length }, { status: 201 });
+  const { source, items } = resolved.feed;
+  await follow(who.actorId, source, items, spokenFor(source.url, register));
+  return Response.json({ channel: source, videos: items.length }, { status: 201 });
+}
+
+/** What the register says is spoken on this source, by the row pressed or by its address. */
+export function spokenFor(url: string, register: string | null): Spoken | null {
+  const same = (a: string, b: string) => a.replace(/\/+$/, "").toLowerCase() === b.replace(/\/+$/, "").toLowerCase();
+  const row = LISTENING_SOURCES.find((s) => (register && s.id === register) || same(s.url, url));
+  return row ? row.spoken : null;
 }

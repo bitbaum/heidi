@@ -434,12 +434,23 @@ export const preferences = pgTable("preferences", {
  * neither is about a learner.
  */
 export const channels = pgTable("channels", {
-  /** The platform's channel id — `UC…` on YouTube. */
+  /**
+   * The platform's channel id (`UC…` on YouTube), or for a podcast an id
+   * derived from its feed URL (`f` + 24 hex — `lib/channels/rss.ts`).
+   */
   id: text("id").primaryKey(),
+  /** `youtube` | `podcast`. A "channel" here is anything with a feed of episodes. */
+  kind: text("kind").notNull().default("youtube"),
   name: text("name").notNull(),
   /** The `@handle`, when the channel was added by one; for the link we show. */
   handle: text("handle"),
   url: text("url").notNull(),
+  /** The feed the sweep reads: YouTube's Atom feed or the podcast's RSS. */
+  feedUrl: text("feed_url").notNull().default(""),
+  /** What is spoken, when the register knows the source (`dialect` | `standard` | `mixed`). */
+  spoken: text("spoken"),
+  /** The podcast's artwork; null for a YouTube channel (each video has its own). */
+  imageUrl: text("image_url"),
   /** When the feed was last read. Null until the first sweep. */
   checkedAt: timestamp("checked_at", { withTimezone: true }),
   /** Why the last read failed, in a word; null after a good one. */
@@ -459,6 +470,13 @@ export const channelVideos = pgTable(
     publishedAt: timestamp("published_at", { withTimezone: true }).notNull(),
     thumbnailUrl: text("thumbnail_url"),
     description: text("description"),
+    /** A podcast episode's audio (the enclosure); null for a YouTube video. */
+    mediaUrl: text("media_url"),
+    mediaType: text("media_type"),
+    durationSeconds: integer("duration_seconds"),
+    /** A transcript the publisher linked (`<podcast:transcript>`), and its MIME type. */
+    transcriptUrl: text("transcript_url"),
+    transcriptType: text("transcript_type"),
     /**
      * `{ lines, source, lang }` — see `lib/channels/transcript.ts`. Null until
      * somebody opened the video and it could be fetched or was pasted.

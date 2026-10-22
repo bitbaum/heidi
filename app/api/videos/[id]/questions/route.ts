@@ -5,7 +5,7 @@ import { byokChain, readByok, redact } from "../../../../../lib/domain/model/byo
 import { questionLanguage } from "../../../../../lib/channels/accepted.ts";
 import { parseQuestions, questionsPrompt } from "../../../../../lib/channels/questions.ts";
 import { isFollowing, saveQuestions, videoById } from "../../../../../lib/channels/store.ts";
-import { isVideoId } from "../../../../../lib/channels/youtube.ts";
+import { isItemId } from "../../../../../lib/channels/rss.ts";
 import { VARIETY } from "../../../../../lib/variety/active.ts";
 import { llmHealth } from "../../../chat/route.ts";
 import { FEATURE } from "../../../channels/route.ts";
@@ -34,7 +34,7 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
   if (!who.ok) return Response.json({ error: who.error }, { status: who.status });
 
   const { id } = await context.params;
-  if (!isVideoId(id)) return Response.json({ error: "invalid" }, { status: 400 });
+  if (!isItemId(id)) return Response.json({ error: "invalid" }, { status: 400 });
   const video = await videoById(id);
   if (!video) return Response.json({ error: "not-found" }, { status: 404 });
   if (!(await isFollowing(who.actorId, video.channelId))) return Response.json({ error: "not-following" }, { status: 403 });

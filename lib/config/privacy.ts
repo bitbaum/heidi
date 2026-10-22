@@ -238,11 +238,14 @@ export const FLOWS: readonly Flow[] = [
     recipients: ["Apple", "Google", "Mozilla"],
   },
   {
+    // The publisher's text, or Heidi's own transcription of a podcast's
+    // opening minutes (the speech vendor hears the publisher's audio, never
+    // the learner's); it goes to a model vendor once, to write the questions.
     id: "videoTranscripts",
     place: "server",
     where: "channel_videos",
     leavesDevice: true,
-    recipients: [...MODEL_VENDORS],
+    recipients: [...MODEL_VENDORS, TRANSCRIPTION_VENDOR],
   },
   {
     id: "videoAnswers",

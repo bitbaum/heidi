@@ -62,7 +62,7 @@ function loadApi(): Promise<YTNamespace> {
   return apiPromise;
 }
 
-export function useYouTubePlayer(videoId: string, locale: string) {
+export function useYouTubePlayer(videoId: string, locale: string, enabled = true) {
   const mount = useRef<HTMLDivElement>(null);
   const player = useRef<YTPlayer | null>(null);
   const [ready, setReady] = useState(false);
@@ -72,7 +72,9 @@ export function useYouTubePlayer(videoId: string, locale: string) {
     let cancelled = false;
     let instance: YTPlayer | null = null;
     const host = mount.current;
-    if (!host) return;
+    // Not enabled: the lesson is playing an episode through `<audio>` and
+    // this hook holds nothing. Hooks cannot be conditional; their work can.
+    if (!host || !enabled) return;
     // The API replaces the element it is given, so give it a child of ours
     // rather than the node React owns.
     const target = document.createElement("div");
@@ -105,7 +107,7 @@ export function useYouTubePlayer(videoId: string, locale: string) {
       }
       host.replaceChildren();
     };
-  }, [videoId, locale]);
+  }, [videoId, locale, enabled]);
 
   const seekTo = useCallback((seconds: number) => {
     const p = player.current;

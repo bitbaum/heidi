@@ -34,6 +34,13 @@ export type Transcript = {
   source: TranscriptSource;
   /** BCP-47 as the platform labelled the track, or "" for a paste. */
   lang: string;
+  /**
+   * How many seconds from the start the transcript covers, when it is not
+   * the whole piece — Heidi's own transcription of a podcast's opening
+   * minutes. Absent means the whole recording. The page prints it, so a
+   * learner is never asked about minute forty from a text that stops at six.
+   */
+  coverageSeconds?: number;
 };
 
 /** More than any question set needs; a two-hour stream is cut, not refused. */
@@ -193,6 +200,58 @@ function isLine(value: unknown): value is TranscriptLine {
   );
 }
 
+/**
+ * Timed words — what a recogniser returns — as lines a question can cite.
+ *
+ * Cut at sentence punctuation, at a pause longer than `gap`, or when a line
+ * would grow past `maxChars`. The thresholds are the same kind of number as
+ * `mergeFragments` uses, and for the same reason: a line is the unit a
+ * learner fails at, and the recogniser's own units are words.
+ */
+export function linesFromWords(
+  words: readonly { word: string; start: number; end: number }[],
+  { maxChars = 160, gap = 1.2 }: { maxChars?: number; gap?: number } = {},
+): TranscriptLine[] {
+  const out: TranscriptLine[] = [];
+  let current: TranscriptLine | null = null;
+  for (const w of words) {
+    const text = w.word.trim();
+    if (!text) continue;
+    const startsNew = !current || w.start - current.end > gap || current.text.length + 1 + text.length > maxChars;
+    if (startsNew || !current) {
+      current = { start: w.start, end: w.end, text };
+      out.push(current);
+    } else {
+      current.text += ` ${text}`;
+      current.end = Math.max(current.end, w.end);
+    }
+    if (/[.!?…]["»”)]?$/.test(text)) current = null;
+  }
+  return out.slice(0, MAX_LINES);
+}
+
+/**
+ * A publisher's transcript in the podcast namespace's JSON shape
+ * (`{"segments":[{"startTime":0.5,"endTime":2,"body":"…"}]}`), as lines.
+ */
+export function parseTranscriptJson(json: unknown): TranscriptLine[] | null {
+  if (typeof json !== "object" || json === null) return null;
+  const segments = (json as { segments?: unknown }).segments;
+  if (!Array.isArray(segments)) return null;
+  const raw: TranscriptLine[] = [];
+  for (const s of segments) {
+    if (typeof s !== "object" || s === null) continue;
+    const v = s as Record<string, unknown>;
+    const start = typeof v.startTime === "number" ? v.startTime : NaN;
+    const end = typeof v.endTime === "number" ? v.endTime : start;
+    const text = typeof v.body === "string" ? cleanText(v.body) : "";
+    if (!Number.isFinite(start) || !text) continue;
+    raw.push({ start, end: Math.max(end, start), text });
+  }
+  const merged = mergeFragments(raw);
+  return merged.length >= MIN_LINES ? merged.slice(0, MAX_LINES) : null;
+}
+
 const SOURCES: readonly TranscriptSource[] = ["publisher", "auto", "pasted"];
 
 /** What came out of the database, checked rather than trusted. */
@@ -202,7 +261,12 @@ export function decodeTranscript(raw: unknown): Transcript | null {
   if (!Array.isArray(v.lines) || !(SOURCES as readonly unknown[]).includes(v.source)) return null;
   const lines = v.lines.filter(isLine).slice(0, MAX_LINES);
   if (lines.length < MIN_LINES) return null;
-  return { lines, source: v.source as TranscriptSource, lang: typeof v.lang === "string" ? v.lang : "" };
+  return {
+    lines,
+    source: v.source as TranscriptSource,
+    lang: typeof v.lang === "string" ? v.lang : "",
+    ...(typeof v.coverageSeconds === "number" && v.coverageSeconds > 0 ? { coverageSeconds: v.coverageSeconds } : {}),
+  };
 }
 
 /**

@@ -80,6 +80,11 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         summary: "Die Richtung steht.",
         items: [
           {
+            id: "french",
+            title: "Dasselbe für Französisch",
+            line: "Derselbe Bau, ein anderes Sprachpaket und ein anderer Name — für alle, die in der Romandie arbeiten. Danach Ukrainisch.",
+          },
+          {
             id: "listening-lab",
             title: "Das Hörlabor",
             line: "Viele verschiedene Zürcher Stimmen, denn wer mehrere Sprecher hört, versteht auch den nächsten.",
@@ -144,6 +149,11 @@ export const ROADMAP: Record<SectorLocale, RoadmapDoc> = {
         title: "After that",
         summary: "The direction is set.",
         items: [
+          {
+            id: "french",
+            title: "The same for French",
+            line: "The same build, another language pack and another name — for everyone who works in Romandie. Ukrainian after that.",
+          },
           {
             id: "listening-lab",
             title: "The listening lab",

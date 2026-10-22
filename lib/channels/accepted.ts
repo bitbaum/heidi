@@ -34,3 +34,9 @@ export function allowAutomatic(pack: VarietyPack): boolean {
 export function questionLanguage(pack: VarietyPack): string {
   return (pack.bridges.find((b) => b.relation === "sibling") ?? pack.bridges[0]).name;
 }
+
+/** The bridge's language tag without its region, for a recogniser: `de-CH` → `de`. */
+export function questionLanguageTag(pack: VarietyPack): string {
+  const bridge = pack.bridges.find((b) => b.relation === "sibling") ?? pack.bridges[0];
+  return bridge.tag.split("-")[0];
+}

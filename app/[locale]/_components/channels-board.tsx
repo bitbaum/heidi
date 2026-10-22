@@ -12,7 +12,7 @@ import { formatDate } from "@/lib/i18n/dates";
 import type { FollowedChannel, Video } from "@/lib/channels/store";
 import { VideoRow } from "./video-row";
 
-export type Suggestion = { id: string; name: string; publisher: string; url: string; spoken: string };
+export type Suggestion = { id: string; name: string; publisher: string; url: string; spoken: string; medium: string };
 
 /**
  * The channels page, signed in: what is new, what you follow, how to follow
@@ -53,7 +53,7 @@ export function ChannelsBoard({
     void fetch("/api/channels/seen", { method: "POST" }).catch(() => undefined);
   }, [channels.length]);
 
-  async function follow(value: string, key: string) {
+  async function follow(value: string, key: string, register?: string) {
     if (!value.trim() || busy) return;
     setBusy(key);
     setError(null);
@@ -61,7 +61,7 @@ export function ChannelsBoard({
       const res = await fetch("/api/channels", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ input: value }),
+        body: JSON.stringify({ input: value, register }),
       });
       if (!res.ok) {
         // A code, mapped to the reader's language here; never the server's words.
@@ -75,7 +75,9 @@ export function ChannelsBoard({
                 ? t.errors.unreachable
                 : reason === "too-many"
                   ? fill(t.errors.tooMany, { n: String(maxFollows) })
-                  : t.errors.failed,
+                  : reason === "spotify"
+                    ? t.errors.spotify
+                    : t.errors.failed,
         );
         return;
       }
@@ -148,7 +150,7 @@ export function ChannelsBoard({
                     {c.name}
                   </a>
                   <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-                    {plural(t.videos, c.videoCount, locale)}
+                    {plural(c.kind === "podcast" ? t.episodes : t.videos, c.videoCount, locale)}
                     {c.newCount > 0 && <> · {plural(t.newCount, c.newCount, locale)}</>}
                     {c.checkedAt && <> · {formatDate(c.checkedAt, locale, "short")}</>}
                   </p>
@@ -224,7 +226,7 @@ export function ChannelsBoard({
                       {s.name}
                     </a>
                     <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-                      {s.publisher} · {(listeningT.spoken as Record<string, string>)[s.spoken] ?? s.spoken}
+                      {(listeningT.medium as Record<string, string>)[s.medium] ?? s.medium} · {s.publisher} · {(listeningT.spoken as Record<string, string>)[s.spoken] ?? s.spoken}
                     </p>
                   </div>
                   {followed ? (
@@ -233,7 +235,7 @@ export function ChannelsBoard({
                     <button
                       type="button"
                       disabled={busy !== null}
-                      onClick={() => void follow(s.url, s.id)}
+                      onClick={() => void follow(s.url, s.id, s.id)}
                       className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-sm font-medium text-fg-primary transition-colors hover:bg-fg-primary hover:text-surface-page disabled:opacity-60"
                     >
                       {busy === s.id ? t.following : t.follow}
