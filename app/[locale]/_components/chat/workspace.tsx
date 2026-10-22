@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ChatScreen } from "@bitbaum/chatkit/react";
 import { LEARNER_ID, type ChatMessage } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
 import { type Locale } from "@/lib/i18n/locales";
@@ -333,24 +334,75 @@ export function ChatWorkspace({
         </div>
       </aside>
 
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-        {/* On a phone the sidebar is off-canvas, so starting again has to be
-            here too — one tap, not open-the-menu-then-find-it. */}
-        <div className="flex items-center justify-between gap-2 border-b border-border-subtle px-3 py-1.5 lg:hidden">
-          <button
-            ref={menuButtonRef}
-            type="button"
-            onClick={() => setMenuOpen(true)}
-            aria-expanded={menuOpen}
-            aria-controls="chat-sidebar"
-            className="inline-flex min-h-11 min-w-0 items-center gap-2 rounded-control px-2 text-sm font-medium text-fg-primary transition-colors hover:bg-surface-raised"
-          >
-            <MenuIcon />
-            <span className="min-w-0 truncate">{f.menuOpen}</span>
-          </button>
-          {(started || conversationId) && <NewChatButton label={t.newChat} onClick={startNew} />}
-        </div>
-
+      {/* The conversation IS the screen (chatkit's ChatScreen, the fleet's
+          one chat layout): the words run edge to edge and the controls float
+          over them — the phone's menu and "new chat" as frosted pills at the
+          top, the composer as a see-through pill at the bottom. Until
+          2026-10-22 each took a strip of the screen away from the reading.
+          From `lg` the sidebar is on screen, so the header is not drawn
+          (globals.css). */}
+      <ChatScreen
+        fill="parent"
+        className="min-w-0 flex-1"
+        header={
+          <div className="flex w-full items-center justify-between gap-2">
+            {/* On a phone the sidebar is off-canvas, so starting again has to
+                be here too — one tap, not open-the-menu-then-find-it. */}
+            <button
+              ref={menuButtonRef}
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              aria-expanded={menuOpen}
+              aria-controls="chat-sidebar"
+              className="ck-glass min-w-0 gap-2 text-sm font-medium text-fg-primary"
+            >
+              <MenuIcon />
+              <span className="min-w-0 truncate">{f.menuOpen}</span>
+            </button>
+            {(started || conversationId) && (
+              <NewChatButton label={t.newChat} onClick={startNew} className="ck-glass border-0" />
+            )}
+          </div>
+        }
+        composer={
+          <>
+            <Composer
+              inputRef={inputRef}
+              value={chat.input}
+              onChange={chat.setInput}
+              onSend={chat.send}
+              busy={chat.busy}
+              onStop={chat.stop}
+              t={t}
+              modelT={dict.model}
+              placeholder={t.composer}
+              locale={locale}
+              images
+            />
+            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+              <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>
+              {byok.ready && byok.config && (
+                <button
+                  type="button"
+                  onClick={() => setSheetOpen(true)}
+                  className="inline-flex items-center gap-1.5 font-mono text-caption uppercase tracking-caps text-ok hover:text-fg-primary"
+                >
+                  <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ok" />
+                  {byok.config.model}
+                </button>
+              )}
+            </div>
+          </>
+        }
+      >
+        {/* min-h-0 is load-bearing: a flex child defaults to min-height:auto
+            and refuses to shrink below its content, so without it the PAGE
+            grows instead of the transcript scrolling. The block padding is
+            the measured height of the floating header and composer, so the
+            first line is never under the one and the last never under the
+            other (`heidi-chat-scroll`, globals.css). */}
+        <div className="heidi-chat-scroll min-h-0 flex-1 overflow-y-auto px-4">
+          <div ref={transcriptRef} className="mx-auto w-full max-w-3xl">
         {offerAdoption && (
           <AdoptPrompt
             t={f}
@@ -362,11 +414,6 @@ export function ChatWorkspace({
           />
         )}
 
-        {/* min-h-0 is load-bearing: a flex child defaults to min-height:auto
-            and refuses to shrink below its content, so without it the PAGE
-            grows instead of the transcript scrolling. */}
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-6">
-          <div ref={transcriptRef} className="mx-auto w-full max-w-3xl">
             {started || chat.busy ? (
               <Transcript
                 voiceT={dict.voice}
@@ -386,42 +433,7 @@ export function ChatWorkspace({
             )}
           </div>
         </div>
-
-        {/* `env(safe-area-inset-bottom)` — on a phone with a home indicator the
-            composer otherwise sits under it, and the line beneath it is
-            clipped. `max()` keeps the ordinary 1rem on every device that has
-            no inset, so this costs nothing on a laptop. */}
-        <div className="border-t border-border-subtle px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3">
-          <div className="mx-auto w-full max-w-3xl">
-            <Composer
-              inputRef={inputRef}
-              value={chat.input}
-              onChange={chat.setInput}
-              onSend={chat.send}
-              busy={chat.busy}
-          onStop={chat.stop}
-              t={t}
-              modelT={dict.model}
-              placeholder={t.composer}
-              locale={locale}
-              images
-            />
-            <div className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-              <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.explanationsIn}</p>
-              {byok.ready && byok.config && (
-                <button
-                  type="button"
-                  onClick={() => setSheetOpen(true)}
-                  className="inline-flex items-center gap-1.5 font-mono text-caption uppercase tracking-caps text-ok hover:text-fg-primary"
-                >
-                  <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ok" />
-                  {byok.config.model}
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+      </ChatScreen>
 
       {/* Select a word Heidi did not gloss and ask about it. Lives outside the
           scrolling transcript because it is positioned in viewport
