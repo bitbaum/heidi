@@ -10,7 +10,8 @@ import { fill } from "@/lib/i18n/fill";
 import { formatDate } from "@/lib/i18n/dates";
 import { afterSignIn } from "@/lib/domain/preferences/language";
 import { isFollowing, videoById } from "@/lib/channels/store";
-import { isVideoId, watchUrl } from "@/lib/channels/youtube";
+import { watchUrl } from "@/lib/channels/youtube";
+import { isItemId } from "@/lib/channels/rss";
 import { Section, Shell } from "../../_components/page-shell";
 import { VideoLesson } from "../../_components/video-lesson";
 
@@ -34,7 +35,7 @@ export default async function VideoPage({ params }: { params: Promise<{ locale: 
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   const t = dict.channels;
-  if (!isVideoId(videoId)) notFound();
+  if (!isItemId(videoId)) notFound();
 
   if (!dbConfigured() || !authEnabled) {
     return (
@@ -73,12 +74,14 @@ export default async function VideoPage({ params }: { params: Promise<{ locale: 
 
   const video = await videoById(videoId);
   if (!video || !(await isFollowing(actorId, video.channelId))) notFound();
-  const url = watchUrl(video.id);
+  // Where "open it there" goes: the video on YouTube, or the show's page at
+  // its publisher — never the bare audio file, which a browser would download.
+  const url = video.kind === "podcast" ? video.channelUrl : watchUrl(video.id);
 
   return (
     <Shell>
       <header className="border-b border-border-subtle py-8 sm:py-10">
-        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.lesson.eyebrow}</p>
+        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{video.kind === "podcast" ? t.lesson.eyebrowEpisode : t.lesson.eyebrow}</p>
         <h1 className="mt-2 font-heading text-title font-semibold leading-[1.1] tracking-display text-fg-primary">{video.title}</h1>
         <p className="mt-3 text-base text-fg-secondary">
           {fill(t.lesson.from, { channel: video.channelName })} · {formatDate(video.publishedAt, locale, "long")}
@@ -88,7 +91,7 @@ export default async function VideoPage({ params }: { params: Promise<{ locale: 
             ← {t.lesson.back}
           </Link>
           <a href={url} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent">
-            {t.lesson.openOnYoutube}
+            {video.kind === "podcast" ? t.lesson.openAtPublisher : t.lesson.openOnYoutube}
           </a>
         </p>
       </header>

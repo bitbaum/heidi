@@ -41,6 +41,22 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-10-23",
+      tag: "improvement",
+      title: "Heidi öffnet auf einem leeren Gespräch — das letzte ist eine Zeile entfernt",
+      summary:
+        "Wer Heidi öffnet, will fast immer etwas Neues fragen: eine Nachricht, die eben eingetroffen ist, ein Wort vom Mittagstisch. Bisher landete man im Gespräch von letzter Woche und musste erst den Weg hinaus suchen. Jetzt öffnet sich ein leeres Gespräch mit bereitem Eingabefeld; das letzte steht darüber als eine Zeile, ein Tippen entfernt.",
+      items: [
+        "Was vor weniger als einer halben Stunde noch lief, bleibt, wie es war: Sie fragen etwas, lesen auf einer Grammatikseite weiter und kommen zurück — dasselbe Gespräch. Was älter ist, wird angeboten, nicht zurückgelegt; es wird auch nicht gelöscht. Angemeldet ist es Ihr zuletzt gespeichertes Gespräch.",
+        "Das gilt für die Heidi-Box auf der Startseite, das schwebende «Heidi fragen» und «/chat» gleichermassen — alle drei folgen jetzt derselben Regel, und das schwebende Fenster zeigt dieselben Beispiele wie der Chat statt eigener Fragen.",
+        "Die Überschrift des leeren Gesprächs fragt jetzt, was Sie verstehen oder sagen möchten, statt unter dem Knopf «Heidi fragen» noch einmal «Fragen Sie Heidi» zu sagen. Die Symbole oben im schwebenden Fenster (neues Gespräch, Vollbild, Schliessen) sind jetzt 44 Pixel gross.",
+        "Das Gespräch mit Heidi hat jetzt einen Namen: Kopfzeile, Startseite und schwebender Knopf sagen alle «Heidi fragen» (Kopfzeile und Startseite sagten bisher «Schnell chatten» für dasselbe). Auf dem Telefon schiebt sich der schwebende Knopf beim Abwärtsscrollen weg und kommt beim Hinaufscrollen, oben und am Seitenende zurück — er deckt nicht mehr die Zeilen zu, die Sie gerade lesen.",
+        "Ein leeres Eingabefeld hat einen Knopf «Einfügen»: Die meisten ersten Nachrichten sind eine Zeile, die jemand anders geschrieben hat und die Sie gerade kopiert haben. Ein Tippen füllt das Feld (gesendet wird nichts); die Zwischenablage wird nur beim Tippen gelesen, und wo der Browser das nicht erlaubt, erscheint der Knopf gar nicht.",
+        "Die ersten Bildschirme für wen zurückkehrt: In «Mein Bereich» bekommt, wer schon geübt hat, das Aufwärmen nicht mehr als zweiten dunklen Knopf über «Jetzt üben» (es ist eine ruhige Zeile; Neue sehen weiter die Karte), und die leere Überschrift «Weitermachen» über «Noch keine Gespräche» ist weg. Bei «Übungen» steht der Hinweis, wo Ihre Antworten bleiben, jetzt unter dem Startknopf — «Losgehen» ist auf dem Telefon im ersten Bildschirm statt darunter.",
+        "Ungleich breite Auswahlknöpfe sind jetzt gleich grosse Felder: In den Einstellungen waren Sprache und Darstellung Knöpfe so breit wie ihr Wort, drei pro Zeile und einer übrig; jetzt ein gleichmässiges Raster. Die Sprachliste im Seitenfuss bekam auf dem Telefon nur eine halbe Spalte und trennte «Schwiizerdütsch» und «Rumantsch» mitten im Wort; sie hat jetzt die ganze Breite.",
+      ],
+    },
+    {
       date: "2026-10-22",
       tag: "feature",
       title: "Ihre Kanäle: YouTube schauen, verstehen, gefragt werden",
@@ -49,6 +65,8 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
       items: [
         "Das Transkript sind die Untertitel der Plattform — und es steht jedes Mal dabei, ob vom Sender, automatisch («bei Mundart oft falsch») oder von Hand eingefügt. Gibt YouTube einem Server das Transkript nicht heraus, zeigt der Bildschirm die drei Schritte zum Kopieren aus YouTubes eigenem Transkript-Fenster.",
         "Die Fragen schreibt das Modell einmal pro Video aus dem Transkript; jede wird gegen das Transkript geprüft, bevor jemand sie sieht, und alle, die dem Kanal folgen, bekommen dieselben. Keine Note: eine Zahl mit Nenner und die Stellen zum Nachhören.",
+        "Podcasts gehören dazu: Der Feed eines Podcasts wird gelesen wie der eines Kanals, die Seite des Senders oder ein Apple-Podcasts-Link führt dorthin, und unter «Hören» hat jeder Podcast und jeder YouTube-Kanal einen Knopf «Folgen». Eine Folge läuft im Player des Browsers, mit fünf Sekunden zurück und 0,75×. Gibt der Sender kein Transkript mit, hört Heidi die ersten Minuten selbst mit — gekennzeichnet als automatisch, und nie bei Mundart, wo die Erkennung übersetzen statt mitschreiben würde.",
+        "Behoben, gefunden beim angemeldeten Durchgang: Jede angemeldete Seite zeigte den abgemeldeten Zustand — das Konto-Paket gab Seiten den Nutzer ohne die Kennung, an der sie hängen, den API-Routen aber mit. Deshalb baten «Mein Bereich» und «Ihre Kanäle» ums Anmelden, während das Folgen selbst funktionierte. Ein Leser für beide (accountkit 0.5.2).",
         "Folgen läutet beim nächsten Video, nie bei den letzten fünfzehn, und nichts hier mahnt ans Üben. Was Sie geantwortet haben, bleibt in Ihrem Browser; auf dem Server liegt nur, welchen Kanälen Sie folgen — nachlesbar unter «Datenschutz».",
       ],
     },
@@ -655,6 +673,22 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
 
   en: [
     {
+      date: "2026-10-23",
+      tag: "improvement",
+      title: "Heidi opens on an empty conversation — the last one is a row away",
+      summary:
+        "Nearly everyone who opens Heidi has something new to ask: a message that just arrived, a word from the lunch table. Until now you landed in last week's conversation and had to find the way out. Now an empty conversation opens with the box ready, and the last one sits above it as a single row, one tap away.",
+      items: [
+        "A conversation you were in less than half an hour ago stays as it was: ask something, read on a grammar page, come back — the same conversation. Anything older is offered, not put back; it is not deleted either. Signed in, it is your most recent saved conversation.",
+        "The same on the Heidi box on the home page, the floating «Ask Heidi» and `/chat` — all three now follow one rule, and the floating window shows the same examples as the chat instead of questions of its own.",
+        "The heading of an empty conversation now asks what you want to understand or say, instead of repeating «Ask Heidi» under a button that already said it. The icons at the top of the floating window (new conversation, full screen, close) are now 44 pixels.",
+        "Talking to Heidi now has one name: the header, the home page and the floating button all say «Ask Heidi» (the header and home page said «Quick chat» for the same thing). On a phone the floating button slides away as you scroll down and comes back when you scroll up, at the top and at the end of the page — it no longer covers the lines you are reading.",
+        "An empty box has a «Paste» button: most first messages are a line someone else wrote and you just copied. One tap fills the box (nothing is sent); the clipboard is read only when you tap, and where the browser does not allow that the button is not drawn at all.",
+        "The first screens for someone who comes back: on «My area» a learner who has already practised no longer gets the warm-up as a second dark button above «Practise now» (it is a quiet line; newcomers still see the card), and the empty «Continue» heading over «No conversations yet» is gone. On «Exercises» the note about where your answers are kept now sits under the start button — «Let's go» is on a phone's first screen instead of below it.",
+        "Uneven choice buttons are now equal cells: in Settings, language and appearance were buttons as wide as their words, three to a row with one left over; now an even grid. The footer's language list got half a column on a phone and broke «Schwiizerdütsch» and «Rumantsch» in the middle of the word; it now has the full width.",
+      ],
+    },
+    {
       date: "2026-10-22",
       tag: "feature",
       title: "Your channels: watch YouTube, understand it, be asked about it",
@@ -663,6 +697,8 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
       items: [
         "The transcript is the platform's captions — and it always says whether they are the publisher's, automatic («often wrong on dialect») or pasted by hand. When YouTube refuses a server the transcript, the screen shows the three steps to copy it from YouTube's own transcript panel.",
         "The model writes the questions once per video from the transcript; each is checked against the transcript before anyone sees it, and everyone following the channel gets the same ones. No grade: a count with its denominator, and the parts to replay.",
+        "Podcasts belong: a podcast's feed is read like a channel's, the publisher's page or an Apple Podcasts link leads to it, and every podcast and YouTube channel under «Listen» has a «Follow» button. An episode plays in the browser's own player, with back five seconds and 0.75×. Where the publisher gives no transcript, Heidi listens to the first minutes herself — labelled as automatic, and never on dialect, where recognition would translate rather than transcribe.",
+        "Fixed, found on the signed-in walkthrough: every signed-in page drew the signed-out state — the accounts package gave pages the user without the id they key on, and API routes the user with it. So the dashboard and «Your channels» asked you to sign in while following itself worked. One reader for both (accountkit 0.5.2).",
         "Following rings for the next video, never the last fifteen, and nothing here nags you to practise. What you answered stays in your browser; the server holds only which channels you follow — readable under «Privacy».",
       ],
     },

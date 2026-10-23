@@ -13,7 +13,7 @@ import { chatScope } from "./scope.ts";
 /**
  * The export is the one place a day of conversations leaves this database, so
  * what it carries is asserted against a REAL Postgres (in memory) with Heidi's
- * own migrations applied — which also proves `0009_chat_feedback.sql` creates
+ * own migrations applied — which also proves `0010_chat_feedback.sql` creates
  * the table the code writes to.
  */
 async function database() {

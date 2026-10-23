@@ -4,6 +4,7 @@ import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { formatDate } from "@/lib/i18n/dates";
 import type { Video } from "@/lib/channels/store";
+import { clock } from "@/lib/channels/transcript";
 
 /**
  * One video, wherever it is listed: the channels page and the dashboard.
@@ -20,9 +21,9 @@ export function VideoRow({ video, locale, t, isNew = false }: { video: Video; lo
         {/* The platform's own thumbnail, as an <img>: it is a remote host
             Next's image loader is not configured for, and a 480px JPEG that
             renders at 112px needs no optimisation to be cheap. */}
-        {video.thumbnailUrl ? (
+        {(video.thumbnailUrl ?? video.channelImageUrl) ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={video.thumbnailUrl} alt="" width={112} height={63} loading="lazy" className="h-16 w-28 shrink-0 rounded-control bg-surface-sunk object-cover" />
+          <img src={video.thumbnailUrl ?? video.channelImageUrl ?? ""} alt="" width={112} height={63} loading="lazy" className="h-16 w-28 shrink-0 rounded-control bg-surface-sunk object-cover" />
         ) : (
           <span aria-hidden="true" className="h-16 w-28 shrink-0 rounded-control bg-surface-sunk" />
         )}
@@ -31,6 +32,7 @@ export function VideoRow({ video, locale, t, isNew = false }: { video: Video; lo
           <span className="mt-1 block font-mono text-caption uppercase tracking-caps text-fg-muted">
             {isNew && <span className="mr-2 text-accent">{t.newBadge}</span>}
             {video.channelName} · {formatDate(video.publishedAt, locale, "short")}
+            {video.durationSeconds ? <> · {clock(video.durationSeconds)}</> : null}
             {video.transcriptState === "ready" && <> · {t.withTranscript}</>}
           </span>
         </span>

@@ -76,7 +76,6 @@ export const it: Dictionary = {
       organisations: "Heidi per team, case di cura e ospedali",
     },
     closeMenu: "Chiudere il menu",
-    quickChat: "Chattare con Heidi",
     quickPractice: "Esercitarsi ora",
   },
 
@@ -203,14 +202,13 @@ export const it: Dictionary = {
       open: "Chiedi a Heidi",
       close: "Chiudi",
       title: "Heidi",
-      lead: "Chieda di ciò che sta leggendo — o incolli un messaggio che ha ricevuto.",
-      prompts: [
-        "Come dico in zurighese che arrivo più tardi?",
-        "Che differenza c'è tra il dialetto e il tedesco scritto?",
-        "Mi dica tre parole che sentirò qui ogni giorno.",
-      ],
     },
-    emptyTitle: "Chieda a Heidi",
+    emptyTitle: "Che cosa vuole capire — o dire?",
+    /**
+     * The conversation you had before, offered as one row on an empty chat — never
+     * put back over the box you came to type in (see `useRestoreDraft`).
+     */
+    earlier: { title: "La sua ultima conversazione", resume: "Riprendi" },
     placeholder: "Incollate quello che avete ricevuto — o scrivete quello che volete dire.",
     composer: "Messaggio a Heidi",
     saveWord: "Tenere questa parola",
@@ -244,6 +242,7 @@ export const it: Dictionary = {
     },
     copy: "Copia",
     copied: "Copiato",
+    paste: "Incolla",
     flagged: "Non è zurighese:",
     checkedNote: "Nessuna forma dialettale estranea trovata",
     checkedFlagged: "Non tutto è zurighese — segnalato",
@@ -945,7 +944,7 @@ export const it: Dictionary = {
 
   channels: {
     title: "I suoi canali",
-    lead: "Scelga canali YouTube che guarda comunque volentieri. Heidi controlla se escono nuovi video, la avvisa — e poi fa domande su quello che è stato detto.",
+    lead: "Scelga podcast e canali YouTube che ascolta comunque volentieri. Heidi controlla se escono nuove puntate, la avvisa — e poi fa domande su quello che è stato detto.",
     signInFirst: "Per seguire un canale serve un account: l’elenco deve stare sul nostro server perché Heidi possa controllare anche quando il suo browser è chiuso. Quello che ha guardato e risposto resta comunque in questo browser.",
     notConfigured: "I canali non sono configurati su questo server.",
     newTitle: "Nuovo dalla sua ultima visita",
@@ -956,11 +955,12 @@ export const it: Dictionary = {
     withTranscript: "Con domande",
     yoursTitle: "Canali che segue",
     videos: { one: "{n} video", few: "{n} video", many: "{n} video", other: "{n} video" },
+    episodes: { one: "{n} puntata", few: "{n} puntate", many: "{n} puntate", other: "{n} puntate" },
     newCount: { one: "{n} nuovo", few: "{n} nuovi", many: "{n} nuovi", other: "{n} nuovi" },
     readFailed: "L’ultima volta il canale non si è potuto leggere; Heidi continua a provare.",
     unfollow: "Non seguire più",
     followTitle: "Seguire un canale",
-    followHint: "Un link al canale, a uno dei suoi video, o semplicemente il @nome.",
+    followHint: "Un link alla pagina del podcast o al canale YouTube, a una puntata o a un video — o semplicemente il @nome.",
     placeholder: "youtube.com/@…",
     follow: "Segui",
     following: "Verifica in corso …",
@@ -971,9 +971,10 @@ export const it: Dictionary = {
       unreachable: "YouTube non ha risposto. Riprovi tra un attimo.",
       tooMany: "Non più di {n} canali — ne tolga uno e funziona.",
       failed: "Non ha funzionato.",
+      spotify: "Spotify non pubblica un feed. Usi il link alla pagina dell’editore o ad Apple Podcasts.",
     },
     suggestedTitle: "Suggerimenti dall’elenco",
-    suggestedBody: "Quello che sta sotto «Ascoltare» e gira su YouTube. Per ognuno è scritto cosa si parla — la metà è tedesco standard, e per cominciare va benissimo.",
+    suggestedBody: "Quello che sta sotto «Ascoltare» e ha un feed: podcast e canali YouTube. Per ognuno è scritto cosa si parla — la metà è tedesco standard, e per cominciare va benissimo.",
     notifications: {
       title: "Notifiche",
       body: "Heidi avvisa questo dispositivo quando esce un nuovo video su uno dei suoi canali. Solo per questo — mai per sollecitarla a esercitarsi.",
@@ -992,18 +993,24 @@ export const it: Dictionary = {
     push: { title: "{channel}: nuovo video" },
     lesson: {
       eyebrow: "Video",
+      eyebrowEpisode: "Puntata",
       from: "di {channel}",
       back: "Ai suoi canali",
       openOnYoutube: "Aprire su YouTube",
+      openAtPublisher: "Aprire dall’editore",
       start: "Guardare e rispondere alle domande",
       preparing: "Heidi recupera i sottotitoli …",
       writing: "Heidi scrive le domande …",
+      transcribing: "Heidi ascolta i primi minuti e li trascrive …",
       source: {
         publisher: "Sottotitoli dell’editore",
         auto: "Sottotitoli automatici — fatti da una macchina, spesso sbagliati in dialetto",
         pasted: "Trascrizione incollata a mano",
+        autoOpening: "Trascritto automaticamente da Heidi — solo i primi {minutes} minuti; non affidabile in dialetto",
       },
       noTranscript: "Per questo video non ci sono sottotitoli che Heidi possa leggere. Guardarlo si può comunque; le domande hanno bisogno di testo.",
+      noTranscriptEpisode: "L’editore non fornisce una trascrizione per questa puntata, e Heidi al momento non può scriverne una qui. Ascoltare si può comunque; le domande hanno bisogno di testo.",
+      noTranscriptDialect: "L’editore non fornisce una trascrizione per questa puntata — e in dialetto Heidi non ne scrive una da sé: il riconoscimento vocale traduce il dialetto in tedesco standard, e non sarebbe quello che è stato detto. Ascoltare si può comunque.",
       blockedTitle: "YouTube non consegna la trascrizione a Heidi",
       blockedBody: "Ai server capita spesso. Ci arriva comunque in un minuto:",
       pasteSteps: [
@@ -1047,7 +1054,7 @@ export const it: Dictionary = {
     },
     invite: {
       title: "Seguire canali",
-      body: "Scelga canali YouTube che le piacciono. Heidi controlla se escono nuovi video, la avvisa e fa domande su quello che è stato detto.",
+      body: "Scelga podcast e canali YouTube che le piacciono. Heidi controlla se escono nuove puntate, la avvisa e fa domande su quello che è stato detto.",
       cta: "Ai suoi canali",
     },
   },

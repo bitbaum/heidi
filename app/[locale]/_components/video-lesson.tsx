@@ -16,6 +16,7 @@ import { PRIMARY, SECONDARY } from "./exercises/actions";
 import { PastePanel, TranscriptView } from "./video-transcript";
 import { videoStore, writeRecord } from "./video-store";
 import { useYouTubePlayer } from "./youtube-player";
+import { useAudioPlayer } from "./audio-player";
 
 type T = Dictionary["channels"]["lesson"];
 
@@ -42,7 +43,10 @@ const NONE: (number | null)[] = [];
 export function VideoLesson({ video, t, locale, videoUrl }: { video: VideoDetail; t: T; locale: Locale; videoUrl: string }) {
   const storageReady = useStorageReady();
   const { config: byok } = useByok();
-  const [mountRef, player] = useYouTubePlayer(video.id, locale);
+  const isEpisode = video.kind === "podcast";
+  const [mountRef, youtube] = useYouTubePlayer(video.id, locale, !isEpisode);
+  const [audioRef, audio] = useAudioPlayer();
+  const player = isEpisode ? audio : youtube;
   const progress = useBrowserStore(videoStore);
 
   const [transcript, setTranscript] = useState<Transcript | null>(video.transcript);
@@ -53,6 +57,7 @@ export function VideoLesson({ video, t, locale, videoUrl }: { video: VideoDetail
   const [detailOpen, setDetailOpen] = useState(false);
   const [problem, setProblem] = useState<string | null>(null);
   const [transcriptOpen, setTranscriptOpen] = useState(false);
+  const [noneReason, setNoneReason] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   const record = storageReady ? progress?.[video.id] : undefined;
@@ -104,13 +109,14 @@ export function VideoLesson({ video, t, locale, videoUrl }: { video: VideoDetail
       let text = transcript;
       if (!text) {
         const res = await fetch(`/api/videos/${video.id}/transcript`, { method: "POST" });
-        const data = (await res.json().catch(() => ({}))) as { state?: TranscriptState; transcript?: Transcript };
+        const data = (await res.json().catch(() => ({}))) as { state?: TranscriptState; transcript?: Transcript; reason?: string };
         if (data.state === "ready" && data.transcript) {
           text = data.transcript;
           setTranscript(text);
           setTstate("ready");
         } else {
-          setTstate(data.state ?? "blocked");
+          setTstate(data.state ?? (isEpisode ? "none" : "blocked"));
+          setNoneReason(data.reason ?? null);
           return;
         }
       }
@@ -182,7 +188,22 @@ export function VideoLesson({ video, t, locale, videoUrl }: { video: VideoDetail
       {/* The player keeps its place at the top of the screen on a phone while
           the questions scroll under it. */}
       <div className="sticky top-0 z-10 -mx-5 bg-surface-page sm:static sm:mx-0">
-        <div ref={mountRef} className="aspect-video w-full bg-surface-sunk [&_iframe]:h-full [&_iframe]:w-full" />
+        {isEpisode ? (
+          <div className="flex items-center gap-4 px-5 pt-3 sm:px-0">
+            {(video.thumbnailUrl ?? video.channelImageUrl) && (
+              // The show's artwork, from its feed; a remote host the image
+              // loader is not configured for, at thumbnail size.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={video.thumbnailUrl ?? video.channelImageUrl ?? ""} alt="" width={96} height={96} className="size-24 shrink-0 rounded-control bg-surface-sunk object-cover" />
+            )}
+            {/* The browser's own player: it already has play, pause, a
+                scrubber and a time. Below it, the two controls a learner
+                uses most, at thumb size. */}
+            <audio ref={audioRef} controls preload="metadata" src={video.mediaUrl ?? undefined} onCanPlay={audio.onCanPlay} onLoadedMetadata={audio.onCanPlay} className="w-full min-w-0" />
+          </div>
+        ) : (
+          <div ref={mountRef} className="aspect-video w-full bg-surface-sunk [&_iframe]:h-full [&_iframe]:w-full" />
+        )}
         <div className="flex flex-wrap items-center gap-2 px-5 py-2 sm:px-0">
           <button type="button" disabled={!player.ready} onClick={() => player.back(5)} className="inline-flex min-h-11 items-center rounded-control border border-border-strong px-4 text-sm font-medium text-fg-primary disabled:opacity-40">
             ↺ {t.back5}
@@ -196,8 +217,12 @@ export function VideoLesson({ video, t, locale, videoUrl }: { video: VideoDetail
 
       {phase === "before" && (
         <div className="flex flex-col gap-6">
-          {tstate === "blocked" && <PastePanel t={t} videoUrl={videoUrl} onPasted={pasted} busy={busy} />}
-          {tstate === "none" && <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.noTranscript}</p>}
+          {tstate === "blocked" && !isEpisode && <PastePanel t={t} videoUrl={videoUrl} onPasted={pasted} busy={busy} />}
+          {tstate === "none" && (
+            <p className="max-w-measure text-base leading-relaxed text-fg-secondary">
+              {noneReason === "dialect" ? t.noTranscriptDialect : isEpisode ? t.noTranscriptEpisode : t.noTranscript}
+            </p>
+          )}
           {problem && (
             <p role="alert" className="max-w-measure text-base leading-relaxed text-fg-secondary">
               {problem}
@@ -215,7 +240,7 @@ export function VideoLesson({ video, t, locale, videoUrl }: { video: VideoDetail
 
       {phase === "loading" && (
         <p role="status" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-          {transcript ? t.writing : t.preparing}
+          {transcript ? t.writing : isEpisode ? t.transcribing : t.preparing}
         </p>
       )}
 

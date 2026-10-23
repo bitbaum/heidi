@@ -76,7 +76,6 @@ export const en: Dictionary = {
       organisations: "Heidi for teams, care homes and hospitals",
     },
     closeMenu: "Close menu",
-    quickChat: "Chat with Heidi",
     quickPractice: "Practise now",
   },
 
@@ -203,14 +202,13 @@ export const en: Dictionary = {
       open: "Ask Heidi",
       close: "Close",
       title: "Heidi",
-      lead: "Ask about whatever you are reading — or paste a message someone sent you.",
-      prompts: [
-        "How do I say in Zurich German that I will be late?",
-        "What is the difference between dialect and written German here?",
-        "Give me three words I will hear here every day.",
-      ],
     },
-    emptyTitle: "Ask Heidi",
+    emptyTitle: "What do you want to understand — or say?",
+    /**
+     * The conversation you had before, offered as one row on an empty chat — never
+     * put back over the box you came to type in (see `useRestoreDraft`).
+     */
+    earlier: { title: "Your last conversation", resume: "Continue" },
     placeholder: "Paste what you received — or write what you want to say.",
     composer: "Message Heidi",
     saveWord: "Keep this word",
@@ -244,6 +242,7 @@ export const en: Dictionary = {
     },
     copy: "Copy",
     copied: "Copied",
+    paste: "Paste",
     flagged: "Not Zurich German:",
     checkedNote: "No foreign dialect forms found",
     checkedFlagged: "Not everything is Zurich German — marked",
@@ -940,7 +939,7 @@ export const en: Dictionary = {
 
   channels: {
     title: "Your channels",
-    lead: "Pick YouTube channels you like watching anyway. Heidi watches for new videos, tells you — and afterwards asks about what was said.",
+    lead: "Pick podcasts and YouTube channels you like listening to anyway. Heidi watches for new episodes, tells you — and afterwards asks about what was said.",
     signInFirst: "Following needs an account: the list has to live on our server so Heidi can check even when your browser is closed. What you watched and answered stays in this browser all the same.",
     notConfigured: "Channels are not set up on this server.",
     newTitle: "New since your last visit",
@@ -951,11 +950,12 @@ export const en: Dictionary = {
     withTranscript: "With questions",
     yoursTitle: "Channels you follow",
     videos: { one: "{n} video", few: "{n} videos", many: "{n} videos", other: "{n} videos" },
+    episodes: { one: "{n} episode", few: "{n} episodes", many: "{n} episodes", other: "{n} episodes" },
     newCount: { one: "{n} new", few: "{n} new", many: "{n} new", other: "{n} new" },
     readFailed: "The channel could not be read last time; Heidi keeps trying.",
     unfollow: "Unfollow",
     followTitle: "Follow a channel",
-    followHint: "A link to the channel, to one of its videos, or just the @name.",
+    followHint: "A link to the podcast's page or the YouTube channel, to an episode or a video — or just the @name.",
     placeholder: "youtube.com/@…",
     follow: "Follow",
     following: "Checking …",
@@ -966,9 +966,10 @@ export const en: Dictionary = {
       unreachable: "YouTube did not answer just now. Try again in a moment.",
       tooMany: "No more than {n} channels — unfollow one and it works.",
       failed: "That did not work.",
+      spotify: "Spotify publishes no feed. Use the link to the publisher's page or to Apple Podcasts.",
     },
     suggestedTitle: "Suggestions from the register",
-    suggestedBody: "What is listed under «Listen» and runs on YouTube. Each one says what is spoken — half of them are Standard German, and for a start that is exactly right.",
+    suggestedBody: "What is listed under «Listen» and has a feed: podcasts and YouTube channels. Each one says what is spoken — half of them are Standard German, and for a start that is exactly right.",
     notifications: {
       title: "Notifications",
       body: "Heidi tells this device when a new video appears on one of your channels. Only for that — never to nag you to practise.",
@@ -987,18 +988,24 @@ export const en: Dictionary = {
     push: { title: "{channel}: new video" },
     lesson: {
       eyebrow: "Video",
+      eyebrowEpisode: "Episode",
       from: "from {channel}",
       back: "To your channels",
       openOnYoutube: "Open on YouTube",
+      openAtPublisher: "Open at the publisher",
       start: "Watch and answer questions",
       preparing: "Heidi is fetching the captions …",
       writing: "Heidi is writing the questions …",
+      transcribing: "Heidi is listening to the first minutes and writing them down …",
       source: {
         publisher: "The publisher's captions",
         auto: "Automatic captions — machine-made, often wrong on dialect",
         pasted: "Transcript, pasted by hand",
+        autoOpening: "Written down automatically by Heidi — only the first {minutes} minutes; not reliable on dialect",
       },
       noTranscript: "This video has no captions Heidi may read. You can still watch it; questions need text.",
+      noTranscriptEpisode: "The publisher gives no transcript for this episode, and Heidi cannot write one here right now. You can still listen; questions need text.",
+      noTranscriptDialect: "The publisher gives no transcript for this episode — and on dialect Heidi writes none herself: speech recognition translates the dialect into Standard German, and that would not be what was said. You can still listen.",
       blockedTitle: "YouTube will not hand Heidi the transcript",
       blockedBody: "That often happens to servers. You can still get there in a minute:",
       pasteSteps: [
@@ -1042,7 +1049,7 @@ export const en: Dictionary = {
     },
     invite: {
       title: "Follow channels",
-      body: "Pick YouTube channels you like. Heidi watches for new videos, tells you, and asks about what was said.",
+      body: "Pick podcasts and YouTube channels you like. Heidi watches for new episodes, tells you, and asks about what was said.",
       cta: "To your channels",
     },
   },

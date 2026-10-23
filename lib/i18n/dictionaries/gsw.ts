@@ -99,7 +99,6 @@ export const gsw: Dictionary = {
       organisations: "Heidi für Teams, Heim und Spitäler",
     },
     closeMenu: "Menü zuemache",
-    quickChat: "Mit Heidi chatte",
     quickPractice: "Jetzt üebe",
   },
 
@@ -226,14 +225,13 @@ export const gsw: Dictionary = {
       open: "D Heidi frage",
       close: "Zuemache",
       title: "Heidi",
-      lead: "Fraged eifach, was Si grad läsed — oder füeged ii, was Si becho händ.",
-      prompts: [
-        "Wie sägi uf Züridütsch, dass i spöter chume?",
-        "Was isch de Unterschied zwüsched Mundart und Schriftdüütsch?",
-        "Säged mer drü Wörter, wo n i da jede Tag ghöre.",
-      ],
     },
-    emptyTitle: "Frag d Heidi",
+    emptyTitle: "Was wänd Si verstaa — oder säge?",
+    /**
+     * The conversation you had before, offered as one row on an empty chat — never
+     * put back over the box you came to type in (see `useRestoreDraft`).
+     */
+    earlier: { title: "Ihres letschte Gspröch", resume: "Wiiter" },
     placeholder: "Füged ii, was Si becho händ — oder schriibed, was Si wänd säge.",
     composer: "Nachricht a Heidi",
     saveWord: "Wort merke",
@@ -267,6 +265,7 @@ export const gsw: Dictionary = {
     },
     copy: "Kopiere",
     copied: "Kopiert",
+    paste: "Ifüege",
     flagged: "Nöd Züridütsch:",
     checkedNote: "Kei fremdi Dialektforme gfunde",
     checkedFlagged: "Nöd alles isch Züridütsch — markiert",
@@ -965,7 +964,7 @@ export const gsw: Dictionary = {
 
   channels: {
     title: "Ihri Kanäl",
-    lead: "Wähled Si YouTube-Kanäl, wo Si sowieso gärn lueged. D Heidi luegt nach nöie Videos, seit Ihne Bscheid — und stellt nachane Frage zu dem, was gseit worde isch.",
+    lead: "Wähled Si Podcasts und YouTube-Kanäl, wo Si sowieso gärn losed. D Heidi luegt nach nöie Folge, seit Ihne Bscheid — und stellt nachane Frage zu dem, was gseit worde isch.",
     signInFirst: "Zum Folge bruuched Si es Konto: D Lischte muess uf eusem Server lige, damit d Heidi au nahluege cha, wänn Ihre Browser zue isch. Was Si gluegt und gantwortet händ, bliibt trotzdem i dem Browser.",
     notConfigured: "Kanäl sind uf dem Server nöd iigrichtet.",
     newTitle: "Nöi sit Ihrem letschte Bsuech",
@@ -976,11 +975,12 @@ export const gsw: Dictionary = {
     withTranscript: "Mit Frage",
     yoursTitle: "Kanäl, wo Si folged",
     videos: { one: "{n} Video", few: "{n} Videos", many: "{n} Videos", other: "{n} Videos" },
+    episodes: { one: "{n} Folg", few: "{n} Folge", many: "{n} Folge", other: "{n} Folge" },
     newCount: { one: "{n} neus", few: "{n} neui", many: "{n} neui", other: "{n} neui" },
     readFailed: "Zletscht hät sich de Kanal nöd läse laa; d Heidi probiert s wiiter.",
     unfollow: "Nüme folge",
     followTitle: "Eme Kanal folge",
-    followHint: "En Link zum Kanal, zu eim vo sine Videos, oder eifach de @Name.",
+    followHint: "En Link zur Podcast-Siite oder zum YouTube-Kanal, zu ere Folg oder eme Video — oder eifach de @Name.",
     placeholder: "youtube.com/@…",
     follow: "Folge",
     following: "Wird prüeft …",
@@ -991,9 +991,10 @@ export const gsw: Dictionary = {
       unreachable: "YouTube hät grad nöd gantwortet. Probiered Si s gliich namal.",
       tooMany: "Me als {n} Kanäl gönd nöd — eine abbstelle, dänn klappt s.",
       failed: "Das hät nöd klappet.",
+      spotify: "Spotify git kän Feed use. Nämed Si de Link zur Siite vom Sänder oder zu Apple Podcasts.",
     },
     suggestedTitle: "Vorschleeg us em Verzeichnis",
-    suggestedBody: "Was under «Ghöre» staht und uf YouTube lauft. Bi jedem staht, was gredt wird — d Hälfti devo isch Hochdütsch, und für de Aafang isch das genau richtig.",
+    suggestedBody: "Was under «Ghöre» staht und en Feed hät: Podcasts und YouTube-Kanäl. Bi jedem staht, was gredt wird — d Hälfti devo isch Hochdütsch, und für de Aafang isch das genau richtig.",
     notifications: {
       title: "Benachrichtigige",
       body: "D Heidi seit dem Grät Bscheid, wänn uf eim vo Ihrne Kanäl es neus Video chunnt. Nu defür — nie, zum Si as Üebe maane.",
@@ -1012,18 +1013,24 @@ export const gsw: Dictionary = {
     push: { title: "{channel}: nöis Video" },
     lesson: {
       eyebrow: "Video",
+      eyebrowEpisode: "Folg",
       from: "vo {channel}",
       back: "Zu Ihrne Kanäl",
       openOnYoutube: "Uf YouTube uuftue",
+      openAtPublisher: "Bim Sänder uuftue",
       start: "Aaluege und Frage beantworte",
       preparing: "D Heidi holt d Untertitel …",
       writing: "D Heidi schriibt d Frage …",
+      transcribing: "D Heidi lost di erschte Minute mit und schriibt s uuf …",
       source: {
         publisher: "Untertitel vom Sänder",
         auto: "Automatischi Untertitel — vo de Maschine gmacht, bi Mundart mängisch falsch",
         pasted: "Transkript, vo Hand iigfüegt",
+        autoOpening: "Vo de Heidi automatisch mitgschribe — nu di erschte {minutes} Minute; bi Mundart nöd verlässlich",
       },
       noTranscript: "Zu dem Video git s kei Untertitel, wo d Heidi läse dörf. Aaluege gaht trotzdem; Frage git s nu mit Text.",
+      noTranscriptEpisode: "Zu dere Folg git s käs Transkript vom Sänder, und d Heidi cha da grad käs mitschriibe. Lose gaht trotzdem; Frage git s nu mit Text.",
+      noTranscriptDialect: "Zu dere Folg git s käs Transkript vom Sänder — und bi Mundart schriibt d Heidi käs sälber: D Spracherkännig übersetzt de Dialäkt is Hochdütsch, und das wär nöd, was gseit worde isch. Lose gaht trotzdem.",
       blockedTitle: "YouTube git de Heidi s Transkript nöd use",
       blockedBody: "Das passiert bi Server vil. Si chömed trotzdem i einere Minute dra:",
       pasteSteps: [
@@ -1067,7 +1074,7 @@ export const gsw: Dictionary = {
     },
     invite: {
       title: "Kanäl folge",
-      body: "Wähled Si YouTube-Kanäl, wo Si mööged. D Heidi luegt nach nöie Videos, seit Ihne Bscheid und stellt Frage zu dem, was gseit worde isch.",
+      body: "Wähled Si Podcasts und YouTube-Kanäl, wo Si mööged. D Heidi luegt nach nöie Folge, seit Ihne Bscheid und stellt Frage zu dem, was gseit worde isch.",
       cta: "Zu Ihrne Kanäl",
     },
   },

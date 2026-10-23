@@ -1,4 +1,4 @@
-import type { Feed, FeedVideo } from "./youtube.ts";
+import type { Item, SourceFeed, SourceKind } from "./source.ts";
 
 /**
  * Read every channel that is due, write down what is new, and tell the
@@ -16,7 +16,7 @@ import type { Feed, FeedVideo } from "./youtube.ts";
  * request, like every other model call in this product.
  */
 
-export type DueChannel = { id: string; name: string };
+export type DueChannel = { id: string; kind: SourceKind; name: string; feedUrl: string; handle: string | null };
 
 export type Follower = { actorId: string; followedAt: string };
 
@@ -25,11 +25,11 @@ export type Subscription = { endpoint: string; p256dh: string; auth: string; loc
 export type PushPayload = { title: string; body: string; url: string; tag: string };
 
 export type SweepDeps = {
-  /** Channels whose feed has not been read for `staleMs`, oldest first. */
+  /** Sources whose feed has not been read for `staleMs`, oldest first. */
   due: (olderThan: Date, limit: number) => Promise<DueChannel[]>;
-  readFeed: (channelId: string) => Promise<{ ok: true; feed: Feed } | { ok: false; reason: string }>;
-  /** Store the feed's videos; answer with the ids that were not there before. */
-  record: (channelId: string, videos: readonly FeedVideo[], checkedAt: Date, error: string | null) => Promise<string[]>;
+  readFeed: (channel: DueChannel) => Promise<{ ok: true; feed: SourceFeed } | { ok: false; reason: string }>;
+  /** Store the feed's items; answer with the ids that were not there before. */
+  record: (channelId: string, items: readonly Item[], checkedAt: Date, error: string | null) => Promise<string[]>;
   followersOf: (channelId: string) => Promise<Follower[]>;
   subscriptionsFor: (actorIds: readonly string[]) => Promise<Subscription[]>;
   send: (subscription: Subscription, payload: PushPayload) => Promise<{ ok: boolean; dead: boolean }>;
@@ -37,7 +37,7 @@ export type SweepDeps = {
   dropSubscriptions: (endpoints: readonly string[]) => Promise<void>;
   markNotified: (videoIds: readonly string[], at: Date) => Promise<void>;
   /** The words of the notification, in the browser's language. */
-  payload: (video: FeedVideo, channel: DueChannel, locale: string) => PushPayload;
+  payload: (item: Item, channel: DueChannel, locale: string) => PushPayload;
 };
 
 export type SweepOptions = {
@@ -63,8 +63,8 @@ export const NOTIFY_WITHIN_MS = 3 * 24 * 60 * 60_000;
  * see those on the page, and a phone that buzzes fifteen times for pressing
  * one button is a phone whose owner turns notifications off.
  */
-export function recipients(video: FeedVideo, followers: readonly Follower[]): Follower[] {
-  const published = Date.parse(video.publishedAt);
+export function recipients(item: Item, followers: readonly Follower[]): Follower[] {
+  const published = Date.parse(item.publishedAt);
   return followers.filter((f) => Date.parse(f.followedAt) <= published);
 }
 
@@ -77,16 +77,16 @@ export async function sweep(deps: SweepDeps, options: SweepOptions = {}): Promis
   const channels = await deps.due(new Date(now.getTime() - staleMs), options.limit ?? 50);
   for (const channel of channels) {
     report.checked += 1;
-    const read = await deps.readFeed(channel.id);
+    const read = await deps.readFeed(channel);
     if (!read.ok) {
       report.failed += 1;
       await deps.record(channel.id, [], now, read.reason);
       continue;
     }
-    const fresh = await deps.record(channel.id, read.feed.videos, now, null);
+    const fresh = await deps.record(channel.id, read.feed.items, now, null);
     report.newVideos += fresh.length;
 
-    const recent = read.feed.videos.filter((v) => fresh.includes(v.id) && now.getTime() - Date.parse(v.publishedAt) <= notifyWithin);
+    const recent = read.feed.items.filter((v) => fresh.includes(v.id) && now.getTime() - Date.parse(v.publishedAt) <= notifyWithin);
     if (recent.length === 0) continue;
 
     const followers = await deps.followersOf(channel.id);

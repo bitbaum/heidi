@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
+import { fill } from "@/lib/i18n/fill";
 import { clock, type Transcript } from "@/lib/channels/transcript";
 
 type T = Dictionary["channels"]["lesson"];
@@ -21,7 +22,11 @@ export function TranscriptView({ t, transcript, missed, onSeek, lang }: { t: T; 
       <h2 id="transcript-heading" className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
         {t.transcriptTitle}
       </h2>
-      <p className="mt-1 font-mono text-caption uppercase tracking-caps text-fg-muted">{t.source[transcript.source]}</p>
+      <p className="mt-1 font-mono text-caption uppercase tracking-caps text-fg-muted">
+        {transcript.source === "auto" && transcript.coverageSeconds
+          ? fill(t.source.autoOpening, { minutes: String(Math.max(1, Math.round(transcript.coverageSeconds / 60))) })
+          : t.source[transcript.source]}
+      </p>
       <p className="mt-2 text-sm text-fg-secondary">{t.transcriptHint}</p>
       <ol className="mt-4 flex flex-col" lang={lang}>
         {transcript.lines.map((line, i) => {

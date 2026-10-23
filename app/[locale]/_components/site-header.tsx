@@ -337,7 +337,7 @@ export function SiteHeader({
                 className="flex min-h-14 items-center justify-center gap-2 rounded-control bg-action px-3 text-center font-medium text-on-action"
               >
                 <NavIcon route="chat" />
-                {dict.nav.quickChat}
+                {dict.chat.dock.open}
               </Link>
               <SessionLink
                 locale={locale}

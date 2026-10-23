@@ -10,10 +10,10 @@ import { type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { formatDate } from "@/lib/i18n/dates";
 import { useByok } from "../use-byok";
-import { readDraft, useDraft } from "../use-draft";
+import { useDraft, useRestoreDraft } from "../use-draft";
 import { ModelSheet } from "../model-sheet";
 import { Composer } from "./composer";
-import { Examples } from "./examples";
+import { EmptyChat } from "./empty-chat";
 import { DISPLAY } from "@/lib/variety/display";
 import { Transcript } from "./transcript";
 import { useConversation } from "./use-conversation";
@@ -150,22 +150,14 @@ export function ChatWorkspace({
   const { messages, setMessages } = chat;
 
   /**
-   * Restore the conversation this browser was already having.
+   * Opening shows a fresh, ready box — unless a thread was going a moment ago.
    *
-   * Waits for `ready`, because the server pass cannot read localStorage and
-   * rendering the thread before it can would be a hydration mismatch. It reads
-   * the store DIRECTLY rather than through the subscribed value: `ready` and
-   * the stored draft are two independent `useSyncExternalStore` subscriptions,
-   * and nothing orders them — so the subscribed draft can still be null on the
-   * tick `ready` flips, which would seed an empty thread and mark the job done.
+   * Signed out only: a signed-in reader's conversations live on the server and
+   * `/chat` is always a new one. The rule, and why an old thread is OFFERED
+   * rather than put back, are in `useRestoreDraft`; the dock and the home card
+   * run the same code, so the three cannot disagree about what "open" means.
    */
-  const seeded = useRef(false);
-  useEffect(() => {
-    if (signedIn || seeded.current || !draft.ready) return;
-    seeded.current = true;
-    const stored = readDraft();
-    if (stored?.messages.length) setMessages(stored.messages);
-  }, [signedIn, draft.ready, setMessages]);
+  const { ready: restored, earlier: earlierDraft } = useRestoreDraft(setMessages, !signedIn);
 
   /**
    * Signed out, the thread IS the storage.
@@ -174,16 +166,16 @@ export function ChatWorkspace({
    * fire reliably when a tab is discarded on mobile, and losing the
    * conversation is the exact failure this exists to prevent.
    *
-   * NOT before the seed has run. Without that guard this effect fires on mount
-   * with an empty `messages`, which clears the very draft the seed is about to
-   * restore — found by reloading the page and watching the conversation
-   * vanish, having "persisted" it a moment earlier.
+   * NOT before the restore has run. Without that guard this effect fires on
+   * mount with an empty `messages`, which replaced the very draft the restore
+   * is about to read — found by reloading the page and watching the
+   * conversation vanish, having "persisted" it a moment earlier.
    */
   const keepDraft = draft.keep;
   useEffect(() => {
-    if (signedIn || !seeded.current) return;
+    if (signedIn || !restored) return;
     keepDraft(messages, locale);
-  }, [signedIn, messages, locale, keepDraft]);
+  }, [signedIn, restored, messages, locale, keepDraft]);
 
   useEffect(() => {
     if (messages.length > 0) endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -265,6 +257,25 @@ export function ChatWorkspace({
   );
 
   const started = messages.length > 0;
+
+  /**
+   * The row under the question: the conversation you had before.
+   *
+   * Signed in, that is the most recent saved one — from the server's list as
+   * of arriving here, so pressing "new chat" does not immediately offer the
+   * conversation you just walked away from. It is for ARRIVAL: gone for good
+   * once anything is written, and never on a saved thread's own page.
+   * Signed out it is the device's last thread (`useRestoreDraft`).
+   */
+  const [arrival, setArrival] = useState(true);
+  if (started && arrival) setArrival(false);
+  const latest = initialConversations[0];
+  const earlier =
+    signedIn && arrival && initialConversationId === null && latest
+      ? { line: latest.title.trim() || f.untitled, when: latest.updatedAt, resume: () => openConversation(latest.id) }
+      : signedIn
+        ? null
+        : earlierDraft;
   /**
    * What the learner actually wrote before signing in — the FIRST turn of
    * theirs, which is what makes the offer recognisable.
@@ -443,7 +454,16 @@ export function ChatWorkspace({
                 className="flex flex-col gap-4"
               />
             ) : (
-              <Empty t={t} onPick={chat.send} />
+              <div className="py-8">
+                <EmptyChat
+                  t={t}
+                  locale={locale}
+                  dialect={{ tag: DISPLAY.tag, showcase: DISPLAY.showcase?.line }}
+                  onPick={chat.send}
+                  earlier={earlier}
+                  heading="h1"
+                />
+              </div>
             )}
           </div>
         </div>
@@ -527,32 +547,6 @@ function AdoptPrompt({
           </button>
         </div>
       </div>
-    </div>
-  );
-}
-
-/**
- * An empty chat says what it is for — and then offers something to press.
- *
- * It used to be a heading and a sentence, which on a phone left roughly six
- * hundred pixels of white between the greeting and the text box. That reads as
- * a page which has not finished loading, and it asks the least confident
- * visitor to do the hardest thing in the product first: compose a sentence in
- * a language they cannot yet write.
- *
- * The home page already had the answer and the full-screen chat did not, so
- * the examples moved into their own module and both surfaces render the same
- * ones. `DISPLAY` rather than the pack itself: a component may not import the
- * variety — see `lib/variety/display.test.ts`.
- */
-function Empty({ t, onPick }: { t: Dictionary["chat"]; onPick: (s: string) => void }) {
-  return (
-    <div className="py-10">
-      <div className="text-center">
-        <h1 className="font-heading text-2xl font-semibold tracking-display text-fg-primary">{t.emptyTitle}</h1>
-        <p className="mx-auto mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{t.placeholder}</p>
-      </div>
-      <Examples t={t} dialect={{ tag: DISPLAY.tag, showcase: DISPLAY.showcase?.line }} onPick={onPick} />
     </div>
   );
 }

@@ -101,7 +101,6 @@ export const de = {
       organisations: "Heidi für Teams, Heime und Spitäler",
     },
     closeMenu: "Menü schliessen",
-    quickChat: "Mit Heidi chatten",
     quickPractice: "Jetzt üben",
   },
 
@@ -242,14 +241,13 @@ export const de = {
       open: "Heidi fragen",
       close: "Schliessen",
       title: "Heidi",
-      lead: "Fragen Sie, was Sie gerade lesen — oder fügen Sie eine Nachricht ein, die Sie bekommen haben.",
-      prompts: [
-        "Wie sage ich auf Zürichdeutsch, dass ich später komme?",
-        "Was ist der Unterschied zwischen Mundart und Schriftdeutsch?",
-        "Nennen Sie mir drei Wörter, die ich hier täglich höre.",
-      ],
     },
-    emptyTitle: "Fragen Sie Heidi",
+    emptyTitle: "Was möchten Sie verstehen — oder sagen?",
+    /**
+     * The conversation you had before, offered as one row on an empty chat — never
+     * put back over the box you came to type in (see `useRestoreDraft`).
+     */
+    earlier: { title: "Ihr letztes Gespräch", resume: "Weiter" },
     placeholder: "Fügen Sie ein, was Sie bekommen haben — oder schreiben Sie, was Sie sagen möchten.",
     composer: "Nachricht an Heidi",
     saveWord: "Wort merken",
@@ -284,6 +282,7 @@ export const de = {
     },
     copy: "Kopieren",
     copied: "Kopiert",
+    paste: "Einfügen",
     flagged: "Nicht Zürichdeutsch:",
     checkedNote: "Keine fremden Dialektformen gefunden",
     checkedFlagged: "Nicht alles ist Zürichdeutsch — markiert",
@@ -1022,7 +1021,7 @@ export const de = {
    */
   channels: {
     title: "Ihre Kanäle",
-    lead: "Wählen Sie YouTube-Kanäle, die Sie ohnehin gern schauen. Heidi schaut nach neuen Videos, sagt Ihnen Bescheid — und stellt danach Fragen zu dem, was gesagt wurde.",
+    lead: "Wählen Sie Podcasts und YouTube-Kanäle, die Sie ohnehin gern hören. Heidi schaut nach neuen Folgen, sagt Ihnen Bescheid — und stellt danach Fragen zu dem, was gesagt wurde.",
     signInFirst: "Zum Folgen brauchen Sie ein Konto: Die Liste muss auf unserem Server liegen, damit Heidi auch nachschauen kann, wenn Ihr Browser zu ist. Was Sie angeschaut und geantwortet haben, bleibt trotzdem in diesem Browser.",
     notConfigured: "Kanäle sind auf diesem Server nicht eingerichtet.",
     newTitle: "Neu seit Ihrem letzten Besuch",
@@ -1033,11 +1032,12 @@ export const de = {
     withTranscript: "Mit Fragen",
     yoursTitle: "Kanäle, denen Sie folgen",
     videos: { one: "{n} Video", few: "{n} Videos", many: "{n} Videos", other: "{n} Videos" },
+    episodes: { one: "{n} Folge", few: "{n} Folgen", many: "{n} Folgen", other: "{n} Folgen" },
     newCount: { one: "{n} neues", few: "{n} neue", many: "{n} neue", other: "{n} neue" },
     readFailed: "Zuletzt liess sich der Kanal nicht lesen; Heidi versucht es weiter.",
     unfollow: "Nicht mehr folgen",
     followTitle: "Einem Kanal folgen",
-    followHint: "Ein Link zum Kanal, zu einem seiner Videos, oder einfach der @Name.",
+    followHint: "Ein Link zur Podcast-Seite oder zum YouTube-Kanal, zu einer Folge oder einem Video — oder einfach der @Name.",
     placeholder: "youtube.com/@…",
     follow: "Folgen",
     following: "Wird geprüft …",
@@ -1048,9 +1048,10 @@ export const de = {
       unreachable: "YouTube hat gerade nicht geantwortet. Versuchen Sie es gleich noch einmal.",
       tooMany: "Mehr als {n} Kanäle gehen nicht — einen abbestellen, dann klappt es.",
       failed: "Das hat nicht geklappt.",
+      spotify: "Spotify gibt keinen Feed heraus. Nehmen Sie den Link zur Seite des Senders oder zu Apple Podcasts.",
     },
     suggestedTitle: "Vorschläge aus dem Verzeichnis",
-    suggestedBody: "Was unter «Hören» steht und auf YouTube läuft. Bei jedem steht, was gesprochen wird — die Hälfte davon ist Hochdeutsch, und das ist für den Anfang genau richtig.",
+    suggestedBody: "Was unter «Hören» steht und einen Feed hat: Podcasts und YouTube-Kanäle. Bei jedem steht, was gesprochen wird — die Hälfte davon ist Hochdeutsch, und das ist für den Anfang genau richtig.",
     notifications: {
       title: "Benachrichtigungen",
       body: "Heidi sagt diesem Gerät Bescheid, wenn auf einem Ihrer Kanäle ein neues Video erscheint. Nur dafür — nie, um Sie ans Üben zu mahnen.",
@@ -1069,18 +1070,24 @@ export const de = {
     push: { title: "{channel}: neues Video" },
     lesson: {
       eyebrow: "Video",
+      eyebrowEpisode: "Folge",
       from: "von {channel}",
       back: "Zu Ihren Kanälen",
       openOnYoutube: "Auf YouTube öffnen",
+      openAtPublisher: "Beim Sender öffnen",
       start: "Anschauen und Fragen beantworten",
       preparing: "Heidi holt die Untertitel …",
       writing: "Heidi schreibt die Fragen …",
+      transcribing: "Heidi hört die ersten Minuten mit und schreibt auf …",
       source: {
         publisher: "Untertitel des Senders",
         auto: "Automatische Untertitel — maschinell erstellt, bei Mundart oft falsch",
         pasted: "Transkript, von Hand eingefügt",
+        autoOpening: "Von Heidi automatisch mitgeschrieben — nur die ersten {minutes} Minuten; bei Mundart nicht verlässlich",
       },
       noTranscript: "Zu diesem Video gibt es keine Untertitel, die Heidi lesen darf. Anschauen geht trotzdem; Fragen gibt es nur mit Text.",
+      noTranscriptEpisode: "Zu dieser Folge gibt es kein Transkript vom Sender, und Heidi kann hier gerade keines mitschreiben. Hören geht trotzdem; Fragen gibt es nur mit Text.",
+      noTranscriptDialect: "Zu dieser Folge gibt es kein Transkript vom Sender — und bei Mundart schreibt Heidi keines selbst: Die Spracherkennung übersetzt den Dialekt ins Hochdeutsche, und das wäre nicht, was gesagt wurde. Hören geht trotzdem.",
       blockedTitle: "YouTube gibt Heidi das Transkript nicht heraus",
       blockedBody: "Das passiert bei Servern oft. Sie kommen trotzdem in einer Minute dran:",
       pasteSteps: [
@@ -1124,7 +1131,7 @@ export const de = {
     },
     invite: {
       title: "Kanälen folgen",
-      body: "Wählen Sie YouTube-Kanäle, die Sie mögen. Heidi schaut nach neuen Videos, sagt Ihnen Bescheid und stellt Fragen zu dem, was gesagt wurde.",
+      body: "Wählen Sie Podcasts und YouTube-Kanäle, die Sie mögen. Heidi schaut nach neuen Folgen, sagt Ihnen Bescheid und stellt Fragen zu dem, was gesagt wurde.",
       cta: "Zu Ihren Kanälen",
     },
   },

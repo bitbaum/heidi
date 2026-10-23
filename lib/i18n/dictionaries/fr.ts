@@ -76,7 +76,6 @@ export const fr: Dictionary = {
       organisations: "Heidi pour les équipes, EMS et hôpitaux",
     },
     closeMenu: "Fermer le menu",
-    quickChat: "Discuter avec Heidi",
     quickPractice: "S’exercer",
   },
 
@@ -203,14 +202,13 @@ export const fr: Dictionary = {
       open: "Demander à Heidi",
       close: "Fermer",
       title: "Heidi",
-      lead: "Posez une question sur ce que vous lisez — ou collez un message que vous avez reçu.",
-      prompts: [
-        "Comment dire en zurichois que je vais arriver en retard ?",
-        "Quelle est la différence entre le dialecte et l'allemand écrit ?",
-        "Donnez-moi trois mots que j'entendrai ici tous les jours.",
-      ],
     },
-    emptyTitle: "Demandez à Heidi",
+    emptyTitle: "Que voulez-vous comprendre — ou dire ?",
+    /**
+     * The conversation you had before, offered as one row on an empty chat — never
+     * put back over the box you came to type in (see `useRestoreDraft`).
+     */
+    earlier: { title: "Votre dernière conversation", resume: "Reprendre" },
     placeholder: "Collez ce que vous avez reçu — ou écrivez ce que vous voulez dire.",
     composer: "Message à Heidi",
     saveWord: "Garder ce mot",
@@ -244,6 +242,7 @@ export const fr: Dictionary = {
     },
     copy: "Copier",
     copied: "Copié",
+    paste: "Coller",
     flagged: "Pas du zurichois :",
     checkedNote: "Aucune forme dialectale étrangère trouvée",
     checkedFlagged: "Tout n'est pas du zurichois — c'est signalé",
@@ -945,7 +944,7 @@ export const fr: Dictionary = {
 
   channels: {
     title: "Vos chaînes",
-    lead: "Choisissez des chaînes YouTube que vous regardez volontiers de toute façon. Heidi guette les nouvelles vidéos, vous prévient — et pose ensuite des questions sur ce qui a été dit.",
+    lead: "Choisissez des podcasts et des chaînes YouTube que vous écoutez volontiers de toute façon. Heidi guette les nouveaux épisodes, vous prévient — et pose ensuite des questions sur ce qui a été dit.",
     signInFirst: "Pour suivre une chaîne, il faut un compte : la liste doit être sur notre serveur pour que Heidi puisse vérifier même quand votre navigateur est fermé. Ce que vous avez regardé et répondu reste quand même dans ce navigateur.",
     notConfigured: "Les chaînes ne sont pas configurées sur ce serveur.",
     newTitle: "Nouveau depuis votre dernière visite",
@@ -956,11 +955,12 @@ export const fr: Dictionary = {
     withTranscript: "Avec questions",
     yoursTitle: "Chaînes que vous suivez",
     videos: { one: "{n} vidéo", few: "{n} vidéos", many: "{n} vidéos", other: "{n} vidéos" },
+    episodes: { one: "{n} épisode", few: "{n} épisodes", many: "{n} épisodes", other: "{n} épisodes" },
     newCount: { one: "{n} nouvelle", few: "{n} nouvelles", many: "{n} nouvelles", other: "{n} nouvelles" },
     readFailed: "La chaîne n’a pas pu être lue la dernière fois ; Heidi réessaie.",
     unfollow: "Ne plus suivre",
     followTitle: "Suivre une chaîne",
-    followHint: "Un lien vers la chaîne, vers l’une de ses vidéos, ou simplement le @nom.",
+    followHint: "Un lien vers la page du podcast ou la chaîne YouTube, vers un épisode ou une vidéo — ou simplement le @nom.",
     placeholder: "youtube.com/@…",
     follow: "Suivre",
     following: "Vérification …",
@@ -971,9 +971,10 @@ export const fr: Dictionary = {
       unreachable: "YouTube n’a pas répondu. Réessayez dans un instant.",
       tooMany: "Pas plus de {n} chaînes — retirez-en une et cela fonctionne.",
       failed: "Cela n’a pas fonctionné.",
+      spotify: "Spotify ne publie pas de flux. Prenez le lien vers la page de l’éditeur ou vers Apple Podcasts.",
     },
     suggestedTitle: "Suggestions du répertoire",
-    suggestedBody: "Ce qui figure sous « Écouter » et passe sur YouTube. Chaque entrée dit ce qui est parlé — la moitié est en allemand standard, et pour commencer c’est exactement ce qu’il faut.",
+    suggestedBody: "Ce qui figure sous « Écouter » et possède un flux : podcasts et chaînes YouTube. Chaque entrée dit ce qui est parlé — la moitié est en allemand standard, et pour commencer c’est exactement ce qu’il faut.",
     notifications: {
       title: "Notifications",
       body: "Heidi prévient cet appareil quand une nouvelle vidéo paraît sur l’une de vos chaînes. Pour cela seulement — jamais pour vous rappeler de réviser.",
@@ -992,18 +993,24 @@ export const fr: Dictionary = {
     push: { title: "{channel} : nouvelle vidéo" },
     lesson: {
       eyebrow: "Vidéo",
+      eyebrowEpisode: "Épisode",
       from: "de {channel}",
       back: "Vers vos chaînes",
       openOnYoutube: "Ouvrir sur YouTube",
+      openAtPublisher: "Ouvrir chez l’éditeur",
       start: "Regarder et répondre aux questions",
       preparing: "Heidi va chercher les sous-titres …",
       writing: "Heidi rédige les questions …",
+      transcribing: "Heidi écoute les premières minutes et les note …",
       source: {
         publisher: "Sous-titres de l’éditeur",
         auto: "Sous-titres automatiques — faits par une machine, souvent faux en dialecte",
         pasted: "Transcription collée à la main",
+        autoOpening: "Noté automatiquement par Heidi — seulement les {minutes} premières minutes ; peu fiable en dialecte",
       },
       noTranscript: "Cette vidéo n’a pas de sous-titres que Heidi ait le droit de lire. Vous pouvez la regarder quand même ; les questions ont besoin de texte.",
+      noTranscriptEpisode: "L’éditeur ne fournit pas de transcription pour cet épisode, et Heidi ne peut pas en écrire une ici pour l’instant. Vous pouvez quand même écouter ; les questions ont besoin de texte.",
+      noTranscriptDialect: "L’éditeur ne fournit pas de transcription pour cet épisode — et en dialecte Heidi n’en écrit pas elle-même : la reconnaissance vocale traduit le dialecte en allemand standard, et ce ne serait pas ce qui a été dit. Vous pouvez quand même écouter.",
       blockedTitle: "YouTube ne livre pas la transcription à Heidi",
       blockedBody: "Cela arrive souvent aux serveurs. Vous y arrivez quand même en une minute :",
       pasteSteps: [
@@ -1047,7 +1054,7 @@ export const fr: Dictionary = {
     },
     invite: {
       title: "Suivre des chaînes",
-      body: "Choisissez des chaînes YouTube que vous aimez. Heidi guette les nouvelles vidéos, vous prévient et pose des questions sur ce qui a été dit.",
+      body: "Choisissez des podcasts et des chaînes YouTube que vous aimez. Heidi guette les nouveaux épisodes, vous prévient et pose des questions sur ce qui a été dit.",
       cta: "Vers vos chaînes",
     },
   },

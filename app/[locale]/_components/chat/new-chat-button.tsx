@@ -26,7 +26,7 @@ export function NewChatButton({
         onClick={onClick}
         aria-label={label}
         title={label}
-        className={`inline-flex h-9 w-9 items-center justify-center rounded-control text-fg-secondary transition-colors hover:bg-surface-raised hover:text-fg-primary ${className}`}
+        className={`inline-flex h-11 w-11 items-center justify-center rounded-control text-fg-secondary transition-colors hover:bg-surface-raised hover:text-fg-primary ${className}`}
       >
         <NewChatIcon />
       </button>

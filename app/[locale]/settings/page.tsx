@@ -87,16 +87,19 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
 
       <Section id="language" title={sections.language}>
         <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.languageBody}</p>
-        <ul className="mt-4 flex flex-wrap gap-2">
+        {/* Equal cells in an even grid, the last one across the row: a wrapping
+            box of pills put «Schwiizerdütsch» and «Rumantsch» in cells as wide
+            as their words, three to a row and one left over. */}
+        <ul className="mt-4 grid max-w-md grid-cols-2 gap-2">
           {MENU_ORDER.map((l) => (
-            <li key={l}>
+            <li key={l} className="min-w-0 last:odd:col-span-2">
               <LanguageLink
                 language={l}
                 href={href(l, "settings")}
                 hrefLang={l}
                 lang={l}
                 aria-current={l === locale ? "true" : undefined}
-                className={`inline-flex min-h-11 items-center border px-4 text-sm transition-colors ${
+                className={`flex min-h-11 w-full items-center justify-center border px-2 text-center text-sm transition-colors ${
                   l === locale
                     ? "border-border-strong bg-fg-primary font-medium text-surface-page"
                     : "border-border-subtle text-fg-secondary hover:border-border-strong hover:text-fg-primary"

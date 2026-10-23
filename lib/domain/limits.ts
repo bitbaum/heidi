@@ -194,3 +194,10 @@ export const pushWrite = slidingWindow({ limit: 20, windowMs: 10 * 60_000 });
  * rating every answer of a long conversation; a script hits it in a second.
  */
 export const chatFeedback = slidingWindow({ limit: 30, windowMs: 5 * 60_000 });
+
+/**
+ * Heidi listening to a podcast's opening minutes herself. Audio seconds on
+ * the shared speech tier, once per episode for everybody who follows the
+ * show — six in ten minutes is a person opening episodes, not a loop.
+ */
+export const episodeTranscribe = slidingWindow({ limit: 6, windowMs: 10 * 60_000 });

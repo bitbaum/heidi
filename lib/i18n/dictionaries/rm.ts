@@ -92,7 +92,6 @@ export const rm: Dictionary = {
       organisations: "Heidi per teams, chasas da tgira ed ospitals",
     },
     closeMenu: "Serrar il menu",
-    quickChat: "Chattar cun Heidi",
     quickPractice: "Exercitar ussa",
   },
 
@@ -219,14 +218,13 @@ export const rm: Dictionary = {
       open: "Dumandar Heidi",
       close: "Serrar",
       title: "Heidi",
-      lead: "Dumandai davart quai che Vus legiais — u encollai in messadi che Vus avais retschavì.",
-      prompts: [
-        "Co di jau per turitgais ch'jau vegn pli tard?",
-        "Tge differenza dat i tranter il dialect e il tudestg scrit?",
-        "Numnai mai trais pleds ch'jau aud qua mintga di.",
-      ],
     },
-    emptyTitle: "Dumandai Heidi",
+    emptyTitle: "Tge vulais Vus chapir — u dir?",
+    /**
+     * The conversation you had before, offered as one row on an empty chat — never
+     * put back over the box you came to type in (see `useRestoreDraft`).
+     */
+    earlier: { title: "Vossa davosa conversaziun", resume: "Cuntinuar" },
     placeholder: "Encollai quai che Vus avais retschavì — u scrivai quai che Vus vulais dir.",
     composer: "Messadi a Heidi",
     saveWord: "Tegnair quest pled",
@@ -260,6 +258,7 @@ export const rm: Dictionary = {
     },
     copy: "Copiar",
     copied: "Copià",
+    paste: "Encollar",
     flagged: "Betg tudestg da Turitg:",
     checkedNote: "Naginas furmas dialectalas estras chattadas",
     checkedFlagged: "Betg tut è tudestg da Turitg — marcà",
@@ -961,7 +960,7 @@ export const rm: Dictionary = {
 
   channels: {
     title: "Voss chanals",
-    lead: "Tscherni chanals da YouTube che Vus guardais gugent uschiglio. Heidi guarda sche novs videos cumparan, As infurmescha — e fa alura dumondas davart quai ch’è vegnì ditg.",
+    lead: "Tscherni podcasts e chanals da YouTube che Vus tadlais gugent uschiglio. Heidi guarda sche novs episodis cumparan, As infurmescha — e fa alura dumondas davart quai ch’è vegnì ditg.",
     signInFirst: "Per suandar in chanal dovri in conto: la glista sto esser sin noss server, per che Heidi possia controllar er cura che Voss navigatur è serrà. Quai che Vus avais guardà e respundì resta tuttina en quest navigatur.",
     notConfigured: "Chanals n’èn betg configurads sin quest server.",
     newTitle: "Nov dapi Vossa ultima visita",
@@ -972,11 +971,12 @@ export const rm: Dictionary = {
     withTranscript: "Cun dumondas",
     yoursTitle: "Chanals che Vus suandais",
     videos: { one: "{n} video", few: "{n} videos", many: "{n} videos", other: "{n} videos" },
+    episodes: { one: "{n} episodi", few: "{n} episodis", many: "{n} episodis", other: "{n} episodis" },
     newCount: { one: "{n} nov", few: "{n} novs", many: "{n} novs", other: "{n} novs" },
     readFailed: "L’ultima giada n’è il chanal betg stà legibel; Heidi emprova vinavant.",
     unfollow: "Betg pli suandar",
     followTitle: "Suandar in chanal",
-    followHint: "Ina colliaziun al chanal, ad in da ses videos, u simplamain il @num.",
+    followHint: "Ina colliaziun a la pagina dal podcast u al chanal da YouTube, ad in episodi u ad in video — u simplamain il @num.",
     placeholder: "youtube.com/@…",
     follow: "Suandar",
     following: "Vegn controllà …",
@@ -987,9 +987,10 @@ export const rm: Dictionary = {
       unreachable: "YouTube n’ha gist betg respundì. Empruvai anc ina giada en in mument.",
       tooMany: "Betg dapli che {n} chanals — allontanai in, lura va quai.",
       failed: "Quai n’ha betg funcziunà.",
+      spotify: "Spotify na publitgescha nagin feed. Prendai la colliaziun a la pagina da l’editur u ad Apple Podcasts.",
     },
     suggestedTitle: "Propostas or dal register",
-    suggestedBody: "Quai che stat sut «Tadlar» e curra sin YouTube. Tar mintgin stat tge che vegn discurrì — la mesadad è tudestg da standard, e per cumenzar è quai gist endretg.",
+    suggestedBody: "Quai che stat sut «Tadlar» ed ha in feed: podcasts e chanals da YouTube. Tar mintgin stat tge che vegn discurrì — la mesadad è tudestg da standard, e per cumenzar è quai gist endretg.",
     notifications: {
       title: "Communicaziuns",
       body: "Heidi infurmescha quest apparat cura ch’in nov video cumpara sin in da Voss chanals. Mo per quai — mai per As admonir da far exercizis.",
@@ -1008,18 +1009,24 @@ export const rm: Dictionary = {
     push: { title: "{channel}: nov video" },
     lesson: {
       eyebrow: "Video",
+      eyebrowEpisode: "Episodi",
       from: "da {channel}",
       back: "A Voss chanals",
       openOnYoutube: "Avrir sin YouTube",
+      openAtPublisher: "Avrir tar l’editur",
       start: "Guardar e respunder a las dumondas",
       preparing: "Heidi va a tschertgar ils suttitels …",
       writing: "Heidi scriva las dumondas …",
+      transcribing: "Heidi tadla las emprimas minutas e las noda …",
       source: {
         publisher: "Suttitels da l’editur",
         auto: "Suttitels automatics — fatgs d’ina maschina, savens faus en dialect",
         pasted: "Transcripziun, encollada a maun",
+        autoOpening: "Nodà automaticamain da Heidi — mo las emprimas {minutes} minutas; betg fidà en dialect",
       },
       noTranscript: "Per quest video na datti nagins suttitels che Heidi dastga leger. Guardar va tuttina; dumondas datti mo cun text.",
+      noTranscriptEpisode: "L’editur na dat nagina transcripziun per quest episodi, e Heidi na po gist betg scriver ina qua. Tadlar va tuttina; dumondas datti mo cun text.",
+      noTranscriptDialect: "L’editur na dat nagina transcripziun per quest episodi — ed en dialect na scriva Heidi nagina sezza: la renconuschientscha da la vusch translata il dialect en tudestg da standard, e quai na fiss betg quai ch’è vegnì ditg. Tadlar va tuttina.",
       blockedTitle: "YouTube na dat betg la transcripziun a Heidi",
       blockedBody: "Quai capita savens a servers. Vus arrivais tuttina en ina minuta:",
       pasteSteps: [
@@ -1063,7 +1070,7 @@ export const rm: Dictionary = {
     },
     invite: {
       title: "Suandar chanals",
-      body: "Tscherni chanals da YouTube che plaschan a Vus. Heidi guarda sche novs videos cumparan, As infurmescha e fa dumondas davart quai ch’è vegnì ditg.",
+      body: "Tscherni podcasts e chanals da YouTube che plaschan a Vus. Heidi guarda sche novs episodis cumparan, As infurmescha e fa dumondas davart quai ch’è vegnì ditg.",
       cta: "A Voss chanals",
     },
   },
