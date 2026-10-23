@@ -95,26 +95,10 @@ export function AnswerView({
         </p>
       )}
 
-      {/*
-        The explanation itself can be heard, and that is not a nicety — it is
-        the difference between a product that speaks and one that speaks only
-        sometimes.
-
-        Found by using the live site rather than by reading the code: speaking
-        was attached to the dialect line and to each suggestion, which exist
-        only on a PRODUCE turn. An UNDERSTAND turn — someone pasting a message
-        they cannot read, which §9 calls the thing the product leads with — has
-        neither, so the whole feature was invisible on the commoner half of the
-        product. Four speak controls on "how do I say I'll be late", none at
-        all on "what does nöd mean".
-
-        It reads the prose, in the reader's own language. That is a smaller
-        claim than the dialect line beside it and needs no caveat: nobody
-        mistakes Heidi's German explanation for a model of Zurich phonology.
-      */}
-      <div className="mt-2">
-        <Speak text={a.text} t={voiceT} />
-      </div>
+      {/* The explanation is read aloud by the row under the answer (chatkit's
+          Listen, in the transcript). Heidi's own Speak stays on the DIALECT
+          lines below, where which voice the device has is a claim worth
+          making in the flow — see speak-button.tsx. */}
 
       {a.dialect && (
         <div className="mt-3 rounded-control border border-border-subtle bg-surface-raised p-3">

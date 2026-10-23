@@ -71,6 +71,13 @@
       "when": 1792660800532,
       "tag": "0009_podcasts",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1792756788680,
+      "tag": "0010_chat_feedback",
+      "breakpoints": true
     }
   ]
 }

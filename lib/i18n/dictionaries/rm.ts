@@ -299,6 +299,23 @@ export const rm: Dictionary = {
     cannotSeePicture:
       "Heidi na po betg leger maletgs en quest mument. Trametti il text, u collià in agen model che legia maletgs.",
     retry: "Danovamain",
+    feedback: {
+      good: "Buna resposta",
+      bad: "Nauscha resposta",
+      title: "Tge n'è betg stà bun?",
+      reasons: {
+        wrong: "Quai n'è betg correct",
+        dead_end: "Ha dà si enstagl da tschertgar",
+        vague: "Memia vag",
+        misread: "Ha chapì mal la dumonda",
+        too_long: "Memia lung",
+        format: "Grev da leger",
+        other: "Insatge auter",
+      },
+      more: "Vulais Vus agiuntar insatge?",
+      send: "Trametter",
+      thanks: "Grazia, notà.",
+    },
     /**
      * The full-screen chat. Its own object so the homepage box — which shares
      * every other string in here — does not have to carry strings it never

@@ -283,6 +283,23 @@ export const fr: Dictionary = {
     cannotSeePicture:
       "Heidi ne peut pas lire d'image en ce moment. Envoyez le texte, ou connectez votre propre modèle capable de lire les images.",
     retry: "Réessayer",
+    feedback: {
+      good: "Bonne réponse",
+      bad: "Mauvaise réponse",
+      title: "Qu'est-ce qui n'allait pas ?",
+      reasons: {
+        wrong: "C'est faux",
+        dead_end: "Elle a renoncé au lieu de chercher",
+        vague: "Trop vague",
+        misread: "Elle a mal compris ma question",
+        too_long: "Trop long",
+        format: "Difficile à lire",
+        other: "Autre chose",
+      },
+      more: "Quelque chose à ajouter ?",
+      send: "Envoyer",
+      thanks: "Merci, c'est noté.",
+    },
     /**
      * The full-screen chat. Its own object so the homepage box — which shares
      * every other string in here — does not have to carry strings it never
