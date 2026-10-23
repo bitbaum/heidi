@@ -215,7 +215,7 @@ export function VocabularyBrowser({
         {visible.length === 0 ? (
           <p className="mt-10 max-w-measure text-base leading-relaxed text-fg-secondary">{t.noMatches}</p>
         ) : (
-          <ul className="mt-6 hyphens-auto wrap-anywhere">
+          <ul className="mt-6 break-words">
             {visible.map(({ word: row, match }, i) => (
               <WordRow
                 key={row.target}
