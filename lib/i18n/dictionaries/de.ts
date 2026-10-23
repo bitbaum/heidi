@@ -101,7 +101,6 @@ export const de = {
       organisations: "Heidi für Teams, Heime und Spitäler",
     },
     closeMenu: "Menü schliessen",
-    quickChat: "Mit Heidi chatten",
     quickPractice: "Jetzt üben",
   },
 
@@ -283,6 +282,7 @@ export const de = {
     },
     copy: "Kopieren",
     copied: "Kopiert",
+    paste: "Einfügen",
     flagged: "Nicht Zürichdeutsch:",
     checkedNote: "Keine fremden Dialektformen gefunden",
     checkedFlagged: "Nicht alles ist Zürichdeutsch — markiert",

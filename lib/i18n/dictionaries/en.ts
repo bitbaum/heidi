@@ -76,7 +76,6 @@ export const en: Dictionary = {
       organisations: "Heidi for teams, care homes and hospitals",
     },
     closeMenu: "Close menu",
-    quickChat: "Chat with Heidi",
     quickPractice: "Practise now",
   },
 
@@ -243,6 +242,7 @@ export const en: Dictionary = {
     },
     copy: "Copy",
     copied: "Copied",
+    paste: "Paste",
     flagged: "Not Zurich German:",
     checkedNote: "No foreign dialect forms found",
     checkedFlagged: "Not everything is Zurich German — marked",

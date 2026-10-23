@@ -100,7 +100,7 @@ export default async function PracticePage({
 
   return (
     <Shell>
-      <BandHeader title={t.title} lead={t.lead} note={t.note} />
+      <BandHeader title={t.title} lead={t.lead} />
 
       <div className="border-t border-border-subtle pt-8">
         <div className="mb-6">
@@ -151,6 +151,11 @@ export default async function PracticePage({
             ids={scope.kind === "all" && mode === "mixed" ? undefined : items.map((item) => item.id)}
           />
         )}
+
+        {/* Where the answers are kept. It was a second paragraph in the header,
+            which pushed the start button below the first screen of a phone for
+            everybody, every time, to say something read once. */}
+        <p className="mb-8 max-w-measure text-sm leading-relaxed text-fg-muted">{t.note}</p>
 
         {/* Only on the unscoped page: inside a scoped sitting the learner has
             already said what they want to work on, and offering them three

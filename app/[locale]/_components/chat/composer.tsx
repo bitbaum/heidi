@@ -10,6 +10,7 @@ import type { Locale } from "@/lib/i18n/locales";
 import { LOCALE_TAGS } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n";
 import { MAX_BYTES, MAX_EDGE, MAX_IMAGES } from "@/lib/domain/chat/image";
+import { PasteButton } from "./paste-button";
 
 /** Heidi's server leg for the microphone: one model, behind the dictation limit. */
 const TRANSCRIBE_URL = "/api/transcribe";
@@ -143,6 +144,8 @@ export function Composer({
               }
             : false
         }
+        // The commonest first move there is: paste the line you were sent.
+        tools={<PasteButton label={t.paste} value={value} onPaste={onChange} />}
         footer={footer}
         labels={labels}
         inputRef={inputRef}

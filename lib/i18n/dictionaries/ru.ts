@@ -84,7 +84,6 @@ export const ru: Dictionary = {
       organisations: "Heidi для команд, домов престарелых и больниц",
     },
     closeMenu: "Закрыть меню",
-    quickChat: "Написать Heidi",
     quickPractice: "Упражняться",
   },
 
@@ -251,6 +250,7 @@ export const ru: Dictionary = {
     },
     copy: "Копировать",
     copied: "Скопировано",
+    paste: "Вставить",
     flagged: "Не цюрихский:",
     checkedNote: "Чужих диалектных форм не найдено",
     checkedFlagged: "Не всё на цюрихском — отмечено",

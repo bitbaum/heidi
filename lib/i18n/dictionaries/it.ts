@@ -76,7 +76,6 @@ export const it: Dictionary = {
       organisations: "Heidi per team, case di cura e ospedali",
     },
     closeMenu: "Chiudere il menu",
-    quickChat: "Chattare con Heidi",
     quickPractice: "Esercitarsi ora",
   },
 
@@ -243,6 +242,7 @@ export const it: Dictionary = {
     },
     copy: "Copia",
     copied: "Copiato",
+    paste: "Incolla",
     flagged: "Non è zurighese:",
     checkedNote: "Nessuna forma dialettale estranea trovata",
     checkedFlagged: "Non tutto è zurighese — segnalato",

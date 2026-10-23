@@ -547,6 +547,29 @@ body:has([data-chrome="chat"]) [data-dock="heidi"] {
 }
 
 /**
+ * The launcher gets out of the way of what is being read — phones only.
+ *
+ * `data-away` is set by the dock while the reader scrolls DOWN (see
+ * `useScrollingDown`), and it slides below the screen edge until the first
+ * scroll up. Focus brings it back: a control that is off-screen must not be
+ * the one that has the keyboard's focus. No transition under reduced motion —
+ * it simply appears and disappears.
+ */
+@media (max-width: 639px) {
+  [data-dock-launcher] {
+    transition: transform 0.2s ease;
+  }
+  [data-dock-launcher][data-away="true"]:not(:focus-within) {
+    transform: translateY(calc(100% + max(1rem, env(safe-area-inset-bottom)) + 0.5rem));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-dock-launcher] {
+    transition: none;
+  }
+}
+
+/**
  * The Loki feedback widget steps aside while Heidi's chat is open.
  *
  * Both float bottom-right, and on a phone the open dock is full-screen: the
