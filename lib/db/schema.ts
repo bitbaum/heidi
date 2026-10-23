@@ -531,3 +531,38 @@ export const pushSubscriptions = pgTable(
   },
   (t) => [index("push_subscriptions_actor_idx").on(t.actorId)],
 );
+
+/**
+ * A thumb under one of Heidi's answers — the reader's half of the fleet's
+ * chat-review loop (chatkit 0.14, `AnswerFeedback`).
+ *
+ * `conversation_id` is TEXT and carries no foreign key, on purpose. A signed-in
+ * conversation's id is a `conversations` row; a signed-out one has no row at
+ * all (nothing anonymous reaches the database — §10) and files its thumb under
+ * the literal `draft`, so a bad answer in the browser-only chat is still
+ * counted, even though no transcript can ever be joined to it. `message_id` is
+ * likewise the product's own id — a `conversation_messages` row, or the
+ * client's local id for a draft — and never a person.
+ *
+ * Nothing here names who pressed it. The nightly review (`/api/chat/
+ * review-export`) reads these beside the conversation they belong to; a thumb
+ * with no owner is exactly as useful to it and exactly as private as the
+ * conversation row already is.
+ */
+export const chatFeedback = pgTable(
+  "chat_feedback",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    conversationId: text("conversation_id").notNull(),
+    messageId: text("message_id").notNull(),
+    /** `up` | `down`. */
+    verdict: text("verdict").notNull(),
+    /** One of chatkit's `FEEDBACK_REASONS`, when the person picked one. */
+    reason: text("reason"),
+    /** Their own words, at most 1000 characters, when they typed any. */
+    text: text("text"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  // The export joins thumbs to the conversations it is about to ship.
+  (t) => [index("chat_feedback_conversation_idx").on(t.conversationId, t.createdAt)],
+);

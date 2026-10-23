@@ -16,6 +16,7 @@ import { Composer } from "./composer";
 import { EmptyChat } from "./empty-chat";
 import { DISPLAY } from "@/lib/variety/display";
 import { Transcript } from "./transcript";
+import { draftFeedback } from "./feedback";
 import { WordPick } from "./word-pick";
 import { useDraftChat } from "./use-draft-chat";
 import { useKeyboardViewport } from "../use-keyboard-viewport";
@@ -420,6 +421,7 @@ function DockPanel({
             streaming={chat.streaming}
             onRetry={chat.retry}
             onMove={chat.send}
+            onFeedback={draftFeedback}
             locale={locale}
             endRef={endRef}
             className="flex flex-col gap-4"

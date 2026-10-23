@@ -324,6 +324,24 @@ export const de = {
     cannotSeePicture:
       "Heidi kann gerade keine Bilder lesen. Schicken Sie den Text, oder verbinden Sie ein eigenes Modell, das Bilder liest.",
     retry: "Nochmals",
+    /** The thumbs under an answer and the sheet a thumb down opens (chatkit). */
+    feedback: {
+      good: "Gute Antwort",
+      bad: "Schlechte Antwort",
+      title: "Was war nicht gut?",
+      reasons: {
+        wrong: "Es stimmt nicht",
+        dead_end: "Hat aufgegeben statt nachzuschauen",
+        vague: "Zu vage",
+        misread: "Frage falsch verstanden",
+        too_long: "Zu lang",
+        format: "Schwer zu lesen",
+        other: "Etwas anderes",
+      },
+      more: "Möchten Sie etwas ergänzen?",
+      send: "Senden",
+      thanks: "Danke, notiert.",
+    },
     /**
      * The full-screen chat. Its own object so the homepage box — which shares
      * every other string in here — does not have to carry strings it never

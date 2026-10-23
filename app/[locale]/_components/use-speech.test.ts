@@ -32,20 +32,26 @@ test("the answer's own explanation can be spoken, not only the dialect line", ()
   // the product leads with — carries neither, so the entire spoken feature was
   // absent from the commoner half of the product. Four controls on "how do I
   // say I'll be late"; none on "what does nöd mean".
-  const source = readFileSync(new URL("./chat/answer-view.tsx", import.meta.url), "utf8");
+  //
+  // Since chatkit 0.14 the explanation is read by the fleet's row under every
+  // answer — `AnswerActions` in the transcript, whose Listen takes the
+  // answer's `text` — rather than by a second control of Heidi's own beside
+  // it. The property is the same: an understand turn is never silent.
+  const transcript = readFileSync(new URL("./chat/transcript.tsx", import.meta.url), "utf8");
   assert.match(
-    source,
-    /<Speak text=\{a\.text\}/,
-    "the answer prose has no speak control — an understand turn would be silent",
+    transcript,
+    /<AnswerActions\s[^>]*text=\{m\.answer\.text\}/,
+    "the answer prose has no listen control — an understand turn would be silent",
   );
 });
 
 test("speaking a dialect line carries the caveat; speaking the explanation does not", () => {
   // The explanation is in the reader's own language and nobody mistakes it for
   // a model of Zurich phonology. The dialect line is exactly what somebody
-  // WOULD try to imitate, so it keeps the warning that a Standard German voice
-  // is reading dialect spelling.
+  // WOULD try to imitate, so it keeps Heidi's own Speak and its warning that a
+  // Standard German voice is reading dialect spelling — and the explanation
+  // keeps exactly ONE listen control, the row's, not a second of Heidi's.
   const source = readFileSync(new URL("./chat/answer-view.tsx", import.meta.url), "utf8");
   assert.match(source, /<Speak text=\{a\.dialect\} t=\{voiceT\} dialect \/>/, "the dialect line lost its caveat");
-  assert.match(source, /<Speak text=\{a\.text\} t=\{voiceT\} \/>/, "the explanation should not claim to be dialect");
+  assert.doesNotMatch(source, /<Speak text=\{a\.text\}/, "the explanation would be offered twice — once as dialect");
 });

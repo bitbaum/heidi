@@ -2075,6 +2075,18 @@ the big chat apps do and nobody would blink — but the first act of a new
 account should not be to quietly upload the transcript that was device-local a
 second ago.
 
+**A thumb under an answer is stored, and the night reads it.** Every answer
+carries chatkit's thumbs; a thumb down asks why in one tap. The row
+(`chat_feedback`: conversation id, message id, verdict, reason, words) names no
+person. Signed out it files under `draft`, since the thread itself never reaches
+us. Each night Loki's reviewer reads `GET /api/chat/review-export` — bearer
+`CHAT_REVIEW_TOKEN`, the one secret the whole fleet shares — and gets the saved
+conversations of the last day: ids, turns, the gate's verdicts and the thumbs,
+never an actor id, a name or an address. A model judges every answer against
+Heidi's own prompt and files each gap as a finding in Loki's feedback inbox,
+where the fix is built (`lib/domain/chat-review/`). Deleting a conversation
+removes it from the export with everything else.
+
 **Your own model key is never stored by us.** A key you bring stays in your
 browser, is forwarded on the request it is for, and is redacted out of every
 log line before anything is written.
