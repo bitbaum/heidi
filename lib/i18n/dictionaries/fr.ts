@@ -76,7 +76,6 @@ export const fr: Dictionary = {
       organisations: "Heidi pour les équipes, EMS et hôpitaux",
     },
     closeMenu: "Fermer le menu",
-    quickChat: "Discuter avec Heidi",
     quickPractice: "S’exercer",
   },
 
@@ -243,6 +242,7 @@ export const fr: Dictionary = {
     },
     copy: "Copier",
     copied: "Copié",
+    paste: "Coller",
     flagged: "Pas du zurichois :",
     checkedNote: "Aucune forme dialectale étrangère trouvée",
     checkedFlagged: "Tout n'est pas du zurichois — c'est signalé",

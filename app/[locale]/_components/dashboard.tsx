@@ -97,7 +97,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
       <div className="flex flex-col gap-12 border-t border-border-subtle pt-8 pb-4 lg:pt-10">
         <WarmupInvite t={dict.warmup} locale={locale} variant="card" />
 
-        <TodayPanel t={dict.streak} locale={locale} askLabel={dict.nav.quickChat} dueQuestions={dict.practice.dueToday} />
+        <TodayPanel t={dict.streak} locale={locale} askLabel={dict.chat.dock.open} dueQuestions={dict.practice.dueToday} />
 
         {/* Progress: each renders nothing until it has something true to say. */}
         <FocusPanel t={dict.practice} grammarT={dict.grammar} situationsT={dict.situations} locale={locale} />

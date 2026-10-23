@@ -92,7 +92,6 @@ export const rm: Dictionary = {
       organisations: "Heidi per teams, chasas da tgira ed ospitals",
     },
     closeMenu: "Serrar il menu",
-    quickChat: "Chattar cun Heidi",
     quickPractice: "Exercitar ussa",
   },
 
@@ -259,6 +258,7 @@ export const rm: Dictionary = {
     },
     copy: "Copiar",
     copied: "Copià",
+    paste: "Encollar",
     flagged: "Betg tudestg da Turitg:",
     checkedNote: "Naginas furmas dialectalas estras chattadas",
     checkedFlagged: "Betg tut è tudestg da Turitg — marcà",

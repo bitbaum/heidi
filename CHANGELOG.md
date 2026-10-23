@@ -25,6 +25,8 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 - Heidi opens on an empty conversation with the box ready, and the last one is a row away. Nearly everyone who opens Heidi has something new to ask, and until now they landed in last week's conversation and had to find the way out. A conversation you were in less than half an hour ago stays as it was (ask, read a grammar page, come back); anything older is offered as one quiet row, «Your last conversation · date → Continue», never put back over the box and never deleted. Signed in, the row is your most recent saved conversation. One rule for the home page's Heidi box, the floating «Ask Heidi» and `/chat` (`useRestoreDraft`, `STILL_GOING_MS` in `lib/domain/chat/draft.ts`).
 - One empty state for all three: the heading asks what you want to understand or say, instead of repeating «Ask Heidi» under a button that said it. The floating window shows the chat's own examples rather than three canned questions of its own, and its header icons are 44 px.
+- Talking to Heidi has one name: the header, the dashboard and the floating button all say «Ask Heidi» (the header and dashboard used to say «Quick chat» for the same thing, and the dashboard showed its own button beside the floating one). On a phone the floating button slides away while you scroll down and returns when you scroll up, at the top and at the end of the page, so it stops covering the lines you are reading.
+- An empty box has a Paste button: most first messages are a line someone else wrote and you just copied. One tap fills the box (it does not send), it only reads the clipboard when pressed, and it is not drawn where the browser does not allow reading it.
 
 ## 2026-10-22
 

@@ -583,6 +583,19 @@ which of the two it is in, next to the button, in the learner's language. See
   replaces the offered thread: the device keeps one, and someone who wants every
   conversation signs in. Dates are the reader's own format, not "3 days ago":
   `Intl.RelativeTimeFormat` has no usable data for Swiss German or Romansh.
+- **Talking to Heidi has one name, one way in, and gets out of the way.** The
+  header's button, the dashboard's button and the floating launcher all say the
+  same words (`chat.dock.open`, «Ask Heidi») — there used to be a second,
+  `nav.quickChat` («Quick chat»), for the same act. On a phone the launcher
+  slides off the bottom while you scroll DOWN, because it covered the last
+  lines of whatever you were reading, and comes back on the first scroll up, at
+  the top, at the end of the page, and whenever it has focus (`useScrollingDown`
+  in `dock.tsx`; the CSS is phone-only in `globals.css`, so on a desktop it
+  never moves). In the composer, an empty box offers a Paste button
+  (`paste-button.tsx`, in chatkit's `tools` slot — no fork): most first
+  messages are a line somebody else wrote, copied in another app. It reads the
+  clipboard only on the press, only fills an empty box, never sends, and is not
+  drawn where the browser cannot read the clipboard.
 - **A full-height chat fits above the phone keyboard.** `dvh` follows the
   browser toolbar, not the keyboard. iOS, and Android by default, shrink only
   the visual viewport and scroll the page instead, which pushed the chat's

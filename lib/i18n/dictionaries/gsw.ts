@@ -99,7 +99,6 @@ export const gsw: Dictionary = {
       organisations: "Heidi für Teams, Heim und Spitäler",
     },
     closeMenu: "Menü zuemache",
-    quickChat: "Mit Heidi chatte",
     quickPractice: "Jetzt üebe",
   },
 
@@ -266,6 +265,7 @@ export const gsw: Dictionary = {
     },
     copy: "Kopiere",
     copied: "Kopiert",
+    paste: "Ifüege",
     flagged: "Nöd Züridütsch:",
     checkedNote: "Kei fremdi Dialektforme gfunde",
     checkedFlagged: "Nöd alles isch Züridütsch — markiert",

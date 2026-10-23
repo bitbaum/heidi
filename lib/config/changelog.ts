@@ -50,6 +50,8 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "Was vor weniger als einer halben Stunde noch lief, bleibt, wie es war: Sie fragen etwas, lesen auf einer Grammatikseite weiter und kommen zurück — dasselbe Gespräch. Was älter ist, wird angeboten, nicht zurückgelegt; es wird auch nicht gelöscht. Angemeldet ist es Ihr zuletzt gespeichertes Gespräch.",
         "Das gilt für die Heidi-Box auf der Startseite, das schwebende «Heidi fragen» und «/chat» gleichermassen — alle drei folgen jetzt derselben Regel, und das schwebende Fenster zeigt dieselben Beispiele wie der Chat statt eigener Fragen.",
         "Die Überschrift des leeren Gesprächs fragt jetzt, was Sie verstehen oder sagen möchten, statt unter dem Knopf «Heidi fragen» noch einmal «Fragen Sie Heidi» zu sagen. Die Symbole oben im schwebenden Fenster (neues Gespräch, Vollbild, Schliessen) sind jetzt 44 Pixel gross.",
+        "Das Gespräch mit Heidi hat jetzt einen Namen: Kopfzeile, Startseite und schwebender Knopf sagen alle «Heidi fragen» (Kopfzeile und Startseite sagten bisher «Schnell chatten» für dasselbe). Auf dem Telefon schiebt sich der schwebende Knopf beim Abwärtsscrollen weg und kommt beim Hinaufscrollen, oben und am Seitenende zurück — er deckt nicht mehr die Zeilen zu, die Sie gerade lesen.",
+        "Ein leeres Eingabefeld hat einen Knopf «Einfügen»: Die meisten ersten Nachrichten sind eine Zeile, die jemand anders geschrieben hat und die Sie gerade kopiert haben. Ein Tippen füllt das Feld (gesendet wird nichts); die Zwischenablage wird nur beim Tippen gelesen, und wo der Browser das nicht erlaubt, erscheint der Knopf gar nicht.",
       ],
     },
     {
@@ -678,6 +680,8 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "A conversation you were in less than half an hour ago stays as it was: ask something, read on a grammar page, come back — the same conversation. Anything older is offered, not put back; it is not deleted either. Signed in, it is your most recent saved conversation.",
         "The same on the Heidi box on the home page, the floating «Ask Heidi» and `/chat` — all three now follow one rule, and the floating window shows the same examples as the chat instead of questions of its own.",
         "The heading of an empty conversation now asks what you want to understand or say, instead of repeating «Ask Heidi» under a button that already said it. The icons at the top of the floating window (new conversation, full screen, close) are now 44 pixels.",
+        "Talking to Heidi now has one name: the header, the home page and the floating button all say «Ask Heidi» (the header and home page said «Quick chat» for the same thing). On a phone the floating button slides away as you scroll down and comes back when you scroll up, at the top and at the end of the page — it no longer covers the lines you are reading.",
+        "An empty box has a «Paste» button: most first messages are a line someone else wrote and you just copied. One tap fills the box (nothing is sent); the clipboard is read only when you tap, and where the browser does not allow that the button is not drawn at all.",
       ],
     },
     {
