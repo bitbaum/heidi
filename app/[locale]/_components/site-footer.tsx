@@ -129,14 +129,17 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
             </nav>
           ))}
 
-          <nav aria-labelledby="footer-languages" className="min-w-0">
+          <nav aria-labelledby="footer-languages" className="col-span-2 min-w-0 sm:col-span-3 lg:col-span-1">
             <h2 id="footer-languages" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
               {dict.footer.languageTitle}
             </h2>
             {/* TWO COLUMNS OF ITS OWN. Seven languages at a 44px tap target
                 is 300px of footer for a switch the header already carries —
-                and it was the single tallest thing down here. */}
-            <ul className="mt-3 grid grid-cols-2 gap-x-4 lg:grid-cols-1">
+                and it was the single tallest thing down here. The list takes
+                the footer's full width on a phone and a tablet: squeezed into
+                one half-column, its own two columns were ~70px wide and broke
+                «Schwiizerdütsch» and «Rumantsch» in the middle of the word. */}
+            <ul className="mt-3 grid grid-cols-2 gap-x-4 sm:grid-cols-4 lg:grid-cols-1">
               {MENU_ORDER.map((l) => (
                 <li key={l}>
                   {/* Seven languages, seven prefetched copies of the home
