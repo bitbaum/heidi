@@ -203,8 +203,14 @@ export function AnswerView({
                         and which to send to a friend — which is the entire
                         decision the pair exists to help them make. */}
                     {s.variety === "bridge" && (
+                      /* `inline-block whitespace-nowrap`: the answer card is
+                         `wrap-anywhere` for pasted links, and an inline badge
+                         at the end of a long label was split «Schrift /
+                         deutsch» across two lines at 320px (the broken-word
+                         audit, 2026-10-23). As a block it moves to the next
+                         line whole. */
                       <span
-                        className={`${suggestionLabelText(s.label, t) ? "ml-2 " : ""}rounded-sm bg-surface-sunk px-1.5 py-0.5 text-fg-secondary`}
+                        className={`${suggestionLabelText(s.label, t) ? "ml-2 " : ""}inline-block whitespace-nowrap rounded-sm bg-surface-sunk px-1.5 py-0.5 text-fg-secondary`}
                       >
                         {t.writtenStandard}
                       </span>

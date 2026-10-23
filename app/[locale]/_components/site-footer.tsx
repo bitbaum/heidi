@@ -158,7 +158,13 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                     lang={l}
                     prefetch={false}
                     aria-current={l === locale ? "true" : undefined}
-                    className={`inline-flex min-h-11 min-w-11 items-center wrap-anywhere text-sm hover:text-fg-primary ${
+                    /* `break-words`, not `wrap-anywhere`: these are seven
+                       known names, and the column is now wide enough for the
+                       longest. `anywhere` makes the box WILLING to cut a word
+                       whenever a narrower one would fit, which is the exact
+                       defect above; `break-word` wraps at spaces and cuts only
+                       when a single word is wider than the line. */
+                    className={`inline-flex min-h-11 min-w-11 items-center break-words text-sm hover:text-fg-primary ${
                       l === locale ? "font-medium text-fg-primary" : "text-fg-secondary"
                     }`}
                   >

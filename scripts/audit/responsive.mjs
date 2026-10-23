@@ -18,6 +18,12 @@
  *   CLIP  an element's content is wider than the element and the element does
  *         not scroll — text cut off and unreachable. The same defect, one level
  *         down, and invisible without measuring.
+ *   WORD  a word drawn across two lines — "Te / rm", "Di / re / ct / or / y".
+ *         Nothing overflows and nothing is clipped; the text simply cannot be
+ *         read. `wrap-anywhere` on the wrong element does this, and so does a
+ *         table cell at phone width. chatkit's `findBrokenWords` measures each
+ *         word's line boxes (a word beside - / . @ : and anything over 24
+ *         characters is exempt, since a link has to break somewhere).
  *
  * AND IT OPENS THINGS, because measuring a page at rest missed a real one. The
  * account dropdown hangs `absolute right-0` off its button; the day the avatar
@@ -39,6 +45,7 @@
  * NOT part of `pnpm run verify`: it needs a running server and a browser
  * binary, which `verify` deliberately does not. Run it when you touch layout.
  */
+import { BROKEN_WORDS_SOURCE } from "@bitbaum/chatkit/audit";
 import { chromium } from "playwright";
 
 const BASE = process.env.BASE ?? "http://localhost:3000";
@@ -266,6 +273,7 @@ let headerDrift = 0;
  */
 let overflowing = 0;
 let unreachable = 0;
+let brokenWords = 0;
 
 for (const theme of THEMES) {
   for (const width of WIDTHS) {
@@ -319,7 +327,13 @@ for (const theme of THEMES) {
         await page.waitForTimeout(350);
         renders += 1;
 
-        const states = [{ name: "", found: await page.evaluate(findOverflow, width) }];
+        // Every word on one line, as well. chatkit's function is handed over
+        // as source text: it runs inside the page, where the glyphs are.
+        const measure = async () => ({
+          found: await page.evaluate(findOverflow, width),
+          broken: await page.evaluate(`(${BROKEN_WORDS_SOURCE})(document.body)`),
+        });
+        const states = [{ name: "", ...(await measure()) }];
 
         const head = await page.evaluate(measureHeader);
         if (head && head.content > head.box + 1) {
@@ -339,10 +353,18 @@ for (const theme of THEMES) {
             const name = (await toggle.getAttribute("aria-label")) ?? (await toggle.innerText()).trim().slice(0, 16);
             await toggle.click({ timeout: 5_000 }).catch(() => {});
             await page.waitForTimeout(150);
-            states.push({ name: ` [open: ${name}]`, found: await page.evaluate(findOverflow, width) });
+            states.push({ name: ` [open: ${name}]`, ...(await measure()) });
             await toggle.click({ timeout: 5_000 }).catch(() => {});
             await page.waitForTimeout(100);
           }
+        }
+
+        for (const { name, broken } of states) {
+          if (broken.length === 0) continue;
+          brokenWords += 1;
+          console.log(
+            `\nWORD ${locale}${path} @${width} ${theme}${name}: cut across two lines: ${[...new Set(broken)].join(", ")}`,
+          );
         }
 
         for (const { name, found } of states) {
@@ -411,6 +433,7 @@ for (const width of [834, 1440]) {
 await browser.close();
 console.log(
   `\n${renders} page renders measured — ${overflowing} with overflow` +
+    (brokenWords > 0 ? `, ${brokenWords} with a word cut across two lines` : "") +
     (headerDrift > 0 ? `, ${headerDrift} where the header is not its token height` : "") +
     (navBreaches > 0 ? `, ${navBreaches} navigation-contract breaches at 834/1440` : "") +
     (unreachable > 0 ? `, and ${unreachable} that did not load at all` : ""),
@@ -418,4 +441,6 @@ console.log(
 if (unreachable > 0) {
   console.log("A page that does not load is not a layout finding. Check the server before reading the rest.");
 }
-process.exit(overflowing === 0 && unreachable === 0 && headerDrift === 0 && navBreaches === 0 ? 0 : 1);
+process.exit(
+  overflowing === 0 && unreachable === 0 && headerDrift === 0 && navBreaches === 0 && brokenWords === 0 ? 0 : 1,
+);
