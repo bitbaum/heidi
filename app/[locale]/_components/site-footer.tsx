@@ -133,10 +133,17 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
             <h2 id="footer-languages" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
               {dict.footer.languageTitle}
             </h2>
-            {/* TWO COLUMNS OF ITS OWN. Seven languages at a 44px tap target
-                is 300px of footer for a switch the header already carries —
-                and it was the single tallest thing down here. */}
-            <ul className="mt-3 grid grid-cols-2 gap-x-4 lg:grid-cols-1">
+            {/* ONE COLUMN, LIKE EVERY OTHER GROUP DOWN HERE. It was two
+                columns of its own below `lg`, to keep seven 44px rows from
+                being the tallest thing in the footer — but this list already
+                sits in one cell of the grid above, so its two columns were
+                56px each at 320px and 101px each at 768px, and
+                «Schwiizerdütsch» (109px) was drawn as «Schwiizerd / ütsch»
+                on every page (the broken-word audit, 2026-10-23). A word may
+                wrap onto the next line; it may never be cut in two. The
+                height is paid beside another column, so it costs the page
+                nothing it was not already paying. */}
+            <ul className="mt-3 flex flex-col gap-1">
               {MENU_ORDER.map((l) => (
                 <li key={l}>
                   {/* Seven languages, seven prefetched copies of the home
@@ -155,7 +162,13 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                     lang={l}
                     prefetch={false}
                     aria-current={l === locale ? "true" : undefined}
-                    className={`inline-flex min-h-11 min-w-11 items-center wrap-anywhere text-sm hover:text-fg-primary ${
+                    /* `break-words`, not `wrap-anywhere`: these are seven
+                       known names, and the column is now wide enough for the
+                       longest. `anywhere` makes the box WILLING to cut a word
+                       whenever a narrower one would fit, which is the exact
+                       defect above; `break-word` wraps at spaces and cuts only
+                       when a single word is wider than the line. */
+                    className={`inline-flex min-h-11 min-w-11 items-center break-words text-sm hover:text-fg-primary ${
                       l === locale ? "font-medium text-fg-primary" : "text-fg-secondary"
                     }`}
                   >

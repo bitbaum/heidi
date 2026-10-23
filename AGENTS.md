@@ -61,9 +61,16 @@ symptom), and it OPENS the header's dropdowns, because measuring a page at
 rest is what let the fourth one through. CI runs it against the built site on
 every pull request.
 
+It also lays out every word and fails on one drawn across two lines
+(`findBrokenWords` from `@bitbaum/chatkit/audit`): nothing overflows, nothing
+is clipped, and «Schwiizerdütsch» still read «Schwiizerd / ütsch» in the
+footer on every page, because `wrap-anywhere` makes a box willing to cut a word
+whenever a narrower one would fit. Reserve `wrap-anywhere` for text nobody on
+this side wrote; a known word gets a column wide enough for it.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
-# This is NOT the Next.js you know
+## This is NOT the Next.js you know
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 

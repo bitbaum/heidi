@@ -68,19 +68,24 @@ export function ListeningRow({
           right of the page. Right-aligned, it drifted an inch of empty space
           away from the thing it names at desktop width, and read as belonging
           to nothing. */}
-      {/* Two columns, not one wrapping row: the name and publisher take
+      {/* Two columns that may become two rows: the name and publisher take
           what is left and wrap inside it, the button keeps the right edge —
-          so a long title never pushes «Folgen» onto a line of its own. The
-          name may break inside a word, but only when the word alone is wider
-          than the column («Wissenschaftsmagazin» beside «Подписаться» at
-          320px): `break-words` leaves a flex item's minimum at the whole
-          word and the word runs under the button. */}
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-3 gap-y-1">
+          and only when the name's longest WORD is wider than what is left
+          does the button drop under it («Wissenschaftsmagazin» beside
+          «Подписаться» at 320px). This row used to keep the button on the
+          line at any price and let the name break inside the word instead,
+          which drew «Wissenschaftsma / gazin» (the broken-word audit,
+          2026-10-23). A word may wrap onto the next line; it may never be
+          cut in two — so `break-words`, whose minimum is the whole word, and
+          `flex-wrap` to give that minimum somewhere to go. No `min-w-0` on
+          the way down: that is what let the column shrink UNDER the word,
+          so the word ran beneath the button instead of the button moving. */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-1 flex-wrap items-baseline gap-x-3 gap-y-1">
           <a
             href={source.url}
             rel="noreferrer"
-            className="inline-flex min-h-11 min-w-0 items-center text-base font-medium leading-snug wrap-anywhere text-link underline underline-offset-4 hover:text-accent"
+            className="inline-flex min-h-11 items-center text-base font-medium leading-snug break-words text-link underline underline-offset-4 hover:text-accent"
           >
             {source.name}
           </a>
@@ -89,7 +94,7 @@ export function ListeningRow({
         {/* The one action, at the end of the row: only where there is a feed
             to follow, so «Folgen» never promises what a film cannot keep. */}
         {follow && (source.medium === "podcast" || source.medium === "youtube") && source.linkKind === "play" && (
-          <span className="shrink-0">
+          <span className="ml-auto shrink-0">
             <FollowButton input={source.url} register={source.id} t={follow.t} locale={follow.locale} />
           </span>
         )}
