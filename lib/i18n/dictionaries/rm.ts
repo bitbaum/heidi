@@ -219,14 +219,13 @@ export const rm: Dictionary = {
       open: "Dumandar Heidi",
       close: "Serrar",
       title: "Heidi",
-      lead: "Dumandai davart quai che Vus legiais — u encollai in messadi che Vus avais retschavì.",
-      prompts: [
-        "Co di jau per turitgais ch'jau vegn pli tard?",
-        "Tge differenza dat i tranter il dialect e il tudestg scrit?",
-        "Numnai mai trais pleds ch'jau aud qua mintga di.",
-      ],
     },
-    emptyTitle: "Dumandai Heidi",
+    emptyTitle: "Tge vulais Vus chapir — u dir?",
+    /**
+     * The conversation you had before, offered as one row on an empty chat — never
+     * put back over the box you came to type in (see `useRestoreDraft`).
+     */
+    earlier: { title: "Vossa davosa conversaziun", resume: "Cuntinuar" },
     placeholder: "Encollai quai che Vus avais retschavì — u scrivai quai che Vus vulais dir.",
     composer: "Messadi a Heidi",
     saveWord: "Tegnair quest pled",

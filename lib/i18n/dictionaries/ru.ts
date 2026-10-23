@@ -211,14 +211,13 @@ export const ru: Dictionary = {
       open: "Спросить Хайди",
       close: "Закрыть",
       title: "Heidi",
-      lead: "Спросите о том, что читаете, — или вставьте сообщение, которое вам прислали.",
-      prompts: [
-        "Как сказать по-цюрихски, что я опоздаю?",
-        "Чем диалект отличается от письменного немецкого?",
-        "Назовите три слова, которые я буду слышать здесь каждый день.",
-      ],
     },
-    emptyTitle: "Спросите Хайди",
+    emptyTitle: "Что вы хотите понять — или сказать?",
+    /**
+     * The conversation you had before, offered as one row on an empty chat — never
+     * put back over the box you came to type in (see `useRestoreDraft`).
+     */
+    earlier: { title: "Ваш последний разговор", resume: "Продолжить" },
     placeholder: "Вставьте то, что вам написали, — или напишите, что хотите сказать.",
     composer: "Сообщение Хайди",
     saveWord: "Сохранить слово",

@@ -242,14 +242,13 @@ export const de = {
       open: "Heidi fragen",
       close: "Schliessen",
       title: "Heidi",
-      lead: "Fragen Sie, was Sie gerade lesen — oder fügen Sie eine Nachricht ein, die Sie bekommen haben.",
-      prompts: [
-        "Wie sage ich auf Zürichdeutsch, dass ich später komme?",
-        "Was ist der Unterschied zwischen Mundart und Schriftdeutsch?",
-        "Nennen Sie mir drei Wörter, die ich hier täglich höre.",
-      ],
     },
-    emptyTitle: "Fragen Sie Heidi",
+    emptyTitle: "Was möchten Sie verstehen — oder sagen?",
+    /**
+     * The conversation you had before, offered as one row on an empty chat — never
+     * put back over the box you came to type in (see `useRestoreDraft`).
+     */
+    earlier: { title: "Ihr letztes Gespräch", resume: "Weiter" },
     placeholder: "Fügen Sie ein, was Sie bekommen haben — oder schreiben Sie, was Sie sagen möchten.",
     composer: "Nachricht an Heidi",
     saveWord: "Wort merken",

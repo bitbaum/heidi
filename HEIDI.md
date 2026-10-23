@@ -552,7 +552,7 @@ which of the two it is in, next to the button, in the learner's language. See
   the page they were reading. Signed in it was worse — the locale root is the
   dashboard, so the landing page had no composer at all. The dock
   (`_components/chat/dock.tsx`) is the same conversation as the other two
-  surfaces, because all three read one store through `use-draft-chat.ts`.
+  surfaces, because all three read one store (`use-draft.ts`; the dock and the home box through `use-draft-chat.ts`).
 - **The dock stands down on one page only: the full-screen chat**, which marks
   itself `data-chrome="chat"`. `globals.css` hides the dock when the document
   contains that marker, because it IS the window the dock would open. It used
@@ -566,6 +566,23 @@ which of the two it is in, next to the button, in the learner's language. See
   fresh `key` per request, because a first message moves the address with
   `replaceState`, and a constant key re-rendered the page in place with the
   conversation just left still in it.
+- **Opening Heidi is a blank page with the box ready, and the last conversation
+  is one row away.** Nearly everyone arrives with a NEW sentence — a message
+  that just came in, a word overheard at lunch — and the big chat apps all open
+  blank for that reason; Heidi used to put you back inside last week's thread
+  and leave the way out (a small pencil) for you to find. The rule is one
+  function, `isStillGoing` in `lib/domain/chat/draft.ts`: a signed-out thread
+  written less than `STILL_GOING_MS` (30 minutes) ago comes back exactly as it
+  was — ask, read a grammar page, come back is ONE conversation — and anything
+  older is OFFERED as a single row (`earlier-row.tsx`: «Your last conversation ·
+  date», the learner's own first line, Continue →), never restored over the box
+  and never deleted by opening. Signed in, `/chat` is always new and the row is
+  the most recent saved conversation. The home box, the dock and `/chat` share
+  it through `useRestoreDraft` and one empty state (`empty-chat.tsx`), so they
+  cannot disagree about what "open" means. A first message in the fresh chat
+  replaces the offered thread: the device keeps one, and someone who wants every
+  conversation signs in. Dates are the reader's own format, not "3 days ago":
+  `Intl.RelativeTimeFormat` has no usable data for Swiss German or Romansh.
 - **A full-height chat fits above the phone keyboard.** `dvh` follows the
   browser toolbar, not the keyboard. iOS, and Android by default, shrink only
   the visual viewport and scroll the page instead, which pushed the chat's

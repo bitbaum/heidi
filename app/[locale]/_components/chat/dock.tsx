@@ -13,6 +13,8 @@ import { useDismiss } from "../use-dismiss";
 import { ModelSheet } from "../model-sheet";
 import { CowMark } from "../cow-mark";
 import { Composer } from "./composer";
+import { EmptyChat } from "./empty-chat";
+import { DISPLAY } from "@/lib/variety/display";
 import { Transcript } from "./transcript";
 import { WordPick } from "./word-pick";
 import { useDraftChat } from "./use-draft-chat";
@@ -241,7 +243,7 @@ function DockPanel({
   const t = dict.chat;
   const endRef = useRef<HTMLDivElement>(null);
   const transcriptRef = useRef<HTMLDivElement>(null);
-  const { chat, byok, reset, started, ready, modelSheet } = useDraftChat({ locale, dict });
+  const { chat, byok, reset, started, ready, earlier, touch, modelSheet } = useDraftChat({ locale, dict });
   useKeyboardViewport();
 
   /**
@@ -313,7 +315,7 @@ function DockPanel({
        */
       className="fixed inset-x-0 top-[var(--app-top,0px)] z-50 flex h-[var(--app-height,100dvh)] flex-col border-border-strong bg-surface-page sm:inset-auto sm:bottom-20 sm:right-4 sm:h-[min(34rem,calc(100dvh-8rem))] sm:w-[26rem] sm:rounded-control sm:border sm:shadow-lg"
     >
-      <header className="flex items-center justify-between gap-2 border-b border-border-strong px-4 py-3">
+      <header className="flex items-center justify-between gap-2 border-b border-border-strong py-1 pl-4 pr-2">
         <div className="flex min-w-0 items-center gap-2">
           <CowMark size={22} className="shrink-0 text-fg-primary" />
           <p className="truncate font-heading text-base font-bold tracking-display text-fg-primary">{t.dock.title}</p>
@@ -328,10 +330,13 @@ function DockPanel({
             <Link
               href={href(locale, "chat")}
               prefetch={false}
-              onClick={onClose}
+              onClick={() => {
+                touch();
+                onClose();
+              }}
               aria-label={t.full.expand}
               title={t.full.expand}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-control text-fg-secondary transition-colors hover:bg-surface-raised hover:text-fg-primary"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-control text-fg-secondary transition-colors hover:bg-surface-raised hover:text-fg-primary"
             >
               <ExpandIcon />
             </Link>
@@ -340,7 +345,7 @@ function DockPanel({
             type="button"
             onClick={onClose}
             aria-label={t.dock.close}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-control text-fg-secondary transition-colors hover:bg-surface-raised hover:text-fg-primary"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-control text-fg-secondary transition-colors hover:bg-surface-raised hover:text-fg-primary"
           >
             <CloseIcon />
           </button>
@@ -374,22 +379,19 @@ function DockPanel({
           />
         ) : (
           // Bottom-aligned, so the invitation sits just above the box it is
-          // about rather than floating at the top of an empty panel.
-          <div className="flex h-full flex-col justify-end gap-3">
-            <p className="text-sm leading-relaxed text-fg-secondary">{t.dock.lead}</p>
-            <ul className="flex flex-col gap-1.5">
-              {t.dock.prompts.map((prompt) => (
-                <li key={prompt}>
-                  <button
-                    type="button"
-                    onClick={() => chat.send(prompt)}
-                    className="w-full rounded-control border border-border-subtle px-3 py-2 text-left text-sm text-fg-secondary transition-colors hover:border-accent hover:text-fg-primary"
-                  >
-                    {prompt}
-                  </button>
-                </li>
-              ))}
-            </ul>
+          // about rather than floating at the top of an empty panel. `min-h`,
+          // not `h`: a fixed height with `justify-end` cuts the TOP off when the
+          // content is taller than the panel, and the top is the question.
+          <div className="flex min-h-full flex-col justify-end">
+            <EmptyChat
+              t={t}
+              locale={locale}
+              dialect={{ tag: DISPLAY.tag, showcase: DISPLAY.showcase?.line }}
+              onPick={chat.send}
+              earlier={earlier}
+              heading="h2"
+              compact
+            />
           </div>
         )}
       </div>

@@ -21,10 +21,17 @@ export function Examples({
   t,
   dialect,
   onPick,
+  compact = false,
 }: {
   t: Dictionary["chat"];
   dialect: { tag: string; showcase?: string };
   onPick: (s: string) => void;
+  /**
+   * One column. The grid breaks to two at the VIEWPORT's `sm`, which is right
+   * in a page and wrong in the dock's 26rem card on a laptop — there it would
+   * squeeze two cards into a panel meant for one.
+   */
+  compact?: boolean;
 }) {
   // Understand first, then say — the same order the product argues, and the
   // reason the compose example is last rather than third. Interleaved, the one
@@ -38,7 +45,7 @@ export function Examples({
   return (
     <div className="mt-4">
       <h2 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.suggestionsTitle}</h2>
-      <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+      <ul className={`mt-2 grid gap-2 ${compact ? "" : "sm:grid-cols-2"}`}>
         {entries.map((ex) => (
           <li key={ex.text}>
             <button
