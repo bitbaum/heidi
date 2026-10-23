@@ -6,6 +6,7 @@ import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { useBrowserStore, useStorageReady } from "@/lib/browser/store";
 import { warmupStore } from "./warmup-store";
+import { streakStore } from "./streak-store";
 
 /**
  * The door to the warm-up, where a newcomer already is.
@@ -18,6 +19,11 @@ import { warmupStore } from "./warmup-store";
  * standing invitation to something you finished is clutter. They wait for
  * storage before rendering anything, so somebody who already did it never
  * sees the card flash and vanish.
+ *
+ * The card is for a newcomer, who has nothing else to press. Someone who has
+ * already practised has «Practise now» in today's panel just below, and a
+ * second dark button above it made two first actions on one screen — so for
+ * them the card becomes the quiet line, same words, one link.
  *
  * Never a gate: every page works without it, and nothing asks twice.
  */
@@ -32,6 +38,7 @@ export function WarmupInvite({
 }) {
   const ready = useStorageReady();
   const done = useBrowserStore(warmupStore) !== null;
+  const practised = (useBrowserStore(streakStore)?.best ?? 0) > 0;
   const to = href(locale, "warmup");
 
   if (variant === "hero") {
@@ -53,9 +60,13 @@ export function WarmupInvite({
 
   if (!ready || done) return null;
 
-  if (variant === "line") {
+  // On the practice page the same invitation would sit above the very button
+  // a practising learner came to press.
+  if (variant === "line" && practised) return null;
+
+  if (variant === "line" || practised) {
     return (
-      <p className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-control border border-border-subtle bg-surface-raised px-4 py-3 text-sm text-fg-secondary">
+      <p className={`${variant === "line" ? "mb-6 " : ""}flex flex-wrap items-center gap-x-4 gap-y-2 rounded-control border border-border-subtle bg-surface-raised px-4 py-3 text-sm text-fg-secondary`}>
         <span>
           <span className="font-medium text-fg-primary">{t.inviteTitle}</span> {t.inviteBody}
         </span>

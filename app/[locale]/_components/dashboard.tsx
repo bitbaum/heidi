@@ -62,6 +62,8 @@ export async function Dashboard({ locale }: { locale: Locale }) {
     ? await Promise.all([groupsFor(session!.actorId!), conversationsFor(session!.actorId!), recentVideosFor(session!.actorId!, 8)])
     : [[], [], []];
 
+  const resumable = signedIn && conversations.length > 0;
+
   return (
     <Shell>
       {/* A personal space is the one page that may be warm. The pattern is
@@ -97,7 +99,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
       <div className="flex flex-col gap-12 border-t border-border-subtle pt-8 pb-4 lg:pt-10">
         <WarmupInvite t={dict.warmup} locale={locale} variant="card" />
 
-        <TodayPanel t={dict.streak} locale={locale} askLabel={dict.nav.quickChat} dueQuestions={dict.practice.dueToday} />
+        <TodayPanel t={dict.streak} locale={locale} askLabel={dict.chat.dock.open} dueQuestions={dict.practice.dueToday} />
 
         {/* Progress: each renders nothing until it has something true to say. */}
         <FocusPanel t={dict.practice} grammarT={dict.grammar} situationsT={dict.situations} locale={locale} />
@@ -124,11 +126,13 @@ export async function Dashboard({ locale }: { locale: Locale }) {
 
         {/* The people side, beside each other on a wide screen: what you were
             talking about, and the groups you talk in. */}
-        <div className="grid gap-12 lg:grid-cols-2">
-          {/* Only for someone signed in, because only then is there anything
-              to resume — a signed-out conversation lives in their browser and
-              is already on the page they left it on. */}
-          {signedIn && (
+        <div className={`grid gap-12 ${resumable ? "lg:grid-cols-2" : ""}`}>
+          {/* Only for someone signed in WITH a saved conversation: only then is
+              there anything to resume (a signed-out one lives in their browser
+              and is already on the page they left it on), and a heading over
+              «no conversations yet» is an empty box like the ones this page
+              stopped drawing. */}
+          {resumable && (
             <section aria-labelledby="recent-heading" className="min-w-0">
               <h2 id="recent-heading" className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
                 {dict.review.recentTitle}

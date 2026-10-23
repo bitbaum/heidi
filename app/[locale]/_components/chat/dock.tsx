@@ -32,6 +32,51 @@ function nextAskId(): number {
 }
 
 /**
+ * True while a phone reader is scrolling DOWN a page — the launcher's cue to get
+ * out of the way.
+ *
+ * It floats over the bottom-right corner of every page, which is where a
+ * paragraph's last words and the buttons under a card live, so on a phone it
+ * sat on top of the thing being read and could not be moved. Hiding on the way
+ * down and returning on the first scroll up is how every phone app treats a
+ * floating control: it is gone while you read and one flick from back.
+ *
+ * It does not hide near the top (nothing is being read yet), nor near the end of
+ * the page (that is where somebody who has finished reading looks for what to
+ * do next), and it ignores jitter: a few pixels is a thumb resting, not a
+ * direction. Only the hide itself is phone-only — it lives in `globals.css`
+ * under a width query — so a laptop pointer never loses the button.
+ */
+function useScrollingDown(): boolean {
+  const [down, setDown] = useState(false);
+
+  useEffect(() => {
+    let last = window.scrollY;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const y = Math.max(0, window.scrollY);
+      const dy = y - last;
+      if (Math.abs(dy) < 6) return;
+      last = y;
+      const nearTop = y < 120;
+      const nearEnd = y + window.innerHeight >= document.documentElement.scrollHeight - 96;
+      setDown(dy > 0 && !nearTop && !nearEnd);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return down;
+}
+
+/**
  * Heidi, on every page.
  *
  * THE PROBLEM THIS SOLVES. Chat is how people use this product — it is the
@@ -76,6 +121,7 @@ export function ChatDock({
   const t = dict.chat;
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const scrollingDown = useScrollingDown();
   /**
    * A question handed in from a page — a word on the vocabulary list, a grammar
    * topic — waiting for the panel to exist so it can be sent.
@@ -180,6 +226,7 @@ export function ChatDock({
       */}
       <div
         data-dock-launcher
+        data-away={scrollingDown && !open ? "true" : undefined}
         // `env(safe-area-inset-bottom)` keeps it off the iOS home indicator,
         // which otherwise swallows the bottom third of the button.
         style={{ bottom: "max(1rem, env(safe-area-inset-bottom))" }}
