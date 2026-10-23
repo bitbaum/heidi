@@ -129,21 +129,17 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
             </nav>
           ))}
 
-          <nav aria-labelledby="footer-languages" className="min-w-0">
+          <nav aria-labelledby="footer-languages" className="col-span-2 min-w-0 sm:col-span-3 lg:col-span-1">
             <h2 id="footer-languages" className="font-mono text-caption uppercase tracking-caps text-fg-muted">
               {dict.footer.languageTitle}
             </h2>
-            {/* ONE COLUMN, LIKE EVERY OTHER GROUP DOWN HERE. It was two
-                columns of its own below `lg`, to keep seven 44px rows from
-                being the tallest thing in the footer — but this list already
-                sits in one cell of the grid above, so its two columns were
-                56px each at 320px and 101px each at 768px, and
-                «Schwiizerdütsch» (109px) was drawn as «Schwiizerd / ütsch»
-                on every page (the broken-word audit, 2026-10-23). A word may
-                wrap onto the next line; it may never be cut in two. The
-                height is paid beside another column, so it costs the page
-                nothing it was not already paying. */}
-            <ul className="mt-3 flex flex-col gap-1">
+            {/* TWO COLUMNS OF ITS OWN. Seven languages at a 44px tap target
+                is 300px of footer for a switch the header already carries —
+                and it was the single tallest thing down here. The list takes
+                the footer's full width on a phone and a tablet: squeezed into
+                one half-column, its own two columns were ~70px wide and broke
+                «Schwiizerdütsch» and «Rumantsch» in the middle of the word. */}
+            <ul className="mt-3 grid grid-cols-2 gap-x-4 sm:grid-cols-4 lg:grid-cols-1">
               {MENU_ORDER.map((l) => (
                 <li key={l}>
                   {/* Seven languages, seven prefetched copies of the home
