@@ -68,7 +68,7 @@ export function ThemeControl({
   const label = (value: Theme) => (value === "system" ? t.system : value === "light" ? t.light : t.dark);
 
   return (
-    <div role="group" aria-label={t.label} className="flex flex-wrap gap-2">
+    <div role="group" aria-label={t.label} className="grid max-w-md grid-cols-3 gap-2">
       {THEMES.map((value) => {
         const chosen = value === theme;
         return (
@@ -77,7 +77,7 @@ export function ThemeControl({
             type="button"
             onClick={() => set(value)}
             aria-pressed={chosen}
-            className={`inline-flex min-h-11 items-center rounded-control border px-4 text-sm transition-colors ${
+            className={`flex min-h-11 min-w-0 items-center justify-center rounded-control border px-2 text-center text-sm transition-colors ${
               chosen
                 ? "border-border-strong bg-fg-primary font-medium text-surface-page"
                 : "border-border-subtle text-fg-secondary hover:border-border-strong hover:text-fg-primary"
