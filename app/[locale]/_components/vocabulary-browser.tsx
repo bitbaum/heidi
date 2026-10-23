@@ -314,8 +314,11 @@ function NextWords({
       {next.length === 0 ? (
         <p className="mt-6 max-w-measure text-base leading-relaxed text-fg-primary">{t.allKnown}</p>
       ) : (
-        <>
-          <ol className="mt-6 grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">
+        // A column, so the action can sit ABOVE the ten words on a phone and
+        // below them from `sm` up: with the list first, the button that starts
+        // learning them was ten rows down, below the first screen.
+        <div className="flex flex-col">
+          <ol className="order-2 mt-6 grid grid-cols-1 gap-x-8 gap-y-2 sm:order-1 sm:grid-cols-2">
             {next.map((target) => {
               const row = byTarget.get(target)!;
               return (
@@ -331,22 +334,24 @@ function NextWords({
               );
             })}
           </ol>
-          <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
-            <SessionLink
-              locale={locale}
-              scope={wordsScope(next)}
-              className="inline-flex min-h-11 items-center rounded-control bg-action px-5 font-medium text-on-action hover:opacity-90"
-            >
-              {plural(t.learnNext, next.length, locale)}
-            </SessionLink>
-            {keptCount > 0 && (
-              <a href={portalHref} className="text-sm text-link underline underline-offset-4 hover:text-accent">
-                {fill(t.reviewKept, { count: String(keptCount) })}
-              </a>
-            )}
+          <div className="order-1 mt-6 sm:order-2 sm:mt-7">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+              <SessionLink
+                locale={locale}
+                scope={wordsScope(next)}
+                className="inline-flex min-h-11 items-center rounded-control bg-action px-5 font-medium text-on-action hover:opacity-90"
+              >
+                {plural(t.learnNext, next.length, locale)}
+              </SessionLink>
+              {keptCount > 0 && (
+                <a href={portalHref} className="text-sm text-link underline underline-offset-4 hover:text-accent">
+                  {fill(t.reviewKept, { count: String(keptCount) })}
+                </a>
+              )}
+            </div>
+            <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{t.learnNextHint}</p>
           </div>
-          <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">{t.learnNextHint}</p>
-        </>
+        </div>
       )}
     </section>
   );

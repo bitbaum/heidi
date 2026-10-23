@@ -54,6 +54,7 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "Ein leeres Eingabefeld hat einen Knopf «Einfügen»: Die meisten ersten Nachrichten sind eine Zeile, die jemand anders geschrieben hat und die Sie gerade kopiert haben. Ein Tippen füllt das Feld (gesendet wird nichts); die Zwischenablage wird nur beim Tippen gelesen, und wo der Browser das nicht erlaubt, erscheint der Knopf gar nicht.",
         "Die ersten Bildschirme für wen zurückkehrt: In «Mein Bereich» bekommt, wer schon geübt hat, das Aufwärmen nicht mehr als zweiten dunklen Knopf über «Jetzt üben» (es ist eine ruhige Zeile; Neue sehen weiter die Karte), und die leere Überschrift «Weitermachen» über «Noch keine Gespräche» ist weg. Bei «Übungen» steht der Hinweis, wo Ihre Antworten bleiben, jetzt unter dem Startknopf — «Losgehen» ist auf dem Telefon im ersten Bildschirm statt darunter.",
         "Ungleich breite Auswahlknöpfe sind jetzt gleich grosse Felder: In den Einstellungen waren Sprache und Darstellung Knöpfe so breit wie ihr Wort, drei pro Zeile und einer übrig; jetzt ein gleichmässiges Raster. Die Sprachliste im Seitenfuss bekam auf dem Telefon nur eine halbe Spalte und trennte «Schwiizerdütsch» und «Rumantsch» mitten im Wort; sie hat jetzt die ganze Breite.",
+        "Bei «Die wichtigsten Wörter» steht der Knopf, der die nächsten zehn Wörter lernen lässt, auf dem Telefon im ersten Bildschirm — über den zehn Wörtern statt zehn Zeilen darunter (auf einem breiten Bildschirm bleibt er unter der Liste).",
       ],
     },
     {
@@ -686,6 +687,7 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "An empty box has a «Paste» button: most first messages are a line someone else wrote and you just copied. One tap fills the box (nothing is sent); the clipboard is read only when you tap, and where the browser does not allow that the button is not drawn at all.",
         "The first screens for someone who comes back: on «My area» a learner who has already practised no longer gets the warm-up as a second dark button above «Practise now» (it is a quiet line; newcomers still see the card), and the empty «Continue» heading over «No conversations yet» is gone. On «Exercises» the note about where your answers are kept now sits under the start button — «Let's go» is on a phone's first screen instead of below it.",
         "Uneven choice buttons are now equal cells: in Settings, language and appearance were buttons as wide as their words, three to a row with one left over; now an even grid. The footer's language list got half a column on a phone and broke «Schwiizerdütsch» and «Rumantsch» in the middle of the word; it now has the full width.",
+        "On «The most important words» the button that starts learning the next ten words is on a phone's first screen — above the ten words instead of ten rows below them (on a wide screen it stays under the list).",
       ],
     },
     {
