@@ -120,3 +120,55 @@ export function toDraft(messages: ChatMessage[], locale: string): Draft {
     updatedAt: new Date().toISOString(),
   };
 }
+
+/**
+ * HOW LONG A THREAD COUNTS AS "STILL GOING".
+ *
+ * Opening Heidi used to put you back inside the last conversation, however old.
+ * A learner who asked something on Monday opened the app on Thursday to a
+ * Monday thread and had to find the way out of it to ask what they had come
+ * for. Nearly everyone arrives with a NEW sentence — a message that just came
+ * in, a word overheard at lunch — and the big chat apps all open on a blank
+ * page for that reason.
+ *
+ * But a blank page is wrong in the other direction too. Asking something,
+ * following a link to a grammar page, and coming back four minutes later is
+ * one conversation, and the dock forgetting it would be the old bug reversed.
+ * Thirty minutes is the gap between "I am in the middle of this" and "I am
+ * back"; a thread idle for longer is offered, never forced.
+ */
+export const STILL_GOING_MS = 30 * 60_000;
+
+/**
+ * Whether a stored thread should be put back on screen as it was.
+ *
+ * `now` is a parameter because the answer depends on the clock and a test
+ * should not have to wait for it. A draft written before `updatedAt` existed
+ * (or with one that will not parse) has no known age, and is treated as not
+ * going: offering an old thread is harmless, forcing one on somebody is the
+ * defect this exists to end.
+ */
+export function isStillGoing(draft: Draft | null, now: number = Date.now()): boolean {
+  if (!draft || draft.messages.length === 0) return false;
+  const at = Date.parse(draft.updatedAt);
+  if (Number.isNaN(at)) return false;
+  return now - at < STILL_GOING_MS;
+}
+
+/** The longest first line the "continue" row quotes before cutting it. */
+const MAX_LINE = 120;
+
+/**
+ * The reader's own first line of a thread — what makes the offer recognisable.
+ *
+ * The same choice the sign-in offer already makes (see `AdoptPrompt`): the
+ * first thing the LEARNER wrote, because an assistant message alone is not "a
+ * conversation you had" and a title the product invented would not be how they
+ * remember it. Empty when the thread holds nothing the learner wrote.
+ */
+export function firstLine(draft: Draft): string {
+  const wrote = draft.messages.find((m) => m.authorId === LEARNER_ID && m.body.trim());
+  if (!wrote) return "";
+  const line = wrote.body.trim().replace(/\s+/g, " ");
+  return line.length > MAX_LINE ? `${line.slice(0, MAX_LINE - 1).trimEnd()}…` : line;
+}

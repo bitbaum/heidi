@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { LEARNER_ID } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
-import { Examples } from "./chat/examples";
+import { EmptyChat } from "./chat/empty-chat";
 import type { Locale } from "@/lib/i18n/locales";
 import { ModelSheet } from "./model-sheet";
 import { Composer } from "./chat/composer";
@@ -48,7 +48,7 @@ export function Chat({
    * are one conversation rather than three that happen to look alike. The
    * restore guard in particular is load-bearing and used to live here alone.
    */
-  const { chat, byok, reset, started, modelSheet } = useDraftChat({ locale, dict });
+  const { chat, byok, reset, started, earlier, touch, modelSheet } = useDraftChat({ locale, dict });
 
   /**
    * On a phone the conversation takes the screen when the learner writes, not
@@ -101,6 +101,7 @@ export function Chat({
             {started && <NewChatButton label={t.newChat} onClick={reset} variant="icon" />}
             <Link
               href={href(locale, "chat")}
+              onClick={touch}
               aria-label={t.full.expand}
               title={t.full.expand}
               className="inline-flex h-11 w-11 items-center justify-center rounded-control text-fg-secondary hover:bg-surface-raised hover:text-fg-primary"
@@ -112,10 +113,8 @@ export function Chat({
 
         <div className="flex flex-1 flex-col px-3 pb-2 pt-3 sm:px-4">
           {!started && (
-            <>
-              <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.placeholder}</p>
-              <Examples t={t} dialect={dialect} onPick={chat.send} />
-            </>
+            // No heading of its own: the card's header already says "Heidi".
+            <EmptyChat t={t} locale={locale} dialect={dialect} onPick={chat.send} earlier={earlier} heading={null} />
           )}
 
           {(started || chat.busy) && (

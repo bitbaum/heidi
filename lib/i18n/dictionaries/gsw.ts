@@ -226,14 +226,13 @@ export const gsw: Dictionary = {
       open: "D Heidi frage",
       close: "Zuemache",
       title: "Heidi",
-      lead: "Fraged eifach, was Si grad läsed — oder füeged ii, was Si becho händ.",
-      prompts: [
-        "Wie sägi uf Züridütsch, dass i spöter chume?",
-        "Was isch de Unterschied zwüsched Mundart und Schriftdüütsch?",
-        "Säged mer drü Wörter, wo n i da jede Tag ghöre.",
-      ],
     },
-    emptyTitle: "Frag d Heidi",
+    emptyTitle: "Was wänd Si verstaa — oder säge?",
+    /**
+     * The conversation you had before, offered as one row on an empty chat — never
+     * put back over the box you came to type in (see `useRestoreDraft`).
+     */
+    earlier: { title: "Ihres letschte Gspröch", resume: "Wiiter" },
     placeholder: "Füged ii, was Si becho händ — oder schriibed, was Si wänd säge.",
     composer: "Nachricht a Heidi",
     saveWord: "Wort merke",

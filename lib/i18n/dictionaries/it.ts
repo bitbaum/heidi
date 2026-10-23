@@ -203,14 +203,13 @@ export const it: Dictionary = {
       open: "Chiedi a Heidi",
       close: "Chiudi",
       title: "Heidi",
-      lead: "Chieda di ciò che sta leggendo — o incolli un messaggio che ha ricevuto.",
-      prompts: [
-        "Come dico in zurighese che arrivo più tardi?",
-        "Che differenza c'è tra il dialetto e il tedesco scritto?",
-        "Mi dica tre parole che sentirò qui ogni giorno.",
-      ],
     },
-    emptyTitle: "Chieda a Heidi",
+    emptyTitle: "Che cosa vuole capire — o dire?",
+    /**
+     * The conversation you had before, offered as one row on an empty chat — never
+     * put back over the box you came to type in (see `useRestoreDraft`).
+     */
+    earlier: { title: "La sua ultima conversazione", resume: "Riprendi" },
     placeholder: "Incollate quello che avete ricevuto — o scrivete quello che volete dire.",
     composer: "Messaggio a Heidi",
     saveWord: "Tenere questa parola",

@@ -1,11 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { LEARNER_ID } from "@/lib/domain/chat/types";
 import { useByok } from "../use-byok";
-import { readDraft, useDraft } from "../use-draft";
+import { useDraft, useRestoreDraft } from "../use-draft";
 import { useConversation } from "./use-conversation";
 import { streamingDraftTransport } from "./transports";
 
@@ -60,34 +60,40 @@ export function useDraftChat({ locale, dict }: { locale: Locale; dict: Dictionar
   const { messages, setMessages } = chat;
 
   /**
-   * Two guards for one restore, and they are not redundant.
+   * What opening shows — a thread still going is put back, an older one is
+   * offered as `earlier` and the box opens empty. The rule and the reason are
+   * in `useRestoreDraft`; it is shared with the full-screen chat.
    *
-   * The REF stops the restore happening twice. The STATE is how a caller knows
-   * the restore has been COMMITTED — which is a different moment, and the one
-   * that matters if you intend to send something.
+   * `ready` is the COMMITTED restore, which is a different moment from the
+   * effect running, and the one that matters if you intend to send something.
    *
-   * The bug it prevents: the dock can be opened by a page handing it a
-   * question. Sending it in the same flush that restores the thread would send
-   * it with `useConversation`'s closure still holding the pre-restore
+   * The bug that distinction prevents: the dock can be opened by a page handing
+   * it a question. Sending it in the same flush that restores the thread would
+   * send it with `useConversation`'s closure still holding the pre-restore
    * messages — so the optimistic append would be `[question]` and the
    * conversation the reader already had would be dropped. Waiting for a
    * committed render means the send starts from the restored thread.
    */
-  const restored = useRef(false);
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    if (restored.current || !draft.ready) return;
-    restored.current = true;
-    const stored = readDraft();
-    if (stored?.messages.length) setMessages(stored.messages);
-    setReady(true);
-  }, [draft.ready, setMessages]);
+  const { ready, earlier } = useRestoreDraft(setMessages);
 
   const keepDraft = draft.keep;
   useEffect(() => {
-    if (!restored.current) return;
+    // Not before the restore: a write on mount, ahead of it, replaced the
+    // stored conversation every time anyone merely visited a page.
+    if (!ready) return;
     keepDraft(messages, locale);
-  }, [messages, locale, keepDraft]);
+  }, [ready, messages, locale, keepDraft]);
+
+  /**
+   * Stamp the thread as "just now".
+   *
+   * For the moment it is carried to another surface. The full-screen chat
+   * offers a thread idle for half an hour instead of continuing it
+   * (`STILL_GOING_MS`), and someone who left this one open while reading a long
+   * answer, then pressed "expand", is asking to CONTINUE it — not to be shown
+   * it as something earlier.
+   */
+  const touch = useCallback(() => keepDraft(messages, locale), [keepDraft, messages, locale]);
 
   /**
    * Start again — the stored thread AND the one on screen.
@@ -113,6 +119,9 @@ export function useDraftChat({ locale, dict }: { locale: Locale; dict: Dictionar
      * does not need to wait.
      */
     ready,
+    /** The thread you had before, offered as one row — null when there is nothing to offer. */
+    earlier,
+    touch,
     /** Whether there is a conversation, as opposed to an empty box. */
     started: chat.messages.length > 0,
     modelSheet: { open: sheetOpen, show: () => setSheetOpen(true), hide: () => setSheetOpen(false) },

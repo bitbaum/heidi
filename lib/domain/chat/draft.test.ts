@@ -1,6 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { MAX_DRAFT_MESSAGES, decodeDraft, toDraft } from "./draft.ts";
+import { MAX_DRAFT_MESSAGES, STILL_GOING_MS, decodeDraft, firstLine, isStillGoing, toDraft } from "./draft.ts";
 import { HEIDI_ID, LEARNER_ID, type ChatMessage } from "./types.ts";
 
 const said = (body: string, over: Partial<ChatMessage> = {}): ChatMessage => ({
@@ -72,5 +72,51 @@ describe("the signed-out draft", () => {
     const ids = back!.messages.map((m) => m.id);
     assert.equal(new Set(ids).size, 2);
     assert.ok(ids.every(Boolean));
+  });
+});
+
+describe("opening Heidi: a thread still going comes back, an old one is offered", () => {
+  const at = (iso: string) => ({ ...toDraft([said("Chunnsch au?")], "de"), updatedAt: iso });
+  const NOW = Date.parse("2026-10-23T12:00:00.000Z");
+
+  test("a thread written a few minutes ago is still going", () => {
+    // Ask, follow a link to a grammar page, come back: one conversation.
+    assert.equal(isStillGoing(at("2026-10-23T11:56:00.000Z"), NOW), true);
+  });
+
+  test("a thread idle for longer than the window is not restored", () => {
+    // The Monday thread on a Thursday. This is the whole defect.
+    assert.equal(isStillGoing(at("2026-10-20T09:00:00.000Z"), NOW), false);
+    assert.equal(isStillGoing(at(new Date(NOW - STILL_GOING_MS).toISOString()), NOW), false, "the window is exclusive");
+    assert.equal(isStillGoing(at(new Date(NOW - STILL_GOING_MS + 1).toISOString()), NOW), true);
+  });
+
+  test("a draft of unknown age is offered, never forced", () => {
+    // Written before `updatedAt` existed, or edited by hand.
+    assert.equal(isStillGoing(at(""), NOW), false);
+    assert.equal(isStillGoing(at("not a date"), NOW), false);
+  });
+
+  test("nothing is not going", () => {
+    assert.equal(isStillGoing(null, NOW), false);
+    assert.equal(isStillGoing({ locale: "de", messages: [], updatedAt: "2026-10-23T11:59:00.000Z" }, NOW), false);
+  });
+
+  test("the offer quotes what the learner wrote, not what Heidi answered", () => {
+    const draft = toDraft(
+      [said("Heidi spricht zuerst", { authorId: HEIDI_ID }), said("  Was heisst   «Chum guet hei»?  ")],
+      "de",
+    );
+    assert.equal(firstLine(draft), "Was heisst «Chum guet hei»?");
+  });
+
+  test("a thread the learner never wrote in has nothing to quote", () => {
+    assert.equal(firstLine(toDraft([said("Nur Heidi", { authorId: HEIDI_ID })], "de")), "");
+  });
+
+  test("a very long first line is cut, with a mark that it was", () => {
+    const line = firstLine(toDraft([said("Wort ".repeat(80))], "de"));
+    assert.ok(line.length <= 120, `got ${line.length}`);
+    assert.ok(line.endsWith("…"));
   });
 });

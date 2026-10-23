@@ -41,6 +41,18 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-10-23",
+      tag: "improvement",
+      title: "Heidi öffnet auf einem leeren Gespräch — das letzte ist eine Zeile entfernt",
+      summary:
+        "Wer Heidi öffnet, will fast immer etwas Neues fragen: eine Nachricht, die eben eingetroffen ist, ein Wort vom Mittagstisch. Bisher landete man im Gespräch von letzter Woche und musste erst den Weg hinaus suchen. Jetzt öffnet sich ein leeres Gespräch mit bereitem Eingabefeld; das letzte steht darüber als eine Zeile, ein Tippen entfernt.",
+      items: [
+        "Was vor weniger als einer halben Stunde noch lief, bleibt, wie es war: Sie fragen etwas, lesen auf einer Grammatikseite weiter und kommen zurück — dasselbe Gespräch. Was älter ist, wird angeboten, nicht zurückgelegt; es wird auch nicht gelöscht. Angemeldet ist es Ihr zuletzt gespeichertes Gespräch.",
+        "Das gilt für die Heidi-Box auf der Startseite, das schwebende «Heidi fragen» und «/chat» gleichermassen — alle drei folgen jetzt derselben Regel, und das schwebende Fenster zeigt dieselben Beispiele wie der Chat statt eigener Fragen.",
+        "Die Überschrift des leeren Gesprächs fragt jetzt, was Sie verstehen oder sagen möchten, statt unter dem Knopf «Heidi fragen» noch einmal «Fragen Sie Heidi» zu sagen. Die Symbole oben im schwebenden Fenster (neues Gespräch, Vollbild, Schliessen) sind jetzt 44 Pixel gross.",
+      ],
+    },
+    {
       date: "2026-10-22",
       tag: "feature",
       title: "Ihre Kanäle: YouTube schauen, verstehen, gefragt werden",
@@ -656,6 +668,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-23",
+      tag: "improvement",
+      title: "Heidi opens on an empty conversation — the last one is a row away",
+      summary:
+        "Nearly everyone who opens Heidi has something new to ask: a message that just arrived, a word from the lunch table. Until now you landed in last week's conversation and had to find the way out. Now an empty conversation opens with the box ready, and the last one sits above it as a single row, one tap away.",
+      items: [
+        "A conversation you were in less than half an hour ago stays as it was: ask something, read on a grammar page, come back — the same conversation. Anything older is offered, not put back; it is not deleted either. Signed in, it is your most recent saved conversation.",
+        "The same on the Heidi box on the home page, the floating «Ask Heidi» and `/chat` — all three now follow one rule, and the floating window shows the same examples as the chat instead of questions of its own.",
+        "The heading of an empty conversation now asks what you want to understand or say, instead of repeating «Ask Heidi» under a button that already said it. The icons at the top of the floating window (new conversation, full screen, close) are now 44 pixels.",
+      ],
+    },
     {
       date: "2026-10-22",
       tag: "feature",
