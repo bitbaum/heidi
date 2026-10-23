@@ -92,16 +92,16 @@ export function WordRow({
           aria-expanded={open}
           aria-controls={open ? panel : undefined}
           onClick={onToggle}
-          className="grid min-h-12 min-w-0 flex-1 grid-cols-[1rem_minmax(0,1fr)_minmax(0,1.3fr)] items-baseline gap-x-3 py-2.5 text-left hover:bg-surface-raised focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="grid min-h-12 min-w-0 flex-1 grid-cols-[1rem_minmax(0,1fr)] items-baseline gap-x-3 sm:grid-cols-[1rem_minmax(0,1fr)_minmax(0,1.3fr)] py-2.5 text-left hover:bg-surface-raised focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
-          <span className="self-center">{status && <StatusMark status={status} label={t.status[status]} />}</span>
+          <span className="row-span-2 self-center sm:row-span-1">{status && <StatusMark status={status} label={t.status[status]} />}</span>
           <span lang={DISPLAY.tag} className="font-heading text-base font-semibold leading-snug tracking-display text-dialect">
             {/* The article is part of the noun, as `der` is in a German
                 dictionary; muted, because the noun is still the entry. */}
             {row.article && <span className="font-normal text-fg-muted">{row.article} </span>}
             <Highlight text={row.target} ranges={match?.target ?? []} markClassName={MATCH_MARK} />
           </span>
-          <span lang="de" className="text-base leading-snug text-fg-secondary">
+          <span lang="de" className="col-start-2 text-base leading-snug text-fg-secondary sm:col-start-3">
             <Highlight text={row.bridge} ranges={match?.bridge ?? []} markClassName={MATCH_MARK} />
             {/* A real space, not only a margin: copied or read aloud, a margin
                 stitches «Franken» and «umgangssprachlich» into one word. */}
