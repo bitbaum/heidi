@@ -13,7 +13,7 @@ import { HeidiSignIn } from "../_components/auth-screens";
 
 type Props = {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ next?: string; token?: string; error?: string }>;
+  searchParams: Promise<{ next?: string; token?: string; method?: string; error?: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -30,7 +30,7 @@ export default async function SignInPage({ params, searchParams }: Props) {
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const query = await searchParams;
   const next = safeReturn(query.next, href(locale, ""));
-  if ((await getSession()) && !query.token && query.error !== "INVALID_TOKEN")
+  if ((await getSession()) && !query.token && (query.error !== "INVALID_TOKEN" || query.method === "magic-link"))
     redirect(next);
   const dict = getDictionary(locale);
   const labels = authLabels(locale);
@@ -39,7 +39,7 @@ export default async function SignInPage({ params, searchParams }: Props) {
     <Shell>
       <PageHeader
         title={
-          query.token || query.error === "INVALID_TOKEN"
+          query.token || (query.error === "INVALID_TOKEN" && query.method !== "magic-link")
             ? (labels.recovery?.reset ?? labels.signIn)
             : labels.signIn
         }
