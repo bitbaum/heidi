@@ -22,7 +22,7 @@
     "@better-auth/passkey": "^1.7.10",
     "@bitbaum/accountkit": "github:bitbaum/accountkit#4b99dfda73dbcd94869a56b6ac873ec7729971c6",
     "@bitbaum/ai-kit": "^1.21.0",
-    "@bitbaum/chatkit": "^0.14.2",
+    "@bitbaum/chatkit": "^0.15.2",
     "@bitbaum/searchkit": "git+https://github.com/bitbaum/searchkit.git#v0.2.2",
     "@bitbaum/speechkit": "^1.0.0",
     "@bitbaum/whenkit": "git+https://github.com/bitbaum/whenkit.git#v0.3.2",
