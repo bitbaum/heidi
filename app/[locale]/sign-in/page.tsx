@@ -1,3 +1,4 @@
+import { mailConfigured } from "@/lib/auth";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { signInMethods } from "@bitbaum/accountkit/auth";
@@ -12,12 +13,15 @@ import { HeidiSignIn } from "../_components/auth-screens";
 
 type Props = {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ next?: string; error?: string }>;
+  searchParams: Promise<{ next?: string; token?: string; error?: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale: raw } = await params;
-  return { title: authLabels(isLocale(raw) ? raw : DEFAULT_LOCALE).signIn, robots: { index: false, follow: false } };
+  return {
+    title: authLabels(isLocale(raw) ? raw : DEFAULT_LOCALE).signIn,
+    robots: { index: false, follow: false },
+  };
 }
 
 /** Every way in, on one screen. No OrangeCat account needed. */
@@ -26,25 +30,35 @@ export default async function SignInPage({ params, searchParams }: Props) {
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const query = await searchParams;
   const next = safeReturn(query.next, href(locale, ""));
-  if (await getSession()) redirect(next);
+  if ((await getSession()) && !query.token && query.error !== "INVALID_TOKEN")
+    redirect(next);
   const dict = getDictionary(locale);
   const labels = authLabels(locale);
   const ready = authStatus().ready;
   return (
     <Shell>
-      <PageHeader title={labels.signIn} lead={dict.auth.whyBody} />
+      <PageHeader
+        title={
+          query.token || query.error === "INVALID_TOKEN"
+            ? (labels.recovery?.reset ?? labels.signIn)
+            : labels.signIn
+        }
+        lead={dict.auth.whyBody}
+      />
       <div className="max-w-md py-10 sm:py-14">
         {ready ? (
           <HeidiSignIn
             labels={labels}
-            methods={signInMethods(process.env, false)}
+            methods={signInMethods(process.env, mailConfigured())}
             next={next}
             signInPath={href(locale, "sign-in")}
             signUpPath={`${href(locale, "sign-up")}?next=${encodeURIComponent(next)}`}
             initialError={Boolean(query.error)}
           />
         ) : (
-          <p className="font-mono text-sm text-fg-muted">{dict.auth.unavailable}</p>
+          <p className="font-mono text-sm text-fg-muted">
+            {dict.auth.unavailable}
+          </p>
         )}
       </div>
     </Shell>

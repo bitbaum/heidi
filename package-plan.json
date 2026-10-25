@@ -1,0 +1,81 @@
+{
+  "blocks": {
+    "shell": {
+      "package": "@bitbaum/sitekit",
+      "status": "pending",
+      "bindings": [],
+      "gap": {
+        "owner": "fleet-remediation",
+        "reason": "Existing product header/footer still render locally. Migrate through shared slots in a separate UI wave; do not couple account recovery with a shell replacement.",
+        "replacementCondition": "Shared renderer/theme adopted and browser/domain fixtures pass in its own UI wave."
+      }
+    },
+    "identity": {
+      "package": "@bitbaum/accountkit",
+      "bindings": [
+        {
+          "file": "lib/auth/index.ts",
+          "symbols": ["createAuthRuntime", "createAuthMailer"]
+        },
+        {
+          "file": "app/[locale]/_components/auth-screens.tsx",
+          "symbols": ["SignInForm", "SignUpForm", "AccountPanel"]
+        }
+      ]
+    },
+    "publishing": {
+      "package": "bip-kit",
+      "status": "pending",
+      "bindings": [],
+      "gap": {
+        "owner": "fleet-remediation",
+        "reason": "Roadmap/changelog use package types but local renderers. Type imports do not establish rendered adoption.",
+        "replacementCondition": "Shared renderer/theme adopted and browser/domain fixtures pass in its own UI wave."
+      }
+    },
+    "design": {
+      "package": "@bitbaum/design-tokens",
+      "status": "pending",
+      "bindings": [],
+      "gap": {
+        "owner": "fleet-remediation",
+        "reason": "Existing product CSS/Tailwind owns semantic tokens; shared token package is not installed or imported. Preserve the current appearance while mapping roles in the separate UI migration.",
+        "replacementCondition": "Shared renderer/theme adopted and browser/domain fixtures pass in its own UI wave."
+      }
+    },
+    "ai": {
+      "package": "@bitbaum/ai-kit",
+      "bindings": [
+        {
+          "file": "lib/domain/chat/respond.ts",
+          "symbols": ["complete", "completeStream"]
+        }
+      ]
+    },
+    "chat": {
+      "package": "@bitbaum/chatkit",
+      "bindings": [
+        {
+          "file": "app/[locale]/_components/chat/composer.tsx",
+          "symbols": ["ChatkitComposer"]
+        },
+        {
+          "file": "app/[locale]/_components/chat/workspace.tsx",
+          "symbols": ["ChatScreen"]
+        }
+      ]
+    }
+  },
+  "migration": {
+    "scope": "This wave completes the account mail/recovery binding. Pending blocks are known missing adoption, not exceptions or successful composition. The strict composition audit must continue to report them until migrated.",
+    "mail": {
+      "package": "@bitbaum/mail-kit",
+      "via": "@bitbaum/accountkit/auth/mail",
+      "binding": "lib/auth/index.ts",
+      "verification": "Real adapter is intercepted only for synthetic local browser tests; production delivery remains unverified."
+    }
+  },
+  "productOwned": {
+    "domain": "Teaching, dialect/grammar gates, structured answers and group transcripts remain Heidi domain behavior."
+  }
+}
