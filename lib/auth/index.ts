@@ -1,3 +1,5 @@
+import { SITE_URL, ASSISTANT_NAME } from "../config/site.ts";
+import { createAuthMailer } from "@bitbaum/accountkit/auth/mail";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createAuthRuntime } from "@bitbaum/accountkit/auth/next";
@@ -16,15 +18,18 @@ import { signInPath } from "./paths.ts";
  * was OrangeCat, so their groups, conversations and progress stay theirs with
  * no data migration. Everyone else is their account id.
  */
-export const { GET, POST, getSession, requireUser, authStatus, getAuth } = createAuthRuntime({
-  site: { url: "https://heidi.orangecat.ch", title: "Heidi", slug: "heidi" },
-  // Heidi sends no mail yet: the sign-in link and address confirmation stay
-  // hidden, and a password account signs in at once.
-  mail: { configured: false, send: async () => {} },
-  isDatabaseConfigured: () => dbConfigured(),
-  getDatabase: () => getDb(),
-  legacyIdentityProvider: "orangecat",
-});
+export const authSite = { url: SITE_URL, title: ASSISTANT_NAME, slug: "heidi" };
+export const authMail = createAuthMailer({ site: authSite });
+export const mailConfigured = () => authMail.configured;
+
+export const { GET, POST, getSession, requireUser, authStatus, getAuth } =
+  createAuthRuntime({
+    site: authSite,
+    mail: authMail,
+    isDatabaseConfigured: () => dbConfigured(),
+    getDatabase: () => getDb(),
+    legacyIdentityProvider: "orangecat",
+  });
 
 /** Kept for the route file: `export const { GET, POST } = handlers`. */
 export const handlers = { GET, POST };
@@ -62,7 +67,10 @@ export async function auth(): Promise<{
  * deployment has. The provider argument is accepted for the call sites written
  * when OrangeCat was the only way in.
  */
-export async function signIn(_provider: string, options: { redirectTo: string }): Promise<never> {
+export async function signIn(
+  _provider: string,
+  options: { redirectTo: string },
+): Promise<never> {
   redirect(signInPath(options.redirectTo));
 }
 

@@ -12,3 +12,6 @@ next-env.d.ts
 # `scripts/audit/*.mjs` under a real name, the way the navigation-contract pass
 # was folded into `responsive.mjs`; a leading underscore means "not that".
 scripts/audit/_*
+
+# Synthetic account browser evidence is uploaded by CI.
+auth-journey-artifacts/

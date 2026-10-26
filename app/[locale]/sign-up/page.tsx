@@ -1,3 +1,4 @@
+import { mailConfigured } from "@/lib/auth";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { signInMethods } from "@bitbaum/accountkit/auth";
@@ -38,13 +39,15 @@ export default async function SignUpPage({ params, searchParams }: Props) {
         {authStatus().ready ? (
           <HeidiSignUp
             labels={labels}
-            methods={signInMethods(process.env, false)}
+            methods={signInMethods(process.env, mailConfigured())}
             next={next}
             signUpPath={href(locale, "sign-up")}
             signInPath={`${href(locale, "sign-in")}?next=${encodeURIComponent(next)}`}
           />
         ) : (
-          <p className="font-mono text-sm text-fg-muted">{dict.auth.unavailable}</p>
+          <p className="font-mono text-sm text-fg-muted">
+            {dict.auth.unavailable}
+          </p>
         )}
       </div>
     </Shell>

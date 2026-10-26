@@ -1,3 +1,4 @@
+import { mailConfigured } from "@/lib/auth";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -15,7 +16,10 @@ type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale: raw } = await params;
-  return { title: getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE).auth.account, robots: { index: false, follow: false } };
+  return {
+    title: getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE).auth.account,
+    robots: { index: false, follow: false },
+  };
 }
 
 /** Everything about one's own account: name, ways in, passkeys, two-step codes, leaving. */
@@ -35,7 +39,7 @@ export default async function AccountPage({ params }: Props) {
       <div className="max-w-xl py-10 sm:py-14">
         <HeidiAccount
           labels={authLabels(locale)}
-          methods={signInMethods(process.env, false)}
+          methods={signInMethods(process.env, mailConfigured())}
           user={{
             name: user.name ?? "",
             email: isDeliverable(user.email) ? user.email : null,
@@ -43,7 +47,9 @@ export default async function AccountPage({ params }: Props) {
             role: user.role ?? "customer",
             twoFactorEnabled: Boolean(user.twoFactorEnabled),
           }}
-          linked={(accounts as { providerId: string }[]).map((a) => a.providerId)}
+          linked={(accounts as { providerId: string }[]).map(
+            (a) => a.providerId,
+          )}
           accountPath={href(locale, "account")}
           homePath={href(locale, "")}
         />

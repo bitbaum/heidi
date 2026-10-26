@@ -1,5 +1,6 @@
 /** The one place the deployed origin is written down. */
-export const SITE_URL = "https://heidi.orangecat.ch";
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://heidi.orangecat.ch";
 
 /**
  * Where people write to — and it has to be an address that RECEIVES.
