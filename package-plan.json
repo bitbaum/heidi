@@ -25,13 +25,16 @@
     },
     "publishing": {
       "package": "bip-kit",
-      "status": "pending",
-      "bindings": [],
-      "gap": {
-        "owner": "fleet-remediation",
-        "reason": "Roadmap/changelog use package types but local renderers. Type imports do not establish rendered adoption.",
-        "replacementCondition": "Shared renderer/theme adopted and browser/domain fixtures pass in its own UI wave."
-      }
+      "bindings": [
+        {
+          "file": "app/[locale]/roadmap/page.tsx",
+          "symbols": ["RoadmapDocument"]
+        },
+        {
+          "file": "app/[locale]/changelog/page.tsx",
+          "symbols": ["ChangelogDocument"]
+        }
+      ]
     },
     "design": {
       "package": "@bitbaum/design-tokens",
