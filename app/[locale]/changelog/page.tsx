@@ -8,8 +8,13 @@ import { sectorLocale } from "@/lib/config/sectors";
 import { PageHeader, Shell } from "../_components/page-shell";
 import { formatDate } from "@/lib/i18n/dates";
 import { OtherLanguage } from "../_components/other-language";
+import { ChangelogDocument } from "bip-kit/react";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
   return { title: dict.changelog.title, description: dict.changelog.lead };
@@ -34,7 +39,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
  * distinguish the accent from the muted foreground would otherwise be reading
  * a list with one column missing.
  */
-export default async function ChangelogPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ChangelogPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
@@ -42,63 +51,29 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
   const lang = sectorLocale(locale);
   const entries = CHANGELOG[lang];
 
-  /**
-   * The date as this reader writes dates.
-   *
-   * `Intl` rather than the ISO string: 2026-09-22 is unambiguous to a machine
-   * and reads as foreign to most people, and the site already takes this
-   * seriously enough to have a test about numerals elsewhere.
-   */
-  // The noon anchor this used to apply by hand now lives in `formatDate`,
-  // where every date-only string on the site gets it — see `dates.ts`.
-  const asDate = (iso: string) => formatDate(iso, locale, "long");
-
   return (
     <Shell>
-      <PageHeader eyebrow={dict.nav.changelog} title={t.title} lead={t.lead} note={t.note} lang={lang}>
-        <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
+      <PageHeader
+        eyebrow={dict.nav.changelog}
+        title={t.title}
+        lead={t.lead}
+        note={t.note}
+        lang={lang}
+      >
+        <OtherLanguage
+          asked={locale}
+          got={lang}
+          reason="byDesign"
+          t={dict.language}
+        />
       </PageHeader>
 
-      <ol className="flex flex-col">
-        {entries.map((entry) => (
-          <li
-            key={`${entry.date}-${entry.title}`}
-            lang={lang}
-            className="border-b border-border-subtle py-9"
-          >
-            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-              <time dateTime={entry.date} className="font-mono text-caption uppercase tracking-caps text-fg-muted">
-                {asDate(entry.date)}
-              </time>
-              <span
-                className={`font-mono text-caption uppercase tracking-caps ${
-                  entry.tag === "fix" ? "text-fg-muted" : "text-fg-muted"
-                }`}
-              >
-                {t.tags[entry.tag]}
-              </span>
-            </div>
-
-            <h2 className="mt-2 max-w-[28ch] font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
-              {entry.title}
-            </h2>
-            <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{entry.summary}</p>
-
-            {entry.items && entry.items.length > 0 && (
-              <ul className="mt-4 flex flex-col gap-2">
-                {entry.items.map((item) => (
-                  <li
-                    key={item.slice(0, 40)}
-                    className="max-w-measure text-sm leading-relaxed text-fg-muted before:mr-2 before:text-fg-muted before:content-['—']"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ol>
+      <ChangelogDocument
+        entries={[...entries]}
+        lang={lang}
+        formatDate={(iso) => formatDate(iso, locale, "long")}
+        tagLabels={t.tags}
+      />
 
       <nav aria-label={t.title} className="flex flex-wrap gap-x-6 gap-y-2 py-8">
         {(["roadmap", "paper", "contribute"] as const).map((key) => (

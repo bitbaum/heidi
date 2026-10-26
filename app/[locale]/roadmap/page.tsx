@@ -5,10 +5,15 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { ROADMAP } from "@/lib/config/roadmap";
 import { sectorLocale } from "@/lib/config/sectors";
+import { RoadmapDocument } from "bip-kit/react";
 import { PageHeader, Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const lang = sectorLocale(locale);
@@ -25,13 +30,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
  * anyone can press. Anyone can still point at anything on any page through the
  * Loki feedback widget.
  *
- * RENDERED FROM `bip-kit`'s `RoadmapDoc`. The fleet already owns this contract
- * and nine products use it; the tenth hand-rolled version had no excuse. What
- * is NOT adopted is the package's React renderer, because Heidi has its own
- * tokens and its own type scale — the package ships the contract separately
- * for exactly that case.
+ * Content and its visual treatment remain product-owned, while the shared
+ * renderer owns the accessible, responsive structure for the RoadmapDoc
+ * contract. Heidi maps its own semantic palette through the renderer tokens.
  */
-export default async function RoadmapPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function RoadmapPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
@@ -40,59 +47,43 @@ export default async function RoadmapPage({ params }: { params: Promise<{ locale
 
   return (
     <Shell>
-      <PageHeader eyebrow={doc.eyebrow} title={doc.title} lead={doc.lede} lang={lang}>
-        <OtherLanguage asked={locale} got={lang} reason="byDesign" t={dict.language} />
+      <PageHeader
+        eyebrow={doc.eyebrow}
+        title={doc.title}
+        lead={doc.lede}
+        lang={lang}
+      >
+        <OtherLanguage
+          asked={locale}
+          got={lang}
+          reason="byDesign"
+          t={dict.language}
+        />
       </PageHeader>
 
-      {doc.buckets.map((bucket) => (
-        <section key={bucket.title} lang={lang} className="border-b border-border-subtle py-10">
-          <h2 className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
-            {bucket.title}
-          </h2>
-          <p className="mt-2 max-w-measure text-base leading-relaxed text-fg-secondary">{bucket.summary}</p>
-
-          <ul className="mt-7 flex flex-col gap-8">
-            {bucket.items.map((item) => (
-              <li key={item.title} className="min-w-0 border-l-2 border-border-subtle pl-4">
-                <h3 className="max-w-measure font-heading text-lg font-semibold leading-snug tracking-display text-fg-primary">
-                  {item.title}
-                </h3>
-                <p className="mt-1 max-w-measure text-base leading-relaxed text-fg-secondary">{item.line}</p>
-
-                {/* The detail is where a blocked item earns its place: naming
-                    the blocker specifically enough that a reader could be the
-                    one who removes it. */}
-                {item.details && item.details.length > 0 && (
-                  <ul className="mt-3 flex flex-col gap-2">
-                    {item.details.map((detail) => (
-                      <li
-                        key={detail.slice(0, 40)}
-                        className="max-w-measure text-sm leading-relaxed text-fg-muted before:mr-2 before:text-fg-muted before:content-['—']"
-                      >
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {item.essay && (
-                  <Link
-                    href={href(locale, item.essay.href)}
-                    className="mt-3 inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent"
-                  >
-                    {item.essay.label} →
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
+      <RoadmapDocument
+        doc={doc}
+        lang={lang}
+        showHeader={false}
+        essayHref={(path) =>
+          /^https?:\/\//i.test(path)
+            ? path
+            : href(locale, path.replace(/^\/+/, ""))
+        }
+        essayLink={(to, label) => (
+          <Link href={to} className="bp-record-link">
+            {label} →
+          </Link>
+        )}
+      />
 
       {/* A roadmap is a claim about the future; these two are the record of
           the past and the argument for the present. A reader who doubts the
           first should be one tap from both. */}
-      <nav aria-label={doc.title} className="flex flex-wrap gap-x-6 gap-y-2 py-8">
+      <nav
+        aria-label={doc.title}
+        className="flex flex-wrap gap-x-6 gap-y-2 py-8"
+      >
         {(["changelog", "paper", "contribute"] as const).map((key) => (
           <Link
             key={key}
