@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "@bitbaum/chatkit/styles.css";
 @import "@bitbaum/accountkit/styles.css";
+@import "bip-kit/styles.css";
 
 /**
  * Heidi — design tokens. The only place a colour, font or radius is defined.
@@ -31,9 +32,14 @@
 @theme {
   /* Swiss International Style is grotesque type, not a serif. The stack is the
      reader's own — no webfont fetch, so the first paint is the real design. */
-  --font-heading: "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  --font-sans: "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --font-heading:
+    "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system, "Segoe UI",
+    Arial, sans-serif;
+  --font-sans:
+    "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system, "Segoe UI",
+    Arial, sans-serif;
+  --font-mono:
+    ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
   /* Tight display tracking: grotesque headlines set close, the Swiss habit. */
   --tracking-display: -0.025em;
@@ -190,6 +196,25 @@
 
   /* Hard edges. A cow's patches have no corner radius. */
   --radius-control: 2px;
+}
+
+/* BIP Kit owns typed record structure; these local mappings keep Heidi's
+   monochrome dialect-atlas design and dark-mode roles. */
+.bp-roadmap,
+.bp-changelog {
+  --bp-font-sans: var(--font-sans);
+  --bp-font-mono: var(--font-mono);
+  --bp-size: 1rem;
+  --bp-leading: 1.65;
+  --bp-measure: 66ch;
+  --bp-flow: 1.75rem;
+  --bp-radius-sm: 0;
+  --bp-fg: var(--color-fg-primary);
+  --bp-fg-muted: var(--color-fg-secondary);
+  --bp-fg-faint: var(--color-fg-muted);
+  --bp-border: var(--color-border-subtle);
+  --bp-accent: var(--color-accent);
+  --bp-bg: transparent;
 }
 
 /* The sign-in error screen is @bitbaum/accountkit's SignInError; it takes
@@ -538,7 +563,8 @@ body:has([data-chrome="chat"]) [data-dock="heidi"] {
  * measured height becomes 0, which is exactly the inset the words then need.
  */
 [data-chrome="chat"] .heidi-chat-scroll {
-  padding-block: calc(var(--ck-top-inset, 0px) + 0.75rem) calc(var(--ck-bottom-inset, 0px) + 0.75rem);
+  padding-block: calc(var(--ck-top-inset, 0px) + 0.75rem)
+    calc(var(--ck-bottom-inset, 0px) + 0.75rem);
 }
 @media (min-width: 64rem) {
   [data-chrome="chat"] .ck-screen-header {
@@ -560,7 +586,9 @@ body:has([data-chrome="chat"]) [data-dock="heidi"] {
     transition: transform 0.2s ease;
   }
   [data-dock-launcher][data-away="true"]:not(:focus-within) {
-    transform: translateY(calc(100% + max(1rem, env(safe-area-inset-bottom)) + 0.5rem));
+    transform: translateY(
+      calc(100% + max(1rem, env(safe-area-inset-bottom)) + 0.5rem)
+    );
   }
 }
 @media (prefers-reduced-motion: reduce) {
