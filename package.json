@@ -19,7 +19,7 @@
     "audit:language": "node scripts/audit/language.mjs"
   },
   "dependencies": {
-    "@better-auth/passkey": "^1.7.10",
+    "@better-auth/passkey": "^1.7.12",
     "@bitbaum/accountkit": "github:bitbaum/accountkit#a303242f586d7ac2b2568bbe8d3da94d8b0be768",
     "@bitbaum/ai-kit": "^1.21.4",
     "@bitbaum/chatkit": "^0.15.3",
@@ -27,20 +27,20 @@
     "@bitbaum/searchkit": "github:bitbaum/searchkit#09532b1974c7cb92f38c98decaeed334f3ffea72",
     "@bitbaum/speechkit": "^1.0.0",
     "@bitbaum/whenkit": "github:bitbaum/whenkit#f5e0a24208187091c2ca792008cdd7695a19910f",
-    "better-auth": "^1.7.10",
+    "better-auth": "^1.7.12",
     "bip-kit": "^0.6.1",
     "drizzle-orm": "^0.45.4",
     "limitkit": "^0.2.0",
-    "next": "16.4.2",
+    "next": "16.4.3",
     "pg": "^8.23.1",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "threadkit": "^0.1.1",
     "web-push": "^3.6.7",
-    "zod": "^4.6.6"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@electric-sql/pglite": "^0.5.10",
+    "@electric-sql/pglite": "^0.5.11",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^26.6.5",
     "@types/pg": "^8.23.1",
@@ -49,7 +49,7 @@
     "@types/web-push": "^3.6.4",
     "drizzle-kit": "^0.31.11",
     "eslint": "^9.39.5",
-    "eslint-config-next": "16.4.2",
+    "eslint-config-next": "16.4.3",
     "playwright": "^1.64.1",
     "tailwindcss": "^4",
     "typescript": "^6.0.3"
