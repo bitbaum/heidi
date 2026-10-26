@@ -64,6 +64,32 @@
           "symbols": ["ChatScreen"]
         }
       ]
+    },
+    "speech": {
+      "package": "@bitbaum/speechkit",
+      "bindings": [
+        {
+          "file": "app/[locale]/_components/speaking-practice.tsx",
+          "symbols": ["hesitations", "measureSpoken", "usable"]
+        },
+        {
+          "file": "app/api/speaking/transcribe/route.ts",
+          "symbols": [
+            "checkGrammar",
+            "isFaithfulRendering",
+            "markerVerdict",
+            "mayJudgeForm"
+          ]
+        },
+        {
+          "file": "lib/domain/speaking/feedback.ts",
+          "symbols": ["interpretation", "usable"]
+        },
+        {
+          "file": "lib/speech/capability.ts",
+          "symbols": ["evidenceFrom"]
+        }
+      ]
     }
   },
   "migration": {
