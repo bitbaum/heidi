@@ -3,8 +3,6 @@ import type { Metadata } from "next";
 import { auth, authEnabled } from "@/lib/auth";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
-import { dbConfigured } from "@/lib/db";
-import { conversationsFor } from "@/lib/domain/conversations/store";
 import { ChatWorkspace } from "../_components/chat/workspace";
 import { SignInToKeep } from "./sign-in-to-keep";
 
@@ -34,8 +32,6 @@ export default async function ChatPage({ params }: { params: Promise<{ locale: s
   const actorId = session?.actorId;
   const signedIn = Boolean(actorId);
 
-  const conversations = signedIn && dbConfigured() ? await conversationsFor(actorId!) : [];
-
   return (
     <ChatWorkspace
       // A different conversation is a different component: `key` resets the
@@ -52,7 +48,6 @@ export default async function ChatPage({ params }: { params: Promise<{ locale: s
       dict={dict}
       signedIn={signedIn}
       signInSlot={authEnabled ? <SignInToKeep locale={locale} label={dict.chat.full.signInToKeep} /> : null}
-      initialConversations={conversations.map((c) => ({ id: c.id, title: c.title, updatedAt: c.updatedAt }))}
     />
   );
 }

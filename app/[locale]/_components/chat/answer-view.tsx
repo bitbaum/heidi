@@ -43,6 +43,7 @@ export function AnswerView({
   onMove,
   onReply,
   locale,
+  explanation = true,
 }: {
   answer: Answer;
   t: Dictionary["chat"];
@@ -69,6 +70,12 @@ export function AnswerView({
    * an answer three turns up would arrive as a non sequitur.
    */
   onReply?: (say: string) => void;
+  /**
+   * Draw the explanation. False under chatkit's `ChatApp`, which draws it
+   * itself as the message's `content` (so its Copy and Listen read it) and
+   * puts this view under it as the footer.
+   */
+  explanation?: boolean;
 }) {
   const a = answer;
   // The explanations are written in the reader's language, whatever the
@@ -88,7 +95,9 @@ export function AnswerView({
 
   return (
     <>
-      <ChatMarkdown onReply={onReply} text={a.text} className="text-base leading-relaxed text-fg-primary" />
+      {explanation && (
+        <ChatMarkdown onReply={onReply} text={a.text} className="text-base leading-relaxed text-fg-primary" />
+      )}
       {a.textClean === false && (
         <p className="mt-1 font-mono text-caption text-danger">
           {t.flagged} {a.textFlags?.join(", ")}

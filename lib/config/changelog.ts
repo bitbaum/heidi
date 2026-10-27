@@ -41,6 +41,18 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-10-27",
+      tag: "improvement",
+      title: "Der Chat ist die Chat-App der ganzen Flotte",
+      summary:
+        "«/chat» ist jetzt dieselbe Chat-App wie bei Loki und OrangeCat (chatkits `ChatApp`): Ihre Gespräche liegen auf dem Telefon in einer Schublade und auf dem breiten Bildschirm neben dem Chat, mit Suche und «Heute / Gestern / Früher».",
+      items: [
+        "Neu: ein vorübergehendes Gespräch, das nirgends gespeichert wird; eine Nachricht, die Sie schreiben, während Heidi antwortet, wartet über dem Eingabefeld und geht, wenn sie fertig ist; und das Gespräch, das offen war, ist nach dem Neuladen wieder da.",
+        "Ohne Anmeldung bleibt die Liste in diesem Browser, und nichts erreicht die Datenbank. Ein Gespräch aus der Heidi-Box oder dem schwebenden Fenster kommt mit; ein älteres wird angeboten, nicht zurückgelegt. «Alles löschen» in den Einstellungen erreicht jedes Gespräch der Liste.",
+        "Anhalten wirft die halbe Antwort weiterhin weg — sie war noch nicht auf Zürcher Formen geprüft —, und ein Fehler sagt weiterhin, warum. Die Knöpfe unter einer Antwort («Kürzer», «Wort für Wort») und «Was heisst das?» auf einem markierten Wort schreiben ihren Satz jetzt ins Eingabefeld, statt ihn sofort zu senden.",
+      ],
+    },
+    {
       date: "2026-10-23",
       tag: "improvement",
       title: "Heidi öffnet auf einem leeren Gespräch — das letzte ist eine Zeile entfernt",
@@ -673,6 +685,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-10-27",
+      tag: "improvement",
+      title: "The chat is the fleet's chat app",
+      summary:
+        "«/chat» is now the same chat app as Loki's and OrangeCat's (chatkit's `ChatApp`): your conversations sit in a drawer on a phone and beside the chat on a wide screen, with a search box and «Today / Yesterday / Earlier».",
+      items: [
+        "New: a temporary conversation that is written nowhere; a message you write while Heidi is answering waits above the box and goes when she is done; and the conversation you had open comes back after a reload.",
+        "Signed out, the list stays in this browser and nothing reaches the database. A conversation from the Heidi box or the floating window comes along; an older one is offered, not put back. «Delete everything» in the settings reaches every conversation in the list.",
+        "Stop still throws away the half answer — it had not been checked for Zurich forms — and a failure still says why. The buttons under an answer («Shorter», «Word by word») and «What does it mean?» on a selected word now put their sentence in the box instead of sending it at once.",
+      ],
+    },
     {
       date: "2026-10-23",
       tag: "improvement",

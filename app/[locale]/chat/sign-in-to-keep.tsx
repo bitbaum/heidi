@@ -23,7 +23,7 @@ export function SignInToKeep({ locale, label }: { locale: Locale; label: string 
         await signIn("orangecat", { redirectTo: afterSignIn(href(locale, "chat")) });
       }}
     >
-      <button type="submit" className="text-sm text-link underline underline-offset-4 hover:text-accent">
+      <button type="submit" className="inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent">
         {label}
       </button>
     </form>

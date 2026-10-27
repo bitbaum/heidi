@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { declaredKeys, humanSize } from "./stores.ts";
+import { declaredKeys, familyOf, humanSize } from "./stores.ts";
 import { FLOWS } from "../config/privacy.ts";
 import { getDictionary } from "../i18n/index.ts";
 import { LOCALES } from "../i18n/locales.ts";
@@ -161,4 +161,12 @@ test("forgetting a key invalidates the snapshot and tells the subscribers", asyn
   } finally {
     restore();
   }
+});
+
+test("a declared key owns the keys stored under it", () => {
+  // chatkit's conversation store writes the list and each conversation under
+  // their own keys; delete-everything must reach all of them.
+  const stored = ["heidi.chats:v1", "heidi.chats:v1:c-1", "heidi.chats.other", "heidi.saved.v1"];
+  assert.deepEqual(familyOf("heidi.chats", stored), ["heidi.chats:v1", "heidi.chats:v1:c-1"]);
+  assert.deepEqual(familyOf("heidi.saved.v1", stored), ["heidi.saved.v1"]);
 });

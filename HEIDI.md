@@ -519,7 +519,10 @@ which of the two it is in, next to the button, in the learner's language. See
   artefact the product touches. The count is enough for a reopened thread to
   say a picture was here.
 - **Signed out, a conversation never reaches the database.** It lives in
-  `localStorage` under `heidi.chat.draft.v1`. The alternative — minting a
+  `localStorage`: the home box and the dock keep one thread under
+  `heidi.chat.draft.v1`, and the full chat keeps its list in chatkit's device
+  store under `heidi.chats` (`_components/chat/stores.ts`; pictures by name,
+  never their bytes). The alternative — minting a
   pseudo-actor from a cookie so anonymous rows have an owner — is a tracking id
   by another name, and it creates rows nobody can ever authenticate to in order
   to delete. Adopting a signed-out conversation into an account is **offered,
@@ -551,21 +554,26 @@ which of the two it is in, next to the button, in the learner's language. See
   `/grammar` had to notice the nav, work out which link was the chat, and lose
   the page they were reading. Signed in it was worse — the locale root is the
   dashboard, so the landing page had no composer at all. The dock
-  (`_components/chat/dock.tsx`) is the same conversation as the other two
-  surfaces, because all three read one store (`use-draft.ts`; the dock and the home box through `use-draft-chat.ts`).
+  (`_components/chat/dock.tsx`) is the same conversation as the home box,
+  because both read one store (`use-draft.ts`, through `use-draft-chat.ts`);
+  expanding to `/chat` carries that thread into the full chat's list
+  (`use-earlier-writing.ts`).
 - **The dock stands down on one page only: the full-screen chat**, which marks
   itself `data-chrome="chat"`. `globals.css` hides the dock when the document
   contains that marker, because it IS the window the dock would open. It used
   to stand down on every page holding a conversation, and on the home page,
   where the chat box sits below the fold on a phone, that read as the chat
   being gone.
-- **Starting again is one tap on every chat surface.** The sidebar button on a
-  laptop, a toolbar above the transcript on a phone (the sidebar is off-canvas
-  there), and an icon in the dock's header. All three are `new-chat-button.tsx`.
-  The header's "Chat" link always opens an empty conversation. `/chat` gets a
-  fresh `key` per request, because a first message moves the address with
-  `replaceState`, and a constant key re-rendered the page in place with the
-  conversation just left still in it.
+- **The full chat is the fleet's chat app.** `/chat` is chatkit's `ChatApp`
+  (`_components/chat/workspace.tsx`): the header (the list · the conversation's
+  name · New chat · "…" with Temporary chat, Rename and Delete), the list of
+  conversations as a drawer on a phone and a rail from 64rem, with search and
+  Today / Yesterday / Earlier, the queue, Stop and the open conversation coming
+  back after a reload. Heidi supplies the transport, the stores and her words,
+  and draws her own answer under chatkit's (`AnswerFooter` in `transcript.tsx`).
+  Signed in, the open conversation is in the address (`/chat/<id>`, kept with
+  `replaceState`). The home box and the dock start again with
+  `new-chat-button.tsx`.
 - **Opening Heidi is a blank page with the box ready, and the last conversation
   is one row away.** Nearly everyone arrives with a NEW sentence — a message
   that just came in, a word overheard at lunch — and the big chat apps all open
@@ -576,10 +584,11 @@ which of the two it is in, next to the button, in the learner's language. See
   was — ask, read a grammar page, come back is ONE conversation — and anything
   older is OFFERED as a single row (`earlier-row.tsx`: «Your last conversation ·
   date», the learner's own first line, Continue →), never restored over the box
-  and never deleted by opening. Signed in, `/chat` is always new and the row is
-  the most recent saved conversation. The home box, the dock and `/chat` share
-  it through `useRestoreDraft` and one empty state (`empty-chat.tsx`), so they
-  cannot disagree about what "open" means. A first message in the fresh chat
+  and never deleted by opening. The home box and the dock share it through
+  `useRestoreDraft` and one empty state (`empty-chat.tsx`). `/chat` applies the
+  same rule to that thread as it arrives — continued if it is still going,
+  offered as the same row if not — and otherwise reopens the conversation that
+  was open, as every chat app does; its list is one tap away. A first message in the fresh chat
   replaces the offered thread: the device keeps one, and someone who wants every
   conversation signs in. Dates are the reader's own format, not "3 days ago":
   `Intl.RelativeTimeFormat` has no usable data for Swiss German or Romansh.
@@ -923,11 +932,12 @@ once on 2026-08-26. With no key the route answers 503 and says so plainly
 rather than pretending.
 
 **Also built since:** the full-screen chat at `/chat`, which is the same
-conversation as the box on the home page rather than a second one — both read
-the same store, so expanding continues the thread instead of starting one, and
+conversation as the box on the home page rather than a second one — expanding
+carries the box's thread into the chat's list and continues it, and
 nothing is passed in a query string where it would land in the access log, the
 `Referer` header and browser history. Signed in, the server remembers: a
-sidebar of past conversations, resumable, renameable, deletable. The
+list of past conversations, resumable, renameable, deletable, searchable — and
+a temporary conversation that is written nowhere. The
 conversation row is created on the first message, not when the page opens, so a
 "new chat" button that gets pressed and abandoned leaves nothing behind. It
 escapes the site chrome with one CSS rule keyed on `body:has([data-chrome="chat"])`

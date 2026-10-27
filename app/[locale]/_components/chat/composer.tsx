@@ -4,8 +4,10 @@ import type { RefObject } from "react";
 import {
   Composer as ChatkitComposer,
   type ComposerLabelOverrides,
+  type ComposerProps,
 } from "@bitbaum/chatkit/react";
-import type { Attachment } from "@bitbaum/chatkit";
+import { fill } from "@/lib/i18n/fill";
+import { fromWire } from "./chat-app";
 import type { Locale } from "@/lib/i18n/locales";
 import { LOCALE_TAGS } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n";
@@ -79,11 +81,49 @@ export function Composer({
   inputRef?: RefObject<HTMLTextAreaElement | null>;
   autoFocus?: boolean;
 }) {
-  const fill = (template: string, values: Record<string, string | number>) =>
-    template.replace(/\{(\w+)\}/g, (_, key: string) =>
-      String(values[key] ?? ""),
-    );
+  return (
+    <div
+      // Sticky only where there IS something to scroll past. In an empty
+      // thread it pinned the composer over the panel above and clipped it.
+      className={`z-10 bg-surface-page pb-1 pt-1 ${sticky ? "sticky bottom-0" : ""} ${className ?? ""}`}
+    >
+      <ChatkitComposer
+        value={value}
+        onValueChange={onChange}
+        onSend={(text, attachments) => onSend(...fromWire(text, attachments))}
+        placeholder={placeholder}
+        sending={busy}
+        onStop={onStop}
+        {...composerOptions({ t, modelT, locale, images, dictation })}
+        // The commonest first move there is: paste the line you were sent.
+        tools={<PasteButton label={t.paste} value={value} onPaste={onChange} />}
+        footer={footer}
+        inputRef={inputRef}
+        autoFocus={autoFocus}
+      />
+    </div>
+  );
+}
 
+/**
+ * Heidi's composer settings: her words in every label, her picture limits and
+ * her transcription route as the microphone's server leg. One function, so the
+ * wrapper above (home, dock, groups) and the full chat (`ChatApp`'s
+ * `composer`) cannot drift apart.
+ */
+export function composerOptions({
+  t,
+  modelT,
+  locale,
+  images,
+  dictation = true,
+}: {
+  t: Dictionary["chat"];
+  modelT: Dictionary["model"];
+  locale: Locale;
+  images: boolean;
+  dictation?: boolean;
+}): Pick<ComposerProps, "ariaLabel" | "attach" | "attachmentOnlyText" | "voice" | "labels"> {
   const labels: ComposerLabelOverrides = {
     send: t.send,
     stop: t.stop,
@@ -100,72 +140,27 @@ export function Composer({
     dictation: t.micProblem,
     attachNotes: {
       wrongType: (name) => fill(t.attachNotes.wrongType, { name }),
-      imageTooLarge: (name, mb) =>
-        fill(t.attachNotes.imageTooLarge, { name, mb }),
+      imageTooLarge: (name, mb) => fill(t.attachNotes.imageTooLarge, { name, mb: String(mb) }),
       textTooLarge: (name) => fill(t.attachNotes.textTooLarge, { name }),
       unreadable: (name) => fill(t.attachNotes.unreadable, { name }),
-      tooMany: (max) => fill(t.attachNotes.tooMany, { max }),
+      tooMany: (max) => fill(t.attachNotes.tooMany, { max: String(max) }),
     },
   };
 
-  return (
-    <div
-      // Sticky only where there IS something to scroll past. In an empty
-      // thread it pinned the composer over the panel above and clipped it.
-      className={`z-10 bg-surface-page pb-1 pt-1 ${sticky ? "sticky bottom-0" : ""} ${className ?? ""}`}
-    >
-      <ChatkitComposer
-        value={value}
-        onValueChange={onChange}
-        onSend={(text, attachments) => onSend(...fromWire(text, attachments))}
-        placeholder={placeholder}
-        ariaLabel={t.placeholder}
-        sending={busy}
-        onStop={onStop}
-        attach={
-          images
-            ? {
-                maxFiles: MAX_IMAGES,
-                maxImageEdge: MAX_EDGE,
-                maxImageBytes: MAX_BYTES,
-              }
-            : false
+  return {
+    ariaLabel: t.placeholder,
+    attach: images ? { maxFiles: MAX_IMAGES, maxImageEdge: MAX_EDGE, maxImageBytes: MAX_BYTES } : false,
+    // A screenshot alone is the commonest question there is.
+    attachmentOnlyText: images ? t.exampleUnderstand : undefined,
+    voice: dictation
+      ? {
+          transcribeUrl: TRANSCRIBE_URL,
+          prefer: "server",
+          lang: LOCALE_TAGS[locale],
+          // The key the privacy page names and "delete everything" clears.
+          rememberKey: DICTATION_VERDICT_KEY,
         }
-        // A screenshot alone is the commonest question there is.
-        attachmentOnlyText={images ? t.exampleUnderstand : undefined}
-        voice={
-          dictation
-            ? {
-                transcribeUrl: TRANSCRIBE_URL,
-                prefer: "server",
-                lang: LOCALE_TAGS[locale],
-                // The key the privacy page names and "delete everything" clears.
-                rememberKey: DICTATION_VERDICT_KEY,
-              }
-            : false
-        }
-        // The commonest first move there is: paste the line you were sent.
-        tools={<PasteButton label={t.paste} value={value} onPaste={onChange} />}
-        footer={footer}
-        labels={labels}
-        inputRef={inputRef}
-        autoFocus={autoFocus}
-      />
-    </div>
-  );
-}
-
-/** chatkit's wire shape → what Heidi's conversation sends. */
-export function fromWire(
-  text: string,
-  attachments: Attachment[],
-): [string, string[]] {
-  const pictures: string[] = [];
-  const words = [text];
-  for (const a of attachments) {
-    if (a.kind === "image")
-      pictures.push(`data:${a.mimeType};base64,${a.dataBase64}`);
-    else words.push(a.content);
-  }
-  return [words.filter((w) => w.trim()).join("\n\n"), pictures];
+      : false,
+    labels,
+  };
 }

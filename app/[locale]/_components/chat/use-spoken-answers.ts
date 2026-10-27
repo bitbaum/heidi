@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import type { ChatMessage } from "@/lib/domain/chat/types";
 import { HEIDI_ID } from "@/lib/domain/chat/types";
 import { useSpeech } from "../use-speech";
@@ -25,23 +25,10 @@ import { useVoiceSettings } from "../use-voice-settings";
  * not something to receive automatically for every suggestion Heidi makes.
  */
 export function useSpokenAnswers(messages: readonly ChatMessage[]) {
-  const { settings } = useVoiceSettings();
-  const speech = useSpeech(settings.rate);
+  const speakArrival = useSpeakArrival();
 
   const lastSeen = useRef<string | null>(null);
   const seeded = useRef(false);
-
-  // `speech.speak` changes identity whenever the rate or the chosen voice
-  // does; keeping it in a ref stops that from re-running the effect and
-  // re-reading the same answer when somebody drags the speed slider.
-  //
-  // Written in an effect rather than during render: a ref assignment in the
-  // render body is a side effect, and the React Compiler rejects it — rightly,
-  // since a render that is thrown away would still have changed it.
-  const speak = useRef(speech.speak);
-  useEffect(() => {
-    speak.current = speech.speak;
-  }, [speech.speak]);
 
   useEffect(() => {
     const newest = [...messages].reverse().find((m) => m.authorId === HEIDI_ID && m.answer && !m.error);
@@ -55,8 +42,28 @@ export function useSpokenAnswers(messages: readonly ChatMessage[]) {
     if (!newest || newest.id === lastSeen.current) return;
     lastSeen.current = newest.id;
 
-    if (!settings.speak) return;
-    const text = newest.answer?.text?.trim();
-    if (text) speak.current(text);
-  }, [messages, settings.speak]);
+    speakArrival(newest.answer?.text ?? "");
+  }, [messages, speakArrival]);
+}
+
+/**
+ * Speak one answer that has just ARRIVED — when the learner asked for that.
+ *
+ * The rule without the bookkeeping, for a surface that knows the moment an
+ * answer lands (the full chat's transport resolves with it) and so has no
+ * backlog to seed. Stable across renders: it reads the setting through a ref.
+ */
+export function useSpeakArrival(): (text: string) => void {
+  const { settings } = useVoiceSettings();
+  const speech = useSpeech(settings.rate);
+
+  const latest = useRef({ speak: speech.speak, on: settings.speak });
+  useEffect(() => {
+    latest.current = { speak: speech.speak, on: settings.speak };
+  }, [speech.speak, settings.speak]);
+
+  return useCallback((text: string) => {
+    const trimmed = text.trim();
+    if (latest.current.on && trimmed) latest.current.speak(trimmed);
+  }, []);
 }

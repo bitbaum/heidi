@@ -5,7 +5,7 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { dbConfigured } from "@/lib/db";
 import { mayRead } from "@/lib/domain/conversations/rules";
-import { asSoloMessages, conversationById, conversationsFor, messagesIn } from "@/lib/domain/conversations/store";
+import { conversationById } from "@/lib/domain/conversations/store";
 import { ChatWorkspace } from "../../_components/chat/workspace";
 import { SignInToKeep } from "../sign-in-to-keep";
 
@@ -52,23 +52,17 @@ export default async function ConversationPage({
   const conversation = await conversationById(id);
   if (!mayRead(conversation, actorId)) notFound();
 
-  const [messages, conversations] = await Promise.all([messagesIn(id), conversationsFor(actorId)]);
-
   return (
     <ChatWorkspace
-      // A different conversation is a different component: `key` resets the
-      // draft seed, the composer and the transport in one move, which an
-      // effect synchronising four pieces of state could only approximate.
+      // A different conversation is a different component: chatkit's ChatApp
+      // opens it from the store, and moving between conversations inside the
+      // app keeps this address current with `replaceState`.
       key={id}
       locale={locale}
       dict={dict}
       signedIn
       signInSlot={authEnabled ? <SignInToKeep locale={locale} label={dict.chat.full.signInToKeep} /> : null}
-      initialConversations={conversations.map((c) => ({ id: c.id, title: c.title, updatedAt: c.updatedAt }))}
-      initialConversationId={id}
-      // Rows carry the OIDC sub; the transcript is built on the fixed
-      // LEARNER_ID, so the mapping happens at this boundary and nowhere else.
-      initialMessages={asSoloMessages(messages, actorId)}
+      conversationId={id}
     />
   );
 }

@@ -40,7 +40,8 @@ function sources(dir: string): string[] {
 describe("the chat box has exactly one name", () => {
   test("the composer names its box once, through chatkit", () => {
     const src = readFileSync(COMPOSER, "utf8");
-    assert.match(src, /ariaLabel=\{/, "the box must be given its name");
+    // `ariaLabel` in `composerOptions`, which the wrapper and the full chat share.
+    assert.match(src, /ariaLabel: t\.placeholder/, "the box must be given its name");
     assert.doesNotMatch(src, /<label\b/, "a <label> as well would be a second name");
   });
 

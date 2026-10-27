@@ -23,6 +23,7 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-10-27
 
+- The full chat at «/chat» is the fleet's chat app (chatkit's `ChatApp`): your conversations sit in a drawer on a phone and beside the chat on a wide screen, with a search box and Today / Yesterday / Earlier; each has one «…» for Rename and Delete. New: a temporary conversation that is written nowhere, a message written while Heidi is answering waits above the box and goes when she is done, and the conversation you had open comes back after a reload. Signed out, the list is kept in this browser and nothing reaches the database; a conversation from the home box or the floating window carries over. Stop still throws away the half answer (it had not been checked for Zurich forms) and a failure still says why. The chips under an answer («Shorter», «Word by word») and «What does it mean?» on a selected word now put their sentence in the box to send, instead of sending it at once.
 - A message you send in a saved conversation is shown once, not twice, and a question Heidi did not answer says so: before, it appeared twice with nothing under it and no way forward; now it gets the usual «try again» bubble with Retry. A double tap on Send no longer sends twice.
 
 ## 2026-10-23
