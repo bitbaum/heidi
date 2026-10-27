@@ -21,8 +21,15 @@ on:
 
 # A newer push supersedes an older run. ci-gate.sh understands cancelled-and-
 # superseded as a clean skip rather than a failure.
+#
+# THE GROUP IS PER COMMIT ON MAIN. Per branch, every main run queued behind the
+# one before it: a ~10-minute run per merge, one at a time, and one run waited
+# 31 minutes just to start (CI speed audit, 2026-10-27). Per commit, two merges
+# run side by side, and a re-armed dispatch for the SAME commit still queues
+# behind its push run instead of racing it. Cancelling stays off on main for the
+# reason above.
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{ github.ref }}-${{ github.ref == 'refs/heads/main' && github.sha || 'branch' }}
   # Supersede freely on a branch nobody gates on — that is what the setting is
   # for, and a PR pushed three times in a minute should not run CI three times.
   #
@@ -78,6 +85,33 @@ jobs:
       # drifts from it is how a dependency silently changes.
       - run: pnpm install --frozen-lockfile
 
+      # MERGE → LIVE: ONE FULL PROOF PER CHANGE, ON THE PULL REQUEST.
+      #
+      # A squash merge onto main has already passed everything below on its PR,
+      # so running it all again only doubles merge→live: 9.6 minutes median from
+      # merge to green main, of which about 7 repeated the PR (tests, layout and
+      # overlay audits). A main tip whose subject names a PR — squash merges end
+      # in `(#N)` — gets the fast gate: type-check, lint, file-input check.
+      # Pull requests and any main push WITHOUT `(#N)` (someone pushing straight
+      # to main) still get everything. Same rule as bitbaum/loki's ci.yml.
+      #
+      # Deploy builds the site on the box, so the build here is a PR-only proof.
+      - name: Choose the gate
+        id: gate
+        env:
+          EVENT: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+        run: |
+          set -euo pipefail
+          subject=$(git log -1 --format=%s)
+          if [ "$EVENT" != "pull_request" ] && [ "$REF" = "refs/heads/main" ] && echo "$subject" | grep -Eq '\(#[0-9]+\)'; then
+            echo "main tip looks like a PR merge ($subject) — fast gate (verify:main)"
+            echo "fast=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "full gate (event=$EVENT, subject: $subject)"
+            echo "fast=false" >> "$GITHUB_OUTPUT"
+          fi
+
       # Next keeps its compiler output in .next/cache, and this job BUILDS. With
       # nothing restoring it, every run of every scaffolded site recompiles from
       # scratch — and the deploy then compiles a second time.
@@ -94,6 +128,7 @@ jobs:
       # restore-key is last on purpose: a stale cache still beats no cache, and
       # Next validates its own entries rather than trusting them.
       - name: Cache Next.js build
+        if: steps.gate.outputs.fast != 'true'
         uses: actions/cache@v4
         with:
           path: .next/cache
@@ -105,6 +140,7 @@ jobs:
       # The same migrations the deploy applies, so the tests run against the
       # schema that is about to ship rather than one written out by hand here.
       - name: Apply migrations
+        if: steps.gate.outputs.fast != 'true'
         run: |
           for f in drizzle/[0-9]*.sql; do
             echo "applying $f"
@@ -118,11 +154,17 @@ jobs:
       # why the house rule is that CI calls the repo's own verify script rather
       # than a hand-maintained copy of what it is thought to contain.
       - name: Verify
-        run: pnpm run verify
+        run: |
+          if [ "${{ steps.gate.outputs.fast }}" = "true" ]; then
+            pnpm run verify:main
+          else
+            pnpm run verify
+          fi
 
       # The build is the real test for a content site: a broken import or a bad
       # config surfaces here and nowhere earlier.
       - name: Build
+        if: steps.gate.outputs.fast != 'true'
         run: pnpm run build
 
       # THE LAYOUT CHECK RUNS HERE, and it has to be here rather than in
@@ -136,9 +178,11 @@ jobs:
       # An opt-in script nobody remembers to run would have caught none of
       # them.
       - name: Install Chromium for the layout audit
+        if: steps.gate.outputs.fast != 'true'
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Start the built site
+        if: steps.gate.outputs.fast != 'true'
         run: |
           pnpm run start &
           npx --yes wait-on -t 60000 http://127.0.0.1:3000/de
@@ -148,6 +192,7 @@ jobs:
       # where the header runs out), and the full matrix is a local command for
       # when something here goes red.
       - name: Layout audit
+        if: steps.gate.outputs.fast != 'true'
         run: pnpm run audit:responsive
         env:
           BASE: http://127.0.0.1:3000
@@ -160,6 +205,7 @@ jobs:
       # check noticed, because every other check looks at pages with
       # everything shut. Dark as well as light: it was reported in dark.
       - name: Overlay audit
+        if: steps.gate.outputs.fast != 'true'
         run: pnpm run audit:overlays
         env:
           BASE: http://127.0.0.1:3000
