@@ -18,20 +18,20 @@ importers:
         specifier: ^1.21.4
         version: 1.21.4(react@19.3.1)
       '@bitbaum/chatkit':
-        specifier: ^0.17.0
-        version: 0.17.0(react@19.3.1)
+        specifier: ^0.17.1
+        version: 0.17.1(react@19.3.1)
       '@bitbaum/mail-kit':
         specifier: 0.2.0
         version: 0.2.0
       '@bitbaum/searchkit':
-        specifier: github:bitbaum/searchkit#09532b1974c7cb92f38c98decaeed334f3ffea72
-        version: https://codeload.github.com/bitbaum/searchkit/tar.gz/09532b1974c7cb92f38c98decaeed334f3ffea72(react@19.3.1)
+        specifier: ^0.2.2
+        version: 0.2.2(react@19.3.1)
       '@bitbaum/speechkit':
         specifier: ^1.0.0
         version: 1.0.0
       '@bitbaum/whenkit':
-        specifier: github:bitbaum/whenkit#f5e0a24208187091c2ca792008cdd7695a19910f
-        version: https://codeload.github.com/bitbaum/whenkit/tar.gz/f5e0a24208187091c2ca792008cdd7695a19910f(react@19.3.1)
+        specifier: ^0.3.2
+        version: 0.3.2(react@19.3.1)
       better-auth:
         specifier: ^1.7.12
         version: 1.7.12(drizzle-kit@0.31.11)(drizzle-orm@0.45.4(@electric-sql/pglite@0.5.11)(@types/pg@8.23.1)(kysely@0.29.6)(pg@8.23.1))(next@16.4.3(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@26.6.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(pg@8.23.1)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -269,7 +269,7 @@ packages:
     resolution: {integrity: sha512-Gs7n99b5tqUC6cQAPbV0uED3IraHB6xQbHLQ/C3l7ZFafHScOx9pQ+DYmP5blbLFShVWLqxNUlI9wi4xU/X+ow==}
 
   '@bitbaum/accountkit@https://codeload.github.com/bitbaum/accountkit/tar.gz/a303242f586d7ac2b2568bbe8d3da94d8b0be768':
-    resolution: {gitHosted: true, tarball: https://codeload.github.com/bitbaum/accountkit/tar.gz/a303242f586d7ac2b2568bbe8d3da94d8b0be768}
+    resolution: {gitHosted: true, integrity: sha512-S3bzvjY9tsiGY1csbjk0bldez4pgBbBYvS1/7OEkUwrQy7gRSHlTKy/2krsB+dJnn6YzLZ3HTt/Cvc/SGlmgEw==, tarball: https://codeload.github.com/bitbaum/accountkit/tar.gz/a303242f586d7ac2b2568bbe8d3da94d8b0be768}
     version: 0.8.0
     engines: {node: '>=20'}
     peerDependencies:
@@ -300,8 +300,8 @@ packages:
       react:
         optional: true
 
-  '@bitbaum/chatkit@0.17.0':
-    resolution: {integrity: sha512-9Q8nsvMi86akETbi4cWTYPqMiH60DksmAY8c1O+VVs6WqHYCpXeiLd6WGRGFVAW1Zbl4gYSoQA0+i0OOV8l5IA==}
+  '@bitbaum/chatkit@0.17.1':
+    resolution: {integrity: sha512-obLB5G0sjgPlSrmjX18ln8LAuXJeLFetIT+/7TvXT94ZID6HcICuptdW+r/zUE7ZXPsZbghSzHG9aB47JNyJ+g==}
     engines: {node: '>=20'}
     hasBin: true
     peerDependencies:
@@ -311,9 +311,8 @@ packages:
     resolution: {integrity: sha512-YkgMFRQ6HuzIB0q/Ao4FB4zb/YxVc0iKyVdRkFe2psJ4CQJvGxBfDlURomZMkgQfpBQox4QiT/iN9IGRz6SeTg==}
     engines: {node: '>=20'}
 
-  '@bitbaum/searchkit@https://codeload.github.com/bitbaum/searchkit/tar.gz/09532b1974c7cb92f38c98decaeed334f3ffea72':
-    resolution: {gitHosted: true, integrity: sha512-zUU6UUFB8x2ZYzngjJgif2iyJHxNx7gBLrS4dufNAUyLlmRk9BQBuY8q1BuaK6xAEGSU2JPz23zbwoyLRlZHLg==, tarball: https://codeload.github.com/bitbaum/searchkit/tar.gz/09532b1974c7cb92f38c98decaeed334f3ffea72}
-    version: 0.2.2
+  '@bitbaum/searchkit@0.2.2':
+    resolution: {integrity: sha512-LvUqHepcwd488rSUu7EmRzcgfNYtz1RP4qnyPFMQ7nL1/DSwW1TGiiVWoT3/ytE4zmK/mWEFJxx5g77fidLe0w==}
     peerDependencies:
       react: '>=18'
     peerDependenciesMeta:
@@ -324,9 +323,8 @@ packages:
     resolution: {integrity: sha512-ZxfXP5sdPGgD4QsjmzIOr+OIBmZseFAXu0lGR42nisavNFrkoSEcwUbi3X2fr10aT3PlsbStSnkIYoVw09CtRA==}
     engines: {node: '>=22.18'}
 
-  '@bitbaum/whenkit@https://codeload.github.com/bitbaum/whenkit/tar.gz/f5e0a24208187091c2ca792008cdd7695a19910f':
-    resolution: {gitHosted: true, integrity: sha512-y7wjFst8elmua4bfjhbRDw1U+qndxXeMXG32C5N8GokV3UIdGgO1LZYJFu0OrUftfvcgoERXJ7Nl6goITwarpA==, tarball: https://codeload.github.com/bitbaum/whenkit/tar.gz/f5e0a24208187091c2ca792008cdd7695a19910f}
-    version: 0.3.2
+  '@bitbaum/whenkit@0.3.2':
+    resolution: {integrity: sha512-5s4PFqGBxxlT0dx5LLLGC5ba35q532DSqAD6aMx9IV+hRtUpz4H8zPsuDVPPD3vST2KCCxla3ZFvBCdejS9H3g==}
     engines: {node: '>=20'}
     peerDependencies:
       react: '>=18'
@@ -3425,19 +3423,19 @@ snapshots:
     transitivePeerDependencies:
       - canvas
 
-  '@bitbaum/chatkit@0.17.0(react@19.3.1)':
+  '@bitbaum/chatkit@0.17.1(react@19.3.1)':
     dependencies:
       react: 19.3.1
 
   '@bitbaum/mail-kit@0.2.0': {}
 
-  '@bitbaum/searchkit@https://codeload.github.com/bitbaum/searchkit/tar.gz/09532b1974c7cb92f38c98decaeed334f3ffea72(react@19.3.1)':
+  '@bitbaum/searchkit@0.2.2(react@19.3.1)':
     optionalDependencies:
       react: 19.3.1
 
   '@bitbaum/speechkit@1.0.0': {}
 
-  '@bitbaum/whenkit@https://codeload.github.com/bitbaum/whenkit/tar.gz/f5e0a24208187091c2ca792008cdd7695a19910f(react@19.3.1)':
+  '@bitbaum/whenkit@0.3.2(react@19.3.1)':
     dependencies:
       react: 19.3.1
 
