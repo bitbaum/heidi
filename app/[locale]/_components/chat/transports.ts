@@ -4,6 +4,7 @@ import type { ChatMessage } from "@/lib/domain/chat/types";
 import { HEIDI_ID } from "@/lib/domain/chat/types";
 import { decodeAnswer } from "@/lib/domain/chat/answer";
 import type { Locale } from "@/lib/i18n/locales";
+import { wasUnanswered } from "./turn";
 
 /**
  * Where a message goes, and what comes back.
@@ -330,12 +331,17 @@ export function conversationTransport({
 
       if (!res.ok) return errorFor(res.status);
 
-      const data = (await readJson(res)) as { messages?: unknown; blind?: boolean } | null;
+      const data = (await readJson(res)) as { messages?: unknown; blind?: boolean; answered?: boolean } | null;
       // The reader's own message WAS stored (201), so this is not an error
       // status — but no answer is coming, and the picture is why. Read from
       // the body rather than the status here precisely because the status is
       // about the stored message, which succeeded.
       if (data?.blind) return { status: "error", kind: "blind" };
+      // Stored, but Heidi made no reply (blocked, refused, vendor blip). A
+      // private conversation has no "silence": the reader asked her. Without
+      // this the turn ended with nothing — now it gets the failure bubble and
+      // Retry. Groups keep silence (groupTransport is untouched).
+      if (wasUnanswered(data)) return { status: "error", kind: "failed" };
       return { status: "ok", messages: fromApi(data?.messages) };
     } catch {
       return { status: "error", kind: "unreachable" };

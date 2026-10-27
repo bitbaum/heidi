@@ -7,6 +7,7 @@ import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { MAX_IMAGES } from "@/lib/domain/chat/image";
 import { localId, type Transport } from "./transports";
+import { mergeStored } from "./turn";
 
 /**
  * Sending a message, and everything that can go wrong with it.
@@ -46,6 +47,8 @@ export function useConversation({
    * slow answer feel broken" (fleet `SHARED.md`, from loki `Composer.tsx`).
    */
   const inFlight = useRef<AbortController | null>(null);
+  /** True from the moment a turn starts until it settles; see `run`. */
+  const turning = useRef(false);
   /**
    * The pictures that went with the last question, so Retry re-asks THAT
    * question. Before, a retried screenshot question went out as words only —
@@ -65,7 +68,11 @@ export function useConversation({
   const run = useCallback(
     async (text: string, pictures: string[], retry = false) => {
       const trimmed = text.trim();
-      if (!trimmed || busy) return;
+      if (!trimmed) return;
+      // `busy` is a render closure: two taps in one tick both read false. The
+      // ref is written synchronously, so the second call is ignored.
+      if (turning.current) return;
+      turning.current = true;
 
       // Staged and shrunk by the composer (chatkit); this only carries them.
       const images = pictures.slice(0, MAX_IMAGES);
@@ -104,6 +111,7 @@ export function useConversation({
       });
 
       inFlight.current = null;
+      turning.current = false;
       setBusy(false);
       // Cleared BEFORE the message lands, so there is never a frame showing
       // the preview and the finished answer at the same time.
@@ -126,7 +134,7 @@ export function useConversation({
       }
 
       if (result.status === "ok") {
-        setMessages((prev) => [...prev, ...result.messages.filter((m) => m.authorId !== me || !retry)]);
+        setMessages((prev) => mergeStored(prev, { localId: mine.id, stored: result.messages, me, retry }));
         return;
       }
       // Silence spends no model call and is a normal outcome in a group.
@@ -149,7 +157,7 @@ export function useConversation({
         { id: localId("err"), authorId: HEIDI_ID, body: "", createdAt: new Date().toISOString(), error: message },
       ]);
     },
-    [busy, byok, locale, me, messages, t.cannotSeePicture, t.failed, t.notConfigured, t.stopped, t.unreachable, transport],
+    [byok, locale, me, messages, t.cannotSeePicture, t.failed, t.notConfigured, t.stopped, t.unreachable, transport],
   );
 
   const send = useCallback((text: string, images: string[] = []) => void run(text, images), [run]);
