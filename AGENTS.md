@@ -1,4 +1,17 @@
 
+# Merge → live
+
+One full proof per change, on the pull request. `.github/workflows/ci.yml` runs
+`pnpm run verify`, the build and the layout and overlay audits there. A squash
+merge onto main (subject ends in `(#N)`) gets the fast gate: `pnpm run verify:main`
+— type-check, lint, file-input check — and then `.github/workflows/deploy.yml` ships it, which
+builds on the box. Target: green main in about three minutes, live a few after.
+A main push without `(#N)` still runs everything.
+
+Re-running the full verify and the audits on main for a PR merge is a regression,
+not a safety net: it repeats the pull request's proof and doubles merge → live.
+Main runs are grouped per commit, so two merges never queue behind each other.
+
 # Layout: the mistake this repo keeps making
 
 Horizontal overflow has been reported from a phone three times, by a person,
