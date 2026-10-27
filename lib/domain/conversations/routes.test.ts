@@ -153,8 +153,9 @@ describe("conversation routes", { skip: HAS_DB ? false : "DATABASE_URL unset" },
     // The learner's own message is already committed. Failing the request
     // because a vendor failed would make a saved message look lost.
     assert.equal(res.status, 201);
-    const { messages } = (await res.json()) as { messages: Array<{ body: string }> };
+    const { messages, answered } = (await res.json()) as { messages: Array<{ body: string }>; answered?: boolean };
     assert.equal(messages[0].body, "Chunnsch au?");
+    assert.equal(answered, false, "no reply says so");
 
     const read = await routes.one.GET(send("GET"), at(made.id));
     const back = (await read.json()) as { messages: Array<{ body: string }> };

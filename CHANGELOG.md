@@ -21,6 +21,10 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-10-27
+
+- A message you send in a saved conversation is shown once, not twice, and a question Heidi did not answer says so: before, it appeared twice with nothing under it and no way forward; now it gets the usual «try again» bubble with Retry. A double tap on Send no longer sends twice.
+
 ## 2026-10-23
 
 - On «The most important words» the button that starts learning the next ten words is on a phone's first screen: it sits above the ten words there, not ten rows below them (on a wide screen it stays under the list).

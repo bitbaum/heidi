@@ -159,5 +159,5 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   // 201 either way: the reader's OWN message was stored, which is what this
   // status is about. `blind` rides alongside so the client can say the one
   // useful sentence instead of leaving the turn unanswered in silence.
-  return Response.json({ messages: sent, ...(blind ? { blind: true } : {}) }, { status: 201 });
+  return Response.json({ messages: sent, ...(blind ? { blind: true } : {}), ...(reply ? {} : { answered: false }) }, { status: 201 });
 }
