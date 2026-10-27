@@ -571,6 +571,13 @@ which of the two it is in, next to the button, in the learner's language. See
   Today / Yesterday / Earlier, the queue, Stop and the open conversation coming
   back after a reload. Heidi supplies the transport, the stores and her words,
   and draws her own answer under chatkit's (`AnswerFooter` in `transcript.tsx`).
+  Heidi's own rules go through ChatApp's props, not around it: Stop discards
+  the half answer (`stopKeepsPartial={false}` — it has not been through the
+  variety gate), each failed turn says why in its own words (`ChatTurnError`
+  with the kind from `failureSentence` in `chat-app.ts`), the move chips and
+  the word pick send in one tap (`renderFooter`'s `send`, the `ChatAppHandle`),
+  the dialect starter carries `lang`, and signed out the list says where the
+  chats live (`historySlot`).
   Signed in, the open conversation is in the address (`/chat/<id>`, kept with
   `replaceState`). The home box and the dock start again with
   `new-chat-button.tsx`.

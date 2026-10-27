@@ -50,6 +50,7 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "Neu: ein vorübergehendes Gespräch, das nirgends gespeichert wird; eine Nachricht, die Sie schreiben, während Heidi antwortet, wartet über dem Eingabefeld und geht, wenn sie fertig ist; und das Gespräch, das offen war, ist nach dem Neuladen wieder da.",
         "Ohne Anmeldung bleibt die Liste in diesem Browser, und nichts erreicht die Datenbank. Ein Gespräch aus der Heidi-Box oder dem schwebenden Fenster kommt mit; ein älteres wird angeboten, nicht zurückgelegt. «Alles löschen» in den Einstellungen erreicht jedes Gespräch der Liste.",
         "Anhalten wirft die halbe Antwort weiterhin weg — sie war noch nicht auf Zürcher Formen geprüft —, und ein Fehler sagt weiterhin, warum. Die Knöpfe unter einer Antwort («Kürzer», «Wort für Wort») und «Was heisst das?» auf einem markierten Wort schreiben ihren Satz jetzt ins Eingabefeld, statt ihn sofort zu senden.",
+        "Später am selben Tag, mit chatkit 0.19: Die Knöpfe unter einer Antwort und «Was heisst das?» senden wieder mit einem Tippen. Jeder Fehler behält seinen eigenen Satz, auch wenn zwei in einem Gespräch stehen; «Erneut versuchen» schickt die Bilder mit; der Satz, dass die Gespräche nur in diesem Browser liegen, steht ohne Anmeldung über der Liste der Gespräche, mit dem Anmelden daneben.",
       ],
     },
     {
@@ -695,6 +696,7 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "New: a temporary conversation that is written nowhere; a message you write while Heidi is answering waits above the box and goes when she is done; and the conversation you had open comes back after a reload.",
         "Signed out, the list stays in this browser and nothing reaches the database. A conversation from the Heidi box or the floating window comes along; an older one is offered, not put back. «Delete everything» in the settings reaches every conversation in the list.",
         "Stop still throws away the half answer — it had not been checked for Zurich forms — and a failure still says why. The buttons under an answer («Shorter», «Word by word») and «What does it mean?» on a selected word now put their sentence in the box instead of sending it at once.",
+        "Later the same day, with chatkit 0.19: the buttons under an answer and «What does it mean?» send in one tap again. Each failure keeps its own sentence, even with two in one conversation; Retry sends the pictures again; and signed out, the line saying the conversations are only in this browser sits above the list of conversations, with sign-in beside it.",
       ],
     },
     {

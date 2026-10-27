@@ -2,7 +2,14 @@
 
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ChatApp, type ChatAppLabels, type ChatTransport, type Starter } from "@bitbaum/chatkit/react";
+import {
+  ChatApp,
+  ChatTurnError,
+  type ChatAppHandle,
+  type ChatAppLabels,
+  type ChatTransport,
+  type Starter,
+} from "@bitbaum/chatkit/react";
 import { HEIDI_ID } from "@/lib/domain/chat/types";
 import { decodeAnswer } from "@/lib/domain/chat/answer";
 import type { Dictionary } from "@/lib/i18n";
@@ -42,17 +49,16 @@ import { useAdoptOffer, useDraftHandoff } from "./use-earlier-writing";
  *     leaves nothing behind. A temporary chat goes to the stateless route and
  *     is never written anywhere.
  *
- * WHAT CHATKIT DOES NOT DO FOR HEIDI, kept here on purpose:
- *   - Stop DISCARDS the half answer. ChatApp keeps what had arrived; here that
- *     text has not been through the variety gate yet, so keeping it would make
- *     Stop a way to publish dialect nobody checked. The transport clears it
- *     before the turn ends (see `transport`).
+ * HEIDI'S OWN RULES, said through ChatApp's props:
+ *   - Stop DISCARDS the half answer (`stopKeepsPartial={false}`). What had
+ *     streamed has not been through the variety gate yet, so keeping it would
+ *     make Stop a way to publish dialect nobody checked.
  *   - The failure says WHY in the reader's language — not configured, cannot
- *     reach, cannot see pictures, or try again. ChatApp's failed bubble takes
- *     one label, so it is the sentence for the latest failure.
- *   - The footer has no way to send. A move chip ("Shorter", "Word by word")
- *     and the word pick put their sentence in the box instead, to send with
- *     one more tap. The model's own suggested replies are chatkit's one-tap row.
+ *     reach, cannot see pictures, or try again — per turn (`ChatTurnError`),
+ *     so two failures in one chat keep their own sentences.
+ *   - A move chip ("Shorter", "Word by word") and the word pick send in one
+ *     tap, as the model's own suggested replies do: the footer through
+ *     `renderFooter`'s `send`, the word pick through the handle.
  */
 export function ChatWorkspace({
   locale,
@@ -85,9 +91,9 @@ export function ChatWorkspace({
   // (a thread carried over from the home card), so it lists it and opens it.
   const [generation, setGeneration] = useState(0);
   const [sheetOpen, setSheetOpen] = useState(false);
+  // The box's text, only so the paste button knows whether it is empty.
   const [draft, setDraft] = useState("");
-  const [failure, setFailure] = useState(t.failed);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const chatRef = useRef<ChatAppHandle>(null);
   const appRef = useRef<HTMLDivElement>(null);
 
   /** Signed in, the open conversation is in the address bar, so a reload or a link lands on it. */
@@ -124,12 +130,6 @@ export function ChatWorkspace({
         onText: (soFar) => turn.update({ text: soFar }),
       });
 
-      if (turn.signal.aborted) {
-        // Stopped. The streamed text had not been checked for Zurich forms,
-        // so it is cleared before ChatApp could keep it as the answer.
-        turn.update({ text: "" });
-        throw new DOMException("Stopped", "AbortError");
-      }
       if (result.status === "ok") {
         const answer = result.messages.find((m) => m.authorId === HEIDI_ID)?.answer;
         if (answer) {
@@ -138,17 +138,14 @@ export function ChatWorkspace({
         }
       }
       // A private conversation has no "silence": the reader asked her.
-      setFailure(failureSentence(result.status === "error" ? result.kind : "failed", t));
-      throw new Error("unanswered");
+      const kind = result.status === "error" ? result.kind : "failed";
+      throw new ChatTurnError(failureSentence(kind, t), { kind });
     },
     [byok.config, locale, signedIn, speakArrival, t],
   );
 
-  /** A chip or the word pick: the sentence goes in the box, ready to send. */
-  const putInBox = useCallback((say: string) => {
-    setDraft(say);
-    inputRef.current?.focus();
-  }, []);
+  /** The word pick asks, in one tap, like a move chip. */
+  const ask = useCallback((say: string) => void chatRef.current?.send(say), []);
 
   const starters: Starter[] = useMemo(
     () =>
@@ -157,7 +154,9 @@ export function ChatWorkspace({
         ...t.examples,
       ]
         .sort((a, b) => Number(a.kind === "compose") - Number(b.kind === "compose"))
-        .map((ex) => (ex.kind === "dialect" ? { label: `«${ex.text}»`, prompt: ex.text } : ex.text)),
+        // A dialect line carries its language, so a screen reader and the
+        // font read it as Swiss German, not as the page's language.
+        .map((ex) => (ex.kind === "dialect" ? { text: ex.text, label: `«${ex.text}»`, lang: DISPLAY.tag } : ex.text)),
     [t.examples],
   );
 
@@ -180,7 +179,7 @@ export function ChatWorkspace({
     today: f.today,
     yesterday: f.yesterday,
     earlier: f.older,
-    noChats: signedIn ? f.noChats : f.onThisDevice,
+    noChats: f.noChats,
     noMatch: (query) => fill(f.noMatch, { query }),
     loadingChats: f.loading,
     listFailed: f.listFailed,
@@ -223,6 +222,7 @@ export function ChatWorkspace({
       )}
 
       <ChatApp
+        ref={chatRef}
         key={generation}
         className="min-h-0 flex-1"
         fill="parent"
@@ -242,26 +242,29 @@ export function ChatWorkspace({
             {earlier && (
               <EarlierRow t={t.earlier} locale={locale} line={earlier.line} when={earlier.when} onResume={earlier.resume} />
             )}
-            {!signedIn && signInSlot && (
-              <div className="flex flex-wrap items-center gap-x-2 text-sm text-fg-secondary">
-                <span>{f.onThisDevice}</span>
-                {signInSlot}
-              </div>
-            )}
           </div>
         }
+        // Signed out, the chat list says where these chats live and how to keep them.
+        historySlot={
+          signedIn ? null : (
+            <div className="flex flex-wrap items-center gap-x-2 text-sm text-fg-secondary">
+              <span>{f.onThisDevice}</span>
+              {signInSlot}
+            </div>
+          )
+        }
+        stopKeepsPartial={false}
         composer={{
           ...composerOptions({ t, modelT: dict.model, locale, images: true }),
           value: draft,
           onValueChange: setDraft,
-          inputRef,
           // The commonest first move there is: paste the line you were sent.
           tools: <PasteButton label={t.paste} value={draft} onPaste={setDraft} />,
         }}
         thread={{
           // A private answer has no URL to share.
           share: false,
-          renderFooter: (message) => {
+          renderFooter: (message, { send }) => {
             // ChatApp keeps what the transport and the store put on a message
             // (`HeidiMessage`); decoded, because a stored shape can be old.
             const m = message as HeidiMessage;
@@ -273,7 +276,7 @@ export function ChatWorkspace({
                 asked={typeof m.asked === "string" ? m.asked : undefined}
                 t={t}
                 voiceT={dict.voice}
-                onMove={putInBox}
+                onMove={(say) => send(say)}
                 locale={locale}
               />
             );
@@ -297,7 +300,7 @@ export function ChatWorkspace({
             thinking: t.thinking,
             working: t.thinking,
             stopped: t.stopped,
-            failed: failure,
+            failed: t.failed,
             loading: f.loading,
             jump: f.jump,
             replies: t.moves.title,
@@ -320,7 +323,7 @@ export function ChatWorkspace({
 
       {/* Select a word Heidi did not gloss and ask about it. Outside the
           thread because it is positioned in viewport coordinates. */}
-      <WordPick containerRef={threadRef} t={t} onAsk={putInBox} />
+      <WordPick containerRef={threadRef} t={t} onAsk={ask} />
 
       {sheetOpen && (
         <ModelSheet
