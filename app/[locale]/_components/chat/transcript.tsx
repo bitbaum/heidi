@@ -228,7 +228,7 @@ export function AnswerFooter({
   asked?: string;
   t: Dictionary["chat"];
   voiceT: Dictionary["voice"];
-  /** A move or learn chip. ChatApp gives the footer no send — see workspace.tsx. */
+  /** A move or learn chip: sends its sentence (ChatApp's `renderFooter` send). */
   onMove?: (say: string) => void;
   locale: Locale;
 }) {
