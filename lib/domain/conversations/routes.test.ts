@@ -146,6 +146,20 @@ describe("conversation routes", { skip: HAS_DB ? false : "DATABASE_URL unset" },
     assert.equal(conversation.title, "Zürich");
   });
 
+  test("a conversation created with a title is listed under it at once", async () => {
+    // chatkit's ChatApp names a chat from its first message as it creates
+    // it; without this the list said "Untitled" until the next reload.
+    beCaller("alice", "Alice");
+    const res = await routes.list.POST(send("POST", { title: "Was heisst  Znüni?\n" }));
+    const { conversation } = (await res.json()) as { conversation: { id: string; title: string } };
+    assert.equal(conversation.title, "Was heisst Znüni?");
+
+    // A first message then leaves the name alone, as it does a renamed one.
+    await routes.messages.POST(send("POST", { text: "etwas anderes" }), at(conversation.id));
+    const read = await routes.one.GET(send("GET"), at(conversation.id));
+    assert.equal(((await read.json()) as { conversation: { title: string } }).conversation.title, "Was heisst Znüni?");
+  });
+
   test("posting stores the message and answers 201 even when no model does", async () => {
     const made = await makeConversation();
     const res = await routes.messages.POST(send("POST", { text: "Chunnsch au?" }), at(made.id));

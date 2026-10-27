@@ -485,7 +485,7 @@ body:has([data-chrome="chat"]) > header {
 }
 
 /* Not `display: none` on a real page — but this footer is site navigation that
-   the chat's own sidebar and header already provide, and keeping it would mean
+   the chat's own list and header already provide, and keeping it would mean
    the composer sits above a wall of links nobody scrolls to from a chat. */
 body:has([data-chrome="chat"]) > footer {
   display: none;
@@ -551,25 +551,6 @@ body:has([data-chrome="session"]) #loki-feedback-host {
  */
 body:has([data-chrome="chat"]) [data-dock="heidi"] {
   display: none;
-}
-
-/**
- * The full-screen chat is chatkit's `ChatScreen`: the header and the composer
- * float over the transcript, which is Heidi's own scroller. It pads itself by
- * their measured heights (`--ck-top-inset` / `--ck-bottom-inset`, published by
- * ChatScreen), so the first line never sits under the header and the last
- * never under the composer. From `lg` the sidebar is on screen and the phone
- * header (menu, new chat) has nothing to do, so it is not drawn — and its
- * measured height becomes 0, which is exactly the inset the words then need.
- */
-[data-chrome="chat"] .heidi-chat-scroll {
-  padding-block: calc(var(--ck-top-inset, 0px) + 0.75rem)
-    calc(var(--ck-bottom-inset, 0px) + 0.75rem);
-}
-@media (min-width: 64rem) {
-  [data-chrome="chat"] .ck-screen-header {
-    display: none;
-  }
 }
 
 /**

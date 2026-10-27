@@ -253,76 +253,22 @@ export function streamingDraftTransport(): Transport {
   };
 }
 
-/** What the sidebar needs to know about a conversation. */
-export type ConversationSummary = {
-  id: string;
-  title: string;
-  updatedAt: string;
-};
-
 /**
  * A private conversation that the server remembers.
  *
- * Like the group transport, the server owns the thread — so no history is sent
- * and both rows come back together. Unlike it, the conversation may not exist
- * yet: someone opens `/chat`, types, and only at that moment is there anything
- * worth a row. Creating it lazily is what keeps a "new chat" button that gets
- * pressed and abandoned from littering the sidebar with empty threads.
- *
- * WHICH row it writes to lives in this closure rather than in the component,
- * for two reasons. It is this transport's own business, and — more concretely
- * — React state is not visible to the second message of a fast double-send in
- * the same tick, which is exactly how one conversation becomes two. The
- * in-flight promise is the other half of that guard: two sends that arrive
- * together await the same creation instead of racing to make one each.
+ * The server owns the thread, so no history is sent; it writes the reader's
+ * row and Heidi's reply and returns both. The conversation already exists:
+ * `ChatApp` creates it through the store on the first message (POST
+ * `/api/conversations`), so a "new chat" pressed and abandoned leaves no row.
  *
  * The locale goes with EVERY message, not only at creation: it is the page's,
  * which is in the URL and therefore the reader's choice. Switching the site to
  * another language switches the language Heidi explains in, in old threads too.
  */
-export function conversationTransport({
-  conversationId,
-  locale,
-  onCreated,
-}: {
-  conversationId: string | null;
-  locale: Locale;
-  onCreated: (conversation: ConversationSummary) => void;
-}): Transport {
-  let id = conversationId;
-  let creating: Promise<string | null> | null = null;
-
-  async function ensure(): Promise<string | null> {
-    if (id) return id;
-    creating ??= (async () => {
-      try {
-        const res = await fetch("/api/conversations", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ locale }),
-        });
-        if (!res.ok) return null;
-        const { conversation } = (await res.json()) as { conversation: ConversationSummary };
-        id = conversation.id;
-        onCreated(conversation);
-        return conversation.id;
-      } catch {
-        return null;
-      } finally {
-        // Cleared either way: a failed creation must be retryable, and a
-        // successful one is now answered by `id` without awaiting anything.
-        creating = null;
-      }
-    })();
-    return creating;
-  }
-
-  return async ({ text, byok, images, signal }) => {
+export function savedConversationTransport(conversationId: string): Transport {
+  return async ({ text, locale, byok, images, signal }) => {
     try {
-      const target = await ensure();
-      if (!target) return { status: "error", kind: "failed" };
-
-      const res = await fetch(`/api/conversations/${target}/messages`, {
+      const res = await fetch(`/api/conversations/${conversationId}/messages`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ text, byok, images, locale }),
@@ -338,9 +284,8 @@ export function conversationTransport({
       // about the stored message, which succeeded.
       if (data?.blind) return { status: "error", kind: "blind" };
       // Stored, but Heidi made no reply (blocked, refused, vendor blip). A
-      // private conversation has no "silence": the reader asked her. Without
-      // this the turn ended with nothing — now it gets the failure bubble and
-      // Retry. Groups keep silence (groupTransport is untouched).
+      // private conversation has no "silence": the reader asked her, so the
+      // turn ends in the failure bubble with Retry.
       if (wasUnanswered(data)) return { status: "error", kind: "failed" };
       return { status: "ok", messages: fromApi(data?.messages) };
     } catch {

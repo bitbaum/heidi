@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     body = {};
   }
 
-  const raw = (body as { locale?: unknown })?.locale;
+  const { locale: raw, title } = (body ?? {}) as { locale?: unknown; title?: unknown };
   const locale = typeof raw === "string" && isLocale(raw) ? raw : DEFAULT_LOCALE;
 
   // A ceiling, not a pruner: at the limit this refuses rather than deleting
@@ -42,6 +42,10 @@ export async function POST(request: Request) {
   const room = mayCreate(await countFor(who.actorId));
   if (!room.ok) return Response.json({ error: room.problem }, { status: 409 });
 
-  const conversation = await createConversation({ actorId: who.actorId, locale });
+  const conversation = await createConversation({
+    actorId: who.actorId,
+    locale,
+    ...(typeof title === "string" ? { title } : {}),
+  });
   return Response.json({ conversation }, { status: 201 });
 }

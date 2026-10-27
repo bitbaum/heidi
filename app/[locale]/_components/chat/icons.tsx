@@ -23,15 +23,6 @@ export function NewChatIcon() {
   );
 }
 
-export function MenuIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="shrink-0">
-      <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-
 export function PasteIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="shrink-0">

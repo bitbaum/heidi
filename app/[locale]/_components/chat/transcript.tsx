@@ -3,7 +3,7 @@
 import type { RefObject } from "react";
 import type { AnswerFeedback } from "@bitbaum/chatkit";
 import { AnswerActions } from "@bitbaum/chatkit/react";
-import type { ChatMessage } from "@/lib/domain/chat/types";
+import type { Answer, ChatMessage } from "@/lib/domain/chat/types";
 import { HEIDI_ID } from "@/lib/domain/chat/types";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
@@ -203,4 +203,46 @@ function askedBefore(messages: ChatMessage[], at: number, me: string): string | 
     if (messages[i].authorId === me) return messages[i].body;
   }
   return undefined;
+}
+
+/**
+ * Heidi's answer under chatkit's: the full chat (`ChatApp`) draws the
+ * explanation, Copy, Listen and the thumbs itself, and this is what it puts
+ * under the explanation as `thread.renderFooter` — the dialect line, glosses,
+ * suggestions, the moves and the provenance line.
+ *
+ * Here, not in the workspace, for the rule this file opens with: an answer is
+ * rendered through this module only, inside the same `wrap-anywhere`, so a
+ * pasted link in a suggestion cannot push the full chat sideways either.
+ */
+export function AnswerFooter({
+  answer,
+  asked,
+  t,
+  voiceT,
+  onMove,
+  locale,
+}: {
+  answer: Answer;
+  /** The learner's line this answers, for a kept word's sentence. */
+  asked?: string;
+  t: Dictionary["chat"];
+  voiceT: Dictionary["voice"];
+  /** A move or learn chip. ChatApp gives the footer no send — see workspace.tsx. */
+  onMove?: (say: string) => void;
+  locale: Locale;
+}) {
+  return (
+    <div className="wrap-anywhere">
+      <AnswerView
+        answer={answer}
+        t={t}
+        voiceT={voiceT}
+        context={asked}
+        onMove={onMove}
+        locale={locale}
+        explanation={false}
+      />
+    </div>
+  );
 }

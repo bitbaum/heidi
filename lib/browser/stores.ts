@@ -67,10 +67,44 @@ export function declaredKeys(): Array<{ id: string; key: string }> {
   return out;
 }
 
+/**
+ * A declared key and everything stored under it.
+ *
+ * Most flows are one key. chatkit's conversation store is a family — the list
+ * at `<key>:v1` and each conversation at `<key>:v1:<id>` — and a delete that
+ * removed only the list would leave every conversation behind while the page
+ * said they were gone. So a key owns itself and every key beginning `<key>:`.
+ */
+export function familyOf(key: string, stored: readonly string[]): string[] {
+  return stored.filter((k) => k === key || k.startsWith(`${key}:`));
+}
+
+/** The declared key itself, and whatever this browser holds under it. */
+function keysOf(key: string): string[] {
+  return [...new Set([key, ...familyOf(key, storedKeys())])];
+}
+
+function storedKeys(): string[] {
+  try {
+    const out: string[] = [];
+    for (let i = 0; i < window.localStorage.length; i++) {
+      const k = window.localStorage.key(i);
+      if (k) out.push(k);
+    }
+    return out;
+  } catch {
+    return [];
+  }
+}
+
 function sizeOf(key: string): number {
   try {
-    const raw = window.localStorage.getItem(key);
-    return raw ? new Blob([raw]).size : 0;
+    let bytes = 0;
+    for (const k of keysOf(key)) {
+      const raw = window.localStorage.getItem(k);
+      if (raw) bytes += new Blob([raw]).size;
+    }
+    return bytes;
   } catch {
     return 0;
   }
@@ -130,7 +164,7 @@ export const NO_STORES: DeviceStore[] = [];
 
 export function forget(key: string): void {
   try {
-    window.localStorage.removeItem(key);
+    for (const k of keysOf(key)) window.localStorage.removeItem(k);
   } catch {
     // Nothing to do and nothing worth saying: a browser that refuses to delete
     // also refused to store, so the list is already right.
@@ -151,17 +185,19 @@ export function forget(key: string): void {
  */
 export function exportAll(): Record<string, unknown> {
   const out: Record<string, unknown> = {};
-  for (const { key } of declaredKeys()) {
-    try {
-      const raw = window.localStorage.getItem(key);
-      if (raw === null) continue;
+  for (const { key: declared } of declaredKeys()) {
+    for (const key of keysOf(declared)) {
       try {
-        out[key] = JSON.parse(raw);
+        const raw = window.localStorage.getItem(key);
+        if (raw === null) continue;
+        try {
+          out[key] = JSON.parse(raw);
+        } catch {
+          out[key] = raw;
+        }
       } catch {
-        out[key] = raw;
+        // Unreadable storage: the export simply does not contain that key.
       }
-    } catch {
-      // Unreadable storage: the export simply does not contain that key.
     }
   }
   return out;

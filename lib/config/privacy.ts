@@ -320,6 +320,30 @@ export const FLOWS: readonly Flow[] = [
     leavesDevice: false,
     recipients: [],
   },
+  /**
+   * The full chat's conversations, signed out (chatkit's
+   * `localConversationStore`, keyed in `chat/stores.ts`). One key holds the
+   * list and one per conversation beside it (`heidi.chats:v1`,
+   * `heidi.chats:v1:<id>`), which is why `lib/browser/stores.ts` treats a
+   * declared key as a FAMILY: deleting it here removes every conversation.
+   * Pictures are kept by name only — never their bytes.
+   */
+  {
+    id: "deviceConversations",
+    place: "device",
+    where: "localStorage · heidi.chats",
+    // Sent to be answered, never written down on our side — as the draft.
+    leavesDevice: true,
+    recipients: [...MODEL_VENDORS],
+  },
+  /** Which conversation the full chat reopens after a reload: one id. */
+  {
+    id: "openChat",
+    place: "device",
+    where: "localStorage · heidi.chat.open.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
   {
     id: "dictation",
     place: "vendor",

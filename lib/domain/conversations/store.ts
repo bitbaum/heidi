@@ -27,10 +27,16 @@ export type Conversation = {
 
 export type StoredMessage = ChatMessage & { imageCount: number };
 
-export async function createConversation(args: { actorId: string; locale: string }): Promise<Conversation> {
+/**
+ * A new conversation. `title` is optional: the chat (chatkit's `ChatApp`)
+ * names a conversation from its first message as it creates it, so the list
+ * shows the name at once. Without one, the first message names it in
+ * `appendMessage` — by the same rule, `titleFrom`.
+ */
+export async function createConversation(args: { actorId: string; locale: string; title?: string }): Promise<Conversation> {
   const [row] = await db
     .insert(conversations)
-    .values({ actorId: args.actorId, locale: args.locale })
+    .values({ actorId: args.actorId, locale: args.locale, title: titleFrom(args.title ?? "") })
     .returning();
   return toConversation(row);
 }
