@@ -26,7 +26,7 @@
     "@bitbaum/chatkit": "^0.21.1",
     "@bitbaum/mail-kit": "0.2.0",
     "@bitbaum/searchkit": "^0.2.2",
-    "@bitbaum/speechkit": "^1.0.0",
+    "@bitbaum/speechkit": "^1.0.1",
     "@bitbaum/whenkit": "^0.3.2",
     "better-auth": "^1.7.12",
     "bip-kit": "^0.6.1",
