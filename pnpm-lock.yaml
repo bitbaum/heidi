@@ -27,8 +27,8 @@ importers:
         specifier: ^0.2.2
         version: 0.2.2(react@19.3.1)
       '@bitbaum/speechkit':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.1
+        version: 1.0.1
       '@bitbaum/whenkit':
         specifier: ^0.3.2
         version: 0.3.2(react@19.3.1)
@@ -318,8 +318,8 @@ packages:
       react:
         optional: true
 
-  '@bitbaum/speechkit@1.0.0':
-    resolution: {integrity: sha512-ZxfXP5sdPGgD4QsjmzIOr+OIBmZseFAXu0lGR42nisavNFrkoSEcwUbi3X2fr10aT3PlsbStSnkIYoVw09CtRA==}
+  '@bitbaum/speechkit@1.0.1':
+    resolution: {integrity: sha512-NnEFvQkVwrxS4s5MWJsc1Bs+4UcVF0leNDOurGqjpEF2JHs748xEGR6Y7w1M2ex+p3JXptPyio+Zi2mWv45ZAA==}
     engines: {node: '>=22.18'}
 
   '@bitbaum/whenkit@0.3.2':
@@ -3512,7 +3512,7 @@ snapshots:
     optionalDependencies:
       react: 19.3.1
 
-  '@bitbaum/speechkit@1.0.0': {}
+  '@bitbaum/speechkit@1.0.1': {}
 
   '@bitbaum/whenkit@0.3.2(react@19.3.1)':
     dependencies:
