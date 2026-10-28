@@ -31,3 +31,4 @@ minimumReleaseAgeExclude:
   - bip-kit
 
   - "@bitbaum/chatkit"
+  - limitkit@0.2.1
