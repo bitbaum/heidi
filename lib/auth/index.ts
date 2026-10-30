@@ -1,10 +1,9 @@
-import { SITE_URL, ASSISTANT_NAME } from "../config/site.ts";
-import { createAuthMailer } from "@bitbaum/accountkit/auth/mail";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createAuthRuntime } from "@bitbaum/accountkit/auth/next";
 import { isDeliverable } from "@bitbaum/accountkit/auth";
 import { dbConfigured, getDb } from "../db/index.ts";
+import { authSite, heidiAuthMailer } from "./mail.ts";
 import { signInPath } from "./paths.ts";
 
 /**
@@ -18,8 +17,8 @@ import { signInPath } from "./paths.ts";
  * was OrangeCat, so their groups, conversations and progress stay theirs with
  * no data migration. Everyone else is their account id.
  */
-export const authSite = { url: SITE_URL, title: ASSISTANT_NAME, slug: "heidi" };
-export const authMail = createAuthMailer({ site: authSite });
+export { authSite };
+export const authMail = heidiAuthMailer();
 export const mailConfigured = () => authMail.configured;
 
 export const { GET, POST, getSession, requireUser, authStatus, getAuth } =
