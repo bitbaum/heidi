@@ -26,7 +26,10 @@ test("no mail env: no recovery, no sign-in link, no address check", () => {
     {},
     { RESEND_API_KEY: "" },
     { RESEND_API_KEY: "re_placeholder_xxx" },
-    { RESEND_API_KEY: SYNTHETIC_KEY, RESEND_FROM: "Heidi <onboarding@resend.dev>" },
+    {
+      RESEND_API_KEY: SYNTHETIC_KEY,
+      RESEND_FROM: "Heidi <onboarding@resend.dev>",
+    },
   ]) {
     const mailer = heidiAuthMailer(() => ({ ...production, ...env }));
     assert.equal(mailer.configured, false, JSON.stringify(env));
@@ -38,27 +41,49 @@ test("no mail env: no recovery, no sign-in link, no address check", () => {
   }
 });
 
-test("mail env present: recovery, sign-in link and address check appear", () => {
-  const mailer = heidiAuthMailer(() => ({ ...production, RESEND_API_KEY: SYNTHETIC_KEY }));
+test("mail env present: recovery and sign-in link appear; the address is checked after sign-in", () => {
+  const mailer = heidiAuthMailer(() => ({
+    ...production,
+    RESEND_API_KEY: SYNTHETIC_KEY,
+  }));
   assert.equal(mailer.configured, true);
   const methods = signInMethods(production, mailer.configured);
   assert.equal(methods.passwordReset, true);
   assert.equal(methods.magicLink, true);
-  assert.equal(methods.verifyEmail, true);
+  // accountkit 0.17: confirming the address never stands between a person and
+  // their account (fleet "no dead ends"); it is asked for after sign-in.
+  assert.equal(methods.verifyEmail, false);
+  const blocking = signInMethods(production, mailer.configured, {
+    emailConfirmation: "before-sign-in",
+  });
+  assert.equal(
+    blocking.verifyEmail,
+    true,
+    "a product that opts in still gets the gate",
+  );
 });
 
 async function heidiDatabase() {
   const pg = new PGlite();
   const dir = join(process.cwd(), "drizzle");
-  for (const file of readdirSync(dir).filter((f) => f.endsWith(".sql")).sort()) {
-    for (const statement of readFileSync(join(dir, file), "utf8").split("--> statement-breakpoint")) {
+  for (const file of readdirSync(dir)
+    .filter((f) => f.endsWith(".sql"))
+    .sort()) {
+    for (const statement of readFileSync(join(dir, file), "utf8").split(
+      "--> statement-breakpoint",
+    )) {
       if (statement.trim()) await pg.exec(statement);
     }
   }
   return pg;
 }
 
-type Sent = { from: string; to: string | string[]; subject: string; text: string };
+type Sent = {
+  from: string;
+  to: string | string[];
+  subject: string;
+  text: string;
+};
 
 /** Intercepts only the Resend call; every other fetch is the real one. */
 function captureMail(): { sent: Sent[]; restore: () => void } {
@@ -96,7 +121,11 @@ function call(
   return auth.handler(
     new Request(`${authSite.url}/api/auth${path}`, {
       method: body === undefined ? "GET" : "POST",
-      headers: { "content-type": "application/json", origin: authSite.url, ...(cookie ? { cookie } : {}) },
+      headers: {
+        "content-type": "application/json",
+        origin: authSite.url,
+        ...(cookie ? { cookie } : {}),
+      },
       ...(body === undefined ? {} : { body: JSON.stringify(body) }),
     }),
   );
@@ -111,7 +140,16 @@ test("mail env present: a forgotten password comes back by email", async () => {
   const mail = captureMail();
   try {
     const auth = runtime(pg, { RESEND_API_KEY: SYNTHETIC_KEY });
-    assert.equal((await call(auth, "/sign-up/email", { email, password: oldPassword, name: "" })).status, 200);
+    assert.equal(
+      (
+        await call(auth, "/sign-up/email", {
+          email,
+          password: oldPassword,
+          name: "",
+        })
+      ).status,
+      200,
+    );
     mail.sent.length = 0; // the address check, sent on sign-up
 
     const requested = await call(auth, "/request-password-reset", {
@@ -126,16 +164,38 @@ test("mail env present: a forgotten password comes back by email", async () => {
     const link = new URL(message.text.match(/https?:\/\/\S+/)![0]);
     assert.equal(link.origin, authSite.url, "the link points at Heidi itself");
 
-    const opened = await auth.handler(new Request(link, { headers: { origin: authSite.url } }));
+    const opened = await auth.handler(
+      new Request(link, { headers: { origin: authSite.url } }),
+    );
     const landing = new URL(opened.headers.get("location")!);
     assert.equal(landing.pathname, "/de/sign-in");
     const token = landing.searchParams.get("token");
     assert.ok(token, "the link carries a reset token to the sign-in page");
 
-    assert.equal((await call(auth, "/reset-password", { token, newPassword })).status, 200);
-    assert.equal((await call(auth, "/reset-password", { token, newPassword: "nomal öppis" })).status, 400, "one use only");
-    assert.equal((await call(auth, "/sign-in/email", { email, password: oldPassword })).status, 401);
-    assert.equal((await call(auth, "/sign-in/email", { email, password: newPassword })).status, 200);
+    assert.equal(
+      (await call(auth, "/reset-password", { token, newPassword })).status,
+      200,
+    );
+    assert.equal(
+      (
+        await call(auth, "/reset-password", {
+          token,
+          newPassword: "nomal öppis",
+        })
+      ).status,
+      400,
+      "one use only",
+    );
+    assert.equal(
+      (await call(auth, "/sign-in/email", { email, password: oldPassword }))
+        .status,
+      401,
+    );
+    assert.equal(
+      (await call(auth, "/sign-in/email", { email, password: newPassword }))
+        .status,
+      200,
+    );
   } finally {
     mail.restore();
     await pg.close();
@@ -147,12 +207,25 @@ test("no mail env: asking for a reset sends nothing", async () => {
   const mail = captureMail();
   try {
     const auth = runtime(pg, {});
-    assert.equal((await call(auth, "/sign-up/email", { email, password: oldPassword, name: "" })).status, 200);
+    assert.equal(
+      (
+        await call(auth, "/sign-up/email", {
+          email,
+          password: oldPassword,
+          name: "",
+        })
+      ).status,
+      200,
+    );
     const requested = await call(auth, "/request-password-reset", {
       email,
       redirectTo: `${authSite.url}/de/sign-in`,
     });
-    assert.notEqual(requested.status, 200, "the endpoint does not pretend a link is on its way");
+    assert.notEqual(
+      requested.status,
+      200,
+      "the endpoint does not pretend a link is on its way",
+    );
     assert.equal(mail.sent.length, 0);
   } finally {
     mail.restore();
