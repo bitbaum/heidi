@@ -129,7 +129,7 @@ jobs:
       # Next validates its own entries rather than trusting them.
       - name: Cache Next.js build
         if: steps.gate.outputs.fast != 'true'
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .next/cache
           key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
