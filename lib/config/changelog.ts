@@ -43,6 +43,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-11-09",
       tag: "feature",
+      title: "Üben, neu gebaut: sofort sehen, ob es stimmt",
+      summary:
+        "Die angetippte Antwort wird grün mit Häkchen oder rot mit Kreuz, die richtige grün umrandet, und die Leiste darunter sagt es in Farbe. Richtig geht es nach einem Moment von selbst weiter; falsch bleibt die Erklärung stehen.",
+      items: [
+        "Nie zweimal dieselbe Übung: Fragen, die gleich dringend sind, kommen in zufälliger Reihenfolge, und Antworten, Wortbanken und Zuordnungen stehen jedes Mal anders. Fälliges und Schwaches kommen weiterhin zuerst.",
+        "Neu: «Satz bauen» — die Wörter eines Satzes, den Sie sagen, gemischt und mit einem, das nicht dazugehört — und «Stimmt das?», ein gehörter Satz mit einer Bedeutung daneben, mit einem Tippen beantwortet.",
+        "Erst erkennen, dann selber sagen: Ein Satz kommt zuerst zum Erkennen; sitzt er, kommt er zum Bauen oder Übersetzen zurück.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "feature",
       title: "Heidi fragt, wofür Sie Schweizerdeutsch brauchen — und übt genau das",
       summary:
         "Neue Lernende wählen die Situationen, in denen sie wirklich stehen: in der Arztpraxis, im Kindsgi, am Mittagstisch bei der Arbeit. Jeder «Üben»-Knopf übt danach zuerst aus diesen.",
@@ -712,6 +724,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-11-09",
+      tag: "feature",
+      title: "Practice, rebuilt: see at once whether you were right",
+      summary:
+        "The answer you tap turns green with a tick or red with a cross, the right one is outlined green, and the bar below says it in colour. Right moves on by itself after a beat; wrong stays with its explanation.",
+      items: [
+        "Never the same sitting twice: questions equally due come in a random order, and options, word banks and matching boards are laid out afresh each time. What is due and what is weak still come first.",
+        "New: «Build the sentence» — the words of a sentence you say, shuffled with one that does not belong — and «True or not?», a heard line with a meaning beside it, answered in one tap.",
+        "Recognise first, then produce: a line comes to be recognised; once it is, it comes back to be built or translated.",
+      ],
+    },
     {
       date: "2026-11-09",
       tag: "feature",
