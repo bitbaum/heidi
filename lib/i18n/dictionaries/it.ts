@@ -1028,6 +1028,8 @@ export const it: Dictionary = {
         publisher: "Sottotitoli dell’editore",
         auto: "Sottotitoli automatici — fatti da una macchina, spesso sbagliati in dialetto",
         pasted: "Trascrizione incollata a mano",
+        rendering: "In tedesco standard, automatico: ciò che viene detto, nel senso — non il dialetto come suona",
+        renderingOpening: "In tedesco standard, automatico: i primi {minutes} minuti, nel senso — non il dialetto come suona",
         autoOpening: "Trascritto automaticamente da Heidi — solo i primi {minutes} minuti; non affidabile in dialetto",
       },
       noTranscript: "Per questo video non ci sono sottotitoli che Heidi possa leggere. Guardarlo si può comunque; le domande hanno bisogno di testo.",

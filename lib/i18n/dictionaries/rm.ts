@@ -1044,6 +1044,8 @@ export const rm: Dictionary = {
         publisher: "Suttitels da l’editur",
         auto: "Suttitels automatics — fatgs d’ina maschina, savens faus en dialect",
         pasted: "Transcripziun, encollada a maun",
+        rendering: "En tudestg da scrittira, automatic: quai ch'è vegnì ditg, tenor il senn — betg il dialect sco ch'el tuna",
+        renderingOpening: "En tudestg da scrittira, automatic: las emprimas {minutes} minutas, tenor il senn — betg il dialect sco ch'el tuna",
         autoOpening: "Nodà automaticamain da Heidi — mo las emprimas {minutes} minutas; betg fidà en dialect",
       },
       noTranscript: "Per quest video na datti nagins suttitels che Heidi dastga leger. Guardar va tuttina; dumondas datti mo cun text.",

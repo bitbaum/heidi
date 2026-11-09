@@ -1028,6 +1028,8 @@ export const fr: Dictionary = {
         publisher: "Sous-titres de l’éditeur",
         auto: "Sous-titres automatiques — faits par une machine, souvent faux en dialecte",
         pasted: "Transcription collée à la main",
+        rendering: "En allemand standard, automatique : ce qui est dit, par le sens — pas le dialecte tel qu'il sonne",
+        renderingOpening: "En allemand standard, automatique : les {minutes} premières minutes, par le sens — pas le dialecte tel qu'il sonne",
         autoOpening: "Noté automatiquement par Heidi — seulement les {minutes} premières minutes ; peu fiable en dialecte",
       },
       noTranscript: "Cette vidéo n’a pas de sous-titres que Heidi ait le droit de lire. Vous pouvez la regarder quand même ; les questions ont besoin de texte.",

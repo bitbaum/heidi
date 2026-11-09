@@ -1023,6 +1023,8 @@ export const en: Dictionary = {
         publisher: "The publisher's captions",
         auto: "Automatic captions — machine-made, often wrong on dialect",
         pasted: "Transcript, pasted by hand",
+        rendering: "In Standard German, automatic: what is said, by its meaning — not the dialect as it sounds",
+        renderingOpening: "In Standard German, automatic: the first {minutes} minutes, by meaning — not the dialect as it sounds",
         autoOpening: "Written down automatically by Heidi — only the first {minutes} minutes; not reliable on dialect",
       },
       noTranscript: "This video has no captions Heidi may read. You can still watch it; questions need text.",

@@ -24,12 +24,15 @@ export function TranscriptView({ t, transcript, missed, onSeek, lang }: { t: T; 
         {t.transcriptTitle}
       </h2>
       <p className="mt-1 font-mono text-caption uppercase tracking-caps text-fg-muted">
-        {transcript.source === "auto" && transcript.coverageSeconds
-          ? fill(t.source.autoOpening, { minutes: String(Math.max(1, Math.round(transcript.coverageSeconds / 60))) })
+        {(transcript.source === "auto" || transcript.source === "rendering") && transcript.coverageSeconds
+          ? fill(transcript.source === "rendering" ? t.source.renderingOpening : t.source.autoOpening, {
+              minutes: String(Math.max(1, Math.round(transcript.coverageSeconds / 60))),
+            })
           : t.source[transcript.source]}
       </p>
       <p className="mt-2 text-sm text-fg-secondary">{t.transcriptHint}</p>
-      <ol className="mt-4 flex flex-col" lang={lang}>
+      {/* A rendering is German, whatever the episode speaks: say so to the page too. */}
+      <ol className="mt-4 flex flex-col" lang={transcript.source === "rendering" ? "de" : lang}>
         {transcript.lines.map((line, i) => {
           const hit = missed.has(i);
           return (

@@ -1645,12 +1645,31 @@ publisher's where the feed links one (`<podcast:transcript>`, SRT, WebVTT or
 the namespace's JSON); otherwise **Heidi listens to the opening minutes
 herself** with the bridge recogniser the speaking surface already uses (the
 first six megabytes of the enclosure by a Range request, once per episode,
-shared), labelled as automatic WITH how far it reaches, and only when the
-pack trusts a recogniser for the bridge and the register does not say the
-source is dialect: a recogniser translates dialect away, and a text that is
-not what was said is not a transcript (§8). A dialect podcast with no
-publisher transcript plays without questions, and the screen says exactly
-why.
+shared), labelled as automatic WITH how far it reaches, when the pack trusts
+a recogniser for the bridge.
+
+**On a dialect source that text is a RENDERING, and it is called one.** A
+recogniser translates dialect away, and a text that is not what was said is
+not a transcript (§8) — so it is never shown as one. Until 2026-11-09 that
+meant a dialect podcast played without questions. It now gets a Standard
+German rendering of what was meant (`transcript.source: "rendering"`), labelled
+above every line as «Auf Hochdeutsch, automatisch: … sinngemäss — nicht der
+Dialekt, wie er klingt», set as German (`lang="de"`), and the questions are
+written from it about CONTENT only. That is the job a rendering can do:
+comprehension questions test meaning, and meaning is exactly what survives
+translation. What it can never do is tell a learner which dialect form was
+used, and nothing reads one from it.
+
+Why this and not a dialect transcript, measured on 2026-11-09: no product or
+public model writes Zurich German speech in dialect spelling reliably — the
+one third-party benchmark found puts the best at about 46% of words right —
+while Whisper renders Swiss German into Standard German at about 23% WER,
+mostly rewordings rather than wrong meaning (Dolev et al. 2024, arXiv
+2404.19310). A dialect transcript a learner could trust would take a human
+writer; that stays the gold standard for the curated material Heidi records
+itself. A channel followed by its feed rather than the register's page is
+matched to the register by name on the publisher's domain
+(`lib/channels/spoken.ts`), so "dialect" is known however it was followed.
 
 **The thing that does not work from a server, said plainly.** YouTube answers
 a data-centre address with «sign in to confirm you are not a bot» for the

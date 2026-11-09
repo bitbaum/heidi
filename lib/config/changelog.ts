@@ -43,6 +43,16 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-11-09",
       tag: "feature",
+      title: "Mundart-Podcasts haben jetzt Fragen",
+      summary:
+        "Eine Folge auf Züridütsch ohne Transkript des Senders lief bisher ohne Fragen. Jetzt gibt es die ersten Minuten auf Hochdeutsch, automatisch und sinngemäss — ausdrücklich nicht der Dialekt, wie er klingt — und dazu Verständnisfragen zum Inhalt.",
+      items: [
+        "Eine Sendung, der Sie über den Feed oder eine Podcast-App folgen, wird am Namen beim selben Sender erkannt.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "feature",
       title: "Jede Übung kennt ihr Niveau — und Sie sehen, was sitzt",
       summary:
         "Jede Frage weiss, wie weit ihr Züridütsch vom Deutschen weg ist: wie im Deutschen, mit einer Lautregel (Chind, chaufe) oder ganz anders (nöd, öppis, und falsche Freunde wie Estrich). Am Anfang üben Sie vor allem die erste Stufe; sitzt sie, geht es weiter.",
@@ -734,6 +744,16 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-11-09",
+      tag: "feature",
+      title: "Dialect podcasts now have questions",
+      summary:
+        "An episode in Zurich German with no publisher transcript used to play without questions. Now the opening minutes come in Standard German, automatic and by meaning — explicitly not the dialect as it sounds — with comprehension questions about the content.",
+      items: [
+        "A show followed through its feed or a podcast app is recognised by its name at the same publisher.",
+      ],
+    },
     {
       date: "2026-11-09",
       tag: "feature",

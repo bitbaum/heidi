@@ -8,6 +8,7 @@ import { MAX_PASTE_CHARS, parsePasted, type Transcript } from "../../../../../li
 import { VARIETY } from "../../../../../lib/variety/active.ts";
 import { FEATURE } from "../../../channels/route.ts";
 import { publicFetch } from "../../../../../lib/channels/public-fetch.ts";
+import { spokenFor } from "../../../../../lib/channels/spoken.ts";
 
 export const dynamic = "force-dynamic";
 
@@ -84,18 +85,26 @@ async function episode(video: VideoDetail, actorId: string, signal: AbortSignal)
     }
   }
 
-  // The register's word, when it has one, decides: a dialect source gets no
-  // machine transcript, however good the recogniser is at the bridge.
-  if (video.channelSpoken === "dialect" || !allowAutomatic(VARIETY) || !video.mediaUrl) {
+  // The register's word decides WHAT the machine text is. On a dialect source
+  // the recogniser writes Standard German — a rendering of what was meant,
+  // labelled as one wherever it is shown — never a transcript of the dialect.
+  // Measured 2026-11-09: no product or public model writes Zurich German
+  // speech in dialect spelling reliably (best ~46% words right); Whisper
+  // renders it into Standard German at ~23% WER, mostly rewordings.
+  // A channel followed before the register could recognise it by name has
+  // no stored word; ask the register now rather than treat it as unknown.
+  const spoken = video.channelSpoken ?? spokenFor(video.channelUrl, null, { name: video.channelName });
+  const as = spoken === "dialect" ? "rendering" : "auto";
+  if (!allowAutomatic(VARIETY) || !video.mediaUrl) {
     await saveTranscript(video.id, null, "none");
-    return Response.json({ state: "none", reason: video.channelSpoken === "dialect" ? "dialect" : "no-recogniser" });
+    return Response.json({ state: "none", reason: "no-recogniser" });
   }
 
   const allowed = episodeTranscribe.check(actorKey(actorId, "episode-transcribe"));
   if (!allowed.allowed) return tooMany(allowed);
 
   try {
-    const result = await transcribeOpening(video.mediaUrl, publicFetch, { language: questionLanguageTag(VARIETY), signal });
+    const result = await transcribeOpening(video.mediaUrl, publicFetch, { language: questionLanguageTag(VARIETY), signal, as });
     if (result.state === "ready") {
       await saveTranscript(video.id, result.transcript, "ready");
       return Response.json({ state: "ready", transcript: result.transcript });

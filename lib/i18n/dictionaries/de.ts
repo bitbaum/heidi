@@ -1105,6 +1105,8 @@ export const de = {
         publisher: "Untertitel des Senders",
         auto: "Automatische Untertitel — maschinell erstellt, bei Mundart oft falsch",
         pasted: "Transkript, von Hand eingefügt",
+        rendering: "Auf Hochdeutsch, automatisch: was gesagt wird, sinngemäss — nicht der Dialekt, wie er klingt",
+        renderingOpening: "Auf Hochdeutsch, automatisch: die ersten {minutes} Minuten, sinngemäss — nicht der Dialekt, wie er klingt",
         autoOpening: "Von Heidi automatisch mitgeschrieben — nur die ersten {minutes} Minuten; bei Mundart nicht verlässlich",
       },
       noTranscript: "Zu diesem Video gibt es keine Untertitel, die Heidi lesen darf. Anschauen geht trotzdem; Fragen gibt es nur mit Text.",

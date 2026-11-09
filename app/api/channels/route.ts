@@ -3,8 +3,7 @@ import { actorKey, channelWrite, tooMany } from "../../../lib/domain/limits.ts";
 import { resolveChannel } from "../../../lib/channels/remote.ts";
 import { sweepFor } from "../../../lib/channels/service.ts";
 import { follow, followsFor, recentVideosFor } from "../../../lib/channels/store.ts";
-import { LISTENING_SOURCES } from "../../../lib/listening/sources.ts";
-import type { Spoken } from "../../../lib/channels/source.ts";
+import { spokenFor } from "../../../lib/channels/spoken.ts";
 import { publicFetch } from "../../../lib/channels/public-fetch.ts";
 
 // Relative `.ts` imports, not the `@/*` alias: node's test runner exercises
@@ -76,13 +75,6 @@ export async function POST(request: Request) {
   }
 
   const { source, items } = resolved.feed;
-  await follow(who.actorId, source, items, spokenFor(source.url, register));
+  await follow(who.actorId, source, items, spokenFor(source.url, register, { name: source.name, feedUrl: source.feedUrl }));
   return Response.json({ channel: source, videos: items.length }, { status: 201 });
-}
-
-/** What the register says is spoken on this source, by the row pressed or by its address. */
-export function spokenFor(url: string, register: string | null): Spoken | null {
-  const same = (a: string, b: string) => a.replace(/\/+$/, "").toLowerCase() === b.replace(/\/+$/, "").toLowerCase();
-  const row = LISTENING_SOURCES.find((s) => (register && s.id === register) || same(s.url, url));
-  return row ? row.spoken : null;
 }

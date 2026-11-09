@@ -1048,6 +1048,8 @@ export const gsw: Dictionary = {
         publisher: "Untertitel vom Sänder",
         auto: "Automatischi Untertitel — vo de Maschine gmacht, bi Mundart mängisch falsch",
         pasted: "Transkript, vo Hand iigfüegt",
+        rendering: "Uf Hochdütsch, automatisch: was gseit wird, sinngemäss — nöd de Dialekt, wie-n-er tönt",
+        renderingOpening: "Uf Hochdütsch, automatisch: di erschte {minutes} Minute, sinngemäss — nöd de Dialekt, wie-n-er tönt",
         autoOpening: "Vo de Heidi automatisch mitgschribe — nu di erschte {minutes} Minute; bi Mundart nöd verlässlich",
       },
       noTranscript: "Zu dem Video git s kei Untertitel, wo d Heidi läse dörf. Aaluege gaht trotzdem; Frage git s nu mit Text.",

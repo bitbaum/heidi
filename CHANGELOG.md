@@ -23,6 +23,9 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-11-09
 
+- Dialect podcasts get questions. An episode in Zurich German with no publisher transcript used to play without any — Heidi writes no transcript of the dialect, because a recogniser turns it into Standard German. It now gets exactly that, called what it is: a Standard German rendering of the opening minutes, «sinngemäss — nicht der Dialekt, wie er klingt», with comprehension questions about content. Episodes refused before are offered again.
+- A show followed through its feed or a podcast app is recognised as the register's show by its name on the publisher's domain, so Heidi knows it is dialect however it was followed.
+
 - Every exercise now has a level — how far its Zurich German is from German: like German (`schlafe`, `au` for «auch»), by one of the pack's sound rules (`Chind`, `chaufe`), or different (`nöd`, `öppis`, and false friends like `Estrich`). Measured from spelling and the pack's own rules, one classification for the whole product (it also ranks the vocabulary page). A new learner practises mostly the first level; once it holds, the sittings move up.
 - Every kind of question says what it tests — understanding, words, sound rules, verb forms, articles, saying it yourself — in one table. «Was sitzt» on your page counts your answers both ways, with what holds and the level you are working at. Counts, not a score.
 

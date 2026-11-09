@@ -51,7 +51,12 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
   const env = byokLinks ? { ...process.env, ...byokLinks.env } : process.env;
   if (chain.length === 0) return Response.json({ error: "unconfigured" }, { status: 503 });
 
-  const prompt = questionsPrompt({ title: video.title, lines: video.transcript.lines, askIn: questionLanguage(VARIETY) });
+  const prompt = questionsPrompt({
+    title: video.title,
+    lines: video.transcript.lines,
+    askIn: questionLanguage(VARIETY),
+    rendering: video.transcript.source === "rendering",
+  });
   const lineCount = video.transcript.lines.length;
 
   for (let attempt = 0; attempt < 2; attempt += 1) {
