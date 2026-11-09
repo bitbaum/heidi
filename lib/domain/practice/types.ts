@@ -1,3 +1,4 @@
+import type { Level } from "../vocabulary/distance.ts";
 /**
  * Practice — the part where the learner is asked rather than shown.
  *
@@ -35,7 +36,7 @@
  */
 
 /** Where an item came from, so a wrong one can be traced to its source. */
-export type ItemSource =
+export type ItemOrigin =
   /** A rule in the variety pack — the same list the gate enforces. */
   | { kind: "rule"; rule: string }
   /** A grammar topic in the pack. Carries the id so the page can link to it. */
@@ -96,6 +97,16 @@ export type ItemSource =
        */
       topic?: string;
     };
+
+/**
+ * Where an item came from, and how far its Zurich German is from German.
+ *
+ * `level` (1 like German, 2 by a sound rule, 3 different — see
+ * `vocabulary/distance.ts`) is computed once, on the server, when the pack's
+ * items are generated (`levels.ts`), and rides here so the browser can track
+ * and order by it without the pack. A learner's own kept words have none.
+ */
+export type ItemSource = ItemOrigin & { level?: Level };
 
 /**
  * Which one is the Zurich form?

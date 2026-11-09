@@ -1,4 +1,4 @@
-import { distance, parseRule } from "../saved/patterns.ts";
+import { closenessOf, levelOf } from "./distance.ts";
 import { holds, STEADY_STEP } from "../practice/mastered.ts";
 import type { LearnerModel } from "../practice/model.ts";
 import type { SavedWord } from "../saved/types.ts";
@@ -24,8 +24,7 @@ import type { SavedWord } from "../saved/types.ts";
  * from nothing and means the attic, which is exactly why it is dangerous.
  */
 
-/** Distance per letter at or below which the German gives the word away. */
-export const GUESSABLE_AT = 0.25;
+export { GUESSABLE_AT } from "./distance.ts";
 
 export interface RankableWord {
   target: string;
@@ -47,20 +46,8 @@ function fold(text: string): string {
  * and one letter in `Schwöschter`/`Schwester` is nothing.
  */
 export function guessable(word: RankableWord, correspondences: readonly { rule: string }[]): boolean {
-  if (word.mistakenFor) return false;
-  const target = fold(word.target);
-  const subs = correspondences.map((c) => parseRule(c.rule)).filter((s) => s !== null);
-
-  for (const gloss of word.bridge.split(/[,(]/).map(fold).filter(Boolean)) {
-    let spellings = [gloss];
-    for (const sub of subs) {
-      spellings = spellings.flatMap((s) => (s.includes(sub.from) ? [s, s.replaceAll(sub.from, sub.to)] : [s]));
-    }
-    for (const spelling of spellings) {
-      if (distance(target, spelling) / Math.max(target.length, spelling.length) <= GUESSABLE_AT) return true;
-    }
-  }
-  return false;
+  // One rule for "how far from German", kept in `distance.ts`.
+  return levelOf(closenessOf(word, correspondences)) < 3;
 }
 
 export interface Ranked<W extends RankableWord> {
