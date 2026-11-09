@@ -42,6 +42,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-11-09",
+      tag: "improvement",
+      title: "Üben, selbst durchgespielt — und wo es hakte, verbessert",
+      summary:
+        "Wir haben jede Übungsart von Anfang bis Ende selbst gemacht. «Welches Wort fehlt?» sagt jetzt, dass man die Antwort laut oder im Kopf gibt; «Warum?» erklärt jedes Wort danach, wie man von Deutsch hinkommt — fast gleich, über eine Lautregel, oder gar nicht.",
+      items: [
+        "Wortpaare lassen sich nicht mehr allein an der Form lösen, und keine Bedeutung kommt zweimal vor.",
+        "Ein falsch gebauter Satz steht als ein Satz da, die Wörter am falschen Platz markiert.",
+        "Wer «nid» schreibt, erfährt: verstanden wird es, hier sagt man «nöd».",
+        "Am Ende stehen die verpassten Wörter auf Züridütsch und auf Deutsch.",
+      ],
+    },
+    {
+      date: "2026-11-09",
       tag: "feature",
       title: "Mundart-Podcasts haben jetzt Fragen",
       summary:
@@ -744,6 +757,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-11-09",
+      tag: "improvement",
+      title: "Practice, played through end to end — and fixed where it caught",
+      summary:
+        "We did every kind of exercise ourselves, start to finish. «Which word is missing?» now says to give the answer aloud or in your head; «Why?» explains each word by how you get there from German — almost the same, by a sound rule, or not at all.",
+      items: [
+        "Match grids can no longer be solved by the shape of the words, and no meaning appears twice.",
+        "A sentence built wrong reads as one sentence, with the misplaced words marked.",
+        "Writing «nid» tells you it is understood, and that here people say «nöd».",
+        "The finish screen lists missed words in Zurich German and in German.",
+      ],
+    },
     {
       date: "2026-11-09",
       tag: "feature",

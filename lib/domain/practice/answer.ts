@@ -79,3 +79,38 @@ export function questionOf(item: PracticeItem): string {
       return [item.german ?? item.said, item.focus && item.said ? `«${item.focus}»` : undefined].filter(Boolean).join(" — ");
   }
 }
+
+/**
+ * The item as a learner carries it away: the Zurich side, and its German.
+ *
+ * `answerOf` is "what was right", and for a meaning question that is German —
+ * so the recap after a sitting printed «reden» in the dialect's colour under
+ * "look again", when the word missed was «rede». Here each side says which
+ * side it is, and the recap shows both.
+ */
+export function recapOf(item: PracticeItem): { dialect: string; german?: string } {
+  switch (item.kind) {
+    case "verify":
+      return { dialect: item.said, german: item.truth };
+    case "translate":
+    case "build":
+      return { dialect: item.answer, german: item.prompt };
+    case "recall":
+      return { dialect: item.prompt, german: item.answer };
+    case "cloze":
+    case "pick":
+      return { dialect: answerOf(item), german: item.bridge };
+    case "article":
+      return { dialect: `${answerOf(item)} ${item.noun}`, german: item.bridge };
+    case "reply":
+    case "gist":
+    case "transform":
+    case "clock":
+    case "meaning":
+      return item.optionsIn === "target"
+        ? { dialect: answerOf(item), german: item.german }
+        : { dialect: item.focus ?? item.said ?? "", german: answerOf(item) };
+    default:
+      return { dialect: answerOf(item) };
+  }
+}

@@ -23,6 +23,8 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-11-09
 
+- Practice, used end to end and fixed where it read wrong. «Welches Wort fehlt?» showed no field and no options, which looked broken; it now says to give the answer aloud or in your head, then reveal. A word's «Warum?» used to say "remember it in a sentence" about every word; it now says how the word is reached — almost German (`Wätter`), by a sound rule named with the pack's example (`chaufe`: k → ch, as in Kind → Chind), or not at all. A match grid could be four words solved by their shape (`bringe, finde, frage, rede` — add an n); every grid now holds at least two words the German does not give away, and never one meaning twice. A built sentence checked wrong reads as one line with the misplaced words marked. Writing «nid» now says «nid» is understood, and that here one says «nöd» (the pack's own house form). The finish screen listed the German answer as the missed Zurich word («reden» for «rede»); it shows both. «1 kommen nochmals» counts in the reader's grammar.
+
 - Dialect podcasts get questions. An episode in Zurich German with no publisher transcript used to play without any — Heidi writes no transcript of the dialect, because a recogniser turns it into Standard German. It now gets exactly that, called what it is: a Standard German rendering of the opening minutes, «sinngemäss — nicht der Dialekt, wie er klingt», with comprehension questions about content. Episodes refused before are offered again.
 - A show followed through its feed or a podcast app is recognised as the register's show by its name on the publisher's domain, so Heidi knows it is dialect however it was followed.
 

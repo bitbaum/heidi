@@ -15,7 +15,8 @@ import { SessionFrame } from "./session/frame";
 import { NO_HISTORY, remember } from "@/lib/domain/practice/history";
 import { restore, type SavedSession } from "@/lib/domain/practice/resume";
 import { historyStore, memoryStore, modelStore, sessionStore } from "./practice-stores";
-import { Trace, answerOf } from "./exercises/chrome";
+import { Trace } from "./exercises/chrome";
+import { recapOf } from "@/lib/domain/practice/answer";
 import { orderSession, requeue, summarise } from "@/lib/domain/practice/session";
 import { EMPTY_MODEL, observe } from "@/lib/domain/practice/model";
 import { NO_MEMORY, comingBack, scheduleAnswer } from "@/lib/domain/practice/memory";
@@ -397,14 +398,14 @@ function Done({
 
       <ul className="mt-4 flex flex-col gap-1 text-base text-fg-secondary">
         <li>
-          <span className="font-heading text-lg font-semibold text-fg-primary">{summary.asked}</span> {t.doneAsked}
+          <span className="font-heading text-lg font-semibold text-fg-primary">{summary.asked}</span> {plural(t.doneAsked, summary.asked, locale)}
         </li>
         <li>
           <span className="font-heading text-lg font-semibold text-fg-primary">{summary.right}</span> {t.doneRight}
         </li>
         {summary.again > 0 && (
           <li>
-            <span className="font-heading text-lg font-semibold text-fg-primary">{summary.again}</span> {t.doneAgain}
+            <span className="font-heading text-lg font-semibold text-fg-primary">{summary.again}</span> {plural(t.doneAgain, summary.again, locale)}
           </li>
         )}
       </ul>
@@ -420,8 +421,13 @@ function Done({
             {missed.map((item) => (
               <li key={item.id} className="flex flex-wrap items-baseline gap-x-3">
                 <span lang={DISPLAY.tag} className="font-heading text-base font-semibold text-dialect">
-                  {answerOf(item)}
+                  {recapOf(item).dialect}
                 </span>
+                {recapOf(item).german && (
+                  <span lang="de" className="text-base text-fg-secondary">
+                    {recapOf(item).german}
+                  </span>
+                )}
                 <Trace item={item} t={t} locale={locale} compact />
               </li>
             ))}

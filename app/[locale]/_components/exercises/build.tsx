@@ -69,14 +69,29 @@ export function BuildView({ item, t, grammarT, situationsT, vocabularyT, learnT,
           checked ? (right ? "oc-pop border-correct bg-correct-tint" : "oc-shake border-incorrect bg-incorrect-tint") : "border-border-strong"
         }`}
       >
-        {placed.map((tileIndex, at) => (
+        {checked ? (
+          /* Once checked it is a sentence again, read as one line — the tiles
+             kept their button padding with the border hidden, so «Ich bi zwei
+             Jahr sit» floated apart and «da.» fell to a line of its own. A
+             word out of place is marked where it stands. */
+          <p lang={DISPLAY.tag} className="mb-0 px-1 font-heading text-xl font-semibold leading-snug tracking-display text-fg-primary">
+            {answer.map((word, at) => (
+              <span key={at}>
+                {at > 0 && " "}
+                <span className={sameWords([word], [build.words[at] ?? ""]) ? "" : "text-incorrect underline decoration-2 underline-offset-4"}>
+                  {word}
+                </span>
+              </span>
+            ))}
+          </p>
+        ) : placed.map((tileIndex, at) => (
           <button
             key={`${tileIndex}-${at}`}
             type="button"
             lang={DISPLAY.tag}
             disabled={checked}
             onClick={() => setPlaced((p) => p.filter((_, i) => i !== at))}
-            className={`${TILE} ${checked ? "border-transparent bg-transparent text-fg-primary" : "border-action bg-action text-on-action"}`}
+            className={`${TILE} border-action bg-action text-on-action`}
           >
             {tiles[tileIndex]}
           </button>

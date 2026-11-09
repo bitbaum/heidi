@@ -610,6 +610,8 @@ export type PracticeItem =
 export const LESSON_IDS = [
   "false-friend",
   "word",
+  "word-close",
+  "word-rule",
   "clock-half",
   "clock-quarter",
   "price",

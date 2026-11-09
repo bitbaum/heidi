@@ -106,6 +106,10 @@ export function RevealView({ item, t, grammarT, situationsT, vocabularyT, learnT
         </>
       )}
 
+      {/* Without this line the card read as broken: "which word is missing?"
+          and nowhere to put it. The answer is given in the head, on purpose. */}
+      {!shown && <p className="mb-0 mt-5 text-sm leading-relaxed text-fg-muted">{t.revealHint}</p>}
+
       {shown ? (
         <>
           <div className="mt-2">

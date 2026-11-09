@@ -104,3 +104,24 @@ export function sentenceLevel(target: string, bridge: string, rules: Rules): Lev
   if (share === 0) return 1;
   return share <= 1 / 3 ? 2 : 3;
 }
+
+/**
+ * The one sound rule that turns the German into this word, with the pack's
+ * own example — «k → ch», as in Kind → Chind — so a "rule" word can be taught
+ * by its rule rather than as one more thing to remember. Undefined when no
+ * single rule does it.
+ */
+export function ruleBehind(
+  word: { target: string; bridge: string },
+  rules: readonly { rule: string; bridge?: string; target?: string }[],
+): { rule: string; example?: string } | undefined {
+  const target = fold(word.target);
+  const glosses = word.bridge.split(/[,(;/]/).map(fold).filter(Boolean);
+  for (const r of rules) {
+    if (!parseRule(r.rule)) continue;
+    if (glosses.some((gloss) => ruled(gloss, [r]).some((s) => ratio(target, s) <= GUESSABLE_AT))) {
+      return { rule: r.rule, ...(r.bridge && r.target ? { example: `${r.bridge} → ${r.target}` } : {}) };
+    }
+  }
+  return undefined;
+}
