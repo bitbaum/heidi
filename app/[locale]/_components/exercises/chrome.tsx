@@ -1,5 +1,6 @@
 "use client";
 
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
@@ -28,6 +29,15 @@ import { Actions, PRIMARY } from "./actions";
  * a fixed rule says so, and may not when the question was about spelling a
  * language with no settled orthography.
  */
+/**
+ * How many answers in a row this sitting has got right BEFORE the one being
+ * shown — momentum, not a score. Provided by the session; 0 outside one.
+ */
+export const Momentum = createContext(0);
+
+/** A right answer moves on by itself after this long, unless the learner stops it. */
+export const AUTO_ADVANCE_MS = 1300;
+
 export function Verdict({
   right,
   t,
@@ -52,38 +62,107 @@ export function Verdict({
   mine?: string;
   onNext: () => void;
 }) {
+  /*
+    FAST WHEN RIGHT, PATIENT WHEN WRONG.
+
+    Every answer used to stop on "Weiter", right or not — a tap per question
+    that bought nothing when the learner already knew. Now a right answer
+    moves on by itself after a beat (the bar under "Weiter" shows the beat),
+    and the why is one tap away instead of on screen; opening it holds the
+    beat. A wrong answer never moves on: the explanation is the point of
+    being wrong.
+  */
+  const [why, setWhy] = useState(!right);
+  const next = useRef(onNext);
+  useEffect(() => {
+    next.current = onNext;
+  }, [onNext]);
+  // Opening the why holds it; nothing else has to be listened for.
+  const auto = right && !why;
+
+  useEffect(() => {
+    buzz(right);
+  }, [right]);
+
+  useEffect(() => {
+    if (!auto) return;
+    const timer = window.setTimeout(() => next.current(), AUTO_ADVANCE_MS);
+    return () => window.clearTimeout(timer);
+  }, [auto]);
+
   return (
     <>
-      {/* The why, under the question it explains. The verdict and the way on
-          sit in the action bar, where the thumb already is. */}
-      <div>
-        {item.kind === "pair" && item.origin && (
-          <p className="mt-5 text-sm leading-relaxed text-fg-secondary">{fill(t.origin, { origin: item.origin })}</p>
-        )}
-        <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} mine={mine} />
-        <Trace item={item} t={t} locale={locale} />
-      </div>
+      {why && (
+        <div>
+          {item.kind === "pair" && item.origin && (
+            <p className="mt-5 text-sm leading-relaxed text-fg-secondary">{fill(t.origin, { origin: item.origin })}</p>
+          )}
+          <Explanation item={item} locale={locale} t={t} grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT} mine={mine} />
+          <Trace item={item} t={t} locale={locale} />
+        </div>
+      )}
 
-      <Actions status={<VerdictLine right={right} t={t} />}>
-        <button type="button" onClick={onNext} className={PRIMARY}>
+      <Actions status={<VerdictLine right={right} t={t} item={item} />}>
+        {right && !why && (
+          <button type="button" onClick={() => setWhy(true)} className="min-h-12 rounded-control px-4 text-sm font-medium text-fg-secondary underline underline-offset-4 hover:text-fg-primary">
+            {t.whyAnswer}
+          </button>
+        )}
+        <button type="button" onClick={onNext} className={`${PRIMARY} relative overflow-hidden`} autoFocus>
           {t.next}
+          {auto && <span aria-hidden="true" className="oc-countdown absolute inset-x-0 bottom-0 h-1 bg-on-action/40" style={{ animationDuration: `${AUTO_ADVANCE_MS}ms` }} />}
         </button>
       </Actions>
     </>
   );
 }
 
-/** "Richtig" with a tick, or "Nicht ganz". No colour for wrong: it is not an alarm. */
-export function VerdictLine({ right, t }: { right: boolean; t: Dictionary["practice"] }) {
+/** A short, distinct pulse a thumb can feel: one tap for right, two for wrong. */
+function buzz(right: boolean) {
+  try {
+    if (typeof navigator !== "undefined" && "vibrate" in navigator) navigator.vibrate(right ? 12 : [24, 60, 24]);
+  } catch {
+    // Not every browser that has it lets a page use it; silence is fine.
+  }
+}
+
+/** A word of encouragement that is not the same every time: picked from the item, so it is stable on re-render. */
+function cheerFor(t: Dictionary["practice"], id: string): string {
+  const list = t.cheers;
+  if (!list?.length) return t.right;
+  let h = 0;
+  for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return list[h % list.length];
+}
+
+/**
+ * The verdict as a strip of colour with a mark in it: green with a tick, or
+ * red with a cross. Seen before it is read — which is the whole job.
+ */
+export function VerdictLine({ right, t, item }: { right: boolean; t: Dictionary["practice"]; item?: PracticeItem }) {
+  const run = useContext(Momentum);
   return (
-    <p role="status" className={`flex items-center gap-2 text-base font-semibold ${right ? "text-ok" : "text-fg-primary"}`}>
-      {right && (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-          <path d="M5 12.5l4.5 4.5L19 7" strokeLinecap="round" strokeLinejoin="round" />
+    <div
+      role="status"
+      className={`oc-verdict flex items-center gap-3 rounded-control px-4 py-3 ${right ? "bg-correct-tint" : "bg-incorrect-tint"}`}
+    >
+      <span
+        aria-hidden="true"
+        className={`grid size-8 shrink-0 place-items-center rounded-full ${right ? "bg-correct text-on-correct" : "bg-incorrect text-on-incorrect"}`}
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+          {right ? <path d="M5 12.5l4.5 4.5L19 7" /> : <path d="M6 6l12 12M18 6L6 18" />}
         </svg>
+      </span>
+      <p className={`mb-0 text-lg font-semibold ${right ? "text-correct" : "text-incorrect"}`}>
+        {right ? cheerFor(t, item?.id ?? "") : t.wrong}
+      </p>
+      {right && run + 1 >= 3 && (
+        <span className="oc-pop ml-auto rounded-full bg-correct px-2.5 py-1 font-mono text-caption font-semibold uppercase tracking-caps text-on-correct">
+          {t.inARow.other.replace("{n}", String(run + 1))}
+        </span>
       )}
-      {right ? t.right : t.wrong}
-    </p>
+    </div>
   );
 }
 
@@ -210,15 +289,33 @@ export function optionClass(index: number, chose: number | null, answer: number,
    * by emission order — the trap `PROMPT_TEXT` documents for colour.
    */
   const base = sentence
-    ? "min-h-11 w-full rounded-control border px-4 py-2.5 text-left font-heading text-base font-semibold leading-snug tracking-display"
-    : "min-h-11 w-full rounded-control border px-4 font-heading text-base font-semibold tracking-display sm:w-auto";
+    ? "min-h-12 w-full rounded-control border-2 px-4 py-2.5 text-left font-heading text-base font-semibold leading-snug tracking-display transition-colors"
+    : "min-h-12 w-full rounded-control border-2 px-4 font-heading text-base font-semibold tracking-display transition-colors sm:w-auto";
 
   if (chose === null) {
-    return `${base} border-border-strong text-fg-primary hover:bg-surface-page`;
+    return `${base} border-border-strong text-fg-primary hover:bg-surface-page active:scale-[0.98]`;
   }
-  if (index === answer) return `${base} border-action bg-action text-on-action`;
-  if (index === chose) return `${base} border-border-strong text-fg-muted line-through`;
-  return `${base} border-border-subtle text-fg-muted`;
+  /*
+    The answer the learner TOUCHED carries the verdict: green if it was right,
+    red if not — and the right one is then outlined green so the eye goes
+    there next. It used to turn the right answer black whether or not they had
+    picked it, which looked identical to being right.
+  */
+  if (index === answer && chose === answer) return `${base} oc-pop border-correct bg-correct text-on-correct`;
+  if (index === answer) return `${base} border-correct bg-correct-tint text-fg-primary`;
+  if (index === chose) return `${base} oc-shake border-incorrect bg-incorrect text-on-incorrect`;
+  return `${base} border-border-subtle text-fg-muted opacity-60`;
+}
+
+/** The tick or cross inside an answered option, so the verdict does not rely on colour alone. */
+export function OptionMark({ index, chose, answer }: { index: number; chose: number | null; answer: number }) {
+  if (chose === null || (index !== answer && index !== chose)) return null;
+  const right = index === answer;
+  return (
+    <span aria-hidden="true" className="mr-2 inline-block font-sans">
+      {right ? "✓" : "✕"}
+    </span>
+  );
 }
 
 /** The dialect prompt, set large. One definition, so the four views agree. */

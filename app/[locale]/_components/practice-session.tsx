@@ -26,6 +26,8 @@ import { useGrade } from "./use-review";
 import { recordPractice } from "./streak-store";
 import { readHistoryView, readMemoryView, readModelView, useHistoryView, useMemoryView } from "./sync-stores";
 import { SittingCelebration } from "./sitting-celebration";
+import { Momentum } from "./exercises/chrome";
+import { seeded } from "@/lib/domain/practice/random";
 
 /**
  * A practice sitting, on the session screen (`session/frame.tsx`) — the first
@@ -178,6 +180,8 @@ export function PracticeSession({
         // A card run is longer because a card is faster. See `sessionSize`.
         size: sessionSize(mode),
         cover,
+        // A new seed per sitting: tomorrow, and "Nochmals", are not today again.
+        random: seeded(Date.now()),
       }),
       at: 0,
       outcomes: [],
@@ -320,6 +324,7 @@ export function PracticeSession({
           {/* Keyed on the item so every answer starts a genuinely new card:
               without it, React keeps the previous question's revealed state and
               the next one arrives already answered. */}
+          <Momentum.Provider value={runOf(outcomes)}>
           <QuestionCard
             key={item.id}
             item={item}
@@ -330,6 +335,7 @@ export function PracticeSession({
             onAnswer={record}
             onRecall={recordRecall}
           />
+          </Momentum.Provider>
         </>
       )}
     </SessionFrame>
@@ -440,3 +446,10 @@ function Done({
 
 
 
+
+/** Answers right in a row at the end of the sitting so far: what "3 in Folge" counts. */
+function runOf(outcomes: readonly { outcome: string }[]): number {
+  let n = 0;
+  for (let i = outcomes.length - 1; i >= 0 && outcomes[i].outcome === "right"; i--) n++;
+  return n;
+}
