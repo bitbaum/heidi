@@ -41,7 +41,13 @@ export type Scope =
    * this learner. The id is the words joined by commas, so the URL stays
    * readable (`?words=nöd,mir,grad`) and shareable like every other scope.
    */
-  | { kind: "words"; id: string };
+  | { kind: "words"; id: string }
+  /**
+   * The situations a learner said they need ("Meine Situationen"), joined by
+   * commas like `words`: `?scenes=doctor,school-parents`. A sitting then draws
+   * only from the places this person actually goes.
+   */
+  | { kind: "scenes"; id: string };
 
 export const ALL: Scope = { kind: "all" };
 
@@ -53,7 +59,7 @@ export const ALL: Scope = { kind: "all" };
  * mistyped one degrades to an empty session with an explanation rather than to
  * a parse error.
  */
-export const SCOPE_KEYS = ["topic", "scene", "group", "words"] as const;
+export const SCOPE_KEYS = ["topic", "scene", "group", "words", "scenes"] as const;
 export type ScopeKey = (typeof SCOPE_KEYS)[number];
 
 /**
@@ -92,6 +98,22 @@ export function wordsScope(words: readonly string[]): Scope {
 }
 
 /** The words a sitting on this scope must each ask once; none for other scopes. */
+/** The scene ids of a `scenes` scope, deduplicated. */
+export function scenesIn(id: string): string[] {
+  return [...new Set(id.split(",").map((s) => s.trim()).filter(Boolean))].slice(0, MAX_SCOPE_WORDS);
+}
+
+/**
+ * A sitting over the learner's own situations. One situation is the existing
+ * `scene` scope, so its links, names and vocabulary stay exactly as before.
+ */
+export function scenesScope(ids: readonly string[]): Scope {
+  const scenes = scenesIn(ids.join(","));
+  if (scenes.length === 0) return ALL;
+  if (scenes.length === 1) return { kind: "scene", id: scenes[0] };
+  return { kind: "scenes", id: scenes.join(",") };
+}
+
 export function coveredWords(scope: Scope): string[] {
   return scope.kind === "words" ? wordsIn(scope.id) : [];
 }
@@ -137,6 +159,8 @@ export function inScope(item: PracticeItem, scope: Scope): boolean {
       return source.kind === "word" && source.group === scope.id;
     case "words":
       return source.kind === "word" && wordsIn(scope.id).includes(source.word);
+    case "scenes":
+      return source.kind === "situation" && scenesIn(scope.id).includes(source.scene);
   }
 }
 

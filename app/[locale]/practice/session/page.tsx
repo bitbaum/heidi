@@ -126,6 +126,7 @@ export default async function PracticeSessionPage({
       t={t}
       grammarT={dict.grammar} situationsT={dict.situations} vocabularyT={dict.vocabulary} learnT={dict.chat.learn}
       sessionT={dict.session}
+      streakT={dict.streak}
       closeHref={closeHref}
       about={about}
       sessionKey={sittingKey({ scope, mode })}

@@ -23,6 +23,9 @@ import { useKeyboardViewport } from "../use-keyboard-viewport";
 import { NewChatButton } from "./new-chat-button";
 import { SessionLink } from "../session/links";
 import { quickScope } from "@/lib/domain/practice/sitting";
+import { pageOrFocus } from "@/lib/domain/practice/focus";
+import { useBrowserStore } from "@/lib/browser/store";
+import { focusStore } from "../focus-store";
 
 
 /** Ids for asks. A counter cannot collide; a clock can, and text repeats. */
@@ -121,6 +124,7 @@ export function ChatDock({
 }) {
   const t = dict.chat;
   const pathname = usePathname();
+  const focus = useBrowserStore(focusStore);
   const [open, setOpen] = useState(false);
   const scrollingDown = useScrollingDown();
   /**
@@ -235,7 +239,7 @@ export function ChatDock({
       >
       <SessionLink
         locale={locale}
-        scope={quickScope(pathname, practisable)}
+        scope={pageOrFocus(quickScope(pathname, practisable), focus)}
         className="inline-flex min-h-12 items-center gap-2 border-r border-on-float/25 px-4 text-sm font-medium transition-opacity hover:opacity-90"
       >
         <PlayIcon />

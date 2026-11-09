@@ -1,5 +1,5 @@
 import type { Dictionary } from "@/lib/i18n";
-import { wordsIn, type Scope } from "@/lib/domain/practice/scope";
+import { scenesIn, wordsIn, type Scope } from "@/lib/domain/practice/scope";
 import { fill } from "@/lib/i18n/fill";
 
 /**
@@ -25,6 +25,12 @@ export function scopeName(dict: Dictionary, scope: Scope): string {
       return dict.situations.scenes[scope.id as keyof typeof dict.situations.scenes]?.title ?? scope.id;
     case "group":
       return dict.vocabulary.groups[scope.id as keyof typeof dict.vocabulary.groups] ?? scope.id;
+    case "scenes": {
+      const titles = scenesIn(scope.id).map(
+        (id) => dict.situations.scenes[id as keyof typeof dict.situations.scenes]?.title ?? id,
+      );
+      return titles.slice(0, 2).join(", ") + (titles.length > 2 ? " …" : "");
+    }
     case "words": {
       const words = wordsIn(scope.id);
       const shown = words.slice(0, 3).join(", ") + (words.length > 3 ? " …" : "");

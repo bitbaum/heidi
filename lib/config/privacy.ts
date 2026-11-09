@@ -154,6 +154,15 @@ export const FLOWS: readonly Flow[] = [
     recipients: [],
   },
   {
+    // "Meine Situationen": which situations this learner chose to practise.
+    // Read only by this browser, to decide what "practise" draws from.
+    id: "focus",
+    place: "device",
+    where: "localStorage · heidi.focus.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
+  {
     // The sitting in progress — which questions, how far, what was answered —
     // so closing the exercise screen does not lose it. Replaced by the next
     // sitting; ignored after twelve hours.
@@ -352,6 +361,16 @@ export const FLOWS: readonly Flow[] = [
     // The browser path is not private either, and saying so is the point: in
     // Chrome the Web Speech API is served by Google's speech service.
     recipients: ["Google", TRANSCRIPTION_VENDOR],
+  },
+  {
+    // Read-aloud on a device with no German voice: the line goes to Google's
+    // Gemini speech model and comes back as audio. Not stored there by us,
+    // not kept here beyond a short in-memory cache of the same line.
+    id: "serverVoice",
+    place: "vendor",
+    where: "/api/speak",
+    leavesDevice: true,
+    recipients: ["Google"],
   },
   {
     id: "pictures",
