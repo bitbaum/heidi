@@ -530,6 +530,18 @@ body:has([data-chrome="session"]) [data-dock="heidi"] [data-dock-launcher] {
   display: none;
 }
 
+/* The account forms (sign in, create an account, your account), on a phone
+   only. The pill sat on the form's own buttons — "email me a link" and
+   "forgot your password?" were under it at 390px — and signing in is the one
+   thing the person came to this page for. The chat stays a tap away in the
+   menu sheet, and the dock is back on the page they land on. Desktop keeps
+   the pill: it is in the corner, nowhere near a form 28rem wide. */
+@media (width < 40rem) {
+  body:has([data-chrome="account"]) [data-dock="heidi"] [data-dock-launcher] {
+    display: none;
+  }
+}
+
 body:has([data-chrome="session"]) #loki-feedback-host {
   display: none;
 }

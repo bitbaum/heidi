@@ -118,9 +118,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {subheadline}
             </p>
           ) : null}
+          {/* Phones only. It jumps to the chat, which on a phone is under the
+              fold; from `lg` the chat IS the column beside it, so the button
+              scrolled nowhere and was a second black button in the fold next
+              to "Situationen entdecken" — two primaries on one screen. */}
           <a
             href="#try"
-            className="mt-6 inline-flex min-h-12 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90"
+            className="mt-6 inline-flex min-h-12 items-center rounded-control bg-action px-6 font-medium text-on-action hover:opacity-90 lg:hidden"
           >
             {t.ctaTry}
           </a>

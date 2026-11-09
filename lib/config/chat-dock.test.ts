@@ -25,6 +25,12 @@ test("the dock is hidden only where the page IS the chat window", () => {
       screen.
     */
     'body:has([data-chrome="session"]) [data-dock="heidi"] [data-dock-launcher]',
+    /*
+      The account forms, phones only, and again only the launcher: at 390px
+      it covered the sign-in form's own buttons. The menu sheet still opens
+      the chat.
+    */
+    'body:has([data-chrome="account"]) [data-dock="heidi"] [data-dock-launcher]',
     'body:has([data-chrome="chat"]) [data-dock="heidi"]',
     /*
       The home chat full screen on a phone (`focus-surface.tsx`). Not a page
