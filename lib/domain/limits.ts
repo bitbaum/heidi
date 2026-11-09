@@ -42,6 +42,15 @@ export const modelCheck = slidingWindow({ limit: 6, windowMs: 5 * 60_000 });
 export const dictation = slidingWindow({ limit: 20, windowMs: 5 * 60_000 });
 
 /**
+ * Lines read aloud by the server voice (`/api/speak`), for a device with no
+ * German voice of its own. Each is a paid call at Google once the free tier
+ * is spent; a learner pressing "read aloud" on every answer of a long chat is
+ * well inside this, a script is not. Repeats are served from a cache and
+ * still count here, so the limit is about the caller, not the bill.
+ */
+export const speak = slidingWindow({ limit: 40, windowMs: 5 * 60_000 });
+
+/**
  * Sentences generated for a word somebody just kept.
  *
  * Higher than the chat limit because it is a much smaller call — about 174
