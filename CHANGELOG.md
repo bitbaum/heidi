@@ -23,6 +23,12 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-11-09
 
+- «Wofür brauchen Sie Schweizerdeutsch?» — a new learner picks the situations they actually face (the doctor, the Kindsgi, the lunch table at work …) and every «practise» button then draws from those. Practice was already spaced repetition over a per-learner model; nothing had asked what somebody needs it for.
+- The end of a sitting is a moment: the check draws itself and the day just earned lands in the week's goal. Still no score.
+- The home page is a third shorter on a phone: the personal moments stay, without the paragraph under each; society's moments moved to «For organisations». Somebody who has practised here before, signed out, is welcomed back with their next step above the introduction.
+- Read-aloud works on a device with no German voice installed: the server reads the line with a German Gemini voice, labelled as German like the device's own. Declared on the privacy page.
+- «Sign in to keep it» keeps the conversation: after signing in, nobody is asked a second time.
+- Inter and IBM Plex Mono, self-hosted from @bitbaum/design-tokens: the same letters on every device, where before only Apple devices had the intended typeface.
 - Your email address no longer appears where other people can see it. Sign-up asks for no name, so nearly every account showed its email as its name on a proposed speaking topic, a round and a study group — and the topics board is readable signed out. It now shows the display name, or a short handle such as «#4F2A»; addresses already stored were replaced by a migration.
 - Account emails (confirm your address, sign-in link, password reset) are written in the language of the page the person was on, instead of always in English.
 - Sign-in is in every page's header in every build: a build made without the session secret used to serve pages with no sign-in control, and CI's layout audit measured that narrower header. On a phone the floating «Practise | Ask Heidi» no longer covers the sign-in form's buttons.

@@ -42,6 +42,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
       date: "2026-11-09",
+      tag: "feature",
+      title: "Heidi fragt, wofür Sie Schweizerdeutsch brauchen — und übt genau das",
+      summary:
+        "Neue Lernende wählen die Situationen, in denen sie wirklich stehen: in der Arztpraxis, im Kindsgi, am Mittagstisch bei der Arbeit. Jeder «Üben»-Knopf übt danach zuerst aus diesen.",
+      items: [
+        "Das Ende einer Übung ist ein Moment: Das Häkchen zeichnet sich, und der verdiente Tag landet im Wochenziel. Weiterhin keine Punktzahl.",
+        "Die Startseite ist auf dem Telefon ein Drittel kürzer. Wer schon geübt hat, wird mit dem nächsten Schritt begrüsst.",
+        "Vorlesen geht auch auf Geräten ohne deutsche Stimme: Der Server liest den Satz mit einer deutschen Stimme vor, als solche bezeichnet.",
+        "«Anmelden, um es zu behalten» behält das Gespräch, ohne ein zweites Mal zu fragen. Und die Schrift ist auf jedem Gerät dieselbe.",
+      ],
+    },
+    {
+      date: "2026-11-09",
       tag: "fix",
       title: "Ihre E-Mail-Adresse steht nirgends mehr, wo andere sie sehen",
       summary:
@@ -699,6 +712,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-11-09",
+      tag: "feature",
+      title: "Heidi asks what you need Swiss German for — and practises exactly that",
+      summary:
+        "A new learner picks the situations they really face: the doctor's surgery, the Kindsgi, the lunch table at work. Every «Practise» button then draws from those first.",
+      items: [
+        "The end of a sitting is a moment: the check draws itself and the day just earned lands in the week's goal. Still no score.",
+        "The home page is a third shorter on a phone. Somebody who has practised before is welcomed back with their next step.",
+        "Read-aloud works on devices with no German voice: the server reads the line with a German voice, labelled as one.",
+        "«Sign in to keep it» keeps the conversation without asking twice. And the typeface is the same on every device.",
+      ],
+    },
     {
       date: "2026-11-09",
       tag: "fix",
