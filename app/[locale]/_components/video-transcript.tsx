@@ -1,3 +1,4 @@
+// experience-exempt: a video's transcript is pasted verbatim from its source; dictating it would invent a transcript nobody published
 "use client";
 
 import { useState } from "react";

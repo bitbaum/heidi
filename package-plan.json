@@ -15,7 +15,11 @@
       "bindings": [
         {
           "file": "lib/auth/index.ts",
-          "symbols": ["createAuthRuntime", "createAuthMailer"]
+          "symbols": ["createAuthRuntime"]
+        },
+        {
+          "file": "lib/auth/mail.ts",
+          "symbols": ["createAuthMailer"]
         },
         {
           "file": "app/[locale]/_components/auth-screens.tsx",
@@ -64,7 +68,7 @@
         },
         {
           "file": "app/[locale]/_components/chat/workspace.tsx",
-          "symbols": ["ChatScreen"]
+          "symbols": ["ChatApp"]
         }
       ]
     },
@@ -106,5 +110,14 @@
   },
   "productOwned": {
     "domain": "Teaching, dialect/grammar gates, structured answers and group transcripts remain Heidi domain behavior."
+  },
+  "experience": {
+    "ceiling": {
+      "bareTextareas": 0,
+      "localChrome": 0,
+      "localComposers": 0,
+      "localComments": 0,
+      "localArticleEditors": 0
+    }
   }
 }

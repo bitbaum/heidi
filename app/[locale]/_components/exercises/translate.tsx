@@ -1,3 +1,4 @@
+// experience-exempt: the answer is graded as written Zurich German; dictation would write it in Standard German and grade the recogniser, not the learner (HEIDI.md §6)
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";

@@ -15,7 +15,7 @@ import { href } from "@/lib/i18n/routes";
  * answer to "where did my words go".
  *
  * `redirect()` here rather than a rewrite in middleware, for the reason the
- * middleware file states at length: `nextUrl.clone()` inherits the external
+ * proxy file (`proxy.ts`) states at length: `nextUrl.clone()` inherits the external
  * protocol behind Caddy, and the last rewrite took production down for every
  * signed-in visitor by dialling TLS at an http socket. A redirect sends a
  * Location header and guesses nothing.
