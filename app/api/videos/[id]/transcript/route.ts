@@ -7,6 +7,7 @@ import { isFollowing, saveTranscript, videoById, type VideoDetail } from "../../
 import { MAX_PASTE_CHARS, parsePasted, type Transcript } from "../../../../../lib/channels/transcript.ts";
 import { VARIETY } from "../../../../../lib/variety/active.ts";
 import { FEATURE } from "../../../channels/route.ts";
+import { publicFetch } from "../../../../../lib/channels/public-fetch.ts";
 
 export const dynamic = "force-dynamic";
 
@@ -44,6 +45,14 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
 
   const body = (await request.json().catch(() => ({}))) as { pasted?: unknown };
   if (typeof body?.pasted === "string") {
+    // A paste fills a gap; it never replaces the publisher's or the
+    // platform's text. It is shared with every follower, so "any follower may
+    // overwrite" was "anybody who follows a popular channel may replace its
+    // transcript, and its questions, for everyone". A paste may still correct
+    // an earlier paste.
+    if (video.transcript && video.transcript.source !== "pasted") {
+      return Response.json({ state: "ready", transcript: video.transcript });
+    }
     if (body.pasted.length > MAX_PASTE_CHARS) return Response.json({ error: "too-long" }, { status: 413 });
     const lines = parsePasted(body.pasted);
     if (!lines) return Response.json({ error: "not-a-transcript" }, { status: 422 });
@@ -57,7 +66,7 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
 
   if (video.kind === "podcast") return episode(video, who.actorId, request.signal);
 
-  const result = await fetchCaptions(id, fetch, { accepted: acceptedLanguages(VARIETY), allowAuto: allowAutomatic(VARIETY) });
+  const result = await fetchCaptions(id, publicFetch, { accepted: acceptedLanguages(VARIETY), allowAuto: allowAutomatic(VARIETY) });
   if (result.state === "ready") {
     await saveTranscript(id, result.transcript, "ready");
     return Response.json({ state: "ready", transcript: result.transcript });
@@ -68,7 +77,7 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
 
 async function episode(video: VideoDetail, actorId: string, signal: AbortSignal) {
   if (video.transcriptLink) {
-    const transcript = await fetchPublisherTranscript(video.transcriptLink, fetch);
+    const transcript = await fetchPublisherTranscript(video.transcriptLink, publicFetch);
     if (transcript) {
       await saveTranscript(video.id, transcript, "ready");
       return Response.json({ state: "ready", transcript });
@@ -86,7 +95,7 @@ async function episode(video: VideoDetail, actorId: string, signal: AbortSignal)
   if (!allowed.allowed) return tooMany(allowed);
 
   try {
-    const result = await transcribeOpening(video.mediaUrl, fetch, { language: questionLanguageTag(VARIETY), signal });
+    const result = await transcribeOpening(video.mediaUrl, publicFetch, { language: questionLanguageTag(VARIETY), signal });
     if (result.state === "ready") {
       await saveTranscript(video.id, result.transcript, "ready");
       return Response.json({ state: "ready", transcript: result.transcript });

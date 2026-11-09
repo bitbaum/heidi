@@ -4,6 +4,7 @@ import { callerKey, dictation as dictationLimit, tooMany } from "@/lib/domain/li
 import { looksLikeSilence } from "@/lib/domain/chat/transcription";
 import { speechChain, speechConfigured } from "@/lib/domain/model/speech";
 import { redact } from "@/lib/domain/model/byok";
+import { declaresTooLarge } from "../../../lib/http/body-size.ts";
 
 export const dynamic = "force-dynamic";
 
@@ -55,6 +56,8 @@ export async function POST(request: Request) {
   // `operator` marks a fault the visitor cannot fix, so the UI says "not
   // available right now" rather than blaming their microphone.
   if (!speechConfigured()) return bad("transcription is not configured", 503, true);
+
+  if (declaresTooLarge(request, MAX_BYTES)) return bad("that recording is too long", 413);
 
   let form: FormData;
   try {

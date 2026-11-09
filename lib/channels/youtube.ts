@@ -131,13 +131,23 @@ export function thumbnailUrl(videoId: string): string {
 const ENTITIES: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", "#39": "'" };
 
 export function decodeEntities(text: string): string {
-  return text.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (whole, code: string) => {
-    if (code[0] === "#") {
-      const n = code[1] === "x" || code[1] === "X" ? Number.parseInt(code.slice(2), 16) : Number.parseInt(code.slice(1), 10);
-      return Number.isFinite(n) ? String.fromCodePoint(n) : whole;
-    }
-    return ENTITIES[code.toLowerCase()] ?? whole;
-  });
+  // A feed is somebody else's file. `&#1114112;` made `fromCodePoint` throw
+  // and `&#0;` wrote a NUL Postgres refuses, and either one, in one followed
+  // feed, failed the whole hourly sweep. Anything that is not a character
+  // becomes U+FFFD; a raw NUL is dropped.
+  return text
+    .replace(/\u0000/g, "")
+    .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (whole, code: string) => {
+      if (code[0] === "#") {
+        const n = code[1] === "x" || code[1] === "X" ? Number.parseInt(code.slice(2), 16) : Number.parseInt(code.slice(1), 10);
+        return isCharacter(n) ? String.fromCodePoint(n) : "\uFFFD";
+      }
+      return ENTITIES[code.toLowerCase()] ?? whole;
+    });
+}
+
+function isCharacter(n: number): boolean {
+  return Number.isInteger(n) && n > 0 && n <= 0x10ffff && !(n >= 0xd800 && n <= 0xdfff);
 }
 
 function tag(xml: string, name: string): string | null {

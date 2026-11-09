@@ -77,38 +77,58 @@ export async function sweep(deps: SweepDeps, options: SweepOptions = {}): Promis
   const channels = await deps.due(new Date(now.getTime() - staleMs), options.limit ?? 50);
   for (const channel of channels) {
     report.checked += 1;
-    const read = await deps.readFeed(channel);
-    if (!read.ok) {
+    try {
+      await sweepOne(deps, channel, now, notifyWithin, report);
+    } catch (error) {
+      // ONE CHANNEL NEVER STOPS THE SWEEP. Without this, a single feed that
+      // threw (a malformed entity, a row Postgres refused) failed the run
+      // before its `checked_at` was written — so the same channel came first
+      // again the next hour, and no channel after it was ever checked.
       report.failed += 1;
-      await deps.record(channel.id, [], now, read.reason);
-      continue;
+      console.error("[channels] sweep failed for one channel", { channelId: channel.id, error: (error as Error).message });
+      await deps.record(channel.id, [], now, "failed").catch(() => undefined);
     }
-    const fresh = await deps.record(channel.id, read.feed.items, now, null);
-    report.newVideos += fresh.length;
-
-    const recent = read.feed.items.filter((v) => fresh.includes(v.id) && now.getTime() - Date.parse(v.publishedAt) <= notifyWithin);
-    if (recent.length === 0) continue;
-
-    const followers = await deps.followersOf(channel.id);
-    const dead = new Set<string>();
-    for (const video of recent) {
-      const who = recipients(video, followers);
-      if (who.length === 0) continue;
-      const subscriptions = await deps.subscriptionsFor(who.map((f) => f.actorId));
-      for (const sub of subscriptions) {
-        if (dead.has(sub.endpoint)) continue;
-        const result = await deps.send(sub, deps.payload(video, channel, sub.locale));
-        if (result.ok) report.notified += 1;
-        else if (result.dead) dead.add(sub.endpoint);
-      }
-    }
-    if (dead.size > 0) {
-      await deps.dropSubscriptions([...dead]);
-      report.dropped += dead.size;
-    }
-    // Every fresh video is marked, whether or not anyone was woken for it:
-    // "notified" means the sweep has dealt with it, not that a phone rang.
-    await deps.markNotified(fresh, now);
   }
   return report;
+}
+
+async function sweepOne(
+  deps: SweepDeps,
+  channel: DueChannel,
+  now: Date,
+  notifyWithin: number,
+  report: SweepReport,
+): Promise<void> {
+  const read = await deps.readFeed(channel);
+  if (!read.ok) {
+    report.failed += 1;
+    await deps.record(channel.id, [], now, read.reason);
+    return;
+  }
+  const fresh = await deps.record(channel.id, read.feed.items, now, null);
+  report.newVideos += fresh.length;
+
+  const recent = read.feed.items.filter((v) => fresh.includes(v.id) && now.getTime() - Date.parse(v.publishedAt) <= notifyWithin);
+  if (recent.length === 0) return;
+
+  const followers = await deps.followersOf(channel.id);
+  const dead = new Set<string>();
+  for (const video of recent) {
+    const who = recipients(video, followers);
+    if (who.length === 0) continue;
+    const subscriptions = await deps.subscriptionsFor(who.map((f) => f.actorId));
+    for (const sub of subscriptions) {
+      if (dead.has(sub.endpoint)) continue;
+      const result = await deps.send(sub, deps.payload(video, channel, sub.locale));
+      if (result.ok) report.notified += 1;
+      else if (result.dead) dead.add(sub.endpoint);
+    }
+  }
+  if (dead.size > 0) {
+    await deps.dropSubscriptions([...dead]);
+    report.dropped += dead.size;
+  }
+  // Every fresh video is marked, whether or not anyone was woken for it:
+  // "notified" means the sweep has dealt with it, not that a phone rang.
+  await deps.markNotified(fresh, now);
 }

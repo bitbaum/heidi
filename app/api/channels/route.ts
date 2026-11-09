@@ -5,6 +5,7 @@ import { sweepFor } from "../../../lib/channels/service.ts";
 import { follow, followsFor, recentVideosFor } from "../../../lib/channels/store.ts";
 import { LISTENING_SOURCES } from "../../../lib/listening/sources.ts";
 import type { Spoken } from "../../../lib/channels/source.ts";
+import { publicFetch } from "../../../lib/channels/public-fetch.ts";
 
 // Relative `.ts` imports, not the `@/*` alias: node's test runner exercises
 // these handlers directly, and the alias only resolves inside Next's build.
@@ -66,7 +67,7 @@ export async function POST(request: Request) {
   const existing = await followsFor(who.actorId);
   if (existing.length >= MAX_FOLLOWS) return Response.json({ error: "too-many", reason: "too-many" }, { status: 409 });
 
-  const resolved = await resolveChannel(input, fetch);
+  const resolved = await resolveChannel(input, publicFetch);
   if (!resolved.ok) {
     const status = resolved.reason === "invalid" || resolved.reason === "spotify" ? 400 : resolved.reason === "not-found" ? 404 : 502;
     // `reason` is a code the page maps to the reader's language; `error` is
