@@ -78,6 +78,13 @@
       "when": 1792756788680,
       "tag": "0010_chat_feedback",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1794240000000,
+      "tag": "0011_scrub_email_names",
+      "breakpoints": true
     }
   ]
 }
