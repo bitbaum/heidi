@@ -110,22 +110,18 @@ export function MySituations({
                 <button
                   key={scene.id}
                   type="button"
+                  /* No checkbox square: the fill IS the state (and aria-pressed
+                     says it). The square cost 30px of a 148px tile, and
+                     «Treppenhaus» or «Вечернее беспокойство» then did not fit
+                     at 390px — a known word gets the room, never a break. */
                   aria-pressed={on}
                   onClick={() => toggle(scene.id)}
-                  className={`flex min-h-12 min-w-0 items-center gap-2.5 rounded-control border px-3 py-2 text-left text-base transition-colors ${
+                  className={`flex min-h-12 min-w-0 items-center rounded-control border px-3 py-2 text-left text-base transition-colors ${
                     on
                       ? "border-action bg-action text-on-action"
                       : "border-border-subtle bg-surface-page text-fg-primary hover:border-border-strong"
                   }`}
                 >
-                  <span
-                    aria-hidden="true"
-                    className={`grid size-5 shrink-0 place-items-center rounded-sm border text-xs ${
-                      on ? "border-on-action" : "border-border-strong"
-                    }`}
-                  >
-                    {on ? "✓" : ""}
-                  </span>
                   <span className="min-w-0">{scene.title}</span>
                 </button>
               );

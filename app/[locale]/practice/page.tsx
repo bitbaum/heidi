@@ -17,6 +17,8 @@ import { PracticeChooser } from "../_components/practice-chooser";
 import { StartCard } from "../_components/session/start-card";
 import { StreakLine } from "../_components/streak-card";
 import { WarmupInvite } from "../_components/warmup-invite";
+import { MySituations } from "../_components/my-situations";
+import { situationDomains } from "../_components/situation-domains";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -122,6 +124,13 @@ export default async function PracticePage({
         {/* What kind of sitting this is. Above the questions rather than
             behind a settings link, because it is the first decision and it
             changes every question that follows. */}
+        {/* The learner's own situations, chosen or to choose — the one place a
+            signed-out learner can tell Heidi what they need it for. */}
+        {scope.kind === "all" && (
+          <div className="mb-6">
+            <MySituations locale={locale} t={dict.mySituations} domains={situationDomains(locale)} />
+          </div>
+        )}
         {scope.kind === "all" && <WarmupInvite t={dict.warmup} locale={locale} variant="line" />}
 
         <PracticeChooser
