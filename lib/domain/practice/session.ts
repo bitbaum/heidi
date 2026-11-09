@@ -2,7 +2,7 @@ import type { VarietyPack } from "../../variety/pack.ts";
 import type { SavedWord } from "../saved/types.ts";
 import { due } from "../saved/review.ts";
 import { allItems } from "./generate.ts";
-import { EMPTY_MODEL, ladderOf, pressureOf, type LearnerModel } from "./model.ts";
+import { EMPTY_MODEL, frontierOf, ladderOf, pressureOf, stretchOf, type LearnerModel } from "./model.ts";
 import { NO_MEMORY, dueOrder, urgency, type Memory } from "./memory.ts";
 import { SESSION_SIZE, type PracticeItem } from "./types.ts";
 import type { Random } from "./random.ts";
@@ -143,6 +143,7 @@ export function orderSession({
    * everybody from the first answer.
    */
   const band = (item: PracticeItem) => Math.round(pressureOf(model, item) * 4);
+  const frontier = frontierOf(model);
 
   // One draw per question and per kind, made once, so the sort stays a
   // consistent order rather than a different coin on every comparison.
@@ -176,6 +177,9 @@ export function orderSession({
     // Recognise a line first, produce it once it is recognised (`ladderOf`).
     const ladderGap = ladderOf(model, a) - ladderOf(model, b);
     if (ladderGap !== 0) return ladderGap;
+    // At the learner's level before above it (`frontierOf`).
+    const stretchGap = stretchOf(a, frontier) - stretchOf(b, frontier);
+    if (stretchGap !== 0) return stretchGap;
     // Whatever has been asked least recently. Never-seen items (-1) come before
     // anything seen, oldest-seen before newest.
     const freshGap = freshness(a) - freshness(b);
