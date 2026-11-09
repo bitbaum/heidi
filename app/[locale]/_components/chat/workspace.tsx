@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   ChatApp,
@@ -112,6 +112,25 @@ export function ChatWorkspace({
   const earlier = useDraftHandoff({ enabled: !signedIn, store, onOpen: openAdopted });
   const adoption = useAdoptOffer({ enabled: signedIn, locale });
 
+  /*
+    SAID ONCE, NOT TWICE. Somebody who pressed "sign in to keep it" arrives
+    with `?keep=1` and has already answered the question the prompt below
+    asks — so their browser conversation is kept on arrival. Anybody who
+    signed in another way is still asked: they never said yes.
+  */
+  const [keepOnArrival] = useState(
+    () => signedIn && typeof window !== "undefined" && new URLSearchParams(window.location.search).get("keep") === "1",
+  );
+  const kept = useRef(false);
+  useEffect(() => {
+    if (!keepOnArrival || kept.current || !adoption.offer) return;
+    kept.current = true;
+    void adoption.keep().then((id) => {
+      if (id) router.replace(`${href(locale, "chat")}/${id}`);
+      else window.history.replaceState(null, "", href(locale, "chat"));
+    });
+  }, [keepOnArrival, adoption, locale, router]);
+
   const transport = useCallback<ChatTransport>(
     async (turn) => {
       const [text, images] = fromWire(turn.text, turn.attachments);
@@ -207,7 +226,7 @@ export function ChatWorkspace({
     // `data-chrome="chat"` is the hook globals.css keys on to drop the footer
     // and stop the page itself scrolling; ChatApp fills what is left.
     <div data-chrome="chat" ref={appRef} className="flex min-h-0 w-full flex-1 flex-col">
-      {adoption.offer && (
+      {adoption.offer && !keepOnArrival && (
         <AdoptPrompt
           t={f}
           wrote={adoption.offer.wrote}
