@@ -21,6 +21,13 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-11-09
+
+- Your email address no longer appears where other people can see it. Sign-up asks for no name, so nearly every account showed its email as its name on a proposed speaking topic, a round and a study group — and the topics board is readable signed out. It now shows the display name, or a short handle such as «#4F2A»; addresses already stored were replaced by a migration.
+- Account emails (confirm your address, sign-in link, password reset) are written in the language of the page the person was on, instead of always in English.
+- Sign-in is in every page's header in every build: a build made without the session secret used to serve pages with no sign-in control, and CI's layout audit measured that narrower header. On a phone the floating «Practise | Ask Heidi» no longer covers the sign-in form's buttons.
+- Channels and podcasts: the server fetches only public addresses for a feed, its redirects and its audio; one malformed feed no longer stops the hourly refresh for everyone else; a pasted transcript never replaces a publisher's; feeds and synced devices have ceilings.
+
 ## 2026-10-27
 
 - The full chat at «/chat» is the fleet's chat app (chatkit's `ChatApp`): your conversations sit in a drawer on a phone and beside the chat on a wide screen, with a search box and Today / Yesterday / Earlier; each has one «…» for Rename and Delete. New: a temporary conversation that is written nowhere, a message written while Heidi is answering waits above the box and goes when she is done, and the conversation you had open comes back after a reload. Signed out, the list is kept in this browser and nothing reaches the database; a conversation from the home box or the floating window carries over. Stop still throws away the half answer (it had not been checked for Zurich forms) and a failure still says why. The chips under an answer («Shorter», «Word by word») and «What does it mean?» on a selected word now put their sentence in the box to send, instead of sending it at once.

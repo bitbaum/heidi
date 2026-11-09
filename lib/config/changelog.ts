@@ -41,6 +41,19 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-11-09",
+      tag: "fix",
+      title: "Ihre E-Mail-Adresse steht nirgends mehr, wo andere sie sehen",
+      summary:
+        "Wer sich ohne Anzeigenamen angemeldet hatte — also fast alle, denn danach wird nicht gefragt —, erschien mit der E-Mail-Adresse: bei einem vorgeschlagenen Gesprächsthema, einer Runde, in einer Lerngruppe. Die Themenliste ist ohne Anmeldung lesbar. Jetzt steht dort Ihr Anzeigename oder ein kurzes Kürzel wie «#4F2A»; gespeicherte Adressen wurden ersetzt.",
+      items: [
+        "Einen Anzeigenamen wählen Sie unter «Konto».",
+        "Die E-Mails zum Konto (Adresse bestätigen, Anmeldelink, Passwort zurücksetzen) kommen in der Sprache der Seite, auf der Sie waren, statt immer auf Englisch.",
+        "Die Anmeldung steht jetzt in jeder Kopfzeile, auch auf Seiten, die zuvor ohne sie ausgeliefert werden konnten; auf dem Telefon liegt das schwebende «Üben | Heidi fragen» nicht mehr über den Knöpfen des Anmeldeformulars.",
+        "Kanäle und Podcasts: Ein Feed kann nur noch öffentliche Adressen abrufen lassen, ein einzelner fehlerhafter Feed hält die stündliche Aktualisierung der anderen nicht mehr auf, und ein Abschrift-Einfügen ersetzt nie die Abschrift des Herausgebers.",
+      ],
+    },
+    {
       date: "2026-10-27",
       tag: "improvement",
       title: "Der Chat ist die Chat-App der ganzen Flotte",
@@ -686,6 +699,19 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-11-09",
+      tag: "fix",
+      title: "Your email address no longer appears anywhere other people can see",
+      summary:
+        "Anyone who signed up without a display name — nearly everyone, since sign-up does not ask for one — appeared under their email address: on a speaking topic they proposed, a round, a study group. The topics board is readable signed out. Now it shows your display name or a short handle such as «#4F2A», and stored addresses were replaced.",
+      items: [
+        "Choose a display name under «Account».",
+        "Account emails (confirm your address, sign-in link, reset your password) arrive in the language of the page you were on, instead of always in English.",
+        "Sign-in is in every header now, including pages that could previously be served without it; on a phone the floating «Practise | Ask Heidi» no longer sits on the sign-in form's buttons.",
+        "Channels and podcasts: a feed can only make the server fetch public addresses, one broken feed no longer stops the hourly refresh for everyone else, and a pasted transcript never replaces the publisher's.",
+      ],
+    },
     {
       date: "2026-10-27",
       tag: "improvement",
