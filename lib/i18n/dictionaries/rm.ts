@@ -1287,6 +1287,18 @@ export const rm: Dictionary = {
     everything: "Tut, maschadà",
   },
 
+  progressBy: {
+    title: "Quai che tegna",
+    lead: "Vossas respostas, tenor quai ch'è vegnì controllà — e tenor la distanza tranter il tudestg da Turitg ed il tudestg.",
+    bySkill: "Quai ch'è vegnì controllà",
+    byLevel: "Distanza dal tudestg",
+    skills: {"understand": "Chapir", "words": "Pleds", "sounds": "Reglas da tuns", "forms": "Furmas verbalas", "articles": "Artitgels", "produce": "Dir sez"},
+    levels: {"1": "Sco en tudestg", "2": "Cun ina regla da tuns", "3": "Cumplettamain auter"},
+    counts: "{right} endretg · {missed} fallà",
+    holds: "tegna",
+    building: "en lavur",
+    frontier: "Vus exercitais: {level}",
+  },
   mySituations: {
     welcome: "Bainvegni anavos",
     welcomeLead: "Voss progress è en quest navigatur — cun in conto sin tut Voss apparats.",

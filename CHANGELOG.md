@@ -23,6 +23,9 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-11-09
 
+- Every exercise now has a level — how far its Zurich German is from German: like German (`schlafe`, `au` for «auch»), by one of the pack's sound rules (`Chind`, `chaufe`), or different (`nöd`, `öppis`, and false friends like `Estrich`). Measured from spelling and the pack's own rules, one classification for the whole product (it also ranks the vocabulary page). A new learner practises mostly the first level; once it holds, the sittings move up.
+- Every kind of question says what it tests — understanding, words, sound rules, verb forms, articles, saying it yourself — in one table. «Was sitzt» on your page counts your answers both ways, with what holds and the level you are working at. Counts, not a score.
+
 - Practice, rebuilt around the moment of answering. The option you tap fills with ink and a tick, or takes a red outline and a cross, with the right one then outlined in ink — in Heidi's own two colours. It used to fill the right answer black whether or not you had picked it. A right answer moves on by itself after a beat («Warum?» holds it); a wrong one stays with its explanation. A phone gives a short pulse. «3 in Folge» appears when it is true.
 - Not the same sitting twice: questions that tie on what the learner needs are ordered by a seeded draw instead of the alphabet, and options, word banks and matching columns are laid out afresh every time a question is shown. Due questions and weak areas still come first.
 - Two new kinds of question: «Satz bauen» — the Zurich words of a sentence you say, shuffled with one that does not belong, tapped into order and checked — and «Stimmt das?», a heard line with a meaning beside it, right or not, one tap.

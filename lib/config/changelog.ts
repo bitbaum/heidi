@@ -43,6 +43,16 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-11-09",
       tag: "feature",
+      title: "Jede Übung kennt ihr Niveau — und Sie sehen, was sitzt",
+      summary:
+        "Jede Frage weiss, wie weit ihr Züridütsch vom Deutschen weg ist: wie im Deutschen, mit einer Lautregel (Chind, chaufe) oder ganz anders (nöd, öppis, und falsche Freunde wie Estrich). Am Anfang üben Sie vor allem die erste Stufe; sitzt sie, geht es weiter.",
+      items: [
+        "«Was sitzt» auf Ihrer Seite zählt Ihre Antworten nach dem, was geprüft wurde — Verstehen, Wörter, Lautregeln, Verbformen, Artikel, selber sagen — und nach der Stufe. Zahlen, keine Note.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "feature",
       title: "Üben, neu gebaut: sofort sehen, ob es stimmt",
       summary:
         "Die angetippte Antwort füllt sich schwarz mit Häkchen oder bekommt einen roten Rahmen mit Kreuz, die richtige wird dann umrandet — in Heidis eigenen zwei Farben. Richtig geht es nach einem Moment von selbst weiter; falsch bleibt die Erklärung stehen.",
@@ -724,6 +734,16 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-11-09",
+      tag: "feature",
+      title: "Every exercise knows its level — and you see what sticks",
+      summary:
+        "Every question knows how far its Zurich German is from German: like German, by a sound rule (Chind, chaufe), or quite different (nöd, öppis, and false friends like Estrich). You start mostly on the first level; once it holds, the sittings move up.",
+      items: [
+        "«What sticks» on your page counts your answers by what was tested — understanding, words, sound rules, verb forms, articles, saying it yourself — and by level. Counts, not a score.",
+      ],
+    },
     {
       date: "2026-11-09",
       tag: "feature",

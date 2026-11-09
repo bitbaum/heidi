@@ -1291,6 +1291,18 @@ export const gsw: Dictionary = {
     everything: "Alles gmischt",
   },
 
+  progressBy: {
+    title: "Was sitzt",
+    lead: "Ihri Antworte, nach dem, was prüeft worde isch — und wie wiit s Züridütsch vom Dütsch ewäg isch.",
+    bySkill: "Was prüeft worde isch",
+    byLevel: "Wie wiit vom Dütsch",
+    skills: {"understand": "Verstah", "words": "Wörter", "sounds": "Luutregle", "forms": "Verbforme", "articles": "Artikel", "produce": "Sälber säge"},
+    levels: {"1": "Wie im Dütsch", "2": "Mit ere Luutregle", "3": "Ganz andersch"},
+    counts: "{right} richtig · {missed} dernäbe",
+    holds: "sitzt",
+    building: "im Ufbau",
+    frontier: "Si üebed grad: {level}",
+  },
   mySituations: {
     welcome: "Willkomme zrugg",
     welcomeLead: "Ihre Fortschritt isch i dem Browser — mit emene Konto uf allne Ihrne Grät.",

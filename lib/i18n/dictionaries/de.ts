@@ -1383,6 +1383,18 @@ export const de = {
     everything: "Alles gemischt",
   },
 
+  progressBy: {
+    title: "Was sitzt",
+    lead: "Ihre Antworten, nach dem, was geprüft wurde — und danach, wie weit das Züridütsch vom Deutschen weg ist.",
+    bySkill: "Was geprüft wurde",
+    byLevel: "Wie weit vom Deutschen",
+    skills: {"understand": "Verstehen", "words": "Wörter", "sounds": "Lautregeln", "forms": "Verbformen", "articles": "Artikel", "produce": "Selber sagen"},
+    levels: {"1": "Wie im Deutschen", "2": "Mit einer Lautregel", "3": "Ganz anders"},
+    counts: "{right} richtig · {missed} daneben",
+    holds: "sitzt",
+    building: "im Aufbau",
+    frontier: "Sie üben gerade: {level}",
+  },
   mySituations: {
     welcome: "Willkommen zurück",
     welcomeLead: "Ihr Fortschritt liegt in diesem Browser — mit einem Konto auf all Ihren Geräten.",

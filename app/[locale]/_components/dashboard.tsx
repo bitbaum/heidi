@@ -24,6 +24,7 @@ import { WarmupInvite } from "./warmup-invite";
 import { ChannelsPanel } from "./channels-panel";
 import { recentVideosFor } from "@/lib/channels/store";
 import { MySituations } from "./my-situations";
+import { ProgressBy } from "./progress-by";
 import { situationDomains } from "./situation-domains";
 
 /**
@@ -108,6 +109,8 @@ export async function Dashboard({ locale }: { locale: Locale }) {
 
         {/* Progress: each renders nothing until it has something true to say. */}
         <FocusPanel t={dict.practice} grammarT={dict.grammar} situationsT={dict.situations} locale={locale} />
+        {/* By skill and by distance from German; nothing until something is answered. */}
+        <ProgressBy t={dict.progressBy} />
         <SituationBoard scenes={scenes} askable={askableByScene} t={dict.situations} locale={locale} />
         <MasteredPanel t={dict.review} grammarT={dict.grammar} vocabularyT={dict.vocabulary} locale={locale} />
         <PatternsPanel t={dict.review} />

@@ -1266,6 +1266,18 @@ export const en: Dictionary = {
     everything: "Everything, mixed",
   },
 
+  progressBy: {
+    title: "What sticks",
+    lead: "Your answers, by what was tested — and by how far the Zurich German is from German.",
+    bySkill: "What was tested",
+    byLevel: "How far from German",
+    skills: {"understand": "Understanding", "words": "Words", "sounds": "Sound rules", "forms": "Verb forms", "articles": "Articles", "produce": "Saying it yourself"},
+    levels: {"1": "Like German", "2": "By a sound rule", "3": "Quite different"},
+    counts: "{right} right · {missed} missed",
+    holds: "holds",
+    building: "building",
+    frontier: "You are working at: {level}",
+  },
   mySituations: {
     welcome: "Welcome back",
     welcomeLead: "Your progress is in this browser — with an account, on all your devices.",

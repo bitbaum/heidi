@@ -1271,6 +1271,18 @@ export const it: Dictionary = {
     everything: "Tutto, misto",
   },
 
+  progressBy: {
+    title: "Cosa è acquisito",
+    lead: "Le vostre risposte, per ciò che è stato verificato — e per quanto lo zurighese è lontano dal tedesco.",
+    bySkill: "Cosa è stato verificato",
+    byLevel: "Quanto lontano dal tedesco",
+    skills: {"understand": "Capire", "words": "Parole", "sounds": "Regole dei suoni", "forms": "Forme verbali", "articles": "Articoli", "produce": "Dirlo da sé"},
+    levels: {"1": "Come in tedesco", "2": "Con una regola dei suoni", "3": "Del tutto diverso"},
+    counts: "{right} giuste · {missed} sbagliate",
+    holds: "acquisito",
+    building: "in corso",
+    frontier: "State lavorando a: {level}",
+  },
   mySituations: {
     welcome: "Bentornati",
     welcomeLead: "I vostri progressi sono in questo browser — con un account, su tutti i dispositivi.",

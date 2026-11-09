@@ -1271,6 +1271,18 @@ export const fr: Dictionary = {
     everything: "Tout, mélangé",
   },
 
+  progressBy: {
+    title: "Ce qui est acquis",
+    lead: "Vos réponses, selon ce qui a été testé — et selon l'écart entre le zurichois et l'allemand.",
+    bySkill: "Ce qui a été testé",
+    byLevel: "Écart avec l'allemand",
+    skills: {"understand": "Comprendre", "words": "Mots", "sounds": "Règles de sons", "forms": "Formes verbales", "articles": "Articles", "produce": "Le dire soi-même"},
+    levels: {"1": "Comme en allemand", "2": "Par une règle de sons", "3": "Tout autre"},
+    counts: "{right} justes · {missed} manquées",
+    holds: "acquis",
+    building: "en cours",
+    frontier: "Vous travaillez au niveau : {level}",
+  },
   mySituations: {
     welcome: "Bon retour",
     welcomeLead: "Votre progression est dans ce navigateur — avec un compte, sur tous vos appareils.",
