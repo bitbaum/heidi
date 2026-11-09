@@ -9,6 +9,7 @@ import { AuxiliaryView } from "./auxiliary";
 import { GapTextView } from "./gaptext";
 import { CardView } from "./card";
 import { TranslateView } from "./translate";
+import { BuildView, VerifyView } from "./build";
 
 /**
  * Which component renders which kind — the rendering half of the registry.
@@ -63,4 +64,6 @@ export const VIEWS: Record<PracticeItem["kind"], ExerciseView> = {
   transform: ChoiceView,
   clock: ChoiceView,
   meaning: ChoiceView,
+  build: BuildView,
+  verify: VerifyView,
 };

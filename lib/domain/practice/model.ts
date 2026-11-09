@@ -254,3 +254,34 @@ export function decodeModel(raw: string): LearnerModel {
     lines: axis(source.lines),
   };
 }
+
+/**
+ * THE LADDER: recognise a line before producing it.
+ *
+ * A line the learner has not yet recognised reliably is asked in a form that
+ * shows it — "Stimmt das?", the gist, the meaning of a word in it. Once it is
+ * recognised (asked twice or more, missed at most a quarter of the time), the
+ * same line comes back to be PRODUCED — built from its words, translated,
+ * transformed. Retrieval in a harder form is what makes a thing stick; asking
+ * the easy form forever is what makes practice feel like a loop.
+ *
+ * 0 means "this form suits this line now", 1 means "not yet / not any more",
+ * and kinds on neither rung are 0 always. Used as a tie-break after the
+ * schedule and after what the learner is struggling with, never before.
+ */
+const RECOGNISE = new Set<string>(["verify", "gist", "meaning", "reply"]);
+const PRODUCE = new Set<string>(["build", "translate", "transform"]);
+
+export function recognised(model: LearnerModel, scene: string, line: number): boolean {
+  const trace = model.lines[lineKey(scene, line)];
+  return Boolean(trace && trace.asked >= 2 && trace.missed / trace.asked <= 0.25);
+}
+
+export function ladderOf(model: LearnerModel, item: PracticeItem): 0 | 1 {
+  const source = item.source;
+  if (source.kind !== "situation" || source.line === undefined) return 0;
+  const known = recognised(model, source.scene, source.line);
+  if (RECOGNISE.has(item.kind)) return known ? 1 : 0;
+  if (PRODUCE.has(item.kind)) return known ? 0 : 1;
+  return 0;
+}

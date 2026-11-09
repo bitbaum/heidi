@@ -521,6 +521,56 @@ export type QuestionItem = {
   source: ItemSource;
 };
 
+/**
+ * A sentence the learner SAYS, built from its own words: the German meaning
+ * is shown, the Zurich words lie shuffled below (with one that does not
+ * belong), and the learner taps them into order.
+ *
+ * WHY. Every other way to produce a whole sentence was self-marked
+ * (`translate`): type it, see the answer, say whether you knew. Building is
+ * production the product can mark itself — the words are the pack's, so the
+ * only question is the order, and order is exactly what a German speaker
+ * gets wrong in Zurich German. Only lines of three to nine words.
+ */
+export type BuildItem = {
+  id: string;
+  kind: "build";
+  marking: "objective";
+  /** The bridge sentence: what to say. */
+  prompt: string;
+  /** The line's words, in the order they are said. */
+  words: readonly string[];
+  /** A word from elsewhere in the same scene that does not belong here. */
+  extra: readonly string[];
+  /** The full line, as the pack writes it. */
+  answer: string;
+  source: ItemSource;
+};
+
+/**
+ * "Stimmt das?" — a line that is HEARD, with a German meaning beside it, and
+ * two buttons: right, or not.
+ *
+ * WHY. The fastest honest check of understanding there is: one glance, one
+ * tap, and the verdict before the thought has finished. Half are true; the
+ * false ones carry the meaning of another line from the SAME scene, so the
+ * wrong reading is a plausible one, not a joke.
+ */
+export type VerifyItem = {
+  id: string;
+  kind: "verify";
+  marking: "objective";
+  /** The Zurich line. */
+  said: string;
+  /** The meaning offered — right or not. */
+  meaning: string;
+  /** What the line does mean. */
+  truth: string;
+  /** Whether `meaning` is the right one. */
+  correct: boolean;
+  source: ItemSource;
+};
+
 export type PracticeItem =
   | PairItem
   | RecallItem
@@ -533,7 +583,9 @@ export type PracticeItem =
   | PickItem
   | TranslateItem
   | CardItem
-  | QuestionItem;
+  | QuestionItem
+  | BuildItem
+  | VerifyItem;
 
 /**
  * Every teaching point an authored or template-built question can end on.

@@ -35,6 +35,8 @@ export function answerOf(item: PracticeItem): string {
      */
     case "gaptext":
       return item.answer.map((bankIndex) => item.bank[bankIndex] ?? "").join(" · ");
+    case "verify":
+      return item.truth;
     default:
       return item.answer;
   }
@@ -69,7 +71,10 @@ export function questionOf(item: PracticeItem): string {
     case "recall":
     case "translate":
     case "card":
+    case "build":
       return item.prompt;
+    case "verify":
+      return `${item.said} = ${item.meaning}?`;
     default:
       return [item.german ?? item.said, item.focus && item.said ? `«${item.focus}»` : undefined].filter(Boolean).join(" — ");
   }
