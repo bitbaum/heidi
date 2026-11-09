@@ -194,16 +194,17 @@
   --color-scrim: var(--primitive-black);
   /* Something went wrong — the one place flag red is the right message. */
   --color-danger: var(--primitive-red);
-  /* An answer, judged. Exercises used to show "right" in black — the same as
-     every button — and "wrong" in no colour at all, so a learner had to READ
-     the bar to know how they did. Green and red are the two colours everybody
-     already reads before the word; white on #12803f is 5.0:1, on the red 4.9:1. */
-  --color-correct: #12803f;
-  --color-correct-tint: #e7f5ec;
-  --color-on-correct: var(--primitive-white);
-  --color-incorrect: var(--primitive-red);
-  --color-incorrect-tint: #fdecec;
-  --color-on-incorrect: var(--primitive-white);
+  /* An answer, judged — in Heidi's own two colours, no third. Right is INK
+     (the action colour: solid black, white in dark); wrong is the flag red
+     the theme already reserves for "something went wrong". What tells them
+     apart from an unanswered button is the mark (✓ / ✕) and the fill, not a
+     green that belongs to no other screen. Aliases, so dark follows. */
+  --color-correct: var(--color-action);
+  --color-correct-tint: var(--color-surface-sunk);
+  --color-on-correct: var(--color-on-action);
+  --color-incorrect: var(--color-danger);
+  --color-incorrect-tint: var(--color-accent-tint);
+  --color-on-incorrect: var(--color-on-accent);
   /* A Swiss flag is white on red in every theme — deliberately not flipped
      in dark mode, unlike every other token here. */
   --color-flag: var(--primitive-red);
@@ -297,12 +298,6 @@
     --color-float: #202020;
     --color-on-float: var(--primitive-white);
     --color-danger: #ff5a5f;
-    --color-correct: #3ccf7a;
-    --color-correct-tint: #0f2a1a;
-    --color-on-correct: var(--primitive-black);
-    --color-incorrect: #ff5a5f;
-    --color-incorrect-tint: #2a1112;
-    --color-on-incorrect: var(--primitive-black);
   }
 }
 :root[data-theme="dark"] {
@@ -326,12 +321,6 @@
   --color-float: #202020;
   --color-on-float: var(--primitive-white);
   --color-danger: #ff5a5f;
-  --color-correct: #3ccf7a;
-  --color-correct-tint: #0f2a1a;
-  --color-on-correct: var(--primitive-black);
-  --color-incorrect: #ff5a5f;
-  --color-incorrect-tint: #2a1112;
-  --color-on-incorrect: var(--primitive-black);
 }
 
 /**

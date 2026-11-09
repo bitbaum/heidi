@@ -23,7 +23,7 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-11-09
 
-- Practice, rebuilt around the moment of answering. The option you tap turns green with a tick or red with a cross, the right one is outlined green, and the bar under the question says so in colour — it used to turn the right answer black whether or not you had picked it. A right answer moves on by itself after a beat («Warum?» holds it); a wrong one stays with its explanation. A phone gives a short pulse. «3 in Folge» appears when it is true.
+- Practice, rebuilt around the moment of answering. The option you tap fills with ink and a tick, or takes a red outline and a cross, with the right one then outlined in ink — in Heidi's own two colours. It used to fill the right answer black whether or not you had picked it. A right answer moves on by itself after a beat («Warum?» holds it); a wrong one stays with its explanation. A phone gives a short pulse. «3 in Folge» appears when it is true.
 - Not the same sitting twice: questions that tie on what the learner needs are ordered by a seeded draw instead of the alphabet, and options, word banks and matching columns are laid out afresh every time a question is shown. Due questions and weak areas still come first.
 - Two new kinds of question: «Satz bauen» — the Zurich words of a sentence you say, shuffled with one that does not belong, tapped into order and checked — and «Stimmt das?», a heard line with a meaning beside it, right or not, one tap.
 - A line is recognised before it is produced: until you recognise it reliably it comes as «Stimmt das?», the gist or a word's meaning; after that it comes back to be built or translated.

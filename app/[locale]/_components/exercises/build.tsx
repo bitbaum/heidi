@@ -168,8 +168,8 @@ export function VerifyView({ item, t, grammarT, situationsT, vocabularyT, learnT
 
   const tone = (yes: boolean) => {
     if (said === null) return "border-border-strong text-fg-primary hover:bg-surface-page";
-    if (yes === verify.correct) return yes === said ? "oc-pop border-correct bg-correct text-on-correct" : "border-correct bg-correct-tint text-fg-primary";
-    if (yes === said) return "oc-shake border-incorrect bg-incorrect text-on-incorrect";
+    if (yes === verify.correct) return yes === said ? "oc-pop border-correct bg-correct text-on-correct" : "border-correct bg-surface-page text-fg-primary";
+    if (yes === said) return "oc-shake border-incorrect bg-incorrect-tint text-incorrect";
     return "border-border-subtle text-fg-muted opacity-60";
   };
 

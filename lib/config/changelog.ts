@@ -45,7 +45,7 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
       tag: "feature",
       title: "Üben, neu gebaut: sofort sehen, ob es stimmt",
       summary:
-        "Die angetippte Antwort wird grün mit Häkchen oder rot mit Kreuz, die richtige grün umrandet, und die Leiste darunter sagt es in Farbe. Richtig geht es nach einem Moment von selbst weiter; falsch bleibt die Erklärung stehen.",
+        "Die angetippte Antwort füllt sich schwarz mit Häkchen oder bekommt einen roten Rahmen mit Kreuz, die richtige wird dann umrandet — in Heidis eigenen zwei Farben. Richtig geht es nach einem Moment von selbst weiter; falsch bleibt die Erklärung stehen.",
       items: [
         "Nie zweimal dieselbe Übung: Fragen, die gleich dringend sind, kommen in zufälliger Reihenfolge, und Antworten, Wortbanken und Zuordnungen stehen jedes Mal anders. Fälliges und Schwaches kommen weiterhin zuerst.",
         "Neu: «Satz bauen» — die Wörter eines Satzes, den Sie sagen, gemischt und mit einem, das nicht dazugehört — und «Stimmt das?», ein gehörter Satz mit einer Bedeutung daneben, mit einem Tippen beantwortet.",
@@ -729,7 +729,7 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
       tag: "feature",
       title: "Practice, rebuilt: see at once whether you were right",
       summary:
-        "The answer you tap turns green with a tick or red with a cross, the right one is outlined green, and the bar below says it in colour. Right moves on by itself after a beat; wrong stays with its explanation.",
+        "The answer you tap fills with ink and a tick, or takes a red outline and a cross, and the right one is then outlined — in Heidi's own two colours. Right moves on by itself after a beat; wrong stays with its explanation.",
       items: [
         "Never the same sitting twice: questions equally due come in a random order, and options, word banks and matching boards are laid out afresh each time. What is due and what is weak still come first.",
         "New: «Build the sentence» — the words of a sentence you say, shuffled with one that does not belong — and «True or not?», a heard line with a meaning beside it, answered in one tap.",

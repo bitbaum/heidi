@@ -23,7 +23,7 @@ export function SittingCelebration({ t, locale }: { t: Dictionary["streak"]; loc
 
   return (
     <div className="flex items-center gap-4">
-      <svg aria-hidden="true" viewBox="0 0 48 48" className="size-14 shrink-0 text-accent">
+      <svg aria-hidden="true" viewBox="0 0 48 48" className="size-14 shrink-0 text-fg-primary">
         <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" strokeWidth="3" className="oc-draw" pathLength={1} />
         <path d="M15 25 21.5 31.5 33.5 18" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" className="oc-draw oc-draw-late" pathLength={1} />
       </svg>
@@ -37,7 +37,7 @@ export function SittingCelebration({ t, locale }: { t: Dictionary["streak"]; loc
           {Array.from({ length: goal }, (_, i) => (
             <li
               key={i}
-              className={`h-2 w-7 rounded-sm ${i < days ? "bg-accent" : "bg-border-subtle"} ${i === days - 1 ? "oc-land" : ""}`}
+              className={`h-2 w-7 rounded-sm ${i < days ? "bg-fg-primary" : "bg-border-subtle"} ${i === days - 1 ? "oc-land" : ""}`}
             />
           ))}
         </ul>

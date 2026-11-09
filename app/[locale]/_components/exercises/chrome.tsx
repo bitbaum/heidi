@@ -136,8 +136,8 @@ function cheerFor(t: Dictionary["practice"], id: string): string {
 }
 
 /**
- * The verdict as a strip of colour with a mark in it: green with a tick, or
- * red with a cross. Seen before it is read — which is the whole job.
+ * The verdict as a strip with a mark in it: an ink tick, or a red cross on
+ * the theme's pale red. Seen before it is read — which is the whole job.
  */
 export function VerdictLine({ right, t, item }: { right: boolean; t: Dictionary["practice"]; item?: PracticeItem }) {
   const run = useContext(Momentum);
@@ -154,7 +154,7 @@ export function VerdictLine({ right, t, item }: { right: boolean; t: Dictionary[
           {right ? <path d="M5 12.5l4.5 4.5L19 7" /> : <path d="M6 6l12 12M18 6L6 18" />}
         </svg>
       </span>
-      <p className={`mb-0 text-lg font-semibold ${right ? "text-correct" : "text-incorrect"}`}>
+      <p className={`mb-0 text-lg font-semibold ${right ? "text-fg-primary" : "text-incorrect"}`}>
         {right ? cheerFor(t, item?.id ?? "") : t.wrong}
       </p>
       {right && run + 1 >= 3 && (
@@ -296,14 +296,15 @@ export function optionClass(index: number, chose: number | null, answer: number,
     return `${base} border-border-strong text-fg-primary hover:bg-surface-page active:scale-[0.98]`;
   }
   /*
-    The answer the learner TOUCHED carries the verdict: green if it was right,
-    red if not — and the right one is then outlined green so the eye goes
-    there next. It used to turn the right answer black whether or not they had
-    picked it, which looked identical to being right.
+    The answer the learner TOUCHED carries the verdict: filled with ink and a
+    tick if it was right; a red outline and a cross if not — and the right one
+    is then outlined in ink with its tick, so the eye goes there next. It used
+    to fill the right answer black whether or not they had picked it, which
+    looked identical to being right. Heidi's two colours only (globals.css).
   */
   if (index === answer && chose === answer) return `${base} oc-pop border-correct bg-correct text-on-correct`;
-  if (index === answer) return `${base} border-correct bg-correct-tint text-fg-primary`;
-  if (index === chose) return `${base} oc-shake border-incorrect bg-incorrect text-on-incorrect`;
+  if (index === answer) return `${base} border-correct bg-surface-page text-fg-primary`;
+  if (index === chose) return `${base} oc-shake border-incorrect bg-incorrect-tint text-incorrect`;
   return `${base} border-border-subtle text-fg-muted opacity-60`;
 }
 
