@@ -2,7 +2,10 @@
 
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
+import { useState } from "react";
 import type { PracticeItem } from "@/lib/domain/practice/types";
+import { presented } from "@/lib/domain/practice/present";
+import { seeded } from "@/lib/domain/practice/random";
 import { VIEWS } from "./registry";
 
 /**
@@ -43,6 +46,10 @@ export function QuestionCard({
   onRecall: (id: string, prompt: string, knew: boolean) => void;
 }) {
   const View = VIEWS[item.kind];
+  // A fresh layout each time this question is shown (`present.ts`): options,
+  // banks and matching columns move, so a returning question is answered by
+  // what it says, not where the answer sat last time.
+  const [shown] = useState(() => presented(item, seeded(Math.floor(Math.random() * 2 ** 32))));
 
   const ask =
     item.kind === "pair"
@@ -61,7 +68,7 @@ export function QuestionCard({
           revealed. */}
       <View
         key={item.id}
-        item={item}
+        item={shown}
         t={t}
         grammarT={grammarT} situationsT={situationsT} vocabularyT={vocabularyT} learnT={learnT}
         locale={locale}
