@@ -25,6 +25,7 @@ import { useSaved } from "./use-saved";
 import { useGrade } from "./use-review";
 import { recordPractice } from "./streak-store";
 import { readHistoryView, readMemoryView, readModelView, useHistoryView, useMemoryView } from "./sync-stores";
+import { SittingCelebration } from "./sitting-celebration";
 
 /**
  * A practice sitting, on the session screen (`session/frame.tsx`) — the first
@@ -68,6 +69,7 @@ export function PracticeSession({
   vocabularyT,
   learnT,
   sessionT,
+  streakT,
   closeHref,
   about,
   sessionKey,
@@ -90,6 +92,8 @@ export function PracticeSession({
   vocabularyT: Dictionary["vocabulary"];
   learnT: Dictionary["chat"]["learn"];
   sessionT: Dictionary["session"];
+  /** For the end of the sitting: the day just earned, and the week. */
+  streakT: Dictionary["streak"];
   /** Where closing the screen goes. */
   closeHref: string;
   /** What this sitting is, and its choices (`session/settings.tsx`). */
@@ -305,7 +309,7 @@ export function PracticeSession({
       scrollKey={item ? `${at}:${item.id}` : "done"}
     >
       {!item ? (
-        <Done t={t} sessionT={sessionT} outcomes={outcomes} session={session} locale={locale} closeHref={closeHref} onRestart={() => build(true)} />
+        <Done t={t} sessionT={sessionT} streakT={streakT} outcomes={outcomes} session={session} locale={locale} closeHref={closeHref} onRestart={() => build(true)} />
       ) : (
         <>
           {/* Said, not hidden. A question the learner already answered arriving
@@ -335,6 +339,7 @@ export function PracticeSession({
 function Done({
   t,
   sessionT,
+  streakT,
   outcomes,
   session,
   locale,
@@ -343,6 +348,7 @@ function Done({
 }: {
   t: Dictionary["practice"];
   sessionT: Dictionary["session"];
+  streakT: Dictionary["streak"];
   outcomes: SavedSession["outcomes"];
   /** The items just asked, so the misses can be named rather than counted. */
   session: readonly PracticeItem[];
@@ -379,6 +385,9 @@ function Done({
   return (
     <div className="mt-3 rounded-control border border-border-strong bg-surface-raised p-5 sm:p-6">
       <p className="font-heading text-2xl font-semibold leading-snug tracking-display text-fg-primary">{t.doneTitle}</p>
+      <div className="mt-4">
+        <SittingCelebration t={streakT} locale={locale} />
+      </div>
 
       <ul className="mt-4 flex flex-col gap-1 text-base text-fg-secondary">
         <li>

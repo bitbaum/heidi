@@ -11,6 +11,7 @@ import { Dashboard } from "./_components/dashboard";
 import { SwissScene } from "./_components/swiss-scene";
 import { WarmupInvite } from "./_components/warmup-invite";
 import { ProblemsSection } from "./_components/problems-section";
+import { WelcomeBack } from "./_components/welcome-back";
 import { auth, authEnabled } from "@/lib/auth";
 
 /**
@@ -93,6 +94,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <Shell>
+      {/* Somebody who has practised here before, signed out: their next step
+          before the introduction. Renders nothing on a first visit. */}
+      <WelcomeBack
+        locale={locale}
+        t={dict.mySituations}
+        streakT={dict.streak}
+        signUpHref={authEnabled ? href(locale, "sign-up") : null}
+      />
       {/* THE FOLD, in two columns: what Heidi is on the left, Heidi herself on
           the right — a small chat to try with a tap or a sentence, one press
           from full screen. The argument lives on /method, where a reader who
@@ -163,7 +172,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           recognises, each answered by a page that exists today. Before the
           three ways in, because "which way in" assumes you already know why
           you would come. See `problems-section.tsx`. */}
-      <ProblemsSection locale={locale} dict={dict} />
+      <ProblemsSection locale={locale} dict={dict} scales={["people"]} compact />
 
       {/* The three ways in, beside the cow — the picture moved here when the
           chat took the fold's second column, so the page keeps its Swiss face. */}
