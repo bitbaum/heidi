@@ -21,7 +21,7 @@
  * words, so "I had to wait again" does not summon it.
  */
 
-import { afterEveryMessage, runAiTurn, visibleMessages, whenMentioned, type Message, type Thread } from "threadkit";
+import { afterEveryMessage, runAiTurn, visibleMessages, whenMentioned, type Message, type Thread } from "@bitbaum/threadkit";
 import { ASSISTANT_NAME } from "../../config/site.ts";
 import type { ChatMessage } from "./types.ts";
 import { HEIDI_ID, LEARNER_ID } from "./types.ts";

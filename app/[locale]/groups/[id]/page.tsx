@@ -8,7 +8,7 @@ import { href } from "@/lib/i18n/routes";
 import { afterSignIn } from "@/lib/domain/preferences/language";
 import { dbConfigured } from "@/lib/db";
 import { groupById, membersOf, messagesIn } from "@/lib/domain/groups/store";
-import { visibleMessages } from "threadkit";
+import { visibleMessages } from "@bitbaum/threadkit";
 import { groupThread, mayInvite, mayPost } from "@/lib/domain/groups/rules";
 import { decodeAnswer } from "@/lib/domain/chat/answer";
 import type { ChatMessage } from "@/lib/domain/chat/types";
