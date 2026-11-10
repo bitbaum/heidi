@@ -174,7 +174,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
             </form>
           )}
         </div>
-        {authEnabled && <SyncSection t={dict.sync} signedIn={Boolean(session?.actorId)} />}
+        {authEnabled && <SyncSection t={dict.sync} signedIn={Boolean(session?.actorId)} canMail={Boolean(session?.user?.email)} />}
       </Section>
 
       <Section id="data" title={sections.data}>

@@ -18,9 +18,12 @@ import { turnSyncOn } from "../_components/sync-switch";
 export function SyncSection({
   t,
   signedIn,
+  canMail,
 }: {
   t: Dictionary["sync"];
   signedIn: boolean;
+  /** Whether Heidi has an address that can receive mail: not for a Google or GitHub sign-in. */
+  canMail: boolean;
 }) {
   const setting = useBrowserStore(syncSettingStore);
   const ready = useStorageReady();
@@ -109,7 +112,10 @@ export function SyncSection({
           </p>
         )}
       </div>
-      <ReminderSwitch t={t} syncOn={on} />
+      {/* Somebody who signed in with Google or GitHub through the shared sign-in
+          shares no address by design, so a reminder could never reach them: the
+          switch is not offered rather than offered and silent. */}
+      {canMail && <ReminderSwitch t={t} syncOn={on} />}
     </>
   );
 }
