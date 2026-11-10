@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { DISPLAY } from "@/lib/variety/display";
 import type { PracticeItem, QuestionItem, QuestionKind } from "@/lib/domain/practice/types";
 import type { ExerciseViewProps } from "./view";
-import { PROMPT_TEXT, Verdict, ignoreKey, optionClass, person } from "./chrome";
+import { OptionMark, PROMPT_TEXT, Verdict, ignoreKey, optionClass, person } from "./chrome";
 
 type ChoiceItem = Extract<PracticeItem, { kind: "pair" | "article" | "form" | "pick" | QuestionKind }>;
 
@@ -105,6 +105,7 @@ export function ChoiceView({ item, t, grammarT, situationsT, vocabularyT, learnT
                   {index + 1}
                 </span>
               )}
+              <OptionMark index={index} chose={chose} answer={choice.answer} />
               <span {...optionLang(choice)}>{option}</span>
             </button>
           </li>

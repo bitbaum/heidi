@@ -20,7 +20,9 @@ export function SignInToKeep({ locale, label }: { locale: Locale; label: string 
     <form
       action={async () => {
         "use server";
-        await signIn("orangecat", { redirectTo: afterSignIn(href(locale, "chat")) });
+        // `keep=1`: the person pressed "sign in to keep it", so the chat keeps it
+        // on arrival instead of asking a second time (workspace.tsx).
+        await signIn("orangecat", { redirectTo: afterSignIn(`${href(locale, "chat")}?keep=1`) });
       }}
     >
       <button type="submit" className="inline-flex min-h-11 items-center text-sm text-link underline underline-offset-4 hover:text-accent">

@@ -1,5 +1,6 @@
 "use client";
 
+import { modelLabel } from "@/lib/domain/chat/model-label";
 import type { Answer } from "@/lib/domain/chat/types";
 import Link from "next/link";
 import { moveKey, suggestionLabel } from "@/lib/domain/chat/moves";
@@ -182,9 +183,13 @@ export function AnswerView({
                     {g.standard}
                   </span>
                 )}
-                <span lang={readerLang} className="text-sm text-fg-secondary">
-                  {g.english}
-                </span>
+                {/* For a German reader the reader's-language gloss IS the
+                    German: «hüt Abig · heute Abend · heute Abend». Said once. */}
+                {g.english && g.english.trim().toLocaleLowerCase("de") !== g.standard?.trim().toLocaleLowerCase("de") && (
+                  <span lang={readerLang} className="text-sm text-fg-secondary">
+                    {g.english}
+                  </span>
+                )}
                 {g.rule && (
                   <span className="rounded-control bg-surface-sunk px-1.5 font-mono text-caption text-fg-muted">
                     {g.rule}
@@ -273,7 +278,7 @@ export function AnswerView({
 
       {/* Provenance. An answer with no model attached is a rumour. */}
       <p className="mt-3 border-t border-border-subtle pt-2 font-mono text-caption text-fg-muted">
-        {allClean ? t.checkedNote : t.checkedFlagged} · {a.model}
+        {allClean ? t.checkedNote : t.checkedFlagged} · {modelLabel(a.model)}
       </p>
     </>
   );

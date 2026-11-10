@@ -23,6 +23,10 @@ import { TodayPanel } from "./today-panel";
 import { WarmupInvite } from "./warmup-invite";
 import { ChannelsPanel } from "./channels-panel";
 import { recentVideosFor } from "@/lib/channels/store";
+import { MySituations } from "./my-situations";
+import { SyncOffer } from "./sync-offer";
+import { ProgressBy } from "./progress-by";
+import { situationDomains } from "./situation-domains";
 
 /**
  * The learner's own page, wherever it is rendered.
@@ -97,12 +101,18 @@ export async function Dashboard({ locale }: { locale: Locale }) {
         so no two of them can disagree about spacing again.
       */}
       <div className="flex flex-col gap-12 border-t border-border-subtle pt-8 pb-4 lg:pt-10">
-        <WarmupInvite t={dict.warmup} locale={locale} variant="card" />
+        {/* The one question that makes this theirs, then their next step. */}
+        <MySituations locale={locale} t={dict.mySituations} domains={situationDomains(locale)} />
+        {signedIn && <SyncOffer t={dict.sync} />}
+
+        <WarmupInvite t={dict.warmup} locale={locale} variant="line" />
 
         <TodayPanel t={dict.streak} locale={locale} askLabel={dict.chat.dock.open} dueQuestions={dict.practice.dueToday} />
 
         {/* Progress: each renders nothing until it has something true to say. */}
         <FocusPanel t={dict.practice} grammarT={dict.grammar} situationsT={dict.situations} locale={locale} />
+        {/* By skill and by distance from German; nothing until something is answered. */}
+        <ProgressBy t={dict.progressBy} />
         <SituationBoard scenes={scenes} askable={askableByScene} t={dict.situations} locale={locale} />
         <MasteredPanel t={dict.review} grammarT={dict.grammar} vocabularyT={dict.vocabulary} locale={locale} />
         <PatternsPanel t={dict.review} />
@@ -180,7 +190,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
                 {t.signInWith}
               </button>
             </form>
-            <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.whyBody}</p>
+            <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.whyBody} {t.whyShared}</p>
           </section>
         )}
       </div>

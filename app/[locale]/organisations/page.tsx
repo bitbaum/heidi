@@ -7,6 +7,7 @@ import { DATA_BOUNDARY, HOW_IT_STARTS, SECTORS, sectorLocale, type Sector, type 
 import { CONTACT_EMAIL } from "@/lib/config/site";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
+import { ProblemsSection } from "../_components/problems-section";
 import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -207,6 +208,11 @@ export default async function OrganisationsPage({
           was asking for it with nothing said about where it lands. Three
           steps, two of which cost nothing — see `HOW_IT_STARTS`.
         */}
+        {/* What it costs a society when people cannot follow — moved here
+            from the home page, where it came between a learner and the
+            exercises. This is the page that argues it. */}
+        <ProblemsSection locale={locale} dict={dict} scales={["society"]} />
+
         <section aria-labelledby="start" className="mt-14 border-t border-border-subtle pt-10">
           <h2
             id="start"

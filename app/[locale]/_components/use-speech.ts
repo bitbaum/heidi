@@ -70,6 +70,22 @@ function synth(): SynthLike | null {
 const detectSupport = () => synth() !== null;
 
 /**
+ * THE SERVER VOICE (`/api/speak`, `lib/voice/server-tts.ts`), for a device
+ * with no German voice of its own. Asked once per page load whether this
+ * deployment has one; the device's own voice is always tried first, because
+ * it is free and nothing leaves the device.
+ */
+let serverVoice: Promise<boolean> | null = null;
+function hasServerVoice(): Promise<boolean> {
+  if (typeof window === "undefined") return Promise.resolve(false);
+  serverVoice ??= fetch("/api/speak")
+    .then((r) => (r.ok ? r.json() : { available: false }))
+    .then((j: { available?: boolean }) => j.available === true)
+    .catch(() => false);
+  return serverVoice;
+}
+
+/**
  * Two ways for speech not to happen, and they are not the same thing.
  *
  * `no-voice` is known BEFORE trying: the engine has no German voice installed,
@@ -110,9 +126,23 @@ export type Speech = {
  * setting produces confident nonsense.
  */
 export function useSpeech(rate: number, allowAnyVoice = false): Speech {
-  const supported = useClientValue(detectSupport, false);
+  const deviceSupported = useClientValue(detectSupport, false);
   const [state, setState] = useState<SpeechState>("idle");
   const [voice, setVoice] = useState<VoiceLike | null>(null);
+  const [server, setServer] = useState(false);
+  const audio = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    let live = true;
+    void hasServerVoice().then((yes) => live && setServer(yes));
+    return () => {
+      live = false;
+    };
+  }, []);
+  const supported = deviceSupported || server;
+  // Which voice WILL speak: the device's German one, else the server's —
+  // which is a German voice too, and labelled as one.
+  const claim: VoiceClaim = voice ? claimFor(voice) : server ? "german" : "none";
 
   // The utterance currently in flight, so `stop` and unmount can silence it.
   // A ref rather than state: nothing renders from it, and it must not be a
@@ -144,11 +174,14 @@ export function useSpeech(rate: number, allowAnyVoice = false): Speech {
   useEffect(() => {
     return () => {
       if (speaking.current) synth()?.cancel();
+      audio.current?.pause();
     };
   }, []);
 
   const stop = useCallback(() => {
     synth()?.cancel();
+    audio.current?.pause();
+    audio.current = null;
     speaking.current = false;
     setState("idle");
   }, []);
@@ -157,7 +190,42 @@ export function useSpeech(rate: number, allowAnyVoice = false): Speech {
     (text: string) => {
       const s = synth();
       const body = text.trim();
-      if (!s || !body) return;
+      if (!body) return;
+
+      // No German voice here (or no synthesiser at all): the server reads it.
+      if ((!s || !voice) && server) {
+        s?.cancel();
+        audio.current?.pause();
+        speaking.current = true;
+        setState("speaking");
+        void fetch("/api/speak", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ text: body }),
+        })
+          .then(async (r) => {
+            if (!r.ok) throw new Error(String(r.status));
+            const url = URL.createObjectURL(await r.blob());
+            const player = new Audio(url);
+            player.playbackRate = clampRate(rate);
+            audio.current = player;
+            const done = (next: SpeechState) => () => {
+              URL.revokeObjectURL(url);
+              if (audio.current === player) audio.current = null;
+              speaking.current = false;
+              setState(next);
+            };
+            player.onended = done("idle");
+            player.onerror = done("failed");
+            await player.play();
+          })
+          .catch(() => {
+            speaking.current = false;
+            setState("no-voice");
+          });
+        return;
+      }
+      if (!s) return;
 
       // No German voice on this device means the engine will either say
       // nothing or say it with an English mouth. Both are worse than saying
@@ -217,8 +285,8 @@ export function useSpeech(rate: number, allowAnyVoice = false): Speech {
       setState("speaking");
       s.speak(utterance);
     },
-    [rate, voice, allowAnyVoice],
+    [rate, voice, allowAnyVoice, server],
   );
 
-  return { supported, state, claim: claimFor(voice), speak, stop };
+  return { supported, state, claim, speak, stop };
 }

@@ -8,6 +8,7 @@ import { PICK } from "./pick.ts";
 import { RECALL } from "./recall.ts";
 import { TRANSLATE } from "./translate.ts";
 import { CARD } from "./card.ts";
+import { BUILD, VERIFY } from "./build.ts";
 import { CLOCK_KIND, GIST_KIND, MEANING_KIND, REPLY_KIND, TRANSFORM_KIND } from "./question.ts";
 
 /**
@@ -33,11 +34,13 @@ export const KINDS: readonly ExerciseKind[] = [
   MEANING_KIND,
   TRANSFORM_KIND,
   CLOCK_KIND,
+  VERIFY,
   ARTICLE,
   FORM,
   MATCH,
   AUXILIARY,
   GAPTEXT,
+  BUILD,
   CLOZE,
   CARD,
   TRANSLATE,

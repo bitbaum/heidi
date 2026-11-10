@@ -40,6 +40,8 @@ describe("the learner model", () => {
     assert.deepEqual(areasOf(item), [
       { axis: "scenes", id: "handover" },
       { axis: "topics", id: "am-progressive" },
+      // …and what kind of thing it tests (`kinds/meta.ts`), for the report.
+      { axis: "skills", id: "words" },
     ]);
 
     const after = observe(EMPTY_MODEL, item, "wrong");
@@ -173,4 +175,32 @@ describe("a session built from a model", () => {
     assert.ok(pressureOf(model, topicItem("wo-relative")) > 0);
     assert.equal(pressureOf(model, topicItem("articles")), 0);
   });
+});
+
+test("the ladder: a new line is recognised first, a recognised one is produced", async () => {
+  const { ladderOf } = await import("./model.ts");
+  const source = { kind: "situation" as const, scene: "doctor", line: 1 };
+  const verify = { id: "verify:doctor:1", kind: "verify", source } as never;
+  const build = { id: "build:doctor:1", kind: "build", source } as never;
+  const fresh = { topics: {}, scenes: {}, groups: {}, words: {}, lines: {}, skills: {}, levels: {} };
+  assert.equal(ladderOf(fresh, verify), 0);
+  assert.equal(ladderOf(fresh, build), 1);
+  const known = { ...fresh, lines: { "doctor:1": { asked: 4, missed: 0 } } };
+  assert.equal(ladderOf(known, verify), 1);
+  assert.equal(ladderOf(known, build), 0);
+  const shaky = { ...fresh, lines: { "doctor:1": { asked: 4, missed: 2 } } };
+  assert.equal(ladderOf(shaky, build), 1, "missed half the time is not recognised yet");
+});
+
+test("an answer is counted by skill and by distance from German, and old records still load", async () => {
+  const { decodeModel } = await import("./model.ts");
+  const item = {
+    id: "form:x", kind: "form", source: { kind: "word", word: "nöd", group: "function", level: 3 },
+  } as unknown as PracticeItem;
+  const after = observe(EMPTY_MODEL, item, "wrong");
+  assert.deepEqual(after.skills.forms, { asked: 1, missed: 1 });
+  assert.deepEqual(after.levels["3"], { asked: 1, missed: 1 });
+  const old = decodeModel(JSON.stringify({ topics: {}, scenes: {}, groups: {}, words: {}, lines: {} }));
+  assert.deepEqual(old.skills, {});
+  assert.deepEqual(old.levels, {});
 });

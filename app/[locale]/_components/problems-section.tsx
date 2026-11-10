@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
-import { PROBLEM_SCALES, problemHref, problemLinkLabel } from "@/lib/config/problems";
+import { PROBLEM_SCALES, problemHref, problemLinkLabel, type ProblemScaleId } from "@/lib/config/problems";
 
 /**
  * "What Heidi solves", on the signed-out home page: one person's moments
@@ -20,7 +20,24 @@ import { PROBLEM_SCALES, problemHref, problemLinkLabel } from "@/lib/config/prob
  * for 320px. The cards are not links themselves: the problem and the answer
  * are text to read, and the one thing to press is the 44px row at the bottom.
  */
-export function ProblemsSection({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function ProblemsSection({
+  locale,
+  dict,
+  scales = PROBLEM_SCALES.map((s) => s.id),
+  compact = false,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+  /** Which scales to show. The home page shows a person's own; /organisations, society's. */
+  scales?: readonly ProblemScaleId[];
+  /**
+   * The moment and where to go, without the paragraph about it. On the home
+   * page the six solution paragraphs were most of a 4,700px section on a
+   * phone: an argument somebody had to read before reaching the next button.
+   * The page each card opens says the same thing, in place.
+   */
+  compact?: boolean;
+}) {
   const t = dict.home.problems;
 
   return (
@@ -28,9 +45,9 @@ export function ProblemsSection({ locale, dict }: { locale: Locale; dict: Dictio
       <h2 id="problems" className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
         {t.title}
       </h2>
-      <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.sub}</p>
+      {!compact && <p className="mt-3 max-w-measure text-base leading-relaxed text-fg-secondary sm:text-lg">{t.sub}</p>}
 
-      {PROBLEM_SCALES.map((scale) => {
+      {PROBLEM_SCALES.filter((scale) => scales.includes(scale.id)).map((scale) => {
         const words = t.scales[scale.id];
         const headingId = `problems-${scale.id}`;
         return (
@@ -50,7 +67,11 @@ export function ProblemsSection({ locale, dict }: { locale: Locale; dict: Dictio
                     <p className="font-heading text-lg font-semibold leading-snug tracking-display text-fg-primary">
                       {card.problem}
                     </p>
-                    <p className="mt-3 flex-1 text-base leading-relaxed text-fg-secondary">{card.solution}</p>
+                    {compact ? (
+                      <span className="flex-1" />
+                    ) : (
+                      <p className="mt-3 flex-1 text-base leading-relaxed text-fg-secondary">{card.solution}</p>
+                    )}
                     <Link
                       href={problemHref(locale, item.link)}
                       className="mt-4 inline-flex min-h-11 items-center self-start text-sm font-medium text-fg-primary underline underline-offset-4 wrap-anywhere hover:text-accent"

@@ -1645,12 +1645,31 @@ publisher's where the feed links one (`<podcast:transcript>`, SRT, WebVTT or
 the namespace's JSON); otherwise **Heidi listens to the opening minutes
 herself** with the bridge recogniser the speaking surface already uses (the
 first six megabytes of the enclosure by a Range request, once per episode,
-shared), labelled as automatic WITH how far it reaches, and only when the
-pack trusts a recogniser for the bridge and the register does not say the
-source is dialect: a recogniser translates dialect away, and a text that is
-not what was said is not a transcript (§8). A dialect podcast with no
-publisher transcript plays without questions, and the screen says exactly
-why.
+shared), labelled as automatic WITH how far it reaches, when the pack trusts
+a recogniser for the bridge.
+
+**On a dialect source that text is a RENDERING, and it is called one.** A
+recogniser translates dialect away, and a text that is not what was said is
+not a transcript (§8) — so it is never shown as one. Until 2026-11-09 that
+meant a dialect podcast played without questions. It now gets a Standard
+German rendering of what was meant (`transcript.source: "rendering"`), labelled
+above every line as «Auf Hochdeutsch, automatisch: … sinngemäss — nicht der
+Dialekt, wie er klingt», set as German (`lang="de"`), and the questions are
+written from it about CONTENT only. That is the job a rendering can do:
+comprehension questions test meaning, and meaning is exactly what survives
+translation. What it can never do is tell a learner which dialect form was
+used, and nothing reads one from it.
+
+Why this and not a dialect transcript, measured on 2026-11-09: no product or
+public model writes Zurich German speech in dialect spelling reliably — the
+one third-party benchmark found puts the best at about 46% of words right —
+while Whisper renders Swiss German into Standard German at about 23% WER,
+mostly rewordings rather than wrong meaning (Dolev et al. 2024, arXiv
+2404.19310). A dialect transcript a learner could trust would take a human
+writer; that stays the gold standard for the curated material Heidi records
+itself. A channel followed by its feed rather than the register's page is
+matched to the register by name on the publisher's domain
+(`lib/channels/spoken.ts`), so "dialect" is known however it was followed.
 
 **The thing that does not work from a server, said plainly.** YouTube answers
 a data-centre address with «sign in to confirm you are not a bot» for the
@@ -1867,6 +1886,37 @@ whether the organiser sees their standing per situation — never which lines or
 answers (`lib/domain/teams/overview.ts`). The default of §2 stands: without
 those switches, nothing about what a person cannot understand leaves their
 browser.
+
+**Built: deleting an account deletes the person.** The account page has «delete my
+account» (accountkit removes the login). Heidi's own tables are keyed by
+`actor_id` with no foreign key to it, so until 2026-11-10 that left a person's
+synced progress, reminder setting, language, conversations, group memberships,
+follows, push subscriptions and certificates behind, attached to nobody.
+`lib/domain/account/erase.ts` now removes them in one transaction, after the
+deletion succeeded (a wrong password erases nothing); a group the person made
+passes to its longest-standing member, and their messages in other people's
+groups stay for the others, no longer attributed to anybody. `ERASED` lists
+every table that holds a person, and `erase.test.ts` walks the schema and fails
+when a table with a person column is missing from it, so a new feature cannot
+forget.
+
+**Built: one reminder, opt-in, and quiet.** Off until the learner turns it on in
+the settings, and offered only with progress sync on, because the server can
+read what is due only from a device that syncs. It is one email in the evening
+(18:00 in the learner's own time zone, read from the browser when they switch
+it on), and `lib/mail/reminder-policy.ts` errs toward silence: a verified
+address only, never in the first day, at most every other day, never fewer than
+five questions due, never when they have already practised that day, and after
+three in a row that were not followed by practice, none until they come back
+on their own. The copy is worded as a good moment to take, never as something
+about to be lost (§3), and a test fails on the words that would say otherwise.
+The mail holds a count, the streak only from two days, and one real line from
+the pack that is due — never what the learner wrote or got wrong. Every one has
+the reason it arrived, a footer unsubscribe and the one-click header (RFC 8058)
+that Gmail and Yahoo require; the footer link opens a page with one button, so a
+link scanner cannot unsubscribe anybody by looking. The layout is the fleet's
+(`@bitbaum/mail-kit`, `renderMail`), the same one account mail now uses.
+Sent hourly from `/api/cron/reminders` by the box timer.
 
 **Built: the system knows what you keep getting wrong.** A learner model, in
 the browser, beside the kept words and for the same reason HEIDI.md gives for

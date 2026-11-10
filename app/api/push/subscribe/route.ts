@@ -2,6 +2,7 @@ import { requireActor } from "../../../../lib/domain/actor.ts";
 import { actorKey, pushWrite, tooMany } from "../../../../lib/domain/limits.ts";
 import { subscribe, subscriptionCount, unsubscribe } from "../../../../lib/channels/store.ts";
 import { DEFAULT_LOCALE, isLocale } from "../../../../lib/i18n/locales.ts";
+import { isPushService } from "../../../../lib/push/endpoint.ts";
 
 export const dynamic = "force-dynamic";
 
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
   const endpoint = endpointOf(body?.subscription?.endpoint);
   const p256dh = body?.subscription?.keys?.p256dh;
   const auth = body?.subscription?.keys?.auth;
-  if (!endpoint || typeof p256dh !== "string" || typeof auth !== "string" || !p256dh || !auth) {
+  if (!endpoint || !isPushService(endpoint) || typeof p256dh !== "string" || typeof auth !== "string" || !p256dh || !auth) {
     return Response.json({ error: "invalid" }, { status: 400 });
   }
   const locale = typeof body?.locale === "string" && isLocale(body.locale) ? body.locale : DEFAULT_LOCALE;

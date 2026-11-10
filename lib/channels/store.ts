@@ -48,6 +48,18 @@ export type VideoDetail = Video & {
 };
 
 /** The follow, creating the source row if nobody followed it before. */
+/**
+ * The newest items a feed may write, at most. A back catalogue of thousands
+ * (some podcasts publish every episode since 2005) is not something anybody
+ * scrolls, and one multi-row insert of ~6,000 went past Postgres's 65,535
+ * parameter limit: following that show failed, and so did every sweep after.
+ */
+export const MAX_ITEMS_PER_FEED = 200;
+
+function newest(items: readonly Item[]): Item[] {
+  return [...items].sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt) || 0).slice(0, MAX_ITEMS_PER_FEED);
+}
+
 export async function follow(actorId: string, source: Source, items: readonly Item[], spoken: Spoken | null): Promise<void> {
   await db.transaction(async (tx) => {
     await tx
@@ -68,7 +80,7 @@ export async function follow(actorId: string, source: Source, items: readonly It
     if (items.length > 0) {
       await tx
         .insert(channelVideos)
-        .values(items.map((v) => ({ ...rowOf(source.id, v), notifiedAt: new Date() })))
+        .values(newest(items).map((v) => ({ ...rowOf(source.id, v), notifiedAt: new Date() })))
         .onConflictDoNothing();
     }
     await tx.insert(channelFollows).values({ actorId, channelId: source.id }).onConflictDoNothing();
@@ -222,7 +234,7 @@ export async function recordVideos(channelId: string, items: readonly Item[], ch
     if (items.length === 0) return [];
     const inserted = await tx
       .insert(channelVideos)
-      .values(items.map((v) => rowOf(channelId, v)))
+      .values(newest(items).map((v) => rowOf(channelId, v)))
       .onConflictDoNothing()
       .returning({ id: channelVideos.id });
     return inserted.map((r) => r.id);

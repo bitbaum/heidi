@@ -30,16 +30,21 @@
  * two tiers: the whole product changed appearance by editing this file.
  */
 @theme {
-  /* Swiss International Style is grotesque type, not a serif. The stack is the
-     reader's own — no webfont fetch, so the first paint is the real design. */
+  /* Swiss International Style is grotesque type, not a serif — and now the
+     SAME grotesque on every device. The stack used to be the reader's own
+     ("Helvetica Neue" first), which only Apple ships: Windows drew Arial,
+     Android drew Roboto, and the design existed only on a Mac. Inter is the
+     open grotesque closest to it, self-hosted by @bitbaum/design-tokens
+     (app/fonts.ts, generated), with Cyrillic for the Russian site. */
   --font-heading:
-    "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system, "Segoe UI",
-    Arial, sans-serif;
+    var(--font-inter), "Helvetica Neue", Helvetica, system-ui, -apple-system,
+    "Segoe UI", Arial, sans-serif;
   --font-sans:
-    "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system, "Segoe UI",
-    Arial, sans-serif;
+    var(--font-inter), "Helvetica Neue", Helvetica, system-ui, -apple-system,
+    "Segoe UI", Arial, sans-serif;
   --font-mono:
-    ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
 
   /* Tight display tracking: grotesque headlines set close, the Swiss habit. */
   --tracking-display: -0.025em;
@@ -189,6 +194,17 @@
   --color-scrim: var(--primitive-black);
   /* Something went wrong — the one place flag red is the right message. */
   --color-danger: var(--primitive-red);
+  /* An answer, judged — in Heidi's own two colours, no third. Right is INK
+     (the action colour: solid black, white in dark); wrong is the flag red
+     the theme already reserves for "something went wrong". What tells them
+     apart from an unanswered button is the mark (✓ / ✕) and the fill, not a
+     green that belongs to no other screen. Aliases, so dark follows. */
+  --color-correct: var(--color-action);
+  --color-correct-tint: var(--color-surface-sunk);
+  --color-on-correct: var(--color-on-action);
+  --color-incorrect: var(--color-danger);
+  --color-incorrect-tint: var(--color-accent-tint);
+  --color-on-incorrect: var(--color-on-accent);
   /* A Swiss flag is white on red in every theme — deliberately not flipped
      in dark mode, unlike every other token here. */
   --color-flag: var(--primitive-red);
@@ -530,6 +546,18 @@ body:has([data-chrome="session"]) [data-dock="heidi"] [data-dock-launcher] {
   display: none;
 }
 
+/* The account forms (sign in, create an account, your account), on a phone
+   only. The pill sat on the form's own buttons — "email me a link" and
+   "forgot your password?" were under it at 390px — and signing in is the one
+   thing the person came to this page for. The chat stays a tap away in the
+   menu sheet, and the dock is back on the page they land on. Desktop keeps
+   the pill: it is in the corner, nowhere near a form 28rem wide. */
+@media (width < 40rem) {
+  body:has([data-chrome="account"]) [data-dock="heidi"] [data-dock-launcher] {
+    display: none;
+  }
+}
+
 body:has([data-chrome="session"]) #loki-feedback-host {
   display: none;
 }
@@ -638,4 +666,68 @@ body:has([data-focus="open"]) [data-dock="heidi"] {
 
 body:has([data-focus="open"]) #loki-feedback-host {
   display: none;
+}
+
+/*
+ * The end of a sitting (`sitting-celebration.tsx`): the check draws itself,
+ * then the day just earned lands in the week. Nothing moves for a reader who
+ * asked for less motion; the finished state is the resting state.
+ */
+@keyframes oc-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes oc-land {
+  0% { transform: scaleX(0); }
+  70% { transform: scaleX(1.15); }
+  100% { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .oc-draw {
+    stroke-dasharray: 1;
+    animation: oc-draw 520ms cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+  .oc-draw-late { animation-delay: 380ms; }
+  .oc-land {
+    transform-origin: left center;
+    animation: oc-land 420ms 700ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+}
+
+/*
+ * Answering (`exercises/chrome.tsx`). The right option pops, a wrong one
+ * shakes once, the verdict strip rises into the bar. With reduced motion
+ * nothing moves — the colour and the mark carry it alone. The countdown on
+ * "Weiter" is not decoration but a clock, so it runs either way.
+ */
+@keyframes oc-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+@keyframes oc-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(2px); }
+}
+@keyframes oc-rise {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes oc-countdown {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .oc-pop { animation: oc-pop 260ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .oc-shake { animation: oc-shake 360ms ease-in-out; }
+  .oc-verdict { animation: oc-rise 200ms ease-out; }
+}
+.oc-countdown {
+  transform-origin: left center;
+  animation-name: oc-countdown;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
 }

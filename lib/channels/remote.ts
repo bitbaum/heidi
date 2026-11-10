@@ -276,11 +276,16 @@ export type OpeningResult = { state: "ready"; transcript: Transcript } | { state
  * The first `OPENING_BYTES` of the enclosure, by a Range request — an MP3 is
  * a stream of frames and plays from any cut — sent once, kept for everyone
  * who follows the show, and labelled as automatic with how far it reaches.
- * The caller decides whether this is allowed at all (the pack's capability,
- * and never for a source the register says is dialect: the recogniser
- * translates dialect away, which is §8's whole objection).
+ * The caller decides whether this is allowed at all, and WHAT IT IS: on a
+ * source the register says is dialect, the recogniser translates the dialect
+ * away (§8), so the result is labelled a `rendering` — Standard German of
+ * what was meant — and never an `auto` transcript of what was said.
  */
-export async function transcribeOpening(mediaUrl: string, fetch: Fetch, options: { language: string; signal?: AbortSignal }): Promise<OpeningResult> {
+export async function transcribeOpening(
+  mediaUrl: string,
+  fetch: Fetch,
+  options: { language: string; signal?: AbortSignal; as?: "auto" | "rendering" },
+): Promise<OpeningResult> {
   if (!speechConfigured()) return { state: "unconfigured" };
   const res = await get(fetch, mediaUrl, { range: `bytes=0-${OPENING_BYTES - 1}`, "user-agent": BROWSER_HEADERS["user-agent"] }, 25_000);
   if (!res || !res.ok) return { state: "none" };
@@ -302,7 +307,7 @@ export async function transcribeOpening(mediaUrl: string, fetch: Fetch, options:
   const lines = result.words && result.words.length > 0 ? linesFromWords(result.words) : [];
   if (lines.length < 3) return { state: "none" };
   const coverageSeconds = Math.round(lines[lines.length - 1].end);
-  return { state: "ready", transcript: { lines, source: "auto", lang: options.language, coverageSeconds } };
+  return { state: "ready", transcript: { lines, source: options.as ?? "auto", lang: options.language, coverageSeconds } };
 }
 
 export type { Item, Source, SourceFeed };
