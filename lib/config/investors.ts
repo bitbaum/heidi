@@ -25,6 +25,8 @@
  */
 
 /** A figure a reader can verify themselves, and where. */
+import { DISPLAY } from "../variety/display.ts";
+
 export type Metric = {
   label: string;
   value: string;
@@ -43,7 +45,7 @@ export type Metric = {
  *
  * Dated, a stale figure is merely old. Undated, it is false.
  */
-export const METRICS_READ_ON = "1 October 2026";
+export const METRICS_READ_ON = "10 November 2026";
 
 /**
  * The advertised test-file count, as a number the build can check.
@@ -57,25 +59,27 @@ export const METRICS_READ_ON = "1 October 2026";
  * below, where a reference would hit the temporal dead zone — so the string
  * carried its own literal copy of the number, and "said once" was false.
  */
-export const ADVERTISED_TEST_FILES = 127;
+export const ADVERTISED_TEST_FILES = 149;
 
 /** Counts read from the repository, not estimated — each with how to check it. */
 export const METRICS: readonly Metric[] = [
   { label: "Live at", value: "heidi.orangecat.ch", verify: "Open it." },
   { label: "Built since", value: "10 September 2026", verify: "git log" },
-  { label: "Merged pull requests", value: "156", verify: "github.com/bitbaum/heidi/pulls" },
-  { label: "Automated tests", value: `1036 across ${ADVERTISED_TEST_FILES} files`, verify: "pnpm verify" },
+  { label: "Merged pull requests", value: "269", verify: "github.com/bitbaum/heidi/pulls" },
+  { label: "Automated tests", value: `1170 across ${ADVERTISED_TEST_FILES} files`, verify: "pnpm verify" },
   // The speech engine moved into its own open-source package, and its tests
   // went with it — counted there rather than quietly dropped from this page.
   {
     label: "Speech engine, open source",
-    value: "@bitbaum/speechkit — 94 tests",
+    value: "@bitbaum/speechkit — 11 test files",
     verify: "github.com/bitbaum/speechkit",
   },
   { label: "Interface languages", value: "7", verify: "The language switcher." },
-  { label: "Situations, with per-situation mastery", value: "19", verify: "/situations" },
-  { label: "Vocabulary entries", value: "261", verify: "/vocabulary" },
-  { label: "Practice questions", value: "2482", verify: "/practice" },
+  { label: "Situations, with per-situation mastery", value: "20", verify: "/situations" },
+  // Counted from the pack at build time: a typed-in number here read 261
+  // while the vocabulary page counted 262.
+  { label: "Vocabulary entries", value: String(DISPLAY.vocabulary.length), verify: "/vocabulary" },
+  { label: "Practice questions", value: "2545", verify: "/practice" },
   { label: "Dialect areas mapped", value: "11", verify: "/dialect" },
 ];
 
@@ -105,7 +109,7 @@ export const SECTIONS: readonly Section[] = [
       "A working assistant, in seven interface languages, that decodes a real message someone was sent, explains the words that blocked it, and writes a reply the reader can send — then offers, in one tap, what to learn from it next. It reaches every page, streams its answer, and can be stopped mid-sentence.",
       "A learning system built on situations: nineteen of them, from the tram and the Gemeinde to a care-home handover, each measured line by line, so a learner can say — and check — \"I understand Swiss German at the doctor's\". Practice in sixteen kinds of question on its own session screen, a test mode, an explanation after every answer, and spaced review that brings each question back before it is forgotten.",
       "What keeps people coming back: a daily streak and a weekly goal the learner sets, progress that follows them across devices, and a certificate per situation that anyone with the link can check.",
-      "Around it: a dialect atlas of eleven areas that also tells you where a message comes from, a grammar reference of twenty topics, a vocabulary of 261 entries ranked by how often each is heard and whether a German reader could guess it, and study groups.",
+      `Around it: a dialect atlas of ${DISPLAY.areas.length} areas that also tells you where a message comes from, a grammar reference of ${DISPLAY.grammar.length} topics, a vocabulary of ${DISPLAY.vocabulary.length} entries ranked by how often each is heard and whether a German reader could guess it, and study groups.`,
       "All of it is MIT-licensed and public. An investor can read every line, run the tests, and check every claim on this page without asking us for anything.",
     ],
     links: [
