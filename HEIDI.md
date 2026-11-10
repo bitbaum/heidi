@@ -1887,6 +1887,19 @@ answers (`lib/domain/teams/overview.ts`). The default of §2 stands: without
 those switches, nothing about what a person cannot understand leaves their
 browser.
 
+**Built: deleting an account deletes the person.** The account page has «delete my
+account» (accountkit removes the login). Heidi's own tables are keyed by
+`actor_id` with no foreign key to it, so until 2026-11-10 that left a person's
+synced progress, reminder setting, language, conversations, group memberships,
+follows, push subscriptions and certificates behind, attached to nobody.
+`lib/domain/account/erase.ts` now removes them in one transaction, after the
+deletion succeeded (a wrong password erases nothing); a group the person made
+passes to its longest-standing member, and their messages in other people's
+groups stay for the others, no longer attributed to anybody. `ERASED` lists
+every table that holds a person, and `erase.test.ts` walks the schema and fails
+when a table with a person column is missing from it, so a new feature cannot
+forget.
+
 **Built: one reminder, opt-in, and quiet.** Off until the learner turns it on in
 the settings, and offered only with progress sync on, because the server can
 read what is due only from a device that syncs. It is one email in the evening

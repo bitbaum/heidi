@@ -23,6 +23,9 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-11-10
 
+- Deleting an account now deletes the person. The login went, but a person's synced progress, reminder setting, language, conversations, group memberships, follows, push subscriptions and certificates stayed in the database. They are erased with the account (a wrong password erases nothing); a group they made passes to its longest-standing member, and their group messages stay for the others, unattributed. A test fails when a new table with a person column is not handled.
+- A mistyped or outdated link no longer lands on a bare English «404» with no way home. It answers in the language of the URL or the browser and has a button to the start.
+
 - Email, rebuilt on the fleet's one layout. The address check, the sign-in link and the password reset were plain text; they are now laid out (Heidi's red and mark, a heading, one button, the sign-in code to type elsewhere, why it arrived), with dark mode, in all the site's languages. The layout lives in `@bitbaum/mail-kit` 0.3.0 and is shared by every app.
 - An optional reminder by email, off until switched on (settings, with progress sync on): one mail in the evening, at most every other day, only from five due questions, never after practising that day, and none after three that went unanswered. It names the count and one real due line, says why it came, and unsubscribes in one tap, from the mail client's own button or the footer link. Worded as a good moment to practise, never as something about to be lost.
 - The privacy page lists the mail vendor and the reminder setting.

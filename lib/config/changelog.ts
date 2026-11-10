@@ -43,11 +43,13 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-11-10",
       tag: "improvement",
-      title: "E-Mails, neu gebaut — und eine Erinnerung, die Sie selbst einschalten",
+      title: "E-Mails, neu gebaut — Konto löschen löscht wirklich — und eine Erinnerung, die Sie selbst einschalten",
       summary:
         "Die Mails von Heidi — Adresse bestätigen, Anmeldelink, Passwort — sind gestaltet, mit Dunkelmodus und in Ihrer Sprache. Dazu gibt es eine Erinnerung, die aus ist, bis Sie sie einschalten: eine Mail am Abend, höchstens alle zwei Tage, erst ab fünf fälligen Fragen, und nach drei unbeantworteten keine mehr. Abmelden geht mit einem Tipp.",
       items: [
         "Nach der Anmeldung fragt Heidi einmal, ob Ihr Fortschritt auf jedes Gerät mitkommen soll.",
+        "Wer sein Konto löscht, löscht auch Fortschritt, Gespräche, Gruppen-Mitgliedschaften und Einstellungen — nicht nur den Zugang.",
+        "Ein falscher oder alter Link führt nicht mehr in eine leere «404», sondern in Ihrer Sprache zurück zum Start.",
         "Ihre Situationen kommen mit: ein zweites Gerät fragt nicht nochmals.",
         "Die Bestätigungs-E-Mail sagt, dass das Konto schon funktioniert und wozu die Bestätigung dient.",
         "Im Chat steht der Name des Modells, nicht seine technische Kennung.",
@@ -773,11 +775,13 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-11-10",
       tag: "improvement",
-      title: "Email, rebuilt — and a reminder you switch on yourself",
+      title: "Email, rebuilt — deleting an account really deletes — and a reminder you switch on yourself",
       summary:
         "Heidi's emails — confirming your address, the sign-in link, the password reset — are now designed, with dark mode and in your language. There is also a reminder that stays off until you switch it on: one email in the evening, at most every two days, only from five due questions, and none after three that go unanswered. Unsubscribing takes one tap.",
       items: [
         "After signing up, Heidi asks once whether your progress should come to every device.",
+        "Deleting your account now deletes your progress, conversations, group memberships and settings too — not only the login.",
+        "A wrong or old link no longer ends in a blank «404»: it answers in your language with a way back to the start.",
         "Your situations come along: a second device does not ask again.",
         "The confirmation email says the account already works and what confirming is for.",
         "The chat names the model, not its technical id.",
