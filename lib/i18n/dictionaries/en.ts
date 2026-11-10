@@ -688,6 +688,7 @@ export const en: Dictionary = {
       syncOthers: "Your progress from other devices",
       progressSync: "Synced progress (only when switched on)",
       certificates: "Your certificates",
+      passPayments: "Your pass and its invoices (with an account only, and only if you buy one)",
       focus: "My situations: the ones you chose to practise",
       mailPreferences: "Your reminder setting (on or off) and your time zone",
       mailDelivery: "Sending account mail and reminders: your address and the message",

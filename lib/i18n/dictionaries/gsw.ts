@@ -763,6 +763,7 @@ export const gsw: Dictionary = {
       syncOthers: "Ihre Fortschritt vo andere Grät",
       progressSync: "Abglichene Fortschritt (nur wänn iigschaltet)",
       certificates: "Ihri Nachwiis",
+      passPayments: "Ihre Pass und d Rächnige dezue (nur mit Konto, nur wänn Sie eine chaufed)",
       focus: "Mini Situatione: die, wo Si zum Üebe uusgläse händ",
       mailPreferences: "Ihri Erinnerigs-Iistellig (a oder us) und Ihri Zytzone",
       mailDelivery: "Dr Versand vo Konto-Mails und Erinnerige: Ihri Adrässe und d Nachricht",

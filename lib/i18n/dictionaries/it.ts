@@ -689,6 +689,7 @@ export const it: Dictionary = {
       syncOthers: "I suoi progressi da altri dispositivi",
       progressSync: "Progressi sincronizzati (solo se attivo)",
       certificates: "I suoi attestati",
+      passPayments: "Il Suo pass e le relative fatture (solo con un conto, e solo se ne compra uno)",
       focus: "Le mie situazioni: quelle che avete scelto di esercitare",
       mailPreferences: "La tua impostazione dei promemoria (attivi o no) e il tuo fuso orario",
       mailDelivery: "L’invio delle e-mail di account e dei promemoria: il tuo indirizzo e il messaggio",

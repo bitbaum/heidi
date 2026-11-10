@@ -751,6 +751,7 @@ export const de = {
       syncOthers: "Ihr Fortschritt von anderen Geräten",
       progressSync: "Abgeglichener Fortschritt (nur wenn eingeschaltet)",
       certificates: "Ihre Nachweise",
+      passPayments: "Ihr Pass und die Rechnungen dazu (nur mit Konto, nur wenn Sie einen kaufen)",
       focus: "Meine Situationen: welche Sie zum Üben gewählt haben",
       mailPreferences: "Ihre Erinnerungs-Einstellung (an oder aus) und Ihre Zeitzone",
       mailDelivery: "Der Versand von Konto-Mails und Erinnerungen: Ihre Adresse und die Nachricht",

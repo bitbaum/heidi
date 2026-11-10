@@ -705,6 +705,7 @@ export const rm: Dictionary = {
       syncOthers: "Voss progress d’auters apparats",
       progressSync: "Progress sincronisà (mo sch’activà)",
       certificates: "Voss attestats",
+      passPayments: "Voss pass ed ils quints latiers (mo cun in conto, e mo sche Vus cumprais in)",
       focus: "Mias situaziuns: quellas che Vus avais tschernì per exercitar",
       mailPreferences: "Vossa parametrisaziun da las regurdientschas (activa u betg) e voss fuso oraris",
       mailDelivery: "Il trametter dad e-mails dal conto e da regurdientschas: Vossa adressa ed il messadi",

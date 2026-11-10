@@ -689,6 +689,7 @@ export const fr: Dictionary = {
       syncOthers: "Vos progrès venant d’autres appareils",
       progressSync: "Progrès synchronisés (seulement si activé)",
       certificates: "Vos attestations",
+      passPayments: "Votre pass et ses factures (avec un compte seulement, et seulement si vous en achetez un)",
       focus: "Mes situations : celles que vous avez choisi de travailler",
       mailPreferences: "Votre réglage des rappels (activé ou non) et votre fuseau horaire",
       mailDelivery: "L’envoi des e-mails de compte et des rappels : votre adresse et le message",

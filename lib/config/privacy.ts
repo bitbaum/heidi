@@ -328,6 +328,18 @@ export const FLOWS: readonly Flow[] = [
     recipients: [],
   },
   {
+    // Only when the automatic pass is switched on and the person buys one:
+    // the invoice Heidi asked OrangeCat for, its amount and whether it was
+    // paid, and when the pass ends. No wallet, no payment detail: the money
+    // goes from the buyer's wallet to Heidi's through OrangeCat, which is
+    // told nothing about the Heidi account.
+    id: "passPayments",
+    place: "server",
+    where: "pay_checkouts · entitlements",
+    leavesDevice: true,
+    recipients: ["OrangeCat"],
+  },
+  {
     // Signed in only, and only when they pick a language (or sign in from a
     // page that is not German): the locale, under the account, so the next
     // device they sign in on starts from it.
