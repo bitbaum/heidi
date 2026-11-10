@@ -55,6 +55,7 @@ export const rm: Dictionary = {
     privacy: "Protecziun da datas",
     impressum: "Infurmaziuns legalas",
     investors: "Investiders",
+    pass: "Pajar Heidi",
     groupUse: "Duvrar",
     groupLearn: "Emprender",
     groupPractise: "Exercitar",
@@ -1100,6 +1101,16 @@ export const rm: Dictionary = {
       body: "Tscherni podcasts e chanals da YouTube che plaschan a Vus. Heidi guarda sche novs episodis cumparan, As infurmescha e fa dumondas davart quai ch’è vegnì ditg.",
       cta: "A Voss chanals",
     },
+  },
+
+  pass: {
+    title: "Pajar Heidi",
+    lead: "Vus pajais Heidi en Bitcoin, directamain sin OrangeCat. Ils daners van da Voss portafegl a Heidi; OrangeCat na tegna mai els.",
+    button: "Pajar en Bitcoin sin OrangeCat",
+    howTitle: "Co che quai funcziuna",
+    how: "Il buttun avra la pagina publica da Heidi tar OrangeCat. Là creais Vus ina dumonda da pajament en Bitcoin e pajais ella cun Voss agen portafegl. In conto na dovri betg.",
+    notYetTitle: "Quai che na va anc betg automaticamain",
+    notYet: "Suenter il pajament na vegn Voss pass anc betg activà automaticamain. Oz na vesa Heidi betg tge pajament che tutga tar tge conto.",
   },
 
   errors: {

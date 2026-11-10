@@ -1,4 +1,4 @@
-import type { ChangelogEntry } from "bip-kit";
+import type { ChangelogEntry } from "@bitbaum/bip-kit";
 import type { SectorLocale } from "./sectors.ts";
 
 // `CHANGELOG.md` at the repo root is the copy the fleet map

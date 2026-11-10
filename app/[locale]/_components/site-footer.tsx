@@ -198,7 +198,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
               reader looks for it and where it stops competing with anything a
               learner came for. The gate still does the gating.
             */}
-            {(["settings", "privacy", "impressum", "investors"] as const).map((key) => (
+            {(["pass", "settings", "privacy", "impressum", "investors"] as const).map((key) => (
               <Link
                 key={key}
                 href={href(locale, key)}

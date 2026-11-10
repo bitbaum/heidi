@@ -64,6 +64,7 @@ export const de = {
     privacy: "Datenschutz",
     impressum: "Impressum",
     investors: "Investoren",
+    pass: "Heidi bezahlen",
     groupUse: "Benutzen",
     groupLearn: "Lernen",
     groupPractise: "Üben",
@@ -1161,6 +1162,16 @@ export const de = {
       body: "Wählen Sie Podcasts und YouTube-Kanäle, die Sie mögen. Heidi schaut nach neuen Folgen, sagt Ihnen Bescheid und stellt Fragen zu dem, was gesagt wurde.",
       cta: "Zu Ihren Kanälen",
     },
+  },
+
+  pass: {
+    title: "Heidi bezahlen",
+    lead: "Sie bezahlen Heidi in Bitcoin, direkt auf OrangeCat. Das Geld geht von Ihrem Wallet an Heidi; OrangeCat hält es nie.",
+    button: "Auf OrangeCat in Bitcoin bezahlen",
+    howTitle: "So geht es",
+    how: "Der Knopf öffnet Heidis öffentliche Seite bei OrangeCat. Dort erstellen Sie eine Bitcoin-Zahlungsanfrage und bezahlen sie mit Ihrem eigenen Wallet. Ein Konto brauchen Sie dafür nicht.",
+    notYetTitle: "Was noch nicht automatisch geht",
+    notYet: "Nach der Zahlung wird Ihr Pass noch nicht automatisch freigeschaltet. Heidi sieht heute nicht, welche Zahlung zu welchem Konto gehört.",
   },
 
   errors: {
