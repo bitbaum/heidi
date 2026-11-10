@@ -21,6 +21,14 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-11-10
+
+- Signing up, used end to end. A new account was signed in at once and asked nothing about progress, so a person who made an account to keep their practice on phone and laptop had one that did not — the switch lived only in the settings. The signed-in home now asks once, «Ihren Fortschritt auf jedes Gerät mitnehmen?», with «Einschalten» and «Nur in diesem Browser» side by side; either answer is kept and it is not asked again. Sync stays off until somebody says so.
+- «Meine Situationen» now travels with synced progress: a second device takes the situations chosen on the first and does not ask again, and never overrides a choice made on it.
+- The confirmation email said it would «finish signing up» for an account that already worked; it now says the account works and what confirming is for — being reachable when a password is forgotten. Sign-in and sign-up promised a one-click OrangeCat sign-in on installations without it; that sentence now appears only beside the button.
+- The chat footer named the model as a route id («google/models/gemini-flash-latest»); it names it as a person reads it («Gemini Flash»). A kept word no longer repeats its German meaning twice for a German reader. Chat asks its models for their shortest hidden reasoning, so the first words arrive sooner.
+- Writing practice no longer pairs a typed word that matches one of the pack's words with a different one («für – nur»).
+
 ## 2026-11-09
 
 - Practice, used end to end and fixed where it read wrong. «Welches Wort fehlt?» showed no field and no options, which looked broken; it now says to give the answer aloud or in your head, then reveal. A word's «Warum?» used to say "remember it in a sentence" about every word; it now says how the word is reached — almost German (`Wätter`), by a sound rule named with the pack's example (`chaufe`: k → ch, as in Kind → Chind), or not at all. A match grid could be four words solved by their shape (`bringe, finde, frage, rede` — add an n); every grid now holds at least two words the German does not give away, and never one meaning twice. A built sentence checked wrong reads as one line with the misplaced words marked. Writing «nid» now says «nid» is understood, and that here one says «nöd» (the pack's own house form). The finish screen listed the German answer as the missed Zurich word («reden» for «rede»); it shows both. «1 kommen nochmals» counts in the reader's grammar.

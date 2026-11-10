@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import { useBrowserStore, useStorageReady } from "@/lib/browser/store";
 import { othersStore, syncSettingStore } from "../_components/sync-stores";
-import { savedStore } from "../_components/use-saved";
+import { turnSyncOn } from "../_components/sync-switch";
 
 /**
  * Progress on every device — the switch.
@@ -26,11 +26,7 @@ export function SyncSection({ t, signedIn }: { t: Dictionary["sync"]; signedIn: 
   const on = setting?.on === true;
 
   const turnOn = () => {
-    const device = setting?.device ?? crypto.randomUUID();
-    // A browser that already keeps words treats its own list as the newest,
-    // so switching sync on can never replace a list with an older one.
-    const hasSaved = (savedStore.read()?.words.length ?? 0) > 0;
-    syncSettingStore.write({ on: true, device, savedChangedAt: hasSaved ? new Date().toISOString() : null });
+    turnSyncOn();
     setState("idle");
   };
 

@@ -830,7 +830,8 @@ export const it: Dictionary = {
       "Acceda per salvare le conversazioni, portare i progressi su ogni dispositivo e ottenere attestati. Traduzione, esercizi e verifica del dialetto funzionano anche senza account.",
     whyTitle: "Il tuo account",
     whyBody:
-      "Un account Heidi richiede solo un indirizzo e-mail e una password, o una passkey — nessun vero nome e nessun altro prodotto. Se hai già OrangeCat, ti basta un clic per accedere.",
+      "Un account Heidi richiede solo un indirizzo e-mail e una password, o una passkey — nessun vero nome e nessun altro prodotto.",
+    whyShared: "Se hai già OrangeCat, ti basta un clic per accedere.",
     unavailable: "L'accesso non è ancora configurato su questa installazione.",
     errorTitle: "L'accesso non ha funzionato",
     errorBody: "Qualcosa è andato storto. Riprovate, oppure tornate all'inizio.",
@@ -1163,9 +1164,11 @@ export const it: Dictionary = {
 
   sync: {
     title: "I progressi su tutti i dispositivi",
-    body: "Esercizi, serie e parole salvate vengono allineati tra i suoi dispositivi con accesso. Disattivato, tutto resta solo in questo browser.",
+    body: "Esercizi, serie, parole salvate e situazioni scelte vengono allineati tra i suoi dispositivi con accesso. Disattivato, tutto resta solo in questo browser.",
     signInFirst: "Acceda per avere i suoi progressi su tutti i dispositivi.",
     turnOn: "Attivare",
+    offerTitle: "Portare i progressi su ogni dispositivo?",
+    offerKeepHere: "Solo in questo browser",
     turnOff: "Disattivare",
     on: "Attivo — questo browser si allinea con gli altri suoi dispositivi.",
     deleteAll: "Eliminare tutto ciò che è sincronizzato",

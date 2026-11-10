@@ -829,7 +829,8 @@ export const en: Dictionary = {
       "Sign in to save conversations, take your progress to every device and get certificates. Translating, practising and the dialect check work without an account.",
     whyTitle: "Your account",
     whyBody:
-      "A Heidi account needs only an email address and a password, or a passkey — no real name and no other product. If you already have OrangeCat, one click signs you in.",
+      "A Heidi account needs only an email address and a password, or a passkey — no real name and no other product.",
+    whyShared: "If you already have OrangeCat, one click signs you in.",
     unavailable: "Signing in is not configured on this deployment yet.",
     errorTitle: "Signing in did not work",
     errorBody: "Something went wrong. Try again, or go back to the start.",
@@ -1158,9 +1159,11 @@ export const en: Dictionary = {
 
   sync: {
     title: "Progress on every device",
-    body: "Your practice, your streak and your saved words are kept in step between your signed-in devices. Switched off, everything stays in this browser only.",
+    body: "Your practice, your streak, your saved words and your situations are kept in step between your signed-in devices. Switched off, everything stays in this browser only.",
     signInFirst: "Sign in to have your progress on every device.",
     turnOn: "Turn on",
+    offerTitle: "Take your progress to every device?",
+    offerKeepHere: "Only in this browser",
     turnOff: "Turn off",
     on: "On — this browser syncs with your other devices.",
     deleteAll: "Delete everything synced",

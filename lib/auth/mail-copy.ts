@@ -42,7 +42,7 @@ const COPY: Partial<Record<Locale, Copy>> = {
       reset: "{site}: Passwort zurücksetzen",
     },
     lead: {
-      verify: "Öffnen Sie diesen Link, um die Adresse zu bestätigen und die Anmeldung abzuschliessen:",
+      verify: "Ihr Konto funktioniert schon. Öffnen Sie diesen Link, um die Adresse zu bestätigen — dann erreicht Sie {site}, wenn Sie einmal Ihr Passwort vergessen:",
       magicLink: "Öffnen Sie diesen Link, um sich bei {site} anzumelden:",
       reset: "Öffnen Sie diesen Link, um ein neues Passwort festzulegen:",
     },
@@ -57,7 +57,7 @@ const COPY: Partial<Record<Locale, Copy>> = {
       reset: "{site} : réinitialiser le mot de passe",
     },
     lead: {
-      verify: "Ouvrez ce lien pour confirmer votre adresse et terminer la création du compte :",
+      verify: "Votre compte fonctionne déjà. Ouvrez ce lien pour confirmer votre adresse — ainsi {site} peut vous joindre si vous oubliez votre mot de passe :",
       magicLink: "Ouvrez ce lien pour vous connecter à {site} :",
       reset: "Ouvrez ce lien pour choisir un nouveau mot de passe :",
     },
@@ -72,7 +72,7 @@ const COPY: Partial<Record<Locale, Copy>> = {
       reset: "{site}: reimposta password",
     },
     lead: {
-      verify: "Apri questo link per confermare l'indirizzo e completare la creazione dell'account:",
+      verify: "Il tuo account funziona già. Apri questo link per confermare l'indirizzo — così {site} ti raggiunge se dimentichi la password:",
       magicLink: "Apri questo link per accedere a {site}:",
       reset: "Apri questo link per scegliere una nuova password:",
     },
@@ -87,7 +87,7 @@ const COPY: Partial<Record<Locale, Copy>> = {
       reset: "{site}: Redefinir il pled-clav",
     },
     lead: {
-      verify: "Avri questa colliaziun per confermar l'adressa e terminar il conto:",
+      verify: "Voss conto funcziuna gia. Avri questa colliaziun per confermar l'adressa — uschia As cuntanscha {site}, sche Vus emblidais Voss pled-clav:",
       magicLink: "Avri questa colliaziun per s'annunziar tar {site}:",
       reset: "Avri questa colliaziun per redefinir il pled-clav:",
     },
@@ -102,7 +102,7 @@ const COPY: Partial<Record<Locale, Copy>> = {
       reset: "Reset your {site} password",
     },
     lead: {
-      verify: "Open this link to confirm your address and finish creating your account:",
+      verify: "Your account already works. Open this link to confirm your address — then {site} can reach you if you ever forget your password:",
       magicLink: "Open this link to sign in to {site}:",
       reset: "Open this link to choose a new password:",
     },
@@ -117,7 +117,7 @@ const COPY: Partial<Record<Locale, Copy>> = {
       reset: "{site}: сброс пароля",
     },
     lead: {
-      verify: "Откройте эту ссылку, чтобы подтвердить адрес и завершить создание аккаунта:",
+      verify: "Ваш аккаунт уже работает. Откройте эту ссылку, чтобы подтвердить адрес, — тогда {site} сможет связаться с вами, если вы забудете пароль:",
       magicLink: "Откройте эту ссылку, чтобы войти в {site}:",
       reset: "Откройте эту ссылку, чтобы задать новый пароль:",
     },

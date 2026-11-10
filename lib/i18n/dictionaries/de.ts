@@ -907,7 +907,8 @@ export const de = {
       "Melden Sie sich an, um Gespräche zu speichern, Ihren Fortschritt auf jedes Gerät mitzunehmen und Nachweise zu holen. Übersetzen, Üben und die Dialektprüfung gehen auch ohne Konto.",
     whyTitle: "Ihr Konto",
     whyBody:
-      "Ein Konto bei Heidi braucht nur eine E-Mail-Adresse und ein Passwort oder einen Passkey — keinen echten Namen und kein anderes Produkt. Wer schon ein OrangeCat-Konto hat, meldet sich mit einem Klick an.",
+      "Ein Konto bei Heidi braucht nur eine E-Mail-Adresse und ein Passwort oder einen Passkey — keinen echten Namen und kein anderes Produkt.",
+    whyShared: "Wer schon ein OrangeCat-Konto hat, meldet sich mit einem Klick an.",
     unavailable: "Die Anmeldung ist auf dieser Installation noch nicht eingerichtet.",
     errorTitle: "Die Anmeldung hat nicht geklappt",
     errorBody: "Da ist etwas schiefgelaufen. Versuchen Sie es nochmals, oder gehen Sie zurück zum Start.",
@@ -1271,9 +1272,11 @@ export const de = {
    */
   sync: {
     title: "Fortschritt auf allen Geräten",
-    body: "Ihre Übungen, Ihre Serie und Ihre gemerkten Wörter werden zwischen Ihren angemeldeten Geräten abgeglichen. Ausgeschaltet bleibt alles nur in diesem Browser.",
+    body: "Ihre Übungen, Ihre Serie, Ihre gemerkten Wörter und Ihre Situationen werden zwischen Ihren angemeldeten Geräten abgeglichen. Ausgeschaltet bleibt alles nur in diesem Browser.",
     signInFirst: "Melden Sie sich an, um Ihren Fortschritt auf allen Geräten zu haben.",
     turnOn: "Einschalten",
+    offerTitle: "Ihren Fortschritt auf jedes Gerät mitnehmen?",
+    offerKeepHere: "Nur in diesem Browser",
     turnOff: "Ausschalten",
     on: "Eingeschaltet — dieser Browser gleicht mit Ihren anderen Geräten ab.",
     deleteAll: "Alles Abgeglichene löschen",

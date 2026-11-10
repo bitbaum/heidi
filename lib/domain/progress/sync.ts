@@ -28,10 +28,14 @@ import { EMPTY_STREAK, type Streak } from "./streak.ts";
  *             must stay removed — so the newest list is adopted as this
  *             device's own (`newestSaved`), rather than unioned into a list
  *             that would bring deleted words back.
+ *   focus     NOT combined either: «Meine Situationen» is a choice, not a
+ *             count. A device that has not chosen adopts the newest choice
+ *             from another; a device that has chosen keeps its own, so a
+ *             second phone never asks again and never overrides the first.
  */
 
-export type SyncKey = "model" | "history" | "memory" | "streak" | "saved";
-export const SYNC_KEYS: readonly SyncKey[] = ["model", "history", "memory", "streak", "saved"];
+export type SyncKey = "model" | "history" | "memory" | "streak" | "saved" | "focus";
+export const SYNC_KEYS: readonly SyncKey[] = ["model", "history", "memory", "streak", "saved", "focus"];
 
 function addTraces(a: Record<string, Trace>, b: Record<string, Trace>): Record<string, Trace> {
   const out: Record<string, Trace> = { ...a };

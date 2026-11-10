@@ -846,7 +846,8 @@ export const rm: Dictionary = {
       "Annunziai Vus per memorisar conversaziuns, prender Voss progress sin mintga apparat e retschaiver attestats. La translaziun, ils exercizis e la controlla dal dialect funcziunan er senza conto.",
     whyTitle: "Voss conto",
     whyBody:
-      "In conto tar Heidi dovra mo ina adressa d'e-mail ed in pled-clav u ina passkey — nagin num vair e nagin auter product. Tgi che ha gia in conto OrangeCat, s'annunzia cun in clic.",
+      "In conto tar Heidi dovra mo ina adressa d'e-mail ed in pled-clav u ina passkey — nagin num vair e nagin auter product.",
+    whyShared: "Tgi che ha gia in conto OrangeCat, s'annunzia cun in clic.",
     unavailable: "L'annunzia n'è anc betg configurada sin questa installaziun.",
     errorTitle: "L'annunzia n'ha betg funcziunà",
     errorBody: "Insatge è ì mal. Empruvai danovamain, u turnai al cumenzament.",
@@ -1179,9 +1180,11 @@ export const rm: Dictionary = {
 
   sync: {
     title: "Il progress sin tut ils apparats",
-    body: "Voss exercizis, vossa seria e voss pleds memorisads vegnan sincronisads tranter voss apparats annunziads. Deactivà resta tut mo en quest navigatur.",
+    body: "Voss exercizis, vossa seria, voss pleds memorisads e vossas situaziuns vegnan sincronisads tranter voss apparats annunziads. Deactivà resta tut mo en quest navigatur.",
     signInFirst: "S’annunziai per avair voss progress sin tut ils apparats.",
     turnOn: "Activar",
+    offerTitle: "Prender Voss progress sin mintga apparat?",
+    offerKeepHere: "Mo en quest browser",
     turnOff: "Deactivar",
     on: "Activà — quest navigatur sincronisescha cun voss auters apparats.",
     deleteAll: "Stizzar tut quai ch’è sincronisà",

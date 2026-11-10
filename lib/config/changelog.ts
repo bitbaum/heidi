@@ -41,6 +41,18 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-11-10",
+      tag: "improvement",
+      title: "Konto: Ihr Fortschritt reist mit — wenn Sie wollen",
+      summary:
+        "Nach der Anmeldung fragt Heidi einmal, ob Ihr Fortschritt auf jedes Gerät mitkommen soll. Bisher lag der Schalter nur in den Einstellungen, und ein neues Konto glich nichts ab, ohne es zu sagen.",
+      items: [
+        "Ihre Situationen kommen mit: ein zweites Gerät fragt nicht nochmals.",
+        "Die Bestätigungs-E-Mail sagt, dass das Konto schon funktioniert und wozu die Bestätigung dient.",
+        "Im Chat steht der Name des Modells, nicht seine technische Kennung.",
+      ],
+    },
+    {
       date: "2026-11-09",
       tag: "improvement",
       title: "Üben, selbst durchgespielt — und wo es hakte, verbessert",
@@ -757,6 +769,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-11-10",
+      tag: "improvement",
+      title: "Accounts: your progress travels — if you want it to",
+      summary:
+        "After signing up, Heidi asks once whether your progress should come to every device. The switch used to live only in the settings, and a new account synced nothing without saying so.",
+      items: [
+        "Your situations come along: a second device does not ask again.",
+        "The confirmation email says the account already works and what confirming is for.",
+        "The chat names the model, not its technical id.",
+      ],
+    },
     {
       date: "2026-11-09",
       tag: "improvement",

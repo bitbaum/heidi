@@ -6,6 +6,7 @@ import { decodeHistory } from "../../../lib/domain/practice/history.ts";
 import { decodeMemory } from "../../../lib/domain/practice/memory.ts";
 import { decodeStreak } from "../../../lib/domain/progress/streak.ts";
 import { decode as decodeSaved } from "../../../lib/domain/saved/collection.ts";
+import { decodeFocus } from "../../../lib/domain/practice/focus.ts";
 import { callerKey, progressSync, tooMany } from "../../../lib/domain/limits.ts";
 
 // Relative `.ts` imports, not the `@/*` alias: node's test runner exercises
@@ -30,6 +31,7 @@ const DECODE: Record<SyncKey, (raw: string) => unknown> = {
   memory: decodeMemory,
   streak: decodeStreak,
   saved: decodeSaved,
+  focus: decodeFocus,
 };
 
 function deviceOf(request: Request): string | null {

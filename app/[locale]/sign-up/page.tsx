@@ -32,14 +32,16 @@ export default async function SignUpPage({ params, searchParams }: Props) {
   if (await getSession()) redirect(next);
   const dict = getDictionary(locale);
   const labels = authLabels(locale);
+  // The OrangeCat sentence promises a button; it is said only where the button is.
+  const methods = signInMethods(process.env, mailConfigured());
   return (
     <Shell>
-      <PageHeader title={labels.createAccount} lead={dict.auth.whyBody} />
+      <PageHeader title={labels.createAccount} lead={methods.signin ? `${dict.auth.whyBody} ${dict.auth.whyShared}` : dict.auth.whyBody} />
       <div className="max-w-md py-10 sm:py-14">
         {authStatus().ready ? (
           <HeidiSignUp
             labels={labels}
-            methods={signInMethods(process.env, mailConfigured())}
+            methods={methods}
             next={next}
             signUpPath={href(locale, "sign-up")}
             signInPath={`${href(locale, "sign-in")}?next=${encodeURIComponent(next)}`}

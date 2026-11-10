@@ -830,7 +830,8 @@ export const fr: Dictionary = {
       "Connectez-vous pour enregistrer vos conversations, retrouver vos progrès sur tous vos appareils et obtenir des attestations. La traduction, les exercices et la vérification du dialecte fonctionnent sans compte.",
     whyTitle: "Votre compte",
     whyBody:
-      "Un compte Heidi ne demande qu'une adresse e-mail et un mot de passe, ou une clé d'accès — ni vrai nom, ni autre produit. Si vous avez déjà OrangeCat, un clic suffit pour vous connecter.",
+      "Un compte Heidi ne demande qu'une adresse e-mail et un mot de passe, ou une clé d'accès — ni vrai nom, ni autre produit.",
+    whyShared: "Si vous avez déjà OrangeCat, un clic suffit pour vous connecter.",
     unavailable: "La connexion n'est pas encore configurée sur cette installation.",
     errorTitle: "La connexion n'a pas fonctionné",
     errorBody: "Quelque chose s'est mal passé. Réessayez, ou revenez à l'accueil.",
@@ -1163,9 +1164,11 @@ export const fr: Dictionary = {
 
   sync: {
     title: "Vos progrès sur tous vos appareils",
-    body: "Vos exercices, votre série et vos mots gardés sont synchronisés entre vos appareils connectés. Désactivé, tout reste uniquement dans ce navigateur.",
+    body: "Vos exercices, votre série, vos mots gardés et vos situations sont synchronisés entre vos appareils connectés. Désactivé, tout reste uniquement dans ce navigateur.",
     signInFirst: "Connectez-vous pour retrouver vos progrès sur tous vos appareils.",
     turnOn: "Activer",
+    offerTitle: "Emporter vos progrès sur tous vos appareils ?",
+    offerKeepHere: "Seulement dans ce navigateur",
     turnOff: "Désactiver",
     on: "Activé — ce navigateur se synchronise avec vos autres appareils.",
     deleteAll: "Supprimer tout ce qui est synchronisé",

@@ -269,6 +269,11 @@ export async function respondInThread(args: {
           temperature,
           maxTokens,
           timeoutMs: TIMEOUT_MS,
+          // The first live answer took ~15 s, and a reasoning link streams
+          // nothing visible while it thinks. ai-kit measured the shortest
+          // setting at ~200 ms to first content against ~650 ms; what quality
+          // that costs, the variety gate below still catches and retries.
+          reasoning: "light" as const,
           signal: args.signal,
           messages: [
             { role: "system" as const, content: system },

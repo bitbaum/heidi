@@ -24,6 +24,7 @@ import { WarmupInvite } from "./warmup-invite";
 import { ChannelsPanel } from "./channels-panel";
 import { recentVideosFor } from "@/lib/channels/store";
 import { MySituations } from "./my-situations";
+import { SyncOffer } from "./sync-offer";
 import { ProgressBy } from "./progress-by";
 import { situationDomains } from "./situation-domains";
 
@@ -102,6 +103,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
       <div className="flex flex-col gap-12 border-t border-border-subtle pt-8 pb-4 lg:pt-10">
         {/* The one question that makes this theirs, then their next step. */}
         <MySituations locale={locale} t={dict.mySituations} domains={situationDomains(locale)} />
+        {signedIn && <SyncOffer t={dict.sync} />}
 
         <WarmupInvite t={dict.warmup} locale={locale} variant="line" />
 
@@ -188,7 +190,7 @@ export async function Dashboard({ locale }: { locale: Locale }) {
                 {t.signInWith}
               </button>
             </form>
-            <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.whyBody}</p>
+            <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.whyBody} {t.whyShared}</p>
           </section>
         )}
       </div>

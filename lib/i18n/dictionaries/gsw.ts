@@ -468,7 +468,8 @@ export const gsw: Dictionary = {
       "Mälded Si sich a, zum Gspräch spichere, Ihre Fortschritt uf jedes Grät mitnää und Nachwiis hole. Übersetze, Üebe und d Dialektprüefig gönd au ohni Konto.",
     whyTitle: "Dis Konto",
     whyBody:
-      "Es Konto bi de Heidi bruucht nume e E-Mail-Adrässe und es Passwort oder en Passkey — kei richtige Name und kes anders Produkt. Wär scho es OrangeCat-Konto hät, meldet sich mit eim Klick aa.",
+      "Es Konto bi de Heidi bruucht nume e E-Mail-Adrässe und es Passwort oder en Passkey — kei richtige Name und kes anders Produkt.",
+    whyShared: "Wär scho es OrangeCat-Konto hät, meldet sich mit eim Klick aa.",
     unavailable: "D Aamäldig isch uf dere Installation na nöd iigrichtet.",
     errorTitle: "D Aamäldig hät nöd klappet",
     errorBody: "Do isch öppis schief gange. Probiered Si s nomal, oder gönd Si zrugg zum Afang.",
@@ -1183,9 +1184,11 @@ export const gsw: Dictionary = {
 
   sync: {
     title: "Fortschritt uf allne Grät",
-    body: "Ihri Üebige, Ihri Serie und Ihri gmerkte Wörter werded zwüsche Ihrne aagmäldete Grät abgliche. Uusgschaltet bliibt alles nur i dem Browser.",
+    body: "Ihri Üebige, Ihri Serie, Ihri gmerkte Wörter und Ihri Situatione werded zwüsche Ihrne aagmäldete Grät abgliche. Uusgschaltet bliibt alles nur i dem Browser.",
     signInFirst: "Mälded Sie sich aa, dänn händ Sie Ihre Fortschritt uf allne Grät.",
     turnOn: "Iischalte",
+    offerTitle: "Ihre Fortschritt uf jedes Grät mitnää?",
+    offerKeepHere: "Nur i dem Browser",
     turnOff: "Uusschalte",
     on: "Iigschaltet — dä Browser glicht mit Ihrne andere Grät ab.",
     deleteAll: "Alles Abglicheni lösche",

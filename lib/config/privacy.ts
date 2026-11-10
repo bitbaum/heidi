@@ -155,7 +155,8 @@ export const FLOWS: readonly Flow[] = [
   },
   {
     // "Meine Situationen": which situations this learner chose to practise.
-    // Read only by this browser, to decide what "practise" draws from.
+    // Read by this browser, to decide what "practise" draws from; with sync
+    // switched on it travels inside `progressSync` like the saved words.
     id: "focus",
     place: "device",
     where: "localStorage · heidi.focus.v1",
@@ -215,7 +216,7 @@ export const FLOWS: readonly Flow[] = [
   },
   {
     // Only when switched on: this device's practice record, seen questions,
-    // question schedule, streak and saved words, under the account. Off deletes this device's
+    // question schedule, streak, saved words and chosen situations, under the account. Off deletes this device's
     // copy; "delete everything synced" deletes all of it.
     id: "progressSync",
     place: "server",

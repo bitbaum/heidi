@@ -65,15 +65,27 @@ export function compareWords(typed: string, target: string): WordComparison {
   const keys = mine.map(spellingKey);
   const folded = mine.map(fold);
   const out: WordComparison = { missing: [], differs: [] };
+  const words = target.match(WORD) ?? [];
+  // A typed word that IS one of the pack's words is spoken for. Without this,
+  // «Das Billett gilt nid für drü Zone» against «… gilt nur für zwei Zone»
+  // offered «für – nur»: the «für» that matched «für» was reused as the near
+  // partner of «nur», and the learner was shown a difference that is not one.
+  const targetKeys = new Set(words.map(spellingKey));
+  const claimed = new Set<number>();
   const seen = new Set<string>();
-  for (const word of target.match(WORD) ?? []) {
+  for (const word of words) {
     const f = fold(word);
     if (f.length < 2 || seen.has(f)) continue;
     seen.add(f);
     if (keys.includes(spellingKey(word))) continue;
-    const near = folded.findIndex((m) => distance(m, f) <= tolerance(f));
+    const near = folded.findIndex(
+      (m, i) => !claimed.has(i) && !targetKeys.has(keys[i]) && distance(m, f) <= tolerance(f),
+    );
     if (near < 0) out.missing.push(word);
-    else out.differs.push([mine[near], word]);
+    else {
+      claimed.add(near);
+      out.differs.push([mine[near], word]);
+    }
   }
   return out;
 }
