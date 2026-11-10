@@ -1,4 +1,5 @@
 import { isMailConfigured, listUnsubscribeHeaders, sendMail } from "@bitbaum/mail-kit";
+import { sender } from "../auth/sender.ts";
 import { SITE_URL } from "../config/site.ts";
 import { href } from "../i18n/routes.ts";
 import { decideReminder } from "./reminder-policy.ts";
@@ -60,9 +61,15 @@ export async function sweepReminders(now = new Date()): Promise<SweepReport> {
         unsubscribeUrl: `${SITE_URL}${href(person.locale, "unsubscribe")}?t=${encodeURIComponent(token)}`,
         settingsUrl: `${SITE_URL}${href(person.locale, "settings")}#reminders`,
       });
+      const ownFrom = sender.from();
       const result = await sendMail(
         { to: person.email, subject: mail.subject, html: mail.html, text: mail.text, headers: listUnsubscribeHeaders(oneClickUrl(token)) },
-        { idempotencyKey: `reminder:${person.actorId}:${now.toISOString().slice(0, 13)}` },
+        {
+          idempotencyKey: `reminder:${person.actorId}:${now.toISOString().slice(0, 13)}`,
+          // The same From line as account mail: Heidi's own domain once it is
+          // verified for this deployment (`lib/auth/sender.ts`).
+          ...(ownFrom ? { env: { ...process.env, RESEND_FROM: ownFrom } } : {}),
+        },
       );
       if (!result.sent) {
         report.failed++;
