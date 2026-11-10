@@ -14,11 +14,12 @@ import { VoiceSection } from "./voice-section";
 import { ThemeControl } from "../_components/theme-control";
 import { LanguageLink } from "../_components/language-link";
 import { PushCard } from "../_components/push-card";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.settings.title, robots: { index: false, follow: false } };
+  return pageMetadata(raw, "settings", { title: dict.settings.title, noindex: true });
 }
 
 /**

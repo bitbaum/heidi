@@ -8,13 +8,14 @@ import { dbConfigured } from "@/lib/db";
 import { looksLikeToken } from "@/lib/domain/groups/invite";
 import { PageHeader, Section, Shell } from "../../_components/page-shell";
 import { JoinButton } from "../../_components/join-button";
+import { pageMetadata } from "@/lib/config/seo";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.groups.joinTitle, robots: { index: false, follow: false } };
+  return pageMetadata(raw, null, { title: dict.groups.joinTitle });
 }
 
 /**

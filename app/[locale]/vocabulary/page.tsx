@@ -10,11 +10,12 @@ import { rankWords } from "@/lib/domain/vocabulary/rank";
 import { BandHeader, Shell } from "../_components/page-shell";
 import { VocabularyBrowser, type SceneLink, type VocabRow } from "../_components/vocabulary-browser";
 import { SourceList } from "../_components/source-list";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.vocabulary.title, description: dict.vocabulary.lead };
+  return pageMetadata(raw, "vocabulary", { title: dict.vocabulary.title, description: dict.vocabulary.lead });
 }
 
 /** The pack's groups, in the order ties are broken and the filter lists them. */

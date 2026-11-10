@@ -11,6 +11,7 @@ import { fill } from "@/lib/i18n/fill";
 import { PageHeader, Shell } from "../../_components/page-shell";
 import { SessionLink } from "../../_components/session/links";
 import { AskButton } from "../../_components/ask-button";
+import { pageMetadata } from "@/lib/config/seo";
 
 /** Every topic, in every language, at build time. Eight of them, rarely changed. */
 export function generateStaticParams() {
@@ -25,8 +26,8 @@ export async function generateMetadata({
   const { locale: raw, topic: id } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
   const words = dict.grammar.topics[id as keyof typeof dict.grammar.topics];
-  if (!words) return { title: dict.grammar.title };
-  return { title: `${words.title} — ${dict.grammar.title}`, description: words.rule };
+  if (!words) return pageMetadata(raw, `grammar/${id}`, { title: dict.grammar.title, noindex: true });
+  return pageMetadata(raw, `grammar/${id}`, { title: `${words.title} — ${dict.grammar.title}`, description: words.rule });
 }
 
 /**

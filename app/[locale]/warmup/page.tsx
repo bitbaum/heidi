@@ -5,11 +5,12 @@ import { href } from "@/lib/i18n/routes";
 import { PageHeader, Shell } from "../_components/page-shell";
 import { WarmupSession } from "../_components/warmup-session";
 import { WARMUP_ITEMS } from "./items";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.warmup.title, description: dict.warmup.metaDescription };
+  return pageMetadata(raw, "warmup", { title: dict.warmup.title, description: dict.warmup.metaDescription });
 }
 
 /**

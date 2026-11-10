@@ -6,6 +6,7 @@ import { href } from "@/lib/i18n/routes";
 import { formatDate } from "@/lib/i18n/dates";
 import { essaysFor } from "@/lib/essays/registry";
 import { PageHeader, Shell } from "../_components/page-shell";
+import { pageMetadata } from "@/lib/config/seo";
 
 /** Seven locales, a handful of essays, and both change rarely. */
 export function generateStaticParams() {
@@ -15,7 +16,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.essays.title, description: dict.essays.lead };
+  return pageMetadata(raw, "essays", { title: dict.essays.title, description: dict.essays.lead });
 }
 
 /**

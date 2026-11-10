@@ -10,13 +10,14 @@ import { SourceList } from "../_components/source-list";
 import { PageHeader, Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
 import { SectionNav, SectionNavLayout } from "../_components/section-nav";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const lang = sectorLocale(locale);
   const paper = PAPER[lang];
-  return { title: paper.title, description: paper.lead };
+  return pageMetadata(raw, "paper", { title: paper.title, description: paper.lead });
 }
 
 /**

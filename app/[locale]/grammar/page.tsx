@@ -8,11 +8,12 @@ import { GRAMMAR_BANDS } from "@/lib/variety/bands";
 import { PRACTISABLE } from "@/lib/domain/practice/pool";
 import { BandHeader, Shell } from "../_components/page-shell";
 import { SessionLink } from "../_components/session/links";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.grammar.title, description: dict.grammar.lead };
+  return pageMetadata(raw, "grammar", { title: dict.grammar.title, description: dict.grammar.lead });
 }
 
 /**

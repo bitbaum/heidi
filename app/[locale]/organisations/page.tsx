@@ -7,11 +7,12 @@ import { HOW_IT_STARTS, SECTORS, sectorLocale, type Sector, type SectorLocale } 
 import { CONTACT_EMAIL } from "@/lib/config/site";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.organisations.title, description: dict.organisations.lead };
+  return pageMetadata(raw, "organisations", { title: dict.organisations.title, description: dict.organisations.lead });
 }
 
 /**

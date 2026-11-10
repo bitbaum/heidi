@@ -8,6 +8,7 @@ import { sectorLocale } from "@/lib/config/sectors";
 import { RoadmapDocument } from "bip-kit/react";
 import { PageHeader, Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({
   params,
@@ -18,7 +19,7 @@ export async function generateMetadata({
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const lang = sectorLocale(locale);
   const doc = ROADMAP[lang];
-  return { title: doc.title, description: doc.lede };
+  return pageMetadata(raw, "roadmap", { title: doc.title, description: doc.lede });
 }
 
 /**

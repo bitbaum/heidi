@@ -9,6 +9,7 @@ import { PageHeader, Section, Shell } from "../_components/page-shell";
 import { SpeakingPractice } from "../_components/speaking-practice";
 import { RoundList } from "../_components/round-list";
 import { TopicBoard } from "../_components/topic-board";
+import { pageMetadata } from "@/lib/config/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
   // Indexed, unlike a study group: a scheduled conversation group is a public
   // thing, and somebody searching for one is looking for exactly this page.
-  return { title: dict.speaking.title, description: dict.speaking.lead };
+  return pageMetadata(raw, "speaking", { title: dict.speaking.title, description: dict.speaking.lead });
 }
 
 /**

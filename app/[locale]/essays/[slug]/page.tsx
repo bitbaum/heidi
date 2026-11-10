@@ -10,6 +10,7 @@ import { Shell } from "../../_components/page-shell";
 import { OtherLanguage } from "../../_components/other-language";
 import { formatDate } from "@/lib/i18n/dates";
 import { SourceList } from "../../_components/source-list";
+import { pageMetadata } from "@/lib/config/seo";
 
 /** Every essay in every language at build time; both lists are short. */
 export function generateStaticParams() {
@@ -24,8 +25,16 @@ export async function generateMetadata({
   const { locale: raw, slug } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
   const served = essayBySlug(slug, locale);
-  if (!served) return { title: getDictionary(locale).essays.title };
-  return { title: served.text.title, description: served.text.lead };
+  if (!served) return pageMetadata(locale, `essays/${slug}`, { title: getDictionary(locale).essays.title, noindex: true });
+  return pageMetadata(locale, `essays/${served.essay.slug}`, {
+    title: served.text.title,
+    description: served.text.lead,
+    // Only the languages the piece is written in: an hreflang pointing at a
+    // fallback tells a crawler there is a translation there. A reader served
+    // the fallback gets the canonical of the language they are reading.
+    locales: Object.keys(served.essay.text) as Locale[],
+    canonicalLocale: served.got,
+  });
 }
 
 /**

@@ -1,8 +1,21 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { Shell } from "./_components/page-shell";
+import { pageMetadata } from "@/lib/config/seo";
+import { SITE_URL } from "@/lib/config/site";
+
+/**
+ * A 404 has no address worth sharing and must not be indexed, but it is still
+ * pasted into chats, so it carries the share image, absolutely: without a
+ * `metadataBase` of its own the image was emitted against localhost.
+ */
+export const metadata: Metadata = {
+  ...pageMetadata(DEFAULT_LOCALE, null, { title: getDictionary(DEFAULT_LOCALE).errors.notFoundTitle }),
+  metadataBase: new URL(SITE_URL),
+};
 
 /**
  * A not-found inside a dynamic segment cannot read the locale param, so this

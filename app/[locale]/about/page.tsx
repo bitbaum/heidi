@@ -4,11 +4,12 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { NumberedList, PageHeader, Section, Shell } from "../_components/page-shell";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.about.title, description: dict.about.lead };
+  return pageMetadata(raw, "about", { title: dict.about.title, description: dict.about.lead });
 }
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
