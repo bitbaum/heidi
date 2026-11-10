@@ -37,7 +37,8 @@ export type RouteKey =
   | "privacy"
   | "impressum"
   | "organisations"
-  | "investors";
+  | "investors"
+  | "pass";
 
 /**
  * `use`       the two things always on the bar: your start, and the chat.
@@ -235,6 +236,9 @@ export const ROUTES: readonly Route[] = [
    */
   { key: "organisations", segment: "organisations", group: "about", section: "who", indexed: true, priority: 0.6 },
   { key: "investors", segment: "investors", indexed: false, priority: 0.1 },
+  // How Heidi is paid. In the footer beside the legal pages, and crawlable:
+  // it is a public page with one action.
+  { key: "pass", segment: "pass", indexed: true, priority: 0.4 },
 ];
 
 /**
