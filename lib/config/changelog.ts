@@ -41,6 +41,18 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-11-10",
+      tag: "fix",
+      title: "Geteilte Links zeigen ein Bild, und jede Seite nennt ihre eigene Adresse",
+      summary:
+        "Wer einen Heidi-Link in einen Chat einfügte, bekam eine Vorschau ohne Bild. Jede Seite trägt jetzt das Vorschaubild mit vollständiger Adresse, auch die Seite «nicht gefunden», die es bisher gegen «localhost» ausgab.",
+      items: [
+        "«/en/practice» gab «/en» als seine kanonische Adresse an, und die Sprachverweise (hreflang) zeigten bei jeder Seite auf die Startseiten. Jede Seite nennt jetzt sich selbst, in allen sieben Sprachen.",
+        "«/favicon.ico» und «/apple-touch-icon.png» antworteten mit 404; beide gibt es jetzt, aus demselben Zeichen wie das bisherige Icon.",
+        "Neu ist die Seite «Heidi bezahlen»: ein Knopf, der Heidis öffentliche Seite bei OrangeCat öffnet, wo man in Bitcoin direkt an Heidi zahlt. Die Seite sagt auch, was noch nicht geht: Ein Pass wird nach der Zahlung noch nicht automatisch freigeschaltet.",
+      ],
+    },
+    {
       date: "2026-10-27",
       tag: "improvement",
       title: "Der Chat ist die Chat-App der ganzen Flotte",
@@ -329,18 +341,6 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "Die Übungsseite sagt, wie viele Fragen heute fällig sind, das Ende einer Übung, wie viele morgen wiederkommen.",
         "Üben und Aufwärmen zählen, der Test nicht. Es zählt nur die erste Antwort in einer Übung.",
         "Gespeichert im Browser, auf der Datenschutzseite aufgeführt, in den Einstellungen löschbar und mit Ihren anderen Geräten abgeglichen, wenn der Abgleich eingeschaltet ist.",
-      ],
-    },
-    {
-      date: "2026-09-30",
-      tag: "fix",
-      title: "Kein Test aus zwei Fragen, keine Fragen ohne Züridütsch",
-      summary:
-        "Ein Test zu «Bsitz andersume» hatte zwei Fragen, egal welche Zeit Sie wählten: Das Thema hat nur zwei Fragen, die sich prüfen lassen. Einen Test gibt es jetzt nur ab zehn solchen Fragen, sonst wird geübt.",
-      items: [
-        "Bei «Annas Schwester kommt auch noch» nannten die falschen Antworten eine andere Person, liessen die Schwester weg oder sagten «nöd». Die richtige fand man, indem man das Deutsche verglich. Jetzt kommen in allen Antworten Anna und ihre Schwester vor, und nur «de Anna ihri» sagt, wer kommt.",
-        "Ebenso bei «Herrn Meiers Zimmer» und den beiden «wo»-Fragen, deren falsche Antworten «wo» jetzt als Frage nach dem Ort lesen.",
-        "Die Erklärung zum Besitz spricht nicht mehr von «wo» im Relativsatz; das ist jetzt eine eigene Erklärung.",
       ],
     },
     {
@@ -686,6 +686,18 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-11-10",
+      tag: "fix",
+      title: "Shared links show a picture, and every page names its own address",
+      summary:
+        "Pasting a Heidi link into a chat gave a preview with no image. Every page now carries the preview image with a full address, including the not-found page, which used to emit it against localhost.",
+      items: [
+        "/en/practice declared /en as its canonical address, and the language links (hreflang) of every page pointed at the home pages. Each page now names itself, in all seven languages.",
+        "/favicon.ico and /apple-touch-icon.png answered 404; both exist now, drawn from the same mark as the existing icon.",
+        "New: the page «Pay Heidi», one button that opens Heidi's public page on OrangeCat, where you pay Heidi directly in Bitcoin. The page also says what does not work yet: a pass is not granted automatically after a payment.",
+      ],
+    },
     {
       date: "2026-10-27",
       tag: "improvement",

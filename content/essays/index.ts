@@ -29,7 +29,7 @@ export const ESSAYS: readonly Essay[] = [
     // The essay's strong claims, in the order it makes them. The causal story
     // in the middle is marked as a conjecture in the text itself, because
     // these sources describe the language situation and not why it arose.
-    sources: ["ferguson-1959", "hls-landesverteidigung", "hls-mehrsprachigkeit", "sds-atlas"],
+    sources: ["bfs-bevoelkerung", "ferguson-1959", "hls-landesverteidigung", "hls-mehrsprachigkeit", "sds-atlas"],
     text: { de, en },
   },
 ];

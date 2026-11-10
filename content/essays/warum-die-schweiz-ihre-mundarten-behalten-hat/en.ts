@@ -2,7 +2,7 @@ import type { EssayText } from "../../../lib/essays/types.ts";
 
 export const en: EssayText = {
   title: "Why Switzerland kept its dialects",
-  lead: "A country of eight million speaks dozens of dialects while its large neighbour has largely given its own up. It is not the mountains.",
+  lead: "A country of about nine million speaks dozens of dialects while its large neighbour has largely given its own up. It is not the mountains.",
   blocks: [
     {
       kind: "p",
