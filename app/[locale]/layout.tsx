@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import "../globals.css";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS, isLocale, type Locale } from "@/lib/i18n/locales";
-import { SITE_URL } from "@/lib/config/site";
+import { ASSISTANT_NAME, SITE_URL } from "@/lib/config/site";
 import { pageMetadata } from "@/lib/config/seo";
 import { THEME_SCRIPT } from "@/lib/browser/theme";
 import { SiteHeader } from "./_components/site-header";
@@ -50,7 +50,7 @@ export async function generateMetadata({
   // sets none of them must not inherit these.
   return {
     ...pageMetadata(raw, ""),
-    title: { default: dict.meta.title, template: `%s · Heidi` },
+    title: { default: dict.meta.title, template: `%s · ${ASSISTANT_NAME}` },
     metadataBase: new URL(SITE_URL),
   };
 }

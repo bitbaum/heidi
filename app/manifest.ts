@@ -1,4 +1,7 @@
 import type { MetadataRoute } from "next";
+import { ASSISTANT_NAME } from "@/lib/config/site";
+import { getDictionary } from "@/lib/i18n";
+import { DEFAULT_LOCALE } from "@/lib/i18n/locales";
 
 /**
  * The web app manifest. Without it Android and desktop browsers never offer
@@ -7,11 +10,13 @@ import type { MetadataRoute } from "next";
  * 512 with the icon inside the 80% safe zone); regenerate them when it changes.
  */
 export default function manifest(): MetadataRoute.Manifest {
+  const { meta } = getDictionary(DEFAULT_LOCALE);
   return {
-    name: "Heidi — Schweizerdeutsch verstehen",
-    short_name: "Heidi",
-    description:
-      "Verstehen, was um Sie herum wirklich gesprochen wird. Heidi übersetzt echte Nachrichten, erklärt die Wörter, die Sie noch nicht kennen, und prüft jede Antwort auf echte Dialektformen.",
+    // The default language's own title and description, and the one product
+    // name: a clone changes the dictionary and `site.ts`, not this file.
+    name: meta.title,
+    short_name: ASSISTANT_NAME,
+    description: meta.description,
     start_url: "/",
     scope: "/",
     display: "standalone",

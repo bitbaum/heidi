@@ -17,7 +17,7 @@ import { ASSISTANT_NAME, SITE_URL } from "../config/site.ts";
  * mail-kit's `conventionalFrom("Heidi")` on the fleet's verified sender
  * domain).
  */
-export const authSite = { url: SITE_URL, title: ASSISTANT_NAME, slug: "heidi" };
+export const authSite = { url: SITE_URL, title: ASSISTANT_NAME, slug: ASSISTANT_NAME.toLowerCase() };
 
 export function heidiAuthMailer(
   env?: () => Record<string, string | undefined>,
