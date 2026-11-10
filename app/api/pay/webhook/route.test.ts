@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { signOrangeCatPayload } from "@bitbaum/paykit/orangecat";
 import { POST } from "./route.ts";
 
-const ENV = ["ORANGECAT_PAY_ENTITY_ID", "ORANGECAT_WEBHOOK_SECRET", "HEIDI_PASS_30_SATS", "DATABASE_URL"] as const;
+const ENV = ["ORANGECAT_WEBHOOK_SECRET", "HEIDI_PASS_30_SATS", "DATABASE_URL"] as const;
 
 function withEnv(values: Partial<Record<(typeof ENV)[number], string>>, run: () => Promise<void>) {
   const before = Object.fromEntries(ENV.map((k) => [k, process.env[k]]));
@@ -18,7 +18,6 @@ function withEnv(values: Partial<Record<(typeof ENV)[number], string>>, run: () 
 }
 
 const on = {
-  ORANGECAT_PAY_ENTITY_ID: "01affb7e-b5f6-45d8-a9a4-20bff670d013",
   ORANGECAT_WEBHOOK_SECRET: "ock_whk_test",
   HEIDI_PASS_30_SATS: "21000",
   // Never connected to: every case below is answered before a query.

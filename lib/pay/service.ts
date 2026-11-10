@@ -1,4 +1,4 @@
-import { applySettlement, isActive, type Entitlement, type PaymentProvider, type Payee, type SettlementOutcome } from "@bitbaum/paykit/checkout";
+import { applySettlement, isActive, type Entitlement, type PaymentProvider, type SettlementOutcome } from "@bitbaum/paykit/checkout";
 import { orangeCatProvider } from "@bitbaum/paykit/orangecat";
 import { paymentsConfig, type PaymentsConfig } from "../config/payments.ts";
 import { dbConfigured } from "../db/index.ts";
@@ -13,37 +13,24 @@ export function providerFor(config: PaymentsConfig): PaymentProvider {
   return orangeCatProvider({
     baseUrl: config.baseUrl,
     entityType: config.entityType,
+    ...(config.apiKey ? { apiKey: config.apiKey } : {}),
     ...(config.webhookSecret ? { webhookSecret: config.webhookSecret } : {}),
   });
 }
 
 /**
- * Can somebody pay right now, and if not, why not.
+ * Is the automatic pass switched on.
  *
- *   off  no config: payments are not switched on
- *   on   configured. `payee` is OrangeCat's own record of who is paid, or
- *        null when OrangeCat could not be asked just now.
- *
- * Whether the payee can actually receive is not decided here: the wallet the
- * owner connected is not on OrangeCat's public record, so the only honest
- * test is asking for an invoice, and OrangeCat's own sentence is shown when
- * it declines.
+ * Only configuration and a database decide it. Whether the payee can actually
+ * receive is not asked here: the wallet its owner connected is not on
+ * OrangeCat's public record, so the only honest test is asking for an
+ * invoice, and OrangeCat's own sentence is shown when it declines.
  */
-export type PaymentsState = { state: "off" } | { state: "on"; config: PaymentsConfig; payee: Payee | null };
+export type PaymentsState = { state: "off" } | { state: "on"; config: PaymentsConfig };
 
-let cached: { at: number; key: string; payee: Payee | null } | null = null;
-const PAYEE_TTL_MS = 60_000;
-
-export async function paymentsState(now: Date = new Date()): Promise<PaymentsState> {
+export function paymentsState(): PaymentsState {
   const config = paymentsConfig();
-  if (!config || !dbConfigured()) return { state: "off" };
-
-  const key = `${config.baseUrl}|${config.entityType}|${config.entityId}`;
-  if (!cached || cached.key !== key || now.getTime() - cached.at > PAYEE_TTL_MS) {
-    const payee = await providerFor(config).payee?.(config.entityId).catch(() => null);
-    cached = { at: now.getTime(), key, payee: payee ?? null };
-  }
-  return { state: "on", config, payee: cached.payee };
+  return config && dbConfigured() ? { state: "on", config } : { state: "off" };
 }
 
 export type StartResult =

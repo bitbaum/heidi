@@ -21,7 +21,7 @@ type Params = Promise<{ locale: string; id: string }>;
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale: raw } = await params;
   // Somebody's own invoice: its address is written nowhere in the head.
-  return pageMetadata(raw, null, { title: getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE).pass.title });
+  return pageMetadata(raw, null, { title: getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE).pass.auto.title });
 }
 
 /**
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 export default async function CheckoutPage({ params }: { params: Params }) {
   const { locale: raw, id } = await params;
   const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
-  const t = getDictionary(locale).pass;
+  const t = getDictionary(locale).pass.auto;
 
   const session = authEnabled ? await auth() : null;
   if (!session?.actorId) redirect(signInPath(`/${locale}/pass/checkout/${id}`));

@@ -1,4 +1,4 @@
-import { clientIp, slidingWindow, toHeaders, type LimitResult } from "limitkit";
+import { clientIp, slidingWindow, toHeaders, type LimitResult } from "@bitbaum/limitkit";
 import { PASS_CHAT_MULTIPLIER } from "../config/payments.ts";
 
 /**

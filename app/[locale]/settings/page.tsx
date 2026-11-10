@@ -181,7 +181,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
           href={href(locale, "pass")}
           className="mt-6 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
         >
-          {dict.pass.title}
+          {dict.nav.pass}
         </Link>
       </Section>
 
