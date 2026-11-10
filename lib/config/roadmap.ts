@@ -1,4 +1,4 @@
-import type { RoadmapDoc } from "bip-kit";
+import type { RoadmapDoc } from "@bitbaum/bip-kit";
 import type { SectorLocale } from "./sectors.ts";
 
 // `ROADMAP.md` at the repo root is the copy the fleet map

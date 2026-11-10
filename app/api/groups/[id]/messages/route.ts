@@ -1,4 +1,4 @@
-import { visibleMessages } from "threadkit";
+import { visibleMessages } from "@bitbaum/threadkit";
 import { caller } from "../../../../../lib/domain/groups/session.ts";
 import { checkBody, groupThread, mayPost } from "../../../../../lib/domain/groups/rules.ts";
 import { groupById, membersOf, messagesIn, postMessage } from "../../../../../lib/domain/groups/store.ts";

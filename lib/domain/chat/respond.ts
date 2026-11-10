@@ -7,7 +7,7 @@ import {
   type HealthTracker,
   type Link,
 } from "@bitbaum/ai-kit";
-import type { Thread } from "threadkit";
+import type { Thread } from "@bitbaum/threadkit";
 import { VARIETY } from "../../variety/active.ts";
 import { systemPrompt } from "../../variety/prompt.ts";
 import { EXPLANATION_LANGUAGE, type Locale } from "../../i18n/locales.ts";
