@@ -131,7 +131,9 @@ export function VocabularyBrowser({
     <div className="flex flex-col gap-12">
       <NextWords rows={rows} status={ready ? status : null} t={t} locale={locale} portalHref={portalHref} keptCount={saved.count} />
 
-      <section aria-labelledby={`${fieldId}-list`} className="border-t border-border-subtle pt-10">
+      {/* `data-fc-avoid`: the feedback widget's tab lay over the words on the
+          right edge of this list; it keeps off anything marked so. */}
+      <section aria-labelledby={`${fieldId}-list`} data-fc-avoid className="border-t border-border-subtle pt-10">
         <h2 id={`${fieldId}-list`} className="font-heading text-section font-semibold leading-tight tracking-display text-fg-primary">
           {fill(t.allTitle, { count: String(rows.length) })}
         </h2>

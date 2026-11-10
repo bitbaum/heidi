@@ -600,6 +600,37 @@ body:has([data-chrome="chat"]) [data-dock="heidi"] {
     );
   }
 }
+/**
+ * The launcher never lies on a control — every width.
+ *
+ * `data-covering` is set by the dock while the pill's resting place is over a
+ * button, a link or a field of the page (`useCoversControl`): «Start» on
+ * /practice at 390px, the password field, the warm-up's «Try it» on a tablet.
+ * It slides below the edge and returns when the control has scrolled past.
+ * Focus brings it back for the same reason as above.
+ */
+[data-dock-launcher] {
+  transition: transform 0.2s ease;
+}
+[data-dock-launcher][data-covering="true"]:not(:focus-within) {
+  transform: translateY(
+    calc(100% + max(1rem, env(safe-area-inset-bottom)) + 0.5rem)
+  );
+}
+
+/**
+ * Room for the launcher at the end of every page.
+ *
+ * The pill is 3rem tall and sits `max(1rem, safe-area)` above the edge. The
+ * footer's last row — the legal links, each a 44px target — used to end
+ * exactly where the pill rests, so at the bottom of every page the two fought
+ * for the same strip. The footer now ends one pill, its offset and a breath
+ * higher, and nothing has to be scrolled out from under anything.
+ */
+body:has([data-dock="heidi"] [data-dock-launcher]) > footer {
+  padding-bottom: calc(3rem + max(1rem, env(safe-area-inset-bottom)) + 0.75rem);
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-dock-launcher] {
     transition: none;
