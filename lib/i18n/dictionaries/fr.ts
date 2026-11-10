@@ -689,6 +689,8 @@ export const fr: Dictionary = {
       progressSync: "Progrès synchronisés (seulement si activé)",
       certificates: "Vos attestations",
       focus: "Mes situations : celles que vous avez choisi de travailler",
+      mailPreferences: "Votre réglage des rappels (activé ou non) et votre fuseau horaire",
+      mailDelivery: "L’envoi des e-mails de compte et des rappels : votre adresse et le message",
       serverVoice: "Lecture à voix haute sans voix allemande sur l'appareil : la phrase",
       warmup: "Votre échauffement : les phrases comprises",
       practiceSession: "Une série d’exercices en cours, pour la reprendre",
@@ -1162,6 +1164,16 @@ export const fr: Dictionary = {
     wordsScope: "Mots : {words}",
   },
 
+  mailPrefs: {
+    title: "Arrêter les rappels",
+    body: "Un geste et les rappels par e-mail cessent. Votre compte et vos progrès ne changent pas.",
+    button: "Ne plus me rappeler",
+    doneTitle: "C’est fait",
+    doneBody: "Vous ne recevrez plus de rappels par e-mail. Si vous changez d’avis, réactivez-les dans les réglages.",
+    invalid: "Ce lien n’est pas valable. Vous pouvez désactiver les rappels dans les réglages.",
+    settings: "Aller aux réglages",
+  },
+
   sync: {
     title: "Vos progrès sur tous vos appareils",
     body: "Vos exercices, votre série, vos mots gardés et vos situations sont synchronisés entre vos appareils connectés. Désactivé, tout reste uniquement dans ce navigateur.",
@@ -1174,6 +1186,10 @@ export const fr: Dictionary = {
     deleteAll: "Supprimer tout ce qui est synchronisé",
     deleted: "Supprimé. Plus rien de vos progrès ne reste sur le serveur.",
     failed: "Cela n’a pas marché. Veuillez réessayer.",
+    reminderTitle: "Rappel par e-mail",
+    reminderBody: "Quand des questions sont à revoir, Heidi vous écrit un court message le soir — au plus tous les deux jours, à partir de cinq questions seulement, et plus du tout après trois restés sans réponse. Pour cela, le serveur lit votre plan de questions, que vous synchronisez ici.",
+    reminderLabel: "Oui, me rappeler",
+    reminderNeedsSync: "Les rappels demandent «Progrès sur tous les appareils» : seulement alors le serveur sait ce qui est à revoir.",
   },
   certificate: {
     title: "Attestation",

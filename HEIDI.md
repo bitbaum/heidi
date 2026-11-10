@@ -1887,6 +1887,24 @@ answers (`lib/domain/teams/overview.ts`). The default of §2 stands: without
 those switches, nothing about what a person cannot understand leaves their
 browser.
 
+**Built: one reminder, opt-in, and quiet.** Off until the learner turns it on in
+the settings, and offered only with progress sync on, because the server can
+read what is due only from a device that syncs. It is one email in the evening
+(18:00 in the learner's own time zone, read from the browser when they switch
+it on), and `lib/mail/reminder-policy.ts` errs toward silence: a verified
+address only, never in the first day, at most every other day, never fewer than
+five questions due, never when they have already practised that day, and after
+three in a row that were not followed by practice, none until they come back
+on their own. The copy is worded as a good moment to take, never as something
+about to be lost (§3), and a test fails on the words that would say otherwise.
+The mail holds a count, the streak only from two days, and one real line from
+the pack that is due — never what the learner wrote or got wrong. Every one has
+the reason it arrived, a footer unsubscribe and the one-click header (RFC 8058)
+that Gmail and Yahoo require; the footer link opens a page with one button, so a
+link scanner cannot unsubscribe anybody by looking. The layout is the fleet's
+(`@bitbaum/mail-kit`, `renderMail`), the same one account mail now uses.
+Sent hourly from `/api/cron/reminders` by the box timer.
+
 **Built: the system knows what you keep getting wrong.** A learner model, in
 the browser, beside the kept words and for the same reason HEIDI.md gives for
 those: it keeps Heidi from holding a record of what a particular person cannot

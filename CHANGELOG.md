@@ -23,6 +23,10 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-11-10
 
+- Email, rebuilt on the fleet's one layout. The address check, the sign-in link and the password reset were plain text; they are now laid out (Heidi's red and mark, a heading, one button, the sign-in code to type elsewhere, why it arrived), with dark mode, in all the site's languages. The layout lives in `@bitbaum/mail-kit` 0.3.0 and is shared by every app.
+- An optional reminder by email, off until switched on (settings, with progress sync on): one mail in the evening, at most every other day, only from five due questions, never after practising that day, and none after three that went unanswered. It names the count and one real due line, says why it came, and unsubscribes in one tap, from the mail client's own button or the footer link. Worded as a good moment to practise, never as something about to be lost.
+- The privacy page lists the mail vendor and the reminder setting.
+
 - Signing up, used end to end. A new account was signed in at once and asked nothing about progress, so a person who made an account to keep their practice on phone and laptop had one that did not — the switch lived only in the settings. The signed-in home now asks once, «Ihren Fortschritt auf jedes Gerät mitnehmen?», with «Einschalten» and «Nur in diesem Browser» side by side; either answer is kept and it is not asked again. Sync stays off until somebody says so.
 - «Meine Situationen» now travels with synced progress: a second device takes the situations chosen on the first and does not ask again, and never overrides a choice made on it.
 - The confirmation email said it would «finish signing up» for an account that already worked; it now says the account works and what confirming is for — being reachable when a password is forgotten. Sign-in and sign-up promised a one-click OrangeCat sign-in on installations without it; that sentence now appears only beside the button.

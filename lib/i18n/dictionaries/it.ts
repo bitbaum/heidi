@@ -689,6 +689,8 @@ export const it: Dictionary = {
       progressSync: "Progressi sincronizzati (solo se attivo)",
       certificates: "I suoi attestati",
       focus: "Le mie situazioni: quelle che avete scelto di esercitare",
+      mailPreferences: "La tua impostazione dei promemoria (attivi o no) e il tuo fuso orario",
+      mailDelivery: "L’invio delle e-mail di account e dei promemoria: il tuo indirizzo e il messaggio",
       serverVoice: "Lettura ad alta voce senza voce tedesca sul dispositivo: la frase",
       warmup: "Il vostro riscaldamento: quali frasi avete capito",
       practiceSession: "Una serie di esercizi in corso, per riprenderla",
@@ -1162,6 +1164,16 @@ export const it: Dictionary = {
     wordsScope: "Parole: {words}",
   },
 
+  mailPrefs: {
+    title: "Interrompi i promemoria",
+    body: "Con un tocco i promemoria per e-mail si fermano. Il tuo account e i tuoi progressi restano come sono.",
+    button: "Non ricordarmelo più",
+    doneTitle: "Fatto",
+    doneBody: "Non riceverai più promemoria per e-mail. Se cambi idea, riattivali nelle impostazioni.",
+    invalid: "Questo link non è valido. Puoi disattivare i promemoria nelle impostazioni.",
+    settings: "Vai alle impostazioni",
+  },
+
   sync: {
     title: "I progressi su tutti i dispositivi",
     body: "Esercizi, serie, parole salvate e situazioni scelte vengono allineati tra i suoi dispositivi con accesso. Disattivato, tutto resta solo in questo browser.",
@@ -1174,6 +1186,10 @@ export const it: Dictionary = {
     deleteAll: "Eliminare tutto ciò che è sincronizzato",
     deleted: "Eliminato. Sul server non resta nulla dei suoi progressi.",
     failed: "Non ha funzionato. Riprovi.",
+    reminderTitle: "Promemoria per e-mail",
+    reminderBody: "Quando ci sono domande da rivedere, Heidi ti scrive una breve e-mail la sera — al massimo ogni due giorni, solo da cinque domande in su, e per niente dopo tre senza risposta. Per questo il server legge il tuo piano di domande, che sincronizzi qui.",
+    reminderLabel: "Sì, ricordamelo",
+    reminderNeedsSync: "I promemoria richiedono «Progressi su ogni dispositivo»: solo così il server sa che cosa c’è da rivedere.",
   },
   certificate: {
     title: "Attestato",

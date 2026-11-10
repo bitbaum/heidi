@@ -688,6 +688,8 @@ export const en: Dictionary = {
       progressSync: "Synced progress (only when switched on)",
       certificates: "Your certificates",
       focus: "My situations: the ones you chose to practise",
+      mailPreferences: "Your reminder setting (on or off) and your time zone",
+      mailDelivery: "Sending account mail and reminders: your address and the message",
       serverVoice: "Read aloud without a German voice on the device: the line",
       warmup: "Your warm-up: which lines you understood",
       practiceSession: "An exercise session in progress, so you can pick it up again",
@@ -1157,6 +1159,16 @@ export const en: Dictionary = {
     wordsScope: "Words: {words}",
   },
 
+  mailPrefs: {
+    title: "Stop reminders",
+    body: "One tap and the email reminders stop. Your account and your progress stay as they are.",
+    button: "Stop reminding me",
+    doneTitle: "Done",
+    doneBody: "You will not get reminder emails any more. If you change your mind, switch them back on in the settings.",
+    invalid: "This link is not valid. You can switch reminders off in the settings.",
+    settings: "Go to settings",
+  },
+
   sync: {
     title: "Progress on every device",
     body: "Your practice, your streak, your saved words and your situations are kept in step between your signed-in devices. Switched off, everything stays in this browser only.",
@@ -1169,6 +1181,10 @@ export const en: Dictionary = {
     deleteAll: "Delete everything synced",
     deleted: "Deleted. Nothing of your progress is left on the server.",
     failed: "That didn’t work. Please try again.",
+    reminderTitle: "Reminder by email",
+    reminderBody: "When questions are due, Heidi writes you a short email in the evening — at most every two days, only from five due questions, and not at all after three that go unanswered. For that the server reads your question schedule, which you sync here.",
+    reminderLabel: "Yes, remind me",
+    reminderNeedsSync: "Reminders need «Progress on every device»: only then does the server know what is due.",
   },
   certificate: {
     title: "Certificate",

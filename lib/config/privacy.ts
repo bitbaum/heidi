@@ -97,6 +97,9 @@ export const BROUGHT_KEY_VENDORS = BYOK_PROVIDERS.map((p) => p.label);
 /** Speech-to-text, which is a different chain from the one that answers. */
 export const TRANSCRIPTION_VENDOR = "Groq";
 
+/** Sends the account mail and, if switched on, the reminder. One vendor, by `@bitbaum/mail-kit`. */
+export const MAIL_VENDOR = "Resend";
+
 export const FLOWS: readonly Flow[] = [
   {
     id: "draftConversation",
@@ -263,6 +266,27 @@ export const FLOWS: readonly Flow[] = [
     where: "localStorage · heidi.videos.v1",
     leavesDevice: false,
     recipients: [],
+  },
+  {
+    // What the learner agreed to be written to about: one switch, the time zone
+    // they were in when they turned it on, and when the last reminder went.
+    // Read only by the reminder sweep. Off by default.
+    id: "mailPreferences",
+    place: "server",
+    where: "mail_preferences",
+    leavesDevice: true,
+    recipients: [],
+  },
+  {
+    // Account mail (the address check, the sign-in link, the reset) and, only
+    // if switched on, the reminder: the address and the message go to the mail
+    // vendor, which sends it. The reminder holds a count and one line from the
+    // pack — never what the learner wrote or got wrong.
+    id: "mailDelivery",
+    place: "vendor",
+    where: "api.resend.com · /emails",
+    leavesDevice: true,
+    recipients: [MAIL_VENDOR],
   },
   {
     // The IFrame player on the privacy-enhanced host. Like any embed, the

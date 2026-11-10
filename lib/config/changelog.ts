@@ -43,10 +43,11 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-11-10",
       tag: "improvement",
-      title: "Konto: Ihr Fortschritt reist mit — wenn Sie wollen",
+      title: "E-Mails, neu gebaut — und eine Erinnerung, die Sie selbst einschalten",
       summary:
-        "Nach der Anmeldung fragt Heidi einmal, ob Ihr Fortschritt auf jedes Gerät mitkommen soll. Bisher lag der Schalter nur in den Einstellungen, und ein neues Konto glich nichts ab, ohne es zu sagen.",
+        "Die Mails von Heidi — Adresse bestätigen, Anmeldelink, Passwort — sind gestaltet, mit Dunkelmodus und in Ihrer Sprache. Dazu gibt es eine Erinnerung, die aus ist, bis Sie sie einschalten: eine Mail am Abend, höchstens alle zwei Tage, erst ab fünf fälligen Fragen, und nach drei unbeantworteten keine mehr. Abmelden geht mit einem Tipp.",
       items: [
+        "Nach der Anmeldung fragt Heidi einmal, ob Ihr Fortschritt auf jedes Gerät mitkommen soll.",
         "Ihre Situationen kommen mit: ein zweites Gerät fragt nicht nochmals.",
         "Die Bestätigungs-E-Mail sagt, dass das Konto schon funktioniert und wozu die Bestätigung dient.",
         "Im Chat steht der Name des Modells, nicht seine technische Kennung.",
@@ -772,10 +773,11 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
     {
       date: "2026-11-10",
       tag: "improvement",
-      title: "Accounts: your progress travels — if you want it to",
+      title: "Email, rebuilt — and a reminder you switch on yourself",
       summary:
-        "After signing up, Heidi asks once whether your progress should come to every device. The switch used to live only in the settings, and a new account synced nothing without saying so.",
+        "Heidi's emails — confirming your address, the sign-in link, the password reset — are now designed, with dark mode and in your language. There is also a reminder that stays off until you switch it on: one email in the evening, at most every two days, only from five due questions, and none after three that go unanswered. Unsubscribing takes one tap.",
       items: [
+        "After signing up, Heidi asks once whether your progress should come to every device.",
         "Your situations come along: a second device does not ask again.",
         "The confirmation email says the account already works and what confirming is for.",
         "The chat names the model, not its technical id.",

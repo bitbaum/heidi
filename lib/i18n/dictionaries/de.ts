@@ -751,6 +751,8 @@ export const de = {
       progressSync: "Abgeglichener Fortschritt (nur wenn eingeschaltet)",
       certificates: "Ihre Nachweise",
       focus: "Meine Situationen: welche Sie zum Üben gewählt haben",
+      mailPreferences: "Ihre Erinnerungs-Einstellung (an oder aus) und Ihre Zeitzone",
+      mailDelivery: "Der Versand von Konto-Mails und Erinnerungen: Ihre Adresse und die Nachricht",
       serverVoice: "Vorlesen ohne deutsche Stimme auf dem Gerät: der Satz",
       warmup: "Ihr Aufwärmen: welche Sätze Sie verstanden haben",
       practiceSession: "Eine angefangene Übung, damit Sie weitermachen können",
@@ -1270,6 +1272,16 @@ export const de = {
    * KEIN PUNKTESTAND. Am Schluss stehen drei Zahlen, die stimmen — gefragt,
    * auf Anhieb, kommt nochmals. Keine Prozente, keine Serie, kein Level.
    */
+  mailPrefs: {
+    title: "Erinnerungen beenden",
+    body: "Mit einem Tipp hören die Erinnerungen per E-Mail auf. Ihr Konto und Ihr Fortschritt bleiben, wie sie sind.",
+    button: "Nicht mehr erinnern",
+    doneTitle: "Erledigt",
+    doneBody: "Sie bekommen keine Erinnerungen mehr per E-Mail. Wenn Sie es sich anders überlegen, schalten Sie sie in den Einstellungen wieder ein.",
+    invalid: "Dieser Link ist nicht gültig. Erinnerungen schalten Sie in den Einstellungen aus.",
+    settings: "Zu den Einstellungen",
+  },
+
   sync: {
     title: "Fortschritt auf allen Geräten",
     body: "Ihre Übungen, Ihre Serie, Ihre gemerkten Wörter und Ihre Situationen werden zwischen Ihren angemeldeten Geräten abgeglichen. Ausgeschaltet bleibt alles nur in diesem Browser.",
@@ -1282,6 +1294,10 @@ export const de = {
     deleteAll: "Alles Abgeglichene löschen",
     deleted: "Gelöscht. Auf dem Server liegt nichts mehr von Ihrem Fortschritt.",
     failed: "Das hat nicht geklappt. Versuchen Sie es noch einmal.",
+    reminderTitle: "Erinnerung per E-Mail",
+    reminderBody: "Wenn Fragen fällig sind, schreibt Ihnen Heidi abends eine kurze Mail — höchstens alle zwei Tage, erst ab fünf fälligen Fragen, und nach drei unbeantworteten gar nicht mehr. Dafür liest der Server Ihren Fragenplan, den Sie hier abgleichen.",
+    reminderLabel: "Ja, bitte erinnern",
+    reminderNeedsSync: "Erinnerungen brauchen «Fortschritt auf allen Geräten»: Nur dann weiss der Server, was fällig ist.",
   },
   certificate: {
     title: "Nachweis",

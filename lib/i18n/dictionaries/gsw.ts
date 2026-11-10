@@ -763,6 +763,8 @@ export const gsw: Dictionary = {
       progressSync: "Abglichene Fortschritt (nur wänn iigschaltet)",
       certificates: "Ihri Nachwiis",
       focus: "Mini Situatione: die, wo Si zum Üebe uusgläse händ",
+      mailPreferences: "Ihri Erinnerigs-Iistellig (a oder us) und Ihri Zytzone",
+      mailDelivery: "Dr Versand vo Konto-Mails und Erinnerige: Ihri Adrässe und d Nachricht",
       serverVoice: "Vorläse ohni dütschi Stimm uf em Grät: de Satz",
       warmup: "Ihres Iiwärme: weli Sätz Si verstande händ",
       practiceSession: "E aagfangeni Üebig, dass Si chönd wiitermache",
@@ -1182,6 +1184,16 @@ export const gsw: Dictionary = {
     wordsScope: "Wörter: {words}",
   },
 
+  mailPrefs: {
+    title: "Erinnerige beände",
+    body: "Mit eim Tipp ghöred d Erinnerige per E-Mail uuf. Ihres Konto und Ihre Fortschritt blibed, wie si sind.",
+    button: "Nüme erinnere",
+    doneTitle: "Erlediget",
+    doneBody: "Si überchömed kei Erinnerige meh per E-Mail. Wänn Si sich s anders überlegged, schaltet Si si i de Iistellige wider ii.",
+    invalid: "Dä Link isch nöd gültig. Erinnerige schaltet Si i de Iistellige uus.",
+    settings: "Zu de Iistellige",
+  },
+
   sync: {
     title: "Fortschritt uf allne Grät",
     body: "Ihri Üebige, Ihri Serie, Ihri gmerkte Wörter und Ihri Situatione werded zwüsche Ihrne aagmäldete Grät abgliche. Uusgschaltet bliibt alles nur i dem Browser.",
@@ -1194,6 +1206,10 @@ export const gsw: Dictionary = {
     deleteAll: "Alles Abglicheni lösche",
     deleted: "Glöscht. Uf em Server isch nüüt meh vo Ihrem Fortschritt.",
     failed: "Das hät nöd klappt. Probiered Sie s nomal.",
+    reminderTitle: "Erinnerig per E-Mail",
+    reminderBody: "Wänn Frage fällig sind, schribt Ihne Heidi am Abig es churzes Mail — höchstens alli zwei Täg, erscht ab föif fällige Frage, und nach dreine ohni Antwort gar nümme. Dezue list dr Server Ihre Fragenplan, wo Si da abgliched.",
+    reminderLabel: "Ja, bitte erinnere",
+    reminderNeedsSync: "Erinnerige bruched «Fortschritt uf allne Grät»: Nume dänn weiss dr Server, was fällig isch.",
   },
   certificate: {
     title: "Nachwiis",

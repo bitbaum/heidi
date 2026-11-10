@@ -705,6 +705,8 @@ export const rm: Dictionary = {
       progressSync: "Progress sincronisà (mo sch’activà)",
       certificates: "Voss attestats",
       focus: "Mias situaziuns: quellas che Vus avais tschernì per exercitar",
+      mailPreferences: "Vossa parametrisaziun da las regurdientschas (activa u betg) e voss fuso oraris",
+      mailDelivery: "Il trametter dad e-mails dal conto e da regurdientschas: Vossa adressa ed il messadi",
       serverVoice: "Leger ad auta vusch senza vusch tudestga sin l'apparat: la frasa",
       warmup: "Voss scaldar: tge frasas che Vus avais chapì",
       practiceSession: "In exercizi cumenzà, per cuntinuar pli tard",
@@ -1178,6 +1180,16 @@ export const rm: Dictionary = {
     wordsScope: "Pleds: {words}",
   },
 
+  mailPrefs: {
+    title: "Fermar las regurdientschas",
+    body: "Cun in tip chaussan las regurdientschas per e-mail. Voss conto e voss progress restan sco ch’els èn.",
+    button: "Betg pli regurdar",
+    doneTitle: "Fatg",
+    doneBody: "Vus na retschaivais nagin’ e-mail da regurdientscha pli. Sche Vus midais ideja, activais las puspè en ils parameters.",
+    invalid: "Questa colliaziun n’è betg valida. Las regurdientschas pudais Vus deactivar en ils parameters.",
+    settings: "Ai als parameters",
+  },
+
   sync: {
     title: "Il progress sin tut ils apparats",
     body: "Voss exercizis, vossa seria, voss pleds memorisads e vossas situaziuns vegnan sincronisads tranter voss apparats annunziads. Deactivà resta tut mo en quest navigatur.",
@@ -1190,6 +1202,10 @@ export const rm: Dictionary = {
     deleteAll: "Stizzar tut quai ch’è sincronisà",
     deleted: "Stizzà. Sin il server na resta nagut pli da voss progress.",
     failed: "Quai n’ha betg funcziunà. Empruvai anc ina giada.",
+    reminderTitle: "Regurdientscha per e-mail",
+    reminderBody: "Cura che dumondas èn da repeter, scriva Heidi a Vus la saira ina curta e-mail — il pli savens mintga dus dis, mo da tschintg dumondas ensù, e pli gnanc suenter trais senza resposta. Per quai legia il server voss plan da dumondas che Vus sincronisais qua.",
+    reminderLabel: "Gea, regurdar",
+    reminderNeedsSync: "Las regurdientschas dumondan «Progress sin mintga apparat»: mo lura sa il server tge che è da repeter.",
   },
   certificate: {
     title: "Attestat",
