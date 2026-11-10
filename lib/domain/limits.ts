@@ -1,4 +1,4 @@
-import { clientIp, slidingWindow, toHeaders, type LimitResult } from "limitkit";
+import { clientIp, slidingWindow, toHeaders, type LimitResult } from "@bitbaum/limitkit";
 
 /**
  * How much of Heidi one stranger may use.

@@ -7,7 +7,7 @@
  * does what it is told.
  */
 
-import type { Thread } from "threadkit";
+import type { Thread } from "@bitbaum/threadkit";
 import { HEIDI_ID, MAX_BODY_LENGTH, MAX_MEMBERS, MAX_NAME_LENGTH, type GroupMember } from "./types.ts";
 
 /** An actor currently in the group — not one who has left. */
