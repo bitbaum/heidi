@@ -1,4 +1,5 @@
-import { SOURCES, citation, type SourceId } from "@/lib/research/sources";
+import { LOCALE_TAGS, type Locale } from "@/lib/i18n/locales";
+import { SOURCES, citation, citedIn, type SourceId } from "@/lib/research/sources";
 
 /**
  * The references at the foot of a page that makes claims.
@@ -28,9 +29,12 @@ export function SourceList({
   title,
   ids,
   className = "",
+  locale,
 }: {
   title: string;
   ids: readonly SourceId[];
+  /** The reader's language, for the few references that have a note in it. */
+  locale?: Locale;
   /** Spacing, which genuinely differs: some pages close with it, some bury it. */
   className?: string;
 }) {
@@ -45,12 +49,13 @@ export function SourceList({
         {ids.map((id) => (
           <li key={id} className="max-w-measure text-sm leading-relaxed text-fg-secondary">
             <a
-              lang="en"
+              // English unless this reference carries a note in the reader's language.
+              lang={citedIn(id, locale) && locale ? LOCALE_TAGS[locale] : "en"}
               href={SOURCES[id].url}
               rel="noreferrer"
               className="wrap-anywhere text-link underline underline-offset-4 hover:text-accent"
             >
-              {citation(id)}
+              {citation(id, locale)}
             </a>
           </li>
         ))}

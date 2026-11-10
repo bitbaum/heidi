@@ -96,12 +96,12 @@ export const INPUTS: readonly Assumption[] = [
   },
   {
     id: "gross-margin",
-    label: "Gross margin",
+    label: "Gross margin (assumed)",
     value: 85,
     unit: "%",
-    kind: "measured",
+    kind: "assumed",
     basis:
-      "Marginal cost per active learner is dominated by model calls, and HEIDI.md §9 records one measured at roughly five hundredths of a rappen. Hosting is a shared box, not per-tenant. 85% is deliberately below what the measurement implies, to leave room for the paid models a scaled product would need.",
+      "Assumed, not measured: nobody has paid, so there is no revenue to take a margin of. What IS measured is one cost: HEIDI.md §9 records a model call at roughly five hundredths of a rappen, and hosting is a shared box, not per-tenant. 85% is chosen deliberately below what that single measurement implies, to leave room for the paid models a scaled product would need.",
   },
   {
     id: "monthly-churn",

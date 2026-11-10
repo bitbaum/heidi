@@ -244,7 +244,7 @@ export const gsw: Dictionary = {
     exampleCompose: "Für mi schriibe",
     examples: [
       { kind: "dialect", text: "Geschter im Kauz gsi — mega geil! 😍 Chunnsch s nächscht Mal au?" },
-      { kind: "compose", text: "Säg ihne, dass i zäh Minute spöter chum — fründlich." },
+      { kind: "compose", text: "Säg ihne, dass i zäh Minute spööter chum — fründlich." },
       { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],
     glossTitle: "Wörter wo sölled bliibe",
@@ -522,7 +522,7 @@ export const gsw: Dictionary = {
       "Si überchömed öppis, wo Si nöd verstönd.",
       "Heidi erklärt s sofort — vollständig, nöd als Rätsel.",
       "Es oder zwei Wörter bliibed hange, wil si Ihne erklärt worde sind, wo Si si bruucht händ.",
-      "Diselbe Wörter tauched spöter wieder uf, i mene andere Satz.",
+      "Diselbe Wörter tauched spööter wieder uf, i mene andere Satz.",
       "Irgendwänn begägned Si ne dusse, und Heidi isch nöd debii gsi.",
     ],
     loopNote:
@@ -1487,13 +1487,13 @@ export const gsw: Dictionary = {
       {
         claim: "Eimol richtig isch z wenig; zweimol richtig, mit Abstand, isch de Punkt.",
         detail:
-          "Drum chunnt e verpassti Frog no i de gliiche Sitzig zrugg — drüü Froge spöter, nöd sofort. De Abstand vo drüü isch öisi Schätzig: d Studie git d Richtig, nöd d Zahl.",
+          "Drum chunnt e verpassti Frog no i de gliiche Sitzig zrugg — drüü Froge spööter, nöd sofort. De Abstand vo drüü isch öisi Schätzig: d Studie git d Richtig, nöd d Zahl.",
         source: ["rawson-dunlosky-2011"],
       },
       {
         claim: "Aachrüzle ohni Rückmeldig cha de falsch Begriff iipräge.",
         detail:
-          "Drum zeigt jedi Uswahlfrog sofort di richtig Antwort und frogt spöter nomal. Rückmeldig verstärkt de Nutze und verchlinerets grad de Schade.",
+          "Drum zeigt jedi Uswahlfrog sofort di richtig Antwort und frogt spööter nomal. Rückmeldig verstärkt de Nutze und verchlinerets grad de Schade.",
         source: ["butler-roediger-2008"],
       },
       {

@@ -21,6 +21,13 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-11-10
+
+- Shared links show a picture: every page carries the preview image with a full address, including the not-found page, which used to emit it against localhost (#285).
+- Every page names its own canonical address and its own translations; /en/practice used to declare /en (#285).
+- /favicon.ico and /apple-touch-icon.png exist; both answered 404 (#285).
+- New page «Pay Heidi»: one button to Heidi's public page on OrangeCat, where a learner pays Heidi directly in Bitcoin. A pass is not yet granted automatically after a payment, and the page says so (#287).
+
 ## 2026-10-27
 
 - The full chat at «/chat» is the fleet's chat app (chatkit's `ChatApp`): your conversations sit in a drawer on a phone and beside the chat on a wide screen, with a search box and Today / Yesterday / Earlier; each has one «…» for Rename and Delete. New: a temporary conversation that is written nowhere, a message written while Heidi is answering waits above the box and goes when she is done, and the conversation you had open comes back after a reload. Signed out, the list is kept in this browser and nothing reaches the database; a conversation from the home box or the floating window carries over. Stop still throws away the half answer (it had not been checked for Zurich forms) and a failure still says why. The chips under an answer («Shorter», «Word by word») and «What does it mean?» on a selected word now put their sentence in the box to send, instead of sending it at once.
