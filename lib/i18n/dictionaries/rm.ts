@@ -731,6 +731,7 @@ export const rm: Dictionary = {
     hostingNote: "Betg en Svizra. Nus al disain pli gugent sezs che Vus al chattais ora.",
     vendorsTitle: "Tgi che responda ils messadis",
     vendorsNote: "In messadi vegn tramess ad ina da questas interpresas per vegnir respundì. Nus n'avain nagin contract da tractament cun nagina d'ellas. Heidi n'è perquai oz betg adattada per datas persunalas d'ina professiun cun secret professiunal.",
+    vendorsPlaceNote: "Suenter mintga num stattan l'interpresa ed il pajais da sia sedia, sco che l'interpresa inditgescha sezza. Voss messadi vegn pia elavurà ordaifer la Svizra.",
     broughtKeyNote: "Cun ina atgna clav va il messadi al purschider che Vus tscherni.",
     notDoneTitle: "Tge che nus na faschain betg",
     notDone: {
@@ -749,11 +750,12 @@ export const rm: Dictionary = {
   impressum: {
     title: "Infurmaziuns legalas",
     operatorLabel: "Gestì da",
+    operator: "Il project Heidi (bitbaum)",
     contactLabel: "Contact",
     sourceLabel: "Code da funtauna",
     statusLabel: "Furma giuridica",
-    statusNote: "Heidi n'è nagina interpresa registrada. La pagina vegn gestida privatamain ed il code è avert.",
-    addressNote: "Nus numnain in'adressa postala uschespert ch'i dat ina.",
+    statusNote: "Heidi è in project da bitbaum e nagina interpresa registrada. Il code è avert.",
+    addressNote: "Per mintga dumonda, era giuridica u davart la protecziun da datas, scrivai a l'adressa da contact qua sura.",
   },
 
   contribute: {

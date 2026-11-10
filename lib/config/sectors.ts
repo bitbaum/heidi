@@ -302,8 +302,8 @@ export const HOW_IT_STARTS: readonly { step: Copy; detail: Copy }[] = [
   {
     step: { de: "Ihre Leute probieren es, kostenlos", en: "Your people try it, at no cost" },
     detail: {
-      de: "Heidi ist offen zugänglich. Geben Sie den Link fünf Mitarbeitenden und lassen Sie sie eine Woche damit arbeiten, bevor irgendjemand über Geld redet.",
-      en: "Heidi is openly available. Give the link to five of your staff and let them work with it for a week before anybody talks about money.",
+      de: "Heidi ist offen zugänglich. Geben Sie den Link fünf Mitarbeitenden und lassen Sie sie eine Woche damit üben, bevor irgendjemand über Geld redet.",
+      en: "Heidi is openly available. Give the link to five of your staff and let them practise with it for a week before anybody talks about money.",
     },
   },
   {
@@ -314,6 +314,27 @@ export const HOW_IT_STARTS: readonly { step: Copy; detail: Copy }[] = [
     },
   },
 ];
+
+/**
+ * What Heidi is NOT for, said on the page that addresses care homes and
+ * hospitals.
+ *
+ * The page describes a ward round and a handover, and invites a manager to
+ * let staff "work with it for a week". Read together that suggests Heidi sits
+ * next to the bed. It does not, and its data handling could not carry it
+ * there: every chat message is answered by a company in the United States,
+ * and no data-processing agreement has been concluded with any of them
+ * (`privacy.ts`, the privacy page). So the page says where the line is, in
+ * the same place it makes the offer.
+ */
+export const DATA_BOUNDARY: { title: Copy; body: Copy; link: Copy } = {
+  title: { de: "Wofür Heidi nicht da ist", en: "What Heidi is not for" },
+  body: {
+    de: "Heidi ist zum Üben da und zum Verstehen von Mundart, abseits von Bewohnerinnen, Bewohnern, Patientinnen und Patienten. Sie ist kein Werkzeug für die Pflege oder die Behandlung, übersetzt keine Gespräche am Bett und ersetzt keine Dolmetscherin. Geben Sie keine Namen, keine Gesundheitsangaben und nichts ein, womit sich eine Person erkennen lässt: Die Antworten im Chat kommen von Unternehmen in den USA, mit denen wir keinen Vertrag über die Auftragsbearbeitung geschlossen haben.",
+    en: "Heidi is for practising and for understanding dialect, away from residents and patients. It is not a tool for care or treatment, does not interpret conversations at the bedside and does not replace an interpreter. Do not enter names, health details or anything that identifies a person: chat answers come from companies in the United States with which we have concluded no data-processing agreement.",
+  },
+  link: { de: "Was mit Ihren Worten geschieht", en: "What happens to your words" },
+};
 
 export const FORBIDDEN_CLAIMS: readonly string[] = [
   "our customers",

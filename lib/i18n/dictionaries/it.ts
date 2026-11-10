@@ -715,6 +715,7 @@ export const it: Dictionary = {
     hostingNote: "Non in Svizzera. Preferiamo dirlo noi che lasciarglielo scoprire.",
     vendorsTitle: "Chi risponde ai messaggi",
     vendorsNote: "Un messaggio viene inviato a una di queste aziende per essere elaborato. Non abbiamo un contratto di responsabile del trattamento con nessuna di esse. Heidi non è quindi adatta oggi a dati personali coperti da segreto professionale.",
+    vendorsPlaceNote: "Ogni nome è seguito dall'azienda e dal paese in cui ha sede, come indicato dall'azienda stessa. Il Suo messaggio viene quindi elaborato fuori dalla Svizzera.",
     broughtKeyNote: "Con una chiave propria il messaggio va invece al fornitore che sceglie lei.",
     notDoneTitle: "Che cosa non facciamo",
     notDone: {
@@ -733,11 +734,12 @@ export const it: Dictionary = {
   impressum: {
     title: "Note legali",
     operatorLabel: "Gestito da",
+    operator: "Il progetto Heidi (bitbaum)",
     contactLabel: "Contatto",
     sourceLabel: "Codice sorgente",
     statusLabel: "Forma giuridica",
-    statusNote: "Heidi non è una società registrata. Il sito è gestito a titolo privato e il codice è aperto.",
-    addressNote: "Indicheremo un indirizzo postale non appena ce ne sarà uno.",
+    statusNote: "Heidi è un progetto di bitbaum e non una società registrata. Il codice è aperto.",
+    addressNote: "Per ogni richiesta, anche legale o sulla protezione dei dati, scriva all'indirizzo di contatto qui sopra.",
   },
 
   contribute: {

@@ -2,7 +2,9 @@ import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
-import { CONTACT_EMAIL, OPERATOR, SITE_URL } from "./site.ts";
+import { CONTACT_EMAIL, OPERATOR_ORG, SITE_URL } from "./site.ts";
+import { getDictionary } from "../i18n/index.ts";
+import { LOCALES } from "../i18n/locales.ts";
 
 /**
  * The address a legal notice publishes has to be one that receives mail.
@@ -91,8 +93,15 @@ describe("the site's own identity", () => {
     assert.ok(!SITE_URL.endsWith("/"), `${SITE_URL} would produce a double slash in every built URL`);
   });
 
-  test("the operator is named", () => {
-    // A legal notice naming nobody is the first thing a careful reader notices.
-    assert.ok(OPERATOR.trim().length > 0);
+  test("the operator is the Heidi project under bitbaum, in every language, and never a person or an address", () => {
+    // The owner's decision: no private name and no postal address on the
+    // legal notice, and none invented. Every language names the project and
+    // the organisation, and none promises an address that is not coming.
+    for (const locale of LOCALES) {
+      const t = getDictionary(locale).impressum;
+      assert.ok(t.operator.includes("Heidi"), `${locale}: the operator line does not name Heidi`);
+      assert.ok(t.operator.includes(OPERATOR_ORG), `${locale}: the operator line does not name ${OPERATOR_ORG}`);
+      assert.ok(t.statusNote.includes(OPERATOR_ORG), `${locale}: the legal form does not say whose project this is`);
+    }
   });
 });
