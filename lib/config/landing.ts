@@ -6,7 +6,9 @@
  * Nothing rendered that copy, so nothing kept it true: it still promised "no
  * streaks" weeks after streaks shipped. Only what the preview prints is left.
  */
+import { ASSISTANT_NAME } from "./site.ts";
+
 export const LANDING = {
-  brand: "Heidi",
+  brand: ASSISTANT_NAME,
   headline: "Understand Zurich German. Then text like a local.",
 } as const;
