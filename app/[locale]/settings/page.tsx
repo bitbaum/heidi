@@ -176,6 +176,13 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
           )}
         </div>
         {authEnabled && <SyncSection t={dict.sync} signedIn={Boolean(session?.actorId)} canMail={Boolean(session?.user?.email)} />}
+        {/* The pass has one page, which also says when it cannot be bought yet. */}
+        <Link
+          href={href(locale, "pass")}
+          className="mt-6 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
+        >
+          {dict.pass.title}
+        </Link>
       </Section>
 
       <Section id="data" title={sections.data}>

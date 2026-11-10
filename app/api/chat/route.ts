@@ -8,7 +8,8 @@ import { HEIDI_ID, LEARNER_ID, type ChatMessage } from "../../../lib/domain/chat
 import { redact } from "../../../lib/domain/model/byok.ts";
 import { decodeAnswer } from "../../../lib/domain/chat/answer.ts";
 import { MAX_IMAGES, readImage } from "../../../lib/domain/chat/image.ts";
-import { callerKey, chat as chatLimit, tooMany } from "../../../lib/domain/limits.ts";
+import { callerKey, chat as chatLimit, chatWithPass, tooMany } from "../../../lib/domain/limits.ts";
+import { callerHasPass } from "../../../lib/pay/service.ts";
 
 // Relative `.ts` imports, not the `@/*` alias: node's test runner exercises
 // this handler directly, and the alias only resolves inside Next's build. Same
@@ -57,7 +58,11 @@ export function sanitise(raw: unknown): ChatMessage[] {
 export async function POST(request: Request) {
   // Before the body is even read: each call spends from a free-tier budget
   // shared with every other visitor, so the ceiling protects them, not us.
-  const allowed = chatLimit.check(callerKey(request, "chat"));
+  // A pass triples the allowance, and is the only thing it changes. Looked up
+  // only when payments are switched on, so nothing is added to a request
+  // while they are off.
+  const pass = await callerHasPass();
+  const allowed = (pass ? chatWithPass : chatLimit).check(callerKey(request, "chat"));
   if (!allowed.allowed) return tooMany(allowed);
 
   let body: unknown;

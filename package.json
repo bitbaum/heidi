@@ -26,6 +26,7 @@
     "@bitbaum/chatkit": "^0.23.0",
     "@bitbaum/design-tokens": "^1.5.2",
     "@bitbaum/mail-kit": "0.3.0",
+    "@bitbaum/paykit": "^0.2.0",
     "@bitbaum/searchkit": "^0.2.3",
     "@bitbaum/speechkit": "^1.0.1",
     "@bitbaum/whenkit": "^0.3.3",
@@ -38,6 +39,7 @@
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "threadkit": "^0.1.1",
+    "uqr": "^0.1.3",
     "web-push": "^3.6.7",
     "zod": "^4.6.7"
   },

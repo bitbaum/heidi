@@ -5,9 +5,11 @@ import {
   certificates,
   chatFeedback,
   conversations,
+  entitlements,
   groupMembers,
   groupMessages,
   mailPreferences,
+  payCheckouts,
   preferences,
   progressDevices,
   pushSubscriptions,
@@ -35,6 +37,8 @@ export const ERASED = {
   progress_devices: "deleted",
   mail_preferences: "deleted",
   preferences: "deleted",
+  entitlements: "deleted: a pass ends with the account",
+  pay_checkouts: "deleted; the payment itself is OrangeCat's record, which holds no Heidi account",
   certificates: "deleted",
   channel_follows: "deleted",
   push_subscriptions: "deleted",
@@ -86,6 +90,8 @@ export async function eraseActorData(actorId: string): Promise<void> {
     await tx.delete(channelFollows).where(eq(channelFollows.actorId, actorId));
     await tx.delete(pushSubscriptions).where(eq(pushSubscriptions.actorId, actorId));
     await tx.delete(mailPreferences).where(eq(mailPreferences.actorId, actorId));
+    await tx.delete(entitlements).where(eq(entitlements.actorId, actorId));
+    await tx.delete(payCheckouts).where(eq(payCheckouts.actorId, actorId));
     await tx.delete(preferences).where(eq(preferences.actorId, actorId));
   });
 }

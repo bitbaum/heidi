@@ -1,4 +1,5 @@
 import { clientIp, slidingWindow, toHeaders, type LimitResult } from "limitkit";
+import { PASS_CHAT_MULTIPLIER } from "../config/payments.ts";
 
 /**
  * How much of Heidi one stranger may use.
@@ -48,6 +49,15 @@ export const dictation = slidingWindow({ limit: 20, windowMs: 5 * 60_000 });
  * well inside this, a script is not. Repeats are served from a cache and
  * still count here, so the limit is about the caller, not the bill.
  */
+/** Each one mints a real invoice through the payee's wallet. */
+export const payCheckout = slidingWindow({ limit: 6, windowMs: 10 * 60_000 });
+
+/**
+ * The chat allowance of somebody holding a pass (`PASS_CHAT_MULTIPLIER` times
+ * the open one). The one thing a pass changes.
+ */
+export const chatWithPass = slidingWindow({ limit: 30 * PASS_CHAT_MULTIPLIER, windowMs: 5 * 60_000 });
+
 export const speak = slidingWindow({ limit: 40, windowMs: 5 * 60_000 });
 
 /**
