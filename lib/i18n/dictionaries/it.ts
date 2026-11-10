@@ -39,6 +39,7 @@ export const it: Dictionary = {
     privacy: "Protezione dei dati",
     impressum: "Note legali",
     investors: "Investitori",
+    pass: "Pagare Heidi",
     groupUse: "Usare",
     groupLearn: "Imparare",
     groupPractise: "Esercitarsi",
@@ -1077,6 +1078,16 @@ export const it: Dictionary = {
       body: "Scelga podcast e canali YouTube che le piacciono. Heidi controlla se escono nuove puntate, la avvisa e fa domande su quello che è stato detto.",
       cta: "Ai suoi canali",
     },
+  },
+
+  pass: {
+    title: "Pagare Heidi",
+    lead: "Paga Heidi in Bitcoin, direttamente su OrangeCat. Il denaro va dal Suo portafoglio a Heidi; OrangeCat non lo detiene mai.",
+    button: "Pagare in Bitcoin su OrangeCat",
+    howTitle: "Come funziona",
+    how: "Il pulsante apre la pagina pubblica di Heidi su OrangeCat. Lì crea una richiesta di pagamento in Bitcoin e la paga con il Suo portafoglio. Non serve un conto.",
+    notYetTitle: "Che cosa non è ancora automatico",
+    notYet: "Dopo il pagamento il Suo pass non viene ancora concesso automaticamente. Oggi Heidi non vede quale pagamento appartiene a quale conto.",
   },
 
   errors: {

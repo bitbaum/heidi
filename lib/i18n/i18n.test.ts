@@ -303,6 +303,8 @@ test("route segments are the same in every language", () => {
       // answering a question no learner asked.
       "organisations",
       "investors",
+      // `pass` is how Heidi is paid: one button to its OrangeCat page.
+      "pass"
     ],
   );
 });

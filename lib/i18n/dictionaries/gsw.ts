@@ -62,6 +62,7 @@ export const gsw: Dictionary = {
     privacy: "Datenschutz",
     impressum: "Impressum",
     investors: "Investore",
+    pass: "Heidi zahle",
     groupUse: "Bruuche",
     groupLearn: "Lerne",
     groupPractise: "Üebe",
@@ -1097,6 +1098,16 @@ export const gsw: Dictionary = {
       body: "Wähled Si Podcasts und YouTube-Kanäl, wo Si mööged. D Heidi luegt nach nöie Folge, seit Ihne Bscheid und stellt Frage zu dem, was gseit worde isch.",
       cta: "Zu Ihrne Kanäl",
     },
+  },
+
+  pass: {
+    title: "Heidi zahle",
+    lead: "Sie zahled Heidi in Bitcoin, diräkt uf OrangeCat. S Gäld gaht vo Ihrem Wallet a Heidi; OrangeCat hät s nie.",
+    button: "Uf OrangeCat in Bitcoin zahle",
+    howTitle: "Eso gaht s",
+    how: "De Chnopf macht d öffentlichi Siite vo Heidi bi OrangeCat uf. Det erstelled Sie e Bitcoin-Zahligsaafrag und zahled si mit Ihrem eigene Wallet. Es Konto bruuched Sie defür nöd.",
+    notYetTitle: "Was nonig automatisch gaht",
+    notYet: "Nach de Zahlig wird Ihre Pass nonig automatisch freigschaltet. Heidi gseht hüt nöd, weli Zahlig zu welem Konto ghört.",
   },
 
   errors: {
