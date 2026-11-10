@@ -1,3 +1,4 @@
+import { sender } from "../../../lib/auth/sender.ts";
 import { dbConfigured } from "../../../lib/db/index.ts";
 import { schemaProblems, type SchemaProblem } from "../../../lib/db/usable.ts";
 
@@ -60,5 +61,9 @@ export async function GET() {
     ok: true,
     commit: process.env.COMMIT_SHA ?? "unknown",
     schema,
+    // Which From line account mail carries and why: Heidi's own domain when
+    // the mail service has verified one for this deployment's key, otherwise
+    // the fleet's shared sender. See `lib/auth/sender.ts`.
+    mail: await sender.report(),
   });
 }
