@@ -7,6 +7,7 @@ import { GIST } from "../templates/authored/gist.ts";
 import { TRANSFORM } from "../templates/authored/transform.ts";
 import { CLOCK } from "../templates/authored/clock.ts";
 import { words } from "./text.ts";
+import { closenessOf, ruleBehind } from "../../vocabulary/distance.ts";
 import type { ExerciseKind, Material } from "./kind.ts";
 
 /**
@@ -161,8 +162,7 @@ export function meaningItems(pack: VarietyPack): QuestionItem[] {
       focus: target,
       ...place(id, entry.bridge.trim(), chosen),
       optionsIn: "bridge",
-      lesson: trap ? "false-friend" : "word",
-      slots: { word: target, means: entry.bridge.trim(), ...(trap ? { trap } : {}) },
+      ...lessonFor(entry, pack, trap),
       source: { kind: "word", word: entry.target, group: entry.group },
     });
   }
@@ -177,3 +177,24 @@ export const MEANING_KIND: ExerciseKind = {
   fromPack: true,
   generate: (m) => meaningItems(m.pack),
 };
+
+/**
+ * What the verdict teaches about a word depends on how it is reached from
+ * German. «rede» is «reden» without its -n — saying "remember it in a
+ * sentence" about it, as every word once got, teaches nothing. A rule word
+ * names its rule; only a word nothing in German leads to is "learn this one".
+ */
+function lessonFor(
+  entry: VocabularyEntry,
+  pack: VarietyPack,
+  trap: string | undefined,
+): Pick<QuestionItem, "lesson" | "slots"> {
+  const word = entry.target.trim();
+  const means = entry.bridge.trim();
+  if (trap) return { lesson: "false-friend", slots: { word, means, trap } };
+  const closeness = closenessOf(entry, pack.correspondences);
+  if (closeness === "same" || closeness === "close") return { lesson: "word-close", slots: { word, means } };
+  const behind = closeness === "rule" ? ruleBehind(entry, pack.correspondences) : undefined;
+  if (behind) return { lesson: "word-rule", slots: { word, means, rule: behind.rule, example: behind.example ?? behind.rule } };
+  return { lesson: "word", slots: { word, means } };
+}

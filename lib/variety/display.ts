@@ -1,4 +1,5 @@
 import { VARIETY } from "./active.ts";
+import { check } from "./check.ts";
 import { areasOf, isTaught, marksFor, sourcesFor } from "./family.ts";
 import { ruleLabel, type Severity } from "./pack.ts";
 import type { Atlas } from "./pack.ts";
@@ -359,3 +360,16 @@ export const DISPLAY: DisplayVariety = {
   })),
   showcase: VARIETY.showcase ? { line: VARIETY.showcase.line } : undefined,
 };
+
+/**
+ * The words of a learner's sentence the pack would say differently here —
+ * «nid» where the house form is «nöd» — each with the form it uses. Form and
+ * suggestion only: the pack's reason is English prose and never reaches a
+ * reader; the reader's own dictionary words the sentence around them.
+ */
+export function preferredForms(text: string): { form: string; suggest: string; index: number }[] {
+  if (!text.trim()) return [];
+  return check(text, VARIETY, "dispreferred")
+    .findings.filter((f) => f.suggest && f.suggest.toLocaleLowerCase("de") !== f.form.toLocaleLowerCase("de"))
+    .map((f) => ({ form: f.form, suggest: f.suggest ?? "", index: f.index }));
+}

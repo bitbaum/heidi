@@ -52,7 +52,7 @@ const MAX_OPTION = 160;
  * The request. `askIn` is the bridge's name from the pack — no language is
  * named here. The lines are numbered so the model can cite them.
  */
-export function questionsPrompt(args: { title: string; lines: readonly TranscriptLine[]; askIn: string }): {
+export function questionsPrompt(args: { title: string; lines: readonly TranscriptLine[]; askIn: string; rendering?: boolean }): {
   system: string;
   user: string;
   linesUsed: number;
@@ -64,6 +64,9 @@ export function questionsPrompt(args: { title: string; lines: readonly Transcrip
     "You write listening-comprehension questions for an adult language learner from a video transcript.",
     `Write every prompt and every option in ${args.askIn}. Plain, neutral wording; no slang, no emoji.`,
     "Questions test what was SAID — facts, reasons, who did what, what happens next. Never spelling, never grammar, never the learner's opinion.",
+    ...(args.rendering
+      ? [`The text is a RENDERING into ${args.askIn} of speech in a dialect, made by a recogniser: ask about content only, never about wording, and skip anything the rendering leaves unclear.`]
+      : []),
     "Each question is answerable from the transcript alone, and exactly one option is right. Wrong options must be plausible and must NOT be stated anywhere in the transcript.",
     "The gist question asks about the piece as a whole and can be answered after one listen.",
     `Then ${MIN_DETAIL} to ${MAX_DETAIL} detail questions, in the order the answers occur, spread across the transcript.`,

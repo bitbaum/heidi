@@ -106,7 +106,10 @@ function sentenceOf(item: PracticeItem, phrase: DisplayPhrase | undefined): stri
     case "cloze":
       return GAP.test(item.prompt) ? item.prompt.replace(GAP, item.answer) : item.prompt;
     case "translate":
+    case "build":
       return item.answer;
+    case "verify":
+      return item.said;
     case "recall":
       return item.prompt;
     // The sentence that WAS the answer, so "other ways to say it" asks about

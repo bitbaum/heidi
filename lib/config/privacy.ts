@@ -116,6 +116,9 @@ export const BROUGHT_KEY_VENDORS = BYOK_PROVIDERS.map((p) => p.label);
 /** Speech-to-text, which is a different chain from the one that answers. */
 export const TRANSCRIPTION_VENDOR = "Groq";
 
+/** Sends the account mail and, if switched on, the reminder. One vendor, by `@bitbaum/mail-kit`. */
+export const MAIL_VENDOR = "Resend";
+
 export const FLOWS: readonly Flow[] = [
   {
     id: "draftConversation",
@@ -173,6 +176,16 @@ export const FLOWS: readonly Flow[] = [
     recipients: [],
   },
   {
+    // "Meine Situationen": which situations this learner chose to practise.
+    // Read by this browser, to decide what "practise" draws from; with sync
+    // switched on it travels inside `progressSync` like the saved words.
+    id: "focus",
+    place: "device",
+    where: "localStorage · heidi.focus.v1",
+    leavesDevice: false,
+    recipients: [],
+  },
+  {
     // The sitting in progress — which questions, how far, what was answered —
     // so closing the exercise screen does not lose it. Replaced by the next
     // sitting; ignored after twelve hours.
@@ -225,7 +238,7 @@ export const FLOWS: readonly Flow[] = [
   },
   {
     // Only when switched on: this device's practice record, seen questions,
-    // question schedule, streak and saved words, under the account. Off deletes this device's
+    // question schedule, streak, saved words and chosen situations, under the account. Off deletes this device's
     // copy; "delete everything synced" deletes all of it.
     id: "progressSync",
     place: "server",
@@ -274,6 +287,27 @@ export const FLOWS: readonly Flow[] = [
     where: "localStorage · heidi.videos.v1",
     leavesDevice: false,
     recipients: [],
+  },
+  {
+    // What the learner agreed to be written to about: one switch, the time zone
+    // they were in when they turned it on, and when the last reminder went.
+    // Read only by the reminder sweep. Off by default.
+    id: "mailPreferences",
+    place: "server",
+    where: "mail_preferences",
+    leavesDevice: true,
+    recipients: [],
+  },
+  {
+    // Account mail (the address check, the sign-in link, the reset) and, only
+    // if switched on, the reminder: the address and the message go to the mail
+    // vendor, which sends it. The reminder holds a count and one line from the
+    // pack — never what the learner wrote or got wrong.
+    id: "mailDelivery",
+    place: "vendor",
+    where: "api.resend.com · /emails",
+    leavesDevice: true,
+    recipients: [MAIL_VENDOR],
   },
   {
     // The IFrame player on the privacy-enhanced host. Like any embed, the
@@ -373,6 +407,16 @@ export const FLOWS: readonly Flow[] = [
     // The browser path is not private either, and saying so is the point: in
     // Chrome the Web Speech API is served by Google's speech service.
     recipients: ["Google", TRANSCRIPTION_VENDOR],
+  },
+  {
+    // Read-aloud on a device with no German voice: the line goes to Google's
+    // Gemini speech model and comes back as audio. Not stored there by us,
+    // not kept here beyond a short in-memory cache of the same line.
+    id: "serverVoice",
+    place: "vendor",
+    where: "/api/speak",
+    leavesDevice: true,
+    recipients: ["Google"],
   },
   {
     id: "pictures",

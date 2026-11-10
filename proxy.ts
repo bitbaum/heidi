@@ -43,7 +43,7 @@ const ONE_YEAR = 60 * 60 * 24 * 365;
  */
 
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const first = pathname.split("/")[1] ?? "";

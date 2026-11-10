@@ -1,6 +1,7 @@
 import { createAuthMailer } from "@bitbaum/accountkit/auth/mail";
 import type { AuthMailer } from "@bitbaum/accountkit/auth/server";
 import { ASSISTANT_NAME, SITE_URL } from "../config/site.ts";
+import { renderAuthMail } from "./mail-copy.ts";
 import { sender } from "./sender.ts";
 
 /**
@@ -14,11 +15,15 @@ import { sender } from "./sender.ts";
  * unconfigured, and the sign-in page then offers no "Forgot your password?"
  * and no sign-in link: nothing is advertised that cannot arrive.
  *
+ * The words are Heidi's, in the reader's language (`mail-copy.ts`), through
+ * the package's `render` slot. `codes: true` because that template prints the
+ * sign-in code, which the package only mints when a template says it will.
+ *
  * Env: RESEND_API_KEY (required), RESEND_FROM (optional; defaults to
  * mail-kit's `conventionalFrom("Heidi")` on the fleet's verified sender
  * domain).
  */
-export const authSite = { url: SITE_URL, title: ASSISTANT_NAME, slug: "heidi" };
+export const authSite = { url: SITE_URL, title: ASSISTANT_NAME, slug: ASSISTANT_NAME.toLowerCase() };
 
 export function heidiAuthMailer(
   env?: () => Record<string, string | undefined>,
@@ -28,6 +33,8 @@ export function heidiAuthMailer(
   const read = env ?? (() => process.env);
   return createAuthMailer({
     site: authSite,
+    render: renderAuthMail,
+    codes: true,
     env: () => {
       const values = read();
       const from = sender.from(values);

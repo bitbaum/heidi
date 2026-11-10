@@ -43,6 +43,11 @@ const nextConfig = {
   // The box's launch.sh looks for a server.js — see sync-infra.sh.
   output: "standalone",
   reactStrictMode: true,
+  // A URL that matches no route at all (a typo, a removed page, `/xx/…`) used
+  // to get Next's bare English «404 This page could not be found.» with no
+  // header and no way home, because the root layout lives under `[locale]`.
+  // See `app/global-not-found.tsx`.
+  experimental: { globalNotFound: true },
   env: { COMMIT_SHA: commitSha() },
 };
 export default nextConfig;

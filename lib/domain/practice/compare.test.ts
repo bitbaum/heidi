@@ -46,3 +46,9 @@ describe("a different form is shown, a different spelling is not", () => {
     }
   });
 });
+
+test("a typed word that matches one of the pack's words is not offered as another's near miss", () => {
+  const { differs, missing } = compareWords("Das Billett gilt nid für drü Zone.", "Das Billett gilt nur für zwei Zone.");
+  assert.deepEqual(differs, []);
+  assert.deepEqual(missing, ["nur", "zwei"]);
+});

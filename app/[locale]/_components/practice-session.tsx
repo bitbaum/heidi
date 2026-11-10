@@ -15,7 +15,8 @@ import { SessionFrame } from "./session/frame";
 import { NO_HISTORY, remember } from "@/lib/domain/practice/history";
 import { restore, type SavedSession } from "@/lib/domain/practice/resume";
 import { historyStore, memoryStore, modelStore, sessionStore } from "./practice-stores";
-import { Trace, answerOf } from "./exercises/chrome";
+import { Trace } from "./exercises/chrome";
+import { recapOf } from "@/lib/domain/practice/answer";
 import { orderSession, requeue, summarise } from "@/lib/domain/practice/session";
 import { EMPTY_MODEL, observe } from "@/lib/domain/practice/model";
 import { NO_MEMORY, comingBack, scheduleAnswer } from "@/lib/domain/practice/memory";
@@ -25,6 +26,9 @@ import { useSaved } from "./use-saved";
 import { useGrade } from "./use-review";
 import { recordPractice } from "./streak-store";
 import { readHistoryView, readMemoryView, readModelView, useHistoryView, useMemoryView } from "./sync-stores";
+import { SittingCelebration } from "./sitting-celebration";
+import { Momentum } from "./exercises/chrome";
+import { seeded } from "@/lib/domain/practice/random";
 
 /**
  * A practice sitting, on the session screen (`session/frame.tsx`) — the first
@@ -68,6 +72,7 @@ export function PracticeSession({
   vocabularyT,
   learnT,
   sessionT,
+  streakT,
   closeHref,
   about,
   sessionKey,
@@ -90,6 +95,8 @@ export function PracticeSession({
   vocabularyT: Dictionary["vocabulary"];
   learnT: Dictionary["chat"]["learn"];
   sessionT: Dictionary["session"];
+  /** For the end of the sitting: the day just earned, and the week. */
+  streakT: Dictionary["streak"];
   /** Where closing the screen goes. */
   closeHref: string;
   /** What this sitting is, and its choices (`session/settings.tsx`). */
@@ -174,6 +181,8 @@ export function PracticeSession({
         // A card run is longer because a card is faster. See `sessionSize`.
         size: sessionSize(mode),
         cover,
+        // A new seed per sitting: tomorrow, and "Nochmals", are not today again.
+        random: seeded(Date.now()),
       }),
       at: 0,
       outcomes: [],
@@ -305,7 +314,7 @@ export function PracticeSession({
       scrollKey={item ? `${at}:${item.id}` : "done"}
     >
       {!item ? (
-        <Done t={t} sessionT={sessionT} outcomes={outcomes} session={session} locale={locale} closeHref={closeHref} onRestart={() => build(true)} />
+        <Done t={t} sessionT={sessionT} streakT={streakT} outcomes={outcomes} session={session} locale={locale} closeHref={closeHref} onRestart={() => build(true)} />
       ) : (
         <>
           {/* Said, not hidden. A question the learner already answered arriving
@@ -316,6 +325,7 @@ export function PracticeSession({
           {/* Keyed on the item so every answer starts a genuinely new card:
               without it, React keeps the previous question's revealed state and
               the next one arrives already answered. */}
+          <Momentum.Provider value={runOf(outcomes)}>
           <QuestionCard
             key={item.id}
             item={item}
@@ -326,6 +336,7 @@ export function PracticeSession({
             onAnswer={record}
             onRecall={recordRecall}
           />
+          </Momentum.Provider>
         </>
       )}
     </SessionFrame>
@@ -335,6 +346,7 @@ export function PracticeSession({
 function Done({
   t,
   sessionT,
+  streakT,
   outcomes,
   session,
   locale,
@@ -343,6 +355,7 @@ function Done({
 }: {
   t: Dictionary["practice"];
   sessionT: Dictionary["session"];
+  streakT: Dictionary["streak"];
   outcomes: SavedSession["outcomes"];
   /** The items just asked, so the misses can be named rather than counted. */
   session: readonly PracticeItem[];
@@ -379,17 +392,20 @@ function Done({
   return (
     <div className="mt-3 rounded-control border border-border-strong bg-surface-raised p-5 sm:p-6">
       <p className="font-heading text-2xl font-semibold leading-snug tracking-display text-fg-primary">{t.doneTitle}</p>
+      <div className="mt-4">
+        <SittingCelebration t={streakT} locale={locale} />
+      </div>
 
       <ul className="mt-4 flex flex-col gap-1 text-base text-fg-secondary">
         <li>
-          <span className="font-heading text-lg font-semibold text-fg-primary">{summary.asked}</span> {t.doneAsked}
+          <span className="font-heading text-lg font-semibold text-fg-primary">{summary.asked}</span> {plural(t.doneAsked, summary.asked, locale)}
         </li>
         <li>
           <span className="font-heading text-lg font-semibold text-fg-primary">{summary.right}</span> {t.doneRight}
         </li>
         {summary.again > 0 && (
           <li>
-            <span className="font-heading text-lg font-semibold text-fg-primary">{summary.again}</span> {t.doneAgain}
+            <span className="font-heading text-lg font-semibold text-fg-primary">{summary.again}</span> {plural(t.doneAgain, summary.again, locale)}
           </li>
         )}
       </ul>
@@ -405,8 +421,13 @@ function Done({
             {missed.map((item) => (
               <li key={item.id} className="flex flex-wrap items-baseline gap-x-3">
                 <span lang={DISPLAY.tag} className="font-heading text-base font-semibold text-dialect">
-                  {answerOf(item)}
+                  {recapOf(item).dialect}
                 </span>
+                {recapOf(item).german && (
+                  <span lang="de" className="text-base text-fg-secondary">
+                    {recapOf(item).german}
+                  </span>
+                )}
                 <Trace item={item} t={t} locale={locale} compact />
               </li>
             ))}
@@ -431,3 +452,10 @@ function Done({
 
 
 
+
+/** Answers right in a row at the end of the sitting so far: what "3 in Folge" counts. */
+function runOf(outcomes: readonly { outcome: string }[]): number {
+  let n = 0;
+  for (let i = outcomes.length - 1; i >= 0 && outcomes[i].outcome === "right"; i--) n++;
+  return n;
+}

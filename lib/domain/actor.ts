@@ -1,5 +1,6 @@
 import { auth, authEnabled } from "../auth/index.ts";
 import { dbConfigured } from "../db/index.ts";
+import { publicName } from "./public-name.ts";
 
 /**
  * Who is asking, for any route that needs an account.
@@ -37,11 +38,5 @@ export async function requireActor(feature: {
   const actorId = session?.actorId;
   if (!actorId) return { ok: false, status: 401, error: `Sign in ${feature.toDo}.` };
 
-  // Denormalised onto rows that need an author, because there is no users
-  // table to join to. Falling back to the actor id keeps a row writable when a
-  // provider returns no profile — ugly, but attributable, which is the
-  // property that matters.
-  const displayName = session?.user?.name?.trim() || session?.user?.email?.trim() || actorId;
-
-  return { ok: true, actorId, displayName };
+  return { ok: true, actorId, displayName: publicName(session?.user?.name, actorId) };
 }

@@ -7,6 +7,7 @@ import { readFeed } from "./remote.ts";
 import { sweep, type DueChannel, type PushPayload, type SweepOptions, type SweepReport } from "./sweep.ts";
 import * as store from "./store.ts";
 import type { Item } from "./source.ts";
+import { publicFetch } from "./public-fetch.ts";
 
 /**
  * The sweep, wired to the real database, the real YouTube and the real push
@@ -45,7 +46,7 @@ export function sweepFor(actorId: string, options: SweepOptions = {}): Promise<S
 function deps() {
   return {
     due: (olderThan: Date, limit: number) => store.dueChannels(olderThan, limit),
-    readFeed: (channel: DueChannel) => readFeed(channel, fetch),
+    readFeed: (channel: DueChannel) => readFeed(channel, publicFetch),
     record: store.recordVideos,
     followersOf: store.followersOf,
     subscriptionsFor: store.subscriptionsFor,

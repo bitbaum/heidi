@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 
 /**
  * A RELATIVE `Location`, deliberately. Behind Caddy the request URL reads
- * `https://localhost:4025/…` (see the note in `middleware.ts`), so an absolute
+ * `https://localhost:4025/…` (see the note in `proxy.ts`), so an absolute
  * redirect built from it would send a signed-in learner to localhost.
  */
 function goTo(path: string): Response {

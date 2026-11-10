@@ -3,6 +3,7 @@ import type { SituationPack } from "../../situations/pack.ts";
 import type { SavedWord } from "../saved/types.ts";
 import { generateAll, KINDS, PACK_KINDS } from "./kinds/registry.ts";
 import type { PracticeItem } from "./types.ts";
+import { withLevels } from "./levels.ts";
 
 /**
  * Turning material into things to be asked.
@@ -58,5 +59,5 @@ export function allItems(
  * see `ExerciseKind.fromPack`.
  */
 export function packItems(pack: VarietyPack, situations: readonly SituationPack[] = []): PracticeItem[] {
-  return generateAll({ pack, saved: [], situations }, PACK_KINDS);
+  return withLevels(generateAll({ pack, saved: [], situations }, PACK_KINDS), pack, situations);
 }

@@ -2,7 +2,7 @@ import { SCENES } from "../../situations/display.ts";
 import { DISPLAY } from "../../variety/display.ts";
 import { saysWord } from "../../text/words.ts";
 import { PACK_ITEMS } from "./published.ts";
-import { itemsInScope, type Scope } from "./scope.ts";
+import { itemsInScope, scenesIn, type Scope } from "./scope.ts";
 import type { PracticeItem } from "./types.ts";
 
 /**
@@ -25,15 +25,16 @@ import type { PracticeItem } from "./types.ts";
  */
 export function sittingPool(scope: Scope, items: readonly PracticeItem[] = PACK_ITEMS): PracticeItem[] {
   const own = itemsInScope(items, scope);
-  if (scope.kind !== "scene") return own;
-  const scene = SCENES.find((s) => s.id === scope.id);
-  if (!scene) return own;
+  if (scope.kind !== "scene" && scope.kind !== "scenes") return own;
+  const ids = scope.kind === "scene" ? [scope.id] : scenesIn(scope.id);
+  const scenes = SCENES.filter((s) => ids.includes(s.id));
+  if (scenes.length === 0) return own;
 
   const said = new Map<string, boolean>();
   const saidHere = (word: string) => {
     let hit = said.get(word);
     if (hit === undefined) {
-      hit = scene.phrases.some((phrase) => saysWord(phrase.target, word));
+      hit = scenes.some((scene) => scene.phrases.some((phrase) => saysWord(phrase.target, word)));
       said.set(word, hit);
     }
     return hit;

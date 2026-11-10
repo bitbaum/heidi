@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { auth, authEnabled, signIn, signOut } from "@/lib/auth";
+import { connection } from "next/server";
+import { auth, authStatus, signIn, signOut } from "@/lib/auth";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { accountMenu, href } from "@/lib/i18n/routes";
@@ -47,7 +48,22 @@ export async function AccountControl({
   /** `bar` is the top-right corner; `sheet` is the mobile menu panel. */
   placement: "bar" | "sheet";
 }) {
-  if (!authEnabled) return null;
+  /*
+    REQUEST TIME, ALWAYS — the bug `app/[locale]/page.tsx` fixed for itself,
+    fixed here for every page, because this control is in the layout.
+
+    `authEnabled` is a constant read when the module loads. A build without
+    BETTER_AUTH_SECRET (CI, a laptop) therefore skipped `auth()`, touched no
+    request API, and Next PRERENDERED every page with no sign-in control in
+    the bar at all. The box builds with the secret, so production was dynamic
+    and correct — and every browser audit measured a header production does
+    not serve. That is how a signed-out French header 10px too wide shipped
+    (see `site-header.tsx`). Waiting for the request makes the page the same
+    in every build, and reading the status here makes it the server's answer,
+    not the build's.
+  */
+  await connection();
+  if (!authStatus().ready) return null;
 
   const session = await auth();
 
@@ -176,7 +192,8 @@ function GearIcon() {
 
 /** The sign-out button. In the account menu, and on the portal page itself. */
 export async function SignOutButton({ locale, dict }: { locale: Locale; dict: Dictionary }) {
-  if (!authEnabled) return null;
+  await connection();
+  if (!authStatus().ready) return null;
   return (
     <form
       action={async () => {

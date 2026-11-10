@@ -94,3 +94,25 @@ test("a scope offers a test only when it can fill half a run", () => {
   assert.equal(testable(sittingPool({ kind: "all" })), true);
   for (const id of PRACTISABLE.scene) assert.equal(testable(sittingPool({ kind: "scene", id })), true, id);
 });
+
+test("my situations: a sitting draws only from the chosen scenes, plus the words said in them", async () => {
+  const { scenesScope, parseScope } = await import("./scope.ts");
+  const [a, b] = PRACTISABLE.scene;
+  const scope = scenesScope([a, b, a]);
+  assert.deepEqual(scope, { kind: "scenes", id: `${a},${b}` }, "deduplicated, comma-joined");
+  assert.deepEqual(parseScope({ scenes: `${a},${b}` }), scope, "round-trips through the URL");
+
+  const pool = sittingPool(scope);
+  const lines = pool.filter((i) => i.source.kind === "situation");
+  assert.ok(lines.length > 0);
+  for (const item of lines) assert.ok(item.source.kind === "situation" && [a, b].includes(item.source.scene));
+  // Each scene's own sitting is contained in the combined one.
+  const ids = new Set(pool.map((i) => i.id));
+  for (const one of [a, b]) for (const item of sittingPool({ kind: "scene", id: one })) assert.ok(ids.has(item.id), item.id);
+});
+
+test("my situations: one choice is the ordinary scene scope, none is everything", async () => {
+  const { scenesScope, ALL } = await import("./scope.ts");
+  assert.deepEqual(scenesScope(["doctor"]), { kind: "scene", id: "doctor" });
+  assert.deepEqual(scenesScope([]), ALL);
+});
