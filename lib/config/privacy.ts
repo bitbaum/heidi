@@ -91,6 +91,25 @@ export const HOSTING = {
  */
 export const MODEL_VENDORS = ["Groq", "Google", "OpenRouter"] as const;
 
+/**
+ * Who each company is and where it is established, read from the company's
+ * own published page (the `source`), on 10 November 2026.
+ *
+ * `country` is an ISO code, like `HOSTING.country`: a code is the same in all
+ * seven languages and cannot be mistranslated. Google is two entries on
+ * purpose: its privacy policy names its Irish company for people in
+ * Switzerland and the EEA, and the company itself is American.
+ *
+ * `dpa` is the fact that matters to a careful reader and is the same for all
+ * three: the vendor may publish a data-processing addendum, and Heidi has
+ * concluded none. The page says so in words (`vendorsNote`).
+ */
+export const VENDOR_PLACES: Record<(typeof MODEL_VENDORS)[number], { entity: string; country: string; source: string }> = {
+  Groq: { entity: "Groq LLC", country: "US", source: "https://groq.com/privacy-policy/" },
+  Google: { entity: "Google LLC · Google Ireland Limited", country: "US · IE", source: "https://policies.google.com/privacy" },
+  OpenRouter: { entity: "OpenRouter, Inc.", country: "US", source: "https://openrouter.ai/terms" },
+};
+
 /** Vendors a reader can choose for themselves, from the BYOK allowlist. */
 export const BROUGHT_KEY_VENDORS = BYOK_PROVIDERS.map((p) => p.label);
 
@@ -258,7 +277,9 @@ export const FLOWS: readonly Flow[] = [
     place: "server",
     where: "channel_videos",
     leavesDevice: true,
-    recipients: [...MODEL_VENDORS, TRANSCRIPTION_VENDOR],
+    // A set: the transcriber is also one of the model vendors, and the row
+    // used to read «Groq · Google · OpenRouter · Groq».
+    recipients: [...new Set([...MODEL_VENDORS, TRANSCRIPTION_VENDOR])],
   },
   {
     id: "videoAnswers",

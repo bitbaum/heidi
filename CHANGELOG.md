@@ -23,6 +23,11 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ## 2026-11-10
 
+- Shared links show a picture: every page carries the preview image with a full address, including the not-found page, which used to emit it against localhost (#285).
+- Every page names its own canonical address and its own translations; /en/practice used to declare /en (#285).
+- /favicon.ico and /apple-touch-icon.png exist; both answered 404 (#285).
+- New page «Pay Heidi»: one button to Heidi's public page on OrangeCat, where a learner pays Heidi directly in Bitcoin. A pass is not yet granted automatically after a payment, and the page says so (#287).
+
 - Deleting an account now deletes the person. The login went, but a person's synced progress, reminder setting, language, conversations, group memberships, follows, push subscriptions and certificates stayed in the database. They are erased with the account (a wrong password erases nothing); a group they made passes to its longest-standing member, and their group messages stay for the others, unattributed. A test fails when a new table with a person column is not handled.
 - A mistyped or outdated link no longer lands on a bare English «404» with no way home. It answers in the language of the URL or the browser and has a button to the start.
 

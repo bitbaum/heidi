@@ -202,7 +202,7 @@ export function AnswerView({
       )}
 
       {a.suggestions.length > 0 && (
-        <div className="mt-3 border-t border-border-subtle pt-3">
+        <div className="mt-3 border-t border-border-subtle pt-3" data-fc-avoid>
           <h3 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.suggestionsTitle}</h3>
           <ul className="mt-2 flex flex-col gap-2">
             {a.suggestions.map((s) => (

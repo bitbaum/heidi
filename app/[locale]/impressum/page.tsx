@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
-import { CONTACT_EMAIL, OPERATOR, POSTAL_ADDRESS, SOURCE_URL } from "@/lib/config/site";
+import { CONTACT_EMAIL, SOURCE_URL } from "@/lib/config/site";
 import { BandHeader, Shell } from "../_components/page-shell";
 import { pageMetadata } from "@/lib/config/seo";
 
@@ -36,7 +36,7 @@ export default async function ImpressumPage({ params }: { params: Promise<{ loca
       <BandHeader title={t.title} />
 
       <dl className="flex flex-col gap-6 border-t border-border-subtle py-10">
-        <Row label={t.operatorLabel}>{OPERATOR}</Row>
+        <Row label={t.operatorLabel}>{t.operator}</Row>
 
         <Row label={t.contactLabel}>
           <a
@@ -47,14 +47,10 @@ export default async function ImpressumPage({ params }: { params: Promise<{ loca
           </a>
         </Row>
 
-        {POSTAL_ADDRESS ? (
-          <Row label={t.operatorLabel}>{POSTAL_ADDRESS}</Row>
-        ) : (
-          <Row label={t.statusLabel}>
-            <span className="text-fg-secondary">{t.statusNote}</span>
-            <span className="mt-1 block text-sm text-fg-muted">{t.addressNote}</span>
-          </Row>
-        )}
+        <Row label={t.statusLabel}>
+          <span className="text-fg-secondary">{t.statusNote}</span>
+          <span className="mt-1 block text-sm text-fg-muted">{t.addressNote}</span>
+        </Row>
 
         <Row label={t.sourceLabel}>
           <a

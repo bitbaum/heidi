@@ -244,7 +244,7 @@ export const gsw: Dictionary = {
     exampleCompose: "Für mi schriibe",
     examples: [
       { kind: "dialect", text: "Geschter im Kauz gsi — mega geil! 😍 Chunnsch s nächscht Mal au?" },
-      { kind: "compose", text: "Säg ihne, dass i zäh Minute spöter chum — fründlich." },
+      { kind: "compose", text: "Säg ihne, dass i zäh Minute spööter chum — fründlich." },
       { kind: "dialect", text: "Häsch du am Samschtig scho öppis vor?" },
     ],
     glossTitle: "Wörter wo sölled bliibe",
@@ -523,7 +523,7 @@ export const gsw: Dictionary = {
       "Si überchömed öppis, wo Si nöd verstönd.",
       "Heidi erklärt s sofort — vollständig, nöd als Rätsel.",
       "Es oder zwei Wörter bliibed hange, wil si Ihne erklärt worde sind, wo Si si bruucht händ.",
-      "Diselbe Wörter tauched spöter wieder uf, i mene andere Satz.",
+      "Diselbe Wörter tauched spööter wieder uf, i mene andere Satz.",
       "Irgendwänn begägned Si ne dusse, und Heidi isch nöd debii gsi.",
     ],
     loopNote:
@@ -793,6 +793,7 @@ export const gsw: Dictionary = {
     hostingNote: "Nöd i de Schwiiz. Das säged mer lieber sälber, als dass Si s uusefinded.",
     vendorsTitle: "Wer d Nachrichte beantwortet",
     vendorsNote: "E Nachricht wird a eis vo dene Unternehme gschickt, zum si z beantworte. Mir händ mit keim devo en Uftragsverarbeitigsvertrag. Für Persone-Date us eme Bruef mit Schwiigepflicht isch d Heidi drum hüt nöd geeignet.",
+    vendorsPlaceNote: "Bi jedem Name stönd s Unternehme und s Land vo sim Sitz, so wie s Unternehme sälber seit. Ihri Nachricht wird also usserhalb vo de Schwiiz verarbeitet.",
     broughtKeyNote: "Mit eigenem Schlüssel gaht d Nachricht statt dem a de Aabieter, wo Si uuswähled.",
     notDoneTitle: "Was mer nöd mached",
     notDone: {
@@ -811,11 +812,12 @@ export const gsw: Dictionary = {
   impressum: {
     title: "Impressum",
     operatorLabel: "Betriebe vo",
+    operator: "S Heidi-Projekt (bitbaum)",
     contactLabel: "Kontakt",
     sourceLabel: "Quälltext",
     statusLabel: "Rächtsform",
-    statusNote: "D Heidi isch kes iidreits Unternehme. D Siite wird privat betriebe, de Quälltext isch offe.",
-    addressNote: "E Poschtadrässe nenned mer, sobald s eini git.",
+    statusNote: "D Heidi isch es Projekt vo bitbaum und kes iidreits Unternehme. De Quälltext isch offe.",
+    addressNote: "Für alli Aaliige, au rächtlichi und zum Dateschutz, gilt d Kontaktadrässe obe.",
   },
 
   contribute: {
@@ -1581,13 +1583,13 @@ export const gsw: Dictionary = {
       {
         claim: "Eimol richtig isch z wenig; zweimol richtig, mit Abstand, isch de Punkt.",
         detail:
-          "Drum chunnt e verpassti Frog no i de gliiche Sitzig zrugg — drüü Froge spöter, nöd sofort. De Abstand vo drüü isch öisi Schätzig: d Studie git d Richtig, nöd d Zahl.",
+          "Drum chunnt e verpassti Frog no i de gliiche Sitzig zrugg — drüü Froge spööter, nöd sofort. De Abstand vo drüü isch öisi Schätzig: d Studie git d Richtig, nöd d Zahl.",
         source: ["rawson-dunlosky-2011"],
       },
       {
         claim: "Aachrüzle ohni Rückmeldig cha de falsch Begriff iipräge.",
         detail:
-          "Drum zeigt jedi Uswahlfrog sofort di richtig Antwort und frogt spöter nomal. Rückmeldig verstärkt de Nutze und verchlinerets grad de Schade.",
+          "Drum zeigt jedi Uswahlfrog sofort di richtig Antwort und frogt spööter nomal. Rückmeldig verstärkt de Nutze und verchlinerets grad de Schade.",
         source: ["butler-roediger-2008"],
       },
       {

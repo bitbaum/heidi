@@ -80,6 +80,81 @@ function useScrollingDown(): boolean {
   return down;
 }
 
+/** What a finger is aiming at. The launcher must never lie on top of one. */
+const CONTROLS = 'a[href], button, input, select, textarea, summary, label, [role="button"], [role="link"], [role="tab"], [role="switch"], [role="checkbox"], [role="radio"]';
+
+/**
+ * Is the launcher lying on a control the page put there.
+ *
+ * WHAT WAS REPORTED. The pill floats bottom-right on every page, and whatever
+ * the page has at that spot when it comes to rest is underneath it: «Start»
+ * on `/practice` at 390px, the password field on the sign-in page, the
+ * warm-up's «Try it» on a tablet. Each of those is the one thing the person
+ * came to press, and the pill took the tap.
+ *
+ * Padding the page cannot fix that. Padding only helps at the very end of a
+ * page; these controls are mid-page and simply happen to stop there. So the
+ * launcher looks at what is under its own resting place and, while that is a
+ * control, slides out of the way. It comes back as soon as the control has
+ * scrolled past.
+ *
+ * It measures the RESTING box rather than its own current box, because once
+ * it has slid away its current box is below the screen and would always read
+ * as clear. `elementsFromPoint` rather than a list of known buttons: this has
+ * to hold for pages that do not exist yet.
+ */
+function useCoversControl(launcher: React.RefObject<HTMLElement | null>, enabled: boolean): boolean {
+  const [covers, setCovers] = useState(false);
+
+  useEffect(() => {
+    if (!enabled) return;
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      const el = launcher.current;
+      if (!el || !el.offsetWidth) return;
+      const style = getComputedStyle(el);
+      const right = window.innerWidth - (parseFloat(style.right) || 0);
+      const bottom = window.innerHeight - (parseFloat(style.bottom) || 0);
+      const left = right - el.offsetWidth;
+      const top = bottom - el.offsetHeight;
+      let hit = false;
+      // A 9 × 5 grid that includes the pill's own edges (inset a pixel): a
+      // control that only clips a corner or a rim still counts.
+      const COLS = 9;
+      const ROWS = 5;
+      for (let ix = 0; ix < COLS && !hit; ix++) {
+        for (let iy = 0; iy < ROWS && !hit; iy++) {
+          const x = left + 1 + (ix * (right - left - 2)) / (COLS - 1);
+          const y = top + 1 + (iy * (bottom - top - 2)) / (ROWS - 1);
+          const under = document.elementsFromPoint(x, y).find((node) => !el.contains(node) && !node.closest("[data-dock]"));
+          hit = Boolean(under?.closest(CONTROLS));
+        }
+      }
+      setCovers(hit);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+    schedule();
+    // Late layout (fonts, images, a list that loads) moves what is underneath.
+    const settle = window.setTimeout(schedule, 600);
+    const observer = new ResizeObserver(schedule);
+    observer.observe(document.body);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      window.clearTimeout(settle);
+      observer.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [launcher, enabled]);
+
+  return enabled && covers;
+}
+
 /**
  * Heidi, on every page.
  *
@@ -139,6 +214,8 @@ export function ChatDock({
   const panelId = useId();
   const wrap = useRef<HTMLDivElement>(null);
   const launcher = useRef<HTMLButtonElement>(null);
+  const pill = useRef<HTMLDivElement>(null);
+  const coversControl = useCoversControl(pill, !open);
 
   useEffect(() => {
     function onAsk(event: Event) {
@@ -230,8 +307,11 @@ export function ChatDock({
         and doubles as the way to close it.
       */}
       <div
+        ref={pill}
         data-dock-launcher
         data-away={scrollingDown && !open ? "true" : undefined}
+        // At every width, unlike `data-away`: see `useCoversControl`.
+        data-covering={coversControl ? "true" : undefined}
         // `env(safe-area-inset-bottom)` keeps it off the iOS home indicator,
         // which otherwise swallows the bottom third of the button.
         style={{ bottom: "max(1rem, env(safe-area-inset-bottom))" }}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getDictionary } from "../i18n/index.ts";
 import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS, isLocale, type Locale } from "../i18n/locales.ts";
-import { SITE_URL } from "./site.ts";
+import { ASSISTANT_NAME, SITE_URL } from "./site.ts";
 
 /**
  * The head tags that depend on WHICH page this is: canonical, og:url, hreflang
@@ -15,7 +15,8 @@ import { SITE_URL } from "./site.ts";
  * shallowly, so whoever sets `openGraph` has to set all of it. This does.
  */
 
-const BRAND = "Heidi";
+/** The product name, from the one place it is written (`site.ts`). */
+const BRAND = ASSISTANT_NAME;
 
 /** Absolute, because a crawler reading a share card resolves nothing. */
 export const OG_IMAGE = {

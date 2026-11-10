@@ -106,7 +106,7 @@ export default async function EssayPage({
       <article lang={LOCALE_TAGS[got]} className="border-t border-border-subtle py-10">
         <EssayBody blocks={text.blocks} />
       </article>
-      <SourceList
+      <SourceList locale={locale}
         title={t.sourcesTitle}
         ids={essay.sources}
         className="mb-14 border-t border-border-subtle pt-8"

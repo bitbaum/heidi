@@ -43,7 +43,7 @@ export function Examples({
   ].sort((a, b) => Number(a.kind === "compose") - Number(b.kind === "compose"));
 
   return (
-    <div className="mt-4">
+    <div className="mt-4" data-fc-avoid>
       <h2 className="font-mono text-caption uppercase tracking-caps text-fg-muted">{t.suggestionsTitle}</h2>
       <ul className={`mt-2 grid gap-2 ${compact ? "" : "sm:grid-cols-2"}`}>
         {entries.map((ex) => (
