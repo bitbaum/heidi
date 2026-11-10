@@ -11,15 +11,13 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { PageHeader, Shell } from "../_components/page-shell";
 import { HeidiAccount } from "../_components/auth-screens";
+import { pageMetadata } from "@/lib/config/seo";
 
 type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale: raw } = await params;
-  return {
-    title: getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE).auth.account,
-    robots: { index: false, follow: false },
-  };
+  return pageMetadata(raw, "account", { title: getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE).auth.account, noindex: true });
 }
 
 /** Everything about one's own account: name, ways in, passkeys, two-step codes, leaving. */

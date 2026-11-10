@@ -9,6 +9,7 @@ import { PageHeader, Shell } from "../_components/page-shell";
 import { formatDate } from "@/lib/i18n/dates";
 import { OtherLanguage } from "../_components/other-language";
 import { ChangelogDocument } from "@bitbaum/bip-kit/react";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({
   params,
@@ -17,7 +18,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.changelog.title, description: dict.changelog.lead };
+  return pageMetadata(raw, "changelog", { title: dict.changelog.title, description: dict.changelog.lead });
 }
 
 /**

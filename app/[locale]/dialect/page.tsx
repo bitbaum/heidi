@@ -16,11 +16,12 @@ import { DialectReader } from "../_components/dialect-reader";
  */
 const WHY_MANY = "warum-die-schweiz-ihre-mundarten-behalten-hat";
 import { DialectFigure } from "../_components/dialect-figure";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.dialect.title, description: dict.dialect.lead };
+  return pageMetadata(raw, "dialect", { title: dict.dialect.title, description: dict.dialect.lead });
 }
 
 /**

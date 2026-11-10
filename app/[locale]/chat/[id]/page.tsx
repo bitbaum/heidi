@@ -8,6 +8,7 @@ import { mayRead } from "@/lib/domain/conversations/rules";
 import { conversationById } from "@/lib/domain/conversations/store";
 import { ChatWorkspace } from "../../_components/chat/workspace";
 import { SignInToKeep } from "../sign-in-to-keep";
+import { pageMetadata } from "@/lib/config/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   // Somebody's private conversation. The title stays generic and the page
   // stays out of every index — a thread title IS their words, and putting it
   // in a <title> would leak it to anything that reads one.
-  return { title: dict.chat.full.title, robots: { index: false, follow: false } };
+  return pageMetadata(raw, null, { title: dict.chat.full.title });
 }
 
 /**

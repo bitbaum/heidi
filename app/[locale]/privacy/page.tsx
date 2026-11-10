@@ -11,11 +11,12 @@ import {
   type Flow,
 } from "@/lib/config/privacy";
 import { BandHeader, Section, Shell } from "../_components/page-shell";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.privacy.title, description: dict.privacy.lead };
+  return pageMetadata(raw, "privacy", { title: dict.privacy.title, description: dict.privacy.lead });
 }
 
 /**

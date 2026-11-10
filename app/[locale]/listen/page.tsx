@@ -8,6 +8,7 @@ import { ListeningRow } from "../_components/listening-row";
 import { ChannelsInvite } from "../_components/channels-invite";
 import { BandHeader, Shell } from "../_components/page-shell";
 import { SectionNav, SectionNavLayout } from "../_components/section-nav";
+import { pageMetadata } from "@/lib/config/seo";
 
 /**
  * Rebuilt hourly, so "three for today" is a promise the page keeps.
@@ -22,7 +23,7 @@ export const revalidate = 3600;
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.listening.title, description: dict.listening.lead };
+  return pageMetadata(raw, "listen", { title: dict.listening.title, description: dict.listening.lead });
 }
 
 /**

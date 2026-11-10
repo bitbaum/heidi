@@ -14,13 +14,14 @@ import { watchUrl } from "@/lib/channels/youtube";
 import { isItemId } from "@/lib/channels/rss";
 import { Section, Shell } from "../../_components/page-shell";
 import { VideoLesson } from "../../_components/video-lesson";
+import { pageMetadata } from "@/lib/config/seo";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; video: string }> }): Promise<Metadata> {
-  const { locale: raw } = await params;
+  const { locale: raw, video } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.channels.title, robots: { index: false, follow: false } };
+  return pageMetadata(raw, `channels/${video}`, { title: dict.channels.title, noindex: true });
 }
 
 /**

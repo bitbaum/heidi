@@ -8,11 +8,12 @@ import { LEARNER_NOTE, ROLES, roleMailto } from "@/lib/config/roles";
 import { sectorLocale } from "@/lib/config/sectors";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.contribute.title, description: dict.contribute.lead };
+  return pageMetadata(raw, "contribute", { title: dict.contribute.title, description: dict.contribute.lead });
 }
 
 /**

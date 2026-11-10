@@ -13,10 +13,12 @@ import {
   isInvestorPassword,
 } from "@/lib/config/investor-gate";
 import { Shell } from "../_components/page-shell";
+import { pageMetadata } from "@/lib/config/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params;
   // Never indexed. A gated room in a sitemap is a gated room with a sign on it.
-  return { title: "Investors", robots: { index: false, follow: false } };
+  return pageMetadata(raw, "investors", { title: "Investors", noindex: true });
 }
 
 export const dynamic = "force-dynamic";

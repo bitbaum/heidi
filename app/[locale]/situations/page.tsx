@@ -8,11 +8,12 @@ import { PageHeader, Shell } from "../_components/page-shell";
 import { PACK_ITEMS } from "@/lib/domain/practice/published";
 import { askableLines } from "@/lib/domain/practice/situation-strength";
 import { SituationBoard } from "../_components/situation-board";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.situations.title, description: dict.situations.lead };
+  return pageMetadata(raw, "situations", { title: dict.situations.title, description: dict.situations.lead });
 }
 
 /**

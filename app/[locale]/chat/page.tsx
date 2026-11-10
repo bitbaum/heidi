@@ -5,13 +5,14 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { ChatWorkspace } from "../_components/chat/workspace";
 import { SignInToKeep } from "./sign-in-to-keep";
+import { pageMetadata } from "@/lib/config/seo";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.chat.full.title, description: dict.meta.description };
+  return pageMetadata(raw, "chat", { title: dict.chat.full.title, description: dict.meta.description });
 }
 
 /**

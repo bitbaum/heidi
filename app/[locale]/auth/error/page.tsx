@@ -5,8 +5,12 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { Shell } from "../../_components/page-shell";
+import { pageMetadata } from "@/lib/config/seo";
 
-export const metadata: Metadata = { robots: { index: false, follow: false } };
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params;
+  return pageMetadata(raw, null);
+}
 
 /**
  * Where Auth.js sends a failed sign-in. "Try again" starts the sign-in again
