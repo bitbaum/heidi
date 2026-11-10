@@ -5,13 +5,18 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { actorOfToken } from "@/lib/mail/unsubscribe";
 import { PageHeader, Shell } from "../_components/page-shell";
+import { pageMetadata } from "@/lib/config/seo";
 
 type Props = {
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ t?: string; done?: string }>;
 };
 
-export const metadata: Metadata = { robots: { index: false, follow: false } };
+// The address carries the unsubscribe token: it is written nowhere in the head.
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params;
+  return pageMetadata(raw, null);
+}
 
 /**
  * Where the footer link of a reminder lands. One page, three honest states:

@@ -12,13 +12,14 @@ import { MAX_FOLLOWS } from "@/app/api/channels/route";
 import { BandHeader, Section, Shell } from "../_components/page-shell";
 import { ChannelsBoard, type Suggestion } from "../_components/channels-board";
 import { PushCard } from "../_components/push-card";
+import { pageMetadata } from "@/lib/config/seo";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.channels.title, description: dict.channels.lead, robots: { index: false, follow: false } };
+  return pageMetadata(raw, "channels", { title: dict.channels.title, description: dict.channels.lead, noindex: true });
 }
 
 /**

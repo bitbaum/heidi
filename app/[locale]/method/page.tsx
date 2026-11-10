@@ -8,11 +8,12 @@ import { SectionNav, SectionNavLayout } from "../_components/section-nav";
 import { RuleCheck } from "../_components/rule-check";
 import { DISPLAY } from "@/lib/variety/display";
 import { SOURCES, type SourceId } from "@/lib/research/sources";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.method.title, description: dict.method.lead };
+  return pageMetadata(raw, "method", { title: dict.method.title, description: dict.method.lead });
 }
 
 /**

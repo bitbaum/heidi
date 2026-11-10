@@ -14,6 +14,7 @@ import { SituationStrength } from "../../_components/situation-strength";
 import { SessionLink } from "../../_components/session/links";
 import { PageHeader, Shell } from "../../_components/page-shell";
 import { SourceList } from "../../_components/source-list";
+import { pageMetadata } from "@/lib/config/seo";
 
 /**
  * Every scene, in every language, at build time. There are six of them and
@@ -31,9 +32,9 @@ export async function generateMetadata({
   const { locale: raw, id } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
   const words = dict.situations.scenes[id as keyof typeof dict.situations.scenes];
-  if (!words) return { title: dict.situations.title };
+  if (!words) return pageMetadata(raw, `situations/${id}`, { title: dict.situations.title, noindex: true });
 
-  return { title: `${words.title} — ${dict.situations.title}`, description: words.scene };
+  return pageMetadata(raw, `situations/${id}`, { title: `${words.title} — ${dict.situations.title}`, description: words.scene });
 }
 
 /**

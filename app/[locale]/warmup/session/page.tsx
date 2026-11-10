@@ -5,11 +5,12 @@ import { href } from "@/lib/i18n/routes";
 import { BACK_PARAM, closeTarget } from "@/lib/domain/practice/sitting";
 import { WarmupSession } from "../../_components/warmup-session";
 import { WARMUP_ITEMS } from "../items";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.warmup.title, robots: { index: false, follow: false } };
+  return pageMetadata(raw, "warmup/session", { title: dict.warmup.title, noindex: true });
 }
 
 /** The warm-up's eight lines, on the session screen. `/warmup` is the page. */

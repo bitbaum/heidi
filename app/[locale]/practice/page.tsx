@@ -19,11 +19,12 @@ import { StreakLine } from "../_components/streak-card";
 import { WarmupInvite } from "../_components/warmup-invite";
 import { MySituations } from "../_components/my-situations";
 import { situationDomains } from "../_components/situation-domains";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.practice.title, description: dict.practice.lead };
+  return pageMetadata(raw, "practice", { title: dict.practice.title, description: dict.practice.lead });
 }
 
 /**

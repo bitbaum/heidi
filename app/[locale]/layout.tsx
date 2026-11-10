@@ -10,6 +10,7 @@ import { ibmPlexMono, inter } from "../fonts";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS, isLocale, type Locale } from "@/lib/i18n/locales";
 import { SITE_URL } from "@/lib/config/site";
+import { pageMetadata } from "@/lib/config/seo";
 import { THEME_SCRIPT } from "@/lib/browser/theme";
 import { SiteHeader } from "./_components/site-header";
 import { AccountControl } from "./_components/account-control";
@@ -47,30 +48,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale: raw } = await params;
-  const locale: Locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
-  const dict = getDictionary(locale);
+  const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
 
-  // hreflang for every locale, so Google serves the Italian page to an Italian
-  // reader instead of picking one and treating the rest as duplicates.
-  const languages = Object.fromEntries(LOCALES.map((l) => [LOCALE_TAGS[l], `${SITE_URL}/${l}`]));
-
+  // The locale home's own tags. Every page below replaces them through the
+  // same helper with its own path: see `lib/config/seo.ts` for why a page that
+  // sets none of them must not inherit these.
   return {
+    ...pageMetadata(raw, ""),
     title: { default: dict.meta.title, template: `%s · Heidi` },
-    description: dict.meta.description,
     metadataBase: new URL(SITE_URL),
-    alternates: {
-      canonical: `${SITE_URL}/${locale}`,
-      languages: { ...languages, "x-default": `${SITE_URL}/${DEFAULT_LOCALE}` },
-    },
-    openGraph: {
-      siteName: "Heidi",
-      type: "website",
-      locale: LOCALE_TAGS[locale],
-      title: dict.meta.title,
-      description: dict.meta.description,
-      url: `${SITE_URL}/${locale}`,
-    },
-    twitter: { card: "summary_large_image", title: dict.meta.title, description: dict.meta.description },
   };
 }
 

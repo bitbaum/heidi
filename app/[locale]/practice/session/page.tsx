@@ -12,12 +12,13 @@ import { TestSession } from "../../_components/test-session";
 import { PracticeChooser } from "../../_components/practice-chooser";
 import { SessionSettings } from "../../_components/session/settings";
 import { scopeName } from "../scope-name";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
   // A sitting, not a page: `/practice` is the one to find.
-  return { title: dict.practice.title, robots: { index: false, follow: false } };
+  return pageMetadata(raw, "practice/session", { title: dict.practice.title, noindex: true });
 }
 
 const sameScope = (a: Scope, b: Scope) => a.kind === b.kind && (a.kind === "all" || (b.kind !== "all" && a.id === b.id));
