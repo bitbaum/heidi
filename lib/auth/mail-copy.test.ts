@@ -51,3 +51,16 @@ test("no doubled blank lines, whichever kind", () => {
     assert.doesNotMatch(renderAuthMail(kind, url, { code: "123456" }).text, /\n\n\n/, kind);
   }
 });
+
+test("every mail also comes as laid-out HTML: one button to the link, a reason, no way to unsubscribe from a sign-in", () => {
+  for (const locale of LOCALES) {
+    const url = verify(`/${locale}/settings`);
+    for (const kind of ["verify", "magicLink", "reset"] as const) {
+      const { html } = renderAuthMail(kind, url, { code: "123456" });
+      assert.ok(html, `${locale} ${kind}: html`);
+      assert.ok(html.includes(`href="${url.replaceAll("&", "&amp;")}"`), `${locale} ${kind}: the button carries the link`);
+      assert.match(html, /<h1/, `${locale} ${kind}`);
+      assert.doesNotMatch(html, /\{site\}|\{code\}/, `${locale} ${kind}: no unfilled placeholder`);
+    }
+  }
+});
