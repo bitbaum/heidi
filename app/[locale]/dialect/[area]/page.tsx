@@ -337,7 +337,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
           )}
         </div>
       </section>
-      <SourceList title={t.sourcesTitle} ids={sources} className="mt-12 border-t border-border-subtle pt-8" />
+      <SourceList locale={locale} title={t.sourcesTitle} ids={sources} className="mt-12 border-t border-border-subtle pt-8" />
 </Shell>
   );
 }
