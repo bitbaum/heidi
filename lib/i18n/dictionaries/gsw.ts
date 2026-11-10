@@ -793,6 +793,7 @@ export const gsw: Dictionary = {
     hostingNote: "Nöd i de Schwiiz. Das säged mer lieber sälber, als dass Si s uusefinded.",
     vendorsTitle: "Wer d Nachrichte beantwortet",
     vendorsNote: "E Nachricht wird a eis vo dene Unternehme gschickt, zum si z beantworte. Mir händ mit keim devo en Uftragsverarbeitigsvertrag. Für Persone-Date us eme Bruef mit Schwiigepflicht isch d Heidi drum hüt nöd geeignet.",
+    vendorsPlaceNote: "Bi jedem Name stönd s Unternehme und s Land vo sim Sitz, so wie s Unternehme sälber seit. Ihri Nachricht wird also usserhalb vo de Schwiiz verarbeitet.",
     broughtKeyNote: "Mit eigenem Schlüssel gaht d Nachricht statt dem a de Aabieter, wo Si uuswähled.",
     notDoneTitle: "Was mer nöd mached",
     notDone: {
@@ -811,11 +812,12 @@ export const gsw: Dictionary = {
   impressum: {
     title: "Impressum",
     operatorLabel: "Betriebe vo",
+    operator: "S Heidi-Projekt (bitbaum)",
     contactLabel: "Kontakt",
     sourceLabel: "Quälltext",
     statusLabel: "Rächtsform",
-    statusNote: "D Heidi isch kes iidreits Unternehme. D Siite wird privat betriebe, de Quälltext isch offe.",
-    addressNote: "E Poschtadrässe nenned mer, sobald s eini git.",
+    statusNote: "D Heidi isch es Projekt vo bitbaum und kes iidreits Unternehme. De Quälltext isch offe.",
+    addressNote: "Für alli Aaliige, au rächtlichi und zum Dateschutz, gilt d Kontaktadrässe obe.",
   },
 
   contribute: {

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
-import { HOW_IT_STARTS, SECTORS, sectorLocale, type Sector, type SectorLocale } from "@/lib/config/sectors";
+import { DATA_BOUNDARY, HOW_IT_STARTS, SECTORS, sectorLocale, type Sector, type SectorLocale } from "@/lib/config/sectors";
 import { CONTACT_EMAIL } from "@/lib/config/site";
 import { PageHeader, Section, Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
@@ -238,6 +238,20 @@ export default async function OrganisationsPage({
               </li>
             ))}
           </ol>
+
+          {/* The limit, beside the offer: see `DATA_BOUNDARY`. */}
+          <div className="mt-10 max-w-measure border-l-2 border-border-strong pl-4">
+            <h3 className="font-heading text-lg font-semibold leading-snug tracking-display text-fg-primary">
+              {DATA_BOUNDARY.title[lang]}
+            </h3>
+            <p className="mt-1 text-base leading-relaxed text-fg-secondary">{DATA_BOUNDARY.body[lang]}</p>
+            <Link
+              href={href(locale, "privacy")}
+              className="mt-2 inline-flex min-h-11 items-center text-link underline underline-offset-4 hover:text-accent"
+            >
+              {DATA_BOUNDARY.link[lang]}
+            </Link>
+          </div>
 
           <p className="mt-8">
             <MailLink t={t} subject={chosen ? chosen.name[lang] : undefined} />
