@@ -133,7 +133,7 @@ export default async function VocabularyPage({ params }: { params: Promise<{ loc
         portalHref={href(locale, "")}
       />
 
-      <SourceList title={dict.dialect.sourcesTitle} ids={sources} className="mt-14 border-t border-border-subtle pt-8" />
+      <SourceList locale={locale} title={dict.dialect.sourcesTitle} ids={sources} className="mt-14 border-t border-border-subtle pt-8" />
     </Shell>
   );
 }

@@ -2,7 +2,7 @@ import type { EssayText } from "../../../lib/essays/types.ts";
 
 export const de: EssayText = {
   title: "Warum die Schweiz ihre Mundarten behalten hat",
-  lead: "Ein Land von acht Millionen Menschen spricht Dutzende von Dialekten, während das grosse Nachbarland seine weitgehend aufgegeben hat. Das liegt nicht an den Bergen.",
+  lead: "Ein Land von rund neun Millionen Menschen spricht Dutzende von Dialekten, während das grosse Nachbarland seine weitgehend aufgegeben hat. Das liegt nicht an den Bergen.",
   blocks: [
     {
       kind: "p",

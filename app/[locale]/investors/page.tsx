@@ -18,7 +18,8 @@ import { pageMetadata } from "@/lib/config/seo";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   // Never indexed. A gated room in a sitemap is a gated room with a sign on it.
-  return pageMetadata(raw, "investors", { title: "Investors", noindex: true });
+  // The title in the reader's language: the German tab used to read «Investors».
+  return pageMetadata(raw, "investors", { title: getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE).nav.investors, noindex: true });
 }
 
 export const dynamic = "force-dynamic";
