@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { canRead, visibleMessages } from "threadkit";
+import { canRead, visibleMessages } from "@bitbaum/threadkit";
 import { contextBody, heidiTurn, MAX_CONTEXT, renderPrompt, soloThread, toThreadMessages, THREAD_ID } from "./thread.ts";
 import { decodeAnswer } from "./answer.ts";
 import { HEIDI_ID, LEARNER_ID, type ChatMessage } from "./types.ts";

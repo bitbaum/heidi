@@ -24,7 +24,7 @@
       ]
     },
     "publishing": {
-      "package": "bip-kit",
+      "package": "@bitbaum/bip-kit",
       "bindings": [
         {
           "file": "app/[locale]/roadmap/page.tsx",

@@ -8,7 +8,7 @@ import { sectorLocale } from "@/lib/config/sectors";
 import { PageHeader, Shell } from "../_components/page-shell";
 import { formatDate } from "@/lib/i18n/dates";
 import { OtherLanguage } from "../_components/other-language";
-import { ChangelogDocument } from "bip-kit/react";
+import { ChangelogDocument } from "@bitbaum/bip-kit/react";
 
 export async function generateMetadata({
   params,

@@ -5,7 +5,7 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { ROADMAP } from "@/lib/config/roadmap";
 import { sectorLocale } from "@/lib/config/sectors";
-import { RoadmapDocument } from "bip-kit/react";
+import { RoadmapDocument } from "@bitbaum/bip-kit/react";
 import { PageHeader, Shell } from "../_components/page-shell";
 import { OtherLanguage } from "../_components/other-language";
 
