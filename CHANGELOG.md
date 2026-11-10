@@ -21,6 +21,52 @@ PR. Prose under a heading is for the human reader; only the bullets travel.
 
 ---
 
+## 2026-11-10
+
+- Shared links show a picture: every page carries the preview image with a full address, including the not-found page, which used to emit it against localhost (#285).
+- Every page names its own canonical address and its own translations; /en/practice used to declare /en (#285).
+- /favicon.ico and /apple-touch-icon.png exist; both answered 404 (#285).
+- New page «Pay Heidi»: one button to Heidi's public page on OrangeCat, where a learner pays Heidi directly in Bitcoin. A pass is not yet granted automatically after a payment, and the page says so (#287).
+
+- Deleting an account now deletes the person. The login went, but a person's synced progress, reminder setting, language, conversations, group memberships, follows, push subscriptions and certificates stayed in the database. They are erased with the account (a wrong password erases nothing); a group they made passes to its longest-standing member, and their group messages stay for the others, unattributed. A test fails when a new table with a person column is not handled.
+- A mistyped or outdated link no longer lands on a bare English «404» with no way home. It answers in the language of the URL or the browser and has a button to the start.
+
+- Email, rebuilt on the fleet's one layout. The address check, the sign-in link and the password reset were plain text; they are now laid out (Heidi's red and mark, a heading, one button, the sign-in code to type elsewhere, why it arrived), with dark mode, in all the site's languages. The layout lives in `@bitbaum/mail-kit` 0.3.0 and is shared by every app.
+- An optional reminder by email, off until switched on (settings, with progress sync on): one mail in the evening, at most every other day, only from five due questions, never after practising that day, and none after three that went unanswered. It names the count and one real due line, says why it came, and unsubscribes in one tap, from the mail client's own button or the footer link. Worded as a good moment to practise, never as something about to be lost.
+- The privacy page lists the mail vendor and the reminder setting.
+
+- Signing up, used end to end. A new account was signed in at once and asked nothing about progress, so a person who made an account to keep their practice on phone and laptop had one that did not — the switch lived only in the settings. The signed-in home now asks once, «Ihren Fortschritt auf jedes Gerät mitnehmen?», with «Einschalten» and «Nur in diesem Browser» side by side; either answer is kept and it is not asked again. Sync stays off until somebody says so.
+- «Meine Situationen» now travels with synced progress: a second device takes the situations chosen on the first and does not ask again, and never overrides a choice made on it.
+- The confirmation email said it would «finish signing up» for an account that already worked; it now says the account works and what confirming is for — being reachable when a password is forgotten. Sign-in and sign-up promised a one-click OrangeCat sign-in on installations without it; that sentence now appears only beside the button.
+- The chat footer named the model as a route id («google/models/gemini-flash-latest»); it names it as a person reads it («Gemini Flash»). A kept word no longer repeats its German meaning twice for a German reader. Chat asks its models for their shortest hidden reasoning, so the first words arrive sooner.
+- Writing practice no longer pairs a typed word that matches one of the pack's words with a different one («für – nur»).
+
+## 2026-11-09
+
+- Practice, used end to end and fixed where it read wrong. «Welches Wort fehlt?» showed no field and no options, which looked broken; it now says to give the answer aloud or in your head, then reveal. A word's «Warum?» used to say "remember it in a sentence" about every word; it now says how the word is reached — almost German (`Wätter`), by a sound rule named with the pack's example (`chaufe`: k → ch, as in Kind → Chind), or not at all. A match grid could be four words solved by their shape (`bringe, finde, frage, rede` — add an n); every grid now holds at least two words the German does not give away, and never one meaning twice. A built sentence checked wrong reads as one line with the misplaced words marked. Writing «nid» now says «nid» is understood, and that here one says «nöd» (the pack's own house form). The finish screen listed the German answer as the missed Zurich word («reden» for «rede»); it shows both. «1 kommen nochmals» counts in the reader's grammar.
+
+- Dialect podcasts get questions. An episode in Zurich German with no publisher transcript used to play without any — Heidi writes no transcript of the dialect, because a recogniser turns it into Standard German. It now gets exactly that, called what it is: a Standard German rendering of the opening minutes, «sinngemäss — nicht der Dialekt, wie er klingt», with comprehension questions about content. Episodes refused before are offered again.
+- A show followed through its feed or a podcast app is recognised as the register's show by its name on the publisher's domain, so Heidi knows it is dialect however it was followed.
+
+- Every exercise now has a level — how far its Zurich German is from German: like German (`schlafe`, `au` for «auch»), by one of the pack's sound rules (`Chind`, `chaufe`), or different (`nöd`, `öppis`, and false friends like `Estrich`). Measured from spelling and the pack's own rules, one classification for the whole product (it also ranks the vocabulary page). A new learner practises mostly the first level; once it holds, the sittings move up.
+- Every kind of question says what it tests — understanding, words, sound rules, verb forms, articles, saying it yourself — in one table. «Was sitzt» on your page counts your answers both ways, with what holds and the level you are working at. Counts, not a score.
+
+- Practice, rebuilt around the moment of answering. The option you tap fills with ink and a tick, or takes a red outline and a cross, with the right one then outlined in ink — in Heidi's own two colours. It used to fill the right answer black whether or not you had picked it. A right answer moves on by itself after a beat («Warum?» holds it); a wrong one stays with its explanation. A phone gives a short pulse. «3 in Folge» appears when it is true.
+- Not the same sitting twice: questions that tie on what the learner needs are ordered by a seeded draw instead of the alphabet, and options, word banks and matching columns are laid out afresh every time a question is shown. Due questions and weak areas still come first.
+- Two new kinds of question: «Satz bauen» — the Zurich words of a sentence you say, shuffled with one that does not belong, tapped into order and checked — and «Stimmt das?», a heard line with a meaning beside it, right or not, one tap.
+- A line is recognised before it is produced: until you recognise it reliably it comes as «Stimmt das?», the gist or a word's meaning; after that it comes back to be built or translated.
+
+- «Wofür brauchen Sie Schweizerdeutsch?» — a new learner picks the situations they actually face (the doctor, the Kindsgi, the lunch table at work …) and every «practise» button then draws from those. Practice was already spaced repetition over a per-learner model; nothing had asked what somebody needs it for.
+- The end of a sitting is a moment: the check draws itself and the day just earned lands in the week's goal. Still no score.
+- The home page is a third shorter on a phone: the personal moments stay, without the paragraph under each; society's moments moved to «For organisations». Somebody who has practised here before, signed out, is welcomed back with their next step above the introduction.
+- Read-aloud works on a device with no German voice installed: the server reads the line with a German Gemini voice, labelled as German like the device's own. Declared on the privacy page.
+- «Sign in to keep it» keeps the conversation: after signing in, nobody is asked a second time.
+- Inter and IBM Plex Mono, self-hosted from @bitbaum/design-tokens: the same letters on every device, where before only Apple devices had the intended typeface.
+- Your email address no longer appears where other people can see it. Sign-up asks for no name, so nearly every account showed its email as its name on a proposed speaking topic, a round and a study group — and the topics board is readable signed out. It now shows the display name, or a short handle such as «#4F2A»; addresses already stored were replaced by a migration.
+- Account emails (confirm your address, sign-in link, password reset) are written in the language of the page the person was on, instead of always in English.
+- Sign-in is in every page's header in every build: a build made without the session secret used to serve pages with no sign-in control, and CI's layout audit measured that narrower header. On a phone the floating «Practise | Ask Heidi» no longer covers the sign-in form's buttons.
+- Channels and podcasts: the server fetches only public addresses for a feed, its redirects and its audio; one malformed feed no longer stops the hourly refresh for everyone else; a pasted transcript never replaces a publisher's; feeds and synced devices have ceilings.
+
 ## 2026-10-27
 
 - The full chat at «/chat» is the fleet's chat app (chatkit's `ChatApp`): your conversations sit in a drawer on a phone and beside the chat on a wide screen, with a search box and Today / Yesterday / Earlier; each has one «…» for Rename and Delete. New: a temporary conversation that is written nowhere, a message written while Heidi is answering waits above the box and goes when she is done, and the conversation you had open comes back after a reload. Signed out, the list is kept in this browser and nothing reaches the database; a conversation from the home box or the floating window carries over. Stop still throws away the half answer (it had not been checked for Zurich forms) and a failure still says why. The chips under an answer («Shorter», «Word by word») and «What does it mean?» on a selected word now put their sentence in the box to send, instead of sending it at once.

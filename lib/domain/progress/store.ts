@@ -1,4 +1,4 @@
-import { and, desc, eq, ne, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, max, ne, sql } from "drizzle-orm";
 import { db } from "../../db/index.ts";
 import { certificates, progressDevices } from "../../db/schema.ts";
 import { decodeModel, type LearnerModel } from "../practice/model.ts";
@@ -51,6 +51,34 @@ export async function putRecords(
         },
       });
   }
+  await keepNewestDevices(actorId, deviceId);
+}
+
+/**
+ * How many devices one learner's progress is kept for. A phone, a laptop, a
+ * work machine and a few reinstalls fit with room. Without a ceiling a new
+ * random device id per request stored another five records each time, and
+ * every read (`otherDevices`, `deviceModels`, a team's overview) loaded all
+ * of them.
+ *
+ * Past it, the device that has gone longest without a change loses its server
+ * copy — never the one writing now. Nothing is refused, and nothing is lost
+ * that the device itself does not still hold: it syncs back if it returns.
+ */
+export const MAX_DEVICES = 10;
+
+async function keepNewestDevices(actorId: string, current: string): Promise<void> {
+  const devices = await db
+    .select({ deviceId: progressDevices.deviceId, last: max(progressDevices.updatedAt) })
+    .from(progressDevices)
+    .where(eq(progressDevices.actorId, actorId))
+    .groupBy(progressDevices.deviceId)
+    .orderBy(desc(max(progressDevices.updatedAt)));
+  if (devices.length <= MAX_DEVICES) return;
+  const keep = new Set([current, ...devices.filter((d) => d.deviceId !== current).slice(0, MAX_DEVICES - 1).map((d) => d.deviceId)]);
+  const stale = devices.map((d) => d.deviceId).filter((id) => !keep.has(id));
+  if (stale.length === 0) return;
+  await db.delete(progressDevices).where(and(eq(progressDevices.actorId, actorId), inArray(progressDevices.deviceId, stale)));
 }
 
 /** Turning sync off on one device, or "delete everything synced" with no device. */

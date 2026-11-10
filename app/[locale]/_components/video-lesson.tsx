@@ -17,6 +17,7 @@ import { PastePanel, TranscriptView } from "./video-transcript";
 import { videoStore, writeRecord } from "./video-store";
 import { useYouTubePlayer } from "./youtube-player";
 import { useAudioPlayer } from "./audio-player";
+import { modelLabel } from "@/lib/domain/chat/model-label";
 
 type T = Dictionary["channels"]["lesson"];
 
@@ -310,7 +311,7 @@ export function VideoLesson({ video, t, locale, videoUrl }: { video: VideoDetail
       )}
 
       {questions?.model && phase !== "before" && (
-        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{fill(t.writtenBy, { model: questions.model })}</p>
+        <p className="font-mono text-caption uppercase tracking-caps text-fg-muted">{fill(t.writtenBy, { model: modelLabel(questions.model) })}</p>
       )}
     </div>
   );

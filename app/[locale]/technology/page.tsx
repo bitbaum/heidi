@@ -353,7 +353,7 @@ export default async function TechnologyPage({ params }: { params: Promise<{ loc
           ))}
         </ul>
       </section>
-      <SourceList title={dict.dialect.sourcesTitle} ids={sources} className="border-t border-border-subtle py-8" />
+      <SourceList locale={locale} title={dict.dialect.sourcesTitle} ids={sources} className="border-t border-border-subtle py-8" />
 </Shell>
   );
 }

@@ -41,6 +41,104 @@ import type { SectorLocale } from "./sectors.ts";
 export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   de: [
     {
+      date: "2026-11-10",
+      tag: "fix",
+      title: "Geteilte Links zeigen ein Bild, und jede Seite nennt ihre eigene Adresse",
+      summary:
+        "Wer einen Heidi-Link in einen Chat einfügte, bekam eine Vorschau ohne Bild. Jede Seite trägt jetzt das Vorschaubild mit vollständiger Adresse, auch die Seite «nicht gefunden», die es bisher gegen «localhost» ausgab.",
+      items: [
+        "«/en/practice» gab «/en» als seine kanonische Adresse an, und die Sprachverweise (hreflang) zeigten bei jeder Seite auf die Startseiten. Jede Seite nennt jetzt sich selbst, in allen sieben Sprachen.",
+        "«/favicon.ico» und «/apple-touch-icon.png» antworteten mit 404; beide gibt es jetzt, aus demselben Zeichen wie das bisherige Icon.",
+        "Neu ist die Seite «Heidi bezahlen»: ein Knopf, der Heidis öffentliche Seite bei OrangeCat öffnet, wo man in Bitcoin direkt an Heidi zahlt. Die Seite sagt auch, was noch nicht geht: Ein Pass wird nach der Zahlung noch nicht automatisch freigeschaltet.",
+      ],
+    },
+    {
+      date: "2026-11-10",
+      tag: "improvement",
+      title: "E-Mails, neu gebaut — Konto löschen löscht wirklich — und eine Erinnerung, die Sie selbst einschalten",
+      summary:
+        "Die Mails von Heidi — Adresse bestätigen, Anmeldelink, Passwort — sind gestaltet, mit Dunkelmodus und in Ihrer Sprache. Dazu gibt es eine Erinnerung, die aus ist, bis Sie sie einschalten: eine Mail am Abend, höchstens alle zwei Tage, erst ab fünf fälligen Fragen, und nach drei unbeantworteten keine mehr. Abmelden geht mit einem Tipp.",
+      items: [
+        "Nach der Anmeldung fragt Heidi einmal, ob Ihr Fortschritt auf jedes Gerät mitkommen soll.",
+        "Wer sein Konto löscht, löscht auch Fortschritt, Gespräche, Gruppen-Mitgliedschaften und Einstellungen — nicht nur den Zugang.",
+        "Ein falscher oder alter Link führt nicht mehr in eine leere «404», sondern in Ihrer Sprache zurück zum Start.",
+        "Ihre Situationen kommen mit: ein zweites Gerät fragt nicht nochmals.",
+        "Die Bestätigungs-E-Mail sagt, dass das Konto schon funktioniert und wozu die Bestätigung dient.",
+        "Im Chat steht der Name des Modells, nicht seine technische Kennung.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "improvement",
+      title: "Üben, selbst durchgespielt — und wo es hakte, verbessert",
+      summary:
+        "Wir haben jede Übungsart von Anfang bis Ende selbst gemacht. «Welches Wort fehlt?» sagt jetzt, dass man die Antwort laut oder im Kopf gibt; «Warum?» erklärt jedes Wort danach, wie man von Deutsch hinkommt — fast gleich, über eine Lautregel, oder gar nicht.",
+      items: [
+        "Wortpaare lassen sich nicht mehr allein an der Form lösen, und keine Bedeutung kommt zweimal vor.",
+        "Ein falsch gebauter Satz steht als ein Satz da, die Wörter am falschen Platz markiert.",
+        "Wer «nid» schreibt, erfährt: verstanden wird es, hier sagt man «nöd».",
+        "Am Ende stehen die verpassten Wörter auf Züridütsch und auf Deutsch.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "feature",
+      title: "Mundart-Podcasts haben jetzt Fragen",
+      summary:
+        "Eine Folge auf Züridütsch ohne Transkript des Senders lief bisher ohne Fragen. Jetzt gibt es die ersten Minuten auf Hochdeutsch, automatisch und sinngemäss — ausdrücklich nicht der Dialekt, wie er klingt — und dazu Verständnisfragen zum Inhalt.",
+      items: [
+        "Eine Sendung, der Sie über den Feed oder eine Podcast-App folgen, wird am Namen beim selben Sender erkannt.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "feature",
+      title: "Jede Übung kennt ihr Niveau — und Sie sehen, was sitzt",
+      summary:
+        "Jede Frage weiss, wie weit ihr Züridütsch vom Deutschen weg ist: wie im Deutschen, mit einer Lautregel (Chind, chaufe) oder ganz anders (nöd, öppis, und falsche Freunde wie Estrich). Am Anfang üben Sie vor allem die erste Stufe; sitzt sie, geht es weiter.",
+      items: [
+        "«Was sitzt» auf Ihrer Seite zählt Ihre Antworten nach dem, was geprüft wurde — Verstehen, Wörter, Lautregeln, Verbformen, Artikel, selber sagen — und nach der Stufe. Zahlen, keine Note.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "feature",
+      title: "Üben, neu gebaut: sofort sehen, ob es stimmt",
+      summary:
+        "Die angetippte Antwort füllt sich schwarz mit Häkchen oder bekommt einen roten Rahmen mit Kreuz, die richtige wird dann umrandet — in Heidis eigenen zwei Farben. Richtig geht es nach einem Moment von selbst weiter; falsch bleibt die Erklärung stehen.",
+      items: [
+        "Nie zweimal dieselbe Übung: Fragen, die gleich dringend sind, kommen in zufälliger Reihenfolge, und Antworten, Wortbanken und Zuordnungen stehen jedes Mal anders. Fälliges und Schwaches kommen weiterhin zuerst.",
+        "Neu: «Satz bauen» — die Wörter eines Satzes, den Sie sagen, gemischt und mit einem, das nicht dazugehört — und «Stimmt das?», ein gehörter Satz mit einer Bedeutung daneben, mit einem Tippen beantwortet.",
+        "Erst erkennen, dann selber sagen: Ein Satz kommt zuerst zum Erkennen; sitzt er, kommt er zum Bauen oder Übersetzen zurück.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "feature",
+      title: "Heidi fragt, wofür Sie Schweizerdeutsch brauchen — und übt genau das",
+      summary:
+        "Neue Lernende wählen die Situationen, in denen sie wirklich stehen: in der Arztpraxis, im Kindsgi, am Mittagstisch bei der Arbeit. Jeder «Üben»-Knopf übt danach zuerst aus diesen.",
+      items: [
+        "Das Ende einer Übung ist ein Moment: Das Häkchen zeichnet sich, und der verdiente Tag landet im Wochenziel. Weiterhin keine Punktzahl.",
+        "Die Startseite ist auf dem Telefon ein Drittel kürzer. Wer schon geübt hat, wird mit dem nächsten Schritt begrüsst.",
+        "Vorlesen geht auch auf Geräten ohne deutsche Stimme: Der Server liest den Satz mit einer deutschen Stimme vor, als solche bezeichnet.",
+        "«Anmelden, um es zu behalten» behält das Gespräch, ohne ein zweites Mal zu fragen. Und die Schrift ist auf jedem Gerät dieselbe.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "fix",
+      title: "Ihre E-Mail-Adresse steht nirgends mehr, wo andere sie sehen",
+      summary:
+        "Wer sich ohne Anzeigenamen angemeldet hatte — also fast alle, denn danach wird nicht gefragt —, erschien mit der E-Mail-Adresse: bei einem vorgeschlagenen Gesprächsthema, einer Runde, in einer Lerngruppe. Die Themenliste ist ohne Anmeldung lesbar. Jetzt steht dort Ihr Anzeigename oder ein kurzes Kürzel wie «#4F2A»; gespeicherte Adressen wurden ersetzt.",
+      items: [
+        "Einen Anzeigenamen wählen Sie unter «Konto».",
+        "Die E-Mails zum Konto (Adresse bestätigen, Anmeldelink, Passwort zurücksetzen) kommen in der Sprache der Seite, auf der Sie waren, statt immer auf Englisch.",
+        "Die Anmeldung steht jetzt in jeder Kopfzeile, auch auf Seiten, die zuvor ohne sie ausgeliefert werden konnten; auf dem Telefon liegt das schwebende «Üben | Heidi fragen» nicht mehr über den Knöpfen des Anmeldeformulars.",
+        "Kanäle und Podcasts: Ein Feed kann nur noch öffentliche Adressen abrufen lassen, ein einzelner fehlerhafter Feed hält die stündliche Aktualisierung der anderen nicht mehr auf, und ein Abschrift-Einfügen ersetzt nie die Abschrift des Herausgebers.",
+      ],
+    },
+    {
       date: "2026-10-27",
       tag: "improvement",
       title: "Der Chat ist die Chat-App der ganzen Flotte",
@@ -329,18 +427,6 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
         "Die Übungsseite sagt, wie viele Fragen heute fällig sind, das Ende einer Übung, wie viele morgen wiederkommen.",
         "Üben und Aufwärmen zählen, der Test nicht. Es zählt nur die erste Antwort in einer Übung.",
         "Gespeichert im Browser, auf der Datenschutzseite aufgeführt, in den Einstellungen löschbar und mit Ihren anderen Geräten abgeglichen, wenn der Abgleich eingeschaltet ist.",
-      ],
-    },
-    {
-      date: "2026-09-30",
-      tag: "fix",
-      title: "Kein Test aus zwei Fragen, keine Fragen ohne Züridütsch",
-      summary:
-        "Ein Test zu «Bsitz andersume» hatte zwei Fragen, egal welche Zeit Sie wählten: Das Thema hat nur zwei Fragen, die sich prüfen lassen. Einen Test gibt es jetzt nur ab zehn solchen Fragen, sonst wird geübt.",
-      items: [
-        "Bei «Annas Schwester kommt auch noch» nannten die falschen Antworten eine andere Person, liessen die Schwester weg oder sagten «nöd». Die richtige fand man, indem man das Deutsche verglich. Jetzt kommen in allen Antworten Anna und ihre Schwester vor, und nur «de Anna ihri» sagt, wer kommt.",
-        "Ebenso bei «Herrn Meiers Zimmer» und den beiden «wo»-Fragen, deren falsche Antworten «wo» jetzt als Frage nach dem Ort lesen.",
-        "Die Erklärung zum Besitz spricht nicht mehr von «wo» im Relativsatz; das ist jetzt eine eigene Erklärung.",
       ],
     },
     {
@@ -686,6 +772,104 @@ export const CHANGELOG: Record<SectorLocale, readonly ChangelogEntry[]> = {
   ],
 
   en: [
+    {
+      date: "2026-11-10",
+      tag: "fix",
+      title: "Shared links show a picture, and every page names its own address",
+      summary:
+        "Pasting a Heidi link into a chat gave a preview with no image. Every page now carries the preview image with a full address, including the not-found page, which used to emit it against localhost.",
+      items: [
+        "/en/practice declared /en as its canonical address, and the language links (hreflang) of every page pointed at the home pages. Each page now names itself, in all seven languages.",
+        "/favicon.ico and /apple-touch-icon.png answered 404; both exist now, drawn from the same mark as the existing icon.",
+        "New: the page «Pay Heidi», one button that opens Heidi's public page on OrangeCat, where you pay Heidi directly in Bitcoin. The page also says what does not work yet: a pass is not granted automatically after a payment.",
+      ],
+    },
+    {
+      date: "2026-11-10",
+      tag: "improvement",
+      title: "Email, rebuilt — deleting an account really deletes — and a reminder you switch on yourself",
+      summary:
+        "Heidi's emails — confirming your address, the sign-in link, the password reset — are now designed, with dark mode and in your language. There is also a reminder that stays off until you switch it on: one email in the evening, at most every two days, only from five due questions, and none after three that go unanswered. Unsubscribing takes one tap.",
+      items: [
+        "After signing up, Heidi asks once whether your progress should come to every device.",
+        "Deleting your account now deletes your progress, conversations, group memberships and settings too — not only the login.",
+        "A wrong or old link no longer ends in a blank «404»: it answers in your language with a way back to the start.",
+        "Your situations come along: a second device does not ask again.",
+        "The confirmation email says the account already works and what confirming is for.",
+        "The chat names the model, not its technical id.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "improvement",
+      title: "Practice, played through end to end — and fixed where it caught",
+      summary:
+        "We did every kind of exercise ourselves, start to finish. «Which word is missing?» now says to give the answer aloud or in your head; «Why?» explains each word by how you get there from German — almost the same, by a sound rule, or not at all.",
+      items: [
+        "Match grids can no longer be solved by the shape of the words, and no meaning appears twice.",
+        "A sentence built wrong reads as one sentence, with the misplaced words marked.",
+        "Writing «nid» tells you it is understood, and that here people say «nöd».",
+        "The finish screen lists missed words in Zurich German and in German.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "feature",
+      title: "Dialect podcasts now have questions",
+      summary:
+        "An episode in Zurich German with no publisher transcript used to play without questions. Now the opening minutes come in Standard German, automatic and by meaning — explicitly not the dialect as it sounds — with comprehension questions about the content.",
+      items: [
+        "A show followed through its feed or a podcast app is recognised by its name at the same publisher.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "feature",
+      title: "Every exercise knows its level — and you see what sticks",
+      summary:
+        "Every question knows how far its Zurich German is from German: like German, by a sound rule (Chind, chaufe), or quite different (nöd, öppis, and false friends like Estrich). You start mostly on the first level; once it holds, the sittings move up.",
+      items: [
+        "«What sticks» on your page counts your answers by what was tested — understanding, words, sound rules, verb forms, articles, saying it yourself — and by level. Counts, not a score.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "feature",
+      title: "Practice, rebuilt: see at once whether you were right",
+      summary:
+        "The answer you tap fills with ink and a tick, or takes a red outline and a cross, and the right one is then outlined — in Heidi's own two colours. Right moves on by itself after a beat; wrong stays with its explanation.",
+      items: [
+        "Never the same sitting twice: questions equally due come in a random order, and options, word banks and matching boards are laid out afresh each time. What is due and what is weak still come first.",
+        "New: «Build the sentence» — the words of a sentence you say, shuffled with one that does not belong — and «True or not?», a heard line with a meaning beside it, answered in one tap.",
+        "Recognise first, then produce: a line comes to be recognised; once it is, it comes back to be built or translated.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "feature",
+      title: "Heidi asks what you need Swiss German for — and practises exactly that",
+      summary:
+        "A new learner picks the situations they really face: the doctor's surgery, the Kindsgi, the lunch table at work. Every «Practise» button then draws from those first.",
+      items: [
+        "The end of a sitting is a moment: the check draws itself and the day just earned lands in the week's goal. Still no score.",
+        "The home page is a third shorter on a phone. Somebody who has practised before is welcomed back with their next step.",
+        "Read-aloud works on devices with no German voice: the server reads the line with a German voice, labelled as one.",
+        "«Sign in to keep it» keeps the conversation without asking twice. And the typeface is the same on every device.",
+      ],
+    },
+    {
+      date: "2026-11-09",
+      tag: "fix",
+      title: "Your email address no longer appears anywhere other people can see",
+      summary:
+        "Anyone who signed up without a display name — nearly everyone, since sign-up does not ask for one — appeared under their email address: on a speaking topic they proposed, a round, a study group. The topics board is readable signed out. Now it shows your display name or a short handle such as «#4F2A», and stored addresses were replaced.",
+      items: [
+        "Choose a display name under «Account».",
+        "Account emails (confirm your address, sign-in link, reset your password) arrive in the language of the page you were on, instead of always in English.",
+        "Sign-in is in every header now, including pages that could previously be served without it; on a phone the floating «Practise | Ask Heidi» no longer sits on the sign-in form's buttons.",
+        "Channels and podcasts: a feed can only make the server fetch public addresses, one broken feed no longer stops the hourly refresh for everyone else, and a pasted transcript never replaces the publisher's.",
+      ],
+    },
     {
       date: "2026-10-27",
       tag: "improvement",

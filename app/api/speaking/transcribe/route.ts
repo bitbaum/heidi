@@ -7,6 +7,7 @@ import { redact } from "@/lib/domain/model/byok";
 import { callerKey, speakingTake, tooMany } from "@/lib/domain/limits";
 import { MAX_SAID_LENGTH } from "@/lib/domain/speaking/take";
 import { spokenVarieties, type SpokenVarietyId } from "@/lib/domain/speaking/varieties";
+import { declaresTooLarge } from "../../../../lib/http/body-size.ts";
 
 export const dynamic = "force-dynamic";
 
@@ -66,6 +67,8 @@ export async function POST(request: Request) {
   if (!limit.allowed) return tooMany(limit);
 
   if (!speechConfigured()) return bad("transcription is not configured", 503, true);
+
+  if (declaresTooLarge(request, MAX_BYTES)) return bad("that recording is too long", 413);
 
   let form: FormData;
   try {

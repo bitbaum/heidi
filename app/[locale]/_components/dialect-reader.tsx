@@ -1,3 +1,4 @@
+// experience-exempt: the text is Zurich German someone received; a recogniser writes it back as Standard German (HEIDI.md §6), so a microphone would hand the reader a different message
 "use client";
 
 import { useState } from "react";

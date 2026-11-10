@@ -1,7 +1,8 @@
+// experience-exempt: the answer is graded as written Zurich German; dictation would write it in Standard German and grade the recogniser, not the learner (HEIDI.md §6)
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { DISPLAY } from "@/lib/variety/display";
+import { DISPLAY, preferredForms } from "@/lib/variety/display";
 import type { TranslateItem } from "@/lib/domain/practice/types";
 import type { ExerciseViewProps } from "./view";
 import { PROMPT_TEXT, Trace, ignoreKey } from "./chrome";
@@ -142,6 +143,14 @@ export function TranslateView({ item, t, grammarT, situationsT, vocabularyT, lea
               ))}
             </p>
           )}
+          {/* A form the pack knows and prefers another to — «nid» for «nöd».
+              Not a spelling: a word people here do not use, and the one thing
+              the learner cannot find out alone. Understood, not wrong. */}
+          {preferredForms(wrote).map((f) => (
+            <p key={f.index} className="mt-3 max-w-measure text-sm leading-relaxed text-fg-primary">
+              {fill(t.explain.houseForm, { form: f.form, suggest: f.suggest })}
+            </p>
+          ))}
           <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.spellingNote}</p>
 
           <Trace item={item} t={t} locale={locale} />
@@ -209,3 +218,4 @@ export function TranslateView({ item, t, grammarT, situationsT, vocabularyT, lea
 function shownComparison(wrote: string, answer: string) {
   return wrote.trim() ? compareWords(wrote, answer) : { missing: [], differs: [] };
 }
+

@@ -1,4 +1,5 @@
 import type { PracticeItem } from "./types.ts";
+import { KIND_META } from "./kinds/meta.ts";
 
 /**
  * What this learner keeps getting wrong — the part that makes practice smart
@@ -62,6 +63,14 @@ export type LearnerModel = {
    * now carries the line.
    */
   lines: Record<string, Trace>;
+  /**
+   * By what the question tests (`kinds/meta.ts`): verb forms, articles,
+   * words, understanding, saying it, the sound rules. "You keep missing
+   * articles" is a fact about this axis.
+   */
+  skills: Record<string, Trace>;
+  /** By how far the Zurich German is from German: "1", "2", "3" (`distance.ts`). */
+  levels: Record<string, Trace>;
 };
 
 /** The key a line's evidence is stored under. One spelling, used everywhere. */
@@ -69,10 +78,30 @@ export function lineKey(scene: string, line: number): string {
   return `${scene}:${line}`;
 }
 
-export const EMPTY_MODEL: LearnerModel = { topics: {}, scenes: {}, groups: {}, words: {}, lines: {} };
+/** Every axis of the model, once: observing, decoding and summing devices all read this. */
+export const MODEL_AXES = ["topics", "scenes", "groups", "words", "lines", "skills", "levels"] as const satisfies readonly (keyof LearnerModel)[];
+
+/** A model built axis by axis from `MODEL_AXES`, so no copy of the list can drop one. */
+export function modelFrom(axis: (name: keyof LearnerModel) => Record<string, Trace>): LearnerModel {
+  return Object.fromEntries(MODEL_AXES.map((name) => [name, axis(name)])) as LearnerModel;
+}
+
+export const EMPTY_MODEL: LearnerModel = modelFrom(() => ({}));
 
 /** Which areas an item belongs to. One item can touch two — a scene and a topic. */
 export function areasOf(item: PracticeItem): { axis: keyof LearnerModel; id: string }[] {
+  const own = originsOf(item);
+  // A kept word is scheduled by `review.ts` alone, so it is not tracked at all.
+  if (item.source.kind === "saved") return own;
+  const level = item.source.level;
+  return [
+    ...own,
+    { axis: "skills", id: KIND_META[item.kind].skill },
+    ...(level ? [{ axis: "levels" as const, id: String(level) }] : []),
+  ];
+}
+
+function originsOf(item: PracticeItem): { axis: keyof LearnerModel; id: string }[] {
   const source = item.source;
   switch (source.kind) {
     case "grammar":
@@ -110,13 +139,7 @@ export function areasOf(item: PracticeItem): { axis: keyof LearnerModel; id: str
 export function observe(model: LearnerModel, item: PracticeItem, outcome: "right" | "wrong" | "skipped"): LearnerModel {
   if (outcome === "skipped") return model;
 
-  const next: LearnerModel = {
-    topics: { ...model.topics },
-    scenes: { ...model.scenes },
-    groups: { ...model.groups },
-    words: { ...model.words },
-    lines: { ...model.lines },
-  };
+  const next: LearnerModel = modelFrom((name) => ({ ...model[name] }));
 
   for (const { axis, id } of areasOf(item)) {
     const before = next[axis][id] ?? { asked: 0, missed: 0 };
@@ -170,6 +193,11 @@ export function pressure(trace: Trace | undefined): number {
 export function pressureOf(model: LearnerModel, item: PracticeItem): number {
   let worst = 0;
   for (const { axis, id } of areasOf(item)) {
+    // Skills and levels are for REPORTING (and the level frontier), not for
+    // pressure: missing one grammar topic five times must not push every verb
+    // question forward, and struggling with hard words is no reason to be
+    // shown more of them. Pressure stays on the specific thing that is missed.
+    if (axis === "skills" || axis === "levels") continue;
     worst = Math.max(worst, pressure(model[axis][id]));
   }
   return worst;
@@ -243,14 +271,62 @@ export function decodeModel(raw: string): LearnerModel {
     return out;
   };
 
-  return {
-    topics: axis(source.topics),
-    scenes: axis(source.scenes),
-    groups: axis(source.groups),
-    words: axis(source.words),
-    // Absent from anything stored before this axis existed, which `axis()`
-    // reads as `{}` — an existing learner starts with no line coverage and
-    // their scene totals untouched, rather than the store failing to decode.
-    lines: axis(source.lines),
-  };
+  return modelFrom((name) => axis(source[name]));
+}
+
+/**
+ * THE LADDER: recognise a line before producing it.
+ *
+ * A line the learner has not yet recognised reliably is asked in a form that
+ * shows it — "Stimmt das?", the gist, the meaning of a word in it. Once it is
+ * recognised (asked twice or more, missed at most a quarter of the time), the
+ * same line comes back to be PRODUCED — built from its words, translated,
+ * transformed. Retrieval in a harder form is what makes a thing stick; asking
+ * the easy form forever is what makes practice feel like a loop.
+ *
+ * 0 means "this form suits this line now", 1 means "not yet / not any more",
+ * and kinds on neither rung are 0 always. Used as a tie-break after the
+ * schedule and after what the learner is struggling with, never before.
+ */
+export function recognised(model: LearnerModel, scene: string, line: number): boolean {
+  const trace = model.lines[lineKey(scene, line)];
+  return Boolean(trace && trace.asked >= 2 && trace.missed / trace.asked <= 0.25);
+}
+
+export function ladderOf(model: LearnerModel, item: PracticeItem): 0 | 1 {
+  const source = item.source;
+  if (source.kind !== "situation" || source.line === undefined) return 0;
+  const known = recognised(model, source.scene, source.line);
+  const rung = KIND_META[item.kind].rung;
+  if (rung === "recognise") return known ? 1 : 0;
+  if (rung === "produce") return known ? 0 : 1;
+  return 0;
+}
+
+/**
+ * THE LEVEL A LEARNER IS WORKING AT, from their own answers: level 1 (like
+ * German) until it holds, then 2 (by a sound rule), then 3 (different, and
+ * the false friends). "Holds": at least twelve answers there, at most one in
+ * five missed. Twelve because fewer cannot tell a level from a lucky sitting.
+ */
+export const LEVEL_HOLDS = { asked: 12, missRate: 0.2 } as const;
+
+export function frontierOf(model: LearnerModel): 1 | 2 | 3 {
+  for (const level of [1, 2] as const) {
+    const trace = model.levels[String(level)];
+    const holds = trace && trace.asked >= LEVEL_HOLDS.asked && trace.missed / trace.asked <= LEVEL_HOLDS.missRate;
+    if (!holds) return level;
+  }
+  return 3;
+}
+
+/**
+ * How far above the learner's level a question is: 0 at or below it. A
+ * tie-break after the schedule, the pressure and the ladder — so harder
+ * questions wait their turn, but still fill a sitting when nothing easier of
+ * that kind is left. A gradient, not a wall.
+ */
+export function stretchOf(item: PracticeItem, frontier: 1 | 2 | 3): number {
+  const level = item.source.level;
+  return level ? Math.max(0, level - frontier) : 0;
 }

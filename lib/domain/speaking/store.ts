@@ -66,6 +66,11 @@ export async function createTopic(args: {
  * a proposals board is that somebody browsing can see there is something worth
  * making an account for.
  */
+/** An account id for its owner, an empty string for everybody else. */
+function ownId(id: string, viewer: string | null | undefined): string {
+  return viewer && id === viewer ? id : "";
+}
+
 export async function listTopics(actorId?: string | null): Promise<Topic[]> {
   const rows = await db
     .select({
@@ -96,6 +101,9 @@ export async function listTopics(actorId?: string | null): Promise<Topic[]> {
 
   return rows.map((row) => ({
     ...row,
+    // An account id identifies a person across products, and this list is
+    // read signed out. Only its owner gets it back; the name is the label.
+    proposedBy: ownId(row.proposedBy, actorId),
     createdAt: iso(row.createdAt),
     mine: actorId ? row.mine : undefined,
   }));
@@ -246,7 +254,13 @@ export async function listUpcomingRounds(args: { actorId?: string | null; now: D
 
   return rows
     .map((row) => ({
-      round: { ...toRound(row), attending: row.attending, mine: args.actorId ? row.mine : undefined },
+      round: {
+        ...toRound(row),
+        // Read signed out: the host's account id only to the host (see listTopics).
+        hostId: ownId(row.hostId, args.actorId),
+        attending: row.attending,
+        mine: args.actorId ? row.mine : undefined,
+      },
       next: nextSittingFor(row, args.now),
     }))
     .filter((entry) => entry.next !== null)

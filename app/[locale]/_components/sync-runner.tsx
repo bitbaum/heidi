@@ -12,6 +12,8 @@ import { historyStore, memoryStore, modelStore } from "./practice-stores";
 import { streakStore } from "./streak-store";
 import { savedStore } from "./use-saved";
 import { othersStore, syncSettingStore } from "./sync-stores";
+import { focusStore } from "./focus-store";
+import { decodeFocus } from "@/lib/domain/practice/focus";
 
 /** What `/api/progress` returns for each OTHER device of the signed-in learner. */
 type Device = {
@@ -58,6 +60,7 @@ export function SyncRunner() {
         memory: memoryStore.read(),
         streak: streakStore.read(),
         saved: savedStore.read(),
+        focus: focusStore.read(),
       };
       try {
         const res = await fetch("/api/progress", { method: "PUT", headers, body: JSON.stringify({ device, values }) });
@@ -108,6 +111,17 @@ export function SyncRunner() {
           adopting = false;
           syncSettingStore.write({ ...current, savedChangedAt: new Date().toISOString() });
         }
+
+        // «Meine Situationen» chosen on another device, adopted only where
+        // nothing is chosen here: a second phone is not asked again, and a
+        // choice made here is never overridden from elsewhere.
+        if (!focusStore.read()) {
+          const chosen = devices
+            .flatMap((d) => (d.values.focus && d.updatedAt.focus ? [{ value: d.values.focus, at: d.updatedAt.focus }] : []))
+            .sort((a, b) => b.at.localeCompare(a.at))[0];
+          const focus = chosen ? decodeFocus(JSON.stringify(chosen.value)) : null;
+          if (focus) focusStore.write(focus);
+        }
       } catch {
         // Offline: keep showing the last fetched view.
       }
@@ -126,6 +140,7 @@ export function SyncRunner() {
       memoryStore.subscribe(schedulePush),
       streakStore.subscribe(schedulePush),
       savedStore.subscribe(onSavedChange),
+      focusStore.subscribe(schedulePush),
     ];
     const onVisible = () => {
       if (document.visibilityState === "visible") void pull();

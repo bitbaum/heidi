@@ -417,6 +417,26 @@ export const preferences = pgTable("preferences", {
 });
 
 /**
+ * What a signed-in learner has agreed to be written to about — one row, one
+ * switch. Off until they turn it on (`reminders`); the sweep that sends
+ * (`lib/mail/reminder-sweep.ts`) reads only rows where it is on, and the rules
+ * for when it may actually write live in `lib/mail/reminder-policy.ts`.
+ *
+ * `tz` is the browser's IANA zone at the moment they switched it on, so the
+ * mail arrives in their evening and not the server's. `ignored` counts
+ * reminders in a row that were not followed by practice; three and it goes
+ * quiet by itself.
+ */
+export const mailPreferences = pgTable("mail_preferences", {
+  actorId: text("actor_id").primaryKey(),
+  reminders: boolean("reminders").notNull().default(false),
+  tz: text("tz"),
+  lastReminderAt: timestamp("last_reminder_at", { withTimezone: true }),
+  ignored: integer("ignored").notNull().default(0),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+/**
  * Channels a learner follows, and what came out on them.
  *
  * WHY THIS IS ON THE SERVER AT ALL, when the learner model, the saved words

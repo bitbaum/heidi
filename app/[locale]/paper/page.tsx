@@ -142,7 +142,7 @@ export default async function PaperPage({ params }: { params: Promise<{ locale: 
 
       {/* The references. `SourceList` renders these on all six pages that
           carry them — this page's copy had already lost `text-link`. */}
-      <SourceList title={dict.paper.sourcesTitle} ids={cited} className="py-10" />
+      <SourceList locale={locale} title={dict.paper.sourcesTitle} ids={cited} className="py-10" />
 
       </SectionNavLayout>
 

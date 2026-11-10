@@ -219,7 +219,7 @@ export default async function ScenePage({ params }: { params: Promise<{ locale: 
           {t.backLabel}
         </Link>
       </div>
-      <SourceList title={dict.dialect.sourcesTitle} ids={sources} className="mt-14 border-t border-border-subtle pt-8" />
+      <SourceList locale={locale} title={dict.dialect.sourcesTitle} ids={sources} className="mt-14 border-t border-border-subtle pt-8" />
 </Shell>
   );
 }
