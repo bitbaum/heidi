@@ -777,6 +777,7 @@ export const de = {
     hostingNote: "Nicht in der Schweiz. Das sagen wir lieber selbst, als dass Sie es herausfinden.",
     vendorsTitle: "Wer die Nachrichten beantwortet",
     vendorsNote: "Eine Nachricht wird an eines dieser Unternehmen geschickt, um beantwortet zu werden. Wir haben mit keinem davon einen Auftragsverarbeitungsvertrag. Für Personendaten aus einem Beruf mit Schweigepflicht ist Heidi darum heute nicht geeignet.",
+    vendorsPlaceNote: "Bei jedem Namen stehen das Unternehmen und das Land seines Sitzes, wie es das Unternehmen selbst angibt. Ihre Nachricht wird also ausserhalb der Schweiz verarbeitet.",
     broughtKeyNote: "Mit eigenem Schlüssel geht die Nachricht stattdessen an den Anbieter, den Sie wählen.",
     notDoneTitle: "Was wir nicht tun",
     notDone: {
@@ -795,11 +796,12 @@ export const de = {
   impressum: {
     title: "Impressum",
     operatorLabel: "Betrieben von",
+    operator: "Das Heidi-Projekt (bitbaum)",
     contactLabel: "Kontakt",
     sourceLabel: "Quelltext",
     statusLabel: "Rechtsform",
-    statusNote: "Heidi ist kein eingetragenes Unternehmen. Die Seite wird privat betrieben, der Quelltext ist offen.",
-    addressNote: "Eine Postadresse nennen wir, sobald es eine gibt.",
+    statusNote: "Heidi ist ein Projekt von bitbaum und kein eingetragenes Unternehmen. Der Quelltext ist offen.",
+    addressNote: "Für alle Anliegen, auch rechtliche und zum Datenschutz, gilt die Kontaktadresse oben.",
   },
 
   contribute: {
