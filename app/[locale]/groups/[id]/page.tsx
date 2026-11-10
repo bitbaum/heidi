@@ -19,6 +19,7 @@ import { DOMAINS, SCENES } from "@/lib/situations/display";
 import { isSharing } from "@/lib/domain/teams/store";
 import { ShareToggle } from "../../_components/share-toggle";
 import { TeamPanel } from "../../_components/team-panel";
+import { pageMetadata } from "@/lib/config/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
   // A private room is not a page for a search engine, and a sitemap that
   // advertised it would contradict this.
-  return { title: dict.groups.title, robots: { index: false, follow: false } };
+  return pageMetadata(raw, null, { title: dict.groups.title });
 }
 
 /**

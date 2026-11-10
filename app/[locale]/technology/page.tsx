@@ -8,11 +8,12 @@ import { DISPLAY } from "@/lib/variety/display";
 import { engineChain } from "@/lib/research/engine";
 import { BandHeader, Section, Shell } from "../_components/page-shell";
 import { SourceList } from "../_components/source-list";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.technology.title, description: dict.technology.lead };
+  return pageMetadata(raw, "technology", { title: dict.technology.title, description: dict.technology.lead });
 }
 
 /**

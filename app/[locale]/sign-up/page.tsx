@@ -10,6 +10,7 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
 import { PageHeader, Shell } from "../_components/page-shell";
 import { HeidiSignUp } from "../_components/auth-screens";
+import { pageMetadata } from "@/lib/config/seo";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -18,10 +19,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale: raw } = await params;
-  return {
-    title: authLabels(isLocale(raw) ? raw : DEFAULT_LOCALE).createAccount,
-    robots: { index: false, follow: false },
-  };
+  return pageMetadata(raw, "sign-up", { title: authLabels(isLocale(raw) ? raw : DEFAULT_LOCALE).createAccount, noindex: true });
 }
 
 /** A new account in one step. No real name and no other product needed. */

@@ -10,6 +10,7 @@ import { dbConfigured } from "@/lib/db";
 import { certificateById } from "@/lib/domain/progress/store";
 import { Shell } from "../../../../_components/page-shell";
 import { CertificatePrint } from "../../../../_components/certificate-print";
+import { pageMetadata } from "@/lib/config/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
   // A certificate is somebody's; it is reachable by its link and nothing lists it.
-  return { title: dict.certificate.title, robots: { index: false, follow: false } };
+  return pageMetadata(raw, null, { title: dict.certificate.title });
 }
 
 /**

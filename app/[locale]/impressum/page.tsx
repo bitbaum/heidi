@@ -3,11 +3,12 @@ import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/i18n/locales";
 import { CONTACT_EMAIL, OPERATOR, POSTAL_ADDRESS, SOURCE_URL } from "@/lib/config/site";
 import { BandHeader, Shell } from "../_components/page-shell";
+import { pageMetadata } from "@/lib/config/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
-  return { title: dict.impressum.title };
+  return pageMetadata(raw, "impressum", { title: dict.impressum.title });
 }
 
 /**

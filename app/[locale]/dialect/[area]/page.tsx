@@ -13,6 +13,7 @@ import { SOURCES, type SourceId } from "@/lib/research/sources";
 import { ListeningRow } from "../../_components/listening-row";
 import { Shell } from "../../_components/page-shell";
 import { SourceList } from "../../_components/source-list";
+import { pageMetadata } from "@/lib/config/seo";
 
 /**
  * Every area, in every language, at build time. There are eleven of them and
@@ -30,13 +31,13 @@ export async function generateMetadata({
   const { locale: raw, area: id } = await params;
   const dict = getDictionary(isLocale(raw) ? raw : DEFAULT_LOCALE);
   const area = DISPLAY.areas.find((a) => a.id === id);
-  if (!area) return { title: dict.dialect.title };
+  if (!area) return pageMetadata(raw, `dialect/${id}`, { title: dict.dialect.title, noindex: true });
 
-  return {
+  return pageMetadata(raw, `dialect/${area.id}`, {
     // The endonym is the page's subject and is not translated, so it leads.
     title: `${area.endonym} — ${dict.dialect.title}`,
     description: `${area.endonym}: ${area.cantons.join(", ")}`,
-  };
+  });
 }
 
 /**
