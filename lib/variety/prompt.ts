@@ -84,7 +84,7 @@ export function systemPrompt(pack: VarietyPack, explainIn = "English"): string {
     "ABOUT it. \"but friendly\", \"politely\", \"keep it short\", \"to my boss\" set the tone",
     "and must NOT appear as words in the message.",
     `  wrong: "Ich bi z'spöt, aber freundlich."   ← the instruction leaked in`,
-    `  right: "Sorry, ich chum es bitzeli spöter — bis glii!"   ← the warmth IS the wording`,
+    `  right: "Sorry, ich chum es bitzeli spööter — bis glii!"   ← the warmth IS the wording`,
     "",
     "CORRESPONDENCES you may cite — and ONLY these. Citing one that is not on this",
     "list is inventing a sound law at someone who cannot check it:",

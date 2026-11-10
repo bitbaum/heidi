@@ -44,6 +44,13 @@ export type Source = {
   title: string;
   /** Journal, volume and pages, as you would write it in a reference list. */
   venue: string;
+  /**
+   * The venue in the reader's language, for the few entries whose "venue" is
+   * a sentence ABOUT the work rather than a journal and its pages. A journal
+   * reference is the same in every language and has none. Keyed by locale;
+   * a locale without one reads the English.
+   */
+  venueIn?: Partial<Record<string, string>>;
   /** DOI-resolved where one exists, otherwise a stable catalogue record. */
   url: string;
   /** Absent means `article`, which is what all of these were to begin with. */
@@ -113,6 +120,20 @@ export const SOURCES = {
       "Historisches Lexikon der Schweiz. The standing national reference work; this article describes the media diglossia between the spoken dialects and written Standard German",
     url: "https://hls-dhs-dss.ch/de/articles/024596/",
   },
+  /**
+   * For ONE number: how many people live in Switzerland. The office's own
+   * topic page says «über neun Millionen Personen» and gives no reference
+   * date on it, so what is cited from it is exactly that, "about nine
+   * million", and no more precise figure.
+   */
+  "bfs-bevoelkerung": {
+    kind: "reference",
+    authors: "Bundesamt für Statistik (BFS)",
+    year: 2026,
+    title: "Bevölkerung",
+    venue: "Portal Statistik Schweiz, the Federal Statistical Office's topic page on the resident population; read on 10 November 2026",
+    url: "https://www.bfs.admin.ch/bfs/de/home/statistiken/bevoelkerung.html",
+  },
   "hls-landesverteidigung": {
     kind: "reference",
     authors: "Jorio",
@@ -128,6 +149,13 @@ export const SOURCES = {
     year: 1881,
     title: "Schweizerisches Idiotikon: Wörterbuch der schweizerdeutschen Sprache",
     venue: "Sixteen volumes, published from 1881 onwards and still in progress; the reference dictionary of Swiss German",
+    venueIn: {
+      de: "Sechzehn Bände, seit 1881 erscheinend und noch nicht abgeschlossen; das Referenzwörterbuch des Schweizerdeutschen",
+      gsw: "Sächzäh Bänd, sit 1881 am Erschiine und nonig abgschlosse; s Referänzwörterbuech vom Schwiizerdütsche",
+      fr: "Seize volumes, publiés depuis 1881 et toujours en cours ; le dictionnaire de référence du suisse allemand",
+      it: "Sedici volumi, pubblicati dal 1881 e tuttora in corso; il dizionario di riferimento dello svizzero tedesco",
+      ru: "Шестнадцать томов, выходит с 1881 года и ещё не завершён; справочный словарь швейцарского немецкого",
+    },
     url: "https://www.idiotikon.ch/",
   },
   /**
@@ -640,9 +668,16 @@ export const SOURCES = {
 export type SourceId = keyof typeof SOURCES;
 
 /** The reference as a reader expects to see it: authors, year, venue. */
-export function citation(id: SourceId): string {
-  const s = SOURCES[id];
-  return `${s.authors} ${s.year}. ${s.title}. ${s.venue}.`;
+export function citation(id: SourceId, locale?: string): string {
+  const s: Source = SOURCES[id];
+  const venue = (locale && s.venueIn?.[locale]) || s.venue;
+  return `${s.authors} ${s.year}. ${s.title}. ${venue}.`;
+}
+
+/** Is this reference printed in the reader's own language rather than in English. */
+export function citedIn(id: SourceId, locale?: string): boolean {
+  const s: Source = SOURCES[id];
+  return Boolean(locale && s.venueIn?.[locale]);
 }
 
 /** Short form for a dense list — "Clopper & Pisoni 2004". */
