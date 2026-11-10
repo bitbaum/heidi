@@ -29,7 +29,7 @@ import type { FormEvent, ReactNode } from "react";
  * The input styling both forms used, under the same name, twice.
  *
  * Exported as constants rather than wrapped in an `<Input>` component because
- * the callers use them on `<input>`, `<select>` and `<textarea>` alike, and a
+ * the callers use them on inputs, selects and text areas alike, and a
  * component that renders all three by prop is worse than a shared string.
  */
 export const FIELD =

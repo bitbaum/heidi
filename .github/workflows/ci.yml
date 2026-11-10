@@ -181,10 +181,16 @@ jobs:
         if: steps.gate.outputs.fast != 'true'
         run: pnpm exec playwright install --with-deps chromium
 
+      # With accounts ON, so the audits below measure the header production
+      # serves. Without a session secret the bar renders no sign-in control,
+      # and every layout audit here measured a header 100-odd pixels narrower
+      # than the real one — how a French header 10px too wide reached
+      # production (site-header.tsx). A throwaway secret per run: there are no
+      # real accounts in this database.
       - name: Start the built site
         if: steps.gate.outputs.fast != 'true'
         run: |
-          pnpm run start &
+          BETTER_AUTH_SECRET="$(openssl rand -base64 48)" pnpm run start &
           npx --yes wait-on -t 60000 http://127.0.0.1:3000/de
 
       # Three languages rather than seven, and light only: the widths and the

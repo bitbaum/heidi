@@ -154,3 +154,10 @@ describe("captions", () => {
     assert.equal(decodeEntities("A &amp; B &#x2014; C &#39;D&#39; &quot;E&quot;"), "A & B — C 'D' \"E\"");
   });
 });
+
+test("an entity that is not a character never throws and never writes a NUL", () => {
+  assert.equal(decodeEntities("a&#1114112;b"), "a�b");
+  assert.equal(decodeEntities("a&#0;b&#xD800;c"), "a�b�c");
+  assert.equal(decodeEntities("a\u0000b"), "ab");
+  assert.equal(decodeEntities("Gr&#xFC;ezi &amp; merci"), "Grüezi & merci");
+});

@@ -27,7 +27,15 @@ export type TranscriptSource =
   /** The platform's speech recognition. Present, and wrong often enough to say so. */
   | "auto"
   /** Pasted by a learner from the platform's transcript panel. */
-  | "pasted";
+  | "pasted"
+  /**
+   * Swiss German SPEECH rendered into Standard German by a recogniser — what
+   * was meant, not what was said. Never shown as a transcript of the dialect:
+   * every screen that shows it says it is a rendering. Comprehension
+   * questions are about content, so a rendering is a fair basis for them;
+   * a dialect form is never read from one (HEIDI.md, "Transcripts").
+   */
+  | "rendering";
 
 export type Transcript = {
   lines: TranscriptLine[];
@@ -252,7 +260,7 @@ export function parseTranscriptJson(json: unknown): TranscriptLine[] | null {
   return merged.length >= MIN_LINES ? merged.slice(0, MAX_LINES) : null;
 }
 
-const SOURCES: readonly TranscriptSource[] = ["publisher", "auto", "pasted"];
+const SOURCES: readonly TranscriptSource[] = ["publisher", "auto", "pasted", "rendering"];
 
 /** What came out of the database, checked rather than trusted. */
 export function decodeTranscript(raw: unknown): Transcript | null {

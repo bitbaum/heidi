@@ -1,3 +1,4 @@
+// experience-exempt: the learner's own written Zurich German is what is checked; dictation would replace it with a recogniser's Standard German and check that instead (HEIDI.md §6)
 "use client";
 
 import { useState } from "react";

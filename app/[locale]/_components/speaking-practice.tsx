@@ -1,3 +1,4 @@
+// experience-exempt: this box holds the transcript of the take recorded above; a second microphone would compete with the page's own recorder
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";

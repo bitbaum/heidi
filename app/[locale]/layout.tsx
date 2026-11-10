@@ -2,6 +2,11 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { notFound } from "next/navigation";
 import "../globals.css";
+// The fleet's cross-product layout grammar (opt-in `bb-*` classes, no brand).
+import "@bitbaum/design-tokens/composition.css";
+// Self-hosted faces from @bitbaum/design-tokens: no build fetches a font, and
+// every device draws the same letters (see the note on --font-sans).
+import { ibmPlexMono, inter } from "../fonts";
 import { getDictionary } from "@/lib/i18n";
 import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS, isLocale, type Locale } from "@/lib/i18n/locales";
 import { ASSISTANT_NAME, SITE_URL } from "@/lib/config/site";
@@ -86,6 +91,7 @@ export default async function LocaleLayout({
        * exactly this, and the alternative is to render nothing until an effect
        * runs, which is the flash the script exists to prevent.
        */
+      className={`${inter.variable} ${ibmPlexMono.variable}`}
       suppressHydrationWarning>
       <body className="flex min-h-screen flex-col">
         {/*

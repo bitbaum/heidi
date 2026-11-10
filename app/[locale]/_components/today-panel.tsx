@@ -5,11 +5,12 @@ import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
 import { href } from "@/lib/i18n/routes";
-import { ALL } from "@/lib/domain/practice/scope";
+import { focusScope } from "@/lib/domain/practice/focus";
+import { focusStore } from "./focus-store";
 import { dueCount } from "@/lib/domain/practice/memory";
 import { plural } from "@/lib/i18n/plural";
 import { fill } from "@/lib/i18n/fill";
-import { useStorageReady } from "@/lib/browser/store";
+import { useBrowserStore, useStorageReady } from "@/lib/browser/store";
 import { localDay, view } from "@/lib/domain/progress/streak";
 import { SessionLink } from "./session/links";
 import { setWeekGoal } from "./streak-store";
@@ -43,6 +44,8 @@ export function TodayPanel({
 }) {
   const stored = useStreakView();
   const memory = useMemoryView();
+  // "Practise" means this learner's own situations once they have chosen.
+  const practiseScope = focusScope(useBrowserStore(focusStore));
   const review = useReview();
   const ready = useStorageReady();
   const [now] = useState(Date.now);
@@ -77,7 +80,7 @@ export function TodayPanel({
       <div className="mt-5 flex flex-wrap gap-3">
         <SessionLink
           locale={locale}
-          scope={ALL}
+          scope={practiseScope}
           className="inline-flex min-h-11 items-center rounded-control bg-action px-5 font-medium text-on-action hover:opacity-90"
         >
           {t.practise}

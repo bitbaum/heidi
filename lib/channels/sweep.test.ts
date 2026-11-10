@@ -145,3 +145,22 @@ describe("the sweep", () => {
     );
   });
 });
+
+test("one channel that throws is recorded as failed, and the next one is still swept", async () => {
+  const { deps, recorded } = world({
+    due: async () => [channel("UC_poison", "Poison"), channel("UC_a", "Channel A")],
+  });
+  const read = deps.readFeed;
+  deps.readFeed = async (ch) => {
+    if (ch.id === "UC_poison") throw new RangeError("Invalid code point 1114112");
+    return read(ch);
+  };
+  const report = await sweep(deps, { now: NOW });
+  assert.equal(report.checked, 2);
+  assert.equal(report.failed, 1);
+  assert.deepEqual(
+    recorded.map((r) => [r.channelId, r.error]),
+    [["UC_poison", "failed"], ["UC_a", null]],
+    "the poisoned channel is stamped checked, so it does not come first every hour",
+  );
+});

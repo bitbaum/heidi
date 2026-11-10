@@ -6,7 +6,7 @@ import {
   BROUGHT_KEY_VENDORS,
   FLOWS,
   HOSTING,
-  MODEL_VENDORS,
+  MODEL_VENDORS, VENDOR_PLACES,
   NOT_DONE,
   type Flow,
 } from "@/lib/config/privacy";
@@ -106,16 +106,28 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
 
       <Section border="top" title={t.vendorsTitle}>
         <p className="max-w-measure text-base leading-relaxed text-fg-secondary">{t.vendorsNote}</p>
-        <ul className="mt-4 flex flex-wrap gap-2">
-          {MODEL_VENDORS.map((vendor) => (
-            <li
-              key={vendor}
-              className="rounded-control border border-border-strong px-3 py-1 font-mono text-caption uppercase tracking-caps text-fg-primary"
-            >
-              {vendor}
-            </li>
-          ))}
+        {/* One row per company: its name, who it is, and where it is
+            established, linked to the page that says so. A column list rather
+            than chips: an entity name does not fit in a chip at 320px. */}
+        <ul className="mt-4 flex max-w-measure flex-col gap-2">
+          {MODEL_VENDORS.map((vendor) => {
+            const place = VENDOR_PLACES[vendor];
+            return (
+              <li key={vendor} className="min-w-0 rounded-control border border-border-strong px-3 py-2">
+                <span className="font-mono text-caption uppercase tracking-caps text-fg-primary">{vendor}</span>
+                <a
+                  href={place.source}
+                  rel="noreferrer"
+                  lang="en"
+                  className="mt-1 flex min-h-11 items-center text-sm leading-snug text-fg-secondary underline underline-offset-4 hover:text-fg-primary"
+                >
+                  {place.entity} · {place.country}
+                </a>
+              </li>
+            );
+          })}
         </ul>
+        <p className="mt-3 max-w-measure text-sm leading-relaxed text-fg-muted">{t.vendorsPlaceNote}</p>
         <p className="mt-4 max-w-measure text-sm leading-relaxed text-fg-muted">
           {t.broughtKeyNote} {BROUGHT_KEY_VENDORS.join(" · ")}
         </p>

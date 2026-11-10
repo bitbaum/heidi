@@ -10,6 +10,7 @@ import {
   type MatchItem,
 } from "../types.ts";
 import type { ExerciseKind, Material } from "./kind.ts";
+import { closenessOf, levelOf } from "../../vocabulary/distance.ts";
 
 /**
  * The four kinds the word list can ask, in one module.
@@ -140,7 +141,7 @@ export function formItems(pack: VarietyPack): FormItem[] {
  */
 export function matchItems(pack: VarietyPack): MatchItem[] {
   const items: MatchItem[] = [];
-  const groups = new Map<string, { target: string; bridge: string }[]>();
+  const groups = new Map<string, Entry[]>();
 
   for (const entry of pack.vocabulary ?? []) {
     const target = entry.target.trim();
@@ -148,13 +149,20 @@ export function matchItems(pack: VarietyPack): MatchItem[] {
     if (!target || !bridge || target.toLowerCase() === bridge.toLowerCase()) continue;
     if (/\s/.test(target)) continue;
     const bucket = groups.get(entry.group) ?? [];
-    bucket.push({ target, bridge });
+    bucket.push({ target, bridge, guessable: levelOf(closenessOf(entry, pack.correspondences)) === 1 });
     groups.set(entry.group, bucket);
   }
 
-  for (const [group, entries] of groups) {
+  for (const [group, all] of groups) {
+    const entries = mixed(all);
     for (let start = 0; start + MATCH_SIZE <= entries.length; start += MATCH_SIZE) {
       const four = entries.slice(start, start + MATCH_SIZE);
+      // Four words the German gives away are answered by their shape —
+      // «bringe, finde, frage, rede» is "add an n" four times, not a question.
+      if (four.filter((e) => !e.guessable).length < MATCH_HARD) continue;
+      // «Hoi» and «Salü» both «Hallo»: two meanings that are one string make
+      // half the grid a coin toss, whichever way it is marked.
+      if (new Set(four.map((e) => e.bridge.toLocaleLowerCase("de"))).size < MATCH_SIZE) continue;
       const targets = four.map((e) => e.target);
       const meanings = four.map((e) => e.bridge);
 
@@ -176,6 +184,30 @@ export function matchItems(pack: VarietyPack): MatchItem[] {
   }
 
   return items;
+}
+
+type Entry = { target: string; bridge: string; guessable: boolean };
+
+/** Words in a grid that nothing in the German gives away. */
+const MATCH_HARD = 2;
+
+/**
+ * A group's words in pack order, re-dealt so that the ones the German gives
+ * away and the ones it does not alternate: then every four has some of each,
+ * and the easy ones still count — they are the distractors that look right.
+ * Pure: the same pack always deals the same grids.
+ */
+function mixed(entries: Entry[]): Entry[] {
+  const hard = entries.filter((e) => !e.guessable);
+  const easy = entries.filter((e) => e.guessable);
+  const out: Entry[] = [];
+  while (hard.length || easy.length) {
+    const h = hard.shift();
+    if (h) out.push(h);
+    const e = easy.shift();
+    if (e) out.push(e);
+  }
+  return out;
 }
 
 /**

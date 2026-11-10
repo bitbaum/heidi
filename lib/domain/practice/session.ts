@@ -2,9 +2,10 @@ import type { VarietyPack } from "../../variety/pack.ts";
 import type { SavedWord } from "../saved/types.ts";
 import { due } from "../saved/review.ts";
 import { allItems } from "./generate.ts";
-import { EMPTY_MODEL, pressureOf, type LearnerModel } from "./model.ts";
+import { EMPTY_MODEL, frontierOf, ladderOf, pressureOf, stretchOf, type LearnerModel } from "./model.ts";
 import { NO_MEMORY, dueOrder, urgency, type Memory } from "./memory.ts";
 import { SESSION_SIZE, type PracticeItem } from "./types.ts";
+import type { Random } from "./random.ts";
 
 /**
  * What one sitting asks, and in what order.
@@ -22,13 +23,13 @@ import { SESSION_SIZE, type PracticeItem } from "./types.ts";
  * available on day one — rather than an empty screen telling them to come back
  * when they have saved something.
  *
- * NO SHUFFLE, AND NO RANDOMNESS ANYWHERE.
+ * RANDOM ONLY WHERE THE ORDER WAS ARBITRARY.
  *
- * A random session cannot be tested, cannot be resumed, and gives a learner no
- * way to tell "I have seen this" from "this came up again". The variation
- * comes from `seen` — what has already been asked — which is a fact about the
- * learner rather than a dice roll, so the same person gets a different session
- * tomorrow and a test gets the same one twice.
+ * Due before new, struggling before fine, least-recently-asked first: those
+ * stay facts about the learner. Between questions they leave tied — which, for
+ * a new learner, is nearly all of them — the order used to be alphabetical,
+ * so everybody met the same sitting. A seeded `random` (see `random.ts`)
+ * breaks those ties instead: tests pass a seed, resuming uses stored ids.
  */
 export function buildSession({
   pack,
@@ -76,6 +77,7 @@ export function orderSession({
   model = EMPTY_MODEL,
   memory = NO_MEMORY,
   cover = [],
+  random,
 }: {
   items: readonly PracticeItem[];
   saved: readonly SavedWord[];
@@ -99,6 +101,12 @@ export function orderSession({
    * makes every item "new" and reproduces the ordering without it.
    */
   memory?: Memory;
+  /**
+   * Where the order was arbitrary — between questions equally urgent, equally
+   * hard and equally fresh, and between kinds the same — this decides instead
+   * of the alphabet (`random.ts`). Omitted, the old deterministic order.
+   */
+  random?: Random;
 }): PracticeItem[] {
   const dueIds = new Set(due([...saved], now).map((word) => `recall:${word.target.trim().toLocaleLowerCase()}`));
   const everything = items;
@@ -135,6 +143,20 @@ export function orderSession({
    * everybody from the first answer.
    */
   const band = (item: PracticeItem) => Math.round(pressureOf(model, item) * 4);
+  const frontier = frontierOf(model);
+
+  // One draw per question and per kind, made once, so the sort stays a
+  // consistent order rather than a different coin on every comparison.
+  const lot = new Map<string, number>();
+  const draw = (key: string) => {
+    if (!random) return 0;
+    let value = lot.get(key);
+    if (value === undefined) {
+      value = random();
+      lot.set(key, value);
+    }
+    return value;
+  };
 
   /**
    * And before either: WHEN. A question whose day has come is asked before
@@ -152,11 +174,20 @@ export function orderSession({
     }
     const pressureGap = band(b) - band(a);
     if (pressureGap !== 0) return pressureGap;
+    // Recognise a line first, produce it once it is recognised (`ladderOf`).
+    const ladderGap = ladderOf(model, a) - ladderOf(model, b);
+    if (ladderGap !== 0) return ladderGap;
+    // At the learner's level before above it (`frontierOf`).
+    const stretchGap = stretchOf(a, frontier) - stretchOf(b, frontier);
+    if (stretchGap !== 0) return stretchGap;
     // Whatever has been asked least recently. Never-seen items (-1) come before
     // anything seen, oldest-seen before newest.
     const freshGap = freshness(a) - freshness(b);
     if (freshGap !== 0) return freshGap;
-    // A stable tiebreak so the same inputs give the same session.
+    // Then luck, when the sitting was given a seed; then a stable tiebreak,
+    // so the same inputs (and the same seed) give the same session.
+    const luck = draw(a.id) - draw(b.id);
+    if (luck !== 0) return luck;
     return a.id.localeCompare(b.id);
   };
 
@@ -221,6 +252,8 @@ export function orderSession({
     if (pressureGap !== 0) return pressureGap;
     const recencyGap = (lastAsked.get(a) ?? -1) - (lastAsked.get(b) ?? -1);
     if (recencyGap !== 0) return recencyGap;
+    const luck = draw(`kind:${a}`) - draw(`kind:${b}`);
+    if (luck !== 0) return luck;
     return a.localeCompare(b);
   });
   let exhausted = false;

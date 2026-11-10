@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { BROUGHT_KEY_VENDORS, FLOWS, MODEL_VENDORS, NOT_DONE } from "./privacy.ts";
+import { BROUGHT_KEY_VENDORS, FLOWS, MODEL_VENDORS, NOT_DONE, VENDOR_PLACES } from "./privacy.ts";
 import { BYOK_PROVIDERS } from "../domain/model/providers.ts";
 import { STORAGE_KEY_PATTERN } from "../browser/stores.ts";
 
@@ -88,6 +88,22 @@ describe("the claims that must stay true", () => {
     // that the request-forgery guard in `providers.ts` refuses to honour.
     assert.deepEqual([...BROUGHT_KEY_VENDORS].sort(), BYOK_PROVIDERS.map((p) => p.label).sort());
     assert.ok(BROUGHT_KEY_VENDORS.length >= 3);
+  });
+
+  test("no row names the same company twice", () => {
+    // «Groq · Google · OpenRouter · Groq» was live on the captions row.
+    for (const flow of FLOWS) {
+      assert.equal(new Set(flow.recipients).size, flow.recipients.length, `${flow.id} lists a recipient twice`);
+    }
+  });
+
+  test("every company that answers messages has a country and the page it was read on", () => {
+    for (const vendor of MODEL_VENDORS) {
+      const place = VENDOR_PLACES[vendor];
+      assert.ok(place, `${vendor} has no place`);
+      assert.match(place.country, /^[A-Z]{2}( · [A-Z]{2})*$/, `${vendor}: country is not an ISO code`);
+      assert.ok(place.source.startsWith("https://"), `${vendor}: no source`);
+    }
   });
 
   test("the free chain's vendors are all disclosed", () => {

@@ -48,20 +48,22 @@ export function HeidiSignIn(props: {
   initialError: boolean;
 }) {
   return (
-    <SignInForm
-      client={authClient}
-      classes={CLASSES}
-      labels={props.labels}
-      methods={props.methods}
-      next={props.next}
-      signInPath={props.signInPath}
-      initialError={props.initialError}
-      signUpLink={
-        <Link prefetch={false} href={props.signUpPath} className={textLink}>
-          {props.labels.createAccount}
-        </Link>
-      }
-    />
+    <div data-chrome="account">
+      <SignInForm
+        client={authClient}
+        classes={CLASSES}
+        labels={props.labels}
+        methods={props.methods}
+        next={props.next}
+        signInPath={props.signInPath}
+        initialError={props.initialError}
+        signUpLink={
+          <Link prefetch={false} href={props.signUpPath} className={textLink}>
+            {props.labels.createAccount}
+          </Link>
+        }
+      />
+    </div>
   );
 }
 
@@ -73,19 +75,21 @@ export function HeidiSignUp(props: {
   signInPath: string;
 }) {
   return (
-    <SignUpForm
-      client={authClient}
-      classes={CLASSES}
-      labels={props.labels}
-      methods={props.methods}
-      next={props.next}
-      signUpPath={props.signUpPath}
-      signInLink={
-        <Link prefetch={false} href={props.signInPath} className={textLink}>
-          {props.labels.signIn}
-        </Link>
-      }
-    />
+    <div data-chrome="account">
+      <SignUpForm
+        client={authClient}
+        classes={CLASSES}
+        labels={props.labels}
+        methods={props.methods}
+        next={props.next}
+        signUpPath={props.signUpPath}
+        signInLink={
+          <Link prefetch={false} href={props.signInPath} className={textLink}>
+            {props.labels.signIn}
+          </Link>
+        }
+      />
+    </div>
   );
 }
 
@@ -97,5 +101,9 @@ export function HeidiAccount(props: {
   accountPath: string;
   homePath: string;
 }) {
-  return <AccountPanel client={authClient} classes={CLASSES} {...props} />;
+  return (
+    <div data-chrome="account">
+        <AccountPanel client={authClient} classes={CLASSES} {...props} />
+    </div>
+  );
 }
