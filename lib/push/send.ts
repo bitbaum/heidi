@@ -1,4 +1,4 @@
-import webpush from "web-push";
+import { sendNotification, setVapidDetails } from "web-push";
 import type { PushPayload, Subscription } from "../channels/sweep.ts";
 
 /**
@@ -30,7 +30,7 @@ function configure(): boolean {
   if (configured) return true;
   if (!pushConfigured()) return false;
   try {
-    webpush.setVapidDetails(process.env.VAPID_SUBJECT!.trim(), publicKey(), process.env.VAPID_PRIVATE_KEY!.trim());
+    setVapidDetails(process.env.VAPID_SUBJECT!.trim(), publicKey(), process.env.VAPID_PRIVATE_KEY!.trim());
     configured = true;
     return true;
   } catch {
@@ -41,7 +41,7 @@ function configure(): boolean {
 export async function sendPush(subscription: Subscription, payload: PushPayload): Promise<{ ok: boolean; dead: boolean }> {
   if (!configure()) return { ok: false, dead: false };
   try {
-    await webpush.sendNotification(
+    await sendNotification(
       { endpoint: subscription.endpoint, keys: { p256dh: subscription.p256dh, auth: subscription.auth } },
       JSON.stringify(payload),
       // A day: a notification about a video is still true tomorrow, and a
