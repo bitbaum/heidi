@@ -177,9 +177,11 @@ jobs:
       # to it. Each was reported from a phone, by a person, after it was live.
       # An opt-in script nobody remembers to run would have caught none of
       # them.
+      # Shared fleet step: --with-deps, falling back to the browser alone when
+      # apt cannot reach Ubuntu's archive (the 2026-11-11 outage).
       - name: Install Chromium for the layout audit
         if: steps.gate.outputs.fast != 'true'
-        run: pnpm exec playwright install --with-deps chromium
+        uses: bitbaum/fleet/.github/actions/install-chromium@main
 
       # With accounts ON, so the audits below measure the header production
       # serves. Without a session secret the bar renders no sign-in control,
