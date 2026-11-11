@@ -586,3 +586,41 @@ export const chatFeedback = pgTable(
   // The export joins thumbs to the conversations it is about to ship.
   (t) => [index("chat_feedback_conversation_idx").on(t.conversationId, t.createdAt)],
 );
+
+/**
+ * Passes: what was offered for payment, and what access it bought.
+ *
+ * `pay_checkouts` is one row per invoice Heidi asked OrangeCat for. It is the
+ * only link from a settled payment back to a person: OrangeCat's
+ * `payment.settled` names the payment and nothing else. `handle` is the token
+ * that reads the payment's status and never leaves the server. `settled_at`
+ * is the idempotency mark: a payment grants its days once, however often the
+ * webhook is delivered and however the status poll races it.
+ *
+ * `entitlements` is one row per person: the pass they hold and when it ends.
+ */
+export const payCheckouts = pgTable(
+  "pay_checkouts",
+  {
+    id: text("id").primaryKey(),
+    actorId: text("actor_id").notNull(),
+    provider: text("provider").notNull(),
+    planId: text("plan_id").notNull(),
+    amount: integer("amount").notNull(),
+    currency: text("currency").notNull(),
+    invoice: text("invoice"),
+    payUrl: text("pay_url"),
+    handle: text("handle"),
+    expiresAt: timestamp("expires_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    settledAt: timestamp("settled_at", { withTimezone: true }),
+  },
+  (t) => [index("pay_checkouts_actor_idx").on(t.actorId, t.createdAt)],
+);
+
+export const entitlements = pgTable("entitlements", {
+  actorId: text("actor_id").primaryKey(),
+  planId: text("plan_id").notNull(),
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});

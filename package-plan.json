@@ -44,6 +44,20 @@
         }
       ]
     },
+    "payments": {
+      "package": "@bitbaum/paykit",
+      "bindings": [
+        {
+          "file": "lib/pay/service.ts",
+          "symbols": ["orangeCatProvider", "applySettlement", "isActive"]
+        },
+        {
+          "file": "lib/pay/store.ts",
+          "symbols": ["EntitlementStore"]
+        }
+      ],
+      "note": "Passes paid in Bitcoin to Heidi's OrangeCat project. The provider, the webhook signature, the entitlement arithmetic and once-only settlement are the package's; Heidi owns config (lib/config/payments.ts), storage and words."
+    },
     "design": {
       "package": "@bitbaum/design-tokens",
       "bindings": [
