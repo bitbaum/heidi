@@ -78,13 +78,27 @@ export function createSender(probe: Probe = (options) => mailHealth(options), no
      * The From line to use right now, or undefined to leave the package's
      * default. Synchronous, because the mailer reads its environment that
      * way: it answers from the last probe and starts a new one when that is
-     * stale. The sign-in page asks before any mail is sent, so the first mail
-     * already has an answer.
+     * stale. Before the first probe has answered it is undefined, so anything
+     * that is about to send awaits `resolve` first.
      */
     from(env: Env = process.env): string | undefined {
       if (env.RESEND_FROM || !env.RESEND_API_KEY) return undefined;
       if (!last || now() - last.at > TTL_MS) void refresh(env);
       return last ? (ownSender(last.health) ?? undefined) : undefined;
+    },
+
+    /**
+     * The same answer, awaited: asks the mail service first when there is no
+     * answer yet or the last one is stale. This is what a mail about to be
+     * sent calls. `from` alone answered "leave the default" to the first mail
+     * of every server process, because nothing had asked yet: `/api/health`
+     * named the own domain while the sign-in link still went out from
+     * the shared sender (seen on production, 11 November 2026).
+     */
+    async resolve(env: Env = process.env): Promise<string | undefined> {
+      if (env.RESEND_FROM || !env.RESEND_API_KEY) return undefined;
+      const health = !last || now() - last.at > TTL_MS ? await refresh(env) : last.health;
+      return ownSender(health) ?? undefined;
     },
 
     /** The same answer, awaited and explained, for `/api/health`. */
@@ -101,4 +115,11 @@ export function createSender(probe: Probe = (options) => mailHealth(options), no
   };
 }
 
-export const sender = createSender();
+/**
+ * One per server process, not one per bundle: the health route and the auth
+ * route are built separately, and two copies of this module would each keep
+ * their own answer.
+ */
+const SLOT = Symbol.for("heidi.mail.sender");
+const shared = globalThis as { [SLOT]?: ReturnType<typeof createSender> };
+export const sender = (shared[SLOT] ??= createSender());
