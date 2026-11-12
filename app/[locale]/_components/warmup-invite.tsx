@@ -70,7 +70,8 @@ export function WarmupInvite({
         <span>
           <span className="font-medium text-fg-primary">{t.inviteTitle}</span> {t.inviteBody}
         </span>
-        <Link href={to} className="text-link underline underline-offset-4 hover:text-accent">
+        {/* A 44px target, not the 51×20 of its words (QA, 12 Nov, /en/practice). */}
+        <Link href={to} className="inline-flex min-h-11 min-w-11 items-center text-link underline underline-offset-4 hover:text-accent">
           {t.inviteCta} →
         </Link>
       </p>
