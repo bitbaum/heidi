@@ -1444,6 +1444,7 @@ export const rm: Dictionary = {
       transform: "Tge frasa di exactamain quai?",
       clock: "Tge numer è quai?",
       meaning: "Tge munta il pled qua?",
+      meaningAlone: "Tge munta il pled?",
     },
     /**
      * One sentence per teaching point of the template-built questions

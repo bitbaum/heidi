@@ -1428,6 +1428,7 @@ export const fr: Dictionary = {
       transform: "Quelle phrase dit exactement cela ?",
       clock: "Quel nombre est-ce ?",
       meaning: "Que veut dire ce mot ici ?",
+      meaningAlone: "Que veut dire ce mot ?",
     },
     /**
      * One sentence per teaching point of the template-built questions

@@ -56,7 +56,10 @@ export function QuestionCard({
       ? item.variety === "target"
         ? t.ask.pairTarget
         : t.ask.pairBridge
-      : t.ask[item.kind];
+      : // A word shown without a sentence has no "here" to mean something in.
+        item.kind === "meaning" && item.said === item.focus
+        ? t.ask.meaningAlone
+        : t.ask[item.kind];
 
   return (
     <div className="mt-3 rounded-control border border-border-strong bg-surface-raised p-5 sm:p-6">

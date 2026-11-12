@@ -1540,6 +1540,7 @@ export const de = {
       transform: "Welcher Satz sagt genau das?",
       clock: "Welche Zahl ist das?",
       meaning: "Was heisst das Wort hier?",
+      meaningAlone: "Was heisst dieses Wort?",
     },
     /**
      * Ein Satz pro Lernpunkt der Vorlagen-Fragen (`LESSON_IDS` in
