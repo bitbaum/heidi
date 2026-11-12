@@ -16,15 +16,31 @@ import * as schema from "./schema.ts";
  */
 type DbInstance = ReturnType<typeof drizzle<typeof schema>>;
 
-let instance: DbInstance | undefined;
+/**
+ * ONE POOL PER SERVER PROCESS, NOT ONE PER BUNDLE.
+ *
+ * Routes are built separately, and each bundle that imports this module gets
+ * its own copy of it (`lib/auth/sender.ts` met the same thing). The handle
+ * used to live in a module variable, so every such copy opened its own pool
+ * of up to ten connections against a Postgres the box shares between
+ * products. A deploy of this site was refused at its schema step with «too
+ * many clients already»; this is the part of that sum this repo controls.
+ *
+ * On `globalThis`, under a registered symbol, every copy finds the same pool.
+ */
+const SLOT = Symbol.for("heidi.db");
+const shared = globalThis as { [SLOT]?: DbInstance };
+
+/** The most connections this process holds. pg's own default, now said once. */
+const POOL_MAX = 10;
 
 export function getDb(): DbInstance {
-  if (!instance) {
+  if (!shared[SLOT]) {
     const url = process.env.DATABASE_URL;
     if (!url) throw new Error("DATABASE_URL is not set");
-    instance = drizzle(new Pool({ connectionString: url }), { schema });
+    shared[SLOT] = drizzle(new Pool({ connectionString: url, max: POOL_MAX }), { schema });
   }
-  return instance;
+  return shared[SLOT];
 }
 
 /** True when a database is configured at all. Lets a route answer honestly. */
