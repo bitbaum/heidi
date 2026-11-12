@@ -94,6 +94,10 @@
         {
           "file": "app/[locale]/_components/invite-panel.tsx",
           "symbols": ["useClipboard"]
+        },
+        {
+          "file": "app/[locale]/_components/use-speech.ts",
+          "symbols": ["useSpeech"]
         }
       ]
     },
