@@ -208,7 +208,7 @@ export const ru: Dictionary = {
     },
     dock: {
       practise: "Упражняться",
-      open: "Спросить Хайди",
+      open: "Спросить Heidi",
       close: "Закрыть",
       title: "Heidi",
     },
