@@ -59,6 +59,12 @@ export function TopicBoard({
     [busy, router, t],
   );
 
+  // An empty board is an invitation to propose, and only a signed-in visitor
+  // can. Signed out it was a heading, a question and «No proposals yet.
+  // Suggest something» with no way to: the section waits until there is
+  // either a topic to read or somebody who may add one.
+  if (topics.length === 0 && !signedIn) return null;
+
   return (
     <section aria-labelledby="board-heading" className="mt-12">
       <h2 id="board-heading" className="font-heading text-section leading-tight tracking-display text-fg-primary">

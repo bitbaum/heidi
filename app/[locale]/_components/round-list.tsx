@@ -86,7 +86,11 @@ export function RoundList({
         {t.roundsTitle}
       </h2>
 
-      {rounds.length === 0 && <p className="mt-3 font-mono text-sm text-fg-muted">{t.roundsEmpty}</p>}
+      {/* «Open the first one» is addressed at somebody who can. Signed out,
+          the line below already says what signing in is for, and an empty
+          list followed by an instruction nobody here can follow read as a
+          dead end. */}
+      {rounds.length === 0 && signedIn && <p className="mt-3 font-mono text-sm text-fg-muted">{t.roundsEmpty}</p>}
 
       {rounds.length > 0 && (
         <ul className="mt-4 grid grid-cols-safe gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle">
