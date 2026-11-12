@@ -1436,6 +1436,7 @@ export const ru: Dictionary = {
       transform: "Какое предложение говорит именно это?",
       clock: "Какое это число?",
       meaning: "Что здесь значит это слово?",
+      meaningAlone: "Что значит это слово?",
     },
     /**
      * One sentence per teaching point of the template-built questions

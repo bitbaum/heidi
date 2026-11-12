@@ -155,6 +155,9 @@ describe("the lessons", () => {
       for (const kind of ["reply", "gist", "transform", "clock", "meaning"] as const) {
         assert.ok(getDictionary(locale).practice.ask[kind], `${locale} has no question line for ${kind}`);
       }
+      // A word shown without a sentence is asked without "here".
+      const ask = getDictionary(locale).practice.ask;
+      assert.ok(ask.meaningAlone && ask.meaningAlone !== ask.meaning, `${locale} asks a lone word what it means "here"`);
     }
   });
 });

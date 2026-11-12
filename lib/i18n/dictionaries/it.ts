@@ -1428,6 +1428,7 @@ export const it: Dictionary = {
       transform: "Quale frase dice esattamente questo?",
       clock: "Che numero è?",
       meaning: "Che cosa vuol dire la parola qui?",
+      meaningAlone: "Che cosa vuol dire questa parola?",
     },
     /**
      * One sentence per teaching point of the template-built questions

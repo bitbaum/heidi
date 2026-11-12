@@ -1448,6 +1448,7 @@ export const gsw: Dictionary = {
       transform: "Wele Satz seit genau das?",
       clock: "Weli Zahl isch das?",
       meaning: "Was heisst s Wort da?",
+      meaningAlone: "Was heisst s Wort?",
     },
     /**
      * One sentence per teaching point of the template-built questions

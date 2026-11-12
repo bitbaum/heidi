@@ -1423,6 +1423,8 @@ export const en: Dictionary = {
       transform: "Which sentence says exactly this?",
       clock: "Which number is that?",
       meaning: "What does the word mean here?",
+      /** The word stands alone: the pack has no sentence for it, so there is no "here". */
+      meaningAlone: "What does this word mean?",
     },
     /**
      * One sentence per teaching point of the template-built questions
