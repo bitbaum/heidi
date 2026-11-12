@@ -691,8 +691,8 @@ export const it: Dictionary = {
       certificates: "I suoi attestati",
       passPayments: "Il Suo pass e le relative fatture (solo con un conto, e solo se ne compra uno)",
       focus: "Le mie situazioni: quelle che avete scelto di esercitare",
-      mailPreferences: "La tua impostazione dei promemoria (attivi o no) e il tuo fuso orario",
-      mailDelivery: "L’invio delle e-mail di account e dei promemoria: il tuo indirizzo e il messaggio",
+      mailPreferences: "La Sua impostazione dei promemoria (attivi o no) e il Suo fuso orario",
+      mailDelivery: "L’invio delle e-mail di account e dei promemoria: il Suo indirizzo e il messaggio",
       serverVoice: "Lettura ad alta voce senza voce tedesca sul dispositivo: la frase",
       warmup: "Il vostro riscaldamento: quali frasi avete capito",
       practiceSession: "Una serie di esercizi in corso, per riprenderla",
@@ -834,10 +834,10 @@ export const it: Dictionary = {
     notSignedIn: "Non avete effettuato l'accesso",
     notSignedInBody:
       "Acceda per salvare le conversazioni, portare i progressi su ogni dispositivo e ottenere attestati. Traduzione, esercizi e verifica del dialetto funzionano anche senza account.",
-    whyTitle: "Il tuo account",
+    whyTitle: "Il Suo account",
     whyBody:
       "Un account Heidi richiede solo un indirizzo e-mail e una password, o una passkey — nessun vero nome e nessun altro prodotto.",
-    whyShared: "Se hai già OrangeCat, ti basta un clic per accedere.",
+    whyShared: "Se ha già OrangeCat, Le basta un clic per accedere.",
     unavailable: "L'accesso non è ancora configurato su questa installazione.",
     errorTitle: "L'accesso non ha funzionato",
     errorBody: "Qualcosa è andato storto. Riprovate, oppure tornate all'inizio.",
@@ -1092,10 +1092,10 @@ export const it: Dictionary = {
 
   pass: {
     title: "Pagare Heidi",
-    lead: "Paga Heidi in Bitcoin, direttamente su OrangeCat. Il denaro va dal Suo portafoglio a Heidi; OrangeCat non lo detiene mai.",
+    lead: "Lei paga Heidi in Bitcoin, direttamente su OrangeCat. Il denaro va dal Suo portafoglio a Heidi; OrangeCat non lo detiene mai.",
     button: "Pagare in Bitcoin su OrangeCat",
     howTitle: "Come funziona",
-    how: "Il pulsante apre la pagina pubblica di Heidi su OrangeCat. Lì crea una richiesta di pagamento in Bitcoin e la paga con il Suo portafoglio. Non serve un conto.",
+    how: "Il pulsante apre la pagina pubblica di Heidi su OrangeCat. Lì Lei crea una richiesta di pagamento in Bitcoin e la paga con il Suo portafoglio. Non Le serve un conto.",
     notYetTitle: "Che cosa non è ancora automatico",
     notYet: "Dopo il pagamento il Suo pass non viene ancora concesso automaticamente. Oggi Heidi non vede quale pagamento appartiene a quale conto.",
     auto: {
@@ -1121,7 +1121,7 @@ export const it: Dictionary = {
       expired: "Questa fattura è scaduta.",
       again: "Richiedere una nuova fattura",
       failed: "Non è stato possibile creare la fattura.",
-      back: "Torna al pass",
+      back: "Tornare al pass",
       qrLabel: "Codice QR della fattura",
       off: "I pass automatici non sono ancora attivi.",
     },
@@ -1130,7 +1130,7 @@ export const it: Dictionary = {
   errors: {
     notFoundTitle: "Questa pagina non esiste",
     notFoundBody: "Forse il link è vecchio, forse abbiamo spostato qualcosa.",
-    backHome: "Torna all'inizio",
+    backHome: "Tornare all'inizio",
   },
   /**
    * The grammar area. The FORMS live in the variety pack — `Ich bi gange` is
@@ -1207,11 +1207,11 @@ export const it: Dictionary = {
 
   mailPrefs: {
     title: "Interrompi i promemoria",
-    body: "Con un tocco i promemoria per e-mail si fermano. Il tuo account e i tuoi progressi restano come sono.",
+    body: "Con un tocco i promemoria per e-mail si fermano. Il Suo account e i Suoi progressi restano come sono.",
     button: "Non ricordarmelo più",
     doneTitle: "Fatto",
     doneBody: "Non riceverai più promemoria per e-mail. Se cambi idea, riattivali nelle impostazioni.",
-    invalid: "Questo link non è valido. Puoi disattivare i promemoria nelle impostazioni.",
+    invalid: "Questo link non è valido. Può disattivare i promemoria nelle impostazioni.",
     settings: "Vai alle impostazioni",
   },
 
@@ -1228,7 +1228,7 @@ export const it: Dictionary = {
     deleted: "Eliminato. Sul server non resta nulla dei suoi progressi.",
     failed: "Non ha funzionato. Riprovi.",
     reminderTitle: "Promemoria per e-mail",
-    reminderBody: "Quando ci sono domande da rivedere, Heidi ti scrive una breve e-mail la sera — al massimo ogni due giorni, solo da cinque domande in su, e per niente dopo tre senza risposta. Per questo il server legge il tuo piano di domande, che sincronizzi qui.",
+    reminderBody: "Quando ci sono domande da rivedere, Heidi Le scrive una breve e-mail la sera — al massimo ogni due giorni, solo da cinque domande in su, e per niente dopo tre senza risposta. Per questo il server legge il Suo piano di domande, che sincronizza qui.",
     reminderLabel: "Sì, ricordamelo",
     reminderNeedsSync: "I promemoria richiedono «Progressi su ogni dispositivo»: solo così il server sa che cosa c’è da rivedere.",
   },
@@ -1892,7 +1892,7 @@ export const it: Dictionary = {
     heidiHint: "Scriva «Heidi» perché risponda.",
     notConfigured: "I gruppi di studio non sono ancora configurati su questa installazione.",
     failed: "Non ha funzionato. Riprovi.",
-    back: "Torna al mio spazio",
+    back: "Tornare al mio spazio",
   },
   speaking: {
     title: "Parlare",
