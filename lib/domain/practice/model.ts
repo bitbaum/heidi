@@ -295,6 +295,14 @@ export function recognised(model: LearnerModel, scene: string, line: number): bo
 
 export function ladderOf(model: LearnerModel, item: PracticeItem): 0 | 1 {
   const source = item.source;
+  // A card has the same two rungs, per WORD. Meaning → dialect asks for a
+  // word to be produced; for a word never met, that is a question with no
+  // way to answer it. So the dialect → meaning card of a new word goes first,
+  // and the other direction waits until the word has been asked once.
+  if (item.kind === "card") {
+    if (item.direction !== "produce" || source.kind !== "word") return 0;
+    return (model.words[source.word]?.asked ?? 0) > 0 ? 0 : 1;
+  }
   if (source.kind !== "situation" || source.line === undefined) return 0;
   const known = recognised(model, source.scene, source.line);
   const rung = KIND_META[item.kind].rung;

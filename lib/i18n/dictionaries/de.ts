@@ -1535,6 +1535,7 @@ export const de = {
       pick: "Welches Wort passt hier?",
       translate: "Wie sagt man das auf Züridütsch?",
       card: "Wissen Sie das noch?",
+      cardNew: "Ein neues Wort. Kennen Sie es schon?",
       reply: "Was passt als Antwort?",
       gist: "Was ist gemeint?",
       transform: "Welcher Satz sagt genau das?",

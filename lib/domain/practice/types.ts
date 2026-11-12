@@ -466,6 +466,12 @@ export type CardItem = {
   article?: string;
   /** One sentence the word lives in, both sides. Shown on the back. */
   example?: { target: string; bridge: string };
+  /**
+   * Where the word stands among the pack's words, most heard first: 0 is the
+   * word the most lines of the situation scenes say. Between cards that are
+   * otherwise equally due, the session asks in this order (`session.ts`).
+   */
+  order: number;
   source: ItemSource;
 };
 

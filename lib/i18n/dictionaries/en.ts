@@ -1418,6 +1418,8 @@ export const en: Dictionary = {
       pick: "Which word belongs here?",
       translate: "How do you say that in Zurich German?",
       card: "Do you still know this one?",
+      /** A card whose word has never been asked: there is nothing to "still" know. */
+      cardNew: "A new word. Do you know it already?",
       reply: "Which reply fits?",
       gist: "What is meant?",
       transform: "Which sentence says exactly this?",

@@ -184,6 +184,8 @@ export function orderSession({
     // anything seen, oldest-seen before newest.
     const freshGap = freshness(a) - freshness(b);
     if (freshGap !== 0) return freshGap;
+    // Between two cards, the word heard more often (`CardItem.order`).
+    if (a.kind === "card" && b.kind === "card" && a.order !== b.order) return a.order - b.order;
     // Then luck, when the sitting was given a seed; then a stable tiebreak,
     // so the same inputs (and the same seed) give the same session.
     const luck = draw(a.id) - draw(b.id);
