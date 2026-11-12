@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useClipboard } from "@bitbaum/chatkit/react";
 import { useClientValue } from "@/lib/browser/store";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/locales";
@@ -39,7 +40,11 @@ export function InvitePanel({
   token: string;
 }) {
   const [token, setToken] = useState(initialToken);
-  const [copied, setCopied] = useState(false);
+  const { copied: wrote, copy: write } = useClipboard(2000);
+  // "Copied" is about ONE link: a rotated token is a different link, and the
+  // one on the clipboard no longer opens the group.
+  const [copiedToken, setCopiedToken] = useState<string | null>(null);
+  const copied = wrote && copiedToken === token;
   const [busy, setBusy] = useState(false);
   // `window` does not exist during the server pass, and reading it during
   // render would hydrate a tree different from the one that was sent. This is
@@ -50,16 +55,13 @@ export function InvitePanel({
   // actually on, rather than one baked in at build time.
   const link = `${origin}${href(locale, `join/${token}`)}`;
 
-  async function copy() {
+  // The write is the fleet's (`useClipboard`): a refused write never flips
+  // `copied`, and the field is selectable, so there is still a way to get the
+  // link out.
+  function copy() {
     if (!link) return;
-    try {
-      await navigator.clipboard.writeText(link);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard permission denied — the field is selectable, so there is
-      // still a way to get the link out.
-    }
+    setCopiedToken(token);
+    write(link);
   }
 
   async function rotate() {
@@ -70,7 +72,6 @@ export function InvitePanel({
       if (res.ok) {
         const data = (await res.json()) as { token: string };
         setToken(data.token);
-        setCopied(false);
       }
     } finally {
       setBusy(false);

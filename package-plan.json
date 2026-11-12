@@ -86,6 +86,14 @@
         {
           "file": "app/[locale]/_components/chat/workspace.tsx",
           "symbols": ["ChatApp"]
+        },
+        {
+          "file": "app/[locale]/_components/chat/copy-button.tsx",
+          "symbols": ["useClipboard"]
+        },
+        {
+          "file": "app/[locale]/_components/invite-panel.tsx",
+          "symbols": ["useClipboard"]
         }
       ]
     },
