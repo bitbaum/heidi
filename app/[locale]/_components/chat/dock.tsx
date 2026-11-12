@@ -156,6 +156,33 @@ function useCoversControl(launcher: React.RefObject<HTMLElement | null>, enabled
 }
 
 /**
+ * The launcher's real height, published as `--dock-height` on `<html>`.
+ *
+ * The room every page reserves for it (`--dock-room` in globals.css) was a
+ * fixed 3rem. The pill is 3rem only while both labels fit on one line: a
+ * longer label, a larger default font or a zoomed phone makes it taller, and
+ * a fixed reservation would then be short. Measured, the room is the bar's
+ * height whatever its words. (QA, 12 Nov: the bar over /pass at 390px.)
+ */
+function usePublishHeight(el: React.RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const node = el.current;
+    if (!node) return;
+    const root = document.documentElement;
+    const publish = () => {
+      if (node.offsetHeight) root.style.setProperty("--dock-height", `${node.offsetHeight}px`);
+    };
+    publish();
+    const observer = new ResizeObserver(publish);
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty("--dock-height");
+    };
+  }, [el]);
+}
+
+/**
  * Heidi, on every page.
  *
  * THE PROBLEM THIS SOLVES. Chat is how people use this product — it is the
@@ -216,6 +243,7 @@ export function ChatDock({
   const launcher = useRef<HTMLButtonElement>(null);
   const pill = useRef<HTMLDivElement>(null);
   const coversControl = useCoversControl(pill, !open);
+  usePublishHeight(pill);
 
   useEffect(() => {
     function onAsk(event: Event) {
