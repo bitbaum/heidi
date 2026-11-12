@@ -554,17 +554,22 @@ export function SpeakingPractice({
           {recorder.error === "failed" && <p className="text-center text-sm text-danger">{t.failed}</p>}
         </div>
 
-        {recorder.delivery && <Measured t={t} num={num} delivery={recorder.delivery} spoken={spokenMeasures} />}
+        {/* ONE LINE FIRST, THE REST FOLDED.
 
-        {feedback && (feedback.recording.length > 0 || feedback.delivery.length > 0 || spokenFeedback.length > 0) && (
-          <ul className="mt-5 grid grid-cols-safe gap-2">
-            {[...feedback.recording, ...feedback.delivery, ...spokenFeedback].map((note, i) => (
-              <li key={`${note.id}-${i}`} className="text-sm leading-relaxed text-fg-secondary">
-                {renderNote(t, num, note)}
-              </li>
-            ))}
-          </ul>
-        )}
+            A take used to be answered with a grid of up to seven figures and
+            then every note at once — a screen of numbers before the one
+            sentence that says what to do with them. The first note is that
+            sentence (a recording that cannot be used comes before anything
+            about delivery), so it stands alone; the figures and the other
+            notes are one tap away, under the word for what they are.
+
+            `<details>` rather than a toggle with state: it opens without
+            JavaScript, announces itself, and Ctrl-F opens it. */}
+        <TakeFeedback
+          t={t}
+          notes={feedback ? [...feedback.recording, ...feedback.delivery, ...spokenFeedback].map((note) => renderNote(t, num, note)) : []}
+          figures={recorder.delivery && usable(recorder.delivery) ? <Measured t={t} num={num} delivery={recorder.delivery} spoken={spokenMeasures} /> : null}
+        />
 
         {/* The words. Only once there is something to transcribe, and only
             when the recording was worth keeping. */}
@@ -685,6 +690,46 @@ type Suggestion = { better: string; why?: string; flagged?: unknown[] };
  * rather than zero: a `0.0 Silben/Sek.` under a take nobody has written out
  * yet is a measurement of nothing, printed in the same type as the real ones.
  */
+/**
+ * What a take is answered with: the verdict, then everything behind it.
+ *
+ * With no note at all the figures are the only answer there is, so they stay
+ * open — folding the whole reply would leave a take answered by one word.
+ */
+function TakeFeedback({ t, notes, figures }: { t: T; notes: string[]; figures: React.ReactNode }) {
+  const [verdict, ...rest] = notes;
+  if (!verdict && !figures) return null;
+  const more = figures || rest.length > 0;
+
+  return (
+    <div className="mt-5">
+      {verdict && (
+        <p role="status" className="max-w-measure text-base leading-relaxed text-fg-primary">
+          {verdict}
+        </p>
+      )}
+      {more && (
+        <details className="group mt-2" open={!verdict}>
+          <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-1.5 text-sm text-link underline underline-offset-4 [&::-webkit-details-marker]:hidden">
+            <span aria-hidden="true" className="transition-transform group-open:rotate-90">&rsaquo;</span>
+            {t.measured}
+          </summary>
+          {figures}
+          {rest.length > 0 && (
+            <ul className="mt-4 grid grid-cols-safe gap-2">
+              {rest.map((note, i) => (
+                <li key={`${i}-${note}`} className="text-sm leading-relaxed text-fg-secondary">
+                  {note}
+                </li>
+              ))}
+            </ul>
+          )}
+        </details>
+      )}
+    </div>
+  );
+}
+
 function Measured({ t, num, delivery, spoken }: { t: T; num: Num; delivery: Delivery; spoken: Spoken | null }) {
   if (!usable(delivery)) return null;
   const s = (ms: number) => `${num(Math.round(ms / 100) / 10)} ${t.seconds}`;
@@ -705,7 +750,7 @@ function Measured({ t, num, delivery, spoken }: { t: T; num: Num; delivery: Deli
   }
 
   return (
-    <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle sm:grid-cols-3">
+    <dl className="mt-2 grid grid-cols-2 gap-px overflow-hidden rounded-control border border-border-subtle bg-border-subtle sm:grid-cols-3">
       {figures.map((figure) => (
         <Figure key={figure.label} label={figure.label} value={figure.value} />
       ))}
