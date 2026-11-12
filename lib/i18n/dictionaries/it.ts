@@ -1423,6 +1423,7 @@ export const it: Dictionary = {
       pick: "Quale parola va qui?",
       translate: "Come si dice in zurighese?",
       card: "Se lo ricorda ancora?",
+      cardNew: "Una parola nuova. La conosce già?",
       reply: "Quale risposta va bene?",
       gist: "Che cosa si intende?",
       transform: "Quale frase dice esattamente questo?",

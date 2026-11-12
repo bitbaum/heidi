@@ -7,6 +7,7 @@ import type { PracticeItem } from "@/lib/domain/practice/types";
 import { presented } from "@/lib/domain/practice/present";
 import { seeded } from "@/lib/domain/practice/random";
 import { VIEWS } from "./registry";
+import { readModelView } from "../sync-stores";
 
 /**
  * One question, framed — whichever kind it is and whichever sitting it is in.
@@ -51,15 +52,27 @@ export function QuestionCard({
   // what it says, not where the answer sat last time.
   const [shown] = useState(() => presented(item, seeded(Math.floor(Math.random() * 2 ** 32))));
 
+  // Read once, when the card is first shown: marking it writes the word's
+  // trace, and the line above the card must not change under the answer.
+  const [newWord] = useState(
+    () =>
+      item.kind === "card" &&
+      item.source.kind === "word" &&
+      (readModelView().words[item.source.word]?.asked ?? 0) === 0,
+  );
+
   const ask =
     item.kind === "pair"
       ? item.variety === "target"
         ? t.ask.pairTarget
         : t.ask.pairBridge
-      : // A word shown without a sentence has no "here" to mean something in.
-        item.kind === "meaning" && item.said === item.focus
-        ? t.ask.meaningAlone
-        : t.ask[item.kind];
+      : // «Do you still know this one?» is a question about a word met before.
+        newWord
+        ? t.ask.cardNew
+        : // A word shown without a sentence has no "here" to mean something in.
+          item.kind === "meaning" && item.said === item.focus
+          ? t.ask.meaningAlone
+          : t.ask[item.kind];
 
   return (
     <div className="mt-3 rounded-control border border-border-strong bg-surface-raised p-5 sm:p-6">

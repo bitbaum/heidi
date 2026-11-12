@@ -1443,6 +1443,7 @@ export const gsw: Dictionary = {
       pick: "Welles Wort ghört da ane?",
       translate: "Wie seit mer das uf Züridütsch?",
       card: "Weisch das no?",
+      cardNew: "Es nöis Wort. Kännsch es scho?",
       reply: "Weli Antwort passt?",
       gist: "Was isch gmeint?",
       transform: "Wele Satz seit genau das?",

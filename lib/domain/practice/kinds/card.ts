@@ -1,4 +1,6 @@
 import type { VarietyPack } from "../../../variety/pack.ts";
+import type { SituationPack } from "../../../situations/pack.ts";
+import { saysWord } from "../../../text/words.ts";
 import type { CardItem } from "../types.ts";
 import type { ExerciseKind, Material } from "./kind.ts";
 
@@ -29,10 +31,28 @@ import type { ExerciseKind, Material } from "./kind.ts";
  * half that is missing is the one a German reader gets wrong for years. An
  * entry with no checked article shows none — an absent article is honest and a
  * guessed one is a confident falsehood aimed at somebody who cannot detect it.
+ *
+ * THE WORDS HEARD MOST COME FIRST. Each card carries where its word stands by
+ * how many lines of the situation scenes say it — the same count the
+ * vocabulary page shows as "heard often". A word in seventeen of those lines
+ * is met in the first week; a word in none may never be needed, and it used to
+ * be as likely to be the first card as any other. Words no scene says keep the
+ * order the pack lists them in.
  */
-export function cardItems(pack: VarietyPack): CardItem[] {
+export function cardItems(pack: VarietyPack, situations: readonly SituationPack[] = []): CardItem[] {
   const recognise: CardItem[] = [];
   const produce: CardItem[] = [];
+
+  const lines = situations.flatMap((domain) =>
+    domain.situations.flatMap((scene) => scene.phrases.map((phrase) => phrase.target)),
+  );
+  const heard = (word: string) => lines.filter((line) => saysWord(line, word)).length;
+  const standing = new Map(
+    (pack.vocabulary ?? [])
+      .map((entry, index) => ({ target: entry.target, index, heard: heard(entry.target.trim()) }))
+      .sort((a, b) => b.heard - a.heard || a.index - b.index)
+      .map((row, order) => [row.target, order]),
+  );
 
   for (const entry of pack.vocabulary ?? []) {
     const target = entry.target.trim();
@@ -59,6 +79,7 @@ export function cardItems(pack: VarietyPack): CardItem[] {
     const shared = {
       ...(entry.article ? { article: entry.article } : {}),
       ...(entry.example ? { example: entry.example } : {}),
+      order: standing.get(entry.target) ?? 0,
       source: { kind: "word" as const, word: entry.target, group: entry.group },
     };
 
@@ -95,5 +116,5 @@ export const CARD: ExerciseKind = {
   decisions: "one",
   marking: "self",
   fromPack: true,
-  generate: (material: Material) => cardItems(material.pack),
+  generate: (material: Material) => cardItems(material.pack, material.situations),
 };

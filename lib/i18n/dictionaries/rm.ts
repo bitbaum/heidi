@@ -1439,6 +1439,7 @@ export const rm: Dictionary = {
       pick: "Tge pled va qua?",
       translate: "Co di’ins quai en turitgais?",
       card: "Savais Vus quai anc?",
+      cardNew: "In nov pled. Al enconuschais Vus gia?",
       reply: "Tge resposta va bain?",
       gist: "Tge è manegià?",
       transform: "Tge frasa di exactamain quai?",

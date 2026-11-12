@@ -1423,6 +1423,7 @@ export const fr: Dictionary = {
       pick: "Quel mot va ici ?",
       translate: "Comment dit-on cela en zurichois ?",
       card: "Vous vous en souvenez ?",
+      cardNew: "Un nouveau mot. Vous le connaissez déjà ?",
       reply: "Quelle réponse convient ?",
       gist: "Que veut-on dire ?",
       transform: "Quelle phrase dit exactement cela ?",
