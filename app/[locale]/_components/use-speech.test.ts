@@ -1,21 +1,22 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { shouldAttempt } from "./use-speech.ts";
 
 /**
  * Both properties here were found by USING the deployed site, not by reading
  * the code, and both had passed every existing test.
  */
 
-test("a device with no German voice is not asked to speak", () => {
-  // Measured on the live site with a browser that has a synthesiser and zero
-  // installed voices: `speechSynthesis.speak()` fired `onerror` with
-  // `synthesis-failed`, never fired `onstart`, and said nothing. The button
-  // returned to its resting label and the learner was given no reason at all —
-  // the dead control `use-dictation.ts` refuses to ship.
-  assert.equal(shouldAttempt(null), false);
-  assert.equal(shouldAttempt({ name: "Petra", lang: "de-CH" }), true);
+test("the reading is the fleet's hook, and the voice is Heidi's speaker", () => {
+  // The hook used to carry its own synthesiser lifecycle. The property now is
+  // a JOIN, which is what a source check can see: chatkit's `useSpeech` does
+  // the reading, through the speaker that refuses a non-German voice
+  // (`lib/voice/speaker.test.ts` holds the refusal itself).
+  const hook = readFileSync(new URL("./use-speech.ts", import.meta.url), "utf8");
+  assert.match(hook, /import \{ useSpeech as useFleetSpeech \} from "@bitbaum\/chatkit\/react"/);
+  assert.match(hook, /useFleetSpeech\(speaker\)/, "the fleet hook is not reading through Heidi's speaker");
+  assert.match(hook, /createHeidiSpeaker\(/);
+  assert.doesNotMatch(hook, /\.speak\(utterance\)/, "the hook is driving the synthesiser itself again");
 });
 
 /**

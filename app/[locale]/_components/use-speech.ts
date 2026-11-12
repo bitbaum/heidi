@@ -1,14 +1,26 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSpeech as useFleetSpeech } from "@bitbaum/chatkit/react";
 // Relative, not the `@/` alias: this module is covered by a node:test suite,
 // which resolves neither tsconfig paths nor extensionless imports.
 import { useClientValue } from "../../../lib/browser/store.ts";
-import { claimFor, pickVoice, SPEECH_LANG, type VoiceClaim, type VoiceLike } from "../../../lib/voice/variety.ts";
-import { clampRate } from "../../../lib/voice/settings.ts";
+import { claimFor, pickVoice, type VoiceClaim, type VoiceLike } from "../../../lib/voice/variety.ts";
+import {
+  createHeidiSpeaker,
+  type ServerClip,
+  type SpeakOutcome,
+  type SynthLike,
+  type UtteranceLike,
+} from "../../../lib/voice/speaker.ts";
 
 /**
  * Heidi reading a line out loud, using the browser's own synthesiser.
+ *
+ * THE READING ITSELF IS THE FLEET'S: `useSpeech` from `@bitbaum/chatkit` owns
+ * one-reading-at-a-time, stop, and silence when the page is left. What is
+ * Heidi's is which voice may read (`lib/voice/speaker.ts`) and what the
+ * learner is told about it (`lib/voice/variety.ts`); this hook joins the two.
  *
  * The same choice dictation made, for the same two reasons and in the same
  * order: it is free and instant, and nothing leaves the device. A vendor voice
@@ -31,34 +43,6 @@ import { clampRate } from "../../../lib/voice/settings.ts";
  * it — the one thing this product must not do is let somebody tune their ear
  * to something we know is not the target.
  */
-
-type UtteranceLike = {
-  lang: string;
-  rate: number;
-  voice: VoiceLike | null;
-  onend: (() => void) | null;
-  onerror: (() => void) | null;
-};
-
-type SynthLike = {
-  speak: (u: UtteranceLike) => void;
-  cancel: () => void;
-  getVoices: () => VoiceLike[];
-  addEventListener?: (type: string, listener: () => void) => void;
-  removeEventListener?: (type: string, listener: () => void) => void;
-};
-
-/**
- * May we even try to speak with what this device has?
- *
- * Exported and pure so the rule can be held by a test rather than inferred
- * from a hook nobody can call outside React. The rule is short and the reason
- * is the whole module: with no German voice the engine either says nothing or
- * says it with an English mouth, and the learner cannot tell which happened.
- */
-export function shouldAttempt(voice: VoiceLike | null): boolean {
-  return voice !== null;
-}
 
 function synth(): SynthLike | null {
   if (typeof window === "undefined") return null;
@@ -86,23 +70,55 @@ function hasServerVoice(): Promise<boolean> {
 }
 
 /**
- * Two ways for speech not to happen, and they are not the same thing.
- *
- * `no-voice` is known BEFORE trying: the engine has no German voice installed,
- * so speaking would substitute the system default — an English voice reading
- * Zurich German, which is the thing `lib/voice/variety.ts` exists to refuse and
- * the thing a listener actually reported hearing. The hook declines to speak.
- *
- * `failed` is the engine refusing AFTER being asked. Measured on the live site:
- * a browser with a synthesiser and zero installed voices fires `onerror` with
- * `synthesis-failed` and never fires `onstart`, so the button flicked back to
- * its resting label and nothing was said — precisely the dead control
- * `use-dictation.ts` refuses to ship.
- *
- * Kept apart rather than collapsed into one "did not speak", because the
- * honest sentence differs: one is "this device cannot", the other is "that did
- * not work". Returning to `idle` for either is what made the control look
- * broken, since idle and finished-speaking look identical to a learner.
+ * One line through the server voice. A request the server turns down is
+ * `no-voice` (it had none after all); a clip that will not play is `failed`.
+ */
+function playFromServer(text: string, rate: number): ServerClip {
+  let player: HTMLAudioElement | null = null;
+  // Stopped while the clip was still being fetched: it must not start playing
+  // when it arrives, over whatever the learner did next.
+  let cut = false;
+  let finish: (outcome: SpeakOutcome) => void = () => {};
+  const done = new Promise<SpeakOutcome>((resolve) => {
+    finish = resolve;
+  });
+  void fetch("/api/speak", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ text }),
+  })
+    .then(async (r) => {
+      if (!r.ok) throw new Error(String(r.status));
+      const blob = await r.blob();
+      if (cut) return;
+      const url = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      audio.playbackRate = rate;
+      player = audio;
+      const end = (outcome: SpeakOutcome) => () => {
+        URL.revokeObjectURL(url);
+        finish(outcome);
+      };
+      audio.onended = end("done");
+      audio.onerror = end("failed");
+      await audio.play();
+    })
+    .catch(() => finish("no-voice"));
+  return {
+    done,
+    cancel: () => {
+      cut = true;
+      player?.pause();
+      finish("done");
+    },
+  };
+}
+
+/**
+ * Two ways for speech not to happen, and they are not the same thing: see
+ * `SpeakOutcome` in `lib/voice/speaker.ts`. Returning to `idle` for either is
+ * what made the control look broken, since idle and finished-speaking look
+ * identical to a learner.
  */
 export type SpeechState = "idle" | "speaking" | "no-voice" | "failed";
 
@@ -127,10 +143,10 @@ export type Speech = {
  */
 export function useSpeech(rate: number, allowAnyVoice = false): Speech {
   const deviceSupported = useClientValue(detectSupport, false);
-  const [state, setState] = useState<SpeechState>("idle");
   const [voice, setVoice] = useState<VoiceLike | null>(null);
   const [server, setServer] = useState(false);
-  const audio = useRef<HTMLAudioElement | null>(null);
+  // How the last reading ended, when it ended badly. Cleared by the next one.
+  const [trouble, setTrouble] = useState<"no-voice" | "failed" | null>(null);
 
   useEffect(() => {
     let live = true;
@@ -143,11 +159,6 @@ export function useSpeech(rate: number, allowAnyVoice = false): Speech {
   // Which voice WILL speak: the device's German one, else the server's —
   // which is a German voice too, and labelled as one.
   const claim: VoiceClaim = voice ? claimFor(voice) : server ? "german" : "none";
-
-  // The utterance currently in flight, so `stop` and unmount can silence it.
-  // A ref rather than state: nothing renders from it, and it must not be a
-  // render's worth of latency behind the synthesiser.
-  const speaking = useRef(false);
 
   /**
    * The voice list arrives LATE and sometimes EMPTY.
@@ -166,127 +177,36 @@ export function useSpeech(rate: number, allowAnyVoice = false): Speech {
     return () => s.removeEventListener?.("voiceschanged", read);
   }, []);
 
-  /**
-   * Silence on the way out. Without this, navigating away from a page that is
-   * mid-sentence leaves the browser talking over the next one — speech is not
-   * scoped to the document that started it.
-   */
-  useEffect(() => {
-    return () => {
-      if (speaking.current) synth()?.cancel();
-      audio.current?.pause();
-    };
-  }, []);
+  const speaker = useMemo(() => {
+    if (!supported) return null;
+    return createHeidiSpeaker({
+      synth: synth(),
+      Utterance:
+        (window as unknown as { SpeechSynthesisUtterance?: new (t: string) => UtteranceLike })
+          .SpeechSynthesisUtterance ?? null,
+      voice,
+      rate,
+      allowAnyVoice,
+      server: server ? playFromServer : null,
+      onOutcome: (outcome) => setTrouble(outcome === "done" ? null : outcome),
+    });
+  }, [supported, voice, rate, allowAnyVoice, server]);
 
-  const stop = useCallback(() => {
-    synth()?.cancel();
-    audio.current?.pause();
-    audio.current = null;
-    speaking.current = false;
-    setState("idle");
-  }, []);
+  const fleet = useFleetSpeech(speaker);
+  const { speak: read, stop: silence } = fleet;
 
   const speak = useCallback(
     (text: string) => {
-      const s = synth();
-      const body = text.trim();
-      if (!body) return;
-
-      // No German voice here (or no synthesiser at all): the server reads it.
-      if ((!s || !voice) && server) {
-        s?.cancel();
-        audio.current?.pause();
-        speaking.current = true;
-        setState("speaking");
-        void fetch("/api/speak", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ text: body }),
-        })
-          .then(async (r) => {
-            if (!r.ok) throw new Error(String(r.status));
-            const url = URL.createObjectURL(await r.blob());
-            const player = new Audio(url);
-            player.playbackRate = clampRate(rate);
-            audio.current = player;
-            const done = (next: SpeechState) => () => {
-              URL.revokeObjectURL(url);
-              if (audio.current === player) audio.current = null;
-              speaking.current = false;
-              setState(next);
-            };
-            player.onended = done("idle");
-            player.onerror = done("failed");
-            await player.play();
-          })
-          .catch(() => {
-            speaking.current = false;
-            setState("no-voice");
-          });
-        return;
-      }
-      if (!s) return;
-
-      // No German voice on this device means the engine will either say
-      // nothing or say it with an English mouth. Both are worse than saying
-      // so, and `claim` already carries the sentence that explains it.
-      if (!shouldAttempt(voice)) {
-        setState("failed");
-        return;
-      }
-
-      // Always cancel first. A second `speak` while one is in flight QUEUES on
-      // every engine rather than replacing, so pressing two lines in a row
-      // reads both, one after the other, for as long as the learner keeps
-      // pressing. Pressing a new line means "read this one".
-      s.cancel();
-
-      const Utterance = (window as unknown as { SpeechSynthesisUtterance?: new (t: string) => UtteranceLike })
-        .SpeechSynthesisUtterance;
-      if (!Utterance) return;
-
-      // THE REFUSAL — which the comment below already described, and which the
-      // code then went ahead and did anyway.
-      //
-      // With no German voice installed, `voice` is null. Assigning that and
-      // calling `speak` makes the engine substitute the system default, and on
-      // a device configured in English that is an English voice reading Zurich
-      // German. For a learner who cannot yet hear the difference that is not a
-      // degraded feature, it is a pronunciation model for a language nobody
-      // speaks, delivered with confidence — exactly what `variety.ts` exists to
-      // refuse, arriving through the one path that never asked it.
-      //
-      // `allowAnyVoice` is the learner's own informed override and is off by
-      // default. See `speakWithoutGermanVoice` in lib/voice/settings.ts.
-      if (!voice && !allowAnyVoice) {
-        setState("no-voice");
-        return;
-      }
-
-      const utterance = new Utterance(body);
-      utterance.lang = SPEECH_LANG;
-      utterance.rate = clampRate(rate);
-      // Naming the voice as well as the language matters: with only `lang`
-      // set, engines fall back to the system default, which on a device
-      // configured in English is an English voice reading German.
-      if (voice) utterance.voice = voice;
-      utterance.onend = () => {
-        speaking.current = false;
-        setState("idle");
-      };
-      // An error is silence the learner cannot distinguish from a dead button,
-      // so it resets the state rather than leaving it stuck on "speaking".
-      utterance.onerror = () => {
-        speaking.current = false;
-        setState("failed");
-      };
-
-      speaking.current = true;
-      setState("speaking");
-      s.speak(utterance);
+      setTrouble(null);
+      read(text);
     },
-    [rate, voice, allowAnyVoice, server],
+    [read],
   );
+  const stop = useCallback(() => {
+    setTrouble(null);
+    silence();
+  }, [silence]);
 
+  const state: SpeechState = trouble ?? (fleet.speaking ? "speaking" : "idle");
   return { supported, state, claim, speak, stop };
 }
