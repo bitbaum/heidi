@@ -43,9 +43,15 @@ export default async function SignInPage({ params, searchParams }: Props) {
             ? (labels.recovery?.reset ?? labels.signIn)
             : labels.signIn
         }
-        lead={methods.signin ? `${dict.auth.whyBody} ${dict.auth.whyShared}` : dict.auth.whyBody}
       />
-      <div className="max-w-md py-10 sm:py-14">
+      {/*
+        THE FORM FIRST, the reasons under it. At 390px the explanation sat
+        between the title and the form, and the submit button ended at
+        y=855, under the fold of a phone (QA, 12 Nov). Somebody on this page
+        came to sign in; the sentence about what an account needs is still
+        here, one screen down, for whoever wants it.
+      */}
+      <div className="max-w-md pt-6 pb-10 sm:py-14">
         {ready ? (
           <HeidiSignIn
             labels={labels}
@@ -60,6 +66,9 @@ export default async function SignInPage({ params, searchParams }: Props) {
             {dict.auth.unavailable}
           </p>
         )}
+        <p className="mt-10 max-w-measure text-sm leading-relaxed text-fg-secondary">
+          {methods.signin ? `${dict.auth.whyBody} ${dict.auth.whyShared}` : dict.auth.whyBody}
+        </p>
       </div>
     </Shell>
   );
