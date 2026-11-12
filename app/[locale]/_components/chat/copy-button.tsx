@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useClipboard } from "@bitbaum/chatkit/react";
 import type { Dictionary } from "@/lib/i18n";
 
 /**
@@ -11,13 +11,13 @@ import type { Dictionary } from "@/lib/i18n";
  * actually having. So the copy button sits on the dialect block and on every
  * suggestion, not in a menu.
  *
- * A failed clipboard write leaves the label alone rather than claiming success
- * — some browsers refuse without a user gesture they recognise, and a button
- * that says "Copied" over an empty clipboard is worse than one that says
- * nothing happened.
+ * The write and the label that resets are the fleet's (`useClipboard` in
+ * `@bitbaum/chatkit`); a refused write leaves the label alone rather than
+ * claiming success, because a button that says "Copied" over an empty
+ * clipboard is worse than one that says nothing happened.
  */
 export function Copy({ text, t }: { text: string; t: Dictionary["chat"] }) {
-  const [done, setDone] = useState(false);
+  const { copied: done, copy } = useClipboard(1600);
   return (
     <button
       type="button"
@@ -29,15 +29,7 @@ export function Copy({ text, t }: { text: string; t: Dictionary["chat"] }) {
        * still matches it.
        */
       aria-label={`${done ? t.copied : t.copy}: ${text.length > 60 ? `${text.slice(0, 60).trimEnd()}…` : text}`}
-      onClick={async () => {
-        try {
-          await navigator.clipboard.writeText(text);
-          setDone(true);
-          setTimeout(() => setDone(false), 1600);
-        } catch {
-          setDone(false);
-        }
-      }}
+      onClick={() => copy(text)}
       /*
        * `min-h-11` and the centring, to match `Speak` EXACTLY.
        *
