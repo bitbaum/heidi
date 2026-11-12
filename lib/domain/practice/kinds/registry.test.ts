@@ -176,11 +176,14 @@ describe("the gapped passage", () => {
       assert.equal(item.kind, "gaptext");
       if (item.kind !== "gaptext") continue;
 
-      assert.equal(item.bank.length, PASSAGE_GAPS);
+      // One word more than there are gaps, so the last gap is not answered
+      // by whatever is left over.
+      assert.equal(item.bank.length, PASSAGE_GAPS + 1);
       assert.equal(item.answer.length, PASSAGE_GAPS);
-      // A permutation: every bank index used once, so no word fits two holes
-      // and no hole is unreachable.
-      assert.deepEqual([...item.answer].sort((a, b) => a - b), [0, 1, 2]);
+      // Every gap has its own bank word, so no word fits two holes and no
+      // hole is unreachable.
+      assert.equal(new Set(item.answer).size, PASSAGE_GAPS);
+      assert.ok(item.answer.every((index) => index >= 0 && index < item.bank.length));
 
       const gaps = item.lines.filter((line) => line.gap !== undefined).map((line) => line.gap);
       assert.deepEqual(gaps, [...gaps].sort((a, b) => a! - b!), "gaps are numbered in reading order");
@@ -206,6 +209,19 @@ describe("the gapped passage", () => {
       if (item.kind !== "gaptext") continue;
       const lowered = item.bank.map((w) => w.toLowerCase());
       assert.deepEqual([...new Set(lowered)], lowered, `${item.id} offers the same word twice`);
+    }
+  });
+
+  test("the extra word is said nowhere in the passage", () => {
+    // A word the passage itself says would be a defensible answer for a gap
+    // whose own word says something else.
+    for (const item of passages) {
+      if (item.kind !== "gaptext") continue;
+      const extra = item.bank.filter((_, index) => !item.answer.includes(index));
+      assert.equal(extra.length, 1, `${item.id} has ${extra.length} words that belong nowhere`);
+      for (const line of item.lines) {
+        assert.ok(!new RegExp(`(?<!\\p{L})${extra[0]}(?!\\p{L})`, "iu").test(line.prompt), `${item.id}: «${extra[0]}» is in the passage`);
+      }
     }
   });
 
