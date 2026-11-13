@@ -64,12 +64,12 @@ describe("respondInThread: second chance, the real model, no echoed glosses", ()
     mock.module("@bitbaum/ai-kit", {
       namedExports: {
         ...aiKit,
-        usableChain: () => [link("groq", "openai/gpt-oss-120b"), link("google", "models/gemini-flash-latest")],
+        usableChain: () => [link("groq", "openai/gpt-oss-120b"), link("openrouter", "nvidia/nemotron-3-super-120b-a12b:free")],
         complete: async (call: { messages: { role: string; content: string }[] }) => {
           calls.push({ system: call.messages[0].content });
           const next = replies.shift();
           if (!next) throw new Error("no reply scripted");
-          return { text: next.text, id: next.id, link: link("google", "models/gemini-flash-latest"), toolCalls: [], raw: {} };
+          return { text: next.text, id: next.id, link: link("openrouter", "nvidia/nemotron-3-super-120b-a12b:free"), toolCalls: [], raw: {} };
         },
       },
     });
@@ -85,8 +85,8 @@ describe("respondInThread: second chance, the real model, no echoed glosses", ()
   test("a refused line is retried once, by name, and the cleaner answer is kept", async () => {
     calls.length = 0;
     replies = [
-      { text: JSON.stringify({ mode: "produce", text: "So sait mer das.", dialect: "Mir göh hüt is Kino." }), id: "google/models/gemini-flash-latest" },
-      { text: JSON.stringify({ mode: "produce", text: "So sait mer das.", dialect: "Mir gönd hüt is Kino." }), id: "google/models/gemini-flash-latest" },
+      { text: JSON.stringify({ mode: "produce", text: "So sait mer das.", dialect: "Mir göh hüt is Kino." }), id: "openrouter/nvidia/nemotron-3-super-120b-a12b:free" },
+      { text: JSON.stringify({ mode: "produce", text: "So sait mer das.", dialect: "Mir gönd hüt is Kino." }), id: "openrouter/nvidia/nemotron-3-super-120b-a12b:free" },
     ];
     const r = await turn("Sag, dass wir heute ins Kino gehen.");
     assert.equal(r.status, "answered");
@@ -105,9 +105,9 @@ describe("respondInThread: second chance, the real model, no echoed glosses", ()
   });
 
   test("the footer names the link that SERVED, not the first in the chain", async () => {
-    replies = [{ text: JSON.stringify({ mode: "answer", text: "Das isch es Bild." }), id: "google/models/gemini-flash-latest" }];
+    replies = [{ text: JSON.stringify({ mode: "answer", text: "Das isch es Bild." }), id: "openrouter/nvidia/nemotron-3-super-120b-a12b:free" }];
     const r = await turn("Was ist das?");
-    assert.equal(r.status === "answered" && r.answer.model, "google/models/gemini-flash-latest");
+    assert.equal(r.status === "answered" && r.answer.model, "openrouter/nvidia/nemotron-3-super-120b-a12b:free");
   });
 
   test("a word the learner typed in a question is not handed back as vocabulary", async () => {
@@ -118,7 +118,7 @@ describe("respondInThread: second chance, the real model, no echoed glosses", ()
           text: "Damit du de Inhalt verstahsch.",
           glosses: [{ form: "Translation", standard: "Übersetzung", english: "Übersetzung", rule: "" }],
         }),
-        id: "google/models/gemini-flash-latest",
+        id: "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
       },
     ];
     const r = await turn("Warum hast du mir die Translation gegeben?");
@@ -129,7 +129,7 @@ describe("respondInThread: second chance, the real model, no echoed glosses", ()
     replies = [
       {
         text: JSON.stringify({ mode: "answer", text: "«Pire» isch Französisch.", glosses: [{ form: "pire", standard: "schlimmer", english: "schlimmer", rule: "" }] }),
-        id: "google/models/gemini-flash-latest",
+        id: "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
       },
     ];
     const r = await turn("Pire");
@@ -137,14 +137,12 @@ describe("respondInThread: second chance, the real model, no echoed glosses", ()
   });
 });
 
-describe("Heidi's chain puts Gemini first", () => {
-  test("the google link moves to the front; the rest keep ai-kit's order", async () => {
-    const { dialectFirst } = await import("./respond.ts");
-    const l = (id: string) => ({ provider: { id }, model: id }) as unknown as Link;
-    assert.deepEqual(
-      dialectFirst([l("groq"), l("google"), l("openrouter")]).map((x) => x.provider.id),
-      ["google", "groq", "openrouter"],
-    );
+describe("Heidi's free chain has no Google link", () => {
+  test("Groq, then OpenRouter's free models; nothing is asked of Google", () => {
+    // ai-kit 1.26: Google's API bills on the fleet key, so it is not in a
+    // chain called free. Heidi used to move the Google link to the front.
+    const chain = aiKit.freeChain("HEIDI");
+    assert.deepEqual(chain.map((p) => p.id), ["groq", "openrouter"]);
+    for (const p of chain) assert.doesNotMatch(p.baseUrl, /googleapis/);
   });
 });
-
