@@ -89,16 +89,16 @@ export const HOSTING = {
  * configured, so the page names all of them as possible recipients. Promising
  * a specific one would be a claim about an environment variable.
  */
-export const MODEL_VENDORS = ["Groq", "Google", "OpenRouter"] as const;
+export const MODEL_VENDORS = ["Groq", "OpenRouter"] as const;
 
 /**
  * Who each company is and where it is established, read from the company's
  * own published page (the `source`), on 10 November 2026.
  *
  * `country` is an ISO code, like `HOSTING.country`: a code is the same in all
- * seven languages and cannot be mistranslated. Google is two entries on
- * purpose: its privacy policy names its Irish company for people in
- * Switzerland and the EEA, and the company itself is American.
+ * seven languages and cannot be mistranslated. Google is not here since
+ * ai-kit 1.26 took it out of the free chain (its API bills); it is still
+ * named on the rows where it does receive something (`FLOWS`).
  *
  * `dpa` is the fact that matters to a careful reader and is the same for all
  * three: the vendor may publish a data-processing addendum, and Heidi has
@@ -106,7 +106,6 @@ export const MODEL_VENDORS = ["Groq", "Google", "OpenRouter"] as const;
  */
 export const VENDOR_PLACES: Record<(typeof MODEL_VENDORS)[number], { entity: string; country: string; source: string }> = {
   Groq: { entity: "Groq LLC", country: "US", source: "https://groq.com/privacy-policy/" },
-  Google: { entity: "Google LLC · Google Ireland Limited", country: "US · IE", source: "https://policies.google.com/privacy" },
   OpenRouter: { entity: "OpenRouter, Inc.", country: "US", source: "https://openrouter.ai/terms" },
 };
 

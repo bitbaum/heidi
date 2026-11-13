@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { freeChain } from "@bitbaum/ai-kit";
 import { BROUGHT_KEY_VENDORS, FLOWS, MODEL_VENDORS, NOT_DONE, VENDOR_PLACES } from "./privacy.ts";
 import { BYOK_PROVIDERS } from "../domain/model/providers.ts";
 import { STORAGE_KEY_PATTERN } from "../browser/stores.ts";
@@ -112,8 +113,10 @@ describe("the claims that must stay true", () => {
      * decide which links are USABLE and the page must name everyone who could
      * receive a message on any deployment — not just whoever has a key today.
      * If ai-kit's declared chain grows, this fails and the page gets updated,
-     * which is the entire point.
+     * which is the entire point. Google left with ai-kit 1.26: its API is
+     * billed, so it is no link of a chain called free.
      */
-    assert.deepEqual([...MODEL_VENDORS], ["Groq", "Google", "OpenRouter"]);
+    assert.deepEqual([...MODEL_VENDORS], ["Groq", "OpenRouter"]);
+    assert.deepEqual(freeChain("HEIDI").map((link) => link.id), ["groq", "openrouter"]);
   });
 });

@@ -32,7 +32,7 @@ import { freeChain } from "@bitbaum/ai-kit";
  */
 
 export type EngineLink = {
-  /** The provider's id in the chain — `groq`, `google`, `openrouter`. */
+  /** The provider's id in the chain — `groq`, `openrouter`. */
   provider: string;
   /** The host that actually receives the request. A privacy fact, so it ships. */
   host: string;

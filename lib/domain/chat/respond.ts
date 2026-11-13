@@ -5,7 +5,6 @@ import {
   freeChain,
   usableChain,
   type HealthTracker,
-  type Link,
 } from "@bitbaum/ai-kit";
 import type { Thread } from "@bitbaum/threadkit";
 import { VARIETY } from "../../variety/active.ts";
@@ -113,24 +112,6 @@ export function forReader(answer: Answer, locale: Locale, pack: { tag: string } 
 }
 
 /**
- * Gemini first, for this product only.
- *
- * ai-kit orders the free chain by SCARCITY (drain the scarcest last), which is
- * right for a chain whose links are interchangeable. For writing Zurich German
- * they are not. Measured 2026-10-06 on Heidi's own prompts and gate: Groq's
- * gpt-oss-120b wrote «Züritüütsch», «Frànzöösisch» and «Züri‑Dütsch» in its
- * explanations, answered «Häsch du am Samschtig…» as «Sie fragen, ob ich…»
- * (the wrong person), and turned a question about the conversation into
- * vocabulary cards; Gemini Flash did none of it. The reorder is Heidi's
- * adapter decision; the chain itself stays ai-kit's. Stable, so the rest keeps
- * ai-kit's order.
- */
-export function dialectFirst(links: Link[]): Link[] {
-  const rank = (l: Link) => (l.provider.id === "google" ? 0 : 1);
-  return [...links].sort((a, b) => rank(a) - rank(b));
-}
-
-/**
  * Everything Heidi wrote IN the variety that the gate refused, as
  * "form → replacement" — the dialect line, the target-variety suggestions, and
  * the explanation when it was written in the variety.
@@ -225,7 +206,7 @@ export async function respondInThread(args: {
   // on vision now and will not hand a picture to a blind link, ours or
   // theirs. The rule survives on the budget argument alone, which was always
   // the stronger half.
-  const chain = byokLinks ? byokLinks.chain : dialectFirst(usableChain(freeChain("HEIDI"), process.env));
+  const chain = byokLinks ? byokLinks.chain : usableChain(freeChain("HEIDI"), process.env);
   const env = byokLinks ? { ...process.env, ...byokLinks.env } : process.env;
   if (chain.length === 0) return { status: "unconfigured" };
 
